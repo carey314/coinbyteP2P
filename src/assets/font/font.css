@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'HarmonyOS Sans'; /* 重命名字体名 */
+  /* src: url('Helvetica-Neue.ttf'); */
+  /* src: url('HelveticaNeue-Bold.ttf');
+  src: url('HelveticaNeue-Medium.ttf'); */
+  src: url('HarmonyOS_Sans_Bold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HarmonyOS Sans'; /* 重命名字体名 */
+  /* src: url('Helvetica-Neue.ttf'); */
+  /* src: url('HelveticaNeue-Bold.ttf');
+  src: url('HelveticaNeue-Medium.ttf'); */
+  src: url('HarmonyOS_Sans_Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'HarmonyOS Sans'; /* 重命名字体名 */
+  /* src: url('Helvetica-Neue.ttf'); */
+  /* src: url('HelveticaNeue-Bold.ttf');
+  src: url('HelveticaNeue-Medium.ttf'); */
+  src: url('HarmonyOS_Sans_Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}

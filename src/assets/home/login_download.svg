@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 3</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="21-Log-in" transform="translate(-923.000000, -567.000000)" stroke="#000000" stroke-width="1.5">
+            <g id="编组-2" transform="translate(905.000000, 553.000000)">
+                <g id="编组-3" transform="translate(19.000000, 15.000000)">
+                    <line x1="8" y1="0.421052632" x2="8" y2="11.3684211" id="路径-5"></line>
+                    <path d="M8,11.3684211 L12.6315789,5.89473684 L8,11.3684211 Z" id="路径-6" stroke-linejoin="round"></path>
+                    <path d="M3.36842105,11.3684211 L8,5.89473684 L3.36842105,11.3684211 Z" id="路径-6备份" stroke-linejoin="round" transform="translate(5.684211, 8.631579) scale(-1, 1) translate(-5.684211, -8.631579) "></path>
+                    <polyline id="路径-7" stroke-linejoin="round" points="0 9.26315789 0 15.5789474 16 15.5789474 16 9.26315789"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

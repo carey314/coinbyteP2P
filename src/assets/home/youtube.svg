@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="9px" viewBox="0 0 14 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>youtube</title>
+    <defs>
+        <polygon id="path-1" points="0 0 14 0 14 9 0 9"></polygon>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-CoinByte" transform="translate(-1215.000000, -6911.000000)">
+            <g id="youtube" transform="translate(1215.000000, 6911.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+                <path d="M11.8483431,0.00386753772 L7.27546336,0 L2.52364777,0.00386753772 C1.33490757,0.00386753772 0,0.745635702 0,1.83351653 L0,7.2491401 C0,8.33657345 1.33490757,9 2.52364777,9 L11.8483431,9 C13.0368782,9 14,8.33682915 14,7.2491401 L14,1.83369233 C14,0.745635702 13.0368782,0.00386753772 11.8483431,0.00386753772 Z M6.09526996,6.58553775 L6.06769798,2.46128822 L9.13746917,4.54132033 L6.09526996,6.58553775 Z" id="Fill-1" fill="#909090" mask="url(#mask-2)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
