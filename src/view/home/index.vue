@@ -118,7 +118,11 @@
           style="color: #01c19a"
           :stretch="true"
         >
-          <el-tab-pane class="first-tab-pan" label="Popular assets" name="first">
+          <el-tab-pane
+            class="first-tab-pan"
+            label="Popular assets"
+            name="first"
+          >
             <el-table :data="tableData" style="width: 100%" ref="tableChart">
               <el-table-column prop="asset" label="Asset">
                 <template #default="scope">
@@ -201,7 +205,10 @@
           <el-tab-pane class="first-tab-pan" label="Gains ranking" name="third"
             >Gains ranking</el-tab-pane
           >
-          <el-tab-pane class="first-tab-pan" label="Turnover ranking" name="fourth"
+          <el-tab-pane
+            class="first-tab-pan"
+            label="Turnover ranking"
+            name="fourth"
             >Turnover ranking</el-tab-pane
           >
         </el-tabs>
@@ -265,7 +272,7 @@
       </div>
 
       <div class="part second-part">
-        <el-row v-if="windowWidth > 768" style="padding-top:60px">
+        <el-row v-if="windowWidth > 768" style="padding-top: 60px">
           <el-col :span="12" :xs="0">
             <img :src="home_25" alt="" />
           </el-col>
@@ -326,7 +333,7 @@
               type="success"
               :text="start"
               class="start-btn"
-              style="padding:12px 16px !important"
+              style="padding: 12px 16px !important"
             ></GetButton>
             <img :src="home_25" alt="" style="margin-top: 40px" />
           </el-col>
@@ -420,9 +427,7 @@
 
       <div class="part fifth-part">
         <div class="first-level-title">Why choose <span>CoinByte</span>?</div>
-        <div class="fifth-second-title">
-          Exchange for Professional Trader
-        </div>
+        <div class="fifth-second-title">Exchange for Professional Trader</div>
         <img :src="part05_b1" alt="" class="fifth-part-top-img" />
         <div class="fifth-part-card">
           <div class="card-item" v-for="(item, index) in cardList" :key="index">
@@ -458,7 +463,10 @@
           <GetButton
             type="success"
             :text="trading"
-            style="margin-top: 40px; box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);"
+            style="
+              margin-top: 40px;
+              box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
+            "
           />
         </div>
       </div>
@@ -565,83 +573,8 @@
           <span>Learn more ></span>
         </div>
       </div>
-
-      <div class="eighth-part" v-if="windowWidth > 985">
-        <div class="first-level-title" style="font-size: 24px; !important">
-          Frequently asked questions
-        </div>
-        <div class="eighth-part-collapse">
-          <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item
-              title="What products does CoinByte provide?"
-              name="1"
-            >
-              <div class="collapse-content">
-                What products does CoinByte provide?
-              </div>
-            </el-collapse-item>
-            <el-collapse-item title="Where is CoinByte based?" name="2">
-              <div class="collapse-content">Where is CoinByte based?</div>
-            </el-collapse-item>
-            <el-collapse-item title="How to buy Bitcoin on CoinByte?" name="3">
-              <div class="collapse-content">
-                How to buy Bitcoin on CoinByte?
-              </div>
-            </el-collapse-item>
-            <el-collapse-item
-              title="Are account verifications required to trade crypto on CoinByte?"
-              name="4"
-            >
-              <div class="collapse-content">
-                Are account verifications required to trade crypto on CoinByte?
-              </div>
-            </el-collapse-item>
-          </el-collapse>
-        </div>
-      </div>
-
-      <div class="part08" v-if="windowWidth <= 985">
-        <div class="title-one">FAQs</div>
-        <div class="part08-collapse">
-          <el-collapse v-model="activeNames" @change="handleChange">
-            <el-collapse-item name="1">
-              <template #title>
-                <div class="el-collapse-item-title">
-                  What products does CoinByte provide?
-                </div>
-              </template>
-              <div>What products does CoinByte provide?</div>
-            </el-collapse-item>
-            <el-collapse-item name="2">
-              <template #title>
-                <div class="el-collapse-item-title">
-                  Where is CoinByte based?
-                </div>
-              </template>
-              <div>Where is CoinByte based?</div>
-            </el-collapse-item>
-            <el-collapse-item name="3">
-              <template #title>
-                <div class="el-collapse-item-title">
-                  How to buy Bitcoin on CoinByte?
-                </div>
-              </template>
-              <div>How to buy Bitcoin on CoinByte?</div>
-            </el-collapse-item>
-            <el-collapse-item name="4">
-              <template #title>
-                <div class="el-collapse-item-title">
-                  Are account verifications required to trade crypto on
-                  CoinByte?
-                </div>
-              </template>
-              <div>
-                Are account verifications required to trade crypto on CoinByte?
-              </div>
-            </el-collapse-item>
-          </el-collapse>
-        </div>
-      </div>
+      <!-- //eighth-part -->
+      <faq></faq>
       <div class="bottom-part">
         <joinCrypto />
       </div>
@@ -657,6 +590,7 @@ import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
+import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
 //icon
 import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
@@ -746,10 +680,6 @@ const handleSelect = (key: string, keyPath: string[]) => {
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // console.log(tab, event);
-};
-const activeNames = ref([""]);
-const handleChange = (val: string[]) => {
-  // console.log(val);
 };
 
 // table

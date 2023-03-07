@@ -45,9 +45,10 @@
                   style="display: flex"
                   v-for="(item, index) in cryptoItem"
                   :key="index"
+                  @click="SkipTo(item.url)"
                 >
                   <div class="crypto-item-icon"><img :src="item.icon" /></div>
-                  <div class="crypto-item-text" :src="item.url">
+                  <div class="crypto-item-text">
                     <div class="crypto-item-title">{{ item.title }}</div>
                     <div class="crypto-item-msg">{{ item.message }}</div>
                   </div>
@@ -291,7 +292,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { TabsPaneContext } from "element-plus";
-
+import { useRouter } from "vue-router";
 // img
 import logo from "../../assets/home/logo.svg";
 import top_down from "../../assets/home/top_down.svg";
@@ -315,8 +316,8 @@ const navDownload = ref();
 const navNotice = ref();
 const navHelp = ref();
 const navLanguage = ref();
-
 const dropdownShow = ref<boolean>(false);
+const router = useRouter();
 
 const showClickMenu = (): void => {
   dropdownShow.value = true;
@@ -378,19 +379,25 @@ const cryptoItem = [
     icon: dropdown_buy_bank,
     title: "Bank Deposit",
     message: "Deposit AUD with your PayID/OSKO",
+    url: "/"
   },
   {
     icon: dropdown_buy_quick,
     title: "Quick Buy/Sell",
     message: "Buy Crypto with your AUD balance",
+    url: "/"
   },
   {
     icon: dropdown_buy_convert,
     title: "Convert",
     message: "Quick conversion, zero fees",
-    url: "convert"
+    url: "/convert"
   },
 ];
+
+const SkipTo = (url : string) => {
+  router.push(url);
+}
 const activeLanguage = ref<string>("first");
 
 const gridData = [
