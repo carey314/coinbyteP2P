@@ -47,7 +47,7 @@
                   :key="index"
                 >
                   <div class="crypto-item-icon"><img :src="item.icon" /></div>
-                  <div class="crypto-item-text">
+                  <div class="crypto-item-text" :src="item.url">
                     <div class="crypto-item-title">{{ item.title }}</div>
                     <div class="crypto-item-msg">{{ item.message }}</div>
                   </div>
@@ -388,6 +388,7 @@ const cryptoItem = [
     icon: dropdown_buy_convert,
     title: "Convert",
     message: "Quick conversion, zero fees",
+    url: "convert"
   },
 ];
 const activeLanguage = ref<string>("first");

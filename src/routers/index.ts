@@ -77,6 +77,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'updated',
     component: () => import('../view/password/updated/index.vue') 
   },
+  { 
+    path: '/convert',
+    name: 'convert',
+    component: () => import('../view/convert/index.vue') 
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),
