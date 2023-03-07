@@ -60,6 +60,7 @@ onMounted(() => {
   window.addEventListener("resize", resetWidth);
 });
 
+// onUnmounted
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
