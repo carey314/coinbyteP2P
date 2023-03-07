@@ -59,6 +59,7 @@ const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
 });
+
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
