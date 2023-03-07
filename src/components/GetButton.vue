@@ -26,7 +26,7 @@ $main-color: #01c19a;
   height: 50px;
   box-sizing: border-box;
   color: #fff;
-  // padding: 15px 18px;
+  cursor: pointer;
   padding: 1rem 1.7rem;
   background-color: $main-color;
   border-color: $main-color;

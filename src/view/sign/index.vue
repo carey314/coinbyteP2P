@@ -215,6 +215,7 @@ $fontSizeMin: 12px;
         }
         .el-radio__input.is-checked .el-radio__inner {
           background: #01c19a;
+          border-color: #01c19a;
           border-radius: 4px;
         }
         .el-radio__input.is-checked + .el-radio__label {
@@ -230,6 +231,9 @@ $fontSizeMin: 12px;
           margin-right: 0;
           --el-radio-text-color: #c4c9d0;
           // --el-radio-font-size:14px;
+        }
+        .el-radio__inner::after{
+          border-radius:0px;
         }
       }
       .el-radio {

@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <Header />
-    <div class="center-box" v-if="windowWidth > 769">
+    <div class="center-box" v-if="windowWidth > 769"> 
       <div class="login-box">
         <div class="login">
           <div class="login-title">Welcome to CoinByte</div>
@@ -21,13 +21,13 @@
 
           <div class="login-agree clearfloat">
             <div class="agreement">
-              <a href="" style="color: #01c19a; text-decoration: none"
+              <a href="password" style="color: #01c19a; text-decoration: none"
                 >Forgot password?</a
               >
             </div>
           </div>
           <div class="login-button">
-            <GetButton :text="text" style="margin-top: 31px" />
+            <GetButton :text="text" style="margin-top: 31px;" />
           </div>
           <div class="login-with">
             <el-divider>
@@ -475,7 +475,7 @@ $fontSizeMin: 12px;
     .scan-box {
       background: #f1f1f1;
       border-radius: 0 8px 8px 0;
-      padding: 94px 43px 72px 43px;
+      padding: 93px 43px 72px 43px;
       @media (max-width: 769px) {
         border-radius: 0px;
         padding: 94px 13px 72px 13px;

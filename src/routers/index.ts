@@ -7,7 +7,7 @@ const routes: Array<RouteRecordRaw> = [
   //   name: 'home',
   //   component: Home,
   // },
-  { 
+  {  
     path: '/',
     name: 'home',
     component: () => import('../view/home/index.vue') 
@@ -61,6 +61,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/download',
     name: 'download',
     component: () => import('../view/download/index.vue') 
+  },  
+  { 
+    path: '/password',
+    name: 'password',
+    component: () => import('../view/password/forgot/index.vue') 
+  },
+  { 
+    path: '/update',
+    name: 'update',
+    component: () => import('../view/password/update/index.vue') 
+  },
+  { 
+    path: '/updated',
+    name: 'updated',
+    component: () => import('../view/password/updated/index.vue') 
   },
 ]
 const router = createRouter({

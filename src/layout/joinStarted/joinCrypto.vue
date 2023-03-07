@@ -66,7 +66,16 @@ $regular-font: HarmonyOS_Sans_Regular;
   background-color: #f8f8f8;
   max-width: 1290px;
   margin: auto;
-  // font-family: HarmonyOS_Sans_Bold;
+  @media (max-width: 1400px) {
+    & {
+      max-width: 940px;
+    }
+  }
+  @media (max-width: 985px) {
+    & {
+      padding:0 30px;
+    }
+  }
 }
 .first-level-title {
   font-size: 32px;

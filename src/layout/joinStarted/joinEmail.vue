@@ -86,8 +86,18 @@ $main-color: #01c19a;
 }
 .join-page {
   background-color: #f8f8f8;
-  max-width: 1440px;
+  max-width: 1290px;
   margin: auto;
+  @media (max-width: 1400px) {
+    & {
+      max-width: 940px;
+    }
+  }
+  @media (max-width: 985px) {
+    & {
+      padding:0 30px;
+    }
+  }
 }
 .first-level-title {
   font-size: 32px;
@@ -106,12 +116,12 @@ $main-color: #01c19a;
 .ninth-part {
   margin: auto;
   display: flex;
-  padding: 6% 3%;
+  padding: 6% 0;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 768px) {
     & {
-      padding: 80px 40px;
+      padding: 80px 0;
       height: 100% !important;
     }
   }

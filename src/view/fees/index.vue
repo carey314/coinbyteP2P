@@ -21,7 +21,7 @@
     </div>
 
     <div class="center-part part" v-if="windowWidth > 985">
-      <el-row justify="space-evenly">
+      <el-row justify="space-between">
         <el-col :span="7" v-for="(item, index) in feeTable" :key="index">
           <div class="center-box">
             <div class="center-img">
@@ -41,7 +41,7 @@
     <div class="center-part part" v-if="windowWidth <= 985">
       <el-row>
         <el-col
-          :span="18"
+          :span="24"
           v-for="(item, index) in feeTable"
           :key="index"
           style="margin: auto"
@@ -104,7 +104,8 @@ const feeTable = [
     tips: "Fiat & Crypto",
     currency: "$",
     number: "0",
-    message: "No fees on AUD/NZD deposits and withdrawals Only Network fees apply for Crypto withdrawals No additional CoinByte charges",
+    message:
+      "No fees on AUD/NZD deposits and withdrawals Only Network fees apply for Crypto withdrawals No additional CoinByte charges",
     // message1: "Only Network fees apply for Crypto withdrawals",
     // message2: "No additional CoinByte charges",
   },
@@ -136,7 +137,7 @@ $fontSizeDef: 16px;
 $fontSizeMin: 12px;
 
 .part {
-  max-width: 1440px;
+  max-width: 1290px;
   margin: auto;
 }
 .fees-page {
@@ -199,6 +200,11 @@ $fontSizeMin: 12px;
   .center-part {
     background-color: #ffffff;
     margin-top: 110px;
+    @media (max-width: 1400px) {
+      & {
+        max-width: 940px;
+      }
+    }
     @media (max-width: 985px) {
       margin-top: 60px;
     }
@@ -206,7 +212,7 @@ $fontSizeMin: 12px;
       @media (max-width: 985px) {
         width: 100%;
         flex-direction: column;
-        gap: 35px;
+        gap: 45px;
       }
     }
     .center-box {
@@ -217,11 +223,13 @@ $fontSizeMin: 12px;
       text-align: center;
       padding: 20px;
       height: 440px;
-
-        @media (max-width: 985px) {
-          width: 300px;
-          height: 350px;
-        }
+      @media (max-width: 1400px) {
+        width: 310px;
+      }
+      @media (max-width: 985px) {
+        width: 320px;
+        height: 340px;
+      }
       .center-img {
         display: flex;
         margin: auto;
@@ -270,10 +278,15 @@ $fontSizeMin: 12px;
           font-weight: bold;
           padding-top: 40px;
           display: flex;
-          padding-left: 16%;
-          img{
+          padding-left: 18%;
+          img {
             width: 100%;
             height: 100%;
+          }
+          @media (max-width: 1400px) {
+            & {
+              padding-left: 12%;
+            }
           }
           @media (max-width: 985px) {
             & {
