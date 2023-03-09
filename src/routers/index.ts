@@ -82,6 +82,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'convert',
     component: () => import('../view/convert/index.vue') 
   },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../view/test/test1/test1.vue') 
+  }
 ]
 const router = createRouter({
   history: createWebHistory(),

@@ -9,7 +9,7 @@
             <el-input v-model="optional" placeholder="Phone / Email " />
           </div>
           <div class="login-password">
-            <el-input v-model="password" type="password" placeholder="Password">
+            <el-input v-model="password" type="password"  placeholder="Password">
               <template #prefix>
                 <img :src="login_password" />
               </template>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="login-button">
-            <GetButton :text="text" style="margin-top: 31px;" />
+            <GetButton :text="text" style="margin-top: 31px;" @handler="toLogin" />
           </div>
           <div class="login-with">
             <el-divider>
@@ -76,7 +76,7 @@
             <el-input v-model="optional" placeholder="Phone / Email " />
           </div>
           <div class="login-password">
-            <el-input v-model="password" type="password" placeholder="Password">
+            <el-input v-model="password" type="password" show-password placeholder="Password">
               <template #prefix>
                 <img :src="login_password" />
               </template>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="login-button">
-            <GetButton :text="text" style="margin-top: 31px" />
+            <GetButton :text="text" style="margin-top: 31px" @handler="toLogin"/>
           </div>
           <div class="login-with">
             <el-divider>
@@ -146,21 +146,35 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
-
 import login_password from "../../assets/home/login_password.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_telegram from "../../assets/home/login_telegram.svg";
 import login_google from "../../assets/home/login_google.svg";
 import login_download from "../../assets/home/login_download.svg";
 import login_qrcode from "../../assets/home/login_qrcode.png";
+import http from '../../utils/http';
+import { useRouter } from "vue-router";
+import { useUserInfoStore } from '../../store/user';
+import { storeToRefs } from 'pinia';
+import { ElMessage } from 'element-plus';
 
+const userInfoStore = useUserInfoStore();
+const { token,username } = storeToRefs(userInfoStore);
+const router = useRouter();
 const password = ref("");
 const optional = ref("");
 const text = ref("Log in");
 
+const uuid = ref('');
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+  http.get('/v2/my/signin/wizard').then((res : any) => {
+    if(res.data.code === 200 || res.data.code === 202) {
+      uuid.value = res.data.uuid;
+    }
+  });
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -178,6 +192,49 @@ const options = ref([
     label: "Email",
   },
 ]);
+const toLogin = () => {
+  if(password.value !== "" && optional.value !== "") {
+    console.log(password.value,optional.value);
+    const userAgent = navigator.userAgent;
+    // 创建一个包含user_agent属性的JSON对象
+    let jsonObj = {
+      user_agent: userAgent
+    };
+
+    // 将JSON对象转换为JSON字符串
+    let jsonStr = JSON.stringify(jsonObj);
+
+    // 对JSON字符串进行base64编码
+    var base64String = btoa(jsonStr);
+
+    const uploadMsg = {
+      "uuid": uuid.value,
+      "email": optional.value,
+      "password": password.value,
+      "device_fingerprint": base64String,
+      "recaptchaResponse": "in quis cillum nisi"
+    };
+
+    http.post('/v2/my/signin',uploadMsg).then((res : any)=> {
+      const response = res.data;
+      if( (response.code === 200 || response.code === 202)) {
+        userInfoStore.changeToken(response.data.accessToken.token);
+        ElMessage.success('Login succeeded!');
+        router.push("/");
+      } else {
+        ElMessage.error('Login failed. Please try again later!');
+      }
+    }).catch((err : any) => {
+      const error = err.error;
+      console.log(err.error.details[0].issue);
+      if(error.code === 0) {
+        ElMessage.error(error.details[0].issue);
+      } else {
+        ElMessage.error("Login failed. Please try again later");
+      }
+    })
+  }
+}
 </script>
 
 <style scoped lang="scss">
