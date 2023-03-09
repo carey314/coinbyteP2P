@@ -82,6 +82,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'convert',
     component: () => import('../view/convert/index.vue') 
   },
+  { 
+    path: '/wallet',
+    name: 'wallet',
+    component: () => import('../view/wallet/index.vue') 
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),
