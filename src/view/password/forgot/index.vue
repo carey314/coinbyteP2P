@@ -60,7 +60,6 @@ onMounted(() => {
   window.addEventListener("resize", resetWidth);
 });
 
-// onUnmounted
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
@@ -170,28 +169,10 @@ $lineH: 16px;
         margin-left: 4%;
         width: 50%;
         :deep(.button[data-v-afa61de0]) {
-            padding: 16px 18px !important;
-            font-size: 14px !important;
-            font-weight: 400;
-          }
-        // :deep() {
-        //   .btn {
-        //     font-size: 30px !important;
-        //     color: #ffffff;
-        //     font-weight: 400 !important;
-        //   }
-        //   .el-input__wrapper {
-        //     font-size: 30px !important;
-        //     padding:0 !important;
-        //     border: 1px solid #dfdfe5;
-        //     height: 48px;
-        //     border-radius: 4px;
-        //     --el-input-focus-border-color: none;
-        //     --el-input-hover-border-color: none;
-        //     box-shadow: none;
-        //     padding-left: 15px;
-        //   }
-        // }
+          padding: 16px 18px !important;
+          font-size: 14px !important;
+          font-weight: 400;
+        }
       }
       :deep() {
         .btn {

@@ -30,53 +30,316 @@
             </el-radio-group>
             <div v-if="activeSign === '1'" class="convert-crypto">
               <div class="radio-content">
-                <el-input
-                  v-model="number"
-                  placeholder="Mobile number"
-                  class="input-with-select"
-                >
-                  <template #append>
-                    <el-select
-                      v-model="select"
-                      placeholder="Select"
-                      style="width: 115px"
-                    >
-                      <el-option label="+61" value="1" />
-                      <el-option label="+86" value="2" />
-                      <el-option label="+01" value="3" />
-                    </el-select>
-                  </template>
-                </el-input>
-
+                <div class="pre-input">
+                  <div class="input-title">You pay</div>
+                  <el-input
+                    v-model="numberCrypto"
+                    placeholder="pay"
+                    class="change-count clearfloat"
+                  >
+                    <template #append>
+                      <div class="option-icon">
+                        <img :src="part01_BTC" />
+                      </div>
+                      <el-select
+                        v-model="firstSelect"
+                        placeholder="Select"
+                        style="width: 97px"
+                      >
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-input>
+                  <div class="input-tip">
+                    Max
+                    <el-divider direction="vertical" style="height: 22px" />
+                  </div>
+                  <div class="convert-tip">
+                    <div class="tip-left">
+                      Available: 0.01 BTC <span>Insufficient</span>
+                    </div>
+                    <div class="tip-right">
+                      <a href="/" style="color: #01c19a">Deposit</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="exchange-icon">
+                  <!-- 中间转换图片 -->
+                  <!-- <img :src=""/>  -->
+                </div>
+                <div class="pro-input">
+                  <div class="input-second-title">You Receive</div>
+                  <el-input
+                    v-model="countCrypto"
+                    placeholder="pay"
+                    class="change-count clearfloat"
+                  >
+                    <template #append>
+                      <div class="option-icon">
+                        <img :src="part01_BTC" />
+                      </div>
+                      <el-select
+                        v-model="secondSelect"
+                        placeholder="Select"
+                        style="width: 97px"
+                      >
+                        <el-option label="USDT" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-input>
+                  <div class="convert-tip">
+                    <div class="tip-left">
+                      Estimated : 1 USDT ≈ 0.00004646 BTC
+                      <!-- <img :src="" /> -->
+                    </div>
+                  </div>
+                </div>
                 <div class="convert-button">
                   <GetButton :text="text" />
                 </div>
               </div>
             </div>
             <div v-if="activeSign === '2'" class="convert-stable">
-              <el-input v-model="email" placeholder="Email">
-                <template #prefix>
-                  <img :src="login_email" />
-                </template>
-              </el-input>
-              <div>
-                <el-input
-                  v-model="number"
-                  placeholder="Mobile number"
-                  class="input-with-select"
-                >
-                  <template #prepend>
-                    <el-select
-                      v-model="select"
-                      placeholder="Select"
-                      style="width: 115px"
-                    >
-                      <el-option label="+61" value="1" />
-                      <el-option label="+86" value="2" />
-                      <el-option label="+01" value="3" />
-                    </el-select>
-                  </template>
-                </el-input>
+              <div class="radio-content">
+                <div class="pre-input">
+                  <div class="input-title">You pay</div>
+                  <el-input
+                    v-model="numberStable"
+                    placeholder="pay"
+                    class="change-count clearfloat"
+                  >
+                    <template #append>
+                      <div class="option-icon">
+                        <img :src="part01_BTC" />
+                      </div>
+                      <el-select
+                        v-model="secondSelect"
+                        placeholder="Select"
+                        style="width: 97px"
+                      >
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-input>
+                  <div class="input-tip">
+                    Max
+                    <el-divider direction="vertical" style="height: 22px" />
+                  </div>
+                  <div class="convert-tip">
+                    <div class="tip-left">
+                      Available: 2 USDT <span>Insufficient</span>
+                    </div>
+                    <div class="tip-right">
+                      <a href="/" style="color: #01c19a">Deposit</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="exchange-icon">
+                  <!-- 中间转换图片 -->
+                  <!-- <img :src=""/>  -->
+                </div>
+                <div class="pro-input">
+                  <div class="input-second-title">You Receive</div>
+                  <el-input
+                    v-model="countStable"
+                    placeholder="pay"
+                    class="change-count clearfloat"
+                  >
+                    <template #append>
+                      <div class="option-icon">
+                        <img :src="part01_BTC" />
+                      </div>
+                      <el-select
+                        v-model="thirdSelect"
+                        placeholder="Select"
+                        style="width: 97px"
+                      >
+                        <el-option label="USDT" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                        <el-option label="BTC" value="3">
+                          <div
+                            style="
+                              width: 20px;
+                              display: flex;
+                              align-items: center;
+                              font-size: 14px !important;
+                              color: #000;
+                              margin-left: -5px;
+                            "
+                          >
+                            <img
+                              :src="part01_BTC"
+                              style="
+                                width: 100%;
+                                height: 100%;
+                                margin-right: 5px;
+                              "
+                            />
+                            BTC
+                          </div>
+                        </el-option>
+                      </el-select>
+                    </template>
+                  </el-input>
+                  <div class="convert-tip">
+                    <div class="tip-left">
+                      Estimated : 1 USDC ≈ 0.9998 USDT
+                      <!-- <img :src="" /> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="convert-button">
+                  <GetButton :text="text" />
+                </div>
               </div>
             </div>
           </div>
@@ -125,6 +388,7 @@ import faq from "../../layout/FAQ/faq.vue";
 import convert_icon01 from "../../assets/home/convert_icon01.png";
 import convert_icon02 from "../../assets/home/convert_icon02.png";
 import convert_icon03 from "../../assets/home/convert_icon03.png";
+import part01_BTC from "../../assets/home/part01_BTC.png";
 import login_email from "../../assets/home/login_email.svg";
 
 const windowWidth = ref(window.document.body.offsetWidth);
@@ -139,12 +403,14 @@ function resetWidth() {
 }
 
 const activeSign = ref("1");
-const number = ref("");
-const select = ref("+61");
-const email = ref("");
-const password = ref("");
-const optional = ref("");
-const agree = ref("");
+const numberCrypto = ref("0.01");
+const numberStable = ref("1");
+const countCrypto = ref("214.2958");
+const countStable = ref("1.0002");
+const firstSelect = ref("BTC");
+const secondSelect = ref("USDT");
+const thirdSelect = ref("USDC");
+const select = ref("BTC");
 const text = ref("Convert");
 const options = ref([
   {
@@ -220,7 +486,7 @@ $fontSizeMin: 12px;
     }
     .center-part {
       padding-top: 48px;
-      padding-bottom: 50px;
+      padding-bottom: 90px;
       .center-convert {
         max-width: 618px;
         flex: 1;
@@ -233,16 +499,17 @@ $fontSizeMin: 12px;
         }
         .convert-radio {
           :deep() {
-            .el-radio-group{
-              width: 618px;
+            .el-radio-group {
+              width: 100%;
             }
-            .el-radio-button{
+            .el-radio-button {
               width: 50%;
             }
             .el-radio-button__inner {
               font-size: 18px;
               line-height: 23px;
               color: #878787;
+              font-weight: 600;
               background-color: #f1f4f5;
               border: none;
               height: 50px;
@@ -250,13 +517,13 @@ $fontSizeMin: 12px;
               align-items: center;
               justify-content: center;
             }
-            .el-radio-button:first-child .el-radio-button__inner{
+            .el-radio-button:first-child .el-radio-button__inner {
               background: #fff;
             }
-            .el-radio-button:last-child .el-radio-button__inner{
-              border-radius: 0 8px 0 8px;
+            .el-radio-button:last-child .el-radio-button__inner {
+              border-radius: 0 0 0 8px;
             }
-            .el-radio-button__original-radio:checked+.el-radio-button__inner{
+            .el-radio-button__original-radio:checked + .el-radio-button__inner {
               color: #000 !important;
               box-shadow: none;
               // background: #fff;
@@ -268,80 +535,179 @@ $fontSizeMin: 12px;
             padding: 15px;
             background: #f1f4f5;
           }
-          .convert-crypto {
-            .input-with-select {
-              :deep() {
-                .el-input__inner {
-                  font-size: $fontSizeMinPro;
-                  color: #000;
-                  line-height: 16px;
-                }
+
+          .change-count {
+            position: relative;
+            // border: 1px solid #DFDFE5;
+            // border-radius: 8px;
+            .option-icon {
+              position: absolute;
+              left: -18px;
+              top: 18px;
+              width: 24px;
+              z-index: 999;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
               }
             }
             :deep() {
-              .el-input {
-                --el-input-border-color: none;
-              }
-              .el-input-group__prepend {
-                width: 73px;
-                border-radius: 8px;
-              }
-              .el-input-group--prepend > .el-input__wrapper {
-                margin-left: 16px;
-              }
-              .el-select {
-                --el-select-input-focus-border-color: none;
-              }
-
-              //right input
-              .el-input__wrapper {
-                background: #fff;
-                border: 1px solid #dfdfe5;
-                height: 60px;
-                border-radius: 4px;
-                --el-input-focus-border-color: none;
-                --el-input-hover-border-color: none;
-                box-shadow: none;
-                padding-left: 15px;
-              }
               .el-input__inner {
-                font-size: $fontSizeMinPro;
-                color: #c4c9d0;
-                line-height: 16px;
+                font-size: 22px;
+                line-height: 27px;
+                color: #000;
+                font-weight: 600;
+              }
+              .el-select .el-input__inner {
+                font-size: 18px !important;
+                line-height: 23px !important;
+                margin-top: 0;
+                font-weight: 500 !important;
               }
             }
           }
-          .convert-stable {
-            margin-top: 18px;
-            :deep() {
-              .el-input__wrapper {
-                background: #fff;
-                border: 1px solid #dfdfe5;
-                height: 48px;
-                border-radius: 4px;
-                --el-input-focus-border-color: none;
-                --el-input-hover-border-color: none;
-                box-shadow: none;
-                padding-left: 15px;
+          :deep() {
+            .el-input {
+              --el-input-border-color: none;
+            }
+            .el-input-group__prepend {
+              width: 73px;
+              border-radius: 8px;
+            }
+            .el-input-group--prepend > .el-input__wrapper {
+              margin-left: 16px;
+            }
+            .el-select {
+              --el-select-input-focus-border-color: none;
+            }
+
+            //right input
+            .el-input__wrapper {
+              background: #fff;
+              border: 1px solid #dfdfe5;
+              height: 60px;
+              border-radius: 4px;
+              --el-input-focus-border-color: none;
+              --el-input-hover-border-color: none;
+              box-shadow: none;
+              padding-left: 12px !important;
+            }
+            .el-input__inner {
+              font-size: $fontSizeMinPro;
+              color: #c4c9d0;
+              line-height: 16px;
+            }
+          }
+
+          .convert-tip {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 9px;
+
+            .tip-left {
+              font-size: $fontSizeMin;
+              color: #878787;
+              line-height: 14px;
+              span {
+                color: #f15958;
               }
+            }
+            .tip-right {
+              font-size: $fontSizeMin;
             }
           }
         }
-        .radio-content {
-          padding: 30px 40px 40px 40px;
+      }
+      .convert-stable {
+        :deep() {
+          .el-input__wrapper {
+            background: #fff;
+            border: 1px solid #dfdfe5;
+            height: 48px;
+            border-radius: 4px;
+            --el-input-focus-border-color: none;
+            --el-input-hover-border-color: none;
+            box-shadow: none;
+            padding-left: 15px;
+          }
+        }
+      }
+      .radio-content {
+        padding: 32px 40px 40px 40px;
+        position: relative;
 
-          .convert-button {
-            margin-top: 7px;
-            :deep(.button) {
-              width: 100%;
-              height: 100%;
-              font-size: 20px;
-              line-height: 25px;
-              padding: 16px 0 14px 0px;
-              border: 8px;
-              @media (max-width: 769px) {
-                padding: 16px 0;
-              }
+        :deep() {
+          .el-input__inner {
+            margin-top: 18px;
+          }
+          .el-select .el-input .el-select__caret {
+            color: #1f2832;
+          }
+          .el-input-group--append > .el-input__wrapper {
+            border-radius: 8px 0 0 8px !important;
+            border-right: none !important;
+          }
+          .el-input-group__append,
+          .el-input-group__prepend {
+            background-color: none;
+          }
+          .el-input-group--append
+            .el-input-group__append
+            .el-select
+            .el-input
+            .el-input__wrapper {
+            border-left: none !important;
+            border-radius: 0 8px 8px 0 !important;
+          }
+        }
+
+        .input-title {
+          position: absolute;
+          top: 40px;
+          left: 52px;
+          z-index: 1;
+          color: #878787;
+          font-size: $fontSizeMin;
+        }
+        .input-tip {
+          position: absolute;
+          top: 50px;
+          left: 64%;
+          z-index: 1;
+          color: #f15958;
+          font-size: $fontSizeMin;
+          :deep(.el-divider--vertical) {
+            margin: 0 10px;
+          }
+        }
+        .exchange-icon {
+          padding: 0 8px;
+        }
+        .pro-input {
+          margin-top: 33px;
+          position: relative;
+          .input-second-title {
+            position: absolute;
+            top: 8px;
+            left: 12px;
+            z-index: 1;
+            color: #878787;
+            font-size: $fontSizeMin;
+          }
+        }
+
+        .convert-button {
+          margin-top: 20px;
+          :deep(.button) {
+            width: 100%;
+            height: 100%;
+            font-size: 20px;
+            line-height: 25px;
+            padding: 16px 0 14px 0px;
+            border: 8px;
+            @media (max-width: 769px) {
+              padding: 16px 0;
             }
           }
         }

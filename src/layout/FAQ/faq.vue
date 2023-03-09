@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="eighth-part" v-if="windowWidth > 985">
-        <div class="first-level-title" style="font-size: 24px; !important">
+        <div class="first-level-title" style="font-size: 36px; !important">
           Frequently asked questions
         </div>
         <div class="eighth-part-collapse">
@@ -149,9 +149,11 @@ $fontSizeMin: 12px;
       }
     }
     .eighth-part-collapse {
-      margin: 2% auto;
+      padding-top: 33px;
+      margin: auto;
       text-align: left;
-      font-size: 20px;
+      font-size: 16px !important;
+      line-height: 19px;
       color: #060606;
       width: 907px;
 
