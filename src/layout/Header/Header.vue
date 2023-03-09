@@ -72,16 +72,38 @@
     </div>
     <div class="header-right">
       <ul class="right-menu">
-        <li>
-          <router-link to="/login" style="text-decoration: none"
-            ><span class="login-span">Log in</span></router-link
-          >
-        </li>
-        <li>
-          <router-link to="/signup"
-            ><button class="btn-signup">Sign up</button></router-link
-          >
-        </li>
+        <!-- 登录后 -->
+        <template v-if="showname">
+          <li>
+            <router-link to="/wallet" style="text-decoration: none"
+              ><span class="login-span">Wallet</span
+              ><el-icon style="color: #fff"><CaretBottom /></el-icon
+            ></router-link>
+          </li>
+          <li style="margin-left: 20px">
+            <router-link to="/" style="text-decoration: none"
+              ><span class="login-span">Orders</span
+              ><el-icon style="color: #fff"><CaretBottom /></el-icon
+            ></router-link>
+          </li>
+          <li>
+            <el-dropdown class="align-icon">
+              <img :src="top_bar_usercenter" alt="" />
+            </el-dropdown>
+          </li>
+        </template>
+        <template v-else="!showname">
+          <li>
+            <router-link to="/login" style="text-decoration: none"
+              ><span class="login-span">Log in</span></router-link
+            >
+          </li>
+          <li>
+            <router-link to="/signup"
+              ><button class="btn-signup">Sign up</button></router-link
+            >
+          </li>
+        </template>
 
         <li
           @mouseover="downloadShow"
@@ -293,6 +315,8 @@
 import { ref } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import { useRouter } from "vue-router";
+import { CaretBottom } from "@element-plus/icons-vue";
+
 // img
 import logo from "../../assets/home/logo.svg";
 import top_down from "../../assets/home/top_down.svg";
@@ -302,6 +326,7 @@ import top_en from "../../assets/home/top_en.svg";
 import down_arrow from "../../assets/home/down_arrow.png";
 import menu_icon from "../../assets/home/menu_icon.png";
 import close_icon from "../../assets/home/close_icon.png";
+import top_bar_usercenter from "../../assets/wallet/top_bar_usercenter.svg";
 
 import dropdown_buy_bank from "../../assets/home/dropdown_buy_bank.svg";
 import dropdown_buy_quick from "../../assets/home/dropdown_buy_quick.svg";
@@ -309,6 +334,9 @@ import dropdown_buy_convert from "../../assets/home/dropdown_buy_convert.svg";
 import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
 import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
 import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
+
+
+const showname = ref<boolean>(true); //header是否登陆
 
 let deg = ref<number>(0);
 const navCurrency = ref();
@@ -379,25 +407,25 @@ const cryptoItem = [
     icon: dropdown_buy_bank,
     title: "Bank Deposit",
     message: "Deposit AUD with your PayID/OSKO",
-    url: "/"
+    url: "/",
   },
   {
     icon: dropdown_buy_quick,
     title: "Quick Buy/Sell",
     message: "Buy Crypto with your AUD balance",
-    url: "/"
+    url: "/",
   },
   {
     icon: dropdown_buy_convert,
     title: "Convert",
     message: "Quick conversion, zero fees",
-    url: "/convert"
+    url: "/convert",
   },
 ];
 
-const SkipTo = (url : string) => {
+const SkipTo = (url: string) => {
   router.push(url);
-}
+};
 const activeLanguage = ref<string>("first");
 
 const gridData = [
@@ -422,6 +450,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   width: 100%;
   line-height: 64px;
   height: 64px;
+  // font-size: 14px !important;
   background-color: $headerBackGround;
   display: flex;
   align-items: center;

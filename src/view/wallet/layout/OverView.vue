@@ -5,20 +5,22 @@
         <div class="left-value">
           <div class="value-top">
             Est. total value
-            <img :src="share_icon" />
+            <img :src="overview_eye" />
           </div>
           <div class="value-center">
             <div>₮0.00</div>
             <div>
               <button class="language-chose">
-                <img :src="crypto_icon_usdt" alt="" />
+                <img :src="wallet_select_usdt_off" alt="" />
                 USDT
-                <el-icon style="width: 12px"><ArrowDown /></el-icon>
+                <el-icon style="width: 18px; color: #cbcccf"
+                  ><ArrowDown
+                /></el-icon>
               </button>
             </div>
           </div>
           <div class="value-bottom">
-            <div class="bottom-image"><img :src="VIP" /></div>
+            <div class="bottom-image"><img :src="icon_wallet" /></div>
             <div class="bottom-title minMainFont">
               Your current equity is zero
             </div>
@@ -35,12 +37,12 @@
                 <span>My assets</span>
               </div>
             </template>
-            <el-table
+            <!-- <el-table
               :data="tableData"
-              style="width: 100%"
+              style="width: 100%;"
               :show-header="false"
             >
-              <el-table-column label="Date" width="200">
+              <el-table-column width="200">
                 <template #default="scope">
                   <div
                     style="
@@ -56,7 +58,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column label="Name" width="180">
+              <el-table-column width="180">
                 <div style="font-size: 16px; color: #000000">₮0.00</div>
               </el-table-column>
               <el-table-column>
@@ -70,7 +72,10 @@
                   />
                 </div>
               </el-table-column>
-              <el-table-column label="Operations" align="right">
+              <el-table-column
+                align="right"
+                style="display: flex"
+              >
                 <template #default="scope">
                   <el-button
                     type="success"
@@ -82,7 +87,48 @@
                   >
                 </template>
               </el-table-column>
-            </el-table>
+            </el-table> -->
+            <div class="assets-body">
+              <div class="assets-item">
+                <div class="assets-icon"><img :src="icon_trading" /></div>
+                <div class="item-title">Trading</div>
+              </div>
+              <div>₮0.00</div>
+              <div class="demo-progress">
+                <div class="progress-count">0.00%</div>
+                <el-progress
+                  :percentage="0"
+                  stroke-width="9"
+                  :show-text="false"
+                  class="progress-bar"
+                />
+              </div>
+              <div class="assets-btn">
+                <el-button type="success">Deposit</el-button>
+                <el-button class="more">More</el-button>
+              </div>
+            </div>
+            <el-divider />
+            <div class="assets-body">
+              <div class="assets-item">
+                <div class="assets-icon"><img :src="icon_trading" /></div>
+                <div class="item-title">Earning</div>
+              </div>
+              <div>₮0.00</div>
+              <div class="demo-progress">
+                <div class="progress-count">0.00%</div>
+                <el-progress
+                  :percentage="0"
+                  stroke-width="9"
+                  :show-text="false"
+                  class="progress-bar"
+                />
+              </div>
+              <div class="assets-btn">
+                <el-button type="success">Earn</el-button>
+                <el-button class="more">Transfer</el-button>
+              </div>
+            </div>
           </el-card>
         </div>
         <div class="left-recent">
@@ -93,7 +139,7 @@
               </div>
             </template>
             <div class="value-bottom">
-              <div class="bottom-image"><img :src="VIP" /></div>
+              <div class="bottom-image"><img :src="wallet_search_none" /></div>
               <div class="bottom-title minMainFont">
                 You don't have any transactions yet
               </div>
@@ -109,7 +155,7 @@
             </div>
           </template>
           <div class="value-bottom">
-            <div class="bottom-image"><img :src="VIP" /></div>
+            <div class="bottom-image"><img :src="icon_wallet" /></div>
             <div class="bottom-title minMainFont">
               You don't have any assets yet
             </div>
@@ -129,10 +175,11 @@ import { ref, reactive } from "vue";
 import { ArrowDown, Timer } from "@element-plus/icons-vue";
 import GetButton from "../../../components/GetButton.vue";
 
-import share_icon from "../../../assets/home/share_icon.svg";
-import crypto_icon_usdt from "../../../assets/home/crypto_icon_usdt.png";
-import VIP from "../../../assets/home/VIP.png";
-import { de } from "element-plus/es/locale";
+import overview_eye from "../../../assets/wallet/overview_eye.png";
+import wallet_select_usdt_off from "../../../assets/wallet/wallet_select_usdt_off.png";
+import icon_wallet from "../../../assets/wallet/icon_wallet.png";
+import wallet_search_none from "../../../assets/wallet/wallet_search_none.png";
+import icon_trading from "../../../assets/wallet/icon_trading.png";
 
 interface User {
   date: string;
@@ -215,7 +262,7 @@ $fontSizeMin: 12px;
           margin-top: 3px;
           display: flex;
           align-items: center;
-          // width: 103px;
+          width: 103px;
           height: 30px;
           line-height: 19px;
           font-size: 14px;
@@ -223,7 +270,7 @@ $fontSizeMin: 12px;
           background: none;
           border: 1px solid #e2e2e2;
           border-radius: 2px;
-          padding: 16px;
+          padding: 14px;
           img {
             width: 16px;
             margin-right: 6px;
@@ -244,6 +291,10 @@ $fontSizeMin: 12px;
         }
         .bottom-image {
           margin-top: 17px;
+          img{
+            width: 70px;
+            height: auto;
+          }
         }
         .bottom-title {
           margin-top: 17px;
@@ -279,10 +330,22 @@ $fontSizeMin: 12px;
         .el-table__row {
           height: 63px;
         }
+        .el-table__body-wrapper {
+          margin-left: 10px;
+        }
         .el-progress__text {
           font-size: 14px !important;
           color: #000000;
           line-height: 16px;
+        }
+        .el-button--success {
+          --el-button-bg-color: #01c19a;
+          --el-button-border-color: #01c19a;
+          --el-button-active-color: #01c19a;
+          --el-button-hover-bg-color: #01c19a;
+          --el-button-outline-color: #01c19a;
+          --el-button-hover-border-color: #01c19a;
+          --el-button-active-bg-color: #01c19a;
         }
       }
       .card-header {
@@ -292,40 +355,89 @@ $fontSizeMin: 12px;
           line-height: 23px;
         }
       }
-      .demo-progress {
-        .el-progress--line {
-          // margin-bottom: 5px;
-          display: block;
-          align-items: center;
-          width: 100px;
-        }
-        .progress-count {
+      .box-card {
+        box-shadow: none;
+        width: 100%;
+        // :deep(.el-card__body) {
+        //   padding: 0px !important;
+        // }
+        .assets-body {
           display: flex;
-          float: left;
-          margin-left: 20px;
-          font-size: 14px;
-          color: #000;
-        }
-        .progress-bar {
-          float: right;
-          margin-top: 6px;
-          background: #ebebeb;
-          border-radius: 4.5px;
+          justify-content: space-between;
+          align-items: center;
+
+          .assets-item {
+            display: flex;
+            align-items: center;
+            .assets-icon{
+              width: 30px;
+                height: 30px;
+              img{
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+              }
+            }
+            .item-title {
+              margin-left: 13px;
+            }
+          }
+
+          .demo-progress {
+            .el-progress--line {
+              display: block;
+              align-items: center;
+              width: 100px;
+            }
+            .progress-count {
+              display: flex;
+              float: left;
+              font-size: 14px;
+              color: #000;
+            }
+            .progress-bar {
+              float: right;
+              margin-left: 11px;
+              border-radius: 4.5px;
+              :deep(.el-progress-bar__outer) {
+                background-color: #ebebeb !important;
+              }
+            }
+          }
+          .assets-btn{
+            :deep(){
+              .el-button{
+                width:60px;
+                height: 30px;
+                font-size: $fontSizeMin;
+              }
+              .el-button+.el-button{
+                margin-left: 11px !important;
+              }
+            }
+            .more{
+              color:#000;
+              font-size: $fontSizeMin;
+              font-weight: lighter;
+            }
+          }
         }
       }
     }
     .left-recent {
       margin-top: 27px;
       .card-header {
-      span {
-        font-size: 18px;
-        color: #000000;
-        line-height: 23px;
+        span {
+          font-size: 18px;
+          color: #000000;
+          line-height: 23px;
+        }
       }
-    }
       .box-card {
         box-shadow: none;
         width: 100%;
+        padding-bottom: 16px;
+
         .value-bottom {
           text-align: center;
           padding-top: 42px;
@@ -334,6 +446,10 @@ $fontSizeMin: 12px;
           }
           .bottom-image {
             margin-top: 17px;
+            img{
+            width: 70px;
+            height: auto;
+          }
           }
           .bottom-title {
             margin-top: 17px;
@@ -357,12 +473,16 @@ $fontSizeMin: 12px;
       .value-bottom {
         text-align: center;
         padding-top: 22px;
-        // padding-bottom: 21px;
+        padding-bottom: 21px;
         :deep(.button) {
           width: 110px;
         }
         .bottom-image {
           margin-top: 17px;
+          img{
+            width: 70px;
+            height: auto;
+          }
         }
         .bottom-title {
           margin-top: 17px;
