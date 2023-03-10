@@ -19,7 +19,6 @@ export const useUserInfoStore = defineStore('useInfo', () => {
       enabled: true,
       // 要存储的数据
       // 存储键
-      key: 'useUserInfoStore',
       strategies: [
         {
           storage: localStorage,//表示存储在localStorage
