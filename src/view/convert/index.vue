@@ -478,11 +478,6 @@ $fontSizeMin: 12px;
           color: #01c19a;
           font-weight: 600;
           line-height: 51px;
-          // @media (max-width: 769px) {
-          //   & {
-          //     font-size: $fontSizeMed !important;
-          //   }
-          // }
         }
         .top-part-content {
           font-size: $fontSizeMed;
@@ -686,21 +681,31 @@ $fontSizeMin: 12px;
         .input-tip {
           position: absolute;
           top: 50px;
-          right: 178px;
+          right: 168px;
           z-index: 1;
           color: #f15958;
           font-size: $fontSizeMin;
           :deep(.el-divider--vertical) {
             margin: 0 10px;
           }
+          @media (max-width: 769px) {
+            & {
+              right: 160px;
+            }
+          }
         }
         .input-split {
           position: absolute;
           top: 20px;
-          right: 138px;
+          right: 128px;
           z-index: 1;
           :deep(.el-divider--vertical) {
             margin: 0 10px;
+          }
+          @media (max-width: 769px) {
+            & {
+              right: 120px;
+            }
           }
         }
         .exchange-icon {

@@ -335,7 +335,6 @@ import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
 import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
 import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
 
-
 const showname = ref<boolean>(true); //header是否登陆
 
 let deg = ref<number>(0);
@@ -450,7 +449,6 @@ $regular-font: HarmonyOS_Sans_Regular;
   width: 100%;
   line-height: 64px;
   height: 64px;
-  // font-size: 14px !important;
   background-color: $headerBackGround;
   display: flex;
   align-items: center;
