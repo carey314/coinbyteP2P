@@ -1,0 +1,8 @@
+/* forgot password  */
+/* get Verification Code */
+
+.password-verify .verify-btn button{
+  padding: 0 10px !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

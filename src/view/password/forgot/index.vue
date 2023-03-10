@@ -161,15 +161,12 @@ $lineH: 16px;
     .password-verify {
       margin-top: 20px;
       display: flex;
-      justify-content: center;
-      .verify-input {
-        width: 50%;
-      }
+      justify-content: space-between;
+
       .verify-btn {
-        margin-left: 4%;
-        width: 50%;
-        :deep(.button[data-v-afa61de0]) {
-          padding: 16px 18px !important;
+        margin-left: 13px;
+        :deep(.button) {
+          padding: 0 10px !important;
           font-size: 14px !important;
           font-weight: 400;
         }

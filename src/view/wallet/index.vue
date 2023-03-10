@@ -31,7 +31,7 @@ import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import OverView from "../wallet/layout/OverView.vue";
+import OverView from "./layout/OverView/OverView.vue";
 import History from "./layout/History/History.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 

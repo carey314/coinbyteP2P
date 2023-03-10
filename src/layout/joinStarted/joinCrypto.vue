@@ -97,7 +97,6 @@ $regular-font: HarmonyOS_Sans_Regular;
 .ninth-part {
   display: flex;
   padding: 6% 0;
-  height: 70vh;
   justify-content: space-between;
   align-items: center;
   @media (max-width: 768px) {
