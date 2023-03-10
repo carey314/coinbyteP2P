@@ -29,8 +29,10 @@
 <style lang="scss" scoped>
     .custom-button {
         // background: #01C19A;
+        min-height: 41px;
         height: 100%;
         // color: #fff;
         padding: 0 22px;
+
     }
 </style>

@@ -14,8 +14,26 @@
             </el-form-item>
         </el-form>
     </div>
-    <Table>
-        
+    <Table :sourceData="tableData">
+        <template v-slot:columns>
+            <el-table-column prop="time" label="Time" width="180" />
+            <el-table-column prop="type" label="Type" width="180" />
+            <el-table-column prop="deposit_wallet" label="Deposit wallet" />
+            <el-table-column prop="asset" label="Asset" />
+            <el-table-column prop="amount" label="Amount" />
+            <el-table-column prop="destination" label="Destination" />
+            <el-table-column prop="TxID" label="TxID" />
+            <el-table-column label="Status" >
+                <template #default="scope">
+                    <div v-if="scope.row.status === 'Completed'" style="color: #01C19A;">
+                        Completed
+                    </div>
+                    <div v-else-if="scope.row.status === 'Faild'">
+                        Completed
+                    </div>
+                </template>
+            </el-table-column>
+        </template>
     </Table>
 </template>
 
@@ -83,6 +101,68 @@
             selectValue : "All"
         }
     ]);
+    const tableData = ref([
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+        {
+            time: "2022-10-03 00:48:11",
+            type: "Deposit",
+            deposit_wallet: "Trading Wallet",
+            asset: "USDT",
+            amount: "980.0000",
+            destination: "Cf9044...104a5f",
+            TxID: "TXRLV...aAjr7",
+            status: "Completed",
+        },
+    ]);
     const cloneSearchData = selectMap.value.map(v => v.title);
     let cloneSearchMap = {};
     cloneSearchData.forEach(v => {
@@ -108,6 +188,7 @@
         :deep() {
             .el-form {
                 display: flex;
+                flex-wrap: wrap;
                 gap: 20px;
                 .el-form-item {
                     margin-bottom: 0;
