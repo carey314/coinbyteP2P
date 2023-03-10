@@ -9,7 +9,6 @@ defineProps<{ text: any }>();
 
 const emitChangeFn = defineEmits(["handler"]);
 const addClick = () => {
-  console.log(11223);
   emitChangeFn("handler", "我是子传父的 button传home");
 };
 
