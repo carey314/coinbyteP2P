@@ -161,7 +161,7 @@
           </el-radio-group>
           <div>
             <el-table
-              :data="filterTableData"
+              :data="filterSpotData"
               :table-layout="tableLayout"
               class="crypto-table"
               :default-sort="{ prop: 'address', order: 'ascending' }"
@@ -186,14 +186,38 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="Price" sortable align="right">
+              <el-table-column
+                prop="name"
+                label="Price"
+                width="240px"
+                sortable
+                align="right"
+              >
                 <template #default="scope">
-                  <span class="table-price">{{ scope.row.price }}</span>
+                  <span
+                    class="table-price"
+                    style="margin-right: 4px; color: #01c19a"
+                    >{{ scope.row.upPirce }}</span
+                  >
+                  <span
+                    class="table-price"
+                    style="margin-right: 4px; color: #f15958"
+                    >{{ scope.row.downPirce }}</span
+                  >
+                  <span
+                    class="table-price"
+                    style="margin-right: 4px; color: #000"
+                    >{{ scope.row.changePrice }}</span
+                  >
+                  <span class="table-price" style="color: #878787">{{
+                    scope.row.price
+                  }}</span>
                 </template>
               </el-table-column>
               <el-table-column
                 prop="change"
                 label="Change"
+                width="150px"
                 sortable
                 align="right"
               >
@@ -217,8 +241,32 @@
                 </template>
               </el-table-column>
               <el-table-column
-                prop="address"
+                prop="name"
+                label="24h High / 24h Low"
+                width="230px"
+                align="right"
+              >
+                <template #default="scope">
+                  <span
+                    class="table-price"
+                    style="margin-right: 4px; color: #000"
+                    >{{ scope.row.changeCount }}</span
+                  >
+                </template>
+              </el-table-column>
+              <el-table-column
+                sortable
+                label="24h Volume"
+                width="140px"
+                align="right"
+              >
+                <template #default="scope">
+                  <span class="table-price">{{ scope.row.volume }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
                 label="Market cap"
+                width="140px"
                 sortable
                 align="right"
               >
@@ -249,10 +297,10 @@
             <div class="example-pagination-block">
               <el-pagination
                 background
-                :hide-on-single-page="filterTableData.length < 10"
+                :hide-on-single-page="filterSpotData.length < 10"
                 layout="prev, pager, next"
                 :page-size="3"
-                :total="filterTableData.length"
+                :total="filterSpotData.length"
               />
             </div>
           </div>
@@ -307,8 +355,8 @@ const tableData = [
     img: BTC,
     tag: "BTC",
     asset: "Bitcoin",
-    price: "$22,678.00",
-    change: "-2.58%",
+    price: "A$24087.40",
+    change: "+4.33%",
     cap: "$460.00B",
     type: "down",
     data: [30, 20, 30, 10, 0, 10],
@@ -318,8 +366,8 @@ const tableData = [
     img: ETH,
     tag: "ETH",
     asset: "Ethereum",
-    price: "$1,570",
-    change: "+0.25%",
+    price: "A$1807.10",
+    change: "+6.37%",
     cap: "$216.69B",
     type: "up",
     data: [10, 0, 30, 50, 40, 70],
@@ -329,8 +377,8 @@ const tableData = [
     img: OKB,
     tag: "OKB",
     asset: "OKB",
-    price: "$15.44",
-    change: "+0.88%",
+    price: "A$1.01",
+    change: "-0.02%",
     cap: "$65.89B",
     type: "up",
     data: [40, 20, 30],
@@ -340,7 +388,7 @@ const tableData = [
     img: OKT,
     tag: "OKT",
     asset: "OKC Token",
-    price: "$15.56",
+    price: "A$1.00",
     cap: "$54.76B",
     change: "-0.02%",
     type: "down",
@@ -561,6 +609,335 @@ const filterTableData = computed(() => {
   if (radioValue.value === "All") return tableData;
   return tableData.filter((v) => v.tag.includes(radioValue.value));
 });
+const spotData = [
+  {
+    id: 1,
+    isFavorites: true,
+    img: BTC,
+    tag: "BTC",
+    asset: "Bitcoin",
+    upPirce: "22,788,01",
+    price: "/ A$32,814,73",
+    change: "-0.02%",
+    changeCount: "23.470.02 / 22.661.80",
+    volume: "1,280.34M",
+    cap: "$460.00B",
+    type: "down",
+    data: [30, 20, 30, 10, 0, 10],
+  },
+  {
+    id: 2,
+    img: ETH,
+    tag: "ETH",
+    asset: "Ethereum",
+    downPirce: "1,611.30",
+    price: "/ A$32,814,73",
+    change: "+1.42%",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "814.78M",
+    cap: "$216.69B",
+    type: "up",
+    data: [10, 0, 30, 50, 40, 70],
+  },
+  {
+    id: 3,
+    img: OKB,
+    tag: "OKB",
+    asset: "OKB",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    change: " -3.82% ",
+    changeCount: "42.45 / 37.45",
+    volume: "89.27M",
+    cap: "$65.89B",
+    type: "up",
+    data: [40, 20, 30],
+  },
+  {
+    id: 4,
+    img: OKT,
+    tag: "OKT",
+    asset: "OKC Token",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$54.76B",
+    change: "+1.92%",
+    type: "down",
+    data: [10, 20, 70],
+  },
+  {
+    id: 5,
+    img: LTC,
+    tag: "LTC",
+    asset: "Litecoin",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+1.92%",
+    type: "down",
+    data: [20, 20, 60],
+  },
+  {
+    id: 6,
+    img: DOT,
+    tag: "DOT",
+    asset: "Polkadot",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+1.92%",
+    type: "down",
+    data: [10, 20, 30],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+1.92%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+1.92%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+1.92%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 7,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 8,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 9,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 10,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 11,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 12,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "242.45 / 237.45",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 13,
+    img: ADA,
+    tag: "ADA",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 14,
+    img: ADA,
+    tag: "Metaverse",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 15,
+    img: ADA,
+    tag: "Metaverse",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 16,
+    img: ADA,
+    tag: "Metaverse",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 17,
+    img: ADA,
+    tag: "Metaverse",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 18,
+    img: ADA,
+    tag: "Metaverse",
+    asset: "Cardano",
+    changePrice: "38.75",
+    price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
+    volume: "89.27M",
+    cap: "$18.50B",
+    change: "+0.20%",
+    type: "up",
+    data: [10, 0, 30, 0, 50, 10, 90],
+  },
+];
+
+const filterSpotData = computed(() => {
+  if (radioValue.value === "All") return spotData;
+  return spotData.filter((v) => v.tag.includes(radioValue.value));
+});
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -606,10 +983,10 @@ function resetWidth() {
     height: 37px; //搜索框
   }
 
-  .el-icon svg {
-    width: 25px;
-    height: 25px;
-  }
+  // .el-icon svg {
+  //   width: 25px;
+  //   height: 25px;
+  // }
   .el-input__wrapper {
     background: #f1f1f1;
     box-shadow: none;
@@ -628,6 +1005,9 @@ function resetWidth() {
     font-size: 14px;
     line-height: 16px;
     color: #878787;
+  }
+  .el-table th.el-table__cell {
+    font-weight: 400;
   }
   .el-table__body {
     font-weight: 500;
@@ -736,7 +1116,7 @@ function resetWidth() {
     font-size: 16px;
     color: #01c19a;
     line-height: 19px;
-    font-weight: 600;
+    font-weight: 500;
   }
 }
 :deep(.el-empty__image) {
