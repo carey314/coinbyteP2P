@@ -16,15 +16,27 @@
     </div>
     <Table :sourceData="tableData">
         <template v-slot:columns>
-            <el-table-column prop="time" label="Time" width="180" />
-            <el-table-column prop="type" label="Type" width="180" />
+            <el-table-column prop="time" label="Time" width="200" />
+            <el-table-column prop="type" label="Type" />
             <el-table-column prop="deposit_wallet" label="Deposit wallet" />
             <el-table-column prop="asset" label="Asset" />
             <el-table-column prop="amount" label="Amount" />
-            <el-table-column prop="destination" label="Destination" />
-            <el-table-column prop="TxID" label="TxID" />
-            <el-table-column label="Status" >
+            <el-table-column label="Destination" >
                 <template #default="scope">
+                    <div>
+                        {{ scope.row.destination }} <el-icon style="color: #7B8293;"><Paperclip /></el-icon> <el-icon style="color: #7B8293;"><CopyDocument /></el-icon>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column label="TxID" >
+                <template #default="scope">
+                    <div>
+                        {{ scope.row.TxID }} <el-icon style="color: #7B8293;"><Paperclip /></el-icon> <el-icon style="color: #7B8293;"><CopyDocument /></el-icon>
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column label="Status" fixed="right">
+                <template #default="scope" >
                     <div v-if="scope.row.status === 'Completed'" style="color: #01C19A;">
                         Completed
                     </div>
@@ -42,6 +54,7 @@
     import type { FormInstance, FormRules } from 'element-plus'
     import FilterSelect from '../../../component/FilterSelect.vue';
     import CustomButton from '../../../component/CustomButton.vue';
+    import { CopyDocument,Paperclip } from '@element-plus/icons-vue';
     import Table from '../../../component/Table.vue';
     const selectMap = ref([
         {
