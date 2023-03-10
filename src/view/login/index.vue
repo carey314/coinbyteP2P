@@ -225,12 +225,13 @@ const toLogin = () => {
         ElMessage.error('Login failed. Please try again later!');
       }
     }).catch((err : any) => {
-      const error = err.error;
-      console.log(err.error.details[0].issue);
-      if(error.code === 0) {
-        ElMessage.error(error.details[0].issue);
-      } else {
-        ElMessage.error("Login failed. Please try again later");
+      if( err.response ) {
+        const error = err.response.data.error;
+        if(error.code === 0) {
+          ElMessage.error(error.details[0].issue);
+        } else {
+          ElMessage.error("Login failed. Please try again later");
+        }
       }
     })
   }
