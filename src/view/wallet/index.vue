@@ -11,7 +11,9 @@
 
         <el-tab-pane label="Earning" name="third">Earning</el-tab-pane>
 
-        <el-tab-pane label="History" name="fourth">History</el-tab-pane>
+        <el-tab-pane label="History" name="fourth">
+          <History></History>
+        </el-tab-pane>
 
         <el-tab-pane label="Account Statement" name="fifth"
           >Account Statement</el-tab-pane
@@ -30,6 +32,7 @@ import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import OverView from "../wallet/layout/OverView.vue";
+import History from "./layout/History/History.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 
 import type { TabsPaneContext } from "element-plus";
