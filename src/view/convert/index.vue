@@ -108,7 +108,7 @@
                 </div>
                 <div class="exchange-icon">
                   <!-- 中间转换图片 -->
-                  <img :src="crypto_buy"/> 
+                  <img :src="crypto_buy" />
                 </div>
                 <div class="pro-input">
                   <div class="input-second-title">You Receive</div>
@@ -177,9 +177,9 @@
                     <el-divider direction="vertical" style="height: 22px" />
                   </div>
                   <div class="convert-tip">
-                    <div class="tip-left" style="display: flex;">
+                    <div class="tip-left" style="display: flex">
                       Estimated : 1 USDT ≈ 0.00004646 BTC
-                      <div style="margin-left: 8px;">
+                      <div style="margin-left: 8px">
                         <img :src="buy_info" />
                       </div>
                     </div>
@@ -270,7 +270,7 @@
                 </div>
                 <div class="exchange-icon">
                   <!-- 中间转换图片 -->
-                  <img :src="crypto_buy"/> 
+                  <img :src="crypto_buy" />
                 </div>
                 <div class="pro-input">
                   <div class="input-second-title">You Receive</div>
@@ -339,9 +339,9 @@
                     <el-divider direction="vertical" style="height: 22px" />
                   </div>
                   <div class="convert-tip">
-                    <div class="tip-left" style="display: flex;">
+                    <div class="tip-left" style="display: flex">
                       Estimated : 1 USDC ≈ 0.9998 USDT
-                      <div style="margin-left: 8px;">
+                      <div style="margin-left: 8px">
                         <img :src="buy_info" />
                       </div>
                     </div>
@@ -686,7 +686,7 @@ $fontSizeMin: 12px;
         .input-tip {
           position: absolute;
           top: 50px;
-          left: 64%;
+          right: 178px;
           z-index: 1;
           color: #f15958;
           font-size: $fontSizeMin;
@@ -694,10 +694,10 @@ $fontSizeMin: 12px;
             margin: 0 10px;
           }
         }
-        .input-split{
+        .input-split {
           position: absolute;
           top: 20px;
-          left: 71%;
+          right: 138px;
           z-index: 1;
           :deep(.el-divider--vertical) {
             margin: 0 10px;
@@ -708,7 +708,7 @@ $fontSizeMin: 12px;
           margin: auto;
           width: 16px;
           height: 16px;
-          img{
+          img {
             width: 100%;
             height: 100%;
             object-fit: cover;
