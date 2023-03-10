@@ -188,7 +188,7 @@
         },
     ]);
     const cloneSearchData = selectMap.value.map(v => v.title);
-    let cloneSearchMap = {};
+    let cloneSearchMap: {[key: string]: string} = {};
     cloneSearchData.forEach(v => {
         cloneSearchMap[v] = "";
     })
