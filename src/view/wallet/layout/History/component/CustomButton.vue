@@ -4,8 +4,9 @@
     </el-button>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import {ref,defineProps} from 'vue';
+    import {emitChangeFn} from "element-plus";
     
     defineProps({
         title : {
@@ -25,7 +26,6 @@
         emitChangeFn("handleClick");
     }
 </script>
-
 <style lang="scss" scoped>
     .custom-button {
         // background: #01C19A;
