@@ -12,7 +12,7 @@
         />
       </div>
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane  label="All Cryptos" name="first">
+        <el-tab-pane label="All Cryptos" name="first">
           <template #label>
             <span class="custom-tabs-label">
               <el-icon><StarFilled /></el-icon>
@@ -50,7 +50,7 @@
               class="crypto-table"
               :default-sort="{ prop: 'address', order: 'ascending' }"
             >
-              <el-table-column prop="date" label="Crypto" width="500px">
+              <el-table-column prop="date" label="Crypto" width="600px">
                 <template #default="scope" class="cleatfloat">
                   <el-icon class="crypto-star clearfloat"
                     ><StarFilled
@@ -75,7 +75,12 @@
                   <span class="table-price">{{ scope.row.price }}</span>
                 </template>
               </el-table-column>
-              <el-table-column prop="change" label="Change" sortable>
+              <el-table-column
+                prop="change"
+                label="Change"
+                sortable
+                align="right"
+              >
                 <template #default="scope">
                   <span
                     v-if="scope.row.change.indexOf('-') > -1"
@@ -95,7 +100,12 @@
                   </span>
                 </template>
               </el-table-column>
-              <el-table-column prop="address" label="Market cap" sortable>
+              <el-table-column
+                prop="address"
+                label="Market cap"
+                sortable
+                align="right"
+              >
                 <template #default="scope">
                   <span class="table-price">{{ scope.row.cap }}</span>
                 </template>
@@ -119,10 +129,7 @@
               </el-table-column>
 
               <template #empty>
-                <el-empty
-                  :image="no_found"
-                  description="No Results Found"
-                >
+                <el-empty :image="no_found" description="No Results Found">
                 </el-empty>
               </template>
             </el-table>
@@ -138,9 +145,118 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane label="Spot Markets" name="third"
-          >Spot Markets</el-tab-pane
-        >
+        <el-tab-pane label="Spot Markets" name="third">
+          <el-radio-group v-model="radioValue">
+            <el-scrollbar>
+              <div class="scrollbar-flex-content">
+                <el-radio-button label="All" />
+                <el-radio-button label="USDT" />
+                <el-radio-button label="BNB" />
+                <el-radio-button label="BTC" />
+                <el-radio-button label="ALTS" />
+                <el-radio-button label="FIAT(All)" />
+                <el-radio-button label="ETF" />
+              </div>
+            </el-scrollbar>
+          </el-radio-group>
+          <div>
+            <el-table
+              :data="filterTableData"
+              :table-layout="tableLayout"
+              class="crypto-table"
+              :default-sort="{ prop: 'address', order: 'ascending' }"
+            >
+              <el-table-column prop="date" label="Crypto" width="260px">
+                <template #default="scope" class="cleatfloat">
+                  <el-icon class="crypto-star clearfloat"
+                    ><StarFilled
+                  /></el-icon>
+
+                  <div class="crypto-icon clearfloat">
+                    <img
+                      class="table-img"
+                      style="width: 2rem"
+                      :src="scope.row.img"
+                      alt=""
+                    />
+                    <span class="table-tag">{{ scope.row.tag }}</span>
+                    <span class="table-asset" style="color: #9b9b9b">{{
+                      scope.row.asset
+                    }}</span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="name" label="Price" sortable align="right">
+                <template #default="scope">
+                  <span class="table-price">{{ scope.row.price }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="change"
+                label="Change"
+                sortable
+                align="right"
+              >
+                <template #default="scope">
+                  <span
+                    v-if="scope.row.change.indexOf('-') > -1"
+                    style="color: #f15958"
+                  >
+                    <span class="table-change">
+                      {{ scope.row.change }}
+                    </span>
+                  </span>
+                  <span
+                    v-if="scope.row.change.indexOf('+') > -1"
+                    style="color: #01c19a"
+                  >
+                    <span class="table-change">
+                      {{ scope.row.change }}
+                    </span>
+                  </span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="address"
+                label="Market cap"
+                sortable
+                align="right"
+              >
+                <template #default="scope">
+                  <span class="table-price">{{ scope.row.cap }}</span>
+                </template>
+              </el-table-column>
+
+              <el-table-column
+                align="right"
+                prop="address"
+                label="Action"
+                class="action"
+              >
+                <template #header> Action </template>
+                <template #default="scope">
+                  <div class="action-btn">
+                    <el-button text link>Trade</el-button>
+                  </div>
+                </template>
+              </el-table-column>
+
+              <template #empty>
+                <el-empty :image="no_found" description="No Results Found">
+                </el-empty>
+              </template>
+            </el-table>
+            <div class="example-pagination-block">
+              <el-pagination
+                background
+                :hide-on-single-page="filterTableData.length < 10"
+                layout="prev, pager, next"
+                :page-size="3"
+                :total="filterTableData.length"
+              />
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
     </div>
 
@@ -182,7 +298,7 @@ const tableLayout = ref("fixed");
 //   console.log(a,b);
 
 //   return a.cap - b.cap;
-// } 
+// }
 
 const tableData = [
   {
@@ -469,7 +585,7 @@ function resetWidth() {
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
-    padding: 45px 20px 135px 20px;
+    padding: 21px 20px 135px 20px;
   }
 }
 .search-input {
@@ -479,6 +595,10 @@ function resetWidth() {
   width: 231px;
   height: 37px;
   z-index: 99;
+  @media (max-width: 1440px) {
+    right: 20px;
+    // top: 20px;
+  }
 }
 
 :deep() {
@@ -508,6 +628,9 @@ function resetWidth() {
     font-size: 14px;
     line-height: 16px;
     color: #878787;
+  }
+  .el-table__body {
+    font-weight: 500;
   }
   .el-tabs__item is-top {
     --el-menu-active-color: #01c19a;
@@ -616,8 +739,14 @@ function resetWidth() {
     font-weight: 600;
   }
 }
-:deep(.el-empty__image){
+:deep(.el-empty__image) {
   margin-left: 40px;
+  margin-top: 52px;
+}
+:deep(.el-empty__description p) {
+  font-weight: 400;
+  font-size: 16px !important;
+  color: #9b9b9b !important;
 }
 .example-pagination-block {
   float: right;

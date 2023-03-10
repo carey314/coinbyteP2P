@@ -108,7 +108,7 @@
                 </div>
                 <div class="exchange-icon">
                   <!-- 中间转换图片 -->
-                  <!-- <img :src=""/>  -->
+                  <img :src="crypto_buy" />
                 </div>
                 <div class="pro-input">
                   <div class="input-second-title">You Receive</div>
@@ -119,7 +119,7 @@
                   >
                     <template #append>
                       <div class="option-icon">
-                        <img :src="part01_BTC" />
+                        <img :src="crypto_icon_usdt" />
                       </div>
                       <el-select
                         v-model="secondSelect"
@@ -173,10 +173,15 @@
                       </el-select>
                     </template>
                   </el-input>
+                  <div class="input-split">
+                    <el-divider direction="vertical" style="height: 22px" />
+                  </div>
                   <div class="convert-tip">
-                    <div class="tip-left">
+                    <div class="tip-left" style="display: flex">
                       Estimated : 1 USDT ≈ 0.00004646 BTC
-                      <!-- <img :src="" /> -->
+                      <div style="margin-left: 8px">
+                        <img :src="buy_info" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -196,7 +201,7 @@
                   >
                     <template #append>
                       <div class="option-icon">
-                        <img :src="part01_BTC" />
+                        <img :src="crypto_icon_usdt" />
                       </div>
                       <el-select
                         v-model="secondSelect"
@@ -265,7 +270,7 @@
                 </div>
                 <div class="exchange-icon">
                   <!-- 中间转换图片 -->
-                  <!-- <img :src=""/>  -->
+                  <img :src="crypto_buy" />
                 </div>
                 <div class="pro-input">
                   <div class="input-second-title">You Receive</div>
@@ -276,7 +281,7 @@
                   >
                     <template #append>
                       <div class="option-icon">
-                        <img :src="part01_BTC" />
+                        <img :src="crypto_icon_usdc" />
                       </div>
                       <el-select
                         v-model="thirdSelect"
@@ -330,10 +335,15 @@
                       </el-select>
                     </template>
                   </el-input>
+                  <div class="input-split">
+                    <el-divider direction="vertical" style="height: 22px" />
+                  </div>
                   <div class="convert-tip">
-                    <div class="tip-left">
+                    <div class="tip-left" style="display: flex">
                       Estimated : 1 USDC ≈ 0.9998 USDT
-                      <!-- <img :src="" /> -->
+                      <div style="margin-left: 8px">
+                        <img :src="buy_info" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -389,7 +399,10 @@ import convert_icon01 from "../../assets/home/convert_icon01.png";
 import convert_icon02 from "../../assets/home/convert_icon02.png";
 import convert_icon03 from "../../assets/home/convert_icon03.png";
 import part01_BTC from "../../assets/home/part01_BTC.png";
-import login_email from "../../assets/home/login_email.svg";
+import crypto_icon_usdt from "../../assets/home/crypto_icon_usdt.png";
+import crypto_icon_usdc from "../../assets/home/crypto_icon_usdc.png";
+import crypto_buy from "../../assets/home/crypto_buy.png";
+import buy_info from "../../assets/home/buy_info.svg";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -673,7 +686,7 @@ $fontSizeMin: 12px;
         .input-tip {
           position: absolute;
           top: 50px;
-          left: 64%;
+          right: 178px;
           z-index: 1;
           color: #f15958;
           font-size: $fontSizeMin;
@@ -681,12 +694,30 @@ $fontSizeMin: 12px;
             margin: 0 10px;
           }
         }
+        .input-split {
+          position: absolute;
+          top: 20px;
+          right: 138px;
+          z-index: 1;
+          :deep(.el-divider--vertical) {
+            margin: 0 10px;
+          }
+        }
         .exchange-icon {
-          padding: 0 8px;
+          margin-top: 6px !important;
+          margin: auto;
+          width: 16px;
+          height: 16px;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
         }
         .pro-input {
-          margin-top: 33px;
+          margin-top: 12px;
           position: relative;
+
           .input-second-title {
             position: absolute;
             top: 8px;

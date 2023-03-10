@@ -40,12 +40,7 @@ import type { TabsPaneContext } from "element-plus";
 // import no_found from "../../../assets/home/no_found.png";
 
 // import BTC from "../../assets/home/part01_BTC.png";
-// import ETH from "../../../assets/home/part01_ETH.png";
-// import OKB from "../../../assets/home/part01_OKB.png";
-// import OKT from "../../../assets/home/part01_OKT.png";
-// import LTC from "../../../assets/home/part01_LTC.png";
-// import DOT from "../../../assets/home/part01_DOT.png";
-// import ADA from "../../../assets/home/part01_ADA.png";
+
 
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -74,7 +69,7 @@ function resetWidth() {
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
-    padding: 45px 20px 135px 20px;
+    padding: 21px 20px 135px 20px;
   }
 }
 
@@ -106,6 +101,9 @@ function resetWidth() {
   .el-tabs__active-bar {
     background-color: #01c19a;
     height: 4px;
+  }
+  .el-tabs__nav-wrap::after{
+    height: 1px;
   }
 
   .el-radio-button {
