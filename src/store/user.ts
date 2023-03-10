@@ -8,8 +8,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
   // 计算属性
 //   const upperMsg = computed(() => msg.value.toUpperCase())
   // 方法(同步调用或异步调用)
-  const changeToken = (newToken) => {
-    console.log(123);
+  const changeToken = (newToken:any) => {
     token.value = newToken;
   }
 
@@ -25,6 +24,5 @@ export const useUserInfoStore = defineStore('useInfo', () => {
           paths: ['token'],//指定要长久化的字段
         }
       ]
-    
     }
   })
