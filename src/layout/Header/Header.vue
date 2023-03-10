@@ -75,15 +75,21 @@
         <!-- 登录后 -->
         <template v-if="showname">
           <li>
-            <router-link to="/wallet" style="text-decoration: none"
-              ><span class="login-span">Wallet</span
-              ><el-icon style="color: #fff"><CaretBottom /></el-icon
+            <router-link to="/wallet" style="text-decoration: none">
+              <div class="login-span">
+                Wallet
+                <div>
+                  <el-icon style="color: #fff"><CaretBottom /></el-icon>
+                </div></div
             ></router-link>
           </li>
-          <li style="margin-left: 20px">
+          <li style="margin-left: 10px">
             <router-link to="/" style="text-decoration: none"
-              ><span class="login-span">Orders</span
-              ><el-icon style="color: #fff"><CaretBottom /></el-icon
+              ><div class="login-span">
+                Orders
+                <div>
+                  <el-icon style="color: #fff"><CaretBottom /></el-icon>
+                </div></div
             ></router-link>
           </li>
           <li>
@@ -335,7 +341,6 @@ import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
 import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
 import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
 
-
 const showname = ref<boolean>(true); //header是否登陆
 
 let deg = ref<number>(0);
@@ -450,7 +455,6 @@ $regular-font: HarmonyOS_Sans_Regular;
   width: 100%;
   line-height: 64px;
   height: 64px;
-  // font-size: 14px !important;
   background-color: $headerBackGround;
   display: flex;
   align-items: center;
@@ -529,6 +533,11 @@ $regular-font: HarmonyOS_Sans_Regular;
     .align-icon {
       vertical-align: middle;
     }
+    :deep(.el-icon) {
+      width: 12px;
+      height: 12px;
+      margin-top: 20px;
+    }
   }
   .menu-dropdown {
     position: fixed;
@@ -601,6 +610,9 @@ $regular-font: HarmonyOS_Sans_Regular;
     }
   }
   .login-span {
+    display: flex;
+    align-items: center;
+    height: 64px;
     line-height: 50px;
     margin-right: 6px;
     color: #fff;
