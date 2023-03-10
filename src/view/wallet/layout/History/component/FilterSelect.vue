@@ -20,7 +20,7 @@
     defineProps({
         title : {
             type : String,
-            default : "xx"
+            default : ""
         },
         options : {
             type : Object,

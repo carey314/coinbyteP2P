@@ -4,7 +4,9 @@
             <el-tab-pane label="Deposit/Withdraw History " name="first">
                 <DepositWithdraw></DepositWithdraw>
             </el-tab-pane>
-            <el-tab-pane label="Buy/Sell History" name="second">Buy/Sell History</el-tab-pane>
+            <el-tab-pane label="Buy/Sell History" name="second">
+                <BuySell></BuySell>
+            </el-tab-pane>
             <el-tab-pane label="Convert History" name="third">
                 <Convert></Convert>
             </el-tab-pane>
@@ -20,6 +22,7 @@
     import type { TabsPaneContext } from 'element-plus'
     import DepositWithdraw from './modules/DepositWithdraw/DepositWithdraw.vue';
     import Spot from './modules/Spot/Spot.vue';
+    import BuySell from './modules/BuySell/BuySell.vue';
     import Convert from './modules/Convert/Convert.vue';
     const activeName = ref('first')
 
