@@ -38,7 +38,7 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
     import {ref} from 'vue';
     import FilterSelect from '../../component/FilterSelect.vue';
     import CustomButton from '../../component/CustomButton.vue';
