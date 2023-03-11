@@ -177,7 +177,7 @@
             <img :src="overview_eye" />
           </div>
           <div class="value-center">
-            <div>₮980.98</div>
+            <div>₮{{ TotalAmount }}</div>
             <div>
               <button class="language-chose">
                 <img :src="wallet_select_usdt_on" alt="" />
@@ -209,7 +209,7 @@
                 <div class="assets-icon"><img :src="icon_trading" /></div>
                 <div class="item-title">Trading</div>
               </div>
-              <div class="assets-price">₮980.00</div>
+              <div class="assets-price">₮{{ TotalAmount }}</div>
               <div class="demo-progress">
                 <div class="progress-count">100.00%</div>
                 <el-progress
@@ -311,20 +311,24 @@
             </div>
           </template>
           <div class="value-bottom">
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image">
-                  <img :src="wallet_select_usdt_on" />
+            <template v-for="item in assetsData">
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img v-if="item.currency === 'USD'" :src="wallet_select_usdt_on" />
+                    <img v-else-if="item.currency === 'ETH'" :src="crypto_icon_eth" />
+                    <img v-else-if="item.currency === 'BTC'" :src="crypto_icon_btc" />
+                  </div>
+                  <div style="margin-left: 43px;">
+                    <div class="recent-title">{{ item.currency }}</div>
+                    <div class="recent-date">{{ parseFloat(item.balance).toFixed(2) }} {{ item.currency }}</div>
+                  </div>
                 </div>
-                <div style="margin-left: 43px;">
-                  <div class="recent-title">USDT</div>
-                  <div class="recent-date">968.0000 USDT</div>
-                </div>
+                <div class="recent-count">₮{{ parseFloat(item.balance).toFixed(2) }}</div>
               </div>
-              <div class="recent-count">₮960.98</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
+              <el-divider style="margin-left: -20px; width: 200%" />
+            </template>
+            <!-- <div class="recent-box">
               <div class="box-left clearfloat">
                 <div class="rencent-image">
                   <img :src="crypto_icon_eth" />
@@ -349,7 +353,7 @@
               </div>
               <div class="recent-count">₮10.00</div>
             </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
+            <el-divider style="margin-left: -20px; width: 200%" /> -->
             <div class="view-more">View more ></div>
           </div>
         </el-card>
@@ -359,7 +363,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive,onMounted,computed } from "vue";
 import { ArrowDown, Timer } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 
@@ -375,6 +379,26 @@ import icon_withdrawal from "../../../../assets/wallet/icon_withdrawal.png";
 import icon_gift from "../../../../assets/wallet/icon_gift.png";
 import crypto_icon_eth from "../../../../assets/home/crypto_icon_eth.png";
 import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
+
+import {getMyAssets} from '../../../../api/wallet';
+interface AssetsData {
+  currency : string,
+  balance : string
+}
+const assetsData = ref<AssetsData[]>([]);
+onMounted(() => {
+  getMyAssets().then(res => {
+    console.log(res.data.data);
+    if(res.data.data) {
+      assetsData.value = res.data.data.map((v: any) => {
+        return {
+          currency : v.product.currency.name,
+          balance : v.report.balance.value
+        }
+      });
+    }
+  })
+})
 
 interface User {
   date: string;
@@ -408,7 +432,15 @@ const buy = ref("Buy");
 const convert = ref("Convert");
 const withdraw = ref("Withdraw");
 const transfer = ref("Transfer");
-const noneOverView = ref<boolean>(false);
+// const noneOverView = ref<boolean>(false);
+const noneOverView = computed(() => !(assetsData.value.length > 0));
+const TotalAmount = computed(() => {
+  let count = 0;
+  assetsData.value.forEach((v : any) => {
+    count += parseFloat(v.balance);
+  });
+  return count.toFixed(2);
+})
 </script>
 
 <style scoped lang="scss">

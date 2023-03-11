@@ -73,7 +73,7 @@
     <div class="header-right">
       <ul class="right-menu">
         <!-- 登录后 -->
-        <template v-if="showname">
+        <template v-if="userInfoStore.isLogin">
           <li>
             <router-link to="/wallet" style="text-decoration: none">
               <div class="login-span">
@@ -98,7 +98,7 @@
             </el-dropdown>
           </li>
         </template>
-        <template v-else="!showname">
+        <template v-else>
           <li>
             <router-link to="/login" style="text-decoration: none"
               ><span class="login-span">Log in</span></router-link
@@ -341,7 +341,10 @@ import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
 import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
 import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
 
-const showname = ref<boolean>(true); //header是否登陆
+import { useUserInfoStore } from '../../store/user';
+const userInfoStore = useUserInfoStore();
+
+const showname = ref<boolean>(false); //header是否登陆
 
 let deg = ref<number>(0);
 const navCurrency = ref();

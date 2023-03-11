@@ -11,8 +11,25 @@ export const useUserInfoStore = defineStore('useInfo', () => {
   const changeToken = (newToken:any) => {
     token.value = newToken;
   }
+  const refreshToken = ref(null);
+  const changeRefreshToken = (newToken:any) => {
+    refreshToken.value = newToken;
+  }
 
-  return { token, username,changeToken }
+  const userInfo = ref({});
+  const isLogin = computed(() => {
+    if(refreshToken.value && token.value) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  const clearToken = () => {
+    token.value = null;
+    refreshToken.value = null;
+  }
+  return { token, username,changeToken,refreshToken,changeRefreshToken ,isLogin,clearToken};
 },{
     persist: {
       enabled: true,
@@ -21,7 +38,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
       strategies: [
         {
           storage: localStorage,//表示存储在localStorage
-          paths: ['token'],//指定要长久化的字段
+          paths: ['token','refreshToken'],//指定要长久化的字段
         }
       ]
     }

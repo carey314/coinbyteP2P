@@ -7,9 +7,13 @@
 <script setup lang="ts">
     import http from '../../../utils/http';
     import { onMounted } from 'vue';
+    import {getProfile} from '../../../api/user';
     onMounted(() => {
-        http.get("/v1/me?with=").then(res => {
-            console.log(JSON.parse(res.data.data.settings.gridsters));
+        // http.get("/v1/me?with=").then(res => {
+        //     console.log(JSON.parse(res.data.data.settings.gridsters));
+        // })
+        getProfile().then((res : any) => {
+            console.log(res.data);
         })
     })
     const handleText = () => {
