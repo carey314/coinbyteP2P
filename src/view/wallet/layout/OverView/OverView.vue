@@ -1,67 +1,100 @@
 <template>
-  <div class="overview-none-page" v-if="noneOverView">
-    <el-row :gutter="15">
-      <el-col :span="16" class="left-box">
-        <div class="left-value">
-          <div class="value-top">
-            Est. total value
-            <img :src="overview_eye" />
-          </div>
-          <div class="value-center">
-            <div>₮0.00</div>
-            <div>
-              <button class="language-chose">
-                <img :src="wallet_select_usdt_off" alt="" />
-                USDT
-                <el-icon style="width: 18px; color: #cbcccf"
-                  ><ArrowDown
-                /></el-icon>
-              </button>
+  <div class="overview-none-page" v-if="!noneOverView">
+    <div v-if="windowWidth > 985">
+      <el-row :gutter="15">
+        <el-col :span="16" class="left-box">
+          <div class="left-value">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
             </div>
-          </div>
-          <div class="value-bottom">
-            <div class="bottom-image"><img :src="icon_wallet" /></div>
-            <div class="bottom-title minMainFont">
-              Your current equity is zero
-            </div>
-            <div class="bottom-btn">
-              <GetButton class="deposit-btn" type="success" :text="deposit" />
-              <GetButton class="buy-btn" :text="buy" />
-            </div>
-          </div>
-        </div>
-        <div class="left-assets">
-          <el-card class="box-card">
-            <template #header>
-              <div class="card-header">
-                <span>My assets</span>
+            <div class="value-center">
+              <div>₮0.00</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_off" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
               </div>
-            </template>
-            <!-- <el-table
-              :data="tableData"
-              style="width: 100%;"
-              :show-header="false"
-            >
-              <el-table-column width="200">
-                <template #default="scope">
-                  <div
-                    style="
-                      display: flex;
-                      align-items: center;
-                      font-size: 16px;
-                      color: #000000;
-                    "
-                  >
-                    <el-icon><timer /></el-icon>
-                    <span style="margin-left: 10px">{{ scope.row.date }}</span>
-                  </div>
-                </template>
-              </el-table-column>
+            </div>
+            <div class="value-bottom">
+              <div class="bottom-image"><img :src="icon_wallet" /></div>
+              <div class="bottom-title minMainFont">
+                Your current equity is zero
+              </div>
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="buy-btn" :text="buy" />
+              </div>
+            </div>
+          </div>
+          <div class="left-assets">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>My assets</span>
+                </div>
+              </template>
+              <!-- <el-table
+                :data="tableData"
+                style="width: 100%;"
+                :show-header="false"
+              >
+                <el-table-column width="200">
+                  <template #default="scope">
+                    <div
+                      style="
+                        display: flex;
+                        align-items: center;
+                        font-size: 16px;
+                        color: #000000;
+                      "
+                    >
+                      <el-icon><timer /></el-icon>
+                      <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                    </div>
+                  </template>
+                </el-table-column>
 
-              <el-table-column width="180">
-                <div style="font-size: 16px; color: #000000">₮0.00</div>
-              </el-table-column>
-              <el-table-column>
+                <el-table-column width="180">
+                  <div style="font-size: 16px; color: #000000">₮0.00</div>
+                </el-table-column>
+                <el-table-column>
+                  <div class="demo-progress">
+                    <div class="progress-count">0.00%</div>
+                    <el-progress
+                      :percentage="0"
+                      stroke-width="9"
+                      :show-text="false"
+                      class="progress-bar"
+                    />
+                  </div>
+                </el-table-column>
+                <el-table-column
+                  align="right"
+                  style="display: flex"
+                >
+                  <template #default="scope">
+                    <el-button
+                      type="success"
+                      @click="handleEdit(scope.$index, scope.row)"
+                      >Deposit</el-button
+                    >
+                    <el-button @click="handleDelete(scope.$index, scope.row)"
+                      >More</el-button
+                    >
+                  </template>
+                </el-table-column>
+              </el-table> -->
+              <div class="assets-body">
+                <div class="assets-item">
+                  <div class="assets-icon"><img :src="icon_trading" /></div>
+                  <div class="item-title">Trading</div>
+                </div>
+                <div>₮0.00</div>
                 <div class="demo-progress">
                   <div class="progress-count">0.00%</div>
                   <el-progress
@@ -71,102 +104,201 @@
                     class="progress-bar"
                   />
                 </div>
-              </el-table-column>
-              <el-table-column
-                align="right"
-                style="display: flex"
-              >
-                <template #default="scope">
-                  <el-button
-                    type="success"
-                    @click="handleEdit(scope.$index, scope.row)"
-                    >Deposit</el-button
-                  >
-                  <el-button @click="handleDelete(scope.$index, scope.row)"
-                    >More</el-button
-                  >
-                </template>
-              </el-table-column>
-            </el-table> -->
-            <div class="assets-body">
-              <div class="assets-item">
-                <div class="assets-icon"><img :src="icon_trading" /></div>
-                <div class="item-title">Trading</div>
+                <div class="assets-btn">
+                  <el-button type="success">Deposit</el-button>
+                  <el-button class="more">More</el-button>
+                </div>
               </div>
-              <div>₮0.00</div>
-              <div class="demo-progress">
-                <div class="progress-count">0.00%</div>
-                <el-progress
-                  :percentage="0"
-                  stroke-width="9"
-                  :show-text="false"
-                  class="progress-bar"
-                />
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="assets-body">
+                <div class="assets-item">
+                  <div class="assets-icon"><img :src="icon_trading" /></div>
+                  <div class="item-title">Earning</div>
+                </div>
+                <div>₮0.00</div>
+                <div class="demo-progress">
+                  <div class="progress-count">0.00%</div>
+                  <el-progress
+                    :percentage="0"
+                    stroke-width="9"
+                    :show-text="false"
+                    class="progress-bar"
+                  />
+                </div>
+                <div class="assets-btn">
+                  <el-button type="success">Earn</el-button>
+                  <el-button class="more">Transfer</el-button>
+                </div>
               </div>
-              <div class="assets-btn">
-                <el-button type="success">Deposit</el-button>
-                <el-button class="more">More</el-button>
+            </el-card>
+          </div>
+          <div class="left-recent">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="value-bottom">
+                <div class="bottom-image">
+                  <img :src="wallet_search_none" />
+                </div>
+                <div class="bottom-title minMainFont">
+                  You don't have any transactions yet
+                </div>
               </div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="assets-body">
-              <div class="assets-item">
-                <div class="assets-icon"><img :src="icon_trading" /></div>
-                <div class="item-title">Earning</div>
-              </div>
-              <div>₮0.00</div>
-              <div class="demo-progress">
-                <div class="progress-count">0.00%</div>
-                <el-progress
-                  :percentage="0"
-                  stroke-width="9"
-                  :show-text="false"
-                  class="progress-bar"
-                />
-              </div>
-              <div class="assets-btn">
-                <el-button type="success">Earn</el-button>
-                <el-button class="more">Transfer</el-button>
-              </div>
-            </div>
-          </el-card>
-        </div>
-        <div class="left-recent">
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="8" class="right-box">
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>Recent transactions</span>
+                <span>Assets</span>
               </div>
             </template>
             <div class="value-bottom">
-              <div class="bottom-image"><img :src="wallet_search_none" /></div>
+              <div class="bottom-image"><img :src="icon_wallet" /></div>
               <div class="bottom-title minMainFont">
-                You don't have any transactions yet
+                You don't have any assets yet
+              </div>
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="buy-btn" :text="buy" />
               </div>
             </div>
           </el-card>
-        </div>
-      </el-col>
-      <el-col :span="8" class="right-box">
-        <el-card class="box-card">
-          <template #header>
-            <div class="card-header">
-              <span>Assets</span>
+        </el-col>
+      </el-row>
+    </div>
+    <div v-else>
+      <el-row :gutter="15">
+        <el-col :span="24" class="left-box">
+          <div class="left-value">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
             </div>
-          </template>
-          <div class="value-bottom">
-            <div class="bottom-image"><img :src="icon_wallet" /></div>
-            <div class="bottom-title minMainFont">
-              You don't have any assets yet
+            <div class="value-center">
+              <div>₮0.00</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_off" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
+              </div>
             </div>
-            <div class="bottom-btn">
-              <GetButton class="deposit-btn" type="success" :text="deposit" />
-              <GetButton class="buy-btn" :text="buy" />
+            <div class="value-bottom">
+              <div class="bottom-image"><img :src="icon_wallet" /></div>
+              <div class="bottom-title minMainFont">
+                Your current equity is zero
+              </div>
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="buy-btn" :text="buy" />
+              </div>
             </div>
           </div>
-        </el-card>
-      </el-col>
-    </el-row>
+          <div class="left-assets">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>My assets</span>
+                </div>
+              </template>
+              <el-scrollbar>
+                <div class="scrollbar-flex-content">
+                  <div class="assets-body">
+                    <div class="assets-item">
+                      <div class="assets-icon"><img :src="icon_trading" /></div>
+                      <div class="item-title">Trading</div>
+                    </div>
+                    <div>₮0.00</div>
+                    <div class="demo-progress">
+                      <div class="progress-count">0.00%</div>
+                      <el-progress
+                        :percentage="0"
+                        stroke-width="9"
+                        :show-text="false"
+                        class="progress-bar"
+                      />
+                    </div>
+                    <div class="assets-btn">
+                      <el-button type="success">Deposit</el-button>
+                      <el-button class="more">More</el-button>
+                    </div>
+                  </div>
+                </div>
+              </el-scrollbar>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <el-scrollbar>
+                <div class="scrollbar-flex-content">
+                  <div class="assets-body">
+                    <div class="assets-item">
+                      <div class="assets-icon"><img :src="icon_trading" /></div>
+                      <div class="item-title">Earning</div>
+                    </div>
+                    <div>₮0.00</div>
+                    <div class="demo-progress">
+                      <div class="progress-count">0.00%</div>
+                      <el-progress
+                        :percentage="0"
+                        stroke-width="9"
+                        :show-text="false"
+                        class="progress-bar"
+                      />
+                    </div>
+                    <div class="assets-btn">
+                      <el-button type="success">Earn</el-button>
+                      <el-button class="more">Transfer</el-button>
+                    </div>
+                  </div>
+                </div>
+              </el-scrollbar>
+            </el-card>
+          </div>
+          <div class="left-recent">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="value-bottom">
+                <div class="bottom-image">
+                  <img :src="wallet_search_none" />
+                </div>
+                <div class="bottom-title minMainFont">
+                  You don't have any transactions yet
+                </div>
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="24" class="right-box">
+          <el-card class="box-card">
+            <template #header>
+              <div class="card-header">
+                <span>Assets</span>
+              </div>
+            </template>
+            <div class="value-bottom">
+              <div class="bottom-image"><img :src="icon_wallet" /></div>
+              <div class="bottom-title minMainFont">
+                You don't have any assets yet
+              </div>
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="buy-btn" :text="buy" />
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+      </el-row>
+    </div>
   </div>
   <div class="overview-date-page" v-else>
     <div v-if="windowWidth > 985">
@@ -770,9 +902,9 @@ $fontSizeMin: 12px;
       .box-card {
         box-shadow: none;
         width: 100%;
-        // :deep(.el-card__body) {
-        //   padding: 0px !important;
-        // }
+        .scrollbar-flex-content {
+          width: 650px;
+        }
         .assets-body {
           display: flex;
           justify-content: space-between;
@@ -871,6 +1003,9 @@ $fontSizeMin: 12px;
     }
   }
   .right-box {
+    @media (max-width: 1000px) {
+      margin-top: 27px;
+    }
     .card-header {
       span {
         font-size: 18px;
@@ -901,8 +1036,6 @@ $fontSizeMin: 12px;
         }
         .bottom-btn {
           margin-top: 21px;
-          // display: flex;
-          // justify-content: space-between;
           .deposit-btn {
             margin-left: -10px;
             font-weight: lighter;
