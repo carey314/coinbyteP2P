@@ -157,9 +157,10 @@ import { useRouter } from "vue-router";
 import { useUserInfoStore } from '../../store/user';
 import { storeToRefs } from 'pinia';
 import { ElMessage } from 'element-plus';
-
+import { getLoginUUID,toLogin as Tologin } from '../../api/login';
 const userInfoStore = useUserInfoStore();
-const { token,username } = storeToRefs(userInfoStore);
+const { token,username} = storeToRefs(userInfoStore);
+console.log(userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
@@ -170,10 +171,12 @@ const uuid = ref('');
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
-  http.get('/v2/my/signin/wizard').then((res : any) => {
+  getLoginUUID().then((res : any) => {
     if(res.data.code === 200 || res.data.code === 202) {
       uuid.value = res.data.uuid;
     }
+  }).catch(err => {
+    ElMessage.error("Unable to get uuid");
   });
 });
 onUnmounted(() => {
@@ -206,7 +209,10 @@ const toLogin = () => {
 
     // 对JSON字符串进行base64编码
     var base64String = btoa(jsonStr);
-
+    if(!uuid.value) {
+      ElMessage.error("Unable to get uuid");
+      return;
+    }
     const uploadMsg = {
       "uuid": uuid.value,
       "email": optional.value,
@@ -215,10 +221,12 @@ const toLogin = () => {
       "recaptchaResponse": "in quis cillum nisi"
     };
 
-    http.post('/v2/my/signin',uploadMsg).then((res : any)=> {
+    Tologin(uploadMsg).then((res : any)=> {
       const response = res.data;
       if( (response.code === 200 || response.code === 202)) {
+        console.log("Bearer " + response.data.accessToken.token);
         userInfoStore.changeToken(response.data.accessToken.token);
+        userInfoStore.changeRefreshToken(response.data.refreshToken.token);
         ElMessage.success('Login succeeded!');
         router.push("/");
       } else {

@@ -1,13 +1,21 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useUserInfoStore } from '../store/user';
+import {storeToRefs} from 'pinia';
+import { ElMessage } from 'element-plus';
 
-
+const userInfoStore = useUserInfoStore();
+const { token,username } = storeToRefs(userInfoStore);
 const instance = axios.create({
   baseURL: '/api',
   timeout: 20000
 });
 
+
 instance.interceptors.request.use(
     function (config) {
+      if(token && token !== null) {
+        config.headers.Authorization = 'Bearer ' + token.value;
+      }
       return config;
     },
     function (error) {
@@ -17,9 +25,18 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response: AxiosResponse) {
+    if(response.data && response.data.status === 401) {
+      // router.push("/login");
+      userInfoStore.clearToken();
+    }
     return response;
   },
   function (error) {
+    let status = error.response.status;
+    if(status === 401) {
+      // router.push("/login");
+      userInfoStore.clearToken();
+    }
     return Promise.reject(error);
   }
 );
