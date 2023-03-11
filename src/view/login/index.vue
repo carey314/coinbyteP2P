@@ -218,6 +218,7 @@ const toLogin = () => {
     http.post('/v2/my/signin',uploadMsg).then((res : any)=> {
       const response = res.data;
       if( (response.code === 200 || response.code === 202)) {
+        console.log(response);
         userInfoStore.changeToken(response.data.accessToken.token);
         ElMessage.success('Login succeeded!');
         router.push("/");

@@ -5,6 +5,13 @@
 </template>
 
 <script setup lang="ts">
+    import http from '../../../utils/http';
+    import { onMounted } from 'vue';
+    onMounted(() => {
+        http.get("/v1/me?with=").then(res => {
+            console.log(JSON.parse(res.data.data.settings.gridsters));
+        })
+    })
     const handleText = () => {
         const jsonString = '{"user_agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko\\/20100101 Firefox\\/47.0"}';
         const base64String = btoa(jsonString);

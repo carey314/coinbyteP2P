@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-
-
+import { useUserInfoStore } from '../store/user';
+import {storeToRefs} from 'pinia';
+const userInfoStore = useUserInfoStore();
+const { token,username } = storeToRefs(userInfoStore);
 const instance = axios.create({
   baseURL: '/api',
   timeout: 20000
@@ -8,6 +10,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
     function (config) {
+      if(token && token !== null) {
+        config.headers.Authorization = 'Bearer ' + token.value;
+      }
       return config;
     },
     function (error) {
