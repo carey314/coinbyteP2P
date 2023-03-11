@@ -169,197 +169,399 @@
     </el-row>
   </div>
   <div class="overview-date-page" v-else>
-    <el-row :gutter="15">
-      <el-col :span="16" class="left-box">
-        <div class="left-value clearfloat">
-          <div class="value-top">
-            Est. total value
-            <img :src="overview_eye" />
-          </div>
-          <div class="value-center">
-            <div>₮980.98</div>
-            <div>
-              <button class="language-chose">
-                <img :src="wallet_select_usdt_on" alt="" />
-                USDT
-                <el-icon style="width: 18px; color: #cbcccf"
-                  ><ArrowDown
-                /></el-icon>
-              </button>
+    <div v-if="windowWidth > 985">
+      <el-row :gutter="15">
+        <el-col :span="16" class="left-box">
+          <div class="left-value clearfloat">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
+            </div>
+            <div class="value-center">
+              <div>₮980.98</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_on" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
+              </div>
+            </div>
+            <div class="value-bottom">
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="func-btn" :text="convert" />
+                <GetButton class="func-btn" :text="withdraw" />
+                <GetButton class="func-btn" :text="transfer" />
+              </div>
             </div>
           </div>
-          <div class="value-bottom">
-            <div class="bottom-btn">
-              <GetButton class="deposit-btn" type="success" :text="deposit" />
-              <GetButton class="func-btn" :text="convert" />
-              <GetButton class="func-btn" :text="withdraw" />
-              <GetButton class="func-btn" :text="transfer" />
-            </div>
+          <div class="left-assets">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>My assets</span>
+                </div>
+              </template>
+              <div class="assets-body">
+                <div class="assets-item">
+                  <div class="assets-icon"><img :src="icon_trading" /></div>
+                  <div class="item-title">Trading</div>
+                </div>
+                <div class="assets-price">₮980.00</div>
+                <div class="demo-progress">
+                  <div class="progress-count">100.00%</div>
+                  <el-progress
+                    :percentage="100"
+                    stroke-width="9"
+                    :show-text="false"
+                    class="progress-bar"
+                  />
+                </div>
+                <div class="assets-btn">
+                  <el-button type="success">Deposit</el-button>
+                  <el-button class="more">More</el-button>
+                </div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="assets-body">
+                <div class="assets-item">
+                  <div class="assets-icon"><img :src="icon_trading" /></div>
+                  <div class="item-title">Earning</div>
+                </div>
+                <div class="assets-price">₮0.00</div>
+                <div class="demo-progress">
+                  <div class="progress-count">0.00%</div>
+                  <el-progress
+                    :percentage="0"
+                    stroke-width="9"
+                    :show-text="false"
+                    class="progress-bar"
+                  />
+                </div>
+                <div class="assets-btn">
+                  <el-button type="success">Earn</el-button>
+                  <el-button class="more">Transfer</el-button>
+                </div>
+              </div>
+            </el-card>
           </div>
-        </div>
-        <div class="left-assets">
+          <div class="left-recent">
+            <el-card class="recent-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-100 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert ETH</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.0776 ETH</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_deposit" /></div>
+                  <div class="recent-title">Deposit USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+3,499 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="icon_withdrawal" />
+                  </div>
+                  <div class="recent-title">Withdrawal USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-3,431 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_gift" /></div>
+                  <div class="recent-title">Get From Activity ETHW</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.01 ETHW</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more ></div>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="8" class="right-box">
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>My assets</span>
+                <span>Assets</span>
               </div>
             </template>
-            <div class="assets-body">
-              <div class="assets-item">
-                <div class="assets-icon"><img :src="icon_trading" /></div>
-                <div class="item-title">Trading</div>
+            <div class="value-bottom">
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="wallet_select_usdt_on" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">USDT</div>
+                    <div class="recent-date">968.0000 USDT</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮960.98</div>
               </div>
-              <div class="assets-price">₮980.00</div>
-              <div class="demo-progress">
-                <div class="progress-count">100.00%</div>
-                <el-progress
-                  :percentage="100"
-                  stroke-width="9"
-                  :show-text="false"
-                  class="progress-bar"
-                />
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="crypto_icon_eth" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">ETH</div>
+                    <div class="recent-date">0.0100 ETH</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮10.00</div>
               </div>
-              <div class="assets-btn">
-                <el-button type="success">Deposit</el-button>
-                <el-button class="more">More</el-button>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="crypto_icon_btc" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">BTC</div>
+                    <div class="recent-date">0.00049350 BTC</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮10.00</div>
               </div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="assets-body">
-              <div class="assets-item">
-                <div class="assets-icon"><img :src="icon_trading" /></div>
-                <div class="item-title">Earning</div>
-              </div>
-              <div class="assets-price">₮0.00</div>
-              <div class="demo-progress">
-                <div class="progress-count">0.00%</div>
-                <el-progress
-                  :percentage="0"
-                  stroke-width="9"
-                  :show-text="false"
-                  class="progress-bar"
-                />
-              </div>
-              <div class="assets-btn">
-                <el-button type="success">Earn</el-button>
-                <el-button class="more">Transfer</el-button>
-              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more ></div>
             </div>
           </el-card>
-        </div>
-        <div class="left-recent">
-          <el-card class="recent-card">
+        </el-col>
+      </el-row>
+    </div>
+    <div v-if="windowWidth <= 985">
+      <el-row>
+        <el-col :span="24" class="left-box">
+          <div class="left-value clearfloat">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
+            </div>
+            <div class="value-center">
+              <div>₮980.98</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_on" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
+              </div>
+            </div>
+            <div class="value-bottom clearfloat">
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="func-btn" :text="convert" />
+                <GetButton class="func-btn" :text="withdraw" />
+                <GetButton class="func-btn" :text="transfer" />
+              </div>
+            </div>
+          </div>
+          <div class="left-assets">
+            <el-card class="box-card">
+              <template #header>
+                <div class="card-header">
+                  <span>My assets</span>
+                </div>
+              </template>
+              <el-scrollbar>
+                <div class="scrollbar-flex-content">
+                  <div class="assets-body">
+                    <div class="assets-item">
+                      <div class="assets-icon"><img :src="icon_trading" /></div>
+                      <div class="item-title">Trading</div>
+                    </div>
+                    <div class="assets-price">₮980.00</div>
+                    <div class="demo-progress">
+                      <div class="progress-count">100.00%</div>
+                      <el-progress
+                        :percentage="100"
+                        stroke-width="9"
+                        :show-text="false"
+                        class="progress-bar"
+                      />
+                    </div>
+                    <div class="assets-btn">
+                      <el-button type="success">Deposit</el-button>
+                      <el-button class="more">More</el-button>
+                    </div>
+                  </div>
+                </div>
+              </el-scrollbar>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <el-scrollbar>
+                <div class="scrollbar-flex-content">
+                  <div class="assets-body">
+                    <div class="assets-item">
+                      <div class="assets-icon"><img :src="icon_trading" /></div>
+                      <div class="item-title">Earning</div>
+                    </div>
+                    <div class="assets-price">₮0.00</div>
+                    <div class="demo-progress">
+                      <div class="progress-count">0.00%</div>
+                      <el-progress
+                        :percentage="0"
+                        stroke-width="9"
+                        :show-text="false"
+                        class="progress-bar"
+                      />
+                    </div>
+                    <div class="assets-btn">
+                      <el-button type="success">Earn</el-button>
+                      <el-button class="more">Transfer</el-button>
+                    </div>
+                  </div>
+                </div>
+              </el-scrollbar>
+            </el-card>
+          </div>
+          <div class="left-recent">
+            <el-card class="recent-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-100 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert ETH</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.0776 ETH</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_deposit" /></div>
+                  <div class="recent-title">Deposit USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+3,499 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="icon_withdrawal" />
+                  </div>
+                  <div class="recent-title">Withdrawal USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-3,431 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_gift" /></div>
+                  <div class="recent-title">Get From Activity ETHW</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.01 ETHW</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more ></div>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :span="24" class="right-box">
+          <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>Recent transactions</span>
+                <span>Assets</span>
               </div>
             </template>
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image"><img :src="icon_convert" /></div>
-                <div class="recent-title">Convert USDT</div>
-                <div class="recent-date">09/30/2022, 18:00:00</div>
+            <div class="value-bottom">
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="wallet_select_usdt_on" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">USDT</div>
+                    <div class="recent-date">968.0000 USDT</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮960.98</div>
               </div>
-              <div class="recent-count down">-100 USDT</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image"><img :src="icon_convert" /></div>
-                <div class="recent-title">Convert ETH</div>
-                <div class="recent-date">09/30/2022, 18:00:00</div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="crypto_icon_eth" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">ETH</div>
+                    <div class="recent-date">0.0100 ETH</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮10.00</div>
               </div>
-              <div class="recent-count up">+0.0776 ETH</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image"><img :src="icon_deposit" /></div>
-                <div class="recent-title">Deposit USDT</div>
-                <div class="recent-date">09/30/2022, 18:00:00</div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="crypto_icon_btc" />
+                  </div>
+                  <div style="margin-left: 43px">
+                    <div class="recent-title">BTC</div>
+                    <div class="recent-date">0.00049350 BTC</div>
+                  </div>
+                </div>
+                <div class="recent-count">₮10.00</div>
               </div>
-              <div class="recent-count up">+3,499 USDT</div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more ></div>
             </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image"><img :src="icon_withdrawal" /></div>
-                <div class="recent-title">Withdrawal USDT</div>
-                <div class="recent-date">09/30/2022, 18:00:00</div>
-              </div>
-              <div class="recent-count down">-3,431 USDT</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image"><img :src="icon_gift" /></div>
-                <div class="recent-title">Get From Activity ETHW</div>
-                <div class="recent-date">09/30/2022, 18:00:00</div>
-              </div>
-              <div class="recent-count up">+0.01 ETHW</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="view-more">View more ></div>
           </el-card>
-        </div>
-      </el-col>
-      <el-col :span="8" class="right-box">
-        <el-card class="box-card">
-          <template #header>
-            <div class="card-header">
-              <span>Assets</span>
-            </div>
-          </template>
-          <div class="value-bottom">
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image">
-                  <img :src="wallet_select_usdt_on" />
-                </div>
-                <div style="margin-left: 43px;">
-                  <div class="recent-title">USDT</div>
-                  <div class="recent-date">968.0000 USDT</div>
-                </div>
-              </div>
-              <div class="recent-count">₮960.98</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image">
-                  <img :src="crypto_icon_eth" />
-                </div>
-                <div style="margin-left: 43px;">
-                  <div class="recent-title">ETH</div>
-                  <div class="recent-date">0.0100 ETH</div>
-                </div>
-              </div>
-              <div class="recent-count">₮10.00</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="recent-box">
-              <div class="box-left clearfloat">
-                <div class="rencent-image">
-                  <img :src="crypto_icon_btc" />
-                </div>
-                <div style="margin-left: 43px;">
-                  <div class="recent-title">BTC</div>
-                  <div class="recent-date">0.00049350 BTC</div>
-                </div>
-              </div>
-              <div class="recent-count">₮10.00</div>
-            </div>
-            <el-divider style="margin-left: -20px; width: 200%" />
-            <div class="view-more">View more ></div>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
 import { ArrowDown, Timer } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 
@@ -376,31 +578,42 @@ import icon_gift from "../../../../assets/wallet/icon_gift.png";
 import crypto_icon_eth from "../../../../assets/home/crypto_icon_eth.png";
 import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
 
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
+
 interface User {
   date: string;
   name: string;
   address: string;
 }
 
-const handleEdit = (index: number, row: User) => {
-  console.log(index, row);
-};
-const handleDelete = (index: number, row: User) => {
-  console.log(index, row);
-};
+// const handleEdit = (index: number, row: User) => {
+//   console.log(index, row);
+// };
+// const handleDelete = (index: number, row: User) => {
+//   console.log(index, row);
+// };
 
-const tableData: User[] = [
-  {
-    date: "Trading",
-    name: "₮0.00",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-  {
-    date: "Earning",
-    name: "₮0.00",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-];
+// const tableData: User[] = [
+//   {
+//     date: "Trading",
+//     name: "₮0.00",
+//     address: "No. 189, Grove St, Los Angeles",
+//   },
+//   {
+//     date: "Earning",
+//     name: "₮0.00",
+//     address: "No. 189, Grove St, Los Angeles",
+//   },
+// ];
 const format = (percentage: number) =>
   percentage === 100 ? "Full" : `${percentage}%`;
 const deposit = ref("Deposit");
@@ -739,6 +952,9 @@ $fontSizeMin: 12px;
         color: #000;
         line-height: 38px;
         float: left;
+        @media (max-width: 768px) {
+          // display: none;
+        }
         button.language-chose {
           margin-left: 19px;
           margin-top: 3px;
@@ -767,6 +983,10 @@ $fontSizeMin: 12px;
       }
       .value-bottom {
         text-align: center;
+        @media (max-width: 768px) {
+          // float: left;
+          width: 295px;
+        }
         :deep(.button) {
           width: 110px;
         }
@@ -790,9 +1010,6 @@ $fontSizeMin: 12px;
             height: 30px;
             padding: 0;
             font-weight: 100;
-            @media (max-width: 451px) {
-              margin-left: 0px;
-            }
           }
           .func-btn {
             width: 70px;
@@ -805,9 +1022,9 @@ $fontSizeMin: 12px;
             background: #fff;
             border: 1px solid #dfdfe5;
             padding: 0;
-            @media (max-width: 451px) {
-              margin-left: 0px;
-              margin-top: 5px;
+            @media (max-width: 768px) {
+              margin-left: 5px;
+              // margin-top: 5px;
             }
           }
         }
@@ -847,14 +1064,16 @@ $fontSizeMin: 12px;
       .box-card {
         box-shadow: none;
         width: 100%;
-        // :deep(.el-card__body) {
-        //   padding: 0px !important;
-        // }
+        .scrollbar-flex-content {
+          width: 650px;
+        }
         .assets-body {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
+          @media (max-width: 768px) {
+            height: 30px;
+          }
           .assets-item {
             display: flex;
             align-items: center;
@@ -988,6 +1207,9 @@ $fontSizeMin: 12px;
     }
   }
   .right-box {
+    @media (max-width: 1000px) {
+      margin-top: 27px;
+    }
     .card-header {
       span {
         font-size: 18px;
