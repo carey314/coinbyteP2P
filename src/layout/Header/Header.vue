@@ -299,8 +299,8 @@
         />
         <div class="menu-dropdown-page">
           <div class="button-group">
-            <el-button class="sign-button">Sign up</el-button>
-            <span>Login</span>
+            <router-link to="/signup"><el-button class="sign-button">Sign up</el-button></router-link>
+            <router-link to="/login" style="text-decoration: none;color:#fff;"><span>Login</span></router-link>
           </div>
           <ul class="nav-list">
             <li>Buy Crypto</li>
