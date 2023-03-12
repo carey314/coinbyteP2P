@@ -38,57 +38,6 @@
                   <span>My assets</span>
                 </div>
               </template>
-              <!-- <el-table
-                :data="tableData"
-                style="width: 100%;"
-                :show-header="false"
-              >
-                <el-table-column width="200">
-                  <template #default="scope">
-                    <div
-                      style="
-                        display: flex;
-                        align-items: center;
-                        font-size: 16px;
-                        color: #000000;
-                      "
-                    >
-                      <el-icon><timer /></el-icon>
-                      <span style="margin-left: 10px">{{ scope.row.date }}</span>
-                    </div>
-                  </template>
-                </el-table-column>
-
-                <el-table-column width="180">
-                  <div style="font-size: 16px; color: #000000">₮0.00</div>
-                </el-table-column>
-                <el-table-column>
-                  <div class="demo-progress">
-                    <div class="progress-count">0.00%</div>
-                    <el-progress
-                      :percentage="0"
-                      stroke-width="9"
-                      :show-text="false"
-                      class="progress-bar"
-                    />
-                  </div>
-                </el-table-column>
-                <el-table-column
-                  align="right"
-                  style="display: flex"
-                >
-                  <template #default="scope">
-                    <el-button
-                      type="success"
-                      @click="handleEdit(scope.$index, scope.row)"
-                      >Deposit</el-button
-                    >
-                    <el-button @click="handleDelete(scope.$index, scope.row)"
-                      >More</el-button
-                    >
-                  </template>
-                </el-table-column>
-              </el-table> -->
               <div class="assets-body">
                 <div class="assets-item">
                   <div class="assets-icon"><img :src="icon_trading" /></div>
@@ -105,8 +54,22 @@
                   />
                 </div>
                 <div class="assets-btn">
-                  <el-button type="success">Deposit</el-button>
-                  <el-button class="more">More</el-button>
+                  <el-button class="deposit-btn" type="success"
+                    >Deposit</el-button
+                  >
+                  <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
+                    <el-button class="more">More</el-button>
+                    <template #dropdown>
+                      <el-dropdown-menu style="width: 180px;">
+                        <el-dropdown-item>Withdraw</el-dropdown-item>
+                        <el-dropdown-item>Buy</el-dropdown-item>
+                        <el-dropdown-item>Sell</el-dropdown-item>
+                        <el-dropdown-item>Trade</el-dropdown-item>
+                        <el-dropdown-item>Convert</el-dropdown-item>
+                        <el-dropdown-item>Transfer</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </template>
+                  </el-dropdown>
                 </div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
@@ -228,7 +191,19 @@
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">Deposit</el-button>
-                      <el-button class="more">More</el-button>
+                      <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
+                        <el-button class="more">More</el-button>
+                        <template #dropdown>
+                          <el-dropdown-menu>
+                            <el-dropdown-item>Withdraw</el-dropdown-item>
+                            <el-dropdown-item>Buy</el-dropdown-item>
+                            <el-dropdown-item>Sell</el-dropdown-item>
+                            <el-dropdown-item>Trade</el-dropdown-item>
+                            <el-dropdown-item>Convert</el-dropdown-item>
+                            <el-dropdown-item>Transfer</el-dropdown-item>
+                          </el-dropdown-menu>
+                        </template>
+                      </el-dropdown>
                     </div>
                   </div>
                 </div>
@@ -354,7 +329,20 @@
                 </div>
                 <div class="assets-btn">
                   <el-button type="success">Deposit</el-button>
-                  <el-button class="more">More</el-button>
+
+                  <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
+                    <el-button class="more">More</el-button>
+                    <template #dropdown>
+                      <el-dropdown-menu>
+                        <el-dropdown-item>Withdraw</el-dropdown-item>
+                        <el-dropdown-item>Buy</el-dropdown-item>
+                        <el-dropdown-item>Sell</el-dropdown-item>
+                        <el-dropdown-item>Trade</el-dropdown-item>
+                        <el-dropdown-item>Convert</el-dropdown-item>
+                        <el-dropdown-item>Transfer</el-dropdown-item>
+                      </el-dropdown-menu>
+                    </template>
+                  </el-dropdown>
                 </div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
@@ -434,7 +422,7 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
-              <div class="view-more">View more ></div>
+              <div class="view-more">View more &gt;</div>
             </el-card>
           </div>
         </el-col>
@@ -503,7 +491,7 @@
                 <div class="recent-count">₮10.00</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              <div class="view-more">View more &lt;</div>
+              <div class="view-more">View more &gt;</div>
             </div>
           </el-card>
         </el-col>
@@ -564,7 +552,20 @@
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">Deposit</el-button>
-                      <el-button class="more">More</el-button>
+                      <!-- <el-button class="more">More</el-button> -->
+                      <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
+                        <el-button class="more">More</el-button>
+                        <template #dropdown>
+                          <el-dropdown-menu style="width: 179px;">
+                            <el-dropdown-item>Withdraw</el-dropdown-item>
+                            <el-dropdown-item>Buy</el-dropdown-item>
+                            <el-dropdown-item>Sell</el-dropdown-item>
+                            <el-dropdown-item>Trade</el-dropdown-item>
+                            <el-dropdown-item>Convert</el-dropdown-item>
+                            <el-dropdown-item>Transfer</el-dropdown-item>
+                          </el-dropdown-menu>
+                        </template>
+                      </el-dropdown>
                     </div>
                   </div>
                 </div>
@@ -650,7 +651,7 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
-              <div class="view-more">View more ></div>
+              <div class="view-more">View more &gt</div>
             </el-card>
           </div>
         </el-col>
@@ -701,7 +702,7 @@
                 <div class="recent-count">₮10.00</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
-              <div class="view-more">View more ></div>
+              <div class="view-more">View more &gt;</div>
             </div>
           </el-card>
         </el-col>
@@ -890,8 +891,11 @@ $fontSizeMin: 12px;
         }
         .bottom-btn {
           margin-top: 21px;
-          // display: flex;
-          // justify-content: space-between;
+          @media(max-width:451px){
+            display: flex;
+            justify-content: space-around;
+          }
+         
           .deposit-btn {
             margin-left: -10px;
             font-weight: 100;
@@ -907,7 +911,7 @@ $fontSizeMin: 12px;
             border: 1px solid #dfdfe5;
             @media (max-width: 451px) {
               margin-left: 0px;
-              margin-top: 5px;
+              // margin-top: 5px;
             }
           }
         }
@@ -1305,6 +1309,7 @@ $fontSizeMin: 12px;
                 width: 60px;
                 height: 30px;
                 font-size: $fontSizeMin;
+                margin-left: 12px;
               }
               .el-button + .el-button {
                 margin-left: 11px !important;
