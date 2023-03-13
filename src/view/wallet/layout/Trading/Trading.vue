@@ -52,44 +52,59 @@
                   <template v-slot:columns>
                     <el-table-column label="Crypto" width="200">
                       <template #default="scope">
-                        <div style="display:flex;float: left;align-items: center;">
-                          <img :src="scope.row.icon" style="width: 32px;" />
+                        <div
+                          style="
+                            display: flex;
+                            float: left;
+                            align-items: center;
+                          "
+                        >
+                          <img :src="scope.row.icon" style="width: 32px" />
                         </div>
-                        <div style="float: left;margin-left: 16px;">
+                        <div class="table-crypto">
                           <div>
                             {{ scope.row.crypto }}
                           </div>
-                          <div style="font-size:12px;color:#9B9B9B;">
+                          <div class="tip-text">
                             {{ scope.row.fullname }}
                           </div>
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="Balance" label="Type" width="200" >
+                    <el-table-column prop="Balance" label="Type" width="200">
                       <template #default="scope">
                         <div>
                           {{ scope.row.asset }}
                         </div>
-                        <div style="font-size:12px;color:#9B9B9B;">
+                        <div class="tip-text">
                           {{ scope.row.amount }}
                         </div>
                       </template>
                     </el-table-column>
-
                     <el-table-column label="% of portfolio" width="200">
                       <template #default="scope">
-                        <div>
-                          <el-progress :percentage="scope.row.TxID" />
+                        <div class="progress">
+                          <span>{{ scope.row.TxID }} %</span>
+                          <el-progress
+                            :show-text="false"
+                            :percentage="scope.row.TxID"
+                            class="progress-bar"
+                          />
                         </div>
                       </template>
                     </el-table-column>
                     <el-table-column label="Action" width="220" align="right">
                       <template #default="scope">
                         <div>
-                          Completed
-                        </div>
-                        <div>
-                          Completed
+                          <el-button link class="table-btn">{{
+                            scope.row.buy
+                          }}</el-button>
+                          <el-divider direction="vertical" />
+                          <el-button link class="table-btn">{{
+                            scope.row.sell
+                          }}</el-button>
+                          <el-divider direction="vertical" />
+                          <el-button link>{{ scope.row.more }}</el-button>
                         </div>
                       </template>
                     </el-table-column>
@@ -188,6 +203,90 @@
                 <GetButton class="func-btn" :text="transfer" />
               </div>
             </div>
+            <div class="value-table">
+              <div class="table-header">
+                <div class="header-input">
+                  <el-input
+                    v-model="tableInput"
+                    class="w-50 m-2"
+                    placeholder="Search"
+                    :prefix-icon="Search"
+                  />
+                </div>
+                <div class="header-hide">
+                  <el-checkbox
+                    v-model="checked"
+                    label="Hide zero equity"
+                    size="small"
+                  />
+                </div>
+              </div>
+              <el-divider style="margin: 1px"></el-divider>
+              <div class="table-body">
+                <Table :sourceData="tableData">
+                  <template v-slot:columns>
+                    <el-table-column label="Crypto" width="230">
+                      <template #default="scope">
+                        <div
+                          style="
+                            display: flex;
+                            float: left;
+                            align-items: center;
+                          "
+                        >
+                          <img :src="scope.row.icon" style="width: 32px" />
+                        </div>
+                        <div class="table-crypto">
+                          <div>
+                            {{ scope.row.crypto }}
+                          </div>
+                          <div class="tip-text">
+                            {{ scope.row.fullname }}
+                          </div>
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="Balance" label="Type" width="230">
+                      <template #default="scope">
+                        <div>
+                          {{ scope.row.asset }}
+                        </div>
+                        <div class="tip-text">
+                          {{ scope.row.amount }}
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column label="% of portfolio" width="230">
+                      <template #default="scope">
+                        <div class="progress">
+                          <span>{{ scope.row.TxID }} %</span>
+                          <el-progress
+                            :show-text="false"
+                            :percentage="scope.row.TxID"
+                            class="progress-bar"
+                          />
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column label="Action" width="220" align="right">
+                      <template #default="scope">
+                        <div>
+                          <el-button link class="table-btn">{{
+                            scope.row.buy
+                          }}</el-button>
+                          <el-divider direction="vertical" />
+                          <el-button link class="table-btn">{{
+                            scope.row.sell
+                          }}</el-button>
+                          <el-divider direction="vertical" />
+                          <el-button link>{{ scope.row.more }}</el-button>
+                        </div>
+                      </template>
+                    </el-table-column>
+                  </template>
+                </Table>
+              </div>
+            </div>
           </div>
         </el-col>
         <el-col :span="24" class="right-box">
@@ -256,9 +355,9 @@
 
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
-import { ArrowDown, Search,Paperclip } from "@element-plus/icons-vue";
+import { ArrowDown, Search, Paperclip } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
-import Table from '../History/component/Table.vue';
+import Table from "../History/component/Table.vue";
 
 import overview_eye from "../../../../assets/wallet/overview_eye.png";
 import wallet_select_usdt_off from "../../../../assets/wallet/wallet_select_usdt_off.png";
@@ -332,56 +431,51 @@ const tableData = ref([
     crypto: "USDT",
     fullname: "Tether",
     icon: crypto_icon_usdt,
-    time: "2022-10-03 00:48:11",
-    type: "Deposit",
-    deposit_wallet: "Trading Wallet",
     asset: "868.0000",
     amount: "₮868.00",
-    destination: "Cf9044...104a5f",
     TxID: "88.45",
-    status: "Completed",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
   },
   {
     crypto: "ETH",
     fullname: "Ethereum",
     icon: crypto_icon_eth,
-    time: "2022-10-03 00:48:11",
-    type: "Deposit",
-    deposit_wallet: "Trading Wallet",
     asset: "0.0100",
     amount: "₮113.19",
-    destination: "Cf9044...104a5f",
     TxID: "11.53",
-    status: "Completed",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
   },
   {
     crypto: "BTC",
     fullname: "Bitcoin",
     icon: crypto_icon_btc,
-    time: "2022-10-03 00:48:11",
-    type: "Deposit",
-    deposit_wallet: "Trading Wallet",
     asset: "0.0100",
     amount: "₮0.10",
-    destination: "Cf9044...104a5f",
     TxID: "0.01",
-    status: "Completed",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
   },
   {
     crypto: "USDC",
     fullname: "USD Coin",
     icon: crypto_icon_usdc,
-    time: "2022-10-03 00:48:11",
-    type: "Deposit",
-    deposit_wallet: "Trading Wallet",
     asset: "0.0000",
     amount: "₮0.00",
-    destination: "Cf9044...104a5f",
     TxID: "0.00",
-    status: "Completed",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
   },
-
 ]);
+// const tableData = computed(() => {
+//   if (checked.value === false) return tableData;
+//   return tableData.filter((v) => v.tag.includes(tableData.value));
+// });
 </script>
 
 <style scoped lang="scss">
@@ -522,6 +616,10 @@ $fontSizeMin: 12px;
               .el-input__prefix-inner > :first-child.el-input__icon {
                 width: 20px;
               }
+              .el-icon svg{
+                width: 20px;
+                height: 20px;
+              }
             }
           }
           .header-hide {
@@ -539,14 +637,34 @@ $fontSizeMin: 12px;
             }
           }
         }
-        .table-body{
-          :deep(){
-            .el-table .cell{
+        .table-body {
+          :deep() {
+            .el-table .cell {
               line-height: 16px;
               padding: 0 18px;
             }
+            .el-progress-bar__inner {
+              background-color: #01c19a;
+            }
           }
-         
+          .table-crypto {
+            float: left;
+            margin-left: 16px;
+          }
+          .tip-text {
+            font-size: 12px;
+            color: #9b9b9b;
+          }
+          .progress {
+            .progress-bar {
+              float: right;
+              margin-top: 5px;
+              width: 100px;
+            }
+          }
+          .table-btn {
+            color: #01c19a !important;
+          }
         }
       }
     }
