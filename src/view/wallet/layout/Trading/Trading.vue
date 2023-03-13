@@ -616,7 +616,7 @@ $fontSizeMin: 12px;
               .el-input__prefix-inner > :first-child.el-input__icon {
                 width: 20px;
               }
-              .el-icon svg{
+              .el-icon svg {
                 width: 20px;
                 height: 20px;
               }
