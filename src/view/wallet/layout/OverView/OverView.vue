@@ -1368,7 +1368,7 @@ $fontSizeMin: 12px;
                 width: 60px;
                 height: 30px;
                 font-size: $fontSizeMin;
-                margin-left: 12px;
+                // margin-left: 12px;
               }
               .el-button + .el-button {
                 margin-left: 11px !important;
