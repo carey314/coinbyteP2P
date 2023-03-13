@@ -1,0 +1,623 @@
+<template>
+  <div class="overview-date-page">
+    <div v-if="windowWidth > 985">
+      <el-row :gutter="15">
+        <el-col :span="16" class="left-box">
+          <div class="left-value clearfloat">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
+            </div>
+            <div class="value-center">
+              <div>₮{{ TotalAmount }}</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_on" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
+              </div>
+            </div>
+            <div class="value-bottom clearfloat">
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="func-btn" :text="convert" />
+                <GetButton class="func-btn" :text="withdraw" />
+                <GetButton class="func-btn" :text="transfer" />
+              </div>
+            </div>
+            <div class="value-table">
+              <div class="table-header">
+                <div class="header-input">
+                  <el-input
+                    v-model="tableInput"
+                    class="w-50 m-2"
+                    placeholder="Search"
+                    :prefix-icon="Search"
+                  />
+                </div>
+                <div class="header-hide">
+                  <el-checkbox
+                    v-model="checked"
+                    label="Hide zero equity"
+                    size="small"
+                  />
+                </div>
+              </div>
+              <el-divider style="margin: 1px"></el-divider>
+              <div class="table-body">
+                <Table :sourceData="tableData">
+                  <template v-slot:columns>
+                    <el-table-column label="Crypto" width="200">
+                      <template #default="scope">
+                        <div style="display:flex;float: left;align-items: center;">
+                          <img :src="scope.row.icon" style="width: 32px;" />
+                        </div>
+                        <div style="float: left;margin-left: 16px;">
+                          <div>
+                            {{ scope.row.crypto }}
+                          </div>
+                          <div style="font-size:12px;color:#9B9B9B;">
+                            {{ scope.row.fullname }}
+                          </div>
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column prop="Balance" label="Type" width="200" >
+                      <template #default="scope">
+                        <div>
+                          {{ scope.row.asset }}
+                        </div>
+                        <div style="font-size:12px;color:#9B9B9B;">
+                          {{ scope.row.amount }}
+                        </div>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column label="% of portfolio" width="200">
+                      <template #default="scope">
+                        <div>
+                          <el-progress :percentage="scope.row.TxID" />
+                        </div>
+                      </template>
+                    </el-table-column>
+                    <el-table-column label="Action" width="220" align="right">
+                      <template #default="scope">
+                        <div>
+                          Completed
+                        </div>
+                        <div>
+                          Completed
+                        </div>
+                      </template>
+                    </el-table-column>
+                  </template>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="8" class="right-box">
+          <div class="right-recent">
+            <el-card class="recent-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-100 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert ETH</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.0776 ETH</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_deposit" /></div>
+                  <div class="recent-title">Deposit USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+3,499 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="icon_withdrawal" />
+                  </div>
+                  <div class="recent-title">Withdrawal USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-3,431 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_gift" /></div>
+                  <div class="recent-title">Get From Activity ETHW</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.01 ETHW</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more &gt;</div>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div v-if="windowWidth <= 985">
+      <el-row>
+        <el-col :span="24" class="left-box">
+          <div class="left-value clearfloat">
+            <div class="value-top">
+              Est. total value
+              <img :src="overview_eye" />
+            </div>
+            <div class="value-center">
+              <div>₮980.98</div>
+              <div>
+                <button class="language-chose">
+                  <img :src="wallet_select_usdt_on" alt="" />
+                  USDT
+                  <el-icon style="width: 18px; color: #cbcccf"
+                    ><ArrowDown
+                  /></el-icon>
+                </button>
+              </div>
+            </div>
+            <div class="value-bottom clearfloat">
+              <div class="bottom-btn">
+                <GetButton class="deposit-btn" type="success" :text="deposit" />
+                <GetButton class="func-btn" :text="convert" />
+                <GetButton class="func-btn" :text="withdraw" />
+                <GetButton class="func-btn" :text="transfer" />
+              </div>
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="24" class="right-box">
+          <div class="right-recent">
+            <el-card class="recent-card">
+              <template #header>
+                <div class="card-header">
+                  <span>Recent transactions</span>
+                </div>
+              </template>
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-100 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_convert" /></div>
+                  <div class="recent-title">Convert ETH</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.0776 ETH</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_deposit" /></div>
+                  <div class="recent-title">Deposit USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+3,499 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image">
+                    <img :src="icon_withdrawal" />
+                  </div>
+                  <div class="recent-title">Withdrawal USDT</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count down">-3,431 USDT</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="recent-box">
+                <div class="box-left clearfloat">
+                  <div class="rencent-image"><img :src="icon_gift" /></div>
+                  <div class="recent-title">Get From Activity ETHW</div>
+                  <div class="recent-date">09/30/2022, 18:00:00</div>
+                </div>
+                <div class="recent-count up">+0.01 ETHW</div>
+              </div>
+              <el-divider style="margin-left: -20px; width: 200%" />
+              <div class="view-more">View more &gt</div>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
+import { ArrowDown, Search,Paperclip } from "@element-plus/icons-vue";
+import GetButton from "../../../../components/GetButton.vue";
+import Table from '../History/component/Table.vue';
+
+import overview_eye from "../../../../assets/wallet/overview_eye.png";
+import wallet_select_usdt_off from "../../../../assets/wallet/wallet_select_usdt_off.png";
+import wallet_select_usdt_on from "../../../../assets/wallet/wallet_select_usdt_on.png";
+import icon_wallet from "../../../../assets/wallet/icon_wallet.png";
+import wallet_search_none from "../../../../assets/wallet/wallet_search_none.png";
+import icon_trading from "../../../../assets/wallet/icon_trading.png";
+import icon_convert from "../../../../assets/wallet/icon_convert.png";
+import icon_deposit from "../../../../assets/wallet/icon_deposit.png";
+import icon_withdrawal from "../../../../assets/wallet/icon_withdrawal.png";
+import icon_gift from "../../../../assets/wallet/icon_gift.png";
+import crypto_icon_eth from "../../../../assets/home/crypto_icon_eth.png";
+import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
+import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
+import crypto_icon_usdc from "../../../../assets/home/crypto_icon_usdc.png";
+import { getMyAssets } from "../../../../api/wallet";
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
+
+interface AssetsData {
+  currency: string;
+  balance: string;
+}
+const assetsData = ref<AssetsData[]>([]);
+onMounted(() => {
+  getMyAssets().then((res) => {
+    console.log(res.data.data);
+    if (res.data.data) {
+      assetsData.value = res.data.data.map((v: any) => {
+        return {
+          currency: v.product.currency.name,
+          balance: v.report.balance.value,
+        };
+      });
+    }
+  });
+});
+
+interface User {
+  date: string;
+  name: string;
+  address: string;
+}
+const format = (percentage: number) =>
+  percentage === 100 ? "Full" : `${percentage}%`;
+const deposit = ref("Deposit");
+const buy = ref("Buy");
+const convert = ref("Convert");
+const withdraw = ref("Withdraw");
+const transfer = ref("Transfer");
+const noneOverView = computed(() => !(assetsData.value.length > 0));
+const TotalAmount = computed(() => {
+  let count = 0;
+  assetsData.value.forEach((v: any) => {
+    count += parseFloat(v.balance);
+  });
+  return count.toFixed(2);
+});
+const tableInput = ref("");
+const checked = ref(false);
+const tableData = ref([
+  {
+    crypto: "USDT",
+    fullname: "Tether",
+    icon: crypto_icon_usdt,
+    time: "2022-10-03 00:48:11",
+    type: "Deposit",
+    deposit_wallet: "Trading Wallet",
+    asset: "868.0000",
+    amount: "₮868.00",
+    destination: "Cf9044...104a5f",
+    TxID: "88.45",
+    status: "Completed",
+  },
+  {
+    crypto: "ETH",
+    fullname: "Ethereum",
+    icon: crypto_icon_eth,
+    time: "2022-10-03 00:48:11",
+    type: "Deposit",
+    deposit_wallet: "Trading Wallet",
+    asset: "0.0100",
+    amount: "₮113.19",
+    destination: "Cf9044...104a5f",
+    TxID: "11.53",
+    status: "Completed",
+  },
+  {
+    crypto: "BTC",
+    fullname: "Bitcoin",
+    icon: crypto_icon_btc,
+    time: "2022-10-03 00:48:11",
+    type: "Deposit",
+    deposit_wallet: "Trading Wallet",
+    asset: "0.0100",
+    amount: "₮0.10",
+    destination: "Cf9044...104a5f",
+    TxID: "0.01",
+    status: "Completed",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    time: "2022-10-03 00:48:11",
+    type: "Deposit",
+    deposit_wallet: "Trading Wallet",
+    asset: "0.0000",
+    amount: "₮0.00",
+    destination: "Cf9044...104a5f",
+    TxID: "0.00",
+    status: "Completed",
+  },
+
+]);
+</script>
+
+<style scoped lang="scss">
+$fontCol: #7b8293;
+$fontSizeMax: 42px;
+$fontSizeMedPro: 28px;
+$fontSizeMed: 24px;
+$fontSizeDefPro: 18px;
+$fontSizeDef: 16px;
+$fontSizeMinPro: 14px;
+$fontSizeMin: 12px;
+
+.minMainFont {
+  font-size: $fontSizeDef;
+  color: #7b8293;
+  line-height: $fontSizeDefPro;
+}
+:deep() {
+  .el-card {
+    --el-card-border-radius: 5px;
+  }
+}
+.overview-date-page {
+  max-width: 1290px;
+  margin: auto;
+  .left-box {
+    .left-value {
+      width: 100%;
+      padding: 24px 23px 41px 23px;
+      border: 1px solid #ebebeb;
+      border-radius: 5px;
+      .value-top {
+        font-size: 18px;
+        color: #000;
+        line-height: 22px;
+        img {
+          margin-left: 15px;
+          width: 17px;
+          height: 13px;
+        }
+      }
+      .value-center {
+        margin-top: 18px;
+        display: flex;
+        font-size: 32px;
+        color: #000;
+        line-height: 38px;
+        float: left;
+        @media (max-width: 768px) {
+          // display: none;
+        }
+        button.language-chose {
+          margin-left: 19px;
+          margin-top: 3px;
+          display: flex;
+          align-items: center;
+          width: 103px;
+          height: 30px;
+          line-height: 19px;
+          font-size: 14px;
+          background: none;
+          border: 1px solid #e2e2e2;
+          border-radius: 2px;
+          padding: 0 10px;
+          img {
+            width: 20px;
+            margin-right: 6px;
+            vertical-align: middle;
+          }
+          svg {
+            margin-left: 5px;
+          }
+          :deep(el-icon) {
+            width: 18px !important;
+          }
+        }
+      }
+      .value-bottom {
+        text-align: center;
+        @media (max-width: 768px) {
+          width: 295px;
+        }
+        :deep(.button) {
+          width: 110px;
+        }
+        .bottom-image {
+          margin-top: 17px;
+        }
+        .bottom-btn {
+          margin-top: 21px;
+          display: flex;
+          float: right;
+          justify-content: space-between;
+          :depp(.button) {
+            padding: 0;
+            font-size: 12px;
+          }
+
+          .deposit-btn {
+            margin-left: -10px;
+            font-size: 12px;
+            width: 70px;
+            height: 30px;
+            padding: 0;
+            font-weight: 100;
+          }
+          .func-btn {
+            width: 70px;
+            height: 30px;
+            font-size: 12px;
+
+            margin-left: 10px;
+            font-weight: 100;
+            color: #000;
+            background: #fff;
+            border: 1px solid #dfdfe5;
+            padding: 0;
+            @media (max-width: 768px) {
+              margin-left: 5px;
+              // margin-top: 5px;
+            }
+          }
+        }
+      }
+      .value-table {
+        .table-header {
+          margin-top: 40px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          .header-input {
+            :deep() {
+              .el-input__wrapper {
+                padding: 0px;
+                box-shadow: none;
+              }
+              .el-input__prefix-inner > :first-child,
+              .el-input__prefix-inner > :first-child.el-input__icon {
+                width: 20px;
+              }
+            }
+          }
+          .header-hide {
+            :deep(.el-checkbox) {
+              font-size: 12px;
+              color: #000000;
+              line-height: 14px;
+              font-weight: 400;
+              --el-checkbox-checked-input-border-color: #01c19a;
+              --el-checkbox-checked-bg-color: #01c19a;
+              --el-checkbox-input-border-color-hover: #01c19a;
+              .el-checkbox__input.is-checked + .el-checkbox__label {
+                color: #000;
+              }
+            }
+          }
+        }
+        .table-body{
+          :deep(){
+            .el-table .cell{
+              line-height: 16px;
+              padding: 0 18px;
+            }
+          }
+         
+        }
+      }
+    }
+  }
+  .right-recent {
+    @media (max-width: 1000px) {
+      margin-top: 24px;
+    }
+    .card-header {
+      span {
+        font-size: 18px;
+        color: #000000;
+        line-height: 23px;
+      }
+    }
+    .recent-card {
+      box-shadow: none;
+      width: 100%;
+      padding-bottom: 16px;
+      .recent-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 21px;
+        .up {
+          font-size: 16px;
+          color: #01c19a;
+          line-height: 18px;
+          text-align: right;
+        }
+        .down {
+          font-size: 16px;
+          color: #f35854;
+          line-height: 18px;
+          text-align: right;
+        }
+
+        .box-left {
+          width: 80%;
+          .rencent-image {
+            float: left;
+            width: 30px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
+          .recent-title {
+            font-size: 14px;
+            color: #000000;
+            line-height: 16px;
+            margin-left: 43px;
+          }
+          .recent-date {
+            margin-left: 43px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #7b8293;
+            line-height: 14px;
+          }
+        }
+      }
+      .view-more {
+        float: right;
+        font-size: 14px;
+        color: #7b8293;
+        line-height: 16px;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+</style>

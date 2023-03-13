@@ -7,7 +7,9 @@
             <OverView></OverView>
         </el-tab-pane>
 
-        <el-tab-pane label="Trading" name="second"> Trading </el-tab-pane>
+        <el-tab-pane label="Trading" name="second"> 
+          <Trading></Trading>  
+        </el-tab-pane>
 
         <el-tab-pane label="Earning" name="third">Earning</el-tab-pane>
 
@@ -32,6 +34,7 @@ import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import OverView from "./layout/OverView/OverView.vue";
+import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 
