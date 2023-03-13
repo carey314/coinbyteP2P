@@ -13,7 +13,10 @@
         // http.get("/v1/me?with=").then(res => {
         //     console.log(JSON.parse(res.data.data.settings.gridsters));
         // })
-        getMyAssetsCopy().then((res : any) => {
+        // getMyAssetsCopy().then((res : any) => {
+        //     console.log(res.data);
+        // })
+        getProfile().then(res => {
             console.log(res.data);
         })
     })
