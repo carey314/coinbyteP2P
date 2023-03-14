@@ -74,27 +74,188 @@
       <ul class="right-menu">
         <!-- 登录后 -->
         <template v-if="userInfoStore.isLogin">
-          <li>
-            <router-link to="/wallet" style="text-decoration: none">
-              <div class="login-span">
-                Wallet
-                <div>
-                  <el-icon style="color: #fff"><CaretBottom /></el-icon>
-                </div></div
-            ></router-link>
+          <li
+            @mouseover="walletShow"
+            @mouseleave="walletHide"
+            class="right-dropdown-box"
+          >
+            <el-dropdown class="help-dropdown align-icon" ref="navWallet">
+              <router-link to="/wallet" style="text-decoration: none">
+                <div class="login-span">
+                  Wallet
+                  <div>
+                    <el-icon style="color: #fff"><CaretBottom /></el-icon>
+                  </div></div
+              ></router-link>
+              <template #dropdown>
+                <el-dropdown-menu
+                  class="help-dropdown-menu"
+                  style="width: 224px"
+                >
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_wallet_myasset" />
+                      </div>
+                      <div class="help-title">My Asset</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_wallet_deposit" />
+                      </div>
+                      <div class="help-title">Deposit</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_wallet_withdraw" />
+                      </div>
+                      <div class="help-title">Withdraw</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_wallet_history" />
+                      </div>
+                      <div class="help-title">Transaction History</div>
+                    </div>
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </li>
-          <li style="margin-left: 10px">
-            <router-link to="/" style="text-decoration: none"
-              ><div class="login-span">
-                Orders
-                <div>
-                  <el-icon style="color: #fff"><CaretBottom /></el-icon>
-                </div></div
-            ></router-link>
+          <li
+            style="margin-left: 10px"
+            @mouseover="orderShow"
+            @mouseleave="orderHide"
+            class="right-dropdown-box"
+          >
+            <el-dropdown class="help-dropdown align-icon" ref="navOrder">
+              <router-link to="/" style="text-decoration: none"
+                ><div class="login-span">
+                  Orders
+                  <div>
+                    <el-icon style="color: #fff"><CaretBottom /></el-icon>
+                  </div></div
+              ></router-link>
+              <template #dropdown>
+                <el-dropdown-menu
+                  class="help-dropdown-menu"
+                  style="width: 224px"
+                >
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_orders_spot" />
+                      </div>
+                      <div class="help-title">Spot Order</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_orders_buysell" />
+                      </div>
+                      <div class="help-title">Buy/Sell Order</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="help-dropdown-item">
+                    <div class="help-box">
+                      <div class="help-icon">
+                        <img :src="dropdown_orders_history" />
+                      </div>
+                      <div class="help-title">Convert History</div>
+                    </div>
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </li>
-          <li>
-            <el-dropdown class="align-icon">
+          <li
+            @mouseover="userShow"
+            @mouseleave="userHide"
+            class="right-dropdown-box"
+          >
+            <el-dropdown class="user-dropdown align-icon">
               <img :src="top_bar_usercenter" alt="" />
+              <template #dropdown>
+                <el-dropdown-menu
+                  class="user-dropdown-menu"
+                >
+                  <el-dropdown-item class="user-dropdown-info">
+                    <div
+                      class="user-head-box"
+                    >
+                      <div class="user-head">
+                        <img :src="top_bar_usercenter" />
+                      </div>
+                      <div class="head-text">
+                        <div class="user-name">Aar***@hotmail.com</div>
+                        <div class="user-id">UID:121233443434343</div>
+                      </div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="verify-box" v-if="verifiy">
+                    <div class="user-verify" >
+                      <div class="verify-status"><img :src="dropdown_usercenter_verified" /></div>
+                      <div class="verify-text">Verified</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="verify-box" v-else>
+                    <div class="user-verify" >
+                      <div class="verify-status"><img :src="dropdown_usercenter_unverified" /></div>
+                      <div class="verify-text">Verifiy your account</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-divider style="margin:10px;width: 266px;margin-left: -20px;"/>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <div class="user-box">
+                      <div class="user-icon">
+                        <img :src="dropdown_usercenter_overview" />
+                      </div>
+                      <div class="user-title">Overview</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <div class="user-box">
+                      <div class="user-icon">
+                        <img :src="dropdown_usercenter_security" />
+                      </div>
+                      <div class="user-title">Security</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <div class="user-box">
+                      <div class="user-icon">
+                        <img :src="dropdown_usercenter_verification" />
+                      </div>
+                      <div class="user-title">Verification</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <div class="user-box">
+                      <div class="user-icon">
+                        <img :src="dropdown_usercenter_bankaccount" />
+                      </div>
+                      <div class="user-title">Bank account</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <div class="user-box">
+                      <div class="user-icon">
+                        <img :src="dropdown_usercenter_preferences" />
+                      </div>
+                      <div class="user-title">Preferences</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-divider style="margin:10px;width: 266px;margin-left: -20px;"/>
+                  <div class="logout">Log out</div>
+                </el-dropdown-menu>
+              </template>
             </el-dropdown>
           </li>
         </template>
@@ -205,7 +366,6 @@
         >
           <el-dropdown class="help-dropdown align-icon" ref="navHelp">
             <img :src="top_bangzhu" alt="" />
-
             <template #dropdown>
               <el-dropdown-menu class="help-dropdown-menu" style="width: 224px">
                 <el-dropdown-item class="help-dropdown-item">
@@ -299,8 +459,12 @@
         />
         <div class="menu-dropdown-page">
           <div class="button-group">
-            <router-link to="/signup"><el-button class="sign-button">Sign up</el-button></router-link>
-            <router-link to="/login" style="text-decoration: none;color:#fff;"><span>Login</span></router-link>
+            <router-link to="/signup"
+              ><el-button class="sign-button">Sign up</el-button></router-link
+            >
+            <router-link to="/login" style="text-decoration: none; color: #fff"
+              ><span>Login</span></router-link
+            >
           </div>
           <ul class="nav-list">
             <li>Buy Crypto</li>
@@ -333,6 +497,8 @@ import down_arrow from "../../assets/home/down_arrow.png";
 import menu_icon from "../../assets/home/menu_icon.png";
 import close_icon from "../../assets/home/close_icon.png";
 import top_bar_usercenter from "../../assets/wallet/top_bar_usercenter.svg";
+import dropdown_usercenter_verified from "../../assets/home/dropdown_usercenter_verified.svg";
+import dropdown_usercenter_unverified from "../../assets/home/dropdown_usercenter_unverified.svg";
 
 import dropdown_buy_bank from "../../assets/home/dropdown_buy_bank.svg";
 import dropdown_buy_quick from "../../assets/home/dropdown_buy_quick.svg";
@@ -340,8 +506,20 @@ import dropdown_buy_convert from "../../assets/home/dropdown_buy_convert.svg";
 import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
 import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
 import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
+import dropdown_wallet_myasset from "../../assets/home/dropdown_wallet_myasset.svg";
+import dropdown_wallet_deposit from "../../assets/home/dropdown_wallet_deposit.svg";
+import dropdown_wallet_withdraw from "../../assets/home/dropdown_wallet_withdraw.svg";
+import dropdown_wallet_history from "../../assets/home/dropdown_wallet_history.svg";
+import dropdown_orders_spot from "../../assets/home/dropdown_orders_spot.svg";
+import dropdown_orders_buysell from "../../assets/home/dropdown_orders_buysell.svg";
+import dropdown_orders_history from "../../assets/home/dropdown_orders_history.svg";
+import dropdown_usercenter_overview from "../../assets/home/dropdown_usercenter_overview.svg";
+import dropdown_usercenter_security from "../../assets/home/dropdown_usercenter_security.svg";
+import dropdown_usercenter_verification from "../../assets/home/dropdown_usercenter_verification.svg";
+import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
+import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
 
-import { useUserInfoStore } from '../../store/user';
+import { useUserInfoStore } from "../../store/user";
 const userInfoStore = useUserInfoStore();
 
 const showname = ref<boolean>(false); //header是否登陆
@@ -352,6 +530,11 @@ const navDownload = ref();
 const navNotice = ref();
 const navHelp = ref();
 const navLanguage = ref();
+const navWallet = ref();
+const navOrder = ref();
+const navUser = ref();
+const verifiy  = ref(false)
+
 const dropdownShow = ref<boolean>(false);
 const router = useRouter();
 
@@ -396,7 +579,24 @@ const languageShow = () => {
 const languageHide = () => {
   navLanguage.value.handleClose();
 };
-
+const walletShow = () => {
+  navWallet.value.handleOpen();
+};
+const walletHide = () => {
+  navWallet.value.handleClose();
+};
+const orderShow = () => {
+  navOrder.value.handleOpen();
+};
+const orderHide = () => {
+  navOrder.value.handleClose();
+};
+const userShow = () => {
+  navUser.value.handleOpen();
+};
+const userHide = () => {
+  navUser.value.handleClose();
+};
 const changeArrow = (e: any) => {
   if (e) {
     deg.value = 180;
@@ -842,15 +1042,6 @@ $regular-font: HarmonyOS_Sans_Regular;
       width: 368px !important;
       padding: 10px;
       word-break: break-word;
-
-      // ul {
-      //   list-style: disc;
-      //   word-break: break-word;
-
-      //   li {
-      //     word-break: break-word;
-      //   }
-      // }
     }
   }
 }
@@ -890,4 +1081,72 @@ $regular-font: HarmonyOS_Sans_Regular;
   --el-dropdown-menuItem-color: #01c19a;
   --el-dropdown-menuItem-hover-fill: #ffffff;
 }
+
+  .user-dropdown-menu {
+    text-align: center;
+    // margin-left: 10%;
+    width: 246px;
+    .user-dropdown-info {
+      .user-head-box {
+        display: flex;
+        align-items: center;
+        .head-text {
+          margin-left: 12px;
+          .user-name{
+            font-size: 14px;
+            color: #000000;
+          }
+          .user-id{
+            font-size: 12px;
+            color: #9B9B9B;
+          }
+        }
+
+      }
+     
+    }
+    .verify-box{
+      
+      .user-verify{
+        border: 1px solid #DFDFE5;
+        border-radius: 3px;
+        width: 198px;
+        height: 36px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .verify-status{
+          margin-top: 5px;
+        }
+        .verify-text{
+          margin-left: 6px;
+          font-size: 14px;
+          color: #000000;
+        }
+      }
+    }
+    .user-dropdown-item {
+
+      .user-box {
+        display: flex;
+        padding: 5px 0;
+        margin-left: 46px;
+        .user-title {
+          font-size: 14px;
+          color: #000000;
+          line-height: 16px;
+          margin-left: 15px;
+        }
+      }
+    }
+    .logout{
+      width: 246px;
+      padding: 10px 0;
+      font-size: 12px;
+      color: #000000;
+      line-height: 15px;
+      cursor: pointer;
+    }
+  }
+
 </style>

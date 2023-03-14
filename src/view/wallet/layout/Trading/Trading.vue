@@ -93,7 +93,7 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="Action" width="220" align="right">
+                    <el-table-column label="Action" width="220" fixed="right" align="right">
                       <template #default="scope">
                         <div>
                           <el-button link class="table-btn">{{
@@ -268,7 +268,7 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="Action" width="220" align="right">
+                    <el-table-column label="Action" width="220" fixed="right">
                       <template #default="scope">
                         <div>
                           <el-button link class="table-btn">{{
@@ -456,6 +456,83 @@ const tableData = ref([
     asset: "0.0100",
     amount: "₮0.10",
     TxID: "0.01",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
+    buy: "Buy",
+    sell: "Sell",
+    more: "More",
+  },
+  {
+    crypto: "USDC",
+    fullname: "USD Coin",
+    icon: crypto_icon_usdc,
+    asset: "0.0000",
+    amount: "₮0.00",
+    TxID: "0.00",
     buy: "Buy",
     sell: "Sell",
     more: "More",
