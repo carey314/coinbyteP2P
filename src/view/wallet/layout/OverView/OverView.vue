@@ -719,7 +719,7 @@
                         v-else-if="item.currency === 'ETH'"
                         :src="crypto_icon_eth"
                       />
-                      <img
+                     <img
                         v-else-if="item.currency === 'BTC'"
                         :src="crypto_icon_btc"
                       />
@@ -840,8 +840,8 @@ interface User {
 //     address: "No. 189, Grove St, Los Angeles",
 //   },
 // ];
-const format = (percentage: number) =>
-  percentage === 100 ? "Full" : `${percentage}%`;
+// const format = (percentage: number) => percentage === 100 ? "Full" : `${percentage}%`;
+
 const deposit = ref("Deposit");
 const buy = ref("Buy");
 const convert = ref("Convert");
