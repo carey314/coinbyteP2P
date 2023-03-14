@@ -48,7 +48,7 @@
                   <div class="progress-count">0.00%</div>
                   <el-progress
                     :percentage="0"
-                    stroke-width="9"
+                    :stroke-width="9"
                     :show-text="false"
                     class="progress-bar"
                   />
@@ -83,7 +83,7 @@
                   <div class="progress-count">0.00%</div>
                   <el-progress
                     :percentage="0"
-                    stroke-width="9"
+                    :stroke-width="9"
                     :show-text="false"
                     class="progress-bar"
                   />
@@ -186,7 +186,7 @@
                       <div class="progress-count">0.00%</div>
                       <el-progress
                         :percentage="0"
-                        stroke-width="9"
+                        :stroke-width="9"
                         :show-text="false"
                         class="progress-bar"
                       />
@@ -223,7 +223,7 @@
                       <div class="progress-count">0.00%</div>
                       <el-progress
                         :percentage="0"
-                        stroke-width="9"
+                        :stroke-width="9"
                         :show-text="false"
                         class="progress-bar"
                       />
@@ -326,7 +326,7 @@
                   <div class="progress-count">100.00%</div>
                   <el-progress
                     :percentage="100"
-                    stroke-width="9"
+                    :stroke-width="9"
                     :show-text="false"
                     class="progress-bar"
                   />
@@ -360,7 +360,7 @@
                   <div class="progress-count">0.00%</div>
                   <el-progress
                     :percentage="0"
-                    stroke-width="9"
+                    :stroke-width="9"
                     :show-text="false"
                     class="progress-bar"
                   />
@@ -529,7 +529,7 @@
                       <div class="progress-count">100.00%</div>
                       <el-progress
                         :percentage="100"
-                        stroke-width="9"
+                        :stroke-width="9"
                         :show-text="false"
                         class="progress-bar"
                       />
@@ -567,7 +567,7 @@
                       <div class="progress-count">0.00%</div>
                       <el-progress
                         :percentage="0"
-                        stroke-width="9"
+                        :stroke-width="9"
                         :show-text="false"
                         class="progress-bar"
                       />
@@ -591,7 +591,7 @@
               <template v-if="viewTransactions">
                 <template v-for="item in transactions">
   
-                  <div class="recent-box">
+                  <!-- <div class="recent-box">
                     <div class="box-left clearfloat">
                       <div class="rencent-image"><img :src="icon_convert" /></div>
                       <div class="recent-title">Convert USDT</div>
@@ -599,8 +599,16 @@
                     </div>
                     <div class="recent-count down">-100 USDT</div>
                   </div>
+                  <el-divider style="margin-left: -20px; width: 200%" /> -->
+                  <div class="recent-box">
+                    <div class="box-left clearfloat">
+                      <div class="rencent-image"><img :src="iconCollects[item.type].icon" /></div>
+                      <div class="recent-title">{{ transactionsTitle(item) }}</div>
+                      <div class="recent-date">{{ moment(item.createTime).format("YY/DD/YYYY") }}</div>
+                    </div>
+                    <div :class="iconCollects[item.type].class">{{ transactionsAmount(item) }}</div>
+                  </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
-                  
                 </template>
                 <div class="view-more">View more &gt;</div>
               </template>
@@ -767,6 +775,64 @@ import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
 import { getMyAssets } from "../../../../api/wallet";
 import { getTransactions } from '../../../../api/transactions';
 
+import moment from 'moment';
+//Recent transactions --- icon
+const iconCollects = ref({  
+  deposit : {
+    icon : icon_deposit,
+    class : ['recent-count','up'],
+    prefix : "+"
+  },
+  exchange : {
+    icon : icon_convert,
+    class : ['recent-count'],
+    prefix : ""
+  },
+  external : {
+    icon : "",
+    class : ['recent-count'],
+    prefix : ""
+  },
+  partner : {
+    icon : icon_convert,
+    class : ['recent-count'],
+    prefix : ""
+  },
+  transfer : {
+    icon : "",
+    class : ['recent-count'],
+    prefix : ""
+  },
+  withdrawal : {
+    icon : icon_withdrawal,
+    class : ['recent-count','down'],
+    prefix : "-"
+  },
+})
+//Recent transactions --- title
+const transactionsTitle = (data : any) => {
+  console.log(data);
+  if(data.method) {
+    return data.method.name;
+  } else {
+    return `Wallet ${data.debitDetails.currency.alphabeticCode} | ${data.debitDetails.account.accountNumber}`;
+  }
+}
+const transactionsAmount = (data : any) => {
+  let amount = '';
+  let currency = '';
+  if(data.debitDetails) {
+    amount = parseFloat(data.debitDetails.amount).toFixed(data.debitDetails.currency.minorUnit);
+    currency = data.debitDetails.currency.alphabeticCode;
+  } else if(data.creditDetails) {
+    amount = parseFloat(data.creditDetails.amount).toFixed(data.creditDetails.currency.minorUnit);
+    currency = data.creditDetails.currency.alphabeticCode;
+  }
+  return iconCollects.value[data.type].prefix + amount + ' ' + currency;
+}
+
+
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -806,7 +872,7 @@ const TotalAmount = computed(() => {
   return count.toFixed(2);
 });
 // =====================获取最近交易
-const transactions = ref([]);
+const transactions = ref<any>([]);
 onMounted(() => {
   getTransactions().then(res => {
     console.log(res.data);

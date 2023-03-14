@@ -8,12 +8,13 @@ export default defineConfig({
     vue(),
   ],
   server: {
-    host: '0.0.0.0',
+    // host: '0.0.0.0',
     proxy: {
       //配置自定义代理规则
       // 字符串简写写法
       '/api': {
-        target: 'https://api.b2bdemo-accounting.com/api',
+        // target: 'https://api.b2bdemo-accounting.com/api',
+        target: 'https://api.b2broker.com/api/',
         changeOrigin: true, //是否跨域
         rewrite: path => path.replace(/^\/api/, '')
       }

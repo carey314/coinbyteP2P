@@ -87,7 +87,7 @@
                           <span>{{ scope.row.TxID }} %</span>
                           <el-progress
                             :show-text="false"
-                            :percentage="scope.row.TxID"
+                            :percentage="parseFloat(scope.row.TxID)"
                             class="progress-bar"
                           />
                         </div>
@@ -262,7 +262,7 @@
                           <span>{{ scope.row.TxID }} %</span>
                           <el-progress
                             :show-text="false"
-                            :percentage="scope.row.TxID"
+                            :percentage="parseFloat(scope.row.TxID)"
                             class="progress-bar"
                           />
                         </div>
@@ -390,19 +390,19 @@ interface AssetsData {
   balance: string;
 }
 const assetsData = ref<AssetsData[]>([]);
-onMounted(() => {
-  getMyAssets().then((res) => {
-    console.log(res.data.data);
-    if (res.data.data) {
-      assetsData.value = res.data.data.map((v: any) => {
-        return {
-          currency: v.product.currency.name,
-          balance: v.report.balance.value,
-        };
-      });
-    }
-  });
-});
+// onMounted(() => {
+//   getMyAssets().then((res) => {
+//     console.log(res.data.data);
+//     if (res.data.data) {
+//       assetsData.value = res.data.data.map((v: any) => {
+//         return {
+//           currency: v.product.currency.name,
+//           balance: v.report.balance.value,
+//         };
+//       });
+//     }
+//   });
+// });
 
 interface User {
   date: string;

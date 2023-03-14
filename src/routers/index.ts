@@ -85,7 +85,14 @@ const routes: Array<RouteRecordRaw> = [
   { 
     path: '/wallet',
     name: 'wallet',
-    component: () => import('../view/wallet/index.vue') 
+    component: () => import('../view/wallet/index.vue') ,
+    children : [
+      // {
+      //   path : '',
+      //   name : '',
+      //   component : lazy()
+      // }
+    ]
   },
   {
     path: '/test',

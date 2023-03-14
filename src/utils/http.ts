@@ -163,7 +163,7 @@ async function toRefreshToken() {
   try {
     const response = await axios.post('/api/v2/refresh',{
       "refreshToken" : 'Bearer ' + refreshToken.value
-    });
+    },);
     if (response.data.code === 200) {
       return response;
     } else {
