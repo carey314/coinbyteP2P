@@ -93,7 +93,12 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="Action" width="220" fixed="right" align="right">
+                    <el-table-column
+                      label="Action"
+                      width="220"
+                      fixed="right"
+                      align="right"
+                    >
                       <template #default="scope">
                         <div>
                           <el-button link class="table-btn">{{
@@ -104,7 +109,22 @@
                             scope.row.sell
                           }}</el-button>
                           <el-divider direction="vertical" />
-                          <el-button link>{{ scope.row.more }}</el-button>
+                          <el-dropdown trigger="click">
+                            <el-button link>
+                              {{ scope.row.more }}
+                            </el-button>
+
+                            <template #dropdown>
+                              <el-dropdown-menu style="width: 179px">
+                                <el-dropdown-item>Withdraw</el-dropdown-item>
+                                <el-dropdown-item>Buy</el-dropdown-item>
+                                <el-dropdown-item>Sell</el-dropdown-item>
+                                <el-dropdown-item>Trade</el-dropdown-item>
+                                <el-dropdown-item>Convert</el-dropdown-item>
+                                <el-dropdown-item>Transfer</el-dropdown-item>
+                              </el-dropdown-menu>
+                            </template>
+                          </el-dropdown>
                         </div>
                       </template>
                     </el-table-column>
@@ -279,7 +299,22 @@
                             scope.row.sell
                           }}</el-button>
                           <el-divider direction="vertical" />
-                          <el-button link>{{ scope.row.more }}</el-button>
+                          <el-dropdown trigger="click">
+                            <el-button link>
+                              {{ scope.row.more }}
+                            </el-button>
+
+                            <template #dropdown>
+                              <el-dropdown-menu style="width: 179px">
+                                <el-dropdown-item>Withdraw</el-dropdown-item>
+                                <el-dropdown-item>Buy</el-dropdown-item>
+                                <el-dropdown-item>Sell</el-dropdown-item>
+                                <el-dropdown-item>Trade</el-dropdown-item>
+                                <el-dropdown-item>Convert</el-dropdown-item>
+                                <el-dropdown-item>Transfer</el-dropdown-item>
+                              </el-dropdown-menu>
+                            </template>
+                          </el-dropdown>
                         </div>
                       </template>
                     </el-table-column>
