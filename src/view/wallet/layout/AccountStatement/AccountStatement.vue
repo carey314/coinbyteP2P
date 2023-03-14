@@ -44,7 +44,7 @@
             <el-table-column label="Action" width="300" fixed="right">
             <template #default="scope">
                 <div>
-                    <img :src="login_download"/>
+                    <!-- <img :src="login_download"/> -->
                     {{ scope.row.action }}
                 </div>
             </template>
