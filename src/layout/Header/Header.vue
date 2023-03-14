@@ -180,7 +180,7 @@
             @mouseleave="userHide"
             class="right-dropdown-box"
           >
-            <el-dropdown class="user-dropdown align-icon">
+            <el-dropdown class="user-dropdown align-icon" ref="navUser">
               <img :src="top_bar_usercenter" alt="" />
               <template #dropdown>
                 <el-dropdown-menu
@@ -518,6 +518,7 @@ import dropdown_usercenter_security from "../../assets/home/dropdown_usercenter_
 import dropdown_usercenter_verification from "../../assets/home/dropdown_usercenter_verification.svg";
 import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
+
 
 import { useUserInfoStore } from "../../store/user";
 const userInfoStore = useUserInfoStore();
