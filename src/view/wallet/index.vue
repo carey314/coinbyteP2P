@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed,provide } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -37,7 +37,8 @@ import OverView from "./layout/OverView/OverView.vue";
 import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
-
+import {getMyAssets} from '../../api/wallet';
+import {getTransactions} from '../../api/transactions';
 import type { TabsPaneContext } from "element-plus";
 
 // import no_found from "../../../assets/home/no_found.png";
@@ -59,6 +60,43 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+// ==== 主页请求数据 共享状态
+interface AssetsData {
+  currency: string;
+  balance: string;
+  alphabeticCode : string;
+  caption : string;
+  accountNumber : string;
+  accountId : string;
+}
+const assetsData = ref<AssetsData[]>([]);
+onMounted(() => {
+  getMyAssets().then((res) => {
+    console.log(res.data.data);
+    if (res.data.data) {
+      assetsData.value = res.data.data.map((v: any) => {
+        return {
+          currency: v.currency.name,
+          balance: v.statement.availableBalance,
+          alphabeticCode : v.currency.alphabeticCode,
+          caption : v.caption,
+          accountNumber : v.accountNumber,
+          accountId : v.accountId
+        };
+      });
+    };
+  });
+});
+provide("assetsData",assetsData);
+const transactions = ref<any>([]);
+onMounted(() => {
+  getTransactions().then(res => {
+    console.log(res.data);
+    transactions.value = res.data.data;
+  })
+});
+provide("transactions",transactions);
+
 </script>
 
 <style scoped lang="scss">
