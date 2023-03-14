@@ -144,7 +144,6 @@
               </template>
               <template v-if="viewTransactions">
                 <template v-for="item in transactions">
-  
                   <!-- <div class="recent-box">
                     <div class="box-left clearfloat">
                       <div class="rencent-image"><img :src="icon_convert" /></div>

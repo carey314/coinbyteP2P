@@ -4,21 +4,22 @@
     <div class="center-part">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane label="Overview" name="first">
-            <OverView></OverView>
+            <OverView />
         </el-tab-pane>
 
         <el-tab-pane label="Trading" name="second"> 
-          <Trading></Trading>  
+          <Trading />  
         </el-tab-pane>
 
         <el-tab-pane label="Earning" name="third">Earning</el-tab-pane>
 
         <el-tab-pane label="History" name="fourth">
-          <History></History>
+          <History />
         </el-tab-pane>
 
-        <el-tab-pane label="Account Statement" name="fifth"
-          >Account Statement</el-tab-pane
+        <el-tab-pane label="Account Statement" name="fifth">
+          <AccountStatement />
+        </el-tab-pane
         >
       </el-tabs>
     </div>
@@ -36,6 +37,7 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import OverView from "./layout/OverView/OverView.vue";
 import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
+import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import {getMyAssets} from '../../api/wallet';
 import {getTransactions} from '../../api/transactions';

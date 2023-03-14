@@ -418,20 +418,20 @@
               </div>
             </template>
             <div class="value-bottom">
-              <template v-for="item in (assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
+              <template v-for="item in (assetsData && assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
                 <div class="recent-box">
                   <div class="box-left clearfloat">
                     <div class="rencent-image">
                       <img
-                        v-if="item.currency === 'USD'"
+                        v-if="item.alphabeticCode === 'USD'"
                         :src="wallet_select_usdt_on"
                       />
                       <img
-                        v-else-if="item.currency === 'ETH'"
+                        v-else-if="item.alphabeticCode === 'ETH'"
                         :src="crypto_icon_eth"
                       />
                       <img
-                        v-else-if="item.currency === 'BTC'"
+                        v-else-if="item.alphabeticCode === 'BTC'"
                         :src="crypto_icon_btc"
                       />
                     </div>
