@@ -43,7 +43,10 @@ function getClientTypes() {  //404
 //Get client type details
 //....
 
-
+//log out
+function logOut () {
+    return http.post("/v2/my/signout");
+}
 
 
 
@@ -54,5 +57,6 @@ export {
     updateProfile,
     getSettings,
     updateSettings,
-    getClientTypes
+    getClientTypes,
+    logOut
 }

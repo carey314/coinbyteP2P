@@ -253,7 +253,7 @@
                     </div>
                   </el-dropdown-item>
                   <el-divider style="margin:10px;width: 266px;margin-left: -20px;"/>
-                  <div class="logout">Log out</div>
+                  <div class="logout" @click="handleToLogOut">Log out</div>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -519,6 +519,7 @@ import dropdown_usercenter_verification from "../../assets/home/dropdown_usercen
 import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
 
+import {logOut} from '../../api/user';
 
 import { useUserInfoStore } from "../../store/user";
 const userInfoStore = useUserInfoStore();
@@ -645,6 +646,16 @@ const gridData = [
     tc: "繁體中文",
   },
 ];
+
+
+//click to log out
+const handleToLogOut = async () => {
+  const response = await logOut();
+  console.log(response);
+  userInfoStore.clearToken();
+  router.push("/login");
+  
+}
 </script>
 
 <style scoped lang="scss">
