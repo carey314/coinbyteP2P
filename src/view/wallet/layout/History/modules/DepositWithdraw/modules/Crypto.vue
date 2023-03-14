@@ -60,7 +60,8 @@
 </template>
 
 <script setup lang="ts">
-    import {ref,reactive} from 'vue';
+    import {ref,reactive,inject} from 'vue';
+    import type { Transaction } from '../../../../../../../models/transactions';
     import type { FormInstance, FormRules } from 'element-plus'
     import FilterSelect from '../../../component/FilterSelect.vue';
     import CustomButton from '../../../component/CustomButton.vue';

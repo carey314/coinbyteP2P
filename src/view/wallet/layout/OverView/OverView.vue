@@ -715,20 +715,21 @@
               </div>
               <el-divider style="margin-left: -20px; width: 200%" />
               <div class="view-more">View more &gt;</div> -->
-              <template v-for="item in (assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
+              
+              <template v-for="item in (assetsData && assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
                 <div class="recent-box">
                   <div class="box-left clearfloat">
                     <div class="rencent-image">
                       <img
-                        v-if="item.currency === 'USD'"
+                        v-if="item.alphabeticCode === 'USD'"
                         :src="wallet_select_usdt_on"
                       />
                       <img
-                        v-else-if="item.currency === 'ETH'"
+                        v-else-if="item.alphabeticCode === 'ETH'"
                         :src="crypto_icon_eth"
                       />
                      <img
-                        v-else-if="item.currency === 'BTC'"
+                        v-else-if="item.alphabeticCode === 'BTC'"
                         :src="crypto_icon_btc"
                       />
                     </div>
@@ -756,7 +757,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed,inject } from "vue";
+import type { Ref } from "vue";
+import type { Transaction } from "../../../../models/transactions";
 import { ArrowDown, Timer } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 
@@ -810,7 +813,7 @@ const iconCollects = ref({
   },
 })
 //Recent transactions --- title
-const transactionsTitle = (data : any) => {
+const transactionsTitle = (data : Transaction) => {
   console.log(data);
   if(data.method) {
     return data.method.name;
@@ -818,7 +821,7 @@ const transactionsTitle = (data : any) => {
     return `Wallet ${data.debitDetails.currency.alphabeticCode} | ${data.debitDetails.account.accountNumber}`;
   }
 }
-const transactionsAmount = (data : any) => {
+const transactionsAmount = (data : Transaction) => {
   let amount = '';
   let currency = '';
   if(data.debitDetails) {
@@ -845,47 +848,71 @@ function resetWidth() {
 }
 // =====================获取assets列表
 interface AssetsData {
-  currency: string;
+  currency: 'Tether' | 'Ethereum' | 'Bitcoin' | 'USD Coin' ;
   balance: string;
+  alphabeticCode : string;
+  caption : string;
+  accountNumber : string;
+  accountId : string;
 }
-const assetsData = ref<AssetsData[]>([]);
+const assetsData = inject<Ref<AssetsData[]>>('assetsData');
 onMounted(() => {
-  getMyAssets().then((res) => {
-    console.log(res.data.data);
-    if (res.data.data) {
-      assetsData.value = res.data.data.map((v: any) => {
-        return {
-          currency: v.currency.name,
-          balance: v.statement.availableBalance,
-        };
-      });
-    };
-  });
+  // assetsData.value = AssetsData;
+  // getMyAssets().then((res) => {
+  //   console.log(res.data.data);
+  //   if (res.data.data) {
+  //     assetsData.value = res.data.data.map((v: any) => {
+  //       return {
+  //         currency: v.currency.name,
+  //         balance: v.statement.availableBalance,
+  //       };
+  //     });
+  //   };
+  // });
 });
 // const noneOverView = ref<boolean>(false);
-const noneOverView = computed(() => !(assetsData.value.length > 0));  //
+
+const noneOverView = computed(() => {
+  if(assetsData) {
+    return !(assetsData.value.length > 0);
+  } else {
+    return false;
+  }
+});  //
 const TotalAmount = computed(() => {
   let count = 0;
-  assetsData.value.forEach((v: any) => {
-    count += parseFloat(v.balance);
-  });
-  return count.toFixed(2);
+  if(assetsData) {
+    assetsData.value.forEach((v: any) => {
+      count += parseFloat(v.balance);
+    });
+    return count.toFixed(2);
+  }else {
+    return 0;
+  }
 });
 // =====================获取最近交易
-const transactions = ref<any>([]);
-onMounted(() => {
-  getTransactions().then(res => {
-    console.log(res.data);
-    transactions.value = res.data.data;
-  })
+// const transactions = ref<any>([]);
+// onMounted(() => {
+//   getTransactions().then(res => {
+//     console.log(res.data);
+//     transactions.value = res.data.data;
+//   })
+// });
+const transactions = inject<Ref<Transaction[]>>("transactions");
+const viewTransactions = computed(() => {
+  if(transactions) {
+    return !!(transactions.value.length > 0);
+  } else {
+    return false;
+  }
 });
-const viewTransactions = computed(() => !!(transactions.value.length > 0));
 
 interface User {
   date: string;
   name: string;
   address: string;
 }
+
 
 // const handleEdit = (index: number, row: User) => {
 //   console.log(index, row);
