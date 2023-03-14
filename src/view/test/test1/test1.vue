@@ -8,11 +8,15 @@
     import http from '../../../utils/http';
     import { onMounted } from 'vue';
     import {getProfile} from '../../../api/user';
+    import {getMyAssetsCopy} from '../../../api/wallet';
     onMounted(() => {
         // http.get("/v1/me?with=").then(res => {
         //     console.log(JSON.parse(res.data.data.settings.gridsters));
         // })
-        getProfile().then((res : any) => {
+        // getMyAssetsCopy().then((res : any) => {
+        //     console.log(res.data);
+        // })
+        getProfile().then(res => {
             console.log(res.data);
         })
     })

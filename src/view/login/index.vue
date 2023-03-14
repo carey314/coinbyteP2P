@@ -3,21 +3,27 @@
     <Header />
     <div class="center-box" v-if="windowWidth > 769"> 
       <div class="login-box">
-        <div class="login">
+        <el-form :model="form" :rules="rules" class="login"  @submit.native.prevent>
           <div class="login-title">Welcome to CoinByte</div>
-          <div class="login-referral">
+          <!-- <div class="login-referral">
             <el-input v-model="optional" placeholder="Phone / Email " />
-          </div>
-          <div class="login-password">
-            <el-input v-model="password" type="password"  placeholder="Password">
-              <template #prefix>
-                <img :src="login_password" />
-              </template>
-              <template #suffix>
-                <img :src="login_eye_off" />
-              </template>
-            </el-input>
-          </div>
+          </div> -->
+          <el-form-item class="login-referral" prop="username">
+              <el-input v-model="form.username"  placeholder="Phone / Email "/>
+          </el-form-item>
+          <el-form-item class="login-password" prop="password">
+              <el-input v-model="form.password" :type="isShowPass ? 'text' : 'password'"  placeholder="Password">
+                <template #prefix>
+                  <img :src="login_password" />
+                </template>
+                <template v-if="!isShowPass" #suffix>
+                  <img :src="login_eye_off" @click="showPassWord"/>
+                </template>
+                <template v-else #suffix>
+                  <img :src="login_eye_view" style="width:22px;height:20px" @click="showPassWord"/>
+                </template>
+              </el-input>
+          </el-form-item>
 
           <div class="login-agree clearfloat">
             <div class="agreement">
@@ -26,9 +32,9 @@
               >
             </div>
           </div>
-          <div class="login-button">
-            <GetButton :text="text" style="margin-top: 31px;" @handler="toLogin" />
-          </div>
+          <el-form-item class="login-button">
+              <GetButton :text="text" style="margin-top: 31px;" @handler="toLogin" />
+          </el-form-item>
           <div class="login-with">
             <el-divider>
             <span>or sign up with</span>
@@ -52,7 +58,7 @@
               >
             </div>
           </div>
-        </div>
+        </el-form>
       </div>
       <div class="scan clearfloat">
         <div class="scan-box">
@@ -148,6 +154,7 @@ import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
 import login_password from "../../assets/home/login_password.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
+import login_eye_view from '../../assets/wallet/overview_eye.png';
 import login_telegram from "../../assets/home/login_telegram.svg";
 import login_google from "../../assets/home/login_google.svg";
 import login_download from "../../assets/home/login_download.svg";
@@ -158,12 +165,31 @@ import { useUserInfoStore } from '../../store/user';
 import { storeToRefs } from 'pinia';
 import { ElMessage } from 'element-plus';
 import { getLoginUUID,toLogin as Tologin } from '../../api/login';
+
+import type { FormInstance, FormRules } from 'element-plus';
+const rules = reactive<FormRules>({
+  username : [
+    {required : true,message : 'Please input your username!',trigger : 'blur'},
+  ],
+  password : [
+    {required : true,message : 'Please input your password!'}
+  ]
+})
+
 const userInfoStore = useUserInfoStore();
 const { token,username} = storeToRefs(userInfoStore);
 console.log(userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
+const form = reactive({
+  username : "",
+  password : ""
+});
+const isShowPass = ref(false);
+const showPassWord = () => {
+  isShowPass.value = !isShowPass.value;
+}
 const text = ref("Log in");
 
 const uuid = ref('');
@@ -195,57 +221,57 @@ const options = ref([
     label: "Email",
   },
 ]);
-const toLogin = () => {
-  if(password.value !== "" && optional.value !== "") {
-    console.log(password.value,optional.value);
-    const userAgent = navigator.userAgent;
-    // 创建一个包含user_agent属性的JSON对象
-    let jsonObj = {
-      user_agent: userAgent
-    };
+//async (formEl: FormInstance | undefined)
+const toLogin = async (formEl: FormInstance | undefined) => {
+  console.log(form);
+  if (!formEl) return;
+  const userAgent = navigator.userAgent;
+  // 创建一个包含user_agent属性的JSON对象
+  let jsonObj = {
+    user_agent: userAgent
+  };
 
-    // 将JSON对象转换为JSON字符串
-    let jsonStr = JSON.stringify(jsonObj);
+  // 将JSON对象转换为JSON字符串
+  let jsonStr = JSON.stringify(jsonObj);
 
-    // 对JSON字符串进行base64编码
-    var base64String = btoa(jsonStr);
-    if(!uuid.value) {
-      ElMessage.error("Unable to get uuid");
+  // 对JSON字符串进行base64编码
+  var base64String = btoa(jsonStr);
+  if(!uuid.value) {
+    ElMessage.error("Unable to get uuid");
+    return;
+  }
+  const uploadMsg = {
+    "uuid": uuid.value,
+    "email": form.username,
+    "password": form.password,
+    "device_fingerprint": base64String,
+    "recaptchaResponse": "in quis cillum nisi"
+  };
+
+  Tologin(uploadMsg).then((res : any)=> {
+    const response = res.data;
+    if( (response.code === 200 || response.code === 202)) {
+      console.log("Bearer " + response.data.accessToken.token);
+      userInfoStore.changeToken(response.data.accessToken.token);
+      userInfoStore.changeRefreshToken(response.data.refreshToken.token);
+      ElMessage.success('Login succeeded!');
+      router.push("/");
+    } else {
+      ElMessage.error('Login failed. Please try again later!');
+    }
+  }).catch((err : any) => {
+    console.log(1);
+    if( err.response ) {
+      const error = err.response.data.error;
+      if(error.code === 0) {
+        ElMessage.error(error.details[0].issue);
+      } else {
+        ElMessage.error("Login failed. Please try again later");
+      }
       return;
     }
-    const uploadMsg = {
-      "uuid": uuid.value,
-      "email": optional.value,
-      "password": password.value,
-      "device_fingerprint": base64String,
-      "recaptchaResponse": "in quis cillum nisi"
-    };
-
-    Tologin(uploadMsg).then((res : any)=> {
-      const response = res.data;
-      if( (response.code === 200 || response.code === 202)) {
-        console.log("Bearer " + response.data.accessToken.token);
-        userInfoStore.changeToken(response.data.accessToken.token);
-        userInfoStore.changeRefreshToken(response.data.refreshToken.token);
-        ElMessage.success('Login succeeded!');
-        router.push("/");
-      } else {
-        ElMessage.error('Login failed. Please try again later!');
-      }
-    }).catch((err : any) => {
-      console.log(1);
-      if( err.response ) {
-        const error = err.response.data.error;
-        if(error.code === 0) {
-          ElMessage.error(error.details[0].issue);
-        } else {
-          ElMessage.error("Login failed. Please try again later");
-        }
-        return;
-      }
-      ElMessage.error("Login failed. Please try again later");
-    })
-  }
+    ElMessage.error("Login failed. Please try again later");
+  })
 }
 </script>
 
@@ -292,6 +318,15 @@ $fontSizeMin: 12px;
         border-radius: 0px;
         padding: 36px 13px 38px 13px;
 
+      }
+      :deep() {
+        .el-form-item {
+          display: block;
+          margin-bottom: 0;
+          .el-form-item__content {
+            display: block;
+          }
+        }
       }
       .login-title {
         font-size: $fontSizeMedPro;
