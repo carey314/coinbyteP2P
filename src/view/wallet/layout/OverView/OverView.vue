@@ -196,7 +196,7 @@
                       <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
                         <el-button class="more">More</el-button>
                         <template #dropdown>
-                          <el-dropdown-menu>
+                          <el-dropdown-menu  style="width: 180px;">
                             <el-dropdown-item>Withdraw</el-dropdown-item>
                             <el-dropdown-item>Buy</el-dropdown-item>
                             <el-dropdown-item>Sell</el-dropdown-item>
@@ -337,7 +337,7 @@
                   <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
                     <el-button class="more">More</el-button>
                     <template #dropdown>
-                      <el-dropdown-menu>
+                      <el-dropdown-menu  style="width: 180px;">
                         <el-dropdown-item>Withdraw</el-dropdown-item>
                         <el-dropdown-item>Buy</el-dropdown-item>
                         <el-dropdown-item>Sell</el-dropdown-item>
@@ -352,7 +352,7 @@
               <el-divider style="margin-left: -20px; width: 200%" />
               <div class="assets-body">
                 <div class="assets-item">
-                  <div class="assets-icon"><img :src="icon_trading" /></div>
+                  <div class="assets-icon"><img :src="icon_earining" /></div>
                   <div class="item-title">Earning</div>
                 </div>
                 <div class="assets-price">₮0.00</div>
@@ -384,11 +384,11 @@
   
                   <div class="recent-box">
                     <div class="box-left clearfloat">
-                      <div class="rencent-image"><img :src="icon_convert" /></div>
-                      <div class="recent-title">Convert USDT</div>
-                      <div class="recent-date">09/30/2022, 18:00:00</div>
+                      <div class="rencent-image"><img :src="iconCollects[item.type].icon" /></div>
+                      <div class="recent-title">{{ transactionsTitle(item) }}</div>
+                      <div class="recent-date">{{ moment(item.createTime).format("YY/DD/YYYY") }}</div>
                     </div>
-                    <div class="recent-count down">-100 USDT</div>
+                    <div :class="iconCollects[item.type].class">{{ transactionsAmount(item) }}</div>
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                   
@@ -418,20 +418,20 @@
               </div>
             </template>
             <div class="value-bottom">
-              <template v-for="item in (assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
+              <template v-for="item in (assetsData && assetsData.length >= 3 ? assetsData.slice(0,3) : assetsData)">
                 <div class="recent-box">
                   <div class="box-left clearfloat">
                     <div class="rencent-image">
                       <img
-                        v-if="item.currency === 'USD'"
+                        v-if="item.alphabeticCode === 'USD'"
                         :src="wallet_select_usdt_on"
                       />
                       <img
-                        v-else-if="item.currency === 'ETH'"
+                        v-else-if="item.alphabeticCode === 'ETH'"
                         :src="crypto_icon_eth"
                       />
                       <img
-                        v-else-if="item.currency === 'BTC'"
+                        v-else-if="item.alphabeticCode === 'BTC'"
                         :src="crypto_icon_btc"
                       />
                     </div>
@@ -536,7 +536,6 @@
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">Deposit</el-button>
-                      <!-- <el-button class="more">More</el-button> -->
                       <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px;">
                         <el-button class="more">More</el-button>
                         <template #dropdown>
@@ -559,7 +558,7 @@
                 <div class="scrollbar-flex-content">
                   <div class="assets-body">
                     <div class="assets-item">
-                      <div class="assets-icon"><img :src="icon_trading" /></div>
+                      <div class="assets-icon"><img :src="icon_earining" /></div>
                       <div class="item-title">Earning</div>
                     </div>
                     <div class="assets-price">₮0.00</div>
@@ -769,6 +768,7 @@ import wallet_select_usdt_on from "../../../../assets/wallet/wallet_select_usdt_
 import icon_wallet from "../../../../assets/wallet/icon_wallet.png";
 import wallet_search_none from "../../../../assets/wallet/wallet_search_none.png";
 import icon_trading from "../../../../assets/wallet/icon_trading.png";
+import icon_earining from "../../../../assets/wallet/icon_earining.png";
 import icon_convert from "../../../../assets/wallet/icon_convert.png";
 import icon_deposit from "../../../../assets/wallet/icon_deposit.png";
 import icon_withdrawal from "../../../../assets/wallet/icon_withdrawal.png";
@@ -782,28 +782,28 @@ import moment from 'moment';
 //Recent transactions --- icon
 const iconCollects = ref({  
   deposit : {
-    icon : icon_deposit,
-    class : ['recent-count','up'],
+    icon : icon_convert,
+    class : ['recent-count','down'],
     prefix : "+"
   },
   exchange : {
     icon : icon_convert,
-    class : ['recent-count'],
+    class : ['recent-count','up'],
     prefix : ""
   },
   external : {
-    icon : "",
-    class : ['recent-count'],
+    icon : "icon_convert",
+    class : ['recent-count','up'],
     prefix : ""
   },
   partner : {
     icon : icon_convert,
-    class : ['recent-count'],
+    class : ['recent-count','down'],
     prefix : ""
   },
   transfer : {
-    icon : "",
-    class : ['recent-count'],
+    icon : "icon_convert",
+    class : ['recent-count','up'],
     prefix : ""
   },
   withdrawal : {
@@ -833,7 +833,6 @@ const transactionsAmount = (data : Transaction) => {
   }
   return iconCollects.value[data.type].prefix + amount + ' ' + currency;
 }
-
 
 
 const windowWidth = ref(window.document.body.offsetWidth);
@@ -1478,6 +1477,18 @@ $fontSizeMin: 12px;
     }
     .left-recent {
       margin-top: 27px;
+      .up {
+          font-size: 16px;
+          color: #01c19a;
+          line-height: 18px;
+          text-align: right;
+        }
+        .down {
+          font-size: 16px;
+          color: #f35854;
+          line-height: 18px;
+          text-align: right;
+        }
       .card-header {
         span {
           font-size: 18px;
@@ -1489,23 +1500,13 @@ $fontSizeMin: 12px;
         box-shadow: none;
         width: 100%;
         padding-bottom: 16px;
+    
         .recent-box {
           display: flex;
           justify-content: space-between;
           align-items: center;
           height: 21px;
-          .up {
-            font-size: 16px;
-            color: #01c19a;
-            line-height: 18px;
-            text-align: right;
-          }
-          .down {
-            font-size: 16px;
-            color: #f35854;
-            line-height: 18px;
-            text-align: right;
-          }
+          
 
           .box-left {
             width: 80%;
