@@ -9,6 +9,7 @@
     import { onMounted } from 'vue';
     import {getProfile} from '../../../api/user';
     import {getMyAssetsCopy} from '../../../api/wallet';
+    import {getWithDrawalTemplates,getWithDrawalTemplateDetails} from '../../../api/withdrawals';
     onMounted(() => {
         // http.get("/v1/me?with=").then(res => {
         //     console.log(JSON.parse(res.data.data.settings.gridsters));
@@ -16,7 +17,7 @@
         // getMyAssetsCopy().then((res : any) => {
         //     console.log(res.data);
         // })
-        getProfile().then(res => {
+        getWithDrawalTemplates().then(res => {
             console.log(res.data);
         })
     })

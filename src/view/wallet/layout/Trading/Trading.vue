@@ -508,22 +508,25 @@ const TotalAmount = computed(() => {
     });
     return (count).toFixed(2);
   } else {
-    return 0;
+    return 100;
   }
 });
 const tableData = computed(() => {
   if(assetsData) {
-    return assetsData.value.map(v => ({
-      crypto: v.caption,
-      fullname: v.currency,
-      icon: iconCollects.value[v.currency] ? iconCollects.value[v.currency].icon : "aaaa",
-      asset: parseFloat(v.balance).toFixed(4),
-      amount: "₮" + parseFloat(v.balance).toFixed(2),
-      TxID: (Number(parseFloat(v.balance).toFixed(4)) / Number(TotalAmount.value)) * 100,
-      buy: "Buy",
-      sell: "Sell",
-      more: "More",
-    }))
+    return assetsData.value.map(v => {
+      let isAsset = (Number(parseFloat(v.balance).toFixed(4)) / Number(TotalAmount.value)) * 100;
+      return {
+        crypto: v.caption,
+        fullname: v.currency,
+        icon: iconCollects.value[v.currency] ? iconCollects.value[v.currency].icon : "aaaa",
+        asset: parseFloat(v.balance).toFixed(4),
+        amount: "₮" + parseFloat(v.balance).toFixed(2),
+        TxID: isNaN(isAsset) ? 0 : isAsset,
+        buy: "Buy",
+        sell: "Sell",
+        more: "More",
+      }
+    })
   }
 })
 const noneOverView = computed(() => {

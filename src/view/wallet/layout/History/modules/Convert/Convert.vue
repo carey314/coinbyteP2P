@@ -25,11 +25,8 @@
                 <el-table-column prop="date_upload" label="Date Upload" />
                 <el-table-column label="Status" fixed="right">
                 <template #default="scope" >
-                    <div v-if="scope.row.status === 'Successful'" style="color: #01C19A;">
-                        Successful
-                    </div>
-                    <div v-else-if="scope.row.status === 'Faild'">
-                        Faild
+                    <div :style="{color : statusCollects[scope.row.status as statusSelect].color}">
+                        {{ statusCollects[scope.row.status as statusSelect].title }}
                     </div>
                 </template>
             </el-table-column>
@@ -39,132 +36,51 @@
 </template>
 
 <script setup lang="ts">
-    import {ref} from 'vue';
+    import {ref,inject, computed} from 'vue';
+    import type { Ref } from 'vue';
     import FilterSelect from '../../component/FilterSelect.vue';
     import CustomButton from '../../component/CustomButton.vue';
     import Table from "../../component/Table.vue";
-    const tableData = ref([
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-        {
-            date: '2022-10-03 00:48:11',
-            wallet: 'Trading',
-            pair: 'AUD/USDT',
-            from: '699.44 BUSD',
-            to: '699.39052725 USDT',
-            price: `
-1 BUSD = 0.999929 USDT 
-1 USDT = 1.00007101 BUSD`,
-            date_upload: "2022-10-03 00:48:11",
-            status : "Successful"
-        },
-    ]);
+    import type {Transaction} from '../../../../../../models/transactions';
+    import type {CurrencyAmount} from '../../../../../../models/currencies';
+    import moment from 'moment';
+    import {Status,StatusCollects,statusSelect} from '../../../../../../models/status';
+    import {statusCollects} from '../../../../../../res/status';
+    const transactions = inject<Ref<Transaction[]>>('transactions');
+    console.log(transactions?.value);
+    
+    
+    
+    const tableData = computed(() => {
+        let newData : Transaction[] | undefined = transactions?.value.filter(v => v.type === 'exchange');
+        if(newData) {
+            return newData.map(v => {
+                let fromObj = <CurrencyAmount>{};
+                let toObj = <CurrencyAmount>{};
+                fromObj.currency = v.debitDetails.currency.alphabeticCode;
+                fromObj.amount = parseFloat(v.debitDetails.amount);
+                fromObj.minorUnit = v.debitDetails.currency.minorUnit;
+                toObj.currency = v.creditDetails.currency.alphabeticCode;
+                toObj.amount = parseFloat(v.creditDetails.amount);
+                toObj.minorUnit = v.creditDetails.currency.minorUnit;
+                return {
+                        date: moment(v.createTime).format("YYYY-MM-DD hh:mm:ss"),
+                        wallet: 'Trading',  //unknown
+                        pair: `${fromObj.currency}/${toObj.currency}`,
+                        from: `${fromObj.amount.toFixed(fromObj.minorUnit)} ${fromObj.currency}`,
+                        to: `${toObj.amount.toFixed(toObj.minorUnit)} ${toObj.currency}`,
+                        price: `
+1 ${fromObj.currency} = ${(1 * parseFloat(v.foreignExchangeRate)).toFixed(toObj.minorUnit)} ${toObj.currency} 
+1 ${toObj.currency} = ${(1 / parseFloat(v.foreignExchangeRate)).toFixed(fromObj.minorUnit)} ${fromObj.currency}`,
+                        date_upload: moment(v.updateTime).format("YYYY-MM-DD hh:mm:ss"),
+                        status : v.status
+                    };
+            })
+        } else {
+            return [];
+        }
+    })
+    
 </script>
 
 <style lang="scss" scoped>

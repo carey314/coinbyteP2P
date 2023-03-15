@@ -47,11 +47,8 @@
             </el-table-column>
             <el-table-column label="Status" fixed="right">
                 <template #default="scope" >
-                    <div v-if="scope.row.status === 'Completed'" style="color: #01C19A;">
-                        Completed
-                    </div>
-                    <div v-else-if="scope.row.status === 'Faild'">
-                        Completed
+                    <div :style="{color : statusCollects[scope.row.status as statusSelect].color}">
+                        {{ scope.row.status }}
                     </div>
                 </template>
             </el-table-column>
@@ -60,14 +57,19 @@
 </template>
 
 <script setup lang="ts">
-    import {ref,reactive,inject} from 'vue';
+    import {ref,reactive,inject, onMounted, computed} from 'vue';
     import type { Transaction } from '../../../../../../../models/transactions';
+    import type { Ref } from 'vue';
     import type { FormInstance, FormRules } from 'element-plus'
     import FilterSelect from '../../../component/FilterSelect.vue';
     import CustomButton from '../../../component/CustomButton.vue';
     import { CopyDocument,Paperclip } from '@element-plus/icons-vue';
     import Table from '../../../component/Table.vue';
     import download from '../../../../../../../assets/wallet/wallet_download.png';
+    import {getDepositMethods,getDepositGroups} from '../../../../../../../api/deposit';
+    import moment from 'moment';
+    import { statusCollects } from '../../../../../../../res/status';
+    import type { statusSelect } from '../../../../../../../models/status';
     const selectMap = ref([
         {
             title : "Type",
@@ -126,68 +128,30 @@
             selectValue : "All"
         }
     ]);
-    const tableData = ref([
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-        {
-            time: "2022-10-03 00:48:11",
-            type: "Deposit",
-            deposit_wallet: "Trading Wallet",
-            asset: "USDT",
-            amount: "980.0000",
-            destination: "Cf9044...104a5f",
-            TxID: "TXRLV...aAjr7",
-            status: "Completed",
-        },
-    ]);
+
+    const transactions = inject<Ref<Transaction[]>>("transactions");
+    const tableData = computed(() => {
+        if(transactions) {
+            let newData : Transaction[] = transactions?.value.filter(v => v.type === 'exchange');
+            return newData.map(v => {
+                let depositObj = {
+                    currency : v.creditDetails.currency.alphabeticCode,
+                    amount : parseFloat(v.creditDetails.amount),
+                    minorUnit : v.creditDetails.currency.minorUnit
+                }
+                return {
+                    time: moment(v.createTime).format("YYYY-MM-DD hh:mm:ss"),
+                    type: "Deposit",
+                    deposit_wallet: "Trading Wallet", //unknown
+                    asset: depositObj.currency,
+                    amount: depositObj.amount.toFixed(depositObj.minorUnit),
+                    destination: "Cf9044...104a5f",//unknown
+                    TxID: "TXRLV...aAjr7",//unknown
+                    status: v.status,
+                }
+            })
+        }
+    })
     const cloneSearchData = selectMap.value.map(v => v.title);
     let cloneSearchMap: {[key: string]: string} = {};
     cloneSearchData.forEach(v => {
@@ -204,7 +168,11 @@
             }
         })
         }
-
+    onMounted(() => {
+        getDepositGroups().then(res => {
+            console.log(res);
+        })
+    })
 </script>
 
 <style lang="scss" scoped>
