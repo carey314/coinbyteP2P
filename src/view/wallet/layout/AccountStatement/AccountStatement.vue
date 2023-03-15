@@ -16,7 +16,15 @@
       <CustomButton title="Generate" class="search-btn"></CustomButton>
     </div>
     <div class="account-statement-table">
-        <Table :sourceData="tableData">
+        <Table v-if="noFound">
+            <template v-slot:columns>
+                <el-table-column label="As of" width="330" />
+                <el-table-column prop="Balance" label="Time of export" width="350" />
+                <el-table-column label="Status" width="320" />
+                <el-table-column label="Action" width="300" fixed="right" />
+            </template>
+        </Table>
+        <Table :sourceData="tableData" v-else>
         <template v-slot:columns>
             <el-table-column label="As of" width="330">
             <template #default="scope">
@@ -45,12 +53,14 @@
             <template #default="scope">
                 <div>
                     <!-- <img :src="login_download"/> -->
+
                     {{ scope.row.action }}
                 </div>
             </template>
             </el-table-column>
         </template>
         </Table>
+
     </div>
   </div>
 </template>
@@ -60,7 +70,7 @@ import { ref } from "vue";
 import Table from "../History/component/Table.vue";
 import CustomButton from "../History/component/CustomButton.vue";
 import login_download from "../../../../assets/home/login_download.svg";
-
+const noFound = ref(false)
 const dateValue = ref("");
 const tableData = ref([
   {
