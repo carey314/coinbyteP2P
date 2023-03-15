@@ -44,7 +44,7 @@
         </div>
       </div>
       <div class="login-history-table">
-        <el-table :data="tableData"  style="width: 100%">
+        <el-table :data="tableData" style="width: 100%">
           <el-table-column prop="date" label="Date" width="450" />
           <el-table-column prop="name" label="Name" width="150" />
           <el-table-column

@@ -6,8 +6,14 @@
         <div class="user-info clearfloat">
           <div class="info-image"><img :src="myprofile_user" /></div>
           <div class="info-text">
-            <div class="info-name profile-title">Aar***@hotmail.com</div>
-            <div class="info-count">UID:121233443434343</div>
+            <div class="info-name profile-title">
+              Aar***@hotmail.com
+              <img :src="myprofile_edit" style="margin-left: 8px" />
+            </div>
+            <div class="info-count">
+              UID:121233443434343
+              <img :src="myprofile_uid_copy" style="margin-left: 8px" />
+            </div>
           </div>
         </div>
         <div class="user-info clearfloat">
@@ -95,9 +101,10 @@
         <el-col :span="12" :xs="24">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Security</div>
+              <div class="card-title overview-title">Bank account</div>
               <div class="card-text content-text">
-                Protect your privacy and funds
+                Deposit AUD instantly into your Coinbyte account from 100+
+                NPP-enabled banks in Australia via PayID / Osko.
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_bankaccount" />
@@ -120,9 +127,9 @@
         <el-col :span="12" :xs="24" class="xs">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Security</div>
+              <div class="card-title overview-title">Preferences</div>
               <div class="card-text content-text">
-                Protect your privacy and funds
+                Choose your preferred language, currency and interface settings
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_preferences" />
@@ -160,6 +167,8 @@ import usercenter_icon_security from "../../../../assets/home/usercenter_icon_se
 import usercenter_icon_verification from "../../../../assets/home/usercenter_icon_verification.png";
 import usercenter_icon_bankaccount from "../../../../assets/home/usercenter_icon_bankaccount.png";
 import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon_preferences.png";
+import myprofile_edit from "../../../../assets/wallet/myprofile_edit.svg";
+import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg";
 </script>
 
 <style scoped lang="scss">
@@ -177,8 +186,8 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
   font-size: 14px;
   color: #878787;
   line-height: 16px;
-  width: 84%;
-  height: 38px;
+  width: 356px;
+  height: 48px;
 }
 :deep(.el-card__body) {
   padding: 30px;
@@ -206,7 +215,7 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
         display: flex;
         float: left;
         width: 50px;
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: contain;
@@ -238,7 +247,7 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
   }
   .part-box-card {
     .card-box {
-      padding-bottom: 45px;
+      padding-bottom: 10px;
       .card-text {
         margin-top: 6px;
       }
@@ -246,7 +255,7 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
         float: right;
         width: auto;
         height: 59px;
-        margin-top: -50px;
+        margin-top: -70px;
         img {
           width: 100%;
           height: 100%;
@@ -263,10 +272,8 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
         .link-text {
           display: flex;
           float: left;
+          margin-right: 5px;
         }
-      }
-      .bottom-link {
-        // float: right;
       }
       .bottom-tip {
         display: flex;

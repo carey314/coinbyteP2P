@@ -131,6 +131,7 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
   .card-link {
     .link-text {
       float: left;
+      margin-right: 5px;
     }
   }
 }
