@@ -181,7 +181,9 @@
             class="right-dropdown-box"
           >
             <el-dropdown class="user-dropdown align-icon" ref="navUser">
-              <img :src="top_bar_usercenter" alt="" />
+              <router-link to="/user">
+                <img :src="top_bar_usercenter" alt="" />
+              </router-link>
               <template #dropdown>
                 <el-dropdown-menu
                   class="user-dropdown-menu"
