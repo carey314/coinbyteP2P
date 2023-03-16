@@ -16,51 +16,49 @@
       <CustomButton title="Generate" class="search-btn"></CustomButton>
     </div>
     <div class="account-statement-table">
-        <Table v-if="noFound">
-            <template v-slot:columns>
-                <el-table-column label="As of" width="330" />
-                <el-table-column prop="Balance" label="Time of export" width="350" />
-                <el-table-column label="Status" width="320" />
-                <el-table-column label="Action" width="300" fixed="right" />
-            </template>
-        </Table>
-        <Table :sourceData="tableData" v-else>
+      <Table v-if="noFound">
         <template v-slot:columns>
-            <el-table-column label="As of" width="330">
-            <template #default="scope">
-                <div class="table-crypto">
-                    <div>
-                        {{ scope.row.time }}
-                    </div>
-                </div>
-            </template>
-            </el-table-column>
-            <el-table-column prop="Balance" label="Time of export" width="350">
-            <template #default="scope">
-                <div>
-                {{ scope.row.exporttime }}
-                </div>
-            </template>
-            </el-table-column>
-            <el-table-column label="Status" width="320">
-                <template #default="scope">
-                    <div class="progress">
-                    {{ scope.row.status }}
-                    </div>
-                </template>
-            </el-table-column>
-            <el-table-column label="Action" width="300" fixed="right">
-            <template #default="scope">
-                <div>
-                    <!-- <img :src="login_download"/> -->
-
-                    {{ scope.row.action }}
-                </div>
-            </template>
-            </el-table-column>
+          <el-table-column label="As of" width="330" />
+          <el-table-column prop="Balance" label="Time of export" width="350" />
+          <el-table-column label="Status" width="320" />
+          <el-table-column label="Action" width="300" fixed="right" />
         </template>
-        </Table>
-
+      </Table>
+      <Table :sourceData="tableData" v-else>
+        <template v-slot:columns>
+          <el-table-column label="As of" width="330">
+            <template #default="scope">
+              <div class="table-crypto">
+                <div>
+                  {{ scope.row.time }}
+                </div>
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column prop="Balance" label="Time of export" width="350">
+            <template #default="scope">
+              <div>
+                {{ scope.row.exporttime }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="Status" width="320">
+            <template #default="scope">
+              <div class="progress">
+                {{ scope.row.status }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="Action" width="300" fixed="right">
+            <template #default="scope">
+              <div>
+                <!-- <img :src="login_download"/> -->
+                {{ scope.row.action }}
+              </div>
+            </template>
+          </el-table-column>
+        </template>
+      </Table>
     </div>
   </div>
 </template>
@@ -70,13 +68,13 @@ import { ref } from "vue";
 import Table from "../History/component/Table.vue";
 import CustomButton from "../History/component/CustomButton.vue";
 import login_download from "../../../../assets/home/login_download.svg";
-const noFound = ref(false)
+const noFound = ref(false);
 const dateValue = ref("");
 const tableData = ref([
   {
     time: "2022-10-03",
     exporttime: "2022-10-03 00:48:11",
-    icon: '',
+    icon: "",
     status: "Processing",
     action: "-",
   },
@@ -113,19 +111,19 @@ const tableData = ref([
     }
     .search-btn {
       margin-left: 23px;
-      @media(max-width:768px){
+      @media (max-width: 768px) {
         margin-left: 3px;
       }
     }
   }
-  .account-statement-table{
-    :deep(){
-        .custom-table[data-v-1f0f0ed4] .el-table th{
-            padding: 0 10px;
-        }
+  .account-statement-table {
+    :deep() {
+      .custom-table[data-v-1f0f0ed4] .el-table th {
+        padding: 0 10px;
+      }
     }
-    .progress{
-        cursor: pointer;
+    .progress {
+      cursor: pointer;
     }
   }
 }
