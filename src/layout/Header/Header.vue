@@ -194,8 +194,8 @@
                         <img :src="top_bar_usercenter" />
                       </div>
                       <div class="head-text">
-                        <div class="user-name">Aar***@hotmail.com</div>
-                        <div class="user-id">UID:121233443434343</div>
+                        <div class="user-name">{{ userInfo.maskedEmail }}</div>
+                        <div class="user-id">UID:{{ userInfo.id }}</div>
                       </div>
                     </div>
                   </el-dropdown-item>
@@ -522,9 +522,17 @@ import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercent
 import {logOut} from '../../api/user';
 
 import { useUserInfoStore } from "../../store/user";
+import { storeToRefs } from "pinia";
+
+
+
+
+
 const userInfoStore = useUserInfoStore();
+const { userInfo } = storeToRefs(userInfoStore);
 
 const showname = ref<boolean>(false); //header是否登陆
+
 
 let deg = ref<number>(0);
 const navCurrency = ref();

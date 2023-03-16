@@ -132,7 +132,7 @@
     const transactions = inject<Ref<Transaction[]>>("transactions");
     const tableData = computed(() => {
         if(transactions) {
-            let newData : Transaction[] = transactions?.value.filter(v => v.type === 'exchange');
+            let newData : Transaction[] = transactions?.value.filter(v => v.type === 'deposit');
             return newData.map(v => {
                 let depositObj = {
                     currency : v.creditDetails.currency.alphabeticCode,
@@ -145,8 +145,8 @@
                     deposit_wallet: "Trading Wallet", //unknown
                     asset: depositObj.currency,
                     amount: depositObj.amount.toFixed(depositObj.minorUnit),
-                    destination: "Cf9044...104a5f",//unknown
-                    TxID: "TXRLV...aAjr7",//unknown
+                    destination: "unknown",//unknown
+                    TxID: "unknown",//unknown
                     status: v.status,
                 }
             })

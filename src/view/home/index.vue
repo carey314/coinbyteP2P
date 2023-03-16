@@ -636,6 +636,10 @@ import LTC from "../../assets/home/part01_LTC.png";
 import DOT from "../../assets/home/part01_DOT.png";
 import ADA from "../../assets/home/part01_ADA.png";
 
+import {getProfile} from '../../api/user';
+import { useUserInfoStore } from '../../store/user';
+
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -962,6 +966,19 @@ const minCardList2 = [
     desc: "Verify your account in 2 minutes. ",
   },
 ];
+
+//Get client profile data
+const userInfoStore = useUserInfoStore();
+
+onMounted(() => {
+  if(userInfoStore.isLogin) {
+    getProfile().then(res => {
+      console.log(res.data);
+      userInfoStore.updateUserInfo(res.data);
+    })
+  }
+})
+
 </script>
 
 <style lang="scss" scoped>

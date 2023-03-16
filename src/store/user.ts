@@ -1,5 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import { userInfo } from 'os';
 
 export const useUserInfoStore = defineStore('useInfo', () => {
   // 共享数据
@@ -29,7 +30,11 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     token.value = null;
     refreshToken.value = null;
   }
-  return { token, username,changeToken,refreshToken,changeRefreshToken ,isLogin,clearToken};
+
+  const updateUserInfo = (info : any) => {
+    userInfo.value = info;
+  }
+  return { token, username,changeToken,refreshToken,changeRefreshToken ,isLogin,clearToken,userInfo,updateUserInfo};
 },{
     persist: {
       enabled: true,
@@ -38,7 +43,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
       strategies: [
         {
           storage: localStorage,//表示存储在localStorage
-          paths: ['token','refreshToken'],//指定要长久化的字段
+          paths: ['token','refreshToken',"userInfo"],//指定要长久化的字段
         }
       ]
     }
