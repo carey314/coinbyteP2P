@@ -196,8 +196,8 @@
                         <img :src="top_bar_usercenter" />
                       </div>
                       <div class="head-text">
-                        <div class="user-name">{{ userInfo.maskedEmail }}</div>
-                        <div class="user-id">UID:{{ userInfo.id }}</div>
+                        <div class="user-name">{{ userInfo && userInfo.maskedEmail }}</div>
+                        <div class="user-id">UID:{{ userInfo && userInfo.id }}</div>
                       </div>
                     </div>
                   </el-dropdown-item>
@@ -520,6 +520,8 @@ import dropdown_usercenter_security from "../../assets/home/dropdown_usercenter_
 import dropdown_usercenter_verification from "../../assets/home/dropdown_usercenter_verification.svg";
 import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
+
+import type { UserInfo } from "../../models/user";
 
 import {logOut} from '../../api/user';
 

@@ -4,9 +4,14 @@ import http from '../utils/http';
 function getDepositMethods() {
     return http.get("/v2/my/deposits/methods");
 }
+//
 function getDepositGroups() {
     return http.get("/v2/my/deposits/groups");
 }
+
+
+
+
 export {
     getDepositMethods,
     getDepositGroups

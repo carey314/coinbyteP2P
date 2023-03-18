@@ -3,21 +3,21 @@
     <Header></Header>
     <div class="center-part">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Overview" name="first">
+        <el-tab-pane label="Overview" name="first" :lazy="true">
             <OverView />
         </el-tab-pane>
 
-        <el-tab-pane label="Trading" name="second"> 
+        <el-tab-pane label="Trading" name="second" :lazy="true"> 
           <Trading />  
         </el-tab-pane>
 
-        <el-tab-pane label="Earning" name="third">Earning</el-tab-pane>
+        <el-tab-pane label="Earning" name="third" :lazy="true">Earning</el-tab-pane>
 
-        <el-tab-pane label="History" name="fourth">
+        <el-tab-pane label="History" name="fourth" :lazy="true">
           <History />
         </el-tab-pane>
 
-        <el-tab-pane label="Account Statement" name="fifth">
+        <el-tab-pane label="Account Statement" name="fifth" :lazy="true">
           <AccountStatement />
         </el-tab-pane
         >

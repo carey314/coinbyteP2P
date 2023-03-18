@@ -3,23 +3,23 @@
     <Header></Header>
     <div class="center-part">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Overview" name="first">
+        <el-tab-pane label="Overview" name="first" :lazy="true">
           <OverView />
         </el-tab-pane>
 
-        <el-tab-pane label="Security" name="second">
+        <el-tab-pane label="Security" name="second" :lazy="true">
           <Security />
         </el-tab-pane>
 
-        <el-tab-pane label="Verification" name="third">
+        <el-tab-pane label="Verification" name="third" :lazy="true">
           <Verification />
         </el-tab-pane>
 
-        <el-tab-pane label="Bank account" name="fourth">
+        <el-tab-pane label="Bank account" name="fourth" :lazy="true">
           <!-- <History /> -->
         </el-tab-pane>
 
-        <el-tab-pane label="Preferences" name="fifth">
+        <el-tab-pane label="Preferences" name="fifth" :lazy="true">
           <!-- <AccountStatement /> -->
         </el-tab-pane>
       </el-tabs>
@@ -62,42 +62,7 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
-// ==== 主页请求数据 共享状态
-interface AssetsData {
-  currency: string;
-  balance: string;
-  alphabeticCode: string;
-  caption: string;
-  accountNumber: string;
-  accountId: string;
-}
-const assetsData = ref<AssetsData[]>([]);
-onMounted(() => {
-  getMyAssets().then((res) => {
-    console.log(res.data.data);
-    if (res.data.data) {
-      assetsData.value = res.data.data.map((v: any) => {
-        return {
-          currency: v.currency.name,
-          balance: v.statement.availableBalance,
-          alphabeticCode: v.currency.alphabeticCode,
-          caption: v.caption,
-          accountNumber: v.accountNumber,
-          accountId: v.accountId,
-        };
-      });
-    }
-  });
-});
-provide("assetsData", assetsData);
-const transactions = ref<any>([]);
-onMounted(() => {
-  getTransactions().then((res) => {
-    console.log(res.data);
-    transactions.value = res.data.data;
-  });
-});
-provide("transactions", transactions);
+
 </script>
 
 <style scoped lang="scss">

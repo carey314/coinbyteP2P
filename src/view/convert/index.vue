@@ -297,8 +297,7 @@
                       <template v-for="item in stableCoinsToOptions">
                           <el-option :label="item.alphabeticCode" :value="item.alphabeticCode">
                             <div
-                              style="
-                                width: 20px;
+                              style="width: 20px;
                                 display: flex;
                                 align-items: center;
                                 font-size: 14px !important;
@@ -370,8 +369,8 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left" style="display: flex">
-                      <template v-if="currentPair.rate && thirdSelect">
-                        Estimated : 1 {{ secondSelect }} ≈ {{ parseFloat(currentPair.rate).toFixed(currentPair.minorUnit) }} {{ thirdSelect }}
+                      <template v-if="currentPair && currentPair.rate && thirdSelect">
+                        Estimated : 1 {{ secondSelect }} ≈ {{ parseFloat(currentPair.rate).toFixed(currentPair ? currentPair.minorUnit : 0) }} {{ thirdSelect }}
                       </template>
                       <template v-else>
                         Estimated : This is the exchange message !
@@ -429,7 +428,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted ,computed} from "vue";
-
+import type { Ref } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -449,7 +448,10 @@ import buy_info from "../../assets/home/buy_info.svg";
 import {getMyAssets} from '../../api/wallet';
 import { getBaseCurrency,getExchangeRateForCurrencyPair,exchangeCurrencies } from "../../api/converts";
 
+import type {StableCoinsToOptions,CurrentPair} from '../../models/convert';
 import _ from 'lodash';
+
+import type {AssetsData} from '../../models/assets';
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -484,15 +486,7 @@ const options = ref([
   },
 ]);
 //get rates
-interface AssetsData {
-  currency: string;
-  balance: string;
-  alphabeticCode : string;
-  caption : string;
-  accountNumber : string;
-  accountId : string;
-  group : string;
-}
+
 const assetsData = ref<AssetsData[]>([]);
 onMounted(() => {
   getMyAssets().then((res) => {
@@ -536,7 +530,7 @@ const stableCoinsOptions = computed(() => {
     return [];
   }
 })
-const stableCoinsToOptions = ref([]);
+const stableCoinsToOptions = ref<StableCoinsToOptions[]>([]);
 const handleCoinsChange = () => {
   console.log(secondSelect.value);
   getBaseCurrency(secondSelect.value).then(res => {
@@ -553,7 +547,7 @@ const handleCoinsChange = () => {
     });
   })
 }
-const currentPair = ref({});
+const currentPair = ref<CurrentPair>();
 const handleSetRate = () => {
   getExchangeRateForCurrencyPair(secondSelect.value,thirdSelect.value).then(res => {
     console.log(res.data);
@@ -566,12 +560,13 @@ const handleSetRate = () => {
       maxAmount : newData.maxAmount,
       quoteId : newData.quoteId,
       rate : newData.rate,
+      minorUnit : newData.currency.minorUnit,
     }
     currentPair.value = newObj;
   })
 }
 const countStable = computed(() => {
-  if(numberStable.value && currentPair.value.rate) {
+  if(numberStable.value && currentPair.value && currentPair.value.rate) {
     return parseFloat(numberStable.value) * parseFloat(currentPair.value.rate);
   }else {
     return null;
@@ -580,7 +575,11 @@ const countStable = computed(() => {
 const availableAmount = computed(() => {
   if(secondSelect.value && stableCoinsOptions.value.length > 0) {
     let selectOption = stableCoinsOptions.value.find(v => v.alphabeticCode === secondSelect.value);
-    return parseFloat(selectOption?.balance).toFixed(selectOption?.minorUnit)
+    if(selectOption) {
+      return parseFloat(selectOption.balance).toFixed(selectOption.minorUnit)
+    } else {
+      return null;
+    }
   }
 })
 const handleToConvert = () => {

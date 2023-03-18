@@ -7,11 +7,13 @@
           <div class="info-image"><img :src="myprofile_user" /></div>
           <div class="info-text">
             <div class="info-name profile-title">
-              Aar***@hotmail.com
+              <!-- Aar***@hotmail.com -->
+              {{ userInfo && userInfo.maskedEmail }}
               <img :src="myprofile_edit" style="margin-left: 8px" />
             </div>
             <div class="info-count">
-              UID:121233443434343
+              <!-- UID:121233443434343 -->
+              UID:{{ userInfo && userInfo.id }}
               <img :src="myprofile_uid_copy" style="margin-left: 8px" />
             </div>
           </div>
@@ -20,7 +22,7 @@
           <div class="info-image"><img :src="usercenter_email" /></div>
           <div class="info-text">
             <div class="info-name profile-title">Email</div>
-            <div class="info-count">Aar*******@hotmail.com</div>
+            <div class="info-count">{{ userInfo && userInfo.maskedEmail }}</div>
           </div>
         </div>
         <div class="user-info clearfloat">
@@ -29,7 +31,7 @@
           </div>
           <div class="info-text">
             <div class="info-name profile-title">Phone</div>
-            <div class="info-count">Aar*******@hotmail.com</div>
+            <div class="info-count">{{ userInfo && userInfo.phone.maskedPhone }}</div>
           </div>
         </div>
       </div>
@@ -169,6 +171,25 @@ import usercenter_icon_bankaccount from "../../../../assets/home/usercenter_icon
 import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon_preferences.png";
 import myprofile_edit from "../../../../assets/wallet/myprofile_edit.svg";
 import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg";
+
+import { useUserInfoStore } from "../../../../store/user";
+import { storeToRefs } from "pinia";
+
+const userInfoStore = useUserInfoStore();
+const { userInfo } = storeToRefs(userInfoStore);
+console.log(userInfo.value);
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <style scoped lang="scss">

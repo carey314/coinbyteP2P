@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue'
+import type { Ref } from 'vue';
 import { defineStore } from 'pinia'
-import { userInfo } from 'os';
-
+import type {UserInfo} from '../models/user';
 export const useUserInfoStore = defineStore('useInfo', () => {
   // 共享数据
   const token = ref(null);
@@ -17,7 +17,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     refreshToken.value = newToken;
   }
 
-  const userInfo = ref({});
+  const userInfo = ref<UserInfo | null>();
   const isLogin = computed(() => {
     if(refreshToken.value && token.value) {
       return true;
@@ -31,10 +31,22 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     refreshToken.value = null;
   }
 
-  const updateUserInfo = (info : any) => {
+  const updateUserInfo = (info : UserInfo) => {
     userInfo.value = info;
   }
-  return { token, username,changeToken,refreshToken,changeRefreshToken ,isLogin,clearToken,userInfo,updateUserInfo};
+  const clearUserInfo = () => {
+    userInfo.value = null;
+  }
+  return { 
+    token, 
+    username,
+    changeToken,
+    refreshToken,
+    changeRefreshToken ,
+    isLogin,clearToken,
+    userInfo,
+    updateUserInfo,
+    clearUserInfo};
 },{
     persist: {
       enabled: true,

@@ -30,65 +30,88 @@
     import icon_convert from '../../../../../../../assets/wallet/icon_convert.png';
     import CustomButton from '../../../component/CustomButton.vue';
     import Table from '../../../component/Table.vue';
-    import {ref} from 'vue';
-    const tableData = ref([
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-        {
-            date : "2022-10-03 00:48:11",
-            coin : "USDT",
-            amount : "4995.5004",
-            from : "Flat and Spot",
-            to : "Trading",
-        },
-    ]);
+    import {ref,inject,computed} from 'vue';
+    import type { Ref } from 'vue';
+    import type { Transaction } from '../../../../../../../models/transactions';
+    import moment from 'moment';
+    const transactions = inject<Ref<Transaction[]>>("transactions");
+    const tableData = computed(() => {
+        if(transactions) {
+            let newData : Transaction[] = transactions?.value.filter(v => v.type === 'transfer');
+            return newData.map(v => {
+                // let depositObj = {
+                //     currency : v.creditDetails.currency.alphabeticCode,
+                //     amount : parseFloat(v.creditDetails.amount),
+                //     minorUnit : v.creditDetails.currency.minorUnit
+                // }
+                return {
+                    date: moment(v.createTime).format("YYYY-MM-DD hh:mm:ss"),
+                    coin : "",
+                    amount : "",
+                    from : "",
+                    to : ""
+                }
+            })
+        }
+    })
+    // const tableData = ref([
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    //     {
+    //         date : "2022-10-03 00:48:11",
+    //         coin : "USDT",
+    //         amount : "4995.5004",
+    //         from : "Flat and Spot",
+    //         to : "Trading",
+    //     },
+    // ]);
 </script>
 
 <style lang="scss" scoped>
