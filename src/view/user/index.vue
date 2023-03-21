@@ -16,7 +16,7 @@
         </el-tab-pane>
 
         <el-tab-pane label="Bank account" name="fourth">
-          <!-- <History /> -->
+          <BankAccount />
         </el-tab-pane>
 
         <el-tab-pane label="Preferences" name="fifth">
@@ -38,6 +38,7 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import OverView from "./layout/OverView/OverView.vue";
 import Security from "./layout/Security/Security.vue";
 import Verification from "./layout/Verification/Verfication.vue";
+import BankAccount from "./layout/BankAccount/BankAccount.vue";
 // import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
