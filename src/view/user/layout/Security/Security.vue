@@ -189,6 +189,8 @@ $fontSizeMin: 12px;
           .button {
             width: 57px !important;
             height: 34px !important;
+            font-size: 14px !important;
+            font-weight: 400 !important;
             padding: 0;
           }
           .el-button > span {
