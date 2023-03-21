@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
+import type { Ref } from 'vue';
 import { defineStore } from 'pinia'
-
+import type {UserInfo} from '../models/user';
 export const useUserInfoStore = defineStore('useInfo', () => {
   // 共享数据
   const token = ref(null);
@@ -16,7 +17,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     refreshToken.value = newToken;
   }
 
-  const userInfo = ref({});
+  const userInfo = ref<UserInfo | null>();
   const isLogin = computed(() => {
     if(refreshToken.value && token.value) {
       return true;
@@ -29,7 +30,23 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     token.value = null;
     refreshToken.value = null;
   }
-  return { token, username,changeToken,refreshToken,changeRefreshToken ,isLogin,clearToken};
+
+  const updateUserInfo = (info : UserInfo) => {
+    userInfo.value = info;
+  }
+  const clearUserInfo = () => {
+    userInfo.value = null;
+  }
+  return { 
+    token, 
+    username,
+    changeToken,
+    refreshToken,
+    changeRefreshToken ,
+    isLogin,clearToken,
+    userInfo,
+    updateUserInfo,
+    clearUserInfo};
 },{
     persist: {
       enabled: true,
@@ -38,7 +55,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
       strategies: [
         {
           storage: localStorage,//表示存储在localStorage
-          paths: ['token','refreshToken'],//指定要长久化的字段
+          paths: ['token','refreshToken',"userInfo"],//指定要长久化的字段
         }
       ]
     }

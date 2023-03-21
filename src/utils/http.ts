@@ -161,7 +161,7 @@ async function toRefreshToken() {
     }
   }
   try {
-    const response = await axios.post('/api/v2/refresh',{
+    const response = await axios.post('/api/v2/my/refresh',{
       "refreshToken" : 'Bearer ' + refreshToken.value
     },);
     if (response.data.code === 200) {

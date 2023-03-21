@@ -41,13 +41,18 @@ function getClientTypes() {  //404
     return http.get("/v2/my/clients/types");
 }
 //Get client type details
-//....
+function getClientTypeDetails (typeId : string) {
+    return http.get(`/v2/my/clients/types/${typeId}`);
+}
 
 //log out
 function logOut () {
     return http.post("/v2/my/signout");
 }
-
+//Get client permissions
+function getClientPermissions () {
+    return http.get(`/v2/my/permissions`);
+}
 
 
 
@@ -58,5 +63,6 @@ export {
     getSettings,
     updateSettings,
     getClientTypes,
-    logOut
+    logOut,
+    getClientPermissions
 }
