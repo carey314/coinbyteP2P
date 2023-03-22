@@ -2,7 +2,7 @@
   <div class="allCrypto-page">
     <Header></Header>
     <div class="center-part">
-      <div class="search-input">
+      <div class="search-input" v-if="windowWidth >= 768">
         <el-input
           v-model="search"
           class="w-50 m-2"

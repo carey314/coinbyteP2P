@@ -1,15 +1,6 @@
 <template>
   <div class="convert-page">
-    <Header />
     <div class="convert-content">
-      <div class="top-part">
-        <div class="top-part-box">
-          <div class="top-part-title">Convert</div>
-          <div class="top-part-content">
-            Top stablecoins 1:1 convert with 0 slippage
-          </div>
-        </div>
-      </div>
       <div class="center-part">
         <div class="center-convert">
           <div class="convert-radio">
@@ -29,6 +20,15 @@
               </el-radio-button>
             </el-radio-group>
             <div v-if="activeSign === '1'" class="convert-crypto">
+              <div class="quick-amount">
+                <div class="quick-amount-title">How much ?</div>
+                <div class="quick-amount-part">
+                  <div class="amount">$500</div>
+                  <div class="amount">$1000</div>
+                  <div class="amount">$5000</div>
+                  <div class="amount">$10,000</div>
+                </div>
+              </div>
               <div class="radio-content">
                 <div class="pre-input">
                   <div class="input-title">You pay</div>
@@ -114,7 +114,7 @@
                   <div class="input-second-title">You Receive</div>
                   <el-input
                     v-model="countCrypto"
-                    placeholder="pay"
+                    placeholder="Receive"
                     class="change-count clearfloat"
                   >
                     <template #append>
@@ -191,6 +191,15 @@
               </div>
             </div>
             <div v-if="activeSign === '2'" class="convert-stable">
+              <div class="quick-amount">
+                <div class="quick-amount-title">How much ?</div>
+                <div class="quick-amount-part">
+                  <div class="amount">$500</div>
+                  <div class="amount">$1000</div>
+                  <div class="amount">$5000</div>
+                  <div class="amount">$10,000</div>
+                </div>
+              </div>
               <div class="radio-content">
                 <div class="pre-input">
                   <div class="input-title">You pay</div>
@@ -210,28 +219,6 @@
                         style="width: 97px"
                         @change="handleCoinsChange"
                       >
-                        <!-- <el-option label="BTC" value="3">
-                          <div
-                            style="
-                              width: 20px;
-                              display: flex;
-                              align-items: center;
-                              font-size: 14px !important;
-                              color: #000;
-                              margin-left: -5px;
-                            "
-                          >
-                            <img
-                              :src="part01_BTC"
-                              style="
-                                width: 100%;
-                                height: 100%;
-                                margin-right: 5px;
-                              "
-                            />
-                            BTC
-                          </div>
-                        </el-option> -->
                         <template v-for="item in stableCoinsOptions">
                           <el-option
                             :label="item.alphabeticCode"
@@ -285,7 +272,7 @@
                     <div class="input-second-title">You Receive</div>
                     <el-input
                       v-model="countStable"
-                      placeholder="pay"
+                      placeholder="Receive"
                       class="change-count clearfloat"
                     >
                       <template #append>
@@ -325,50 +312,6 @@
                               </div>
                             </el-option>
                           </template>
-                          <!-- <el-option label="USDT" value="3">
-                          <div
-                            style="
-                              width: 20px;
-                              display: flex;
-                              align-items: center;
-                              font-size: 14px !important;
-                              color: #000;
-                              margin-left: -5px;
-                            "
-                          >
-                            <img
-                              :src="part01_BTC"
-                              style="
-                                width: 100%;
-                                height: 100%;
-                                margin-right: 5px;
-                              "
-                            />
-                            BTC
-                          </div>
-                        </el-option>
-                        <el-option label="BTC" value="3">
-                          <div
-                            style="
-                              width: 20px;
-                              display: flex;
-                              align-items: center;
-                              font-size: 14px !important;
-                              color: #000;
-                              margin-left: -5px;
-                            "
-                          >
-                            <img
-                              :src="part01_BTC"
-                              style="
-                                width: 100%;
-                                height: 100%;
-                                margin-right: 5px;
-                              "
-                            />
-                            BTC
-                          </div>
-                        </el-option> -->
                         </el-select>
                       </template>
                     </el-input>
@@ -413,78 +356,40 @@
             </div>
           </div>
         </div>
-        <div class="center-service">
-          <div class="service">
-            <div class="service-icon">
-              <img :src="convert_icon01" />
-            </div>
-            <div class="service-msg">Zero fees</div>
-          </div>
-          <div class="service">
-            <div class="service-icon">
-              <img :src="convert_icon02" />
-            </div>
-            <div class="service-msg">No slippage</div>
-          </div>
-          <div class="service">
-            <div class="service-icon">
-              <img :src="convert_icon03" />
-            </div>
-            <div class="service-msg">More pairs</div>
-          </div>
-        </div>
-        <div class="center-faq">
-          <faq></faq>
-        </div>
       </div>
     </div>
-
-    <Footer v-if="windowWidth > 769" />
-    <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, onUnmounted, computed } from "vue";
 import type { Ref } from "vue";
-import Header from "../../layout/Header/Header.vue";
-import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import Footer from "../../layout/Footer/Footer.vue";
-import GetButton from "../../components/GetButton.vue";
-import faq from "../../layout/FAQ/faq.vue";
+import GetButton from "../../../components/GetButton.vue";
 
 //img
-import convert_icon01 from "../../assets/home/convert_icon01.png";
-import convert_icon02 from "../../assets/home/convert_icon02.png";
-import convert_icon03 from "../../assets/home/convert_icon03.png";
-import part01_BTC from "../../assets/home/part01_BTC.png";
-import crypto_icon_usdt from "../../assets/home/crypto_icon_usdt.png";
-import crypto_icon_usdc from "../../assets/home/crypto_icon_usdc.png";
-import crypto_buy from "../../assets/home/crypto_buy.png";
-import buy_info from "../../assets/home/buy_info.svg";
+import convert_icon01 from "../../../assets/home/convert_icon01.png";
+import convert_icon02 from "../../../assets/home/convert_icon02.png";
+import convert_icon03 from "../../../assets/home/convert_icon03.png";
+import part01_BTC from "../../../assets/home/part01_BTC.png";
+import crypto_icon_usdt from "../../../assets/home/crypto_icon_usdt.png";
+import crypto_icon_usdc from "../../../assets/home/crypto_icon_usdc.png";
+import crypto_buy from "../../../assets/home/crypto_buy.png";
+import buy_info from "../../../assets/home/buy_info.svg";
 
-import { getMyAssets } from "../../api/wallet";
+import { getMyAssets } from "../../../api/wallet";
 import {
   getBaseCurrency,
   getExchangeRateForCurrencyPair,
   exchangeCurrencies,
-} from "../../api/converts";
+} from "../../../api/converts";
 
-import type { StableCoinsToOptions, CurrentPair } from "../../models/convert";
+import type {
+  StableCoinsToOptions,
+  CurrentPair,
+} from "../../../models/convert";
 import _ from "lodash";
 
-import type { AssetsData } from "../../models/assets";
-
-const windowWidth = ref(window.document.body.offsetWidth);
-onMounted(() => {
-  window.addEventListener("resize", resetWidth);
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", resetWidth);
-});
-function resetWidth() {
-  windowWidth.value = window.document.body.offsetWidth;
-}
+import type { AssetsData } from "../../../models/assets";
 
 const activeSign = ref("1");
 const numberCrypto = ref("0.01");
@@ -495,16 +400,15 @@ const countCrypto = ref("214.2958");
 const firstSelect = ref("BTC");
 const secondSelect = ref("");
 const thirdSelect = ref("");
-const select = ref("BTC");
-const text = ref("Convert");
+const text = ref("Buy Bitcoin");
 const options = ref([
   {
     value: "1",
-    label: "Crypto",
+    label: "Buy",
   },
   {
     value: "2",
-    label: "Stablecoins",
+    label: "Sell",
   },
 ]);
 //get rates
@@ -653,43 +557,8 @@ $fontSizeMin: 12px;
   .convert-content {
     min-height: calc(100vh - 394px);
     align-items: center;
-    .top-part {
-      background: #1d262f;
-      width: 100%;
-      padding: 46px 0 68px 0;
-      position: relative;
-      display: flex;
-      .top-part-box {
-        margin: auto;
-        text-align: center;
-        width: 654px;
-        @media (max-width: 769px) {
-          & {
-            padding: 0 5%;
-          }
-        }
-        .top-part-title {
-          font-size: $fontSizeMax;
-          color: #01c19a;
-          font-weight: 600;
-          line-height: 51px;
-        }
-        .top-part-content {
-          font-size: $fontSizeMed;
-          color: #ffffff;
-          margin-top: 12px;
-          line-height: 29px;
-          @media (max-width: 769px) {
-            & {
-              font-size: $fontSizeDef !important;
-            }
-          }
-        }
-      }
-    }
+
     .center-part {
-      padding-top: 48px;
-      padding-bottom: 90px;
       .center-convert {
         max-width: 618px;
         flex: 1;
@@ -709,7 +578,7 @@ $fontSizeMin: 12px;
               width: 50%;
             }
             .el-radio-button__inner {
-              font-size: 18px;
+              font-size: 16px;
               line-height: 23px;
               color: #878787;
               font-weight: 600;
@@ -836,8 +705,32 @@ $fontSizeMin: 12px;
           }
         }
       }
+      .quick-amount{
+        padding: 26px 25px 0px 25px;
+        .quick-amount-title{
+          font-size: $fontSizeMinPro;
+          color: #878787;
+          text-align: center;
+        }
+        .quick-amount-part{
+          margin-top: 18px;
+          display: flex;
+          justify-content: space-between;
+          .amount{
+            padding: 8px 15px 7px 15px;
+            height: 32px;
+            background: #F1F4F5;
+            border-radius: 6px;
+            font-size: $fontSizeMinPro;
+            color: #878787;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
       .radio-content {
-        padding: 32px 40px 40px 40px;
+        padding: 32px 25px 33px 25px;
         position: relative;
 
         :deep() {
@@ -868,7 +761,7 @@ $fontSizeMin: 12px;
         .input-title {
           position: absolute;
           top: 40px;
-          left: 52px;
+          left: 36px;
           z-index: 1;
           color: #878787;
           font-size: $fontSizeMin;
@@ -941,37 +834,6 @@ $fontSizeMin: 12px;
               padding: 16px 0;
             }
           }
-        }
-      }
-      .center-service {
-        max-width: 618px;
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
-        margin-top: 83px;
-        padding: 0 20px;
-        .service {
-          .service-icon {
-            text-align: center;
-            img {
-              width: 73px;
-              height: auto;
-              object-fit: contain;
-            }
-          }
-
-          .service-msg {
-            line-height: 25px;
-            font-size: 20px;
-            color: #060606;
-            margin-top: 12px;
-          }
-        }
-      }
-      .center-faq {
-        margin-top: 102px;
-        @media (max-width: 1000px) {
-          margin-top: 60px;
         }
       }
     }

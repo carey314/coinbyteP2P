@@ -2,7 +2,7 @@
   <div>
     <div class="security-features">
       <div class="security-features-head">
-        <div class="head-img"><img :src="usercenter_icon_security" /></div>
+        <div class="head-img"><img :src="usercenter_security_pending_security" /></div>
         <div class="head-info">
           <div class="head-info-title">Pending security features</div>
           <div class="head-info-message">
@@ -35,21 +35,21 @@
     </div>
     <div class="login-history">
       <div class="login-history-head">
-        <div class="head-img"><img :src="usercenter_icon_security" /></div>
+        <div class="head-img"><img :src="usercenter_security_login_history" /></div>
         <div class="head-info">
-          <div class="head-info-title">Pending security features</div>
+          <div class="head-info-title">Login history</div>
           <div class="head-info-message">
-            Protect your funds by improving account security
+            Your last 10 logins
           </div>
         </div>
       </div>
       <div class="login-history-table">
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="date" label="Date" width="450" />
-          <el-table-column prop="name" label="Name" width="150" />
+          <el-table-column prop="date" label="Time" width="450" />
+          <el-table-column prop="name" label="Location" width="150" />
           <el-table-column
             prop="address"
-            label="Address"
+            label="IP address"
             fixed="right"
             align="right"
           />
@@ -61,10 +61,14 @@
 
 <script setup lang="ts">
 import { ref, reactive } from "vue";
-import usercenter_icon_security from "../../../../assets/home/usercenter_icon_security.png";
+import usercenter_security_pending_security from "../../../../assets/home/usercenter_security_pending_security.svg";
 import usercenter_security_login_history from "../../../../assets/home/usercenter_security_login_history.svg";
 import usercenter_security_login from "../../../../assets/home/usercenter_security_login.svg";
+import usercenter_security_mobile from "../../../../assets/home/usercenter_security_mobile.svg";
+import usercenter_security_email from "../../../../assets/home/usercenter_security_email.svg";
+import usercenter_security_2factor from "../../../../assets/home/usercenter_security_2factor.svg";
 import GetButton from "../../../../components/GetButton.vue";
+
 
 const set = ref("Set");
 const securityDate = reactive([
@@ -74,51 +78,46 @@ const securityDate = reactive([
     msg: "Use this password for account login",
   },
   {
-    icon: usercenter_security_login,
-    title: "Login password",
-    msg: "Use this password for account login",
+    icon: usercenter_security_mobile,
+    title: "Mobile verification",
+    msg: "Get SMS or voice codes for logins, withdrawals, password changes and settings confirmations",
   },
   {
-    icon: usercenter_security_login,
-    title: "Login password",
-    msg: "Use this password for account login",
+    icon: usercenter_security_email,
+    title: "Email verification",
+    msg: "Use this email for login, password updates and withdrawal notifications",
   },
   {
-    icon: usercenter_security_login,
-    title: "Login password",
-    msg: "Use this password for account login",
+    icon: usercenter_security_2factor,
+    title: "2-factor authentication (2FA)",
+    msg: "Manage mobile and authenticator verification for login and withdrawals",
   },
 ]);
 const tableData = [
   {
-    date: "2016-05-03",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
+    date: "Sep 12, 2022, 15:31:42",
+    name: "AU",
+    address: "136.175.177.145",
   },
   {
-    date: "2016-05-02",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
+    date: "Sep 12, 2022, 15:31:42",
+    name: "AU",
+    address: "136.175.177.145",
   },
   {
-    date: "2016-05-04",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
+    date: "Sep 12, 2022, 15:31:42",
+    name: "AU",
+    address: "136.175.177.145",
   },
   {
-    date: "2016-05-01",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
+    date: "Sep 12, 2022, 15:31:42",
+    name: "AU",
+    address: "136.175.177.145",
   },
   {
-    date: "2016-05-08",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
-  },
-  {
-    date: "2016-05-07",
-    name: "Tom",
-    address: "No. 189, Grove St, Los Angeles",
+    date: "Sep 12, 2022, 15:31:42",
+    name: "AU",
+    address: "136.175.177.145",
   },
 ];
 </script>

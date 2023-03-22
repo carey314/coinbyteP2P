@@ -62,7 +62,9 @@
             >Markets</a
           >
         </li>
-        <li>Trade</li>
+        <li>
+          <a href="/trade" style="color: #fff; text-decoration: none">Trade</a>
+        </li>
         <li>
           <a href="/learnCenter" style="color: #fff; text-decoration: none"
             >Learn</a
@@ -185,35 +187,41 @@
                 <img :src="top_bar_usercenter" alt="" />
               </router-link>
               <template #dropdown>
-                <el-dropdown-menu
-                  class="user-dropdown-menu"
-                >
+                <el-dropdown-menu class="user-dropdown-menu">
                   <el-dropdown-item class="user-dropdown-info">
-                    <div
-                      class="user-head-box"
-                    >
+                    <div class="user-head-box">
                       <div class="user-head">
                         <img :src="top_bar_usercenter" />
                       </div>
                       <div class="head-text">
-                        <div class="user-name">{{ userInfo && userInfo.maskedEmail }}</div>
-                        <div class="user-id">UID:{{ userInfo && userInfo.id }}</div>
+                        <div class="user-name">
+                          {{ userInfo && userInfo.maskedEmail }}
+                        </div>
+                        <div class="user-id">
+                          UID:{{ userInfo && userInfo.id }}
+                        </div>
                       </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="verify-box" v-if="verifiy">
-                    <div class="user-verify" >
-                      <div class="verify-status"><img :src="dropdown_usercenter_verified" /></div>
+                    <div class="user-verify">
+                      <div class="verify-status">
+                        <img :src="dropdown_usercenter_verified" />
+                      </div>
                       <div class="verify-text">Verified</div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="verify-box" v-else>
-                    <div class="user-verify" >
-                      <div class="verify-status"><img :src="dropdown_usercenter_unverified" /></div>
+                    <div class="user-verify">
+                      <div class="verify-status">
+                        <img :src="dropdown_usercenter_unverified" />
+                      </div>
                       <div class="verify-text">Verifiy your account</div>
                     </div>
                   </el-dropdown-item>
-                  <el-divider style="margin:10px;width: 266px;margin-left: -20px;"/>
+                  <el-divider
+                    style="margin: 10px; width: 266px; margin-left: -20px"
+                  />
                   <el-dropdown-item class="user-dropdown-item">
                     <div class="user-box">
                       <div class="user-icon">
@@ -254,7 +262,9 @@
                       <div class="user-title">Preferences</div>
                     </div>
                   </el-dropdown-item>
-                  <el-divider style="margin:10px;width: 266px;margin-left: -20px;"/>
+                  <el-divider
+                    style="margin: 10px; width: 266px; margin-left: -20px"
+                  />
                   <div class="logout" @click="handleToLogOut">Log out</div>
                 </el-dropdown-menu>
               </template>
@@ -523,20 +533,15 @@ import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercent
 
 import type { UserInfo } from "../../models/user";
 
-import {logOut} from '../../api/user';
+import { logOut } from "../../api/user";
 
 import { useUserInfoStore } from "../../store/user";
 import { storeToRefs } from "pinia";
-
-
-
-
 
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
 
 const showname = ref<boolean>(false); //header是否登陆
-
 
 let deg = ref<number>(0);
 const navCurrency = ref();
@@ -547,7 +552,7 @@ const navLanguage = ref();
 const navWallet = ref();
 const navOrder = ref();
 const navUser = ref();
-const verifiy  = ref(false)
+const verifiy = ref(false);
 
 const dropdownShow = ref<boolean>(false);
 const router = useRouter();
@@ -659,15 +664,13 @@ const gridData = [
   },
 ];
 
-
 //click to log out
 const handleToLogOut = async () => {
   const response = await logOut();
   console.log(response);
   userInfoStore.clearToken();
   router.push("/login");
-  
-}
+};
 </script>
 
 <style scoped lang="scss">
@@ -1106,71 +1109,66 @@ $regular-font: HarmonyOS_Sans_Regular;
   --el-dropdown-menuItem-hover-fill: #ffffff;
 }
 
-  .user-dropdown-menu {
-    text-align: center;
-    // margin-left: 10%;
-    width: 246px;
-    .user-dropdown-info {
-      .user-head-box {
-        display: flex;
-        align-items: center;
-        .head-text {
-          margin-left: 12px;
-          .user-name{
-            font-size: 14px;
-            color: #000000;
-          }
-          .user-id{
-            font-size: 12px;
-            color: #9B9B9B;
-          }
-        }
-
-      }
-     
-    }
-    .verify-box{
-      
-      .user-verify{
-        border: 1px solid #DFDFE5;
-        border-radius: 3px;
-        width: 198px;
-        height: 36px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        .verify-status{
-          margin-top: 5px;
-        }
-        .verify-text{
-          margin-left: 6px;
+.user-dropdown-menu {
+  text-align: center;
+  // margin-left: 10%;
+  width: 246px;
+  .user-dropdown-info {
+    .user-head-box {
+      display: flex;
+      align-items: center;
+      .head-text {
+        margin-left: 12px;
+        .user-name {
           font-size: 14px;
           color: #000000;
         }
-      }
-    }
-    .user-dropdown-item {
-
-      .user-box {
-        display: flex;
-        padding: 5px 0;
-        margin-left: 46px;
-        .user-title {
-          font-size: 14px;
-          color: #000000;
-          line-height: 16px;
-          margin-left: 15px;
+        .user-id {
+          font-size: 12px;
+          color: #9b9b9b;
         }
       }
-    }
-    .logout{
-      width: 246px;
-      padding: 10px 0;
-      font-size: 12px;
-      color: #000000;
-      line-height: 15px;
-      cursor: pointer;
     }
   }
-
+  .verify-box {
+    .user-verify {
+      border: 1px solid #dfdfe5;
+      border-radius: 3px;
+      width: 198px;
+      height: 36px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .verify-status {
+        margin-top: 5px;
+      }
+      .verify-text {
+        margin-left: 6px;
+        font-size: 14px;
+        color: #000000;
+      }
+    }
+  }
+  .user-dropdown-item {
+    .user-box {
+      display: flex;
+      padding: 5px 0;
+      margin-left: 46px;
+      .user-title {
+        font-size: 14px;
+        color: #000000;
+        line-height: 16px;
+        margin-left: 15px;
+      }
+    }
+  }
+  .logout {
+    width: 246px;
+    padding: 10px 0;
+    font-size: 12px;
+    color: #000000;
+    line-height: 15px;
+    cursor: pointer;
+  }
+}
 </style>

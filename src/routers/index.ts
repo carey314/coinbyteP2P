@@ -104,7 +104,11 @@ const routes: Array<RouteRecordRaw> = [
     name: 'user',
     component: () => import('../view/user/index.vue') 
   },
-
+  { 
+    path: '/trade',
+    name: 'trade',
+    component: () => import('../view/trade/index.vue') 
+  },
 ]
 const router = createRouter({
   history: createWebHistory(),

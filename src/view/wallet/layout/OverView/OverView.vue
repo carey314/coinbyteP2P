@@ -381,7 +381,7 @@
               </template>
               <template v-if="viewTransactions">
                 <template v-for="item in transactions">
-  
+
                   <div class="recent-box">
                     <div class="box-left clearfloat">
                       <div class="rencent-image"><img :src="iconCollects[item.type].icon" /></div>
@@ -775,6 +775,7 @@ import icon_withdrawal from "../../../../assets/wallet/icon_withdrawal.png";
 import icon_gift from "../../../../assets/wallet/icon_gift.png";
 import crypto_icon_eth from "../../../../assets/home/crypto_icon_eth.png";
 import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
+
 import { getMyAssets } from "../../../../api/wallet";
 import { getTransactions } from '../../../../api/transactions';
 

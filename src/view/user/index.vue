@@ -17,7 +17,7 @@
 
         <el-tab-pane label="Bank account" name="fourth" :lazy="true">
           <!-- <History /> -->
-          <BankAccount/>
+          <BankAccount />
         </el-tab-pane>
 
         <el-tab-pane label="Preferences" name="fifth" :lazy="true">
@@ -64,7 +64,6 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
-
 </script>
 
 <style scoped lang="scss">
