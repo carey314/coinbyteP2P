@@ -10,13 +10,17 @@
     </div>
 
     <div class="trade-page-box">
-      <el-row :gutter="40">
-        <el-col :span="16"> 
-          <div class="box-left" style="background-color: pink;height: 484px;">
-            
+      <el-row :gutter="50">
+        <el-col :span="16">
+          <div class="box-left">
+            <div style="background-color: pink; height: 484px"></div>
+            <div class="crypto-info">
+              <div><PriceInfo /></div>
+              <div><MarketInfo /></div>
+            </div>
           </div>
         </el-col>
-        <el-col :span="8"> 
+        <el-col :span="8">
           <div class="box-right">
             <div><Convert /></div>
             <div><Similar /></div>
@@ -35,8 +39,10 @@ import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import Convert from "../trade/layout/Convert.vue"
-import Similar from "../trade/layout/Similar.vue"
+import Convert from "../trade/layout/Convert.vue";
+import Similar from "../trade/layout/Similar.vue";
+import PriceInfo from "../trade/layout/PriceInfo.vue";
+import MarketInfo from "../trade/layout/MarketInfo.vue";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -56,12 +62,12 @@ $fontMain: 14px;
 .box-header {
   background: #1c242c;
   padding: 46px 0px 21px 31px;
- 
+
   .header-nav {
     cursor: pointer;
     font-size: $fontMain;
     line-height: 17px;
-    max-width: 1290px;
+    max-width: 1400px;
     margin: auto;
   }
   .header-name {
@@ -70,7 +76,7 @@ $fontMain: 14px;
     line-height: 49px;
     font-weight: 600;
     margin-top: 6px;
-    max-width: 1290px;
+    max-width: 1400px;
     margin: auto;
     span {
       color: #01c19a;
@@ -78,14 +84,17 @@ $fontMain: 14px;
   }
 }
 .trade-page-box {
-  max-width: 1290px;
+  max-width: 1400px;
   min-height: 985px;
   margin: auto;
-  padding: 46px 0px 141px 0px;
+  padding: 46px 6px 141px 6px;
   position: relative;
- @media(max-width:1440px){
+  @media (max-width: 1440px) {
     padding-left: 20px;
     padding-right: 20px;
+  }
+  .box-left{
+    padding-left: 15px;
   }
 }
 </style>

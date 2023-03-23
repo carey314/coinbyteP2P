@@ -2,7 +2,9 @@
   <div>
     <div class="security-features">
       <div class="security-features-head">
-        <div class="head-img"><img :src="usercenter_security_pending_security" /></div>
+        <div class="head-img">
+          <img :src="usercenter_security_pending_security" />
+        </div>
         <div class="head-info">
           <div class="head-info-title">Pending security features</div>
           <div class="head-info-message">
@@ -35,12 +37,12 @@
     </div>
     <div class="login-history">
       <div class="login-history-head">
-        <div class="head-img"><img :src="usercenter_security_login_history" /></div>
+        <div class="head-img">
+          <img :src="usercenter_security_login_history" />
+        </div>
         <div class="head-info">
           <div class="head-info-title">Login history</div>
-          <div class="head-info-message">
-            Your last 10 logins
-          </div>
+          <div class="head-info-message">Your last 10 logins</div>
         </div>
       </div>
       <div class="login-history-table">
@@ -68,7 +70,6 @@ import usercenter_security_mobile from "../../../../assets/home/usercenter_secur
 import usercenter_security_email from "../../../../assets/home/usercenter_security_email.svg";
 import usercenter_security_2factor from "../../../../assets/home/usercenter_security_2factor.svg";
 import GetButton from "../../../../components/GetButton.vue";
-
 
 const set = ref("Set");
 const securityDate = reactive([
