@@ -114,7 +114,7 @@
                   <div class="input-second-title">You Receive</div>
                   <el-input
                     v-model="countCrypto"
-                    placeholder="Receive"
+                    placeholder="receive"
                     class="change-count clearfloat"
                   >
                     <template #append>
@@ -555,19 +555,20 @@ $fontSizeMin: 12px;
 .convert-page {
   position: relative;
   .convert-content {
-    min-height: calc(100vh - 394px);
+    // min-height: calc(100vh - 394px);
     align-items: center;
 
     .center-part {
       .center-convert {
-        max-width: 618px;
+        max-width: 420px;
         flex: 1;
         margin: auto;
         background: #fff;
         box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
         border-radius: 8px;
-        @media (max-width: 768px) {
-          border-radius: 0px;
+        @media (max-width: 1200px) {
+          // border-radius: 0px;
+          margin-top: 50px;
         }
         .convert-radio {
           :deep() {
@@ -769,7 +770,7 @@ $fontSizeMin: 12px;
         .input-tip {
           position: absolute;
           top: 50px;
-          right: 168px;
+          right: 155px;
           z-index: 1;
           color: #f15958;
           font-size: $fontSizeMin;

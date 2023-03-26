@@ -9,7 +9,12 @@
         </div>
         <div class="market">#1</div>
       </div>
-      <el-divider class="divider" direction="vertical" />
+      <el-divider
+        v-if="windowWidth > 992"
+        class="divider"
+        direction="vertical"
+      />
+      <el-divider v-if="windowWidth <= 992" class="divider" />
       <div class="market-infomation-part">
         <div class="part-top">
           <div class="top-title">Typical hold-time</div>
@@ -17,14 +22,19 @@
         </div>
         <div class="market">263 days</div>
       </div>
-      <el-divider class="divider" direction="vertical" />
-      <div class="market-infomation-part" style="width: 218%">
+      <el-divider
+        v-if="windowWidth > 992"
+        class="divider"
+        direction="vertical"
+      />
+      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <div class="market-infomation-part market-third">
         <div class="part-top">
           <div class="top-title">Trading activity</div>
           <div class="top-icon"><img :src="dropdown_help_support" /></div>
         </div>
 
-        <div class="market market-progress">
+        <div class="market market-progress clearfloat">
           <div class="progress-buy">74% Buy</div>
           <el-progress
             :percentage="74"
@@ -33,7 +43,6 @@
             class="progress-bar"
           />
           <div class="progress-sell">26% Sell</div>
-
         </div>
       </div>
     </div>
@@ -41,8 +50,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+
 import dropdown_help_support from "../../../assets/home/dropdown_help_support.svg";
+
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
 </script>
 
 <style scoped lang="scss">
@@ -50,6 +71,9 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
   margin-top: 42px;
   font-size: 20px;
   line-height: 24px;
+}
+:deep(.el-divider--horizontal) {
+  margin: 1px 0;
 }
 .market-infomation {
   width: 100%;
@@ -60,6 +84,9 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
   margin-top: 18px;
   :deep(.el-divider--vertical) {
     height: 117px !important;
+  }
+  @media (max-width: 992px) {
+    display: block;
   }
   .market-infomation-part {
     padding: 15px 10px 12px 15px;
@@ -84,8 +111,8 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
       }
     }
     .market-progress {
-      :deep(.el-progress-bar__inner){
-        background-color: #01C19A;
+      :deep(.el-progress-bar__inner) {
+        background-color: #01c19a;
       }
       .el-progress--line {
         display: block;
@@ -101,7 +128,7 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
       }
       .progress-bar {
         float: left;
-        margin-left: 5%;
+        margin-left: 3%;
         margin-top: 5px;
         border-radius: 4.5px;
         :deep(.el-progress-bar__outer) {
@@ -110,12 +137,17 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
       }
       .progress-sell {
         display: flex;
-        float: left;
         font-size: 22px;
         color: #010000;
         font-weight: 400;
-        margin-left: 5%;
+        padding-left: 2%;
       }
+    }
+  }
+  .market-third {
+    width: 218%;
+    @media (max-width: 992px) {
+      width: 100%;
     }
   }
 }

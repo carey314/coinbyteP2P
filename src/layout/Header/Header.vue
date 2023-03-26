@@ -203,7 +203,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="verifiy">
+                  <el-dropdown-item class="verify-box" v-if="!verifiy">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified" />

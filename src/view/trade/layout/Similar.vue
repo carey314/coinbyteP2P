@@ -52,7 +52,7 @@
         </div>
       </div>
       <el-divider class="divider" />
-      <div class="card-item" style="padding-bottom: 60px;">
+      <div class="card-item" style="padding-bottom: 60px">
         <div class="icon"><img :src="crypto_icon_usdc" /></div>
         <div class="ctypto-type">
           <div class="ctypto-type-name">USDC</div>
@@ -64,6 +64,9 @@
         </div>
       </div>
       <!-- <el-divider class="divider"  style="color: #fff !important;"/> -->
+    </div>
+    <div class="view-more">
+      <div class="view-more-button">View more</div>
     </div>
   </div>
 </template>
@@ -210,7 +213,22 @@ const cardItem = [
     margin-top: 60px !important;
   }
   :deep(.el-divider--horizontal) {
-      margin: -1px 0 ;
-    }
+    margin: -1px 0;
+  }
+}
+.view-more {
+  width: 133px;
+  height: 41px;
+  border: 1px solid #d7d7d7;
+  border-radius: 3px;
+  margin: 29px auto;
+  cursor: pointer;
+  .view-more-button {
+    height: 41px;
+    color: #878787;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>

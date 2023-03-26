@@ -529,7 +529,7 @@
           </el-col>
         </el-row>
         <div class="view-more">
-          <span>Learn more ></span>
+          <span>Learn more &gt;</span>
         </div>
       </div>
 
@@ -570,7 +570,7 @@
           </el-col>
         </el-row>
         <div class="view-more" style="margin-top: 0px">
-          <span>Learn more ></span>
+          <span>Learn more &gt;</span>
         </div>
       </div>
       <!-- //eighth-part -->

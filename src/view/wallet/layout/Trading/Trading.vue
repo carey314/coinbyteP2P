@@ -155,15 +155,24 @@
                   <el-divider style="margin-left: -20px; width: 200%" /> -->
                   <div class="recent-box">
                     <div class="box-left clearfloat">
-                      <div class="rencent-image"><img :src="iconCollectsState[item.type].icon" /></div>
-                      <div class="recent-title">{{ transactionsTitle(item) }}</div>
-                      <div class="recent-date">{{ moment(item.createTime).format("YY/DD/YYYY") }}</div>
+                      <div class="rencent-image">
+                        <img :src="iconCollectsState[item.type].icon" />
+                      </div>
+                      <div class="recent-title">
+                        {{ transactionsTitle(item) }}
+                      </div>
+                      <div class="recent-date">
+                        {{ moment(item.createTime).format("YY/DD/YYYY") }}
+                      </div>
                     </div>
-                    <div :class="iconCollectsState[item.type].class">{{ transactionsAmount(item) }}</div>
+                    <div :class="iconCollectsState[item.type].class">
+                      {{ transactionsAmount(item) }}
+                    </div>
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                <div class="view-more">View more &gt;</div>
+                
+                <!-- <div class="view-more">View more &gt;</div> -->
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -224,7 +233,8 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              <div class="view-more">View more &gt;</div>
+              
+              <!-- <div class="view-more">View more &gt;</div> -->
             </el-card>
           </div>
         </el-col>
@@ -369,7 +379,6 @@
               </template>
               <template v-if="viewTransactions">
                 <template v-for="item in transactions">
-  
                   <!-- <div class="recent-box">
                     <div class="box-left clearfloat">
                       <div class="rencent-image"><img :src="icon_convert" /></div>
@@ -381,15 +390,24 @@
                   <el-divider style="margin-left: -20px; width: 200%" /> -->
                   <div class="recent-box">
                     <div class="box-left clearfloat">
-                      <div class="rencent-image"><img :src="iconCollectsState[item.type].icon" /></div>
-                      <div class="recent-title">{{ transactionsTitle(item) }}</div>
-                      <div class="recent-date">{{ moment(item.createTime).format("YY/DD/YYYY") }}</div>
+                      <div class="rencent-image">
+                        <img :src="iconCollectsState[item.type].icon" />
+                      </div>
+                      <div class="recent-title">
+                        {{ transactionsTitle(item) }}
+                      </div>
+                      <div class="recent-date">
+                        {{ moment(item.createTime).format("YY/DD/YYYY") }}
+                      </div>
                     </div>
-                    <div :class="iconCollectsState[item.type].class">{{ transactionsAmount(item) }}</div>
+                    <div :class="iconCollectsState[item.type].class">
+                      {{ transactionsAmount(item) }}
+                    </div>
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                <div class="view-more">View more &gt;</div>
+                
+                <!-- <div class="view-more">View more &gt;</div> -->
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -450,7 +468,8 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              <div class="view-more">View more &gt</div>
+              
+              <!-- <div class="view-more">View more &gt</div> -->
             </el-card>
           </div>
         </el-col>
@@ -460,7 +479,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed,inject } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed, inject } from "vue";
 import type { Ref } from "vue";
 import { ArrowDown, Search, Paperclip } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
@@ -480,9 +499,9 @@ import crypto_icon_eth from "../../../../assets/home/crypto_icon_eth.png";
 import crypto_icon_btc from "../../../../assets/home/crypto_icon_btc.png";
 import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import crypto_icon_usdc from "../../../../assets/home/crypto_icon_usdc.png";
-import moment from 'moment';
+import moment from "moment";
 import { getMyAssets } from "../../../../api/wallet";
-import type {Transaction} from '../../../../models/transactions';
+import type { Transaction } from "../../../../models/transactions";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -510,70 +529,72 @@ function resetWidth() {
 //   });
 // });
 const iconCollects = ref({
-  'Tether' : {
-    icon : crypto_icon_usdt,
-
+  Tether: {
+    icon: crypto_icon_usdt,
   },
-  'Ethereum' : {
-    icon : crypto_icon_eth
+  Ethereum: {
+    icon: crypto_icon_eth,
   },
-  'Bitcoin' : {
-    icon : crypto_icon_btc
+  Bitcoin: {
+    icon: crypto_icon_btc,
   },
-  'USD Coin' : {
-    icon : crypto_icon_usdc
+  "USD Coin": {
+    icon: crypto_icon_usdc,
   },
-
-})
+});
 interface AssetsData {
-  currency: 'Tether' | 'Ethereum' | 'Bitcoin' | 'USD Coin' ;
+  currency: "Tether" | "Ethereum" | "Bitcoin" | "USD Coin";
   balance: string;
-  alphabeticCode : string;
-  caption : string;
-  accountNumber : string;
-  accountId : string;
+  alphabeticCode: string;
+  caption: string;
+  accountNumber: string;
+  accountId: string;
 }
 const assetsData = inject<Ref<AssetsData[]>>("assetsData");
 const TotalAmount = computed(() => {
   let count = 0;
-  if(assetsData) {
+  if (assetsData) {
     assetsData.value.forEach((v) => {
       count += parseFloat(v.balance);
     });
-    return (count).toFixed(2);
+    return count.toFixed(2);
   } else {
     return 100;
   }
 });
 const tableData = computed(() => {
-  if(assetsData) {
-    return assetsData.value.map(v => {
-      let isAsset = (Number(parseFloat(v.balance).toFixed(4)) / Number(TotalAmount.value)) * 100;
+  if (assetsData) {
+    return assetsData.value.map((v) => {
+      let isAsset =
+        (Number(parseFloat(v.balance).toFixed(4)) / Number(TotalAmount.value)) *
+        100;
       return {
         crypto: v.caption,
         fullname: v.currency,
-        icon: iconCollects.value[v.currency] ? iconCollects.value[v.currency].icon : "aaaa",
+        icon: iconCollects.value[v.currency]
+          ? iconCollects.value[v.currency].icon
+          : "aaaa",
         asset: parseFloat(v.balance).toFixed(4),
         amount: "₮" + parseFloat(v.balance).toFixed(2),
         TxID: isNaN(isAsset) ? 0 : isAsset,
         buy: "Buy",
         sell: "Sell",
         more: "More",
-      }
-    })
+      };
+    });
   }
-})
+});
 const noneOverView = computed(() => {
-  if(assetsData) {
+  if (assetsData) {
     return !(assetsData.value.length > 0);
-  }else {
+  } else {
     return false;
   }
 });
 //transactions
 const transactions = inject<Ref<Transaction[]>>("transactions");
 const viewTransactions = computed(() => {
-  if(transactions) {
+  if (transactions) {
     return !!(transactions.value.length > 0);
   } else {
     return false;
@@ -581,60 +602,63 @@ const viewTransactions = computed(() => {
 });
 
 //Recent transactions --- icon
-const iconCollectsState = ref({  
-  deposit : {
-    icon : icon_deposit,
-    class : ['recent-count','up'],
-    prefix : "+"
+const iconCollectsState = ref({
+  deposit: {
+    icon: icon_deposit,
+    class: ["recent-count", "up"],
+    prefix: "+",
   },
-  exchange : {
-    icon : icon_convert,
-    class : ['recent-count'],
-    prefix : ""
+  exchange: {
+    icon: icon_convert,
+    class: ["recent-count"],
+    prefix: "",
   },
-  external : {
-    icon : "",
-    class : ['recent-count'],
-    prefix : ""
+  external: {
+    icon: "",
+    class: ["recent-count"],
+    prefix: "",
   },
-  partner : {
-    icon : icon_convert,
-    class : ['recent-count'],
-    prefix : ""
+  partner: {
+    icon: icon_convert,
+    class: ["recent-count"],
+    prefix: "",
   },
-  transfer : {
-    icon : "",
-    class : ['recent-count'],
-    prefix : ""
+  transfer: {
+    icon: "",
+    class: ["recent-count"],
+    prefix: "",
   },
-  withdrawal : {
-    icon : icon_withdrawal,
-    class : ['recent-count','down'],
-    prefix : "-"
+  withdrawal: {
+    icon: icon_withdrawal,
+    class: ["recent-count", "down"],
+    prefix: "-",
   },
-})
+});
 //Recent transactions --- title
-const transactionsTitle = (data : Transaction) => {
+const transactionsTitle = (data: Transaction) => {
   console.log(data);
-  if(data.method) {
+  if (data.method) {
     return data.method.name;
   } else {
     return `Wallet ${data.debitDetails.currency.alphabeticCode} | ${data.debitDetails.account.accountNumber}`;
   }
-}
-const transactionsAmount = (data : Transaction) => {
-  let amount = '';
-  let currency = '';
-  if(data.debitDetails) {
-    amount = parseFloat(data.debitDetails.amount).toFixed(data.debitDetails.currency.minorUnit);
+};
+const transactionsAmount = (data: Transaction) => {
+  let amount = "";
+  let currency = "";
+  if (data.debitDetails) {
+    amount = parseFloat(data.debitDetails.amount).toFixed(
+      data.debitDetails.currency.minorUnit
+    );
     currency = data.debitDetails.currency.alphabeticCode;
-  } else if(data.creditDetails) {
-    amount = parseFloat(data.creditDetails.amount).toFixed(data.creditDetails.currency.minorUnit);
+  } else if (data.creditDetails) {
+    amount = parseFloat(data.creditDetails.amount).toFixed(
+      data.creditDetails.currency.minorUnit
+    );
     currency = data.creditDetails.currency.alphabeticCode;
   }
-  return iconCollectsState.value[data.type].prefix + amount + ' ' + currency;
-}
-
+  return iconCollectsState.value[data.type].prefix + amount + " " + currency;
+};
 
 interface User {
   date: string;
@@ -648,7 +672,6 @@ const buy = ref("Buy");
 const convert = ref("Convert");
 const withdraw = ref("Withdraw");
 const transfer = ref("Transfer");
-
 
 const tableInput = ref("");
 const checked = ref(false);
@@ -1037,6 +1060,20 @@ $fontSizeMin: 12px;
         color: #7b8293;
         line-height: 16px;
         padding-bottom: 10px;
+      }
+    }
+  }
+}
+.empty-transactions {
+  .value-bottom {
+    text-align: center;
+    .bottom-image {
+      width: 85px;
+      margin: auto 42%;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
     }
   }

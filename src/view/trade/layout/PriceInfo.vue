@@ -13,7 +13,12 @@
           +0.05%
         </div>
       </div>
-      <el-divider class="divider" direction="vertical" />
+      <el-divider
+        v-if="windowWidth > 992"
+        class="divider"
+        direction="vertical"
+      />
+      <el-divider v-if="windowWidth <= 992" class="divider" />
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Valume (24 hours)</div>
@@ -25,7 +30,12 @@
           +8.75%
         </div>
       </div>
-      <el-divider class="divider" direction="vertical" />
+      <el-divider
+        v-if="windowWidth > 992"
+        class="divider"
+        direction="vertical"
+      />
+      <el-divider v-if="windowWidth <= 992" class="divider" />
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Circulating supply</div>
@@ -37,7 +47,12 @@
           +8.75%
         </div>
       </div>
-      <el-divider class="divider" direction="vertical" />
+      <el-divider
+        v-if="windowWidth > 992"
+        class="divider"
+        direction="vertical"
+      />
+      <el-divider v-if="windowWidth <= 992" class="divider" />
 
       <div class="price-infomation-part">
         <div class="part-top">
@@ -45,16 +60,29 @@
           <div class="top-icon"><img :src="dropdown_help_support" /></div>
         </div>
         <div class="price">A$ 93.48K</div>
+        <div class="rate clearfloat">&nbsp;</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+
 import { CaretTop } from "@element-plus/icons-vue";
 
 import dropdown_help_support from "../../../assets/home/dropdown_help_support.svg";
+
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
 </script>
 
 <style scoped lang="scss">
@@ -63,6 +91,9 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
   font-size: 20px;
   line-height: 24px;
 }
+:deep(.el-divider--horizontal) {
+  margin: 1px 0;
+}
 .price-infomation {
   width: 100%;
   border: 1px solid #dfdfe5;
@@ -70,9 +101,13 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
   display: flex;
   justify-content: space-between;
   margin-top: 18px;
-  :deep(.el-divider--vertical){
-      height: 117px !important;
-    }
+  :deep(.el-divider--vertical) {
+    height: 117px !important;
+  }
+
+  @media (max-width: 992px) {
+    display: block;
+  }
   .price-infomation-part {
     padding: 15px 10px 12px 15px;
     width: 100%;
@@ -85,16 +120,13 @@ import dropdown_help_support from "../../../assets/home/dropdown_help_support.sv
         color: #878787;
         line-height: 18px;
       }
-      .top-icon {
-
-      }
     }
     .price {
       margin-top: 16px;
       font-size: 22px;
       color: #010000;
       font-weight: 400;
-      span{
+      span {
         color: #878787;
       }
     }
