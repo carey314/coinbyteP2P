@@ -62,23 +62,23 @@
           </el-input>
           <div class="password-condition">
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^.{8,32}$/)}"></div>
               <div class="satisfy">8-32 characters long</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[a-z]).*$/)}"></div>
               <div class="satisfy">1 lowercase character</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[A-Z]).*$/)}"></div>
               <div class="satisfy">1 uppercase character</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*\d).*$/)}"></div>
               <div class="satisfy">1 number</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[@$!%*?&]).*$/)}"></div>
               <div class="satisfy">1 symbol</div>
             </div>
           </div>
@@ -94,7 +94,7 @@
           <div class="agreement">I agree to <a href="" style="color:#01C19A">Terms</a> and <a href="" style="color:#01C19A">policies </a></div>
         </div>
         <div class="sign-button">
-          <GetButton :text="text" />
+          <GetButton :text="text" @click="handleToSignUp"/>
         </div>
         <div class="sign-login">
           <div>Have an account  &nbsp;&nbsp;  <a href="/login" style="color:#01C19A;text-decoration: none">Log in</a></div>
@@ -135,6 +135,12 @@ import login_email from "../../assets/home/login_email.svg";
 import login_telegram from "../../assets/home/login_telegram.svg";
 import login_google from "../../assets/home/login_google.svg";
 
+import {initializeSignUpWizard,signUp,choosePer} from '../../api/user';
+
+import { useFingerprintStore } from "../../store/fingerprint";
+import { ElMessage } from "element-plus";
+const fingerprintStore = useFingerprintStore();
+
 const activeSign = ref("1");
 const number = ref("");
 const select = ref("+61");
@@ -144,6 +150,28 @@ const optional = ref("")
 const agree = ref("")
 const text = ref("Sign up");
 
+const passRule = ref([
+  {
+    rule : /^.{8,32}$/,
+    message : "Password length 8 to 32."
+  },
+  {
+    rule : /^(?=.*[a-z]).*$/,
+    message : "Password must have at least one lowercase character."
+  },
+  {
+    rule : /^(?=.*[A-Z]).*$/,
+    message : "Password must have at least one uppercase character."
+  },
+  {
+    rule : /^(?=.*\d).*$/,
+    message : "Password must be at least one number."
+  },
+  {
+    rule : /^(?=.*[@$!%*?&]).*$/,
+    message : "Password has at least one symbol."
+  },
+]);
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -152,6 +180,46 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
+const regUUID = ref("");
+onMounted(() => {
+  initializeSignUpWizard(
+    {
+      "url": "https://my.b2bdemo-accounting.com/register/{registration}/{code}",
+      "utm": {
+        "referral" : "",
+        "uri":"https://my.b2bdemo-accounting.com/en/register",
+      }
+    }
+  ).then((res : any) => {
+    if(res.data && res.data.code === 200 || res.data.code === 202) {
+      signUp({wizard_id : 13,"uuid": res.data.uuid}).then(regRes => {
+        if(regRes.status === 200 || regRes.status === 202) {
+          regUUID.value = regRes.data.uuid;
+        } else {
+          ElMessage({
+            message : "Please try again later.",
+            type : "error"
+          })
+        }
+      }).catch(err => {
+        ElMessage({
+          message : "Please try again later.",
+          type : "error"
+        })
+      })
+    } else {
+      ElMessage({
+        message : "Please try again later.",
+        type : "error"
+      })
+    }
+  }).catch(() => {
+    ElMessage({
+      message : "Please try again later.",
+      type : "error"
+    })
+  });
+})
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
@@ -165,6 +233,26 @@ const options = ref([
     label: "Email",
   },
 ]);
+const handleToSignUp = () => {
+  let correctPass = passRule.value.find(v => !(password.value.match(v.rule)));
+  if(correctPass) {
+    ElMessage({
+      message : correctPass.message,
+      type : "error"
+    });
+    return;
+  }
+  signUp({
+    "wizard_id" : 13,
+    "uuid": regUUID.value,
+    "email": email.value,
+    "password": password.value,
+    "password_confirmation": password.value,
+    "device_fingerprint": fingerprintStore.fingerprint
+  }).then((res : any) => {
+    console.log(res.data);
+  })
+}
 </script>
 
 <style scoped lang="scss">
@@ -307,6 +395,9 @@ $fontSizeMin: 12px;
         margin-top: 12px;
         .condition {
           margin-top: 9px;
+          .dot {
+            background-color: #01c19a;
+          }
           .satisfy-frame {
             float: left;
             width: 12px;
