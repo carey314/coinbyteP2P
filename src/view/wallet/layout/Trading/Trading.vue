@@ -130,7 +130,10 @@
                     </el-table-column>
                   </template>
                 </Table>
+                
               </div>
+            <div class="value-view-more">View more &gt;</div>
+
             </div>
           </div>
         </el-col>
@@ -333,7 +336,7 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="Action" width="220" fixed="right">
+                    <el-table-column label="Action" width="180" fixed="right" align="right">
                       <template #default="scope">
                         <div>
                           <el-button link class="table-btn">{{
@@ -366,7 +369,10 @@
                   </template>
                 </Table>
               </div>
+            <div class="value-view-more">View more &gt;</div>
+
             </div>
+            
           </div>
         </el-col>
         <el-col :span="24" class="right-box">
@@ -407,7 +413,7 @@
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
                 
-                <!-- <div class="view-more">View more &gt;</div> -->
+                <div class="view-more">View more &gt;</div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -830,7 +836,7 @@ $fontSizeMin: 12px;
   .left-box {
     .left-value {
       width: 100%;
-      padding: 24px 23px 41px 23px;
+      padding: 24px 23px 21px 23px;
       border: 1px solid #ebebeb;
       border-radius: 5px;
       .value-top {
@@ -1054,16 +1060,25 @@ $fontSizeMin: 12px;
           }
         }
       }
+      .recent-count{
+        text-align: right;
+      }
       .view-more {
         float: right;
         font-size: 14px;
         color: #7b8293;
         line-height: 16px;
-        padding-bottom: 10px;
       }
     }
   }
 }
+.value-view-more {
+        float: right;
+        font-size: 14px;
+        color: #7b8293;
+        line-height: 16px;
+        padding-top: 20px;
+      }
 .empty-transactions {
   .value-bottom {
     text-align: center;

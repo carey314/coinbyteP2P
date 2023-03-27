@@ -1,43 +1,60 @@
 <template>
   <div class="login-page">
     <Header />
-    <div class="center-box" v-if="windowWidth > 769"> 
+    <div class="center-box" v-if="windowWidth > 769">
       <div class="login-box">
-        <el-form :model="form" :rules="rules" class="login"  @submit.native.prevent>
+        <el-form
+          :model="form"
+          :rules="rules"
+          class="login"
+          @submit.native.prevent
+        >
           <div class="login-title">Welcome to CoinByte</div>
-          <!-- <div class="login-referral">
-            <el-input v-model="optional" placeholder="Phone / Email " />
-          </div> -->
+
           <el-form-item class="login-referral" prop="username">
-              <el-input v-model="form.username"  placeholder="Phone / Email "/>
+            <el-input v-model="form.username" placeholder="Phone / Email " />
           </el-form-item>
           <el-form-item class="login-password" prop="password">
-              <el-input v-model="form.password" :type="isShowPass ? 'text' : 'password'"  placeholder="Password">
-                <template #prefix>
-                  <img :src="login_password" />
-                </template>
-                <template v-if="!isShowPass" #suffix>
-                  <img :src="login_eye_off" @click="showPassWord"/>
-                </template>
-                <template v-else #suffix>
-                  <img :src="login_eye_view" style="width:22px;height:20px" @click="showPassWord"/>
-                </template>
-              </el-input>
+            <el-input
+              v-model="form.password"
+              :type="isShowPass ? 'text' : 'password'"
+              placeholder="Password"
+            >
+              <template #prefix>
+                <img :src="login_password" />
+              </template>
+              <template v-if="!isShowPass" #suffix>
+                <img :src="login_eye_off" @click="showPassWord" />
+              </template>
+              <template v-else #suffix>
+                <img
+                  :src="login_eye_view"
+                  style="width: 22px; height: 20px"
+                  @click="showPassWord"
+                />
+              </template>
+            </el-input>
           </el-form-item>
 
-          <div class="login-agree clearfloat">
-            <div class="agreement">
-              <a href="password" style="color: #01c19a; text-decoration: none"
-                >Forgot password?</a
-              >
+          <el-form-item class="login-button clearfloat">
+            <div class="login-agree clearfloat">
+              <div class="agreement">
+                <a
+                  href="/password"
+                  style="color: #01c19a; text-decoration: none"
+                  >Forgot password?</a
+                >
+              </div>
             </div>
-          </div>
-          <el-form-item class="login-button">
-              <GetButton :text="text" style="margin-top: 31px;" @handler="toLogin" />
+            <GetButton
+              :text="text"
+              style="margin-top: 31px"
+              @handler="toLogin"
+            />
           </el-form-item>
           <div class="login-with">
             <el-divider>
-            <span>or sign up with</span>
+              <span>or sign up with</span>
             </el-divider>
           </div>
           <div class="login-other">
@@ -76,32 +93,54 @@
     </div>
     <div class="center-box" v-if="windowWidth <= 769">
       <div class="login-box">
-        <div class="login">
+        <el-form
+          :model="form"
+          :rules="rules"
+          class="login"
+          @submit.native.prevent
+        >
           <div class="login-title">Welcome to CoinByte</div>
-          <div class="login-referral">
-            <el-input v-model="optional" placeholder="Phone / Email " />
-          </div>
-          <div class="login-password">
-            <el-input v-model="password" type="password" show-password placeholder="Password">
+          <el-form-item class="login-referral" prop="username">
+            <el-input v-model="form.username" placeholder="Phone / Email " />
+          </el-form-item>
+          <el-form-item class="login-password" prop="password">
+            <el-input
+              v-model="form.password"
+              :type="isShowPass ? 'text' : 'password'"
+              placeholder="Password"
+            >
               <template #prefix>
                 <img :src="login_password" />
               </template>
-              <template #suffix>
-                <img :src="login_eye_off" />
+              <template v-if="!isShowPass" #suffix>
+                <img :src="login_eye_off" @click="showPassWord" />
+              </template>
+              <template v-else #suffix>
+                <img
+                  :src="login_eye_view"
+                  style="width: 22px; height: 20px"
+                  @click="showPassWord"
+                />
               </template>
             </el-input>
-          </div>
+          </el-form-item>
 
-          <div class="login-agree clearfloat">
-            <div class="agreement">
-              <a href="" style="color: #01c19a; text-decoration: none"
-                >Forgot password?</a
-              >
+          <el-form-item class="login-button clearfloat">
+            <div class="login-agree clearfloat">
+              <div class="agreement">
+                <a
+                  href="/password"
+                  style="color: #01c19a; text-decoration: none"
+                  >Forgot password?</a
+                >
+              </div>
             </div>
-          </div>
-          <div class="login-button">
-            <GetButton :text="text" style="margin-top: 31px" @handler="toLogin"/>
-          </div>
+            <GetButton
+              :text="text"
+              style="margin-top: 31px"
+              @handler="toLogin"
+            />
+          </el-form-item>
           <div class="login-with">
             <el-divider>
               <span>or login up with</span>
@@ -120,12 +159,12 @@
           <div class="login-signup">
             <div>
               Don't have an account? &nbsp;&nbsp;
-              <a href="" style="color: #01c19a; text-decoration: none"
+              <a href="signup" style="color: #01c19a; text-decoration: none"
                 >Sign up</a
               >
             </div>
           </div>
-        </div>
+        </el-form>
       </div>
       <div class="scan clearfloat">
         <div class="scan-box">
@@ -154,56 +193,56 @@ import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
 import login_password from "../../assets/home/login_password.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
-import login_eye_view from '../../assets/wallet/overview_eye.png';
+import login_eye_view from "../../assets/wallet/overview_eye.png";
 import login_telegram from "../../assets/home/login_telegram.svg";
 import login_google from "../../assets/home/login_google.svg";
 import login_download from "../../assets/home/login_download.svg";
 import login_qrcode from "../../assets/home/login_qrcode.png";
-import http from '../../utils/http';
+import http from "../../utils/http";
 import { useRouter } from "vue-router";
-import { useUserInfoStore } from '../../store/user';
-import { storeToRefs } from 'pinia';
-import { ElMessage } from 'element-plus';
-import { getLoginUUID,toLogin as Tologin } from '../../api/login';
+import { useUserInfoStore } from "../../store/user";
+import { storeToRefs } from "pinia";
+import { ElMessage } from "element-plus";
+import { getLoginUUID, toLogin as Tologin } from "../../api/login";
 
-import type { FormInstance, FormRules } from 'element-plus';
+import type { FormInstance, FormRules } from "element-plus";
 const rules = reactive<FormRules>({
-  username : [
-    {required : true,message : 'Please input your username!',trigger : 'blur'},
+  username: [
+    { required: true, message: "Please input your username!", trigger: "blur" },
   ],
-  password : [
-    {required : true,message : 'Please input your password!'}
-  ]
-})
+  password: [{ required: true, message: "Please input your password!" }],
+});
 
 const userInfoStore = useUserInfoStore();
-const { token,username} = storeToRefs(userInfoStore);
+const { token, username } = storeToRefs(userInfoStore);
 console.log(userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
 const form = reactive({
-  username : "",
-  password : ""
+  username: "",
+  password: "",
 });
 const isShowPass = ref(false);
 const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
-}
+};
 const text = ref("Log in");
 
-const uuid = ref('');
+const uuid = ref("");
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
-  getLoginUUID().then((res : any) => {
-    if(res.data.code === 200 || res.data.code === 202) {
-      uuid.value = res.data.uuid;
-    }
-  }).catch(err => {
-    ElMessage.error("Unable to get uuid");
-  });
+  getLoginUUID()
+    .then((res: any) => {
+      if (res.data.code === 200 || res.data.code === 202) {
+        uuid.value = res.data.uuid;
+      }
+    })
+    .catch((err) => {
+      ElMessage.error("Unable to get uuid");
+    });
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -228,7 +267,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   const userAgent = navigator.userAgent;
   // 创建一个包含user_agent属性的JSON对象
   let jsonObj = {
-    user_agent: userAgent
+    user_agent: userAgent,
   };
 
   // 将JSON对象转换为JSON字符串
@@ -236,43 +275,45 @@ const toLogin = async (formEl: FormInstance | undefined) => {
 
   // 对JSON字符串进行base64编码
   var base64String = btoa(jsonStr);
-  if(!uuid.value) {
+  if (!uuid.value) {
     ElMessage.error("Unable to get uuid");
     return;
   }
   const uploadMsg = {
-    "uuid": uuid.value,
-    "email": form.username,
-    "password": form.password,
-    "device_fingerprint": base64String,
-    "recaptchaResponse": "in quis cillum nisi"
+    uuid: uuid.value,
+    email: form.username,
+    password: form.password,
+    device_fingerprint: base64String,
+    recaptchaResponse: "in quis cillum nisi",
   };
 
-  Tologin(uploadMsg).then((res : any)=> {
-    const response = res.data;
-    if( (response.code === 200 || response.code === 202)) {
-      console.log("Bearer " + response.data.accessToken.token);
-      userInfoStore.changeToken(response.data.accessToken.token);
-      userInfoStore.changeRefreshToken(response.data.refreshToken.token);
-      ElMessage.success('Login succeeded!');
-      router.push("/");
-    } else {
-      ElMessage.error('Login failed. Please try again later!');
-    }
-  }).catch((err : any) => {
-    console.log(1);
-    if( err.response ) {
-      const error = err.response.data.error;
-      if(error.code === 0) {
-        ElMessage.error(error.details[0].issue);
+  Tologin(uploadMsg)
+    .then((res: any) => {
+      const response = res.data;
+      if (response.code === 200 || response.code === 202) {
+        console.log("Bearer " + response.data.accessToken.token);
+        userInfoStore.changeToken(response.data.accessToken.token);
+        userInfoStore.changeRefreshToken(response.data.refreshToken.token);
+        ElMessage.success("Login succeeded!");
+        router.push("/");
       } else {
-        ElMessage.error("Login failed. Please try again later");
+        ElMessage.error("Login failed. Please try again later!");
       }
-      return;
-    }
-    ElMessage.error("Login failed. Please try again later");
-  })
-}
+    })
+    .catch((err: any) => {
+      console.log(1);
+      if (err.response) {
+        const error = err.response.data.error;
+        if (error.code === 0) {
+          ElMessage.error(error.details[0].issue);
+        } else {
+          ElMessage.error("Login failed. Please try again later");
+        }
+        return;
+      }
+      ElMessage.error("Login failed. Please try again later");
+    });
+};
 </script>
 
 <style scoped lang="scss">
@@ -291,13 +332,13 @@ $fontSizeMin: 12px;
 }
 .center-box {
   margin: auto;
-  display: flex; 
+  display: flex;
   justify-content: center;
   min-height: calc(100vh - 394px);
   align-items: center;
   border-bottom: 1px solid #2e3945;
 
-  @media (max-width: 769px){
+  @media (max-width: 769px) {
     display: block !important;
   }
 
@@ -313,11 +354,11 @@ $fontSizeMin: 12px;
       background: #fff;
       box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
       border-radius: 8px 0 0 8px;
-      padding: 36px 43px 38px 43px;
+      padding: 37px 43px 38px 43px;
+
       @media (max-width: 769px) {
         border-radius: 0px;
-        padding: 36px 13px 38px 13px;
-
+        padding: 37px 13px 38px 13px;
       }
       :deep() {
         .el-form-item {
@@ -493,6 +534,7 @@ $fontSizeMin: 12px;
       .login-agree {
         float: right;
         margin-top: 9px;
+        z-index: 9999;
         .agree-frame {
           float: left;
           width: 12px;
@@ -583,7 +625,6 @@ $fontSizeMin: 12px;
       @media (max-width: 769px) {
         border-radius: 0px;
         padding: 94px 13px 72px 13px;
-        
       }
       .scan-title {
         font-size: $fontSizeDefPro;
@@ -608,7 +649,7 @@ $fontSizeMin: 12px;
       .scan-download {
         margin-top: 36px;
         cursor: pointer;
-        @media(max-width:769px){
+        @media (max-width: 769px) {
           margin-top: 69px;
         }
         .other-sign {
