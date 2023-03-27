@@ -10,11 +10,11 @@
         <div class="market">#1</div>
       </div>
       <el-divider
-        v-if="windowWidth > 992"
+        v-if="windowWidth > 976"
         class="divider"
         direction="vertical"
       />
-      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <el-divider v-else class="divider" />
       <div class="market-infomation-part">
         <div class="part-top">
           <div class="top-title">Typical hold-time</div>
@@ -23,11 +23,11 @@
         <div class="market">263 days</div>
       </div>
       <el-divider
-        v-if="windowWidth > 992"
+        v-if="windowWidth > 976"
         class="divider"
         direction="vertical"
       />
-      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <el-divider v-else class="divider" />
       <div class="market-infomation-part market-third">
         <div class="part-top">
           <div class="top-title">Trading activity</div>
@@ -145,7 +145,7 @@ function resetWidth() {
     }
   }
   .market-third {
-    width: 218%;
+    width: 219%;
     @media (max-width: 992px) {
       width: 100%;
     }

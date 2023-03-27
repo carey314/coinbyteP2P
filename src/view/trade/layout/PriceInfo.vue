@@ -14,11 +14,11 @@
         </div>
       </div>
       <el-divider
-        v-if="windowWidth > 992"
+        v-if="windowWidth > 976"
         class="divider"
         direction="vertical"
       />
-      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <el-divider v-else class="divider" />
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Valume (24 hours)</div>
@@ -31,11 +31,11 @@
         </div>
       </div>
       <el-divider
-        v-if="windowWidth > 992"
+        v-if="windowWidth > 976"
         class="divider"
         direction="vertical"
       />
-      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <el-divider v-else class="divider" />
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Circulating supply</div>
@@ -48,11 +48,11 @@
         </div>
       </div>
       <el-divider
-        v-if="windowWidth > 992"
+        v-if="windowWidth > 976"
         class="divider"
         direction="vertical"
       />
-      <el-divider v-if="windowWidth <= 992" class="divider" />
+      <el-divider v-else class="divider" />
 
       <div class="price-infomation-part">
         <div class="part-top">
