@@ -172,7 +172,7 @@
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
                 
-                <!-- <div class="view-more">View more &gt;</div> -->
+                <div class="view-more">View more &gt;</div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -1029,7 +1029,7 @@ $fontSizeMin: 12px;
         }
 
         .box-left {
-          width: 80%;
+          // width: 80%;
           .rencent-image {
             float: left;
             width: 30px;

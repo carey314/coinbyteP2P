@@ -209,6 +209,12 @@ console.log(userInfo.value);
   line-height: 16px;
   width: 356px;
   height: 48px;
+  @media (max-width: 520px) and (max-width:769px) {
+    width: 213px;
+  }
+  @media  (min-width:769px) and (max-width:1060px){
+    width: 213px;
+  }
 }
 :deep(.el-card__body) {
   padding: 30px;
@@ -298,9 +304,9 @@ console.log(userInfo.value);
       }
       .bottom-tip {
         display: flex;
-        @media (max-width: 769px) {
-          width: 123px;
-        }
+        // @media (max-width: 769px) {
+        //   width: 123px;
+        // }
 
         .tip-icon {
           margin-right: 8px;

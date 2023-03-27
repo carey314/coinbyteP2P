@@ -46,13 +46,18 @@
         </div>
       </div>
       <div class="login-history-table">
-        <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="date" label="Time" width="450" />
+        <el-table :data="tableData">
+          <el-table-column
+            prop="date"
+            label="Time"
+            width="450"
+            style="margin-left: 31px"
+          />
           <el-table-column prop="name" label="Location" width="150" />
           <el-table-column
             prop="address"
             label="IP address"
-            fixed="right"
+            width="190"
             align="right"
           />
         </el-table>
@@ -185,6 +190,8 @@ $fontSizeMin: 12px;
         }
       }
       .content-item-btn {
+        display: flex;
+        align-items: center;
         :deep() {
           .button {
             width: 57px !important;
@@ -237,9 +244,23 @@ $fontSizeMin: 12px;
     border-top: none;
     :deep() {
       .el-table .cell {
-        margin-left: 31px;
+        width: 100%;
+        padding: 1px 42px;
       }
     }
+  }
+}
+:deep() {
+  .el-table__header {
+    width: 100% !important;
+  }
+  .el-table__body,
+  .el-table__footer,
+  .el-table__header {
+    width: 100% !important;
+  }
+  .el-table__inner-wrapper{
+    // padding-left: 31px;
   }
 }
 </style>

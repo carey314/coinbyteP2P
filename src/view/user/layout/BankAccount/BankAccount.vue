@@ -41,28 +41,35 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Account Number" label="Account Number" width="200">
+          <el-table-column
+            prop="Account Number"
+            label="Account Number"
+            width="200"
+          >
             <template #default="scope">
               <div>
                 {{ scope.row.number }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Account Status" label="Account Status" width="200">
+          <el-table-column
+            prop="Account Status"
+            label="Account Status"
+            width="200"
+          >
             <template #default="scope">
               <div class="status">
                 {{ scope.row.status }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Operation" label="Operation" width="200" >
+          <el-table-column prop="Operation" label="Operation" width="200">
             <template #default="scope">
               <div class="operation">
                 {{ scope.row.operation }}
               </div>
             </template>
           </el-table-column>
-
         </template>
       </Table>
     </div>
@@ -73,7 +80,7 @@
 import { ref, reactive } from "vue";
 import { Right } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
-import Table from '../../component/Table.vue'
+import Table from "../../component/Table.vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
 import usercenter_verification_cor from "../../../../assets/home/usercenter_verification_cor.png";
 
@@ -81,15 +88,15 @@ const add = ref("+ Add Bank Account");
 
 const bankDate = [
   {
-    country: 'Australia',
-    currency: 'AUD',
-    bank: 'Others',
-    code: '802-090',
-    number: '423*212',
-    status: 'Verified',
-    operation: 'Delete',
-  }
-]
+    country: "Australia",
+    currency: "AUD",
+    bank: "Others",
+    code: "802-090",
+    number: "423*212",
+    status: "Verified",
+    operation: "Delete",
+  },
+];
 </script>
 
 <style scoped lang="scss">
@@ -98,6 +105,9 @@ const bankDate = [
   font-size: 26px;
   color: #000000;
   line-height: 32px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 }
 .bank-account-msg {
   margin-top: 10px;
@@ -124,23 +134,23 @@ const bankDate = [
     }
   }
 }
-.table-body{
+.table-body {
   margin-top: 20px;
-  border: 1px solid #EBEBEB;
-  :deep(){
-    .el-table__inner-wrapper{
+  border: 1px solid #ebebeb;
+  :deep() {
+    .el-table__inner-wrapper {
       margin-top: 0;
     }
-    .el-table .cell{
+    .el-table .cell {
       padding-left: 25px;
     }
   }
-  .status{
+  .status {
     color: #01c19a;
     cursor: pointer;
   }
-  .operation{
-    color: #F15958;
+  .operation {
+    color: #f15958;
     cursor: pointer;
   }
 }

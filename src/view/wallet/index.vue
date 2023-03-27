@@ -2,26 +2,46 @@
   <div class="wallet-page">
     <Header></Header>
     <div class="center-part">
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Overview" name="first" :lazy="true">
-            <OverView />
-        </el-tab-pane>
+      <el-scrollbar>
+        <div class="scrollbar-flex-content">
+          <el-tabs
+            v-model="activeName"
+            class="demo-tabs"
+            @tab-click="handleClick"
+          >
+            <el-tab-pane label="Overview" name="first" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Trading" name="second" :lazy="true"> 
-          <Trading />  
-        </el-tab-pane>
+            <el-tab-pane label="Trading" name="second" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Earning" name="third" :lazy="true">Earning</el-tab-pane>
+            <el-tab-pane
+              label="Earning"
+              name="third"
+              :lazy="true"
+            ></el-tab-pane>
 
-        <el-tab-pane label="History" name="fourth" :lazy="true">
-          <History />
-        </el-tab-pane>
+            <el-tab-pane label="History" name="fourth" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Account Statement" name="fifth" :lazy="true">
-          <AccountStatement />
-        </el-tab-pane
-        >
-      </el-tabs>
+            <el-tab-pane label="Account Statement" name="fifth" :lazy="true">
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </el-scrollbar>
+      <div class="min-height" v-if="activeName === 'first'">
+        <OverView />
+      </div>
+      <div class="min-height" v-if="activeName === 'second'">
+        <Trading />
+      </div>
+      <div class="min-height" v-if="activeName === 'third'"></div>
+      <div class="min-height" v-if="activeName === 'fourth'">
+        <History />
+      </div>
+      <div class="min-height" v-if="activeName === 'fifth'">
+        <AccountStatement />
+      </div>
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -30,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed,provide } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -39,14 +59,13 @@ import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
 import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
-import {getMyAssets} from '../../api/wallet';
-import {getTransactions} from '../../api/transactions';
+import { getMyAssets } from "../../api/wallet";
+import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
 
 // import no_found from "../../../assets/home/no_found.png";
 
 // import BTC from "../../assets/home/part01_BTC.png";
-
 
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -66,10 +85,10 @@ function resetWidth() {
 interface AssetsData {
   currency: string;
   balance: string;
-  alphabeticCode : string;
-  caption : string;
-  accountNumber : string;
-  accountId : string;
+  alphabeticCode: string;
+  caption: string;
+  accountNumber: string;
+  accountId: string;
 }
 const assetsData = ref<AssetsData[]>([]);
 onMounted(() => {
@@ -80,31 +99,27 @@ onMounted(() => {
         return {
           currency: v.currency.name,
           balance: v.statement.availableBalance,
-          alphabeticCode : v.currency.alphabeticCode,
-          caption : v.caption,
-          accountNumber : v.accountNumber,
-          accountId : v.accountId
+          alphabeticCode: v.currency.alphabeticCode,
+          caption: v.caption,
+          accountNumber: v.accountNumber,
+          accountId: v.accountId,
         };
       });
-    };
+    }
   });
 });
-provide("assetsData",assetsData);
+provide("assetsData", assetsData);
 const transactions = ref<any>([]);
 onMounted(() => {
-  getTransactions().then(res => {
+  getTransactions().then((res) => {
     console.log(res.data);
     transactions.value = res.data.data;
-  })
+  });
 });
-provide("transactions",transactions);
-
+provide("transactions", transactions);
 </script>
 
 <style scoped lang="scss">
-.scrollbar-flex-content {
-  display: flex;
-}
 .center-part {
   max-width: 1290px;
   min-height: 985px;
@@ -114,10 +129,18 @@ provide("transactions",transactions);
   @media (max-width: 1440px) {
     padding: 21px 20px 135px 20px;
   }
+  .scrollbar-flex-content {
+    
+    @media (max-width: 600px) {
+      display: flex;
+    }
+  }
 }
 
 :deep() {
-
+  .el-scrollbar__bar.is-horizontal > div {
+    height: 0; //iPhone滑动样式高度
+  }
   .el-tabs__item {
     color: #9b9b9b !important;
     font-size: 16px;
@@ -145,7 +168,7 @@ provide("transactions",transactions);
     background-color: #01c19a;
     height: 4px;
   }
-  .el-tabs__nav-wrap::after{
+  .el-tabs__nav-wrap::after {
     height: 1px;
   }
 

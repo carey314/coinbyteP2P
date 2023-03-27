@@ -2,28 +2,45 @@
   <div class="wallet-page">
     <Header></Header>
     <div class="center-part">
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Overview" name="first" :lazy="true">
-          <OverView />
-        </el-tab-pane>
+      <el-scrollbar>
+        <div class="scrollbar-flex-content">
+          <el-tabs
+            v-model="activeName"
+            class="demo-tabs"
+            @tab-click="handleClick"
+          >
+            <el-tab-pane label="Overview" name="first" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Security" name="second" :lazy="true">
-          <Security />
-        </el-tab-pane>
+            <el-tab-pane label="Security" name="second" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Verification" name="third" :lazy="true">
-          <Verification />
-        </el-tab-pane>
+            <el-tab-pane label="Verification" name="third" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Bank account" name="fourth" :lazy="true">
-          <!-- <History /> -->
-          <BankAccount />
-        </el-tab-pane>
+            <el-tab-pane label="Bank account" name="fourth" :lazy="true">
+            </el-tab-pane>
 
-        <el-tab-pane label="Preferences" name="fifth" :lazy="true">
-          <!-- <AccountStatement /> -->
-        </el-tab-pane>
-      </el-tabs>
+            <el-tab-pane label="Preferences" name="fifth" :lazy="true">
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </el-scrollbar>
+      <div class="min-height" v-if="activeName === 'first'">
+        <OverView />
+      </div>
+      <div class="min-height" v-if="activeName === 'second'">
+        <Security />
+      </div>
+      <div class="min-height" v-if="activeName === 'third'">
+        <Verification />
+      </div>
+      <div class="min-height" v-if="activeName === 'fourth'">
+        <BankAccount />
+      </div>
+      <div class="min-height" v-if="activeName === 'fifth'">
+        <!-- <AccountStatement /> -->
+      </div>
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -67,21 +84,26 @@ function resetWidth() {
 </script>
 
 <style scoped lang="scss">
-.scrollbar-flex-content {
-  display: flex;
-}
 .center-part {
   max-width: 1290px;
-  min-height: 985px;
+  // min-height: 985px;
   margin: auto;
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
     padding: 21px 20px 135px 20px;
   }
+  .scrollbar-flex-content {
+    @media (max-width: 600px) {
+      display: flex;
+    }
+  }
 }
 
 :deep() {
+  .el-scrollbar__bar.is-horizontal > div {
+    height: 0; //iPhone滑动样式高度
+  }
   .el-tabs__item {
     color: #9b9b9b !important;
     font-size: 16px;

@@ -203,7 +203,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="!verifiy">
+                  <el-dropdown-item class="verify-box" v-if="verifiy">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified" />
@@ -1117,6 +1117,14 @@ $regular-font: HarmonyOS_Sans_Regular;
     .user-head-box {
       display: flex;
       align-items: center;
+      .user-head{
+        width: 40px;
+        img{
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
       .head-text {
         margin-left: 12px;
         .user-name {

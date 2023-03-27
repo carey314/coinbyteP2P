@@ -23,7 +23,7 @@
       </el-tabs>
     </div>
     <div class="center-part" v-if="windowWidth <= 1050">
-      <el-scrollbar >
+      <el-scrollbar>
         <div class="scrollbar-flex-content">
           <el-tabs
             v-model="activeName"

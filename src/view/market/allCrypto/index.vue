@@ -50,7 +50,7 @@
               class="crypto-table"
               :default-sort="{ prop: 'address', order: 'ascending' }"
             >
-              <el-table-column prop="date" label="Crypto" width="600px">
+              <el-table-column prop="date" label="Crypto" width="500px">
                 <template #default="scope" class="cleatfloat">
                   <el-icon class="crypto-star clearfloat"
                     ><StarFilled
@@ -70,7 +70,13 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column prop="name" label="Price" align="right">
+
+              <el-table-column
+                prop="name"
+                label="Price"
+                align="right"
+                width="150px"
+              >
                 <template #default="scope">
                   <span class="table-price">{{ scope.row.price }}</span>
                 </template>
@@ -79,6 +85,7 @@
                 prop="change"
                 label="Change"
                 sortable
+                width="150px"
                 align="right"
               >
                 <template #default="scope">
@@ -104,6 +111,7 @@
                 prop="address"
                 label="Market cap"
                 sortable
+                width="150px"
                 align="right"
               >
                 <template #default="scope">
@@ -115,6 +123,7 @@
                 align="right"
                 prop="address"
                 label="Action"
+                width="150px"
                 class="action"
               >
                 <template #header> Action </template>

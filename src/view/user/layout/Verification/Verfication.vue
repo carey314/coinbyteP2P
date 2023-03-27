@@ -72,6 +72,9 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
   font-size: 26px;
   color: #000000;
   line-height: 32px;
+  @media (max-width: 768px) {
+    margin-top: 0px;
+  }
 }
 .verify-msg {
   margin-top: 10px;

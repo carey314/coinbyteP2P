@@ -125,12 +125,17 @@
             display: flex;
             gap: 20px;
             margin-bottom: 15px;
+
             :deep() {
                 .el-range-editor.el-input__wrapper {
                     width: 227px;
                     flex: none;
                     height: 41px;
                 }
+            }
+            @media(max-width:895px){
+                display: grid;
+                gap: 10px;
             }
         }
     }

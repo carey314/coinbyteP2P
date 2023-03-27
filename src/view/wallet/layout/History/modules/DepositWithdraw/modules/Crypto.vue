@@ -188,6 +188,9 @@
                     display: flex;
                     flex-wrap: wrap;
                     gap: 20px;
+                    @media(max-width:769px){
+                        gap: 10px;
+                    }
                 }
                 .search-right {
                     display: flex;

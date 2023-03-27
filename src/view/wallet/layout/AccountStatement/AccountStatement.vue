@@ -114,6 +114,10 @@ const tableData = ref([
       @media (max-width: 768px) {
         margin-left: 3px;
       }
+      @media (max-width: 375px) {
+        margin-left: 0px;
+        margin-top: 3px;
+      }
     }
   }
   .account-statement-table {
