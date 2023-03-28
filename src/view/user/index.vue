@@ -86,12 +86,15 @@ function resetWidth() {
 <style scoped lang="scss">
 .center-part {
   max-width: 1290px;
-  // min-height: 985px;
+  min-height: calc(100vh - 394px);
   margin: auto;
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
     padding: 21px 20px 135px 20px;
+  }
+  @media (max-width: 768px) {
+    padding: 21px 20px 100px 20px;
   }
   .scrollbar-flex-content {
     @media (max-width: 600px) {

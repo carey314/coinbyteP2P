@@ -2,18 +2,18 @@
   <div>
     <div class="center-box" v-if="windowWidth > 769">
       <div class="center-part max1290">
-        <router-link to="centerContent" style="text-decoration: none">
-          <el-row :gutter="20">
-            <el-col :span="6" v-for="(item, index) in firstCenter" :key="index">
+        <el-row :gutter="20">
+          <el-col :span="6" v-for="(item, index) in firstCenter" :key="index">
+            <router-link to="centerContent" style="text-decoration: none">
               <div class="content clearfloat">
                 <div class="image">
                   <img :src="item.image" />
                 </div>
                 <div class="message">{{ item.message }}</div>
               </div>
-            </el-col>
-          </el-row>
-        </router-link>
+            </router-link>
+          </el-col>
+        </el-row>
       </div>
       <div class="center-part max1290">
         <el-row :gutter="20">
@@ -57,12 +57,14 @@
             v-for="(item, index) in firstCenter"
             :key="index"
           >
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.image" />
+            <router-link to="centerContent" style="text-decoration: none">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.image" />
+                </div>
+                <div class="message">{{ item.message }}</div>
               </div>
-              <div class="message">{{ item.message }}</div>
-            </div>
+            </router-link>
           </el-col>
         </el-row>
       </div>
@@ -243,7 +245,7 @@ $fontSizeMin: 12px;
       margin-top: 9px;
       color: #000000;
       line-height: 20px;
-      font-weight: 500;
+      font-weight: 400;
       @media (max-width: 769px) {
         text-align: center;
       }

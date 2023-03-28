@@ -198,8 +198,9 @@
                     v-model="numberStable"
                     placeholder="pay"
                     class="change-count clearfloat"
-                    type="number"
                   >
+                    <!-- type="number" -->
+
                     <template #append>
                       <div class="option-icon">
                         <img :src="crypto_icon_usdt" />
@@ -721,7 +722,8 @@ $fontSizeMin: 12px;
               justify-content: center;
             }
             .el-radio-button:first-child .el-radio-button__inner {
-              background: #fff;
+              background: #f1f4f5;
+              border-radius: 8px 0;
             }
             .el-radio-button:last-child .el-radio-button__inner {
               border-radius: 0 0 0 8px;
@@ -729,7 +731,8 @@ $fontSizeMin: 12px;
             .el-radio-button__original-radio:checked + .el-radio-button__inner {
               color: #000 !important;
               box-shadow: none;
-              // background: #fff;
+              border-radius: 0 8px 0 0;
+              background: #fff;
             }
           }
           .el-radio {

@@ -136,7 +136,7 @@ $fontSizeMin: 12px;
 
   @media (max-width: 769px) {
     & {
-      padding: 8px 16px;
+      padding: 0px;
     }
   }
 

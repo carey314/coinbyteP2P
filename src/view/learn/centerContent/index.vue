@@ -176,9 +176,9 @@ $fontSizeMin: 12px;
 .main-part {
   max-width: 1290px;
   margin: auto;
-  padding: 45px 130px 135px 130px;
+  padding: 45px 130px 77px 130px;
   @media (max-width: 1440px) {
-    padding: 45px 30px 135px 30px;
+    padding: 45px 30px 37px 30px;
   }
   .nav {
     :deep() {
@@ -237,9 +237,9 @@ $fontSizeMin: 12px;
 .bottom-part {
   max-width: 1290px;
   margin: auto;
-  padding: 45px 0 135px 0;
+  padding: 45px 0 134px 0;
   @media (max-width: 1440px) {
-    padding: 45px 30px 135px 30px;
+    padding: 45px 30px 134px 30px;
   }
 }
 </style>

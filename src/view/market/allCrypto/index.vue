@@ -19,7 +19,7 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane label="All Cryptos" name="first">
+            <el-tab-pane name="first">
               <template #label>
                 <span class="custom-tabs-label">
                   <el-icon><StarFilled /></el-icon>
@@ -930,6 +930,7 @@ const spotData = [
     asset: "Cardano",
     changePrice: "38.75",
     price: "/ A$32,814,73",
+    changeCount: "1,678.86 / 1,599.99",
     volume: "89.27M",
     cap: "$18.50B",
     change: "+0.20%",
@@ -970,9 +971,9 @@ function resetWidth() {
 </script>
 
 <style scoped lang="scss">
-.scrollbar-flex-content {
-  display: flex;
-}
+// .scrollbar-flex-content {
+//   display: flex;
+// }
 .center-part {
   max-width: 1290px;
   min-height: 985px;
@@ -985,13 +986,13 @@ function resetWidth() {
 }
 .search-input {
   position: absolute;
-  right: 20px;
+  right: 0;
+  top: 20px;
   width: 231px;
   height: 37px;
   z-index: 99;
   @media (max-width: 1440px) {
-    // right: 20px;
-    // top: 20px;
+    right: 20px;
   }
 }
 
