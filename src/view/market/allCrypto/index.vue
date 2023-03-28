@@ -2,7 +2,7 @@
   <div class="allCrypto-page">
     <Header></Header>
     <div class="center-part">
-      <div class="search-input" v-if="windowWidth >= 768">
+      <div class="search-input" v-if="windowWidth > 769">
         <el-input
           v-model="search"
           class="w-50 m-2"
@@ -11,310 +11,319 @@
           :prefix-icon="Search"
         />
       </div>
-      <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="All Cryptos" name="first">
-          <template #label>
-            <span class="custom-tabs-label">
-              <el-icon><StarFilled /></el-icon>
-              <span>Favorites</span>
-            </span>
-          </template>
-        </el-tab-pane>
 
-        <el-tab-pane label="All Cryptos" name="second">
-          <el-radio-group v-model="radioValue">
-            <el-scrollbar>
-              <div class="scrollbar-flex-content">
-                <el-radio-button label="All" />
-                <el-radio-button label="Metaverse" />
-                <el-radio-button label="Gaming" />
-                <el-radio-button label="DeFi" />
-                <el-radio-button label="Innovation" />
-                <el-radio-button label="Layer 1 / Layer 2" />
-                <el-radio-button label="Fan Token" />
-                <el-radio-button label="NFT" />
-                <el-radio-button label="Storage" />
-                <el-radio-button label="Polkadot" />
-                <el-radio-button label="POS" />
-                <el-radio-button label="POW" />
-                <el-radio-button label="Launchpad" />
-                <el-radio-button label="Launchpool" />
-                <el-radio-button label="BNB Chain" />
-              </div>
-            </el-scrollbar>
-          </el-radio-group>
-          <div>
-            <el-table
-              :data="filterTableData"
-              :table-layout="tableLayout"
-              class="crypto-table"
-              :default-sort="{ prop: 'address', order: 'ascending' }"
-            >
-              <el-table-column prop="date" label="Crypto" width="500px">
-                <template #default="scope" class="cleatfloat">
-                  <el-icon class="crypto-star clearfloat"
-                    ><StarFilled
-                  /></el-icon>
-
-                  <div class="crypto-icon clearfloat">
-                    <img
-                      class="table-img"
-                      style="width: 2rem"
-                      :src="scope.row.img"
-                      alt=""
-                    />
-                    <span class="table-tag">{{ scope.row.tag }}</span>
-                    <span class="table-asset" style="color: #9b9b9b">{{
-                      scope.row.asset
-                    }}</span>
-                  </div>
-                </template>
-              </el-table-column>
-
-              <el-table-column
-                prop="name"
-                label="Price"
-                align="right"
-                width="150px"
-              >
-                <template #default="scope">
-                  <span class="table-price">{{ scope.row.price }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="change"
-                label="Change"
-                sortable
-                width="150px"
-                align="right"
-              >
-                <template #default="scope">
-                  <span
-                    v-if="scope.row.change.indexOf('-') > -1"
-                    style="color: #f15958"
-                  >
-                    <span class="table-change">
-                      {{ scope.row.change }}
-                    </span>
-                  </span>
-                  <span
-                    v-if="scope.row.change.indexOf('+') > -1"
-                    style="color: #01c19a"
-                  >
-                    <span class="table-change">
-                      {{ scope.row.change }}
-                    </span>
-                  </span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="address"
-                label="Market cap"
-                sortable
-                width="150px"
-                align="right"
-              >
-                <template #default="scope">
-                  <span class="table-price">{{ scope.row.cap }}</span>
-                </template>
-              </el-table-column>
-
-              <el-table-column
-                align="right"
-                prop="address"
-                label="Action"
-                width="150px"
-                class="action"
-              >
-                <template #header> Action </template>
-                <template #default="scope">
-                  <div class="action-btn">
-                    <el-button text link>Buy</el-button>
-                    <el-divider direction="vertical" />
-
-                    <el-button text link>Sell</el-button>
-                  </div>
-                </template>
-              </el-table-column>
-
-              <template #empty>
-                <el-empty :image="no_found" description="No Results Found">
-                </el-empty>
+      <el-scrollbar>
+        <div class="scrollbar-flex-content">
+          <el-tabs
+            v-model="activeName"
+            class="demo-tabs"
+            @tab-click="handleClick"
+          >
+            <el-tab-pane label="All Cryptos" name="first">
+              <template #label>
+                <span class="custom-tabs-label">
+                  <el-icon><StarFilled /></el-icon>
+                  <span>Favorites</span>
+                </span>
               </template>
-            </el-table>
-            <div class="example-pagination-block">
-              <el-pagination
-                background
-                :hide-on-single-page="filterTableData.length < 10"
-                layout="prev, pager, next"
-                :page-size="3"
-                :total="filterTableData.length"
-              />
-            </div>
-          </div>
-        </el-tab-pane>
+            </el-tab-pane>
 
-        <el-tab-pane label="Spot Markets" name="third">
-          <el-radio-group v-model="radioValue">
-            <el-scrollbar>
-              <div class="scrollbar-flex-content">
-                <el-radio-button label="All" />
-                <el-radio-button label="USDT" />
-                <el-radio-button label="BNB" />
-                <el-radio-button label="BTC" />
-                <el-radio-button label="ALTS" />
-                <el-radio-button label="FIAT(All)" />
-                <el-radio-button label="ETF" />
+            <el-tab-pane label="All Cryptos" name="second">
+              <el-radio-group v-model="radioValue">
+                <el-scrollbar>
+                  <div class="scrollbar-flex-content">
+                    <el-radio-button label="All" />
+                    <el-radio-button label="Metaverse" />
+                    <el-radio-button label="Gaming" />
+                    <el-radio-button label="DeFi" />
+                    <el-radio-button label="Innovation" />
+                    <el-radio-button label="Layer 1 / Layer 2" />
+                    <el-radio-button label="Fan Token" />
+                    <el-radio-button label="NFT" />
+                    <el-radio-button label="Storage" />
+                    <el-radio-button label="Polkadot" />
+                    <el-radio-button label="POS" />
+                    <el-radio-button label="POW" />
+                    <el-radio-button label="Launchpad" />
+                    <el-radio-button label="Launchpool" />
+                    <el-radio-button label="BNB Chain" />
+                  </div>
+                </el-scrollbar>
+              </el-radio-group>
+              <div>
+                <el-table
+                  :data="filterTableData"
+                  :table-layout="tableLayout"
+                  class="crypto-table"
+                  :default-sort="{ prop: 'address', order: 'ascending' }"
+                >
+                  <el-table-column prop="date" label="Crypto" width="500px">
+                    <template #default="scope" class="cleatfloat">
+                      <el-icon class="crypto-star clearfloat"
+                        ><StarFilled
+                      /></el-icon>
+
+                      <div class="crypto-icon clearfloat">
+                        <img
+                          class="table-img"
+                          style="width: 2rem"
+                          :src="scope.row.img"
+                          alt=""
+                        />
+                        <span class="table-tag">{{ scope.row.tag }}</span>
+                        <span class="table-asset" style="color: #9b9b9b">{{
+                          scope.row.asset
+                        }}</span>
+                      </div>
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column
+                    prop="name"
+                    label="Price"
+                    align="right"
+                    width="150px"
+                  >
+                    <template #default="scope">
+                      <span class="table-price">{{ scope.row.price }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="change"
+                    label="Change"
+                    sortable
+                    width="150px"
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span
+                        v-if="scope.row.change.indexOf('-') > -1"
+                        style="color: #f15958"
+                      >
+                        <span class="table-change">
+                          {{ scope.row.change }}
+                        </span>
+                      </span>
+                      <span
+                        v-if="scope.row.change.indexOf('+') > -1"
+                        style="color: #01c19a"
+                      >
+                        <span class="table-change">
+                          {{ scope.row.change }}
+                        </span>
+                      </span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="address"
+                    label="Market cap"
+                    sortable
+                    width="170px"
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span class="table-price">{{ scope.row.cap }}</span>
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column
+                    align="right"
+                    prop="address"
+                    label="Action"
+                    width="300px"
+                    class="action"
+                  >
+                    <template #header> Action </template>
+                    <template #default="scope">
+                      <div class="action-btn">
+                        <el-button text link>Buy</el-button>
+                        <el-divider direction="vertical" />
+
+                        <el-button text link>Sell</el-button>
+                      </div>
+                    </template>
+                  </el-table-column>
+
+                  <template #empty>
+                    <el-empty :image="no_found" description="No Results Found">
+                    </el-empty>
+                  </template>
+                </el-table>
+                <div class="example-pagination-block min-pagination">
+                  <el-pagination
+                    background
+                    :hide-on-single-page="filterTableData.length < 10"
+                    layout="prev, pager, next"
+                    :page-size="3"
+                    :total="filterTableData.length"
+                  />
+                </div>
               </div>
-            </el-scrollbar>
-          </el-radio-group>
-          <div>
-            <el-table
-              :data="filterSpotData"
-              :table-layout="tableLayout"
-              class="crypto-table"
-              :default-sort="{ prop: 'address', order: 'ascending' }"
-            >
-              <el-table-column prop="date" label="Crypto" width="260px">
-                <template #default="scope" class="cleatfloat">
-                  <el-icon class="crypto-star clearfloat"
-                    ><StarFilled
-                  /></el-icon>
+            </el-tab-pane>
 
-                  <div class="crypto-icon clearfloat">
-                    <img
-                      class="table-img"
-                      style="width: 2rem"
-                      :src="scope.row.img"
-                      alt=""
-                    />
-                    <span class="table-tag">{{ scope.row.tag }}</span>
-                    <span class="table-asset" style="color: #9b9b9b">{{
-                      scope.row.asset
-                    }}</span>
+            <el-tab-pane label="Spot Markets" name="third">
+              <el-radio-group v-model="radioValue">
+                <el-scrollbar>
+                  <div class="scrollbar-flex-content">
+                    <el-radio-button label="All" />
+                    <el-radio-button label="USDT" />
+                    <el-radio-button label="BNB" />
+                    <el-radio-button label="BTC" />
+                    <el-radio-button label="ALTS" />
+                    <el-radio-button label="FIAT(All)" />
+                    <el-radio-button label="ETF" />
                   </div>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="Price"
-                width="240px"
-                sortable
-                align="right"
-              >
-                <template #default="scope">
-                  <span
-                    class="table-price"
-                    style="margin-right: 4px; color: #01c19a"
-                    >{{ scope.row.upPirce }}</span
-                  >
-                  <span
-                    class="table-price"
-                    style="margin-right: 4px; color: #f15958"
-                    >{{ scope.row.downPirce }}</span
-                  >
-                  <span
-                    class="table-price"
-                    style="margin-right: 4px; color: #000"
-                    >{{ scope.row.changePrice }}</span
-                  >
-                  <span class="table-price" style="color: #878787">{{
-                    scope.row.price
-                  }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="change"
-                label="Change"
-                width="150px"
-                sortable
-                align="right"
-              >
-                <template #default="scope">
-                  <span
-                    v-if="scope.row.change.indexOf('-') > -1"
-                    style="color: #f15958"
-                  >
-                    <span class="table-change">
-                      {{ scope.row.change }}
-                    </span>
-                  </span>
-                  <span
-                    v-if="scope.row.change.indexOf('+') > -1"
-                    style="color: #01c19a"
-                  >
-                    <span class="table-change">
-                      {{ scope.row.change }}
-                    </span>
-                  </span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="name"
-                label="24h High / 24h Low"
-                width="230px"
-                align="right"
-              >
-                <template #default="scope">
-                  <span
-                    class="table-price"
-                    style="margin-right: 4px; color: #000"
-                    >{{ scope.row.changeCount }}</span
-                  >
-                </template>
-              </el-table-column>
-              <el-table-column
-                sortable
-                label="24h Volume"
-                width="140px"
-                align="right"
-              >
-                <template #default="scope">
-                  <span class="table-price">{{ scope.row.volume }}</span>
-                </template>
-              </el-table-column>
-              <el-table-column
-                label="Market cap"
-                width="140px"
-                sortable
-                align="right"
-              >
-                <template #default="scope">
-                  <span class="table-price">{{ scope.row.cap }}</span>
-                </template>
-              </el-table-column>
+                </el-scrollbar>
+              </el-radio-group>
+              <div>
+                <el-table
+                  :data="filterSpotData"
+                  :table-layout="tableLayout"
+                  class="crypto-table"
+                  :default-sort="{ prop: 'address', order: 'ascending' }"
+                >
+                  <el-table-column prop="date" label="Crypto" width="260px">
+                    <template #default="scope" class="cleatfloat">
+                      <el-icon class="crypto-star clearfloat"
+                        ><StarFilled
+                      /></el-icon>
 
-              <el-table-column
-                align="right"
-                prop="address"
-                label="Action"
-                class="action"
-              >
-                <template #header> Action </template>
-                <template #default="scope">
-                  <div class="action-btn">
-                    <el-button text link>Trade</el-button>
-                  </div>
-                </template>
-              </el-table-column>
+                      <div class="crypto-icon clearfloat">
+                        <img
+                          class="table-img"
+                          style="width: 2rem"
+                          :src="scope.row.img"
+                          alt=""
+                        />
+                        <span class="table-tag">{{ scope.row.tag }}</span>
+                        <span class="table-asset" style="color: #9b9b9b">{{
+                          scope.row.asset
+                        }}</span>
+                      </div>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="Price"
+                    width="240px"
+                    sortable
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span
+                        class="table-price"
+                        style="margin-right: 4px; color: #01c19a"
+                        >{{ scope.row.upPirce }}</span
+                      >
+                      <span
+                        class="table-price"
+                        style="margin-right: 4px; color: #f15958"
+                        >{{ scope.row.downPirce }}</span
+                      >
+                      <span
+                        class="table-price"
+                        style="margin-right: 4px; color: #000"
+                        >{{ scope.row.changePrice }}</span
+                      >
+                      <span class="table-price" style="color: #878787">{{
+                        scope.row.price
+                      }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="change"
+                    label="Change"
+                    width="150px"
+                    sortable
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span
+                        v-if="scope.row.change.indexOf('-') > -1"
+                        style="color: #f15958"
+                      >
+                        <span class="table-change">
+                          {{ scope.row.change }}
+                        </span>
+                      </span>
+                      <span
+                        v-if="scope.row.change.indexOf('+') > -1"
+                        style="color: #01c19a"
+                      >
+                        <span class="table-change">
+                          {{ scope.row.change }}
+                        </span>
+                      </span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="name"
+                    label="24h High / 24h Low"
+                    width="230px"
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span
+                        class="table-price"
+                        style="margin-right: 4px; color: #000"
+                        >{{ scope.row.changeCount }}</span
+                      >
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    sortable
+                    label="24h Volume"
+                    width="140px"
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span class="table-price">{{ scope.row.volume }}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    label="Market cap"
+                    width="140px"
+                    sortable
+                    align="right"
+                  >
+                    <template #default="scope">
+                      <span class="table-price">{{ scope.row.cap }}</span>
+                    </template>
+                  </el-table-column>
 
-              <template #empty>
-                <el-empty :image="no_found" description="No Results Found">
-                </el-empty>
-              </template>
-            </el-table>
-            <div class="example-pagination-block">
-              <el-pagination
-                background
-                :hide-on-single-page="filterSpotData.length < 10"
-                layout="prev, pager, next"
-                :page-size="3"
-                :total="filterSpotData.length"
-              />
-            </div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+                  <el-table-column
+                    align="right"
+                    prop="address"
+                    label="Action"
+                    class="action"
+                  >
+                    <template #header> Action </template>
+                    <template #default="scope">
+                      <div class="action-btn">
+                        <el-button text link>Trade</el-button>
+                      </div>
+                    </template>
+                  </el-table-column>
+
+                  <template #empty>
+                    <el-empty :image="no_found" description="No Results Found">
+                    </el-empty>
+                  </template>
+                </el-table>
+                <div class="example-pagination-block min-pagination">
+                  <el-pagination
+                    background
+                    :hide-on-single-page="filterSpotData.length < 10"
+                    layout="prev, pager, next"
+                    :page-size="3"
+                    :total="filterSpotData.length"
+                  />
+                </div>
+              </div>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+      </el-scrollbar>
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -976,13 +985,12 @@ function resetWidth() {
 }
 .search-input {
   position: absolute;
-  right: 0;
-  top: 15px;
+  right: 20px;
   width: 231px;
   height: 37px;
   z-index: 99;
   @media (max-width: 1440px) {
-    right: 20px;
+    // right: 20px;
     // top: 20px;
   }
 }
@@ -991,6 +999,9 @@ function resetWidth() {
   .el-input--large {
     height: 37px; //搜索框
   }
+  // .el-scrollbar__bar.is-horizontal > div {
+  //   height: 0; //iPhone滑动样式高度
+  // }
 
   // .el-icon svg {
   //   width: 25px;
@@ -1167,6 +1178,13 @@ function resetWidth() {
       --el-pagination-border-radius: 4px;
       --el-pagination-font-size: 16px;
     }
+  }
+}
+.min-pagination {
+  :deep(.el-pagination) {
+    --el-pagination-button-width: 20px;
+    --el-pagination-button-height: 20px;
+    --el-pagination-font-size: 14px;
   }
 }
 </style>

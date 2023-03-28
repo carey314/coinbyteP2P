@@ -130,10 +130,8 @@
                     </el-table-column>
                   </template>
                 </Table>
-                
               </div>
-            <div class="value-view-more">View more &gt;</div>
-
+              <div class="value-view-more">View more &gt;</div>
             </div>
           </div>
         </el-col>
@@ -174,7 +172,7 @@
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                
+
                 <div class="view-more">View more &gt;</div>
               </template>
               <template v-else>
@@ -236,7 +234,7 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              
+
               <!-- <div class="view-more">View more &gt;</div> -->
             </el-card>
           </div>
@@ -336,7 +334,12 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="Action" width="180" fixed="right" align="right">
+                    <el-table-column
+                      label="Action"
+                      width="180"
+                      fixed="right"
+                      align="right"
+                    >
                       <template #default="scope">
                         <div>
                           <el-button link class="table-btn">{{
@@ -369,10 +372,8 @@
                   </template>
                 </Table>
               </div>
-            <div class="value-view-more">View more &gt;</div>
-
+              <div class="value-view-more">View more &gt;</div>
             </div>
-            
           </div>
         </el-col>
         <el-col :span="24" class="right-box">
@@ -412,7 +413,7 @@
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                
+
                 <div class="view-more">View more &gt;</div>
               </template>
               <template v-else>
@@ -474,7 +475,7 @@
                 <div class="recent-count up">+0.01 ETHW</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              
+
               <!-- <div class="view-more">View more &gt</div> -->
             </el-card>
           </div>
@@ -1060,7 +1061,7 @@ $fontSizeMin: 12px;
           }
         }
       }
-      .recent-count{
+      .recent-count {
         text-align: right;
       }
       .view-more {
@@ -1073,19 +1074,19 @@ $fontSizeMin: 12px;
   }
 }
 .value-view-more {
-        float: right;
-        font-size: 14px;
-        color: #7b8293;
-        line-height: 16px;
-        padding-top: 20px;
-      }
+  float: right;
+  font-size: 14px;
+  color: #7b8293;
+  line-height: 16px;
+  padding-top: 20px;
+}
 .empty-transactions {
   .value-bottom {
     text-align: center;
     .bottom-image {
       width: 85px;
       margin: auto 42%;
-      img{
+      img {
         width: 100%;
         height: 100%;
         object-fit: contain;
