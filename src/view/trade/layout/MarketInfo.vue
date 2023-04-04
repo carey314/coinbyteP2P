@@ -5,7 +5,7 @@
       <div class="market-infomation-part">
         <div class="part-top">
           <div class="top-title">Rank</div>
-          <div><img :src="dropdown_help_support" /></div>
+          <div><img :src="icon_question" /></div>
         </div>
         <div class="market">#1</div>
       </div>
@@ -18,7 +18,7 @@
       <div class="market-infomation-part">
         <div class="part-top">
           <div class="top-title">Typical hold-time</div>
-          <div class="top-icon"><img :src="dropdown_help_support" /></div>
+          <div class="top-icon"><img :src="icon_question" /></div>
         </div>
         <div class="market">263 days</div>
       </div>
@@ -31,7 +31,7 @@
       <div class="market-infomation-part market-third">
         <div class="part-top">
           <div class="top-title">Trading activity</div>
-          <div class="top-icon"><img :src="dropdown_help_support" /></div>
+          <div class="top-icon"><img :src="icon_question" /></div>
         </div>
 
         <div class="market market-progress clearfloat">
@@ -52,7 +52,7 @@
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
 
-import dropdown_help_support from "../../../assets/home/dropdown_help_support.svg";
+import icon_question from "../../../assets/home/icon_question.svg";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {

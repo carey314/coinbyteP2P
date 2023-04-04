@@ -95,6 +95,9 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
   margin-top: 26px;
   :deep(.el-card__body) {
     padding: 37px 30px 17px 30px;
+    @media (max-width: 780px) {
+      padding: 30px 15px 17px 15px;
+    }
   }
   .xs {
     @media (max-width: 768px) {
@@ -112,6 +115,9 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
         height: 100%;
         object-fit: contain;
       }
+      @media (max-width: 500px) {
+        width: 85px;
+      }
     }
     .info-text {
       margin-left: 17px;
@@ -126,8 +132,6 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
         font-size: 14px;
         color: #878787;
         line-height: 16px;
-        height: 35px;
-        padding-bottom: 40px;
       }
     }
   }

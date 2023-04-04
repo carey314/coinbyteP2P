@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <div class="login-history">
+    <div class="login-history" v-if="windowWidth > 820">
       <div class="login-history-head">
         <div class="head-img">
           <img :src="usercenter_security_login_history" />
@@ -47,13 +47,8 @@
       </div>
       <div class="login-history-table">
         <el-table :data="tableData">
-          <el-table-column
-            prop="date"
-            label="Time"
-            width="450"
-            style="margin-left: 31px"
-          />
-          <el-table-column prop="name" label="Location" width="150" />
+          <el-table-column prop="date" label="Time" width="450" />
+          <el-table-column prop="name" label="Location" width="148" />
           <el-table-column
             prop="address"
             label="IP address"
@@ -63,11 +58,39 @@
         </el-table>
       </div>
     </div>
+    <div class="min-login-history" v-else>
+      <el-card class="box-card">
+        <template #header>
+          <div class="login-history-head">
+            <div class="head-img">
+              <img :src="usercenter_security_login_history" />
+            </div>
+            <div class="head-info">
+              <div class="head-info-title">Login history</div>
+              <div class="head-info-message">Your last 10 logins</div>
+            </div>
+          </div>
+        </template>
+        <div
+          class="history-item"
+          v-for="(item, index) in tableData"
+          :key="index"
+        >
+          <div class="history-date"><span>Time:</span> {{ item.date }}</div>
+          <div class="history-name"><span>Location:</span> {{ item.name }}</div>
+          <div class="history-address">
+            <span>IP address:</span> {{ item.address }}
+          </div>
+          <el-divider style="margin-left: -30px; width: 200%"></el-divider>
+        </div>
+      </el-card>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, onUnmounted, onMounted } from "vue";
+
 import usercenter_security_pending_security from "../../../../assets/home/usercenter_security_pending_security.svg";
 import usercenter_security_login_history from "../../../../assets/home/usercenter_security_login_history.svg";
 import usercenter_security_login from "../../../../assets/home/usercenter_security_login.svg";
@@ -75,6 +98,17 @@ import usercenter_security_mobile from "../../../../assets/home/usercenter_secur
 import usercenter_security_email from "../../../../assets/home/usercenter_security_email.svg";
 import usercenter_security_2factor from "../../../../assets/home/usercenter_security_2factor.svg";
 import GetButton from "../../../../components/GetButton.vue";
+
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
 
 const set = ref("Set");
 const securityDate = reactive([
@@ -135,7 +169,6 @@ $fontSizeMin: 12px;
 
 .security-features {
   border-radius: 5px;
-
   .security-features-head {
     display: flex;
     background: #fffaf6;
@@ -259,8 +292,56 @@ $fontSizeMin: 12px;
   .el-table__header {
     width: 100% !important;
   }
-  .el-table__inner-wrapper{
+  .el-table__inner-wrapper {
     // padding-left: 31px;
+  }
+  .el-card__body {
+    padding: 5px 30px 0 30px !important;
+  }
+}
+.min-login-history {
+  margin-top: 30px;
+  .login-history-head {
+    display: flex;
+    padding: 11px 11px 15px 11px;
+    .head-img {
+      width: 39px;
+      height: 49px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    .head-info {
+      margin-left: 20px;
+      .head-info-title {
+        font-size: $fontSizeMed;
+        color: #000000;
+        line-height: 32px;
+      }
+      .head-info-message {
+        margin-top: 6px;
+        font-size: 14px;
+        color: #878787;
+        line-height: 16px;
+      }
+    }
+  }
+  .history-item {
+    font-size: $fontSizeMinPro;
+    color: #000000;
+    line-height: 20px;
+    text-align: left;
+    span {
+      font-size: $fontSizeMinPro;
+      color: #878787;
+    }
+  }
+  :deep() {
+    .el-divider--horizontal {
+      margin: 5px 0;
+    }
   }
 }
 </style>

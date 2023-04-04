@@ -31,7 +31,9 @@
           </div>
           <div class="info-text">
             <div class="info-name profile-title">Phone</div>
-            <div class="info-count">{{ userInfo && userInfo.phone.maskedPhone }}</div>
+            <div class="info-count">
+              {{ userInfo && userInfo.phone.maskedPhone }}
+            </div>
           </div>
         </div>
       </div>
@@ -178,18 +180,6 @@ import { storeToRefs } from "pinia";
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
 console.log(userInfo.value);
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
 <style scoped lang="scss">
@@ -209,11 +199,8 @@ console.log(userInfo.value);
   line-height: 16px;
   width: 356px;
   height: 48px;
-  @media (max-width: 520px) and (max-width:769px) {
-    width: 213px;
-  }
-  @media  (min-width:769px) and (max-width:1060px){
-    width: 213px;
+  @media (max-width: 1400px) {
+    width: 70%;
   }
 }
 :deep(.el-card__body) {

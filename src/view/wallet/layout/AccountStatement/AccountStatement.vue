@@ -24,47 +24,80 @@
           <el-table-column label="Action" width="300" fixed="right" />
         </template>
       </Table>
-      <Table :sourceData="tableData" v-else>
-        <template v-slot:columns>
-          <el-table-column label="As of" width="330">
-            <template #default="scope">
-              <div class="table-crypto">
-                <div>
-                  {{ scope.row.time }}
-                </div>
-              </div>
+      <div v-else>
+        <div v-if="windowWidth > 820">
+          <Table :sourceData="tableData">
+            <template v-slot:columns>
+              <el-table-column label="As of">
+                <template #default="scope">
+                  <div class="table-crypto">
+                    <div>
+                      {{ scope.row.time }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="Balance" label="Time of export">
+                <template #default="scope">
+                  <div>
+                    {{ scope.row.exporttime }}
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="Status">
+                <template #default="scope">
+                  <div class="progress">
+                    <span :class="getStatusClass(scope.row.status)">{{
+                      scope.row.status
+                    }}</span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="Action" fixed="right">
+                <template #default="scope">
+                  <span v-if="scope.row.action === 'Download'">
+                    <img :src="login_download" />
+                  </span>
+                  <span style="margin-left: 10px;">{{ scope.row.action }}</span>
+                </template>
+              </el-table-column>
             </template>
-          </el-table-column>
-          <el-table-column prop="Balance" label="Time of export" width="350">
-            <template #default="scope">
-              <div>
-                {{ scope.row.exporttime }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="Status" width="320">
-            <template #default="scope">
-              <div class="progress">
-                {{ scope.row.status }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column label="Action" width="300" fixed="right">
-            <template #default="scope">
-              <div>
-                <!-- <img :src="login_download"/> -->
-                {{ scope.row.action }}
-              </div>
-            </template>
-          </el-table-column>
-        </template>
-      </Table>
+          </Table>
+        </div>
+        <div v-else>
+          <el-card
+            class="account-statement-card"
+            v-for="(item, index) in tableData"
+            :key="index"
+          >
+            <div class="card-item">
+              As of :<span>{{ item.time }}</span>
+            </div>
+            <div class="card-item">
+              Time of export : <span>{{ item.exporttime }}</span>
+            </div>
+            <div class="card-item">
+              <span>Status :</span
+              ><span :class="getStatusClass(item.status)">{{
+                item.status
+              }}</span>
+            </div>
+            <el-divider></el-divider>
+            <div class="card-action card-item">
+              Action :<span v-if="item.action === 'Download'"
+                ><img :src="item.icon" /> {{ item.action }}</span
+              >
+              <span v-if="item.action === '-'"> {{ item.action }}</span>
+            </div>
+          </el-card>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, reactive, onUnmounted, onMounted } from "vue";
 import Table from "../History/component/Table.vue";
 import CustomButton from "../History/component/CustomButton.vue";
 import login_download from "../../../../assets/home/login_download.svg";
@@ -86,6 +119,19 @@ const tableData = ref([
     action: "Download",
   },
 ]);
+const getStatusClass = (status: string) => {
+  return status === "Processing" ? "text-red" : "text-green";
+};
+const windowWidth = ref(window.document.body.offsetWidth);
+onMounted(() => {
+  window.addEventListener("resize", resetWidth);
+});
+onUnmounted(() => {
+  window.removeEventListener("resize", resetWidth);
+});
+function resetWidth() {
+  windowWidth.value = window.document.body.offsetWidth;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -114,7 +160,7 @@ const tableData = ref([
       @media (max-width: 768px) {
         margin-left: 3px;
       }
-      @media (max-width: 375px) {
+      @media (max-width: 387px) {
         margin-left: 0px;
         margin-top: 3px;
       }
@@ -130,5 +176,26 @@ const tableData = ref([
       cursor: pointer;
     }
   }
+  .account-statement-card {
+    :deep(.el-divider--horizontal) {
+      margin: 10px 0;
+    }
+    margin-top: 10px;
+    .card-item {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      span {
+        text-align: right;
+      }
+    }
+  }
+}
+.text-red {
+  color: #f49542;
+}
+
+.text-green {
+  color: #01c19a;
 }
 </style>

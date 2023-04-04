@@ -50,7 +50,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+import { ref, onMounted, computed, provide } from "vue";
+import { windowWidth } from "../../components/WindowWidth"
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -71,16 +72,6 @@ const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
 };
-const windowWidth = ref(window.document.body.offsetWidth);
-onMounted(() => {
-  window.addEventListener("resize", resetWidth);
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", resetWidth);
-});
-function resetWidth() {
-  windowWidth.value = window.document.body.offsetWidth;
-}
 // ==== 主页请求数据 共享状态
 interface AssetsData {
   currency: string;
@@ -127,7 +118,10 @@ provide("transactions", transactions);
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
-    padding: 21px 20px 135px 20px;
+    max-width: 940px;
+  }
+  @media (max-width: 992px) {
+    padding: 21px 20px 50px 20px;
   }
   .scrollbar-flex-content {
     

@@ -440,9 +440,6 @@ const yc3 = () => {
     height: 310px !important;
     text-align: center;
   }
-  // .part-msg {
-  //   margin-top: 30px !important;
-  // }
   .part-title {
     padding-top: 5px !important;
     font-size: 20px !important;

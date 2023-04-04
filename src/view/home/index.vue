@@ -586,6 +586,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, reactive, onUnmounted, onMounted } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -595,7 +596,6 @@ import GetButton from "../../components/GetButton.vue";
 //icon
 import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
 
-import { ref, reactive, onUnmounted, onMounted } from "vue";
 import type { TabsPaneContext } from "element-plus";
 
 // img

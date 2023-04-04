@@ -43,13 +43,13 @@
     <div class="resource-way">
       <div class="way-website clearfloat">
         <div class="website-icon">
-          <img :src="currency_exchange_FILL0_wght400_GRAD0_opsz48" />
+          <img :src="icon_official" />
         </div>
         <div class="website-name">Official Bitcoin Website &gt;</div>
       </div>
       <div class="way-paper clearfloat">
         <div class="paper-icon">
-          <img :src="currency_exchange_FILL0_wght400_GRAD0_opsz48" />
+          <img :src="icon_whitepaperl" />
         </div>
         <div class="paper-name">Whitepaper &gt;</div>
       </div>
@@ -107,7 +107,8 @@
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted } from "vue";
 
-import currency_exchange_FILL0_wght400_GRAD0_opsz48 from "../../../assets/wallet/currency_exchange_FILL0_wght400_GRAD0_opsz48.svg";
+import icon_official from "../../../assets/home/icon_official.svg";
+import icon_whitepaperl from "../../../assets/home/icon_whitepaperl.svg";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -151,7 +152,7 @@ $fontSizeMin: 12px;
     padding-top: 33px;
     // margin: auto;
     text-align: left;
-    font-size: 16px !important;
+    font-size: $fontSizeDef !important;
     line-height: 19px;
     color: #060606;
     width: 907px;
@@ -164,7 +165,7 @@ $fontSizeMin: 12px;
 
     :deep(.el-collapse-item__header) {
       height: 68px;
-      font-size: 16px;
+      font-size: $fontSizeDef;
       line-height: 19px;
       color: #060606;
       font-weight: 500;
@@ -252,8 +253,9 @@ $fontSizeMin: 12px;
       }
       .website-name {
         float: left;
-        margin-left: 16px;
-        font-size: 16px;
+        margin-left: 14px;
+        margin-top: 2px;
+        font-size: $fontSizeDef;
         color: #060606;
         font-weight: 500;
       }
@@ -267,7 +269,8 @@ $fontSizeMin: 12px;
       .paper-name {
         float: left;
         margin-left: 16px;
-        font-size: 16px;
+        margin-top: 2px;
+        font-size: $fontSizeDef;
         color: #060606;
         font-weight: 500;
       }

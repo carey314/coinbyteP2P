@@ -336,7 +336,7 @@
                     </el-table-column>
                     <el-table-column
                       label="Action"
-                      width="180"
+                      width="220"
                       fixed="right"
                       align="right"
                     >

@@ -45,6 +45,9 @@ $fontSizeMin: 12px;
 .max1290 {
   max-width: 1290px;
   margin: 0 auto;
+  @media(max-width:1440px){
+    max-width: 940px;
+  }
 }
 .learn-center{
   font-family: HarmonyOS Sans,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;

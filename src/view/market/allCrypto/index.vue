@@ -82,7 +82,7 @@
                     prop="name"
                     label="Price"
                     align="right"
-                    width="150px"
+                    width="150"
                   >
                     <template #default="scope">
                       <span class="table-price">{{ scope.row.price }}</span>
@@ -92,7 +92,7 @@
                     prop="change"
                     label="Change"
                     sortable
-                    width="150px"
+                    width="150"
                     align="right"
                   >
                     <template #default="scope">
@@ -118,7 +118,7 @@
                     prop="address"
                     label="Market cap"
                     sortable
-                    width="170px"
+                    width="170"
                     align="right"
                   >
                     <template #default="scope">
@@ -130,7 +130,7 @@
                     align="right"
                     prop="address"
                     label="Action"
-                    width="300px"
+                    width="300"
                     class="action"
                   >
                     <template #header> Action </template>
@@ -293,6 +293,7 @@
 
                   <el-table-column
                     align="right"
+                    fixed="right"
                     prop="address"
                     label="Action"
                     class="action"
@@ -981,7 +982,8 @@ function resetWidth() {
   padding: 21px 0 141px 0;
   position: relative;
   @media (max-width: 1440px) {
-    padding: 21px 20px 135px 20px;
+    padding: 21px 20px 141px 20px;
+    max-width: 940px;
   }
 }
 .search-input {

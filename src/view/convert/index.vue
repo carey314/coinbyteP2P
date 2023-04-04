@@ -741,7 +741,6 @@ $fontSizeMin: 12px;
             padding: 15px;
             background: #f1f4f5;
           }
-
           .change-count {
             position: relative;
             // border: 1px solid #DFDFE5;

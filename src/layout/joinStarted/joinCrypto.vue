@@ -101,7 +101,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   align-items: center;
   @media (max-width: 768px) {
     & {
-      padding: 80px 20px;
+      padding: 60px 20px;
       height: 100% !important;
     }
   }

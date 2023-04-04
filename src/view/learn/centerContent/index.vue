@@ -171,8 +171,8 @@ $fontSizeMin: 12px;
       height: 100%;
     }
   }
-  
 }
+
 .main-part {
   max-width: 1290px;
   margin: auto;

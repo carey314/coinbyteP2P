@@ -294,9 +294,12 @@
             <template #dropdown>
               <el-dropdown-menu
                 class="download-dropdown-menu"
-                style="width: 178px"
+                style="width: 178px; background: #f7f7f7"
               >
-                <el-dropdown-item class="download-dropdown-item">
+                <el-dropdown-item
+                  class="download-dropdown-item"
+                  style="background: #fff"
+                >
                   <div class="qr-code">
                     <img src="../../assets/home/download_qrcode.png" />
                   </div>
@@ -307,7 +310,7 @@
                 </el-dropdown-item>
                 <router-link to="/download" style="text-decoration: none">
                   <div class="more-option">
-                    <button class="option-btn">More Download Options</button>
+                   <button class="option-btn"> <router-link to="/download" style="text-decoration: none;color: #000;">More Download Options</router-link></button>
                   </div>
                 </router-link>
               </el-dropdown-menu>
@@ -1117,9 +1120,9 @@ $regular-font: HarmonyOS_Sans_Regular;
     .user-head-box {
       display: flex;
       align-items: center;
-      .user-head{
+      .user-head {
         width: 40px;
-        img{
+        img {
           width: 100%;
           height: 100%;
           object-fit: contain;
@@ -1130,10 +1133,12 @@ $regular-font: HarmonyOS_Sans_Regular;
         .user-name {
           font-size: 14px;
           color: #000000;
+          text-align: left;
         }
         .user-id {
           font-size: 12px;
           color: #9b9b9b;
+          text-align: left;
         }
       }
     }

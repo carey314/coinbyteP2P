@@ -121,7 +121,7 @@ $main-color: #01c19a;
   align-items: center;
   @media (max-width: 768px) {
     & {
-      padding: 80px 0;
+      padding: 60px 0;
       height: 100% !important;
     }
   }

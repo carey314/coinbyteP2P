@@ -5,7 +5,7 @@
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Market Cap</div>
-          <div><img :src="dropdown_help_support" /></div>
+          <div><img :src="icon_question" /></div>
         </div>
         <div class="price">A$ 33,525.96</div>
         <div class="rate">
@@ -22,7 +22,7 @@
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Valume (24 hours)</div>
-          <div class="top-icon"><img :src="dropdown_help_support" /></div>
+          <div class="top-icon"><img :src="icon_question" /></div>
         </div>
         <div class="price">A$ 37.46B</div>
         <div class="rate">
@@ -39,7 +39,7 @@
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">Circulating supply</div>
-          <div class="top-icon"><img :src="dropdown_help_support" /></div>
+          <div class="top-icon"><img :src="icon_question" /></div>
         </div>
         <div class="price">19.12M <span>BTC</span></div>
         <div class="rate">
@@ -57,7 +57,7 @@
       <div class="price-infomation-part">
         <div class="part-top">
           <div class="top-title">All-time high</div>
-          <div class="top-icon"><img :src="dropdown_help_support" /></div>
+          <div class="top-icon"><img :src="icon_question" /></div>
         </div>
         <div class="price">A$ 93.48K</div>
         <div class="rate clearfloat">&nbsp;</div>
@@ -71,7 +71,7 @@ import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
 
 import { CaretTop } from "@element-plus/icons-vue";
 
-import dropdown_help_support from "../../../assets/home/dropdown_help_support.svg";
+import icon_question from "../../../assets/home/icon_question.svg";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {

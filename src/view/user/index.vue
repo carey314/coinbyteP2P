@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+import { windowWidth } from "../../components/WindowWidth"
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -71,16 +72,7 @@ const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
 };
-const windowWidth = ref(window.document.body.offsetWidth);
-onMounted(() => {
-  window.addEventListener("resize", resetWidth);
-});
-onUnmounted(() => {
-  window.removeEventListener("resize", resetWidth);
-});
-function resetWidth() {
-  windowWidth.value = window.document.body.offsetWidth;
-}
+
 </script>
 
 <style scoped lang="scss">
@@ -88,13 +80,14 @@ function resetWidth() {
   max-width: 1290px;
   min-height: calc(100vh - 394px);
   margin: auto;
-  padding: 21px 0 141px 0;
+  padding: 21px 0 110px 0;
   position: relative;
-  @media (max-width: 1440px) {
-    padding: 21px 20px 135px 20px;
+  @media (max-width: 1400px) {
+    // padding: 21px 20px 135px 20px;
+    max-width: 940px;
   }
-  @media (max-width: 768px) {
-    padding: 21px 20px 100px 20px;
+  @media (max-width: 992px) {
+    padding: 21px 20px 50px 20px;
   }
   .scrollbar-flex-content {
     @media (max-width: 600px) {
@@ -104,9 +97,9 @@ function resetWidth() {
 }
 
 :deep() {
-  .el-scrollbar__bar.is-horizontal > div {
-    height: 0; //iPhone滑动样式高度
-  }
+  // .el-scrollbar__bar.is-horizontal > div {
+  //   height: 0; //iPhone滑动样式高度
+  // }
   .el-tabs__item {
     color: #9b9b9b !important;
     font-size: 16px;
