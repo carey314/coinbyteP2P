@@ -325,11 +325,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, getCurrentInstance, ref, watch } from 'vue';
+import { defineComponent, getCurrentInstance, ref, watch } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
 import logo from "../../assets/home/logo.svg";
 import top_en from "../../assets/home/top_en.svg";
-import { getStoredLanguage, saveStoredLanguage } from '../../languageStorage';
+import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 
 const showWin = ref(false);
 const dialogTableVisible = ref(false);
@@ -341,7 +341,7 @@ const showWinFn = () => {
   showWin.value = true;
 };
 //切换语言
-const currentLanguage = ref(getStoredLanguage() || 'en-US');
+const currentLanguage = ref(getStoredLanguage() || "en-US");
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 
 const options = [
@@ -359,15 +359,14 @@ const options = [
   // },
 ];
 const changeLanguage = (selectedLanguage: string) => {
-      $this.$i18n.locale = selectedLanguage;
-      saveStoredLanguage(selectedLanguage);
-      location.reload();
-    };
+  $this.$i18n.locale = selectedLanguage;
+  saveStoredLanguage(selectedLanguage);
+  location.reload();
+};
 
-    watch(currentLanguage, (newLanguage) => {
-      changeLanguage(newLanguage);
-    });
-
+watch(currentLanguage, (newLanguage) => {
+  changeLanguage(newLanguage);
+});
 </script>
 
 <style scoped lang="scss">

@@ -8,7 +8,7 @@ import { getStoredLanguage, saveStoredLanguage } from "../languageStorage";
 // const userInfoStore = useUserInfoStore();
 // const { c } = storeToRefs(userInfoStore);
 const messages = {
-    zh: zhLocale,
+    简体中文: zhLocale,
     en: enLocale,
 }
 

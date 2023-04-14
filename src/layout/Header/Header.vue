@@ -545,7 +545,7 @@
                       <el-dropdown-item>
                         <div
                           class="alert-cont"
-                          @click.native="changeLanguage('zh')"
+                          @click.native="changeLanguage('简体中文')"
                         >
                           简体中文
                         </div>
@@ -669,7 +669,6 @@ import { useI18n } from "vue-i18n";
 import { saveStoredLanguage } from "../../languageStorage";
 
 //切换中英文
-let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 // const changeZh = () => {
 //   const selectedLanguage = "zh";
 //   $this.$i18n.locale = selectedLanguage;
@@ -682,10 +681,13 @@ let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 //   saveStoredLanguage(selectedLanguage);
 //   location.reload();
 // };
+let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
+
 const changeLanguage = (selectedLanguage: any) => {
   $this.$i18n.locale = selectedLanguage;
   saveStoredLanguage(selectedLanguage);
   location.reload();
+  $this.currentLanguage = selectedLanguage; 
 };
 // t
 const i18n = useI18n();
