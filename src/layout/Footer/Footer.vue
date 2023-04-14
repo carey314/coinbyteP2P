@@ -91,7 +91,13 @@
           <li>{{ $t("messages.footer.support") }}</li>
           <li>{{ $t("messages.footer.support_center") }}</li>
           <li>{{ $t("messages.footer.support_announcement") }}</li>
-          <li>{{ $t("messages.footer.support_connect") }}</li>
+          <li>
+            <a
+              href="/contact"
+              style="color: rgb(144, 144, 144); text-decoration: none"
+              >{{ $t("messages.footer.support_connect") }}</a
+            >
+          </li>
         </ul>
       </div>
 
@@ -350,7 +356,7 @@ const options = [
     label: "English/USD",
   },
   {
-    value: "zh-CN",
+    value: "简体中文",
     label: "简体中文",
   },
   // {

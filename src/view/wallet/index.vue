@@ -9,10 +9,18 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane :label="t('messages.wallet.Overview')" name="first" :lazy="true">
+            <el-tab-pane
+              :label="t('messages.wallet.Overview')"
+              name="first"
+              :lazy="true"
+            >
             </el-tab-pane>
 
-            <el-tab-pane :label="t('messages.wallet.Trading')" name="second" :lazy="true">
+            <el-tab-pane
+              :label="t('messages.wallet.Trading')"
+              name="second"
+              :lazy="true"
+            >
             </el-tab-pane>
 
             <el-tab-pane
@@ -21,10 +29,18 @@
               :lazy="true"
             ></el-tab-pane>
 
-            <el-tab-pane :label="t('messages.wallet.History')" name="fourth" :lazy="true">
+            <el-tab-pane
+              :label="t('messages.wallet.History')"
+              name="fourth"
+              :lazy="true"
+            >
             </el-tab-pane>
 
-            <el-tab-pane :label="t('messages.wallet.Account')" name="fifth" :lazy="true">
+            <el-tab-pane
+              :label="t('messages.wallet.Account')"
+              name="fifth"
+              :lazy="true"
+            >
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -35,9 +51,7 @@
       <div class="min-height" v-if="activeName === 'second'">
         <Trading />
       </div>
-      <div class="min-height" v-if="activeName === 'third'">
-      
-      </div>
+      <div class="min-height" v-if="activeName === 'third'"></div>
       <div class="min-height" v-if="activeName === 'fourth'">
         <History />
       </div>
@@ -53,7 +67,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, provide } from "vue";
-import { windowWidth } from "../../components/WindowWidth"
+import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -67,7 +81,7 @@ import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
 
 import { useI18n } from "vue-i18n";
-const {t} = useI18n();
+const { t } = useI18n();
 
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -125,7 +139,6 @@ provide("transactions", transactions);
     padding: 21px 20px 50px 20px;
   }
   .scrollbar-flex-content {
-    
     @media (max-width: 600px) {
       display: flex;
     }

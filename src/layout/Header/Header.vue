@@ -496,7 +496,11 @@
                       <img :src="dropdown_help_connect" />
                     </div>
                     <div class="help-title">
-                      {{ $t("messages.header.help_connect") }}
+                      <a
+                        href="/contact"
+                        style="color: #000; text-decoration: none"
+                        >{{ $t("messages.header.help_connect") }}</a
+                      >
                     </div>
                   </div>
                 </el-dropdown-item>
@@ -687,7 +691,7 @@ const changeLanguage = (selectedLanguage: any) => {
   $this.$i18n.locale = selectedLanguage;
   saveStoredLanguage(selectedLanguage);
   location.reload();
-  $this.currentLanguage = selectedLanguage; 
+  // $this.currentLanguage = selectedLanguage;
 };
 // t
 const i18n = useI18n();
