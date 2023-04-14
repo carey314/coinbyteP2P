@@ -16,7 +16,7 @@
         <div v-if="activeName === '1'">
           <el-row>
             <el-col :span="13">
-              <div class="title">Get your first Bitcoin in minutes</div>
+              <div class="title">{{ $t('messages.learnTop.label_first') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in firstCard"
@@ -29,7 +29,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="11">
@@ -43,7 +43,7 @@
         <div v-if="activeName === '2'">
           <el-row>
             <el-col :span="13">
-              <div class="title">Kick-start Your Spot Trading</div>
+              <div class="title">{{ $t('messages.learnTop.label_second') }}</div>
 
               <div
                 class="card clearfloat"
@@ -57,7 +57,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="11">
@@ -70,7 +70,7 @@
         <div v-if="activeName === '3'">
           <el-row>
             <el-col :span="13">
-              <div class="title">An Introduction to Futures</div>
+              <div class="title">{{ $t('messages.learnTop.label_third') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in thirdCard"
@@ -83,7 +83,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="11">
@@ -96,7 +96,7 @@
         <div v-if="activeName === '4'">
           <el-row>
             <el-col :span="13">
-              <div class="title">How to Trade Options</div>
+              <div class="title">{{ $t('messages.learnTop.label_forth') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in fourthCard"
@@ -109,7 +109,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="11">
@@ -144,7 +144,7 @@
         <div v-if="activeName === '1'" >
           <el-row>
             <el-col :span="24">
-              <div class="title">Get your first Bitcoin in minutes</div>
+              <div class="title">{{ $t('messages.learnTop.label_first') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in firstCard"
@@ -157,7 +157,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -171,7 +171,7 @@
         <div v-if="activeName === '2'">
           <el-row>
             <el-col :span="24">
-              <div class="title">Kick-start Your Spot Trading</div>
+              <div class="title">{{ $t('messages.learnTop.label_second') }}</div>
 
               <div
                 class="card clearfloat"
@@ -185,7 +185,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -198,7 +198,7 @@
         <div v-if="activeName === '3'">
           <el-row>
             <el-col :span="24">
-              <div class="title">An Introduction to Futures</div>
+              <div class="title">{{ $t('messages.learnTop.label_third') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in thirdCard"
@@ -211,7 +211,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -224,7 +224,7 @@
         <div v-if="activeName === '4'">
           <el-row>
             <el-col :span="24">
-              <div class="title">How to Trade Options</div>
+              <div class="title">{{ $t('messages.learnTop.label_forth') }}</div>
               <div
                 class="card clearfloat"
                 v-for="(item, index) in fourthCard"
@@ -237,7 +237,7 @@
                 </div>
               </div>
               <div>
-                <GetButton class="trade-btn" type="success" :text="trade" />
+                <GetButton class="trade-btn" type="success" :text="t('messages.learnTop.trade_btn')" />
               </div>
             </el-col>
             <el-col :span="24">
@@ -262,6 +262,9 @@ import learn_banner02 from "../../../assets/home/learn_banner02.png";
 import learn_banner03 from "../../../assets/home/learn_banner03.png";
 import learn_banner04 from "../../../assets/home/learn_banner04.png";
 
+import { useI18n } from 'vue-i18n'
+const {t} = useI18n();
+
 const activeName = ref("1");
 
 const trade = ref("Trade now");
@@ -280,97 +283,88 @@ function resetWidth() {
 const options = ref([
   {
     value: "1",
-    label: "Get your first Bitcoin in minutes",
+    label: t('messages.learnTop.label_first'),
   },
   {
     value: "2",
-    label: "Kick-start Your Spot Trading",
+    label: t('messages.learnTop.label_second'),
   },
   {
     value: "3",
-    label: "An Introduction to Futures",
+    label: t('messages.learnTop.label_third'),
   },
   {
     value: "4",
-    label: "How to Trade Options",
+    label: t('messages.learnTop.label_forth'),
   },
 ]);
 
 const firstCard = [
   {
     number: 1,
-    msg: "Get your COINBYTE account",
-    content:
-      "To get started, visit the COINBYTE website and register your own COINBYTE account.",
+    msg: t('messages.learnTop.card_firstMsg1'),
+    content:t('messages.learnTop.card_firstContent1'),
   },
   {
     number: 2,
-    msg: "Verify your identity",
-    content: "Upload your identity document for verification.",
+    msg: t('messages.learnTop.card_firstMsg2'),
+    content: t('messages.learnTop.card_firstContent2'),
   },
   {
     number: 3,
-    msg: "Buy/Sell",
-    content:
-      'Head to "Buy Crypto" and buy Bitcoin with credit cards, Apple Pay, or bank transfer, etc.',
+    msg: t('messages.learnTop.card_firstMsg3'),
+    content:t('messages.learnTop.card_firstContent3'),
   },
 ];
 const secondCard = [
   {
     number: 1,
-    msg: "Choose the pair",
-    content:
-      "Choose the pair you want to buy ( Spot trading refers to exchanging a digital asset with another digital asset ).",
+    msg: t('messages.learnTop.card_secondMsg1'),
+    content:t('messages.learnTop.card_secondContent1'),
   },
   {
     number: 2,
-    msg: "Look at the price",
-    content:
-      "Look at the market price, choose the right price to place an order.",
+    msg: t('messages.learnTop.card_secondMsg2'),
+    content:t('messages.learnTop.card_secondContent2'),
   },
   {
     number: 3,
-    msg: 'Fill in the order and click "Buy"',
-    content: "Fill in price and quantity, then wait for market clinch a deal.",
+    msg: t('messages.learnTop.card_secondMsg3'),
+    content: t('messages.learnTop.card_secondContent3'),
   },
 ];
 const thirdCard = [
   {
     number: 1,
-    msg: "Choose to open long or short position",
-    content: "OKX supports weekly, bi-weekly and quarterly contracts.",
+    msg: t('messages.learnTop.card_thirdMsg1'),
+    content: t('messages.learnTop.card_thirdContent1'),
   },
   {
     number: 2,
-    msg: "Enter the Quantity and Price",
-    content:
-      "Order can only be placed when the account equity balance is larger than or equal to the margin.",
+    msg: t('messages.learnTop.card_thirdMsg2'),
+    content: t('messages.learnTop.card_thirdContent2'),
   },
   {
     number: 3,
-    msg: "Position",
-    content:
-      "User may open more or close position(s) anytime to take profit / stop loss.",
+    msg: t('messages.learnTop.card_thirdMsg3'),
+    content:t('messages.learnTop.card_thirdContent3'),
   },
 ];
 const fourthCard = [
   {
     number: 1,
-    msg: "Activate Options Account",
-    content:
-      'Before starting your first trade, click "Activate Option Trading" . After completing the quiz, you can proceed to activate your Options Account.',
+    msg: t('messages.learnTop.card_fourthMsg1'),
+    content: t('messages.learnTop.card_fourthContent1'),
   },
   {
     number: 2,
-    msg: "elect options order type",
-    content:
-      'Choose "call" or "put" option, and then select a contract with a suitable exercise price to buy or sell.',
+    msg: t('messages.learnTop.card_fourthMsg2'),
+    content: t('messages.learnTop.card_fourthContent2'),
   },
   {
     number: 3,
-    msg: "Fill order",
-    content:
-      'Fill in the price and quantity you want to trade on the trading page, and click "Buy" or "Sell" to place an order.',
+    msg: t('messages.learnTop.card_fourthMsg3'),
+    content: t('messages.learnTop.card_fourthContent3'),
   },
 ];
 </script>
@@ -477,9 +471,6 @@ $fontSizeMin: 12px;
     & {
       padding: 8px 20px;
     }
-    .right-img{
-      margin-top: -50px;
-    }
   }
   .demo-tabs {
     margin: auto;
@@ -536,7 +527,6 @@ $fontSizeMin: 12px;
 }
 
 .right-img {
-  // margin-top: -50px;
   img {
     width: 100%;
     height: 100%;

@@ -6,15 +6,15 @@
         <div class="updated-success">
           <img :src="login_updated" />
         </div>
-        <div class="password-title">You Updated the  password</div>
+        <div class="password-title">{{ $t('messages.forgot_password.updated') }}</div>
 
        
         <div class="return-login">
-          Use the new password to log in
+          {{ $t('messages.forgot_password.updated_newPassword') }}
         </div>
         <div class="password-continue">
           <router-link to="login">
-            <GetButton :text="textContinue" />
+            <GetButton :text="t('messages.forgot_password.continue_login')" />
           </router-link>
         </div>
       </div>
@@ -31,11 +31,12 @@ import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import GetButton from "../../../components/GetButton.vue";
 
-
 import login_updated from "../../../assets/home/login_updated.svg";
 
+import { useI18n } from "vue-i18n";
+const {t} = useI18n()
+
 const password = ref("");
-const text = ref("Get Verification Code");
 const textContinue = ref("Continue to login");
 
 const windowWidth = ref(window.document.body.offsetWidth);

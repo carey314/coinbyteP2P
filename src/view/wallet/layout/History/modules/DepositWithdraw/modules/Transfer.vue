@@ -1,25 +1,36 @@
 <template>
   <div class="transfer">
     <div class="transfer-search">
-      <div class="to">
-        <FilterSelect title=""></FilterSelect>
-        <div class="img-button"><img :src="icon_convert" alt="" /></div>
-        <FilterSelect title=""></FilterSelect>
+      <div class="select-left">
+        <div class="to">
+          <FilterSelect title=""></FilterSelect>
+          <div class="img-button"><img :src="icon_convert" alt="" /></div>
+          <FilterSelect title=""></FilterSelect>
+        </div>
+        <FilterSelect title="Time"></FilterSelect>
+        <FilterSelect title="Coin"></FilterSelect>
+        <div>
+          <CustomButton :title="t('messages.wallet.tab_search')"></CustomButton>
+          <CustomButton :title="t('messages.wallet.tab_reset')" bgc="#F1F1F1" fc="#000"></CustomButton>
+        </div>
       </div>
-      <FilterSelect title="Time"></FilterSelect>
-      <FilterSelect title="Coin"></FilterSelect>
-      <div>
-        <CustomButton title="Search"></CustomButton>
-        <CustomButton title="Reset" bgc="#F1F1F1" fc="#000"></CustomButton>
+      <div class="search-right">
+        <div class="custom-link">
+          <a href="#">{{ $t("messages.wallet.tab_arrive") }}</a>
+        </div>
+        <div class="custom-link">
+          <img :src="download" alt="" />
+          <div>{{ $t("messages.wallet.tab_Download") }}</div>
+        </div>
       </div>
     </div>
     <Table :sourceData="tableData">
       <template v-slot:columns>
-        <el-table-column prop="date" label="Date" width="310" />
-        <el-table-column prop="coin" label="Coin" width="310" />
-        <el-table-column prop="amount" label="Amount" />
-        <el-table-column prop="from" label="From" width="310" />
-        <el-table-column prop="to" label="To" />
+        <el-table-column prop="date" :label="t('messages.wallet.convert_Date')" width="310" />
+        <el-table-column prop="coin" :label="t('messages.wallet.convert_Coin')" width="310" />
+        <el-table-column prop="amount" :label="t('messages.wallet.convert_Amount')" />
+        <el-table-column prop="from" :label="t('messages.wallet.convert_From')" width="310" />
+        <el-table-column prop="to" :label="t('messages.wallet.convert_to')" />
       </template>
     </Table>
   </div>
@@ -28,12 +39,15 @@
 <script setup lang="ts">
 import FilterSelect from "../../../component/FilterSelect.vue";
 import icon_convert from "../../../../../../../assets/wallet/icon_convert.png";
+import download from "../../../../../../../assets/wallet/wallet_download.png";
 import CustomButton from "../../../component/CustomButton.vue";
 import Table from "../../../component/Table.vue";
 import { ref, inject, computed } from "vue";
 import type { Ref } from "vue";
 import type { Transaction } from "../../../../../../../models/transactions";
 import moment from "moment";
+import { useI18n } from "vue-i18n";
+const{ t } = useI18n();
 const transactions = inject<Ref<Transaction[]>>("transactions");
 const tableData = computed(() => {
   if (transactions) {
@@ -119,11 +133,17 @@ const tableData = computed(() => {
 <style lang="scss" scoped>
 .transfer-search {
   display: flex;
+  justify-content: space-between;
   gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 15px;
   @media (max-width: 769px) {
     gap: 10px;
+  }
+  .select-left{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
   }
   .to {
     display: flex;
@@ -140,6 +160,27 @@ const tableData = computed(() => {
       width: 100%;
       height: 100%;
     }
+  }
+}
+.search-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.custom-link {
+  height: 41px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  a {
+    font-size: 14px;
+    color: #01c19a;
+  }
+  img {
+    width: 19px;
+    height: 19px;
+    // background: #01C19A;
+    filter: invert(100%);
   }
 }
 </style>

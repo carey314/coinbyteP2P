@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="box-card">
-      <div class="card-title overview-title">My Profile</div>
+      <div class="card-title overview-title">{{ $t('messages.user.overview_Profile') }}</div>
       <div class="card-user">
         <div class="user-info clearfloat">
           <div class="info-image"><img :src="myprofile_user" /></div>
@@ -13,7 +13,7 @@
             </div>
             <div class="info-count">
               <!-- UID:121233443434343 -->
-              UID:{{ userInfo && userInfo.id }}
+              {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.id }}
               <img :src="myprofile_uid_copy" style="margin-left: 8px" />
             </div>
           </div>
@@ -21,7 +21,7 @@
         <div class="user-info clearfloat">
           <div class="info-image"><img :src="usercenter_email" /></div>
           <div class="info-text">
-            <div class="info-name profile-title">Email</div>
+            <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
             <div class="info-count">{{ userInfo && userInfo.maskedEmail }}</div>
           </div>
         </div>
@@ -30,7 +30,7 @@
             <img :src="usercenter_security_mobile" style="width: 50px" />
           </div>
           <div class="info-text">
-            <div class="info-name profile-title">Phone</div>
+            <div class="info-name profile-title">{{ $t('messages.user.overview_Phone') }}</div>
             <div class="info-count">
               {{ userInfo && userInfo.phone.maskedPhone }}
             </div>
@@ -43,9 +43,9 @@
         <el-col :span="12" :xs="24">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Security</div>
+              <div class="card-title overview-title">{{ $t('messages.user.overview_Security') }}</div>
               <div class="card-text content-text">
-                Protect your privacy and funds
+                {{ $t('messages.user.Security_con') }}
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_security" />
@@ -58,21 +58,20 @@
                   to="/"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">Manage</div>
+                  <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>
-              <div class="bottom-tip">Manage security features: 4</div>
+              <div class="bottom-tip">{{ $t('messages.user.Security_features') }}: 4</div>
             </div>
           </el-card>
         </el-col>
         <el-col :span="12" :xs="24" class="xs">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Verification</div>
+              <div class="card-title overview-title">{{ $t('messages.user.overview_Verification') }}</div>
               <div class="card-text content-text">
-                Verify your identity to increase withdrawal limits and gain
-                access to more features
+                {{ $t('messages.user.Verification_con') }}
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_verification" />
@@ -85,7 +84,7 @@
                   to="/"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">Verify</div>
+                  <div class="link-text">{{ $t('messages.user.Verification_Verify') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>
@@ -93,7 +92,7 @@
                 <div class="tip-icon">
                   <img :src="dropdown_usercenter_unverified" />
                 </div>
-                <div class="tip-text">Unverified</div>
+                <div class="tip-text">{{ $t('messages.user.Verification_Unverified') }}</div>
               </div>
             </div>
           </el-card>
@@ -105,10 +104,9 @@
         <el-col :span="12" :xs="24">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Bank account</div>
+              <div class="card-title overview-title">{{ $t('messages.user.overview_Bank') }}</div>
               <div class="card-text content-text">
-                Deposit AUD instantly into your Coinbyte account from 100+
-                NPP-enabled banks in Australia via PayID / Osko.
+                {{ $t('messages.user.Bank_con') }}
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_bankaccount" />
@@ -121,7 +119,7 @@
                   to="/"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">Manage</div>
+                  <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>
@@ -131,9 +129,9 @@
         <el-col :span="12" :xs="24" class="xs">
           <el-card class="part-box-card">
             <div class="card-box">
-              <div class="card-title overview-title">Preferences</div>
+              <div class="card-title overview-title">{{ $t('messages.user.overview_Preferences') }}</div>
               <div class="card-text content-text">
-                Choose your preferred language, currency and interface settings
+                {{ $t('messages.user.Preferences_con') }}
               </div>
               <div class="card-img">
                 <img :src="usercenter_icon_preferences" />
@@ -146,7 +144,7 @@
                   to="/"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">Manage</div>
+                  <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>

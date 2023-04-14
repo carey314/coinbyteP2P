@@ -5,7 +5,7 @@
           <template #empty>
               <div class="empty">
                   <img :src="wallet_search_none" alt="">
-                  <p>No records found</p>
+                  <p>{{ $t('messages.user.table') }}</p>
               </div>
           </template>
       </el-table>

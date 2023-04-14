@@ -16,7 +16,9 @@
 
 <script setup lang="ts">
     import { ref,defineProps } from 'vue';
-    const selectValue = ref("Select");
+    import { useI18n } from 'vue-i18n';
+    const { t } = useI18n();
+    const selectValue = ref(t('messages.wallet.tab_select'));
     defineProps({
         title : {
             type : String,

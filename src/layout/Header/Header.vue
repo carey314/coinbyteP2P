@@ -10,7 +10,7 @@
           @mouseleave="cryptoHide"
           class="crypto-dropdown-box"
         >
-          Buy Crypto
+          {{ $t("messages.header.buy") }}
           <span class="aud-badge">{{ activeName }}</span>
           <el-dropdown
             ref="navCurrency"
@@ -27,7 +27,7 @@
             <template #dropdown>
               <el-dropdown-menu class="crypto-dropdown-menu">
                 <el-dropdown-item class="crypto-dropdown-item">
-                  <div class="pay">Pay With</div>
+                  <div class="pay">{{ $t("messages.header.pay") }}</div>
                   <el-radio-group
                     v-model="activeName"
                     type="card"
@@ -35,40 +35,91 @@
                     size="small"
                     @tab-click="handleClick"
                   >
-                    <el-radio-button label="AUD" name="AUD"></el-radio-button>
-                    <el-radio-button label="NZD" name="NZD"></el-radio-button>
+                    <el-radio-button
+                      :label="$t('messages.header.AUD')"
+                      :name="$t('messages.header.AUD')"
+                      >{{ $t("messages.header.AUD") }}</el-radio-button
+                    >
+                    <el-radio-button
+                      :label="$t('messages.header.NZD')"
+                      name="NZD"
+                      >{{ $t("messages.header.NZD") }}</el-radio-button
+                    >
                   </el-radio-group>
                 </el-dropdown-item>
 
-                <el-dropdown-item
-                  class="crypto-item-box"
-                  style="display: flex"
-                  v-for="(item, index) in cryptoItem"
-                  :key="index"
-                  @click="SkipTo(item.url)"
-                >
-                  <div class="crypto-item-icon"><img :src="item.icon" /></div>
-                  <div class="crypto-item-text">
-                    <div class="crypto-item-title">{{ item.title }}</div>
-                    <div class="crypto-item-msg">{{ item.message }}</div>
-                  </div>
+                <el-dropdown-item class="crypto-item-box">
+                  <router-link
+                    to="/"
+                    style="display: flex; text-decoration: none"
+                  >
+                    <div class="crypto-item-icon">
+                      <img :src="dropdown_buy_bank" />
+                    </div>
+                    <div class="crypto-item-text">
+                      <div class="crypto-item-title">
+                        {{ $t("messages.header.bank") }}
+                      </div>
+                      <div class="crypto-item-msg">
+                        {{ $t("messages.header.bank_msg") }}
+                      </div>
+                    </div>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item class="crypto-item-box">
+                  <router-link
+                    to="/"
+                    style="display: flex; text-decoration: none"
+                  >
+                    <div class="crypto-item-icon">
+                      <img :src="dropdown_buy_quick" />
+                    </div>
+                    <div class="crypto-item-text">
+                      <div class="crypto-item-title">
+                        {{ $t("messages.header.quick") }}
+                      </div>
+                      <div class="crypto-item-msg">
+                        {{ $t("messages.header.quick_msg") }}
+                      </div>
+                    </div>
+                  </router-link>
+                </el-dropdown-item>
+                <el-dropdown-item class="crypto-item-box">
+                  <router-link
+                    to="/convert"
+                    style="display: flex; text-decoration: none"
+                  >
+                    <div class="crypto-item-icon">
+                      <img :src="dropdown_buy_convert" />
+                    </div>
+                    <div class="crypto-item-text">
+                      <div class="crypto-item-title">
+                        {{ $t("messages.header.convert") }}
+                      </div>
+                      <div class="crypto-item-msg">
+                        {{ $t("messages.header.convert_msg") }}
+                      </div>
+                    </div>
+                  </router-link>
                 </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
         </li>
         <li>
-          <a href="/allCrypto" style="color: #fff; text-decoration: none"
-            >Markets</a
-          >
+          <a href="/allCrypto" style="color: #fff; text-decoration: none">{{
+            $t("messages.header.market")
+          }}</a>
         </li>
         <li>
-          <a href="/trade" style="color: #fff; text-decoration: none">Trade</a>
+          <a href="/trade" style="color: #fff; text-decoration: none">{{
+            $t("messages.header.trade")
+          }}</a>
         </li>
         <li>
-          <a href="/learnCenter" style="color: #fff; text-decoration: none"
-            >Learn</a
-          >
+          <a href="/learnCenter" style="color: #fff; text-decoration: none">{{
+            $t("messages.header.learn")
+          }}</a>
         </li>
       </ul>
     </div>
@@ -84,7 +135,7 @@
             <el-dropdown class="help-dropdown align-icon" ref="navWallet">
               <router-link to="/wallet" style="text-decoration: none">
                 <div class="login-span">
-                  Wallet
+                  {{ $t("messages.header.wallet") }}
                   <div>
                     <el-icon style="color: #fff"><CaretBottom /></el-icon>
                   </div></div
@@ -99,7 +150,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_wallet_myasset" />
                       </div>
-                      <div class="help-title">My Asset</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.wallet_asset") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
@@ -107,7 +160,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_wallet_deposit" />
                       </div>
-                      <div class="help-title">Deposit</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.wallet_deposit") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
@@ -115,7 +170,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_wallet_withdraw" />
                       </div>
-                      <div class="help-title">Withdraw</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.wallet_withdraw") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
@@ -123,7 +180,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_wallet_history" />
                       </div>
-                      <div class="help-title">Transaction History</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.wallet_history") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -139,7 +198,7 @@
             <el-dropdown class="help-dropdown align-icon" ref="navOrder">
               <router-link to="/" style="text-decoration: none"
                 ><div class="login-span">
-                  Orders
+                  {{ $t("messages.header.orders") }}
                   <div>
                     <el-icon style="color: #fff"><CaretBottom /></el-icon>
                   </div></div
@@ -154,7 +213,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_orders_spot" />
                       </div>
-                      <div class="help-title">Spot Order</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.orders_spot") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
@@ -162,7 +223,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_orders_buysell" />
                       </div>
-                      <div class="help-title">Buy/Sell Order</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.orders_trade") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
@@ -170,7 +233,9 @@
                       <div class="help-icon">
                         <img :src="dropdown_orders_history" />
                       </div>
-                      <div class="help-title">Convert History</div>
+                      <div class="help-title">
+                        {{ $t("messages.header.orders_history") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -203,12 +268,14 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="verifiy">
+                  <el-dropdown-item class="verify-box" v-if="verify">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified" />
                       </div>
-                      <div class="verify-text">Verified</div>
+                      <div class="verify-text">
+                        {{ $t("messages.header.verify_certified") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="verify-box" v-else>
@@ -216,7 +283,9 @@
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_unverified" />
                       </div>
-                      <div class="verify-text">Verifiy your account</div>
+                      <div class="verify-text">
+                        {{ $t("messages.header.verify_unverified") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-divider
@@ -227,7 +296,9 @@
                       <div class="user-icon">
                         <img :src="dropdown_usercenter_overview" />
                       </div>
-                      <div class="user-title">Overview</div>
+                      <div class="user-title">
+                        {{ $t("messages.header.verify_overview") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
@@ -235,7 +306,9 @@
                       <div class="user-icon">
                         <img :src="dropdown_usercenter_security" />
                       </div>
-                      <div class="user-title">Security</div>
+                      <div class="user-title">
+                        {{ $t("messages.header.verify_security") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
@@ -243,7 +316,9 @@
                       <div class="user-icon">
                         <img :src="dropdown_usercenter_verification" />
                       </div>
-                      <div class="user-title">Verification</div>
+                      <div class="user-title">
+                        {{ $t("messages.header.verify_verification") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
@@ -251,7 +326,9 @@
                       <div class="user-icon">
                         <img :src="dropdown_usercenter_bankaccount" />
                       </div>
-                      <div class="user-title">Bank account</div>
+                      <div class="user-title">
+                        {{ $t("messages.header.verify_bank") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
@@ -259,13 +336,17 @@
                       <div class="user-icon">
                         <img :src="dropdown_usercenter_preferences" />
                       </div>
-                      <div class="user-title">Preferences</div>
+                      <div class="user-title">
+                        {{ $t("messages.header.verify_preferences") }}
+                      </div>
                     </div>
                   </el-dropdown-item>
                   <el-divider
                     style="margin: 10px; width: 266px; margin-left: -20px"
                   />
-                  <div class="logout" @click="handleToLogOut">Log out</div>
+                  <div class="logout" @click="handleToLogOut">
+                    {{ $t("messages.header.logout") }}
+                  </div>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -274,12 +355,16 @@
         <template v-else>
           <li>
             <router-link to="/login" style="text-decoration: none"
-              ><span class="login-span">Log in</span></router-link
+              ><span class="login-span">{{
+                $t("messages.header.login")
+              }}</span></router-link
             >
           </li>
           <li>
             <router-link to="/signup"
-              ><button class="btn-signup">Sign up</button></router-link
+              ><button class="btn-signup">
+                {{ $t("messages.header.signup") }}
+              </button></router-link
             >
           </li>
         </template>
@@ -303,14 +388,24 @@
                   <div class="qr-code">
                     <img src="../../assets/home/download_qrcode.png" />
                   </div>
-                  <div class="msg">Scan to download APP</div>
+                  <div class="msg">
+                    {{ $t("messages.header.download_scan") }}
+                  </div>
                   <div class="msg" style="padding-bottom: 10px">
-                    IOS & Android
+                    {{ $t("messages.header.download_equipment") }}
                   </div>
                 </el-dropdown-item>
                 <router-link to="/download" style="text-decoration: none">
                   <div class="more-option">
-                   <button class="option-btn"> <router-link to="/download" style="text-decoration: none;color: #000;">More Download Options</router-link></button>
+                    <button class="option-btn">
+                      <router-link
+                        to="/download"
+                        style="text-decoration: none; color: #000"
+                        >{{
+                          $t("messages.header.download_option")
+                        }}</router-link
+                      >
+                    </button>
                   </div>
                 </router-link>
               </el-dropdown-menu>
@@ -367,7 +462,9 @@
                 <div class="">
                   <el-divider style="width: 100%" />
 
-                  <div class="notice-view-more">View more</div>
+                  <div class="notice-view-more">
+                    {{ $t("messages.header.notice_more") }}
+                  </div>
                 </div>
               </el-dropdown-menu>
             </template>
@@ -388,7 +485,9 @@
                     <div class="help-icon">
                       <img :src="dropdown_help_support" />
                     </div>
-                    <div class="help-title">Support center</div>
+                    <div class="help-title">
+                      {{ $t("messages.header.help_support") }}
+                    </div>
                   </div>
                 </el-dropdown-item>
                 <el-dropdown-item class="help-dropdown-item">
@@ -396,7 +495,9 @@
                     <div class="help-icon">
                       <img :src="dropdown_help_connect" />
                     </div>
-                    <div class="help-title">Connect with Coinbyte</div>
+                    <div class="help-title">
+                      {{ $t("messages.header.help_connect") }}
+                    </div>
                   </div>
                 </el-dropdown-item>
                 <el-dropdown-item class="help-dropdown-item">
@@ -404,7 +505,9 @@
                     <div class="help-icon">
                       <img :src="dropdown_help_telegram" />
                     </div>
-                    <div class="help-title">Telegram</div>
+                    <div class="help-title">
+                      {{ $t("messages.header.help_telegram") }}
+                    </div>
                   </div>
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -425,28 +528,38 @@
                 style="width: 340px"
               >
                 <el-row>
-                  <el-col
-                    :span="12"
-                    v-for="(item, index) in gridData"
-                    :key="index"
-                  >
+                  <el-col :span="12">
                     <div class="alert-box">
-                      <div class="alert-title">Language</div>
+                      <div class="alert-title">
+                        {{ $t("messages.header.language") }}
+                      </div>
                       <el-divider style="margin: 12px 0" />
                       <el-dropdown-item>
-                        <div class="alert-cont">{{ item.us }}</div>
+                        <div
+                          class="alert-cont"
+                          @click.native="changeLanguage('English/USD')"
+                        >
+                          English
+                        </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
-                        <div class="alert-cont">{{ item.cn }}</div>
+                        <div
+                          class="alert-cont"
+                          @click.native="changeLanguage('zh')"
+                        >
+                          简体中文
+                        </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
-                        <div class="alert-cont">{{ item.tc }}</div>
+                        <div class="alert-cont">繁體中文</div>
                       </el-dropdown-item>
                     </div>
                   </el-col>
                   <el-col :span="12">
                     <div class="alert-box">
-                      <div class="alert-title">Local Currency</div>
+                      <div class="alert-title">
+                        {{ $t("messages.header.local_currency") }}
+                      </div>
                       <el-divider style="margin: 12px 0" />
                       <el-dropdown-item>
                         <div class="alert-cont">USD</div>
@@ -473,7 +586,15 @@
           @click="closeDropdownMenu"
         />
         <div class="menu-dropdown-page">
-          <div class="button-group">
+          <div class="button-group" v-if="userInfoStore.isLogin">
+            <router-link to="/user" style="text-decoration: none; color: #fff"
+              ><el-button class="sign-button">User</el-button></router-link
+            >
+            <router-link to="/wallet" style="text-decoration: none; color: #fff"
+              ><span>Wallet</span></router-link
+            >
+          </div>
+          <div class="button-group" v-else>
             <router-link to="/signup"
               ><el-button class="sign-button">Sign up</el-button></router-link
             >
@@ -482,14 +603,16 @@
             >
           </div>
           <ul class="nav-list">
-            <li>Buy Crypto</li>
-            <li>Markets</li>
-            <li>Trade</li>
-            <li>Learn</li>
-            <li>Help</li>
-            <li>Language</li>
+            <li><a href="/allCrypto" class="no-underline">Buy Crypto</a></li>
+            <li><a href="/allCrypto" class="no-underline">Markets</a></li>
+            <li><a href="/trade" class="no-underline">Trade</a></li>
+            <li><a href="/learnCenter" class="no-underline">Learn</a></li>
+            <li><a href="/download" class="no-underline">Help</a></li>
+            <li><a href="/download" class="no-underline">Language</a></li>
           </ul>
-          <div class="download-app">Download COINBYTE App</div>
+          <div class="download-app">
+            <a href="/download" class="no-underline">Download COINBYTE App</a>
+          </div>
         </div>
       </div>
     </div>
@@ -497,7 +620,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import { useRouter } from "vue-router";
 import { CaretBottom } from "@element-plus/icons-vue";
@@ -540,6 +663,33 @@ import { logOut } from "../../api/user";
 
 import { useUserInfoStore } from "../../store/user";
 import { storeToRefs } from "pinia";
+// i18n  全局变量locale
+import { getCurrentInstance } from "vue";
+import { useI18n } from "vue-i18n";
+import { saveStoredLanguage } from "../../languageStorage";
+
+//切换中英文
+let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
+// const changeZh = () => {
+//   const selectedLanguage = "zh";
+//   $this.$i18n.locale = selectedLanguage;
+//   saveStoredLanguage(selectedLanguage);
+//   location.reload();
+// };
+// const changeEn = () => {
+//   const selectedLanguage = "en";
+//   $this.$i18n.locale = selectedLanguage;
+//   saveStoredLanguage(selectedLanguage);
+//   location.reload();
+// };
+const changeLanguage = (selectedLanguage: any) => {
+  $this.$i18n.locale = selectedLanguage;
+  saveStoredLanguage(selectedLanguage);
+  location.reload();
+};
+// t
+const i18n = useI18n();
+const { t } = useI18n({});
 
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
@@ -555,7 +705,7 @@ const navLanguage = ref();
 const navWallet = ref();
 const navOrder = ref();
 const navUser = ref();
-const verifiy = ref(false);
+const verify = ref(false);
 
 const dropdownShow = ref<boolean>(false);
 const router = useRouter();
@@ -632,40 +782,11 @@ const activeName = ref<string>("AUD");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // console.log(tab, event)
 };
-const cryptoItem = [
-  {
-    icon: dropdown_buy_bank,
-    title: "Bank Deposit",
-    message: "Deposit AUD with your PayID/OSKO",
-    url: "/",
-  },
-  {
-    icon: dropdown_buy_quick,
-    title: "Quick Buy/Sell",
-    message: "Buy Crypto with your AUD balance",
-    url: "/",
-  },
-  {
-    icon: dropdown_buy_convert,
-    title: "Convert",
-    message: "Quick conversion, zero fees",
-    url: "/convert",
-  },
-];
 
 const SkipTo = (url: string) => {
   router.push(url);
 };
 const activeLanguage = ref<string>("first");
-
-const gridData = [
-  {
-    title: "Language",
-    us: "English",
-    cn: "简体中文",
-    tc: "繁體中文",
-  },
-];
 
 //click to log out
 const handleToLogOut = async () => {
@@ -678,12 +799,25 @@ const handleToLogOut = async () => {
 
 <style scoped lang="scss">
 $headerBackGround: #161719;
+$bg-color: #fff;
+$main-color: #01c19a;
+$fontSizeMax: 42px;
+$fontSizeMed: 24px;
+$fontSizeDefPro: 18px;
+$fontSizeDef: 16px;
+$fontSizeMinPro: 14px;
+$fontSizeMin: 12px;
+$headerBackGround: #161719;
 $system-color: #01c19a;
 $bg-color: #fff;
 $bold-font: HarmonyOS_Sans_Bold;
 $medium-font: HarmonyOS_Sans_Medium;
 $regular-font: HarmonyOS_Sans_Regular;
 
+.no-underline {
+  text-decoration: none;
+  color: #fff;
+}
 .header-box {
   width: 100%;
   line-height: 64px;
@@ -733,21 +867,23 @@ $regular-font: HarmonyOS_Sans_Regular;
   padding: 20px 10px;
 }
 .crypto-item-box {
-  // padding:10px 0px;
+  display: flex;
   .crypto-item-icon {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .crypto-item-text {
     margin-left: 20px;
-    margin-top: 15px;
+    margin-top: 25px;
     .crypto-item-title {
       font-size: 0.8rem;
       font-weight: 600;
       color: #000;
       display: flex;
+      line-height: 17px;
     }
     .crypto-item-msg {
       font-size: 0.8rem;
+      line-height: 18px;
       color: #878787;
     }
   }
@@ -858,6 +994,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   .btn-signup {
+    font-size: 15px;
     box-sizing: border-box;
     color: #fff;
     line-height: 80%;
@@ -1152,6 +1289,7 @@ $regular-font: HarmonyOS_Sans_Regular;
       display: flex;
       justify-content: center;
       align-items: center;
+      margin: auto;
       .verify-status {
         margin-top: 5px;
       }

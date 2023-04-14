@@ -3,37 +3,36 @@
     <Header />
     <div class="password-box">
       <div class="password">
-        <div class="password-title">Forgot password</div>
+        <div class="password-title">{{ $t('messages.forgot_password.password') }}</div>
         <div class="password-message">
-          The withdrawal function will be suspended for 24 hours if you log in
-          with new devices after you have changed the login password.
+          {{ $t('messages.forgot_password.withdrawal') }}
         </div>
         <div class="password-count">
           <el-input
             v-model="password"
             type="password"
-            placeholder="Phone / Email"
+            :placeholder="t('messages.forgot_password.equipment')"
           />
         </div>
         <div class="password-verify">
           <div class="verify-input">
-            <el-input v-model="code" placeholder="Enter code" />
+            <el-input v-model="code" :placeholder="t('messages.forgot_password.code')" />
           </div>
           <div class="verify-btn">
-            <GetButton :text="text" />
+            <GetButton :text="t('messages.forgot_password.verify_btn')" />
           </div>
         </div>
 
-        <div class="password-sms">Resend code (58)</div>
+        <div class="password-sms">{{ $t('messages.forgot_password.resend') }} (58)</div>
 
         <div class="password-continue">
           <router-link to="update">
-            <GetButton :text="textContinue" />
+            <GetButton :text="t('messages.forgot_password.continue')" />
           </router-link>
         </div>
         <div class="return-login">
           <a href="/login" style="color: #01c19a; text-decoration: none"
-            >Return to login</a
+            > {{ $t('messages.forgot_password.return_login') }}</a
           >
         </div>
       </div>
@@ -49,6 +48,9 @@ import Header from "../../../layout/Header/Header.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import GetButton from "../../../components/GetButton.vue";
+
+import { useI18n } from 'vue-i18n'
+const {t} = useI18n()
 
 const password = ref("");
 const code = ref("");

@@ -1,17 +1,16 @@
 <template>
   <div>
-    <div class="bank-account-title">Bank account</div>
+    <div class="bank-account-title">{{ $t('messages.user.bank_account') }}</div>
     <div class="bank-account-msg">
-      Deposit AUD instantly into your Coinbyte account from 100+ NPP-enabled
-      banks in Australia via PayID / Osko.
+      {{ $t('messages.user.bank_msg') }}
     </div>
     <div class="bank-account-add">
-      <GetButton class="func-btn" :text="add" />
+      <GetButton class="func-btn" :text="t('messages.user.add_bank')" />
     </div>
     <div class="table-body" v-if="windowWidth > 820">
       <Table :sourceData="bankDate">
         <template v-slot:columns>
-          <el-table-column label="Bank Country" width="200">
+          <el-table-column :label="t('messages.user.label_Country')" width="200">
             <template #default="scope">
               <div class="table-crypto">
                 <div>
@@ -20,21 +19,21 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Currency" label="Currency" width="200">
+          <el-table-column prop="Currency" :label="t('messages.user.label_Currency')" width="200">
             <template #default="scope">
               <div>
                 {{ scope.row.currency }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Bank Name" label="Bank Name" width="200">
+          <el-table-column prop="Bank Name" :label="t('messages.user.label_Name')" width="200">
             <template #default="scope">
               <div>
                 {{ scope.row.bank }}
               </div>
             </template>
           </el-table-column>
-          <el-table-column prop="Branch Code" label="Branch Code" width="200">
+          <el-table-column prop="Branch Code" :label="t('messages.user.label_Branch')" width="200">
             <template #default="scope">
               <div>
                 {{ scope.row.code }}
@@ -43,7 +42,7 @@
           </el-table-column>
           <el-table-column
             prop="Account Number"
-            label="Account Number"
+            :label="t('messages.user.label_Number')"
             width="200"
           >
             <template #default="scope">
@@ -54,7 +53,7 @@
           </el-table-column>
           <el-table-column
             prop="Account Status"
-            label="Account Status"
+            :label="t('messages.user.label_Status')"
             width="200"
           >
             <template #default="scope">
@@ -65,7 +64,7 @@
           </el-table-column>
           <el-table-column
             prop="Operation"
-            label="Operation"
+            :label="t('messages.user.label_Operation')"
             width="100"
             fixed="right"
           >
@@ -80,13 +79,13 @@
     </div>
     <div class="bank-account" v-else>
       <el-card v-for="(item, index) in bankDate" :key="index">
-        <div><span>Bank Crounty: </span>{{ item.country }}</div>
-        <div><span>Currency: </span>{{ item.currency }}</div>
-        <div><span>Bank Name: </span>{{ item.bank }}</div>
-        <div><span>Branch code: </span>{{ item.code }}</div>
-        <div><span>Account Number: </span>{{ item.number }}</div>
-        <div><span>Account Status: </span>{{ item.status }}</div>
-        <div><span>Operation: </span>{{ item.operation }}</div>
+        <div><span>{{ t('messages.user.label_Country') }}: </span>{{ item.country }}</div>
+        <div><span>{{ t('messages.user.label_Currency') }}: </span>{{ item.currency }}</div>
+        <div><span>{{ t('messages.user.label_Name') }}: </span>{{ item.bank }}</div>
+        <div><span>{{ t('messages.user.label_Branch') }}: </span>{{ item.code }}</div>
+        <div><span>{{ t('messages.user.label_Number') }}: </span>{{ item.number }}</div>
+        <div><span>{{ t('messages.user.label_Status') }}: </span>{{ item.status }}</div>
+        <div><span>{{ t('messages.user.label_Operation') }}: </span>{{ item.operation }}</div>
       </el-card>
     </div>
   </div>
@@ -100,6 +99,10 @@ import GetButton from "../../../../components/GetButton.vue";
 import Table from "../../component/Table.vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
 import usercenter_verification_cor from "../../../../assets/home/usercenter_verification_cor.png";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);

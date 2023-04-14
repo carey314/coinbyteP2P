@@ -23,12 +23,12 @@
               <template #label>
                 <span class="custom-tabs-label">
                   <el-icon><StarFilled /></el-icon>
-                  <span>Favorites</span>
+                  <span>{{ $t('messages.market.Favorites') }}</span>
                 </span>
               </template>
             </el-tab-pane>
 
-            <el-tab-pane label="All Cryptos" name="second">
+            <el-tab-pane :label="t('messages.market.All')" name="second">
               <el-radio-group v-model="radioValue">
                 <el-scrollbar>
                   <div class="scrollbar-flex-content">
@@ -161,7 +161,7 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane label="Spot Markets" name="third">
+            <el-tab-pane :label="t('messages.market.Spot')" name="third">
               <el-radio-group v-model="radioValue">
                 <el-scrollbar>
                   <div class="scrollbar-flex-content">
@@ -352,6 +352,8 @@ import LTC from "../../../assets/home/part01_LTC.png";
 import DOT from "../../../assets/home/part01_DOT.png";
 import ADA from "../../../assets/home/part01_ADA.png";
 
+import { useI18n } from 'vue-i18n';
+const {t} = useI18n();
 const activeName = ref("second");
 const radioValue = ref("All");
 const handleClick = (tab: TabsPaneContext, event: Event) => {

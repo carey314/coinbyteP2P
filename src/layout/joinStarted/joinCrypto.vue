@@ -3,10 +3,10 @@
     <div class="ninth-part" v-if="windowWidth > 768">
       <div class="ninth-part-left">
         <div class="first-level-title">
-          Join to discover Crypto and build your portfolio on
-          <span>COINBYTE</span>
+            {{ $t('messages.join.discover') }}
+          <span>{{ $t('messages.join.coinbyte') }}</span>
         </div>
-        <GetButton type="success" :text="start" class="start-btn"></GetButton>
+        <GetButton type="success" :text="$t('messages.join.start')" class="start-btn"></GetButton>
       </div>
       <div class="ninth-part-right">
         <img :src="part09_pic01" alt="" />
@@ -15,10 +15,10 @@
     <div class="ninth-part" v-if="windowWidth <= 768">
       <div class="ninth-part-left min-left">
         <div class="first-level-title" style="line-height: 38px">
-          Join to discover Crypto and build your portfolio on
-          <span>COINBYTE</span>
+          {{ $t('messages.join.discover') }}
+          <span>{{ $t('messages.join.coinbyte') }}</span>
         </div>
-        <GetButton type="success" :text="start" class="start-btn"></GetButton>
+        <GetButton type="success" :text="$t('messages.join.start')" class="start-btn"></GetButton>
       </div>
       <div class="ninth-part-right min-right">
         <img :src="part09_pic01" alt="" />
@@ -33,7 +33,6 @@ import GetButton from "../../components/GetButton.vue";
 
 import part09_pic01 from "../../assets/home/part09_pic01.png";
 
-const start = ref("Get started");
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -118,7 +117,7 @@ $regular-font: HarmonyOS_Sans_Regular;
           margin: 5% auto 0 0;
           height: 40px;
           width: auto;
-          padding: 8px 16px;
+          padding: 8px 30px;
           margin-top: 30px !important;
           font-size: 14px;
         }

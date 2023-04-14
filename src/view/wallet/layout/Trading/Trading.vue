@@ -5,7 +5,7 @@
         <el-col :span="16" class="left-box">
           <div class="left-value clearfloat">
             <div class="value-top">
-              Est. total value
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -22,10 +22,23 @@
             </div>
             <div class="value-bottom clearfloat">
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="deposit" />
-                <GetButton class="func-btn" :text="convert" />
-                <GetButton class="func-btn" :text="withdraw" />
-                <GetButton class="func-btn" :text="transfer" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Convert')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Withdraw')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Transfer')"
+                />
               </div>
             </div>
             <div class="value-table">
@@ -34,14 +47,14 @@
                   <el-input
                     v-model="tableInput"
                     class="w-50 m-2"
-                    placeholder="Search"
+                    :placeholder="t('messages.wallet.search')"
                     :prefix-icon="Search"
                   />
                 </div>
                 <div class="header-hide">
                   <el-checkbox
                     v-model="checked"
-                    label="Hide zero equity"
+                    :label="t('messages.wallet.hide')"
                     size="small"
                   />
                 </div>
@@ -50,7 +63,10 @@
               <div class="table-body">
                 <Table :sourceData="tableData">
                   <template v-slot:columns>
-                    <el-table-column label="Crypto" width="200">
+                    <el-table-column
+                      :label="t('messages.wallet.label_Crypto')"
+                      width="200"
+                    >
                       <template #default="scope">
                         <div
                           style="
@@ -71,7 +87,11 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="Balance" label="Type" width="200">
+                    <el-table-column
+                      prop="Balance"
+                      :label="t('messages.wallet.label_Type')"
+                      width="200"
+                    >
                       <template #default="scope">
                         <div>
                           {{ scope.row.asset }}
@@ -81,7 +101,10 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="% of portfolio" width="200">
+                    <el-table-column
+                      :label="t('messages.wallet.label_portfolio')"
+                      width="200"
+                    >
                       <template #default="scope">
                         <div class="progress">
                           <span>{{ scope.row.TxID }} %</span>
@@ -94,7 +117,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      label="Action"
+                      :label="t('messages.wallet.label_Action')"
                       width="220"
                       fixed="right"
                       align="right"
@@ -116,12 +139,24 @@
 
                             <template #dropdown>
                               <el-dropdown-menu style="width: 179px">
-                                <el-dropdown-item>Withdraw</el-dropdown-item>
-                                <el-dropdown-item>Buy</el-dropdown-item>
-                                <el-dropdown-item>Sell</el-dropdown-item>
-                                <el-dropdown-item>Trade</el-dropdown-item>
-                                <el-dropdown-item>Convert</el-dropdown-item>
-                                <el-dropdown-item>Transfer</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Withdraw")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Buy")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Sell")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Trade")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Convert")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Transfer")
+                                }}</el-dropdown-item>
                               </el-dropdown-menu>
                             </template>
                           </el-dropdown>
@@ -131,7 +166,9 @@
                   </template>
                 </Table>
               </div>
-              <div class="value-view-more">View more &gt;</div>
+              <div class="value-view-more">
+                {{ $t("messages.wallet.wallet_more") }} &gt;
+              </div>
             </div>
           </div>
         </el-col>
@@ -140,7 +177,7 @@
             <el-card class="recent-card">
               <template #header>
                 <div class="card-header">
-                  <span>Recent transactions</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <template v-if="viewTransactions">
@@ -173,7 +210,9 @@
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
 
-                <div class="view-more">View more &gt;</div>
+                <div class="view-more">
+                  {{ $t("messages.wallet.wallet_more") }} &gt;
+                </div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -182,7 +221,7 @@
                       <img :src="wallet_search_none" />
                     </div>
                     <div class="bottom-title minMainFont">
-                      You don't have any transactions yet
+                      {{ $t("messages.wallet.Overview_noTransaction") }}
                     </div>
                   </div>
                 </div>
@@ -235,7 +274,7 @@
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
 
-              <!-- <div class="view-more">View more &gt;</div> -->
+              <!-- <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div> -->
             </el-card>
           </div>
         </el-col>
@@ -246,7 +285,7 @@
         <el-col :span="24" class="left-box">
           <div class="left-value clearfloat">
             <div class="value-top">
-              Est. total value
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -263,10 +302,23 @@
             </div>
             <div class="value-bottom clearfloat">
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="deposit" />
-                <GetButton class="func-btn" :text="convert" />
-                <GetButton class="func-btn" :text="withdraw" />
-                <GetButton class="func-btn" :text="transfer" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Convert')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Withdraw')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Transfer')"
+                />
               </div>
             </div>
             <div class="value-table">
@@ -275,14 +327,14 @@
                   <el-input
                     v-model="tableInput"
                     class="w-50 m-2"
-                    placeholder="Search"
+                    :placeholder="t('messages.wallet.search')"
                     :prefix-icon="Search"
                   />
                 </div>
                 <div class="header-hide">
                   <el-checkbox
                     v-model="checked"
-                    label="Hide zero equity"
+                    :label="t('messages.wallet.hide')"
                     size="small"
                   />
                 </div>
@@ -291,7 +343,10 @@
               <div class="table-body">
                 <Table :sourceData="tableData">
                   <template v-slot:columns>
-                    <el-table-column label="Crypto" width="230">
+                    <el-table-column
+                      :label="t('messages.wallet.label_Crypto')"
+                      width="230"
+                    >
                       <template #default="scope">
                         <div
                           style="
@@ -312,7 +367,11 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column prop="Balance" label="Type" width="230">
+                    <el-table-column
+                      prop="Balance"
+                      :label="t('messages.wallet.label_Type')"
+                      width="230"
+                    >
                       <template #default="scope">
                         <div>
                           {{ scope.row.asset }}
@@ -322,7 +381,10 @@
                         </div>
                       </template>
                     </el-table-column>
-                    <el-table-column label="% of portfolio" width="230">
+                    <el-table-column
+                      :label="t('messages.wallet.label_portfolio')"
+                      width="230"
+                    >
                       <template #default="scope">
                         <div class="progress">
                           <span>{{ scope.row.TxID }} %</span>
@@ -335,7 +397,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column
-                      label="Action"
+                      :label="t('messages.wallet.label_Action')"
                       width="220"
                       fixed="right"
                       align="right"
@@ -357,12 +419,24 @@
 
                             <template #dropdown>
                               <el-dropdown-menu style="width: 179px">
-                                <el-dropdown-item>Withdraw</el-dropdown-item>
-                                <el-dropdown-item>Buy</el-dropdown-item>
-                                <el-dropdown-item>Sell</el-dropdown-item>
-                                <el-dropdown-item>Trade</el-dropdown-item>
-                                <el-dropdown-item>Convert</el-dropdown-item>
-                                <el-dropdown-item>Transfer</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Withdraw")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Buy")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Sell")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Trade")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Convert")
+                                }}</el-dropdown-item>
+                                <el-dropdown-item>{{
+                                  $t("messages.wallet.Overview_Transfer")
+                                }}</el-dropdown-item>
                               </el-dropdown-menu>
                             </template>
                           </el-dropdown>
@@ -372,7 +446,9 @@
                   </template>
                 </Table>
               </div>
-              <div class="value-view-more">View more &gt;</div>
+              <div class="value-view-more">
+                {{ $t("messages.wallet.wallet_more") }} &gt;
+              </div>
             </div>
           </div>
         </el-col>
@@ -381,7 +457,7 @@
             <el-card class="recent-card">
               <template #header>
                 <div class="card-header">
-                  <span>Recent transactions</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <template v-if="viewTransactions">
@@ -414,7 +490,9 @@
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
 
-                <div class="view-more">View more &gt;</div>
+                <div class="view-more">
+                  {{ $t("messages.wallet.wallet_more") }} &gt;
+                </div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -423,7 +501,7 @@
                       <img :src="wallet_search_none" />
                     </div>
                     <div class="bottom-title minMainFont">
-                      You don't have any transactions yet
+                      {{ $t("messages.wallet.Overview_noTransaction") }}
                     </div>
                   </div>
                 </div>
@@ -476,7 +554,7 @@
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
 
-              <!-- <div class="view-more">View more &gt</div> -->
+              <!-- <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt</div> -->
             </el-card>
           </div>
         </el-col>
@@ -509,6 +587,9 @@ import crypto_icon_usdc from "../../../../assets/home/crypto_icon_usdc.png";
 import moment from "moment";
 import { getMyAssets } from "../../../../api/wallet";
 import type { Transaction } from "../../../../models/transactions";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {

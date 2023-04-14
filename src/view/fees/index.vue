@@ -3,18 +3,16 @@
     <Header />
     <div class="top-part">
       <div class="top-part-box">
-        <div class="top-part-title">CoinByte Fees</div>
+        <div class="top-part-title">{{ $t('messages.fees.fees') }}</div>
         <div class="top-part-content">
-          We are delivering lowest fee in Australia and New Zealand
+          {{ $t('messages.fees.fees_enjoy') }}
         </div>
         <div class="top-part-msg">
-          CoinByte is constantly looking at ways to increase efficiencies,
-          reduce fees, narrow spreads and simplify the deposit, withdrawal and
-          trading processes.
+          {{ $t('messages.fees.fees_con') }}
         </div>
         <GetButton
           type="success"
-          :text="text"
+          :text="t('messages.fees.fees_btn')"
           style="margin-top: 40px"
         ></GetButton>
       </div>
@@ -85,6 +83,9 @@ import fees_icon01 from "../../assets/home/fees_icon01.png";
 import fees_icon02 from "../../assets/home/fees_icon02.png";
 import fees_icon03 from "../../assets/home/fees_icon03.png";
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -96,35 +97,30 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 
-const text = ref("Get started, it’s free");
 const feeTable = [
   {
     icon: fees_icon01,
-    title: "Deposit & Withdrawal",
-    tips: "Fiat & Crypto",
+    title: t('messages.fees.firstTitle'),
+    tips: t('messages.fees.firstTips'),
     currency: "$",
     number: "0",
-    message:
-      "No fees on AUD/NZD deposits and withdrawals Only Network fees apply for Crypto withdrawals No additional CoinByte charges",
-    // message1: "Only Network fees apply for Crypto withdrawals",
-    // message2: "No additional CoinByte charges",
+    message: t('messages.fees.firstMessage'),
   },
   {
-    icon: fees_icon02,
-    title: "Instant Buy & Sell",
-    tips: "No hidden fees",
+    icon: fees_icon02, 
+    title: t('messages.fees.secondTitle'),
+    tips: t('messages.fees.secondTips'),
     currency: "%",
     number: "0.5",
-    message: "250+ AUD/NZD bases assets",
+    message: t('messages.fees.secondMessage'),
   },
   {
     icon: fees_icon03,
-    title: "Spots Trading",
-    tips: "Lowest fee",
+    title: t('messages.fees.thirdTitle'),
+    tips: t('messages.fees.thirdTips'),
     currency: "%",
     number: "0.1",
-    message: "The narrowest spreads in Australia and New Zealand",
-    // message1: "and New Zealand",
+    message: t('messages.fees.thirdMessage'),
   },
 ];
 </script>

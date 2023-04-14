@@ -9,19 +9,19 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane label="Overview" name="first" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_overview')" name="first" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Security" name="second" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_Security')" name="second" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Verification" name="third" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_Verification')" name="third" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Bank account" name="fourth" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_Bank')" name="fourth" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Preferences" name="fifth" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_Preferences')" name="fifth" :lazy="true">
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -67,6 +67,8 @@ import type { TabsPaneContext } from "element-plus";
 // import no_found from "../../../assets/home/no_found.png";
 
 // import BTC from "../../assets/home/part01_BTC.png";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {

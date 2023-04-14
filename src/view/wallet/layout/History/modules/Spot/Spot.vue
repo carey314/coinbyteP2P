@@ -2,24 +2,25 @@
   <div class="spot-filter">
     <el-date-picker
       type="daterange"
-      start-placeholder="Start date"
-      end-placeholder="End date"
+      :start-placeholder="t('messages.wallet.trade_Start')"
+      :end-placeholder="t('messages.wallet.trade_End')"
     />
-    <FilterSelect title="Side" :options="options"></FilterSelect>
+    <FilterSelect :title="t('messages.wallet.trade_Side')" :options="options"></FilterSelect>
     <div>
-      <CustomButton title="Search"></CustomButton>
-      <CustomButton title="Reset" bgc="#F1F1F1" fc="#000"></CustomButton>
+      <CustomButton :title="t('messages.wallet.tab_search')"></CustomButton>
+      <CustomButton :title="t('messages.wallet.tab_reset')" bgc="#F1F1F1" fc="#000"></CustomButton>
     </div>
   </div>
   <Table :sourceData="tableData">
     <template v-slot:columns>
-      <el-table-column prop="date" label="Date" width="180" />
-      <el-table-column prop="pair" label="Pair" width="180" />
-      <el-table-column prop="side" label="Side" />
-      <el-table-column prop="price" label="Price" />
-      <el-table-column prop="filled" label="Filled" />
-      <el-table-column prop="fee" label="Fee" />
-      <el-table-column prop="role" label="role" />
+      <el-table-column prop="date" :label="t('messages.wallet.convert_Date')" width="180" />
+      <el-table-column prop="pair" :label="t('messages.wallet.trade_Pair')" width="180" />
+      <el-table-column prop="side" :label="t('messages.wallet.trade_Side')" />
+      <el-table-column prop="price" :label="t('messages.wallet.trade_Price')" />
+      <el-table-column prop="filled" :label="t('messages.wallet.trade_Filled')" />
+      <el-table-column prop="fee" :label="t('messages.wallet.trade_Fee')" />
+      <el-table-column prop="role" :label="t('messages.wallet.trade_role')" />
+      <el-table-column prop="total" :label="t('messages.wallet.trade_Total')" />
     </template>
   </Table>
 </template>
@@ -29,6 +30,9 @@ import { ref } from "vue";
 import FilterSelect from "../../component/FilterSelect.vue";
 import Table from "../../component/Table.vue";
 import CustomButton from "../../component/CustomButton.vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const tableData = ref([
   {
     date: "2022-10-03 00:48:11",
@@ -38,6 +42,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -47,6 +52,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -56,6 +62,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -65,6 +72,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -74,6 +82,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -83,6 +92,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -92,6 +102,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
   {
     date: "2022-10-03 00:48:11",
@@ -101,6 +112,7 @@ const tableData = ref([
     filled: "929",
     fee: "0.929 AUD",
     role: "Maker",
+    total: "597.7186 USDT"
   },
 ]);
 const options = [

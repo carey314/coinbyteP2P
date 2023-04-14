@@ -11,14 +11,15 @@
             class="banner-left"
             style="height: 100%"
           >
-            <div class="banner-title">Unlock the future of Crypto</div>
+            <div class="banner-title">
+              {{ $t("messages.home.banner_title") }}
+            </div>
             <div class="banner-content">
-              Buy, trade and hold 500+ crypto with AUD. Enjoy trading with local
-              FIAT.
+              {{ $t("messages.home.banner_content") }}
             </div>
             <GetButton
               type="success"
-              :text="text"
+              :text="$t('messages.home.banner_btn')"
               class="banner-btn"
               style="width: 226px; box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5)"
             ></GetButton>
@@ -27,12 +28,14 @@
                 <img :src="registered_icon" alt="" />
               </div>
               <div>
-                <div class="banner-more-title">ASIC & AUSTRAC registered</div>
+                <div class="banner-more-title">
+                  {{ $t("messages.home.banner_registered") }}
+                </div>
                 <div
                   class="banner-learn-more"
                   @click="dialogTableVisible = true"
                 >
-                  Learn More
+                  {{ $t("messages.home.banner_more") }}
                   <el-icon class="more-arrow">
                     <Right />
                   </el-icon>
@@ -278,29 +281,47 @@
           </el-col>
           <el-col :span="11" :offset="1" :xs="20" class="second-part-right">
             <div class="first-level-title">
-              The simplest way to start trading
+              {{ $t("messages.home.second_title") }}
             </div>
-            <div class="second-part-guild">Sign up</div>
-            <div class="second-level-title">
-              <a href="#" class="no-underline link-color">Sign up</a> and
-              <a href="#" class="no-underline link-color">verify</a>
-              with our easy process and you’re good to go!
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_sign") }}
             </div>
-            <div class="second-part-guild">Deposit funds</div>
             <div class="second-level-title">
-              Easily
-              <a href="#" class="no-underline link-color">deposit AUD</a> into
-              your account using PayID & Bank Transfer.
+              <a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_sign")
+              }}</a
+              >{{ $t("messages.home.second_also")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_verify")
+              }}</a
+              >{{ $t("messages.home.second_msg") }}
             </div>
-            <div class="second-part-guild">Trade your crypto</div>
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_Deposit") }}
+            </div>
             <div class="second-level-title">
-              <a href="#" class="no-underline link-color">Buy,sell</a> and
-              <a href="#" class="no-underline link-color">trade</a> with
-              Australia’s local exchange with the most AUD pairs.
+              {{ $t("messages.home.second_Easily")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_deposit")
+              }}</a
+              >{{ $t("messages.home.second_into") }}
+            </div>
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_tradeCry") }}
+            </div>
+            <div class="second-level-title">
+              <a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_shop")
+              }}</a
+              >{{ $t("messages.home.second_and")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_trade")
+              }}</a
+              >{{ $t("messages.home.second_with") }}
             </div>
             <GetButton
               type="success"
-              :text="start"
+              :text="$t('messages.home.second_btn')"
               class="start-btn"
               style="margin-top: 40px"
             ></GetButton>
@@ -309,29 +330,46 @@
         <el-row v-if="windowWidth <= 768">
           <el-col :span="24" :xs="24" class="second-part-right">
             <div class="first-level-title">
-              The simplest way to start trading
+              {{ $t("messages.home.second_title") }}
             </div>
-            <div class="second-part-guild">Sign up</div>
-            <div class="second-level-title">
-              <a href="#" class="no-underline link-color">Sign up</a> and
-              <a href="#" class="no-underline link-color">verify</a>
-              with our easy process and you’re good to go!
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_sign") }}
             </div>
-            <div class="second-part-guild">Deposit funds</div>
             <div class="second-level-title">
-              Easily
-              <a href="#" class="no-underline link-color">deposit AUD</a> into
-              your account using PayID & Bank Transfer.
+              <a href="#" class="no-underline link-color">
+                {{ $t("messages.home.second_sign") }}</a
+              >{{ $t("messages.home.second_also")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_verify")
+              }}</a
+              >{{ $t("messages.home.second_msg") }}
             </div>
-            <div class="second-part-guild">Trade your crypto</div>
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_Deposit") }}
+            </div>
             <div class="second-level-title">
-              <a href="#" class="no-underline link-color">Buy,sell</a> and
-              <a href="#" class="no-underline link-color">trade</a> with
-              Australia’s local exchange with the most AUD pairs.
+              {{ $t("messages.home.second_Easily")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_deposit")
+              }}</a
+              >{{ $t("messages.home.second_into") }}
+            </div>
+            <div class="second-part-guild">
+              {{ $t("messages.home.second_tradeCry") }}
+            </div>
+            <div class="second-level-title">
+              <a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_shop")
+              }}</a
+              >{{ $t("messages.home.second_and")
+              }}<a href="#" class="no-underline link-color">{{
+                $t("messages.home.second_trade")
+              }}</a
+              >{{ $t("messages.home.second_with") }}
             </div>
             <GetButton
               type="success"
-              :text="start"
+              :text="$t('messages.home.second_btn')"
               class="start-btn"
               style="padding: 12px 16px !important"
             ></GetButton>
@@ -343,19 +381,21 @@
         <el-row v-if="windowWidth > 768">
           <el-col :span="11" :offset="1">
             <div class="first-level-title third-part-title">
-              Zero-Fee Deposit via <span>PayID / Osko</span>
+              {{ $t("messages.home.third_title") }}
+              <span>{{ $t("messages.home.third_titlespan") }}</span>
             </div>
             <div class="second-level-title third-down">
-              <a href="#" class="no-underline link-color">Deposit AUD</a>
-              instantly into your Coinbyte account from 100+ NPP-enabled banks
-              in Australia via PayID / Osko.
+              <a href="#" class="no-underline link-color">{{
+                $t("messages.home.third_msgname")
+              }}</a>
+              {{ $t("messages.home.third_msg") }}
             </div>
             <div class="second-level-title third-down">
-              Service by Coinbyte according to its terms & privacy policy.
+              {{ $t("messages.home.third_service") }}
             </div>
             <GetButton
               type="success"
-              :text="start"
+              :text="$t('messages.home.second_btn')"
               class="start-btn"
               style="margin-top: 40px"
             ></GetButton>
@@ -370,19 +410,21 @@
         <el-row v-if="windowWidth <= 768">
           <el-col :span="22">
             <div class="first-level-title third-part-title">
-              Zero-Fee Deposit via <span>PayID / Osko</span>
+              {{ $t("messages.home.third_title") }}
+              <span>{{ $t("messages.home.third_titlespan") }}</span>
             </div>
             <div class="second-level-title third-down">
-              <a href="#" class="no-underline link-color">Deposit AUD</a>
-              instantly into your Coinbyte account from 100+ NPP-enabled banks
-              in Australia via PayID / Osko.
+              <a href="#" class="no-underline link-color">{{
+                $t("messages.home.third_msgname")
+              }}</a>
+              {{ $t("messages.home.third_msg") }}
             </div>
             <div class="second-level-title third-down">
-              Service by Coinbyte according to its terms & privacy policy.
+              {{ $t("messages.home.third_service") }}
             </div>
             <GetButton
               type="success"
-              :text="start"
+              :text="$t('messages.home.second_btn')"
               class="start-btn"
             ></GetButton>
 
@@ -398,14 +440,19 @@
         <img class="forth-img-pc" :src="pc" alt="" />
         <div class="forth-title max1290">
           <div>
-            Dynamic layout allows to organize<br />
-            <span>multiple workspaces</span> & <span>widgets</span> without
-            limitations<br />
-            Unique and innovative feature among hundreds of cryptocurrency
-            exchanges
+            {{ $t("messages.home.forth_dynamic") }}<br />
+            <span>{{ $t("messages.home.forth_multiple") }}</span>
+            {{ $t("messages.home.forth_and") }}
+            <span>{{ $t("messages.home.forth_widgets") }}</span>
+            {{ $t("messages.home.forth_limitations") }}<br />
+            {{ $t("messages.home.forth_innovative") }}
           </div>
           <div>
-            <GetButton class="trade-btn" type="success" :text="trade" />
+            <GetButton
+              class="trade-btn"
+              type="success"
+              :text="$t('messages.home.forth_trade')"
+            />
           </div>
         </div>
       </div>
@@ -413,21 +460,32 @@
         <img class="forth-img" :src="part04" alt="" />
         <div class="forth-title max1290">
           <div>
-            Dynamic layout allows to organize<br />
-            <span>multiple workspaces</span> & <span>widgets</span> without
-            limitations<br />
-            Unique and innovative feature among hundreds of cryptocurrency
-            exchanges
+            {{ $t("messages.home.forth_dynamic") }}<br />
+            <span>{{ $t("messages.home.forth_multiple") }}</span>
+            {{ $t("messages.home.forth_and") }}
+            <span>{{ $t("messages.home.forth_widgets") }}</span>
+            {{ $t("messages.home.forth_limitations") }}<br />
+            {{ $t("messages.home.forth_innovative") }}
           </div>
           <div>
-            <GetButton class="trade-btn" type="success" :text="trade" />
+            <GetButton
+              class="trade-btn"
+              type="success"
+              :text="$t('messages.home.forth_trade')"
+            />
           </div>
         </div>
       </div>
 
       <div class="part fifth-part">
-        <div class="first-level-title">Why choose <span>CoinByte</span>?</div>
-        <div class="fifth-second-title">Exchange for Professional Trader</div>
+        <div class="first-level-title">
+          {{ $t("messages.home.fifth_why") }}
+          <span>{{ $t("messages.home.fifth_CoinByte") }}</span
+          >?
+        </div>
+        <div class="fifth-second-title">
+          {{ $t("messages.home.fifth_exchange") }}
+        </div>
         <img :src="part05_b1" alt="" class="fifth-part-top-img" />
         <div class="fifth-part-card">
           <div class="card-item" v-for="(item, index) in cardList" :key="index">
@@ -445,13 +503,14 @@
       <div class="bg-gray" v-if="windowWidth > 768">
         <div class="sixth-part part">
           <img class="sixth-part-top" :src="part06_icon01" alt="" />
-          <div class="first-level-title">
-            <span>Premium</span> customer support
+          <div class="first-level-title" style="margin-top: 8px">
+            <span>{{ $t("messages.home.sixth_Premium") }}</span
+            >{{ $t("messages.home.sixth_support") }}
           </div>
           <div class="sixth-part-card">
             <div
               class="card-item"
-              v-for="(item, index) in cardList2"
+              v-for="(item, index) in cardSupport"
               :key="index"
             >
               <img class="item-img" :src="item.src" alt="" />
@@ -462,7 +521,7 @@
           </div>
           <GetButton
             type="success"
-            :text="trading"
+            :text="t('messages.home.sixth_btn')"
             style="
               margin-top: 40px;
               box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
@@ -474,7 +533,8 @@
         <div class="sixth-part">
           <img class="sixth-part-top" :src="part06_icon01" alt="" />
           <div class="first-level-title">
-            <span>Premium</span> customer support
+            <span>{{ $t("messages.home.sixth_Premium") }}</span
+            >{{ $t("messages.home.sixth_support") }}
           </div>
           <div class="sixth-part-card">
             <div
@@ -488,13 +548,18 @@
             </div>
             <!-- <div class="card-item" style="visibility: hidden"></div> -->
           </div>
-          <GetButton class="sixth-btn" type="success" :text="trading" />
+          <GetButton
+            class="sixth-btn"
+            type="success"
+            :text="t('messages.home.sixth_btn')"
+          />
         </div>
       </div>
 
       <div class="seventh-part max1290" v-if="windowWidth > 768">
         <div class="first-level-title">
-          Explore endless possibilities with <span>Coinbyte</span>
+          {{ $t("messages.home.seventh_explore")
+          }}<span>{{ $t("messages.home.seventh_coin") }}</span>
         </div>
         <el-row
           class="seventh-part-list"
@@ -507,7 +572,7 @@
               <img :src="part07_pic01" alt="" />
             </div>
             <div class="item-title">
-              How to buy and sell cryptocurrency on CoinByte
+              {{ $t("messages.home.seventh_how") }}
             </div>
           </el-col>
           <el-col :span="7" class="listItem">
@@ -515,7 +580,7 @@
               <img :src="part07_pic02" alt="" />
             </div>
             <div class="item-title">
-              Start trading cryptocurrency on CoinByte
+              {{ $t("messages.home.seventh_start") }}
             </div>
           </el-col>
           <el-col :span="7" class="listItem">
@@ -523,19 +588,19 @@
               <img :src="part07_pic03" alt="" />
             </div>
             <div class="item-title">
-              CoinByte Earn: Use your crypto assets to earn passive income on
-              CoinByte
+              {{ $t("messages.home.seventh_earn") }}
             </div>
           </el-col>
         </el-row>
         <div class="view-more">
-          <span>Learn more &gt;</span>
+          <span>{{ $t("messages.home.seventh_more") }} &gt;</span>
         </div>
       </div>
 
       <div class="seventh-part max1290" v-if="windowWidth <= 768">
         <div class="first-level-title">
-          Explore endless possibilities with <span>Coinbyte</span>
+          {{ $t("messages.home.seventh_explore")
+          }}<span>{{ $t("messages.home.seventh_coin") }}</span>
         </div>
         <el-row
           class="seventh-part-list"
@@ -548,7 +613,7 @@
               <img :src="part07_pic01" alt="" />
             </div>
             <div class="item-title">
-              How to buy and sell cryptocurrency on CoinByte
+              {{ $t("messages.home.seventh_how") }}
             </div>
           </el-col>
           <el-col :span="24" class="listItem">
@@ -556,7 +621,7 @@
               <img :src="part07_pic02" alt="" />
             </div>
             <div class="item-title">
-              Start trading cryptocurrency on CoinByte
+              {{ $t("messages.home.seventh_start") }}
             </div>
           </el-col>
           <el-col :span="24" class="listItem">
@@ -564,13 +629,12 @@
               <img :src="part07_pic03" alt="" />
             </div>
             <div class="item-title">
-              CoinByte Earn: Use your crypto assets to earn passive income on
-              CoinByte
+              {{ $t("messages.home.seventh_earn") }}
             </div>
           </el-col>
         </el-row>
         <div class="view-more" style="margin-top: 0px">
-          <span>Learn more &gt;</span>
+          <span>{{ $t("messages.home.seventh_more") }} &gt;</span>
         </div>
       </div>
       <!-- //eighth-part -->
@@ -636,9 +700,10 @@ import LTC from "../../assets/home/part01_LTC.png";
 import DOT from "../../assets/home/part01_DOT.png";
 import ADA from "../../assets/home/part01_ADA.png";
 
-import {getProfile} from '../../api/user';
-import { useUserInfoStore } from '../../store/user';
-
+import { getProfile } from "../../api/user";
+import { useUserInfoStore } from "../../store/user";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -651,7 +716,7 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 
-const text = ref("Get started, it’s free");
+const text = ref("Get started, it's free");
 const start = ref("Get started");
 const trading = ref("Get trading in minutes ");
 const trade = ref("Trade");
@@ -875,95 +940,95 @@ const forthList = [
 const cardList = [
   {
     src: part05_icon01,
-    title: "Regulation",
-    desc: "Feel safe in the knowledge that our activities fall under the scope of AU legislation. CoinByte is a Digital Currency Exchange provider registered in AUSTRAC.",
+    title: t("messages.home.fifth_regulation"),
+    desc: t("messages.home.fifth_regulationMsg"),
   },
   {
     src: part05_icon02,
-    title: "Fiat markets",
-    desc: "Coinbyte is the exchange offering the most Crypto/AUD pairs in Spot Market. You can trade almost all of cryptocurrencies with AUD.",
+    title: t("messages.home.fifth_fiat"),
+    desc: t("messages.home.fifth_fiatMsg"),
   },
   {
     src: part05_icon03,
-    title: "Totally reliable",
-    desc: "All fiat funds are placed in a regulated bank, 98% of crypto assets are placed in cold storage. Rest assured funds are safely stored in a regulated or offline environment.",
+    title: t("messages.home.fifth_Totally"),
+    desc: t("messages.home.fifth_TotallyMsg"),
   },
   {
     src: part05_icon04,
-    title: "Institutional grade volumes",
-    desc: "Ocean Deep Liquidity — More than 100 BTC on top 20 levels in BTC/AUD orderbook. Sky high withdrawal limits — Up to AUD 200,000.00 per transaction.",
-    btn: "Check the Depth",
+    title: t("messages.home.fifth_Institutional"),
+    desc: t("messages.home.fifth_InstitutionalMsg"),
+    btn: t("messages.home.fifth_btncheck"),
   },
   {
     src: part05_icon05,
-    title: "API",
-    desc: "We offer WebSocket and REST connection to Public and Trading API with all the required endpoints for boundless trading",
-    btn: "API documentation",
+    title: t("messages.home.fifth_API"),
+    desc: t("messages.home.fifth_APIMsg"),
+    btn: t("messages.home.fifth_btnAPI"),
   },
   {
     src: part05_icon06,
-    title: "2FA",
-    desc: "Two-factor Authentication adds an extra layer of security to your account by asking for a verification code when you sign in Google Authenticator Text Message (SMS)",
+    title: t("messages.home.fifth_2FA"),
+    desc: t("messages.home.fifth_2FAMsg"),
   },
   {
     src: part05_icon07,
-    title: "Fast and easy",
-    desc: "We provide an extensive range of payment methods including PayID and OSKO.",
+    title: t("messages.home.fifth_Fast"),
+    desc: t("messages.home.fifth_FastMsg"),
   },
 ];
 
-const cardList2 = [
+const cardSupport = [
   {
     src: part06_icon02,
-    title: "Live chat",
-    desc: "Top-rated live chat to help you every step of the way.",
+    title: t("messages.home.sixth_chat"),
+    desc: t("messages.home.sixth_rated"),
   },
   {
     src: part06_icon03,
-    title: "Educational resources",
-    desc: "Arrange a call with a client manager to help build your trading strategy.",
+    title: t("messages.home.sixth_Educational"),
+    desc: t("messages.home.sixth_Arrange"),
   },
   {
     src: part06_icon04,
-    title: "Client Manager",
-    desc: "Invaluable guidance & first-hand experience from crypto experts.",
+    title: t("messages.home.sixth_Client"),
+    desc: t("messages.home.sixth_Invaluable"),
   },
   {
     src: part06_icon05,
-    title: "Knowledge & expertise",
-    desc: "Premium resources, workshops & blog articles. You don’t have to know everything, but a bit of know-how can go a long way.",
+    title: t("messages.home.sixth_Knowledge"),
+    desc: t("messages.home.sixth_resources"),
   },
   {
     src: part06_icon06,
-    title: "Apply in minutes",
-    desc: "Verify your account in 2 minutes. Have your account fully funded & ready to trade in less than 5 minutes using PayID/OSKO instant deposit.",
+    title: t("messages.home.sixth_Apply"),
+    desc: t("messages.home.sixth_Verify"),
   },
 ];
 const minCardList2 = [
   {
     src: part06_icon02,
-    title: "Live chat",
-    desc: "Top-rated live chat to help you every step of the way.",
+    title: t("messages.home.sixth_chat"),
+    desc: t("messages.home.sixth_rated"),
   },
   {
     src: part06_icon03,
-    title: "Educational resources",
-    desc: "Arrange a call with a client manager to help build your trading strategy.",
+    title: t("messages.home.sixth_Educational"),
+    desc: t("messages.home.sixth_Arrange"),
   },
   {
     src: part06_icon04,
-    title: "Client Manager",
-    desc: "Invaluable guidance & first-hand experience from crypto experts.",
+    title: t("messages.home.sixth_Client"),
+    desc: t("messages.home.sixth_Invaluable"),
   },
   {
     src: part06_icon05,
-    title: "Knowledge & expertise",
-    desc: "Premium resources, workshops & blog articles. ",
+    title: t("messages.home.sixth_Knowledge"),
+    desc: t("messages.home.sixth_minResources"),
   },
   {
     src: part06_icon06,
-    title: "Apply in minutes",
-    desc: "Verify your account in 2 minutes. ",
+    title: t("messages.home.sixth_Apply"),
+    desc: t("messages.home.sixth_minVerify"),
   },
 ];
 
@@ -971,14 +1036,13 @@ const minCardList2 = [
 const userInfoStore = useUserInfoStore();
 
 onMounted(() => {
-  if(userInfoStore.isLogin) {
-    getProfile().then(res => {
+  if (userInfoStore.isLogin) {
+    getProfile().then((res) => {
       console.log(res.data);
       userInfoStore.updateUserInfo(res.data);
-    })
+    });
   }
-})
-
+});
 </script>
 
 <style lang="scss" scoped>

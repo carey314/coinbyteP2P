@@ -3,21 +3,21 @@
     <Header />
     <div class="center-part" v-if="windowWidth > 1050">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane label="Beginners Tutorial" name="first">
+        <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
           <div class="min-height">
             <ListCenter />
           </div>
         </el-tab-pane>
-        <el-tab-pane label="Trading Ideas" name="second">
+        <el-tab-pane :label="t('messages.learnList.second_label')" name="second">
           <div class="min-height">Trading Ideas</div>
         </el-tab-pane>
-        <el-tab-pane label="Industry Analysis" name="third">
+        <el-tab-pane :label="t('messages.learnList.third_label')" name="third">
           <div class="min-height">Industry Analysis</div>
         </el-tab-pane>
-        <el-tab-pane label="Blockchain Glossary" name="fourth">
+        <el-tab-pane :label="t('messages.learnList.forth_label')" name="fourth">
           <div class="min-height">Blockchain Glossary</div>
         </el-tab-pane>
-        <el-tab-pane label="Company Updates" name="fifth">
+        <el-tab-pane :label="t('messages.learnList.fifth_label')" name="fifth">
           <div class="min-height">Company Updates</div>
         </el-tab-pane>
       </el-tabs>
@@ -30,19 +30,19 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane label="Beginners Tutorial" name="first">
+            <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
               
             </el-tab-pane>
-            <el-tab-pane label="Trading Ideas" name="second">
+            <el-tab-pane :label="t('messages.learnList.second_label')" name="second">
               <!-- <div class="min-height">Trading Ideas</div> -->
             </el-tab-pane>
-            <el-tab-pane label="Industry Analysis" name="third">
+            <el-tab-pane :label="t('messages.learnList.third_label')" name="third">
               <!-- <div class="min-height">Industry Analysis</div> -->
             </el-tab-pane>
-            <el-tab-pane label="Blockchain Glossary" name="fourth">
+            <el-tab-pane :label="t('messages.learnList.forth_label')" name="fourth">
               <!-- <div class="min-height">Blockchain Glossary</div> -->
             </el-tab-pane>
-            <el-tab-pane label="Company Updates" name="fifth">
+            <el-tab-pane :label="t('messages.learnList.fifth_label')" name="fifth">
               <!-- <div class="min-height">Company Updates</div> -->
             </el-tab-pane>
           </el-tabs>
@@ -65,6 +65,8 @@ import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import ListCenter from "../component/ListCenter.vue";
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {

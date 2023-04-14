@@ -9,22 +9,22 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane label="Overview" name="first" :lazy="true">
+            <el-tab-pane :label="t('messages.wallet.Overview')" name="first" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Trading" name="second" :lazy="true">
+            <el-tab-pane :label="t('messages.wallet.Trading')" name="second" :lazy="true">
             </el-tab-pane>
 
             <el-tab-pane
-              label="Earning"
+              :label="t('messages.wallet.Earning')"
               name="third"
               :lazy="true"
             ></el-tab-pane>
 
-            <el-tab-pane label="History" name="fourth" :lazy="true">
+            <el-tab-pane :label="t('messages.wallet.History')" name="fourth" :lazy="true">
             </el-tab-pane>
 
-            <el-tab-pane label="Account Statement" name="fifth" :lazy="true">
+            <el-tab-pane :label="t('messages.wallet.Account')" name="fifth" :lazy="true">
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -35,7 +35,9 @@
       <div class="min-height" v-if="activeName === 'second'">
         <Trading />
       </div>
-      <div class="min-height" v-if="activeName === 'third'"></div>
+      <div class="min-height" v-if="activeName === 'third'">
+      
+      </div>
       <div class="min-height" v-if="activeName === 'fourth'">
         <History />
       </div>
@@ -64,9 +66,8 @@ import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
 
-// import no_found from "../../../assets/home/no_found.png";
-
-// import BTC from "../../assets/home/part01_BTC.png";
+import { useI18n } from "vue-i18n";
+const {t} = useI18n();
 
 const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {

@@ -13,13 +13,10 @@
       <div class="top-part-box">
         <img :src="logo" class="top-part-img" />
         <div class="top-part-content" style="margin-top: 55px">
-          COINBYTE is an innovative cryptocurrency exchange who providing safe
-          and trustworthy digital currencies exchange services to its users.
+          {{ $t("messages.about.about_exchange") }}
         </div>
         <div class="top-part-content">
-          Users can enjoy the simplest way to start trading and Zero-Fee
-          Deposit, and trading hundreds of Cryptos with your local FAIT pairs in
-          COINBYTE
+          {{ $t("messages.about.about_exchange") }}
         </div>
       </div>
     </div>
@@ -32,12 +29,12 @@
               <div class="part-img">
                 <img :src="aboutus_icon01" />
               </div>
-              <div class="part-title">Our mission</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_firstTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              We strive to eliminate the barriers and evolve the global economy.
-              We are dedicated to innovate and improve our user experience to
-              make cryptocurrency trading and investing available for everyone
+              {{ $t("messages.about.about_firstContent") }}
             </div>
           </div>
         </el-col>
@@ -47,13 +44,12 @@
               <div class="part-img">
                 <img :src="aboutus_icon02" />
               </div>
-              <div class="part-title">Trust & Transparency</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_secondTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              Trust & Transparency are at the heart of everything we do. From
-              the beginning, we made user protection and transparency our top
-              priority. We implement highly sophisticated multi-layered security
-              for users funds and data.
+              {{ $t("messages.about.about_secondContent") }}
             </div>
           </div>
         </el-col>
@@ -67,28 +63,27 @@
               <div class="part-img">
                 <img :src="aboutus_icon01" />
               </div>
-              <div class="part-title">Our mission</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_firstTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              We strive to eliminate the barriers and evolve the global economy.
-              We are dedicated to innovate and improve our user experience to
-              make cryptocurrency trading and investing available for everyone
+              {{ $t("messages.about.about_firstContent") }}
             </div>
           </div>
         </el-col>
         <el-col :span="24" @mouseover="yr1" @mouseleave="yc1" :style="active1">
-          <div class="part-box left-box" >
+          <div class="part-box left-box">
             <div class="part-msg clearfloat">
               <div class="part-img">
                 <img :src="aboutus_icon02" />
               </div>
-              <div class="part-title">Trust & Transparency</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_secondTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              Trust & Transparency are at the heart of everything we do. From
-              the beginning, we made user protection and transparency our top
-              priority. We implement highly sophisticated multi-layered security
-              for users funds and data.
+              {{ $t("messages.about.about_secondContent") }}
             </div>
           </div>
         </el-col>
@@ -103,11 +98,12 @@
               <div class="part-img">
                 <img :src="aboutus_icon03" />
               </div>
-              <div class="part-title">Working with regulators</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_thirdTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              COINBYTE is committed to meeting the highest standdards for
-              regulatory compliance to maintain our responsibility to our users.
+              {{ $t("messages.about.about_thirdContent") }}
             </div>
           </div>
         </el-col>
@@ -117,18 +113,20 @@
               <div class="part-img">
                 <img :src="aboutus_icon04" />
               </div>
-              <div class="part-title">COINBYTE’s registered</div>
+              <div class="part-title">
+                {{ $t("messages.about.about_forthTitle") }}
+              </div>
             </div>
             <div class="part-content">
-              Australia Transaction Reports & Analysis Centre<br />
+              {{ $t("messages.about.about_forthCentre") }}<br />
               <span>100662269</span>
             </div>
             <div class="part-content-forth">
-              Digital Currency Exchange<br />
+              {{ $t("messages.about.about_forthExchange") }}<br />
               <span>DCE100662269-001</span>
             </div>
             <div class="part-content-forth">
-              Remittance Service Provider<br />
+              {{ $t("messages.about.about_forthProvider") }}<br />
               <span>IND100662269-001</span>
             </div>
           </div>
@@ -143,32 +141,20 @@
               <div class="part-img">
                 <img :src="aboutus_icon03" />
               </div>
-              <div class="part-title">Working with regulators</div>
-            </div>
-            <div class="part-content">
-              COINBYTE is committed to meeting the highest standdards for
-              regulatory compliance to maintain our responsibility to our users.
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="24" @mouseover="yr3" @mouseleave="yc3" :style="active3">
-          <div class="part-box left-box" name="forth">
-            <div class="part-msg clearfloat">
-              <div class="part-img">
-                <img :src="aboutus_icon04" />
+              <div class="part-title">
+                {{ $t("messages.about.about_forthTitle") }}
               </div>
-              <div class="part-title">COINBYTE’s registered</div>
             </div>
             <div class="part-content">
-              Australia Transaction Reports & Analysis Centre<br />
+              {{ $t("messages.about.about_forthCentre") }}<br />
               <span>100662269</span>
             </div>
             <div class="part-content-forth">
-              Digital Currency Exchange<br />
+              {{ $t("messages.about.about_forthExchange") }}<br />
               <span>DCE100662269-001</span>
             </div>
             <div class="part-content-forth">
-              Remittance Service Provider<br />
+              {{ $t("messages.about.about_forthProvider") }}<br />
               <span>IND100662269-001</span>
             </div>
           </div>
@@ -374,7 +360,7 @@ const yc3 = () => {
     }
     .left-box {
       border-left: 1px solid #2f3f4e;
-      @media(max-width: 985px ){
+      @media (max-width: 985px) {
         border-left: none;
       }
     }

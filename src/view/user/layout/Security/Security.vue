@@ -6,9 +6,9 @@
           <img :src="usercenter_security_pending_security" />
         </div>
         <div class="head-info">
-          <div class="head-info-title">Pending security features</div>
+          <div class="head-info-title">{{ $t('messages.user.security_title') }}</div>
           <div class="head-info-message">
-            Protect your funds by improving account security
+            {{ $t('messages.user.security_con') }}
           </div>
         </div>
       </div>
@@ -27,10 +27,10 @@
           </div>
 
           <div class="content-item-btn" v-if="index == 3">
-            <el-button link>Turn On</el-button>
+            <el-button link>{{ $t('messages.user.turn_link') }}</el-button>
           </div>
           <div class="content-item-btn" v-else>
-            <GetButton class="func-btn" :text="set" />
+            <GetButton class="func-btn" :text="t('messages.user.set_btn')" />
           </div>
         </div>
       </div>
@@ -41,17 +41,17 @@
           <img :src="usercenter_security_login_history" />
         </div>
         <div class="head-info">
-          <div class="head-info-title">Login history</div>
-          <div class="head-info-message">Your last 10 logins</div>
+          <div class="head-info-title">{{ $t('messages.user.login_history') }}</div>
+          <div class="head-info-message">{{ $t('messages.user.login_log') }}</div>
         </div>
       </div>
       <div class="login-history-table">
         <el-table :data="tableData">
-          <el-table-column prop="date" label="Time" width="450" />
-          <el-table-column prop="name" label="Location" width="148" />
+          <el-table-column prop="date" :label="t('messages.user.label_time')" width="450" />
+          <el-table-column prop="name" :label="t('messages.user.label_location')" width="148" />
           <el-table-column
             prop="address"
-            label="IP address"
+            :label="t('messages.user.label_ip')"
             width="190"
             align="right"
           />
@@ -66,8 +66,8 @@
               <img :src="usercenter_security_login_history" />
             </div>
             <div class="head-info">
-              <div class="head-info-title">Login history</div>
-              <div class="head-info-message">Your last 10 logins</div>
+              <div class="head-info-title">{{ $t('messages.user.login_history') }}</div>
+              <div class="head-info-message">{{ $t('messages.user.login_log') }}</div>
             </div>
           </div>
         </template>
@@ -76,10 +76,10 @@
           v-for="(item, index) in tableData"
           :key="index"
         >
-          <div class="history-date"><span>Time:</span> {{ item.date }}</div>
-          <div class="history-name"><span>Location:</span> {{ item.name }}</div>
+          <div class="history-date"><span>{{ $t('messages.user.label_time') }}:</span> {{ item.date }}</div>
+          <div class="history-name"><span>{{ $t('messages.user.label_location') }}:</span> {{ item.name }}</div>
           <div class="history-address">
-            <span>IP address:</span> {{ item.address }}
+            <span>{{ $t('messages.user.label_ip') }}:</span> {{ item.address }}
           </div>
           <el-divider style="margin-left: -30px; width: 200%"></el-divider>
         </div>
@@ -98,6 +98,8 @@ import usercenter_security_mobile from "../../../../assets/home/usercenter_secur
 import usercenter_security_email from "../../../../assets/home/usercenter_security_email.svg";
 import usercenter_security_2factor from "../../../../assets/home/usercenter_security_2factor.svg";
 import GetButton from "../../../../components/GetButton.vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -114,23 +116,23 @@ const set = ref("Set");
 const securityDate = reactive([
   {
     icon: usercenter_security_login,
-    title: "Login password",
-    msg: "Use this password for account login",
+    title: t('messages.user.login_password'),
+    msg: t('messages.user.login_msg'),
   },
   {
     icon: usercenter_security_mobile,
-    title: "Mobile verification",
-    msg: "Get SMS or voice codes for logins, withdrawals, password changes and settings confirmations",
+    title: t('messages.user.mobile_title'),
+    msg: t('messages.user.mobile_msg'),
   },
   {
     icon: usercenter_security_email,
-    title: "Email verification",
-    msg: "Use this email for login, password updates and withdrawal notifications",
+    title: t('messages.user.email_title'),
+    msg: t('messages.user.email_msg'),
   },
   {
     icon: usercenter_security_2factor,
-    title: "2-factor authentication (2FA)",
-    msg: "Manage mobile and authenticator verification for login and withdrawals",
+    title: t('messages.user.factor_title'),
+    msg: t('messages.user.factor_msg'),
   },
 ]);
 const tableData = [

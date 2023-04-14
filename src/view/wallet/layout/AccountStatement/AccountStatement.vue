@@ -1,34 +1,33 @@
 <template>
   <div class="account-statement">
     <div class="account-statement-header">
-      <div>The snapshot will be taken at 00:00 UTC+8 of the selected date.</div>
+      <div>{{ $t('messages.wallet_Account.title') }}</div>
       <div>
-        * You will be notified as soon as your statements is ready for download.
-        The statement will expire in one month from the time of export
+        {{ $t('messages.wallet_Account.tip') }}
       </div>
     </div>
     <div class="account-statement-search">
       <el-date-picker
         v-model="dateValue"
         type="dates"
-        placeholder="Select a data"
+        :placeholder="t('messages.wallet_Account.select_date')"
       />
-      <CustomButton title="Generate" class="search-btn"></CustomButton>
+      <CustomButton :title="t('messages.wallet_Account.generate')" class="search-btn"></CustomButton>
     </div>
     <div class="account-statement-table">
       <Table v-if="noFound">
         <template v-slot:columns>
-          <el-table-column label="As of" width="330" />
-          <el-table-column prop="Balance" label="Time of export" width="350" />
-          <el-table-column label="Status" width="320" />
-          <el-table-column label="Action" width="300" fixed="right" />
+          <el-table-column :label="t('messages.wallet_Account.label_as')" width="330" />
+          <el-table-column prop="Balance" :label="t('messages.wallet_Account.label_Time')" width="350" />
+          <el-table-column :label="t('messages.wallet_Account.label_Status')" width="320" />
+          <el-table-column :label="t('messages.wallet_Account.label_Action')" width="300" fixed="right" />
         </template>
       </Table>
       <div v-else>
         <div v-if="windowWidth > 820">
           <Table :sourceData="tableData">
             <template v-slot:columns>
-              <el-table-column label="As of">
+              <el-table-column :label="t('messages.wallet_Account.label_as')">
                 <template #default="scope">
                   <div class="table-crypto">
                     <div>
@@ -37,14 +36,14 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column prop="Balance" label="Time of export">
+              <el-table-column prop="Balance" :label="t('messages.wallet_Account.label_Time')">
                 <template #default="scope">
                   <div>
                     {{ scope.row.exporttime }}
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="Status">
+              <el-table-column :label="t('messages.wallet_Account.label_Status')">
                 <template #default="scope">
                   <div class="progress">
                     <span :class="getStatusClass(scope.row.status)">{{
@@ -53,7 +52,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="Action" fixed="right">
+              <el-table-column :label="t('messages.wallet_Account.label_Action')" fixed="right">
                 <template #default="scope">
                   <span v-if="scope.row.action === 'Download'">
                     <img :src="login_download" />
@@ -101,6 +100,10 @@ import { ref, reactive, onUnmounted, onMounted } from "vue";
 import Table from "../History/component/Table.vue";
 import CustomButton from "../History/component/CustomButton.vue";
 import login_download from "../../../../assets/home/login_download.svg";
+
+import { useI18n } from "vue-i18n";
+const {t} = useI18n();
+
 const noFound = ref(false);
 const dateValue = ref("");
 const tableData = ref([

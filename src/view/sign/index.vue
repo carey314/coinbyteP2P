@@ -3,7 +3,7 @@
     <Header />
     <div class="sign-box">
       <div class="sign">
-        <div class="sign-title">Create account</div>
+        <div class="sign-title">{{ $t('messages.sign.create') }}</div>
         <div class="sign-radio">
           <el-radio-group v-model="activeSign">
             <el-radio
@@ -27,7 +27,7 @@
           >
             <el-input
               v-model="number"
-              placeholder="Mobile number"
+              :placeholder="t('messages.sign.mobile')"
               class="input-with-select"
             >
               <template #prepend>
@@ -44,7 +44,7 @@
             </el-input>
           </div>
           <div v-if="activeSign === '2'" class="activeEmail">
-            <el-input v-model="email" placeholder="Email">
+            <el-input v-model="email" :placeholder="t('messages.sign.email')">
               <template #prefix>
                 <img :src="login_email" />
               </template>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="sign-password">
-          <el-input v-model="password" type="password" placeholder="Password">
+          <el-input v-model="password" type="password" :placeholder="t('messages.sign.password')">
             <template #prefix>
               <img :src="login_password" />
             </template>
@@ -63,45 +63,45 @@
           <div class="password-condition">
             <div class="condition clearfloat">
               <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^.{8,32}$/)}"></div>
-              <div class="satisfy">8-32 characters long</div>
+              <div class="satisfy">{{ $t('messages.sign.characters') }}</div>
             </div>
             <div class="condition clearfloat">
               <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[a-z]).*$/)}"></div>
-              <div class="satisfy">1 lowercase character</div>
+              <div class="satisfy">{{ $t('messages.sign.lowercase') }}</div>
             </div>
             <div class="condition clearfloat">
               <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[A-Z]).*$/)}"></div>
-              <div class="satisfy">1 uppercase character</div>
+              <div class="satisfy">{{ $t('messages.sign.uppercase') }}</div>
             </div>
             <div class="condition clearfloat">
               <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*\d).*$/)}"></div>
-              <div class="satisfy">1 number</div>
+              <div class="satisfy">{{ $t('messages.sign.number') }}</div>
             </div>
             <div class="condition clearfloat">
               <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[@$!%*?&]).*$/)}"></div>
-              <div class="satisfy">1 symbol</div>
+              <div class="satisfy">{{ $t('messages.sign.symbol') }}</div>
             </div>
           </div>
         </div>
         <div class="sign-referral">
           <el-input
             v-model="optional"
-            placeholder="Referral code (optional)"
+            :placeholder="t('messages.sign.referral')"
           />
         </div>
         <div class="sign-agree clearfloat">
           <div class="agree-frame"></div>
-          <div class="agreement">I agree to <a href="" style="color:#01C19A">Terms</a> and <a href="" style="color:#01C19A">policies </a></div>
+          <div class="agreement">{{ $t('messages.sign.agree') }} <a href="" style="color:#01C19A">{{ $t('messages.sign.Terms') }}</a> {{ $t('messages.sign.and') }} <a href="" style="color:#01C19A">{{ $t('messages.sign.policies') }} </a></div>
         </div>
         <div class="sign-button">
-          <GetButton :text="text" @click="handleToSignUp"/>
+          <GetButton :text="t('messages.sign.sign')" @click="handleToSignUp"/>
         </div>
         <div class="sign-login">
-          <div>Have an account  &nbsp;&nbsp;  <a href="/login" style="color:#01C19A;text-decoration: none">Log in</a></div>
+          <div>{{ $t('messages.sign.to_login') }} &nbsp; <a href="/login" style="color:#01C19A;text-decoration: none">{{ $t('messages.sign.login') }}</a></div>
         </div>
         <div class="sign-with">
           <el-divider>
-            <span>or sign up with</span>
+            <span>{{ $t('messages.sign.or') }}</span>
           </el-divider>
         </div>
         <div class="sign-other">
@@ -139,6 +139,10 @@ import {initializeSignUpWizard,signUp,choosePer} from '../../api/user';
 
 import { useFingerprintStore } from "../../store/fingerprint";
 import { ElMessage } from "element-plus";
+
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n();
+
 const fingerprintStore = useFingerprintStore();
 
 const activeSign = ref("1");
@@ -226,11 +230,11 @@ function resetWidth() {
 const options = ref([
   {
     value: "1",
-    label: "Mobile number",
+    label: t('messages.sign.mobile'),
   },
   {
     value: "2",
-    label: "Email",
+    label: t('messages.sign.email'),
   },
 ]);
 const handleToSignUp = () => {

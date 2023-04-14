@@ -3,8 +3,8 @@
     <div class="ninth-part" v-if="windowWidth > 768">
       <div class="ninth-part-left">
         <div class="first-level-title" style="line-height: 38px">
-          <div>Join Local users</div>
-          <span>And start earing!</span>
+          <div>{{ $t('messages.join.local') }}</div>
+          <span>{{ $t('messages.join.earn') }}</span>
         </div>
         <div class="enter-mailbox">
           <el-input
@@ -12,10 +12,10 @@
             class="email-input"
             size="small"
             style="height: 54px !important"
-            placeholder="Email address"
+            :placeholder="$t('messages.join.email')"
           >
             <template #append>
-              <GetButton type="success" :text="start" class="start-btn" />
+              <GetButton type="success" :text="$t('messages.join.start')" class="start-btn" />
             </template>
           </el-input>
         </div>
@@ -25,20 +25,20 @@
       </div>
     </div>
     <div class="ninth-part max1290" v-if="windowWidth <= 768">
-      <div class="ninth-part-left min-left">
+      <div class="ninth-part-left">
         <div class="first-level-title" style="line-height: 38px">
-          <div>Join Local users</div>
-          <span>And start earing!</span>
+          <div>{{ $t('messages.join.local') }}</div>
+          <span>{{ $t('messages.join.earn') }}</span>
         </div>
         <div class="enter-mailbox">
           <el-input
             v-model="input"
             class="email-input"
             size="small"
-            placeholder="Email address"
+            :placeholder="$t('messages.join.email')"
           >
             <template #append>
-              <GetButton type="success" :text="start" class="start-btn" />
+              <GetButton type="success" :text="$t('messages.join.start')" class="start-btn" />
             </template>
           </el-input>
         </div>
@@ -129,8 +129,16 @@ $main-color: #01c19a;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    @media (max-width:985px) {
+      width: 100%;
+    }
     .enter-mailbox {
-      margin-top: 10%;
+      margin-top: 42px;
+      @media (max-width: 985px) {
+        & {
+          margin-top: 30px;
+        }
+      }
       :deep(.el-input-group__append) {
         padding: 0 !important;
       }
@@ -152,7 +160,7 @@ $main-color: #01c19a;
       }
       :deep(.el-input__wrapper) {
           width: 300px;
-          @media (max-width: 985px) {
+          @media (max-width: 783px) {
             & {
               width: 180px;
             }
@@ -176,7 +184,7 @@ $main-color: #01c19a;
         border-radius: 0 4px 4px 0;
         @media (max-width: 768px) {
           & {
-            padding: 6px 8px !important;
+            padding: 6px 20px !important;
             box-shadow: none;
             font-size: 14px !important;
 

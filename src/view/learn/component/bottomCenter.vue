@@ -3,10 +3,10 @@
     <div class="center-box" v-if="windowWidth > 769">
       <div class="center-part max1290">
         <div class="title-box clearfloat">
-          <div class="title"><span>Blockchain</span> Glossary</div>
+          <div class="title"><span>{{ $t('messages.learnBottom.Blockchain') }}</span>{{ $t('messages.learnBottom.Glossary') }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnBottom.learn_more") }} &gt;</a
             >
           </div>
         </div>
@@ -30,10 +30,10 @@
       <!-- <el-card> -->
         <div class="center-part">
           <div class="title-box clearfloat">
-            <div class="title"><span>Beginners</span> Tutorial</div>
+            <div class="title"><span>{{ $t('messages.learnBottom.Blockchain') }}</span>{{ $t('messages.learnBottom.Glossary') }}</div>
             <div class="more">
               <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
             </div>
           </div>

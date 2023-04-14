@@ -4,8 +4,8 @@
     <div class="top-part part">
       <!-- <img :src="contact_img" /> -->
       <div class="top-part-box">
-        <div class="top-part-title">Contact us</div>
-        <div class="top-part-content">Get in touch with our team</div>
+        <div class="top-part-title">{{ $t('messages.contact.contact_contact') }}</div>
+        <div class="top-part-content">{{ $t('messages.contact.contact_enjoy') }}</div>
       </div>
       <div class="hand_left">
         <img src="../../assets/home/contactus_handleft.png" />
@@ -19,9 +19,9 @@
       <el-row>
         <el-col :span="12">
           <div class="part-box left-box">
-            <div class="part-title">Live chat</div>
+            <div class="part-title">{{ $t('messages.contact.contact_firstTitle') }}</div>
             <div class="part-content">
-              Our customer support is ready to help you 24/7
+              {{ $t('messages.contact.contact_firstContent') }}
             </div>
             <div class="part-img">
               <img :src="contactus_icon01" />
@@ -30,9 +30,9 @@
         </el-col>
         <el-col :span="12">
           <div class="part-box">
-            <div class="part-title">Company address</div>
+            <div class="part-title">{{ $t('messages.contact.contact_secondTitle') }}</div>
             <div class="part-content">
-              Suite 801, 50 Clarence Street, Sydney, NSW 2000 Australia
+              {{ $t('messages.contact.contact_secondContent') }}
             </div>
             <div class="part-img">
               <img :src="contactus_icon02" />
@@ -46,7 +46,7 @@
       <el-row>
         <el-col :span="12">
           <div class="part-box follow" style="border:none;">
-            <div class="part-title">Follow us on social media</div>
+            <div class="part-title">{{ $t('messages.contact.contact_thirdTitle') }}</div>
             <div class="bottom-part-icon">
               <img src="../../assets/home/downbar_icon01.svg" alt="" />
               <img src="../../assets/home/downbar_icon02.svg" alt="" />

@@ -4,9 +4,9 @@
     <div class="convert-content">
       <div class="top-part">
         <div class="top-part-box">
-          <div class="top-part-title">Convert</div>
+          <div class="top-part-title">{{ $t("messages.convert.convert") }}</div>
           <div class="top-part-content">
-            Top stablecoins 1:1 convert with 0 slippage
+            {{ $t("messages.convert.convert_tip") }}
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             <div v-if="activeSign === '1'" class="convert-crypto">
               <div class="radio-content">
                 <div class="pre-input">
-                  <div class="input-title">You pay</div>
+                  <div class="input-title">{{ $t("messages.convert.pay") }}</div>
                   <el-input
                     v-model="numberCrypto"
                     placeholder="pay"
@@ -99,10 +99,10 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left">
-                      Available: 0.01 BTC <span>Insufficient</span>
+                      {{ $t("messages.convert.tip_Available") }} : 0.01 BTC <span>Insufficient</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/" style="color: #01c19a">Deposit</a>
+                      <a href="/" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
                     </div>
                   </div>
                 </div>
@@ -111,7 +111,7 @@
                   <img :src="crypto_buy" />
                 </div>
                 <div class="pro-input">
-                  <div class="input-second-title">You Receive</div>
+                  <div class="input-second-title">{{ $t("messages.convert.receive") }}</div>
                   <el-input
                     v-model="countCrypto"
                     placeholder="pay"
@@ -178,7 +178,7 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left" style="display: flex">
-                      Estimated : 1 USDT ≈ 0.00004646 BTC
+                      {{ $t("messages.convert.tip_Estimated") }} : 1 USDT ≈ 0.00004646 BTC
                       <div style="margin-left: 8px">
                         <img :src="buy_info" />
                       </div>
@@ -193,7 +193,7 @@
             <div v-if="activeSign === '2'" class="convert-stable">
               <div class="radio-content">
                 <div class="pre-input">
-                  <div class="input-title">You pay</div>
+                  <div class="input-title">{{ $t("messages.convert.pay") }}</div>
                   <el-input
                     v-model="numberStable"
                     placeholder="pay"
@@ -269,11 +269,11 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left">
-                      Available: {{ availableAmount }} {{ secondSelect }}
+                      {{ $t("messages.convert.tip_Available") }} : {{ availableAmount }} {{ secondSelect }}
                       <span>Insufficient</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/" style="color: #01c19a">Deposit</a>
+                      <a href="/" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
                     </div>
                   </div>
                 </div>
@@ -283,7 +283,7 @@
                     <img :src="crypto_buy" />
                   </div>
                   <div class="pro-input">
-                    <div class="input-second-title">You Receive</div>
+                    <div class="input-second-title">{{ $t("messages.convert.receive") }}</div>
                     <el-input
                       v-model="countStable"
                       placeholder="pay"
@@ -381,7 +381,7 @@
                         <template
                           v-if="currentPair && currentPair.rate && thirdSelect"
                         >
-                          Estimated : 1 {{ secondSelect }} ≈
+                        {{ $t("messages.convert.tip_Estimated") }} : 1 {{ secondSelect }} ≈
                           {{
                             parseFloat(currentPair.rate).toFixed(
                               currentPair ? currentPair.minorUnit : 0
@@ -405,9 +405,9 @@
                 <template v-else>
                   <div style="margin-top: 20px">
                     <h4 style="font-size: 18px; line-height: 35px">
-                      Exchange is not available
+                      {{ $t("messages.convert.tip_notAvailable") }}
                     </h4>
-                    <p>Please, select another currency</p>
+                    <p> {{ $t("messages.convert.tip_select") }}</p>
                   </div>
                 </template>
               </div>
@@ -419,23 +419,23 @@
             <div class="service-icon">
               <img :src="convert_icon01" />
             </div>
-            <div class="service-msg">Zero fees</div>
+            <div class="service-msg">{{ $t("messages.convert.fees") }}</div>
           </div>
           <div class="service">
             <div class="service-icon">
               <img :src="convert_icon02" />
             </div>
-            <div class="service-msg">No slippage</div>
+            <div class="service-msg">{{ $t("messages.convert.slippage") }}</div>
           </div>
           <div class="service">
             <div class="service-icon">
               <img :src="convert_icon03" />
             </div>
-            <div class="service-msg">More pairs</div>
+            <div class="service-msg">{{ $t("messages.convert.pairs") }}</div>
           </div>
         </div>
         <div class="center-faq">
-          <faq></faq>
+          <convertFAQ></convertFAQ>
         </div>
       </div>
     </div>
@@ -452,7 +452,7 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
-import faq from "../../layout/FAQ/faq.vue";
+import convertFAQ from "../../layout/FAQ/convertFAQ.vue";
 
 //img
 import convert_icon01 from "../../assets/home/convert_icon01.png";
@@ -475,6 +475,8 @@ import type { StableCoinsToOptions, CurrentPair } from "../../models/convert";
 import _ from "lodash";
 
 import type { AssetsData } from "../../models/assets";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -501,11 +503,11 @@ const text = ref("Convert");
 const options = ref([
   {
     value: "1",
-    label: "Crypto",
+    label: t("messages.convert.convert_Crypto"),
   },
   {
     value: "2",
-    label: "Stablecoins",
+    label: t("messages.convert.convert_Stablecoins"),
   },
 ]);
 //get rates

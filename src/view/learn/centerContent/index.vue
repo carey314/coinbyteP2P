@@ -72,7 +72,7 @@
     </div>
     <div class="bottom-part">
       <div class="second-title">
-        Recommended
+        {{ $t('messages.centerContent.recommend') }}
       </div>
       <CenterContent style="margin-top:-20px"/>
     </div>

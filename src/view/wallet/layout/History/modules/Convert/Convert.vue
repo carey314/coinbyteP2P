@@ -1,30 +1,29 @@
 <template>
   <div class="convert">
     <div class="convert-filter">
-      <FilterSelect title="Time"></FilterSelect>
-      <FilterSelect title="Coin"></FilterSelect>
+      <FilterSelect :title="t('messages.wallet.tab_Time')"></FilterSelect>
+      <FilterSelect :title="t('messages.wallet.fiat_Coin')"></FilterSelect>
       <div>
-        <CustomButton title="Search"></CustomButton>
-        <CustomButton title="Reset" bgc="#F1F1F1" fc="#000"></CustomButton>
+        <CustomButton :title="t('messages.wallet.tab_search')"></CustomButton>
+        <CustomButton :title="t('messages.wallet.tab_reset')" bgc="#F1F1F1" fc="#000"></CustomButton>
       </div>
     </div>
     <Table :sourceData="tableData">
       <template v-slot:columns>
-        <el-table-column prop="date" label="Date" width="180" />
-        <el-table-column prop="wallet" label="Wallet" width="100" />
-        <el-table-column prop="pair" label="Pair" width="180" />
-        <el-table-column prop="from" label="From" />
-        <el-table-column prop="to" label="To" />
-        <el-table-column prop="price" label="Price">
+        <el-table-column prop="date" :label="t('messages.wallet.convert_Date')" width="180" />
+        <el-table-column prop="wallet" :label="t('messages.wallet.convert_Wallet')" width="100" />
+        <el-table-column prop="pair" :label="t('messages.wallet.trade_Pair')" width="180" />
+        <el-table-column prop="from" :label="t('messages.wallet.convert_From')"/>
+        <el-table-column prop="to" :label="t('messages.wallet.convert_to')" />
+        <el-table-column prop="price" :label="t('messages.wallet.trade_Price')">
           <template #default="scope">
             <pre>
-                            {{ scope.row.price }}
-                        </pre
-            >
+                {{ scope.row.price }}
+            </pre>
           </template>
         </el-table-column>
-        <el-table-column prop="date_upload" label="Date Upload" />
-        <el-table-column label="Status" fixed="right">
+        <el-table-column prop="date_upload" :label="t('messages.wallet.convert_upload')" />
+        <el-table-column :label="t('messages.wallet.tab_Status')" fixed="right">
           <template #default="scope">
             <div
               :style="{color : statusCollects[scope.row.status as statusSelect].color}"
@@ -53,6 +52,10 @@ import {
   statusSelect,
 } from "../../../../../../models/status";
 import { statusCollects } from "../../../../../../res/status";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const transactions = inject<Ref<Transaction[]>>("transactions");
 console.log(transactions?.value);
 

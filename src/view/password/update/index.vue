@@ -3,9 +3,9 @@
     <Header />
     <div class="password-box">
       <div class="password">
-        <div class="password-title">Update password</div>
+        <div class="password-title">{{ $t('messages.forgot_password.update') }}</div>
         <div class="sign-password">
-          <el-input v-model="password" type="password" placeholder="Password">
+          <el-input v-model="password" type="password" :placeholder="t('messages.forgot_password.input_password')">
             <template #prefix>
               <img :src="login_password" />
             </template>
@@ -16,34 +16,34 @@
           <div class="password-condition">
             <div class="condition clearfloat">
               <div class="satisfy-frame"></div>
-              <div class="satisfy">8-32 characters long</div>
+              <div class="satisfy">{{ $t('messages.forgot_password.characters') }}</div>
             </div>
             <div class="condition clearfloat">
               <div class="satisfy-frame"></div>
-              <div class="satisfy">1 lowercase character</div>
+              <div class="satisfy">{{ $t('messages.forgot_password.lowercase') }}</div>
             </div>
             <div class="condition clearfloat">
               <div class="satisfy-frame"></div>
-              <div class="satisfy">1 uppercase character</div>
+              <div class="satisfy">{{ $t('messages.forgot_password.uppercase') }}</div>
             </div>
             <div class="condition clearfloat">
               <div class="satisfy-frame"></div>
-              <div class="satisfy">1 number</div>
+              <div class="satisfy">{{ $t('messages.forgot_password.number') }}</div>
             </div>
             <div class="condition clearfloat">
               <div class="satisfy-frame"></div>
-              <div class="satisfy">1 symbol</div>
+              <div class="satisfy">{{ $t('messages.forgot_password.symbol') }}</div>
             </div>
           </div>
         </div>
         <div class="password-continue">
           <router-link to="updated">
-            <GetButton :text="textContinue" />
+            <GetButton :text="t('messages.forgot_password.update')" />
           </router-link>
         </div>
         <div class="return-login">
           <a href="/login" style="color: #01c19a; text-decoration: none"
-            >Return to login</a
+            >{{ $t('messages.forgot_password.return_login') }}</a
           >
         </div>
       </div>
@@ -63,7 +63,8 @@ import GetButton from "../../../components/GetButton.vue";
 import login_password from "../../../assets/home/login_password.svg";
 import login_eye_off from "../../../assets/home/login_eye_off.svg";
 import login_updated from "../../../assets/home/login_updated.svg";
-
+import { useI18n } from "vue-i18n";
+const {t} = useI18n()
 const password = ref("");
 const text = ref("Get Verification Code");
 const textContinue = ref("Update password");

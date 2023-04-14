@@ -6,14 +6,13 @@
         <el-row v-if="windowWidth > 768">
           <el-col :span="10">
             <div class="download-first-title">
-              Join our local telegram community to get the latest updates and
-              news
+              {{ $t('messages.download.download_join') }}
             </div>
             <div class="download-second-title">
-              Exchange in your pocket anywhere anytime
+              {{ $t('messages.download.download_exchange') }}
             </div>
             <div class="download-message">
-              Coinbyte mobile app is fully compatible with IOS and Android
+              {{ $t('messages.download.download_mobile') }}
             </div>
             <div class="download-link">
               <div class="link"><img :src="download_banner_app" /></div>
@@ -28,14 +27,13 @@
         <el-row v-if="windowWidth <= 768">
           <el-col :span="24">
             <div class="download-first-title">
-              Join our local telegram community to get the latest updates and
-              news
+              {{ $t('messages.download.download_join') }}
             </div>
             <div class="download-second-title">
-              Exchange in your pocket anywhere anytime
+              {{ $t('messages.download.download_exchange') }}
             </div>
             <div class="download-message">
-              Coinbyte mobile app is fully compatible with IOS and Android
+              {{ $t('messages.download.download_mobile') }}
             </div>
             <div class="download-link">
               <div class="link"><img :src="download_banner_app" /></div>

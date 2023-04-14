@@ -165,7 +165,7 @@ img {
 // get start按钮
 .start-btn {
   border: none;
-  padding: 1rem 1.7rem;
+  padding: 0px 30px;
   background: #01c19a;
   box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
   border-radius: 4px;
@@ -176,7 +176,7 @@ img {
   @media (max-width: 768px) {
     & {
       border: none;
-      padding: 8px 16px;
+      padding: 6px 28px;
       background: #01c19a;
       box-shadow: 4px 4px 10px #92929280;
       border-radius: 4px;
@@ -841,12 +841,7 @@ img {
 
         img {
           width: auto;
-          height: 17% !important;
-          @media (max-width: 786px) {
-            & {
-              height: 10vw !important;
-            }
-          }
+          height: 44px !important;
         }
 
         .card-title {

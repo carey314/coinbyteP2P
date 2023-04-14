@@ -3,66 +3,97 @@
     <div class="footer-links">
       <div class="footer-logoinfo">
         <img class="logo" :src="logo" alt="logo" />
-        <button class="labguage-chose">
-          <img :src="top_en" alt="" />
-          English/USD
-          <arrow-down style="width: 12px" />
-        </button>
+        <div class="lan-box">
+          <div class="lan-icon">
+            <img :src="top_en" alt="" />
+          </div>
+          <el-select
+            v-model="currentLanguage"
+            class="selectLan"
+            placeholder="Select"
+            size="large"
+            @change="changeLanguage"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </div>
       </div>
       <div class="link-list">
         <div class="part09-collapse">
           <el-collapse v-model="activeNamesFoot" @change="handleFootChange">
             <el-collapse-item name="1">
               <template #title>
-                <div class="el-collapse-item-title">About</div>
+                <div class="el-collapse-item-title">
+                  {{ $t("messages.footer.about") }}
+                </div>
               </template>
               <div class="list-item">
                 <a
                   href="/about"
                   style="color: rgb(144, 144, 144); text-decoration: none"
-                  >About us</a
+                  >{{ $t("messages.footer.about_us") }}</a
                 >
               </div>
               <div class="list-item">
                 <a
                   href="/contact"
                   style="color: rgb(144, 144, 144); text-decoration: none"
-                  >Contact us</a
+                  >{{ $t("messages.footer.contact_us") }}</a
                 >
               </div>
               <div class="list-item">
                 <a
                   href="/fees"
                   style="color: rgb(144, 144, 144); text-decoration: none"
-                  >Fees</a
+                  >{{ $t("messages.footer.fees") }}</a
                 >
               </div>
             </el-collapse-item>
             <el-collapse-item name="2">
               <template #title>
-                <div class="el-collapse-item-title">Legal and privacy</div>
+                <div class="el-collapse-item-title">
+                  {{ $t("messages.footer.legal") }}
+                </div>
               </template>
-              <div class="list-item">Terms of UsePrivacy</div>
-              <div class="list-item">Privacy Policy</div>
+              <div class="list-item">{{ $t("messages.footer.terms") }}</div>
+              <div class="list-item">{{ $t("messages.footer.privacy") }}</div>
               <div class="list-item" @click="dialogTableVisible = true">
-                KYC/AML
+                {{ $t("messages.footer.kyc_aml") }}
               </div>
             </el-collapse-item>
             <el-collapse-item name="3">
               <template #title>
-                <div class="el-collapse-item-title">Service</div>
+                <div class="el-collapse-item-title">
+                  {{ $t("messages.footer.service") }}
+                </div>
               </template>
-              <div class="list-item">Instant BUY/SELL</div>
-              <div class="list-item">Spot Trading</div>
-              <div class="list-item">Instant BUY/SELL</div>
+              <div class="list-item">
+                {{ $t("messages.footer.service_instant") }}
+              </div>
+              <div class="list-item">
+                {{ $t("messages.footer.service_spot_trading") }}
+              </div>
             </el-collapse-item>
             <el-collapse-item name="4">
               <template #title>
-                <div class="el-collapse-item-title">Support</div>
+                <div class="el-collapse-item-title">
+                  {{ $t("messages.footer.support") }}
+                </div>
               </template>
-              <div class="list-item">Support center</div>
-              <div class="list-item">Announcement</div>
-              <div class="list-item">Connect with Coinbyte</div>
+              <div class="list-item">
+                {{ $t("messages.footer.support_center") }}
+              </div>
+              <div class="list-item">
+                {{ $t("messages.footer.support_announcement") }}
+              </div>
+              <div class="list-item">
+                {{ $t("messages.footer.support_connect") }}
+              </div>
             </el-collapse-item>
           </el-collapse>
         </div>
@@ -274,10 +305,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, onMounted } from "vue";
-import { ref } from "vue";
+import { defineComponent, getCurrentInstance, ref, watch } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import { ArrowDown } from "@element-plus/icons-vue";
+import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 
 // img
 import logo from "../../assets/home/logo.svg";
@@ -345,7 +376,40 @@ export default defineComponent({
     };
 
     const mainColor = "#01C19A";
+
+    const currentLanguage = ref(getStoredLanguage() || "en-US");
+    const $this = getCurrentInstance()?.appContext.config
+      .globalProperties as any;
+
+    const options = [
+      {
+        value: "en-US",
+        label: "English/USD",
+      },
+      {
+        value: "zh-CN",
+        label: "简体中文",
+      },
+      // {
+      //   value: "zh-TW",
+      //   label: "繁体中文",
+      // },
+    ];
+    const changeLanguage = (selectedLanguage: string) => {
+      $this.$i18n.locale = selectedLanguage;
+      saveStoredLanguage(selectedLanguage);
+      location.reload();
+    };
+
+    watch(currentLanguage, (newLanguage) => {
+      changeLanguage(newLanguage);
+    });
     return {
+      currentLanguage,
+      $this,
+      options,
+      changeLanguage,
+      watch,
       dropdown1,
       showClick,
       showWin,
@@ -387,11 +451,38 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .no-underline {
   text-decoration: none;
 }
-
+.lan-box {
+  position: relative;
+  .lan-icon {
+    width: 20px;
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    z-index: 999;
+  }
+  .selectLan {
+    width: 152px;
+    :deep() {
+      .el-input--large .el-input__inner {
+        color: #e3e3e3;
+        margin-left: 20px;
+        font-size: 14px;
+      }
+      .el-input__wrapper {
+        height: 34px;
+        background-color: #1d262f;
+        box-shadow: 0 0 0 1px #5c6368;
+      }
+      .el-input__suffix-inner > :first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
 .part01-link {
   color: #004cff;
   font-size: 14px;

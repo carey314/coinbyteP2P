@@ -3,10 +3,10 @@
     <div class="center-box" v-if="windowWidth > 769">
       <div class="center-part max1290">
         <div class="title-box clearfloat">
-          <div class="title"><span>Beginners</span> Tutorial</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
         </div>
@@ -23,10 +23,10 @@
       </div>
       <div class="center-part max1290">
         <div class="title-box clearfloat">
-          <div class="title"><span>Trading</span> Ideas</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
         </div>
@@ -43,10 +43,10 @@
       </div>
       <div class="center-part max1290">
         <div class="title-box clearfloat">
-          <div class="title"><span>Industry</span> Analysis</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
         </div>
@@ -65,10 +65,10 @@
     <div class="center-box max1290" v-if="windowWidth <= 769">
       <div class="center-part">
         <div class="title-box clearfloat">
-          <div class="title"><span>Beginners</span> Tutorial</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-            >Learn More ></a
+            >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
           >
           </div>
         </div>
@@ -90,10 +90,10 @@
       </div>
       <div class="center-part">
         <div class="title-box clearfloat">
-          <div class="title"><span>Trading</span> Ideas</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
         </div>
@@ -115,10 +115,10 @@
       </div>
       <div class="center-part">
         <div class="title-box clearfloat">
-          <div class="title"><span>Industry</span> Analysis</div>
+          <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
             <a href="/learnList" style="color: #878787; text-decoration: none"
-              >Learn More ></a
+              >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
         </div>

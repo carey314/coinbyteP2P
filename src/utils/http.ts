@@ -1,3 +1,4 @@
+// 封装API请求
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useUserInfoStore } from '../store/user';
 import {storeToRefs} from 'pinia';
@@ -5,6 +6,7 @@ import { ElMessage } from 'element-plus';
 
 const userInfoStore = useUserInfoStore();
 const { token,refreshToken } = storeToRefs(userInfoStore);
+// 创建实例对象 
 const instance = axios.create({
   baseURL: '/api',
   timeout: 20000

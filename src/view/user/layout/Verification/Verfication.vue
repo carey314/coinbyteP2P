@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="verify-title">Let's verify your account</div>
+    <div class="verify-title">{{ $t("messages.user.verify_account") }}</div>
     <div class="verify-msg">
-      You can only create one type of account. Choose the option that suits your
-      needs.
+      {{ $t("messages.user.verify_tip") }}
     </div>
     <div class="verify-card">
       <el-row :gutter="20">
@@ -14,10 +13,9 @@
                 <img :src="usercenter_verification_person" />
               </div>
               <div class="info-text">
-                <div class="text-title">Individual account</div>
+                <div class="text-title">{{ $t("messages.user.verify_Individual") }}</div>
                 <div class="text-msg">
-                  Trade as an individual user and increase your limits by
-                  providing personal info
+                  {{ $t("messages.user.verify_Info") }}
                 </div>
               </div>
             </div>
@@ -25,7 +23,7 @@
 
             <div class="card-link">
               <router-link to="/" style="color: #01c19a; text-decoration: none">
-                <div class="link-text">Continue</div>
+                <div class="link-text">{{ $t("messages.user.continue") }}</div>
                 <el-icon><Right /></el-icon>
               </router-link>
             </div>
@@ -38,9 +36,9 @@
                 <img :src="usercenter_verification_cor" />
               </div>
               <div class="info-text">
-                <div class="text-title">Corporate account</div>
+                <div class="text-title">{{ $t("messages.user.verify_Corporate") }}</div>
                 <div class="text-msg">
-                  Trade as a company by providing your company info
+                  {{ $t("messages.user.verify_Company") }}
                 </div>
               </div>
             </div>
@@ -48,7 +46,7 @@
 
             <div class="card-link">
               <router-link to="/" style="color: #01c19a; text-decoration: none">
-                <div class="link-text">Continue</div>
+                <div class="link-text">{{ $t("messages.user.continue") }}</div>
                 <el-icon><Right /></el-icon>
               </router-link>
             </div>

@@ -2,30 +2,30 @@
   <div>
     <div class="eighth-part" v-if="windowWidth > 985">
       <div class="first-level-title" style="font-size: 36px; !important">
-        {{ $t("messages.home.eighth_title") }}
+        {{ $t("messages.convert.eighth_title") }}
       </div>
       <div class="eighth-part-collapse">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
-            :title="$t('messages.home.eighth_provide')"
+            :title="$t('messages.convert.eighth_provide')"
             name="1"
           >
             <div class="collapse-content">
-              {{ $t('messages.home.eighth_provide') }}
+              {{ $t('messages.convert.eighth_provide') }}
             </div>
           </el-collapse-item>
-          <el-collapse-item :title="$t('messages.home.eighth_based')" name="2">
-            <div class="collapse-content">{{ $t('messages.home.eighth_based') }}</div>
+          <el-collapse-item :title="$t('messages.convert.eighth_based')" name="2">
+            <div class="collapse-content">{{ $t('messages.convert.eighth_based') }}</div>
           </el-collapse-item>
-          <el-collapse-item :title="$t('messages.home.eighth_buy')" name="3">
-            <div class="collapse-content">{{ $t('messages.home.eighth_buy') }}</div>
+          <el-collapse-item :title="$t('messages.convert.eighth_buy')" name="3">
+            <div class="collapse-content">{{ $t('messages.convert.eighth_buy') }}</div>
           </el-collapse-item>
           <el-collapse-item
-          :title="$t('messages.home.eighth_account')"
+          :title="$t('messages.convert.eighth_account')"
             name="4"
           >
             <div class="collapse-content">
-              {{ $t('messages.home.eighth_account') }}
+              {{ $t('messages.convert.eighth_account') }}
             </div>
           </el-collapse-item>
         </el-collapse>
@@ -33,39 +33,39 @@
     </div>
 
     <div class="part08" v-if="windowWidth <= 985">
-      <div class="title-one">{{ $t("messages.home.eighth_faq") }}</div>
+      <div class="title-one">{{ $t("messages.convert.eighth_faq") }}</div>
       <div class="part08-collapse">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item name="1">
             <template #title>
               <div class="el-collapse-item-title">
-                {{ $t('messages.home.eighth_provide') }}
+                {{ $t('messages.convert.eighth_provide') }}
               </div>
             </template>
-            <div>{{ $t('messages.home.eighth_provide') }}</div>
+            <div>{{ $t('messages.convert.eighth_provide') }}</div>
           </el-collapse-item>
           <el-collapse-item name="2">
             <template #title>
-              <div class="el-collapse-item-title">{{ $t('messages.home.eighth_based') }}</div>
+              <div class="el-collapse-item-title">{{ $t('messages.convert.eighth_based') }}</div>
             </template>
-            <div>{{ $t('messages.home.eighth_based') }}</div>
+            <div>{{ $t('messages.convert.eighth_based') }}</div>
           </el-collapse-item>
           <el-collapse-item name="3">
             <template #title>
               <div class="el-collapse-item-title">
-                {{ $t('messages.home.eighth_buy') }}
+                {{ $t('messages.convert.eighth_buy') }}
               </div>
             </template>
-            <div>{{ $t('messages.home.eighth_buy') }}</div>
+            <div>{{ $t('messages.convert.eighth_buy') }}</div>
           </el-collapse-item>
           <el-collapse-item name="4">
             <template #title>
               <div class="el-collapse-item-title">
-                {{ $t('messages.home.eighth_account') }}
+                {{ $t('messages.convert.eighth_account') }}
               </div>
             </template>
             <div>
-              {{ $t('messages.home.eighth_account') }}
+              {{ $t('messages.convert.eighth_account') }}
             </div>
           </el-collapse-item>
         </el-collapse>

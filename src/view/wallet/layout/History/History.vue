@@ -8,12 +8,12 @@
           @tab-click="handleClick"
         >
           <el-tab-pane
-            label="Deposit/Withdraw History"
+            :label="t('messages.wallet.history_Deposit')"
             name="first"
           ></el-tab-pane>
-          <el-tab-pane label="Buy/Sell History" name="second"> </el-tab-pane>
-          <el-tab-pane label="Convert History" name="third"> </el-tab-pane>
-          <el-tab-pane label="Spot History" name="fourth"> </el-tab-pane>
+          <el-tab-pane :label="t('messages.wallet.history_Buy')" name="second"> </el-tab-pane>
+          <el-tab-pane :label="t('messages.wallet.history_Convert')" name="third"> </el-tab-pane>
+          <el-tab-pane :label="t('messages.wallet.history_Spot')" name="fourth"> </el-tab-pane>
         </el-tabs>
       </div>
     </el-scrollbar>
@@ -21,10 +21,10 @@
       <DepositWithdraw />
     </div>
     <div class="min-height" v-if="activeName === 'second'">
-      <Security />
+      <BuySell />
     </div>
     <div class="min-height" v-if="activeName === 'third'">
-      <BuySell></BuySell>
+      <Convert />
     </div>
     <div class="min-height" v-if="activeName === 'fourth'">
       <Spot></Spot>
@@ -39,6 +39,10 @@ import DepositWithdraw from "./modules/DepositWithdraw/DepositWithdraw.vue";
 import Spot from "./modules/Spot/Spot.vue";
 import BuySell from "./modules/BuySell/BuySell.vue";
 import Convert from "./modules/Convert/Convert.vue";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const activeName = ref("first");
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
