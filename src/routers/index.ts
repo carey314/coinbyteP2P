@@ -82,22 +82,73 @@ const routes: Array<RouteRecordRaw> = [
     name: 'convert',
     component: () => import('../view/convert/index.vue') 
   },
-  { 
+
+  {
     path: '/wallet',
     name: 'wallet',
     component: () => import('../view/wallet/index.vue') ,
-    // children : [
-    //   {
-    //     path : 'ooo',
-    //     name : 'ooo',
-    //     component : () => import('../view/wallet/layout/Trading/Trading.vue'),
-    //   }
-    // ]
-  },
-  { 
-    path: '/wallet/Trading',
-    name: 'Trading',
-    component: () => import('../view/wallet/layout/Trading/Trading.vue') ,
+    children: [
+      {
+        path: '',
+        name: 'walletOverview',
+        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
+        meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
+      },
+      {
+        path: 'trading',
+        name: 'walletTrading',
+        component: () => import('../view/wallet/layout/Trading/Trading.vue'),
+        meta: { tab: 'second' }
+      },
+      {
+        path: 'earning',
+        name: 'walletEarning',
+        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
+        meta: { tab: 'third' }
+      },
+      {
+        path: 'history',
+        name: 'walletHistory',
+        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
+        meta: { tab: 'fourth' },
+        children: [
+          {
+            path: '',
+            name: 'walletHistoryDepositWithdraw',
+            component: () => import('../view/wallet/layout/History/modules/DepositWithdraw/DepositWithdraw.vue'),
+            meta: { tabs: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
+
+          },
+          {
+            path: 'buy-sell',
+            name: 'walletHistoryBuySell',
+            component: () => import('../view/wallet/layout/History/modules/BuySell/BuySell.vue'),
+            meta: { tabs: 'second' }
+
+          },
+          {
+            path: 'convert', 
+            name: 'walletHistoryConvert',
+            component: () => import('../view/wallet/layout/History/modules/Convert/Convert.vue'),
+            meta: { tabs: 'third' }
+
+          },
+          {
+            path: 'spot',
+            name: 'walletHistorySpot',
+            component: () => import('../view/wallet/layout/History/modules/Spot/Spot.vue'),
+            meta: { tabs: 'fourth' },
+
+          }
+        ]
+      },
+      {
+        path: 'account',
+        name: 'walletAccount',
+        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
+        meta: { tab: 'fifth' }
+      }
+    ]
   },
   {
     path: '/test',

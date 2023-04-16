@@ -50,7 +50,7 @@
 
                 <el-dropdown-item class="crypto-item-box">
                   <router-link
-                    to="/"
+                    to="/wallet/trading"
                     style="display: flex; text-decoration: none"
                   >
                     <div class="crypto-item-icon">
@@ -68,7 +68,7 @@
                 </el-dropdown-item>
                 <el-dropdown-item class="crypto-item-box">
                   <router-link
-                    to="/"
+                    to="/wallet/"
                     style="display: flex; text-decoration: none"
                   >
                     <div class="crypto-item-icon">
@@ -146,6 +146,10 @@
                   style="width: 224px"
                 >
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    to="/wallet"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_wallet_myasset" />
@@ -154,8 +158,13 @@
                         {{ $t("messages.header.wallet_asset") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    to="/wallet/trading"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_wallet_deposit" />
@@ -164,8 +173,13 @@
                         {{ $t("messages.header.wallet_deposit") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    to="/wallet/trading"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_wallet_withdraw" />
@@ -174,8 +188,13 @@
                         {{ $t("messages.header.wallet_withdraw") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    to="/wallet/history"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_wallet_history" />
@@ -184,6 +203,7 @@
                         {{ $t("messages.header.wallet_history") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -209,6 +229,10 @@
                   style="width: 224px"
                 >
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    :to="{ name: 'walletHistorySpot' }"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_orders_spot" />
@@ -217,8 +241,13 @@
                         {{ $t("messages.header.orders_spot") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    :to="{ name: 'walletHistoryBuySell' }"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_orders_buysell" />
@@ -227,8 +256,13 @@
                         {{ $t("messages.header.orders_trade") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
+                    <router-link
+                    :to="{ name: 'walletHistoryConvert' }"
+                    style="display: flex; text-decoration: none"
+                  >
                     <div class="help-box">
                       <div class="help-icon">
                         <img :src="dropdown_orders_history" />
@@ -237,6 +271,7 @@
                         {{ $t("messages.header.orders_history") }}
                       </div>
                     </div>
+                    </router-link>
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </template>
@@ -624,9 +659,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed,watch } from "vue";
 import type { TabsPaneContext } from "element-plus";
-import { useRouter } from "vue-router";
+import { useRoute,useRouter } from "vue-router";
 import { CaretBottom } from "@element-plus/icons-vue";
 
 // img
@@ -672,6 +707,12 @@ import { getCurrentInstance } from "vue";
 import { useI18n } from "vue-i18n";
 import { saveStoredLanguage } from "../../languageStorage";
 
+// const activeName = ref<any>("first");
+
+// const route = useRoute()
+// watch(route, () => {
+//   activeName.value = route.meta.tab;
+// })
 //切换中英文
 // const changeZh = () => {
 //   const selectedLanguage = "zh";

@@ -4,44 +4,37 @@
     <div class="center-part">
       <el-scrollbar>
         <div class="scrollbar-flex-content">
-          <el-tabs
-            v-model="activeName"
-            class="demo-tabs"
-            @tab-click="handleClick"
-          >
+          
+          <el-tabs v-model="activeName" class="demo-tabs">
             <el-tab-pane
               :label="t('messages.wallet.Overview')"
               name="first"
               :lazy="true"
-            >
-            </el-tab-pane>
+            />
 
             <el-tab-pane
               :label="t('messages.wallet.Trading')"
               name="second"
               :lazy="true"
-            >
-            </el-tab-pane>
+            />
 
             <el-tab-pane
               :label="t('messages.wallet.Earning')"
               name="third"
               :lazy="true"
-            ></el-tab-pane>
+            />
 
             <el-tab-pane
               :label="t('messages.wallet.History')"
               name="fourth"
               :lazy="true"
-            >
-            </el-tab-pane>
+            />
 
             <el-tab-pane
               :label="t('messages.wallet.Account')"
               name="fifth"
               :lazy="true"
-            >
-            </el-tab-pane>
+            />
           </el-tabs>
         </div>
       </el-scrollbar>
@@ -66,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, provide } from "vue";
+import { ref, onMounted, onBeforeMount, provide, watch } from "vue";
 import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -79,14 +72,30 @@ import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
+import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const activeName = ref("first");
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
-};
+const route = useRoute();
+const router = useRouter();
+
+const activeName = ref<any>("first");
+
+watch(route, () => {
+  activeName.value = route.meta.tab;
+});
+
+onBeforeMount(() => {
+  const tab = route.meta.tab;
+
+  if (tab) {
+    activeName.value = tab;
+  }
+});
+// const handleClick = (tab: TabsPaneContext, event: Event) => {
+//   console.log(tab, event);
+// };
 // ==== 主页请求数据 共享状态
 interface AssetsData {
   currency: string;

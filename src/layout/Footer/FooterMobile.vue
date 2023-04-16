@@ -377,17 +377,17 @@ export default defineComponent({
 
     const mainColor = "#01C19A";
 
-    const currentLanguage = ref(getStoredLanguage() || "en-US");
+    const currentLanguage = ref(getStoredLanguage() || "English/USD");
     const $this = getCurrentInstance()?.appContext.config
       .globalProperties as any;
 
     const options = [
       {
-        value: "en-US",
+        value: "English/USD",
         label: "English/USD",
       },
       {
-        value: "zh-CN",
+        value: "简体中文",
         label: "简体中文",
       },
       // {

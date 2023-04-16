@@ -347,12 +347,13 @@ const showWinFn = () => {
   showWin.value = true;
 };
 //切换语言
-const currentLanguage = ref(getStoredLanguage() || "en-US");
+const en = ref("English/USD");
+const currentLanguage = ref(getStoredLanguage() || "English/USD");
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 
 const options = [
   {
-    value: "en-US",
+    value: "English/USD",
     label: "English/USD",
   },
   {
