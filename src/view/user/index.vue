@@ -7,7 +7,6 @@
           <el-tabs
             v-model="activeName"
             class="demo-tabs"
-            @tab-click="handleClick"
           >
             <el-tab-pane :label="t('messages.user.label_overview')" name="first" :lazy="true">
             </el-tab-pane>
@@ -39,7 +38,7 @@
         <BankAccount />
       </div>
       <div class="min-height" v-if="activeName === 'fifth'">
-        <!-- <AccountStatement /> -->
+        <AccountStatement />
       </div>
     </div>
 
@@ -49,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+import { ref, reactive, onBeforeMount, onMounted, computed, watch } from "vue";
 import { windowWidth } from "../../components/WindowWidth"
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -58,23 +57,32 @@ import OverView from "./layout/OverView/OverView.vue";
 import Security from "./layout/Security/Security.vue";
 import Verification from "./layout/Verification/Verfication.vue";
 import BankAccount from "./layout/BankAccount/BankAccount.vue";
-// import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
+import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
 
-// import no_found from "../../../assets/home/no_found.png";
+import { useRoute, useRouter } from "vue-router";
 
-// import BTC from "../../assets/home/part01_BTC.png";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const activeName = ref("first");
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
-};
+const activeName = ref<any>("first");
+  const route = useRoute();
 
+watch(route, () => {
+  activeName.value = route.meta.tab;
+});
+
+onBeforeMount(() => {
+  const tab = route.meta.tab;
+
+  if (tab) {
+    activeName.value = tab;
+  }
+});
+// con
 </script>
 
 <style scoped lang="scss">

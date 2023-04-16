@@ -150,15 +150,47 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  // {
+  //   path: '/test',
+  //   name: 'test',
+  //   component: () => import('../view/test/test1/test1.vue') 
+  // },
   {
-    path: '/test',
-    name: 'test',
-    component: () => import('../view/test/test1/test1.vue') 
-  },
-  { 
-    path: '/user',
-    name: 'user',
-    component: () => import('../view/user/index.vue') 
+    path: "/user",
+    name: "user",
+    component: () => import("../view/user/index.vue"),
+    children: [
+      {
+        path: "overview",
+        name: "overview",
+        component: () => import("../view/user/layout/OverView/OverView.vue"),
+        meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
+      },
+      {
+        path: "security",
+        name: "security",
+        component: () => import("../view/user/layout/Security/Security.vue"),
+        meta: { tab: 'second' }
+      },
+      {
+        path: "verification",
+        name: "verification",
+        component: () => import("../view/user/layout/Verification/Verfication.vue"),
+        meta: { tab: 'third' }
+      },
+      {
+        path: "bank-account",
+        name: "bank-account",
+        component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
+        meta: { tab: 'fourth' },
+      },
+      {
+        path: "account-statement",
+        name: "account-statement",
+        component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
+        meta: { tab: 'fifth' }
+      },
+    ],
   },
   { 
     path: '/trade',

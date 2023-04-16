@@ -319,7 +319,12 @@
                         <img :src="dropdown_usercenter_unverified" />
                       </div>
                       <div class="verify-text">
+                        <router-link
+                          :to="{ name: 'verification' }"
+                          style="color:rgb(239,129,51);text-decoration: none"
+                        >
                         {{ $t("messages.header.verify_unverified") }}
+                        </router-link>
                       </div>
                     </div>
                   </el-dropdown-item>
