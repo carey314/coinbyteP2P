@@ -1,19 +1,46 @@
 <template>
   <div class="convert">
     <div class="convert-filter">
-      <FilterSelect :title="t('messages.wallet.tab_Time')"></FilterSelect>
-      <FilterSelect :title="t('messages.wallet.fiat_Coin')"></FilterSelect>
-      <div>
-        <CustomButton :title="t('messages.wallet.tab_search')"></CustomButton>
-        <CustomButton :title="t('messages.wallet.tab_reset')" bgc="#F1F1F1" fc="#000"></CustomButton>
+      <div class="select-left">
+        <FilterSelect :title="t('messages.wallet.tab_Time')"></FilterSelect>
+        <FilterSelect :title="t('messages.wallet.fiat_Coin')"></FilterSelect>
+        <div>
+          <CustomButton :title="t('messages.wallet.tab_search')"></CustomButton>
+          <CustomButton
+            :title="t('messages.wallet.tab_reset')"
+            bgc="#F1F1F1"
+            fc="#000"
+          ></CustomButton>
+        </div>
+      </div>
+      <div class="search-right">
+        <div class="custom-link">
+          <img :src="download" alt="" />
+          <div>{{ $t("messages.wallet.tab_Download") }}</div>
+        </div>
       </div>
     </div>
     <Table :sourceData="tableData">
       <template v-slot:columns>
-        <el-table-column prop="date" :label="t('messages.wallet.convert_Date')" width="180" />
-        <el-table-column prop="wallet" :label="t('messages.wallet.convert_Wallet')" width="100" />
-        <el-table-column prop="pair" :label="t('messages.wallet.trade_Pair')" width="180" />
-        <el-table-column prop="from" :label="t('messages.wallet.convert_From')"/>
+        <el-table-column
+          prop="date"
+          :label="t('messages.wallet.convert_Date')"
+          width="180"
+        />
+        <el-table-column
+          prop="wallet"
+          :label="t('messages.wallet.convert_Wallet')"
+          width="100"
+        />
+        <el-table-column
+          prop="pair"
+          :label="t('messages.wallet.trade_Pair')"
+          width="180"
+        />
+        <el-table-column
+          prop="from"
+          :label="t('messages.wallet.convert_From')"
+        />
         <el-table-column prop="to" :label="t('messages.wallet.convert_to')" />
         <el-table-column prop="price" :label="t('messages.wallet.trade_Price')">
           <template #default="scope">
@@ -22,7 +49,10 @@
             </pre>
           </template>
         </el-table-column>
-        <el-table-column prop="date_upload" :label="t('messages.wallet.convert_upload')" />
+        <el-table-column
+          prop="date_upload"
+          :label="t('messages.wallet.convert_upload')"
+        />
         <el-table-column :label="t('messages.wallet.tab_Status')" fixed="right">
           <template #default="scope">
             <div
@@ -45,6 +75,7 @@ import CustomButton from "../../component/CustomButton.vue";
 import Table from "../../component/Table.vue";
 import type { Transaction } from "../../../../../../models/transactions";
 import type { CurrencyAmount } from "../../../../../../models/currencies";
+import download from "../../../../../../assets/wallet/wallet_download.png";
 import moment from "moment";
 import {
   Status,
@@ -104,6 +135,34 @@ const tableData = computed(() => {
     display: flex;
     gap: 20px;
     margin-bottom: 15px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+.select-left {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.search-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.custom-link {
+  height: 41px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  a {
+    font-size: 14px;
+    color: #01c19a;
+  }
+  img {
+    width: 19px;
+    height: 19px;
+    // background: #01C19A;
+    filter: invert(100%);
   }
 }
 </style>
