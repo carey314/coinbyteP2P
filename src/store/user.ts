@@ -37,7 +37,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
   const clearUserInfo = () => {
     userInfo.value = null;
   }
-
+const tokenExpired = ref(false)
   // const c = ref('en')
   // const cc = (value : string) => {
   //   c.value = value;
@@ -52,6 +52,7 @@ export const useUserInfoStore = defineStore('useInfo', () => {
     userInfo,
     updateUserInfo,
     clearUserInfo,
+    tokenExpired,
   };
 },{
     persist: {

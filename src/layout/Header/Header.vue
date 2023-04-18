@@ -147,62 +147,62 @@
                 >
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    to="/wallet"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_wallet_myasset" />
+                      to="/wallet"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_wallet_myasset" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.wallet_asset") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.wallet_asset") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    to="/wallet/trading"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_wallet_deposit" />
+                      to="/wallet/trading"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_wallet_deposit" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.wallet_deposit") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.wallet_deposit") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    to="/wallet/trading"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_wallet_withdraw" />
+                      to="/wallet/trading"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_wallet_withdraw" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.wallet_withdraw") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.wallet_withdraw") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    to="/wallet/history"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_wallet_history" />
+                      to="/wallet/history"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_wallet_history" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.wallet_history") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.wallet_history") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -230,47 +230,47 @@
                 >
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    :to="{ name: 'walletHistorySpot' }"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_orders_spot" />
+                      :to="{ name: 'walletHistorySpot' }"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_orders_spot" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.orders_spot") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.orders_spot") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    :to="{ name: 'walletHistoryBuySell' }"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_orders_buysell" />
+                      :to="{ name: 'walletHistoryBuySell' }"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_orders_buysell" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.orders_trade") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.orders_trade") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                    :to="{ name: 'walletHistoryConvert' }"
-                    style="display: flex; text-decoration: none"
-                  >
-                    <div class="help-box">
-                      <div class="help-icon">
-                        <img :src="dropdown_orders_history" />
+                      :to="{ name: 'walletHistoryConvert' }"
+                      style="display: flex; text-decoration: none"
+                    >
+                      <div class="help-box">
+                        <div class="help-icon">
+                          <img :src="dropdown_orders_history" />
+                        </div>
+                        <div class="help-title">
+                          {{ $t("messages.header.orders_history") }}
+                        </div>
                       </div>
-                      <div class="help-title">
-                        {{ $t("messages.header.orders_history") }}
-                      </div>
-                    </div>
                     </router-link>
                   </el-dropdown-item>
                 </el-dropdown-menu>
@@ -321,9 +321,8 @@
                       <div class="verify-text">
                         <router-link
                           :to="{ name: 'verification' }"
-                          style="color:rgb(239,129,51);text-decoration: none"
-                        >
-                        {{ $t("messages.header.verify_unverified") }}
+                          style="color: rgb(239, 129, 51);text-decoration: none;">
+                          {{ $t("messages.header.verify_unverified") }}
                         </router-link>
                       </div>
                     </div>
@@ -401,7 +400,7 @@
             >
           </li>
           <li>
-            <router-link to="/signup"
+            <router-link to="/signup" style="text-decoration: none"
               ><button class="btn-signup">
                 {{ $t("messages.header.signup") }}
               </button></router-link
@@ -581,6 +580,9 @@
                       <el-dropdown-item>
                         <div
                           class="alert-cont"
+                          :class="{
+                            selected: currentLanguage === 'English/USD',
+                          }"
                           @click.native="changeLanguage('English/USD')"
                         >
                           English
@@ -589,13 +591,23 @@
                       <el-dropdown-item>
                         <div
                           class="alert-cont"
+                          :class="{
+                            selected: currentLanguage === '简体中文',
+                          }"
                           @click.native="changeLanguage('简体中文')"
                         >
                           简体中文
                         </div>
                       </el-dropdown-item>
                       <el-dropdown-item>
-                        <div class="alert-cont">繁體中文</div>
+                        <div
+                          class="alert-cont"
+                          :class="{
+                            selected: currentLanguage === '繁體中文',
+                          }"
+                        >
+                          繁體中文
+                        </div>
                       </el-dropdown-item>
                     </div>
                   </el-col>
@@ -639,7 +651,7 @@
             >
           </div>
           <div class="button-group" v-else>
-            <router-link to="/signup"
+            <router-link to="/signup" style="text-decoration: none"
               ><el-button class="sign-button">Sign up</el-button></router-link
             >
             <router-link to="/login" style="text-decoration: none; color: #fff"
@@ -664,9 +676,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed,watch } from "vue";
+import { ref, computed, onUpdated, onMounted } from "vue";
 import type { TabsPaneContext } from "element-plus";
-import { useRoute,useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { CaretBottom } from "@element-plus/icons-vue";
 
 // img
@@ -712,12 +724,6 @@ import { getCurrentInstance } from "vue";
 import { useI18n } from "vue-i18n";
 import { saveStoredLanguage } from "../../languageStorage";
 
-// const activeName = ref<any>("first");
-
-// const route = useRoute()
-// watch(route, () => {
-//   activeName.value = route.meta.tab;
-// })
 //切换中英文
 // const changeZh = () => {
 //   const selectedLanguage = "zh";
@@ -731,14 +737,36 @@ import { saveStoredLanguage } from "../../languageStorage";
 //   saveStoredLanguage(selectedLanguage);
 //   location.reload();
 // };
+const isActive = ref(false);
+const currentLanguage = ref("English/USD");
+
 let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 
 const changeLanguage = (selectedLanguage: any) => {
+  isActive.value = true;
   $this.$i18n.locale = selectedLanguage;
   saveStoredLanguage(selectedLanguage);
-  location.reload();
-  // $this.currentLanguage = selectedLanguage;
+  currentLanguage.value = selectedLanguage;
+  // location.reload(); //会因为onMounted无限刷新
 };
+// 保存当前语言,高亮显示
+function getStoredLanguage(): string | null {
+  return localStorage.getItem("selectedLanguage");
+}
+
+onMounted(() => {
+  const storedLanguage = getStoredLanguage();
+  if (storedLanguage) {
+    changeLanguage(storedLanguage);
+  }
+});
+// 切换语言 刷新页面
+onUpdated(() => {
+if (isActive.value) {
+  isActive.value = false;
+  window.location.reload(); 
+}
+});
 // t
 const i18n = useI18n();
 const { t } = useI18n({});
@@ -843,7 +871,7 @@ const activeLanguage = ref<string>("first");
 //click to log out
 const handleToLogOut = async () => {
   const response = await logOut();
-  console.log(response);
+  // console.log(response);
   userInfoStore.clearToken();
   router.push("/login");
 };
@@ -953,6 +981,7 @@ $regular-font: HarmonyOS_Sans_Regular;
     gap: 3px;
     .align-icon {
       vertical-align: middle;
+      cursor: pointer;
     }
     :deep(.el-icon) {
       width: 12px;
@@ -1373,5 +1402,8 @@ $regular-font: HarmonyOS_Sans_Regular;
     line-height: 15px;
     cursor: pointer;
   }
+}
+.selected {
+  color: #01c19a !important;
 }
 </style>

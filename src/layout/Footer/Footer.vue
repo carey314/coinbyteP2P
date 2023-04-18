@@ -347,7 +347,6 @@ const showWinFn = () => {
   showWin.value = true;
 };
 //切换语言
-const en = ref("English/USD");
 const currentLanguage = ref(getStoredLanguage() || "English/USD");
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 

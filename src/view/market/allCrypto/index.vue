@@ -57,7 +57,7 @@
                   class="crypto-table"
                   :default-sort="{ prop: 'address', order: 'ascending' }"
                 >
-                  <el-table-column prop="date" label="Crypto" width="500px">
+                  <el-table-column prop="date" :label=" t('messages.market.table_Crypto')" width="500px">
                     <template #default="scope" class="cleatfloat">
                       <el-icon class="crypto-star clearfloat"
                         ><StarFilled
@@ -80,7 +80,7 @@
 
                   <el-table-column
                     prop="name"
-                    label="Price"
+                    :label=" t('messages.market.table_Price')"
                     align="right"
                     width="150"
                   >
@@ -90,7 +90,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="change"
-                    label="Change"
+                    :label=" t('messages.market.table_Change')"
                     sortable
                     width="150"
                     align="right"
@@ -116,7 +116,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="address"
-                    label="Market cap"
+                    :label="t('messages.market.table_cap')"
                     sortable
                     width="170"
                     align="right"
@@ -129,11 +129,10 @@
                   <el-table-column
                     align="right"
                     prop="address"
-                    label="Action"
                     width="300"
                     class="action"
                   >
-                    <template #header> Action </template>
+                    <template #header> {{ t('messages.market.table_Action') }} </template>
                     <template #default="scope">
                       <div class="action-btn">
                         <el-button text link>Buy</el-button>
@@ -182,7 +181,7 @@
                   class="crypto-table"
                   :default-sort="{ prop: 'address', order: 'ascending' }"
                 >
-                  <el-table-column prop="date" label="Crypto" width="260px">
+                  <el-table-column prop="date" :label="t('messages.market.table_Crypto')" width="260px">
                     <template #default="scope" class="cleatfloat">
                       <el-icon class="crypto-star clearfloat"
                         ><StarFilled
@@ -204,7 +203,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="name"
-                    label="Price"
+                    :label="t('messages.market.table_Price')"
                     width="240px"
                     sortable
                     align="right"
@@ -232,7 +231,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="change"
-                    label="Change"
+                    :label="t('messages.market.table_Change')"
                     width="150px"
                     sortable
                     align="right"
@@ -258,7 +257,7 @@
                   </el-table-column>
                   <el-table-column
                     prop="name"
-                    label="24h High / 24h Low"
+                    :label="t('messages.market.table_high')"
                     width="230px"
                     align="right"
                   >
@@ -272,7 +271,7 @@
                   </el-table-column>
                   <el-table-column
                     sortable
-                    label="24h Volume"
+                    :label="t('messages.market.table_volumn')"
                     width="140px"
                     align="right"
                   >
@@ -281,7 +280,8 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    label="Market cap"
+                  :label="t('messages.market.table_cap')"
+
                     width="140px"
                     sortable
                     align="right"
@@ -298,7 +298,7 @@
                     label="Action"
                     class="action"
                   >
-                    <template #header> Action </template>
+                    <template #header> {{ t('messages.market.table_Action') }} </template>
                     <template #default="scope">
                       <div class="action-btn">
                         <el-button text link>Trade</el-button>

@@ -376,6 +376,13 @@ export default {
       all_Launchpad: "Launchpad",
       all_Launchpool: "Launchpool",
       all_BNB: "BNB Chain",
+      table_Crypto: 'Crypto',
+      table_Price: 'Price',
+      table_Change: 'Change',
+      table_cap: 'Market cap',
+      table_Action: 'Action',
+      table_high: '24h High / 24h Low',
+      table_volumn: '24h Volume',
     },
     wallet: {
       Overview: "Overview",

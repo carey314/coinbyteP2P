@@ -344,7 +344,7 @@ export default {
       eighth_account: "如何将加密货币转换为 USDT?",
     },
     market: {
-      Favorites: "自选",
+      Favorites: "收藏",
       All: "所有加密货币",
       Spot: "现货市场",
       all_All: "全部",
@@ -362,6 +362,13 @@ export default {
       all_Launchpad: "Launchpad",
       all_Launchpool: "Launchpool",
       all_BNB: "BNB Chain",
+      table_Crypto: '货币',      
+      table_Price: '价格',
+      table_Change: '变化',
+      table_cap: '市值',
+      table_Action: '操作',
+      table_high: '24小时最高价/24小时最高价',
+      table_volumn: '24小时成交量',
     },
     wallet: {
       Overview: "概述",
