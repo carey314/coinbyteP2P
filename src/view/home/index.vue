@@ -111,7 +111,13 @@
         </el-row>
       </div>
     </div>
-
+    <!-- <div style="width: 100%; height: 500px; background: pink; font-size: 30px">
+      <div v-for="(coin, index) in coinMarketCapData.data" :key="index">
+        <div v-if="coinMarketCapData.data.length > 0">
+          {{ coinMarketCapData.data[3].name }}
+        </div>
+      </div>
+    </div> -->
     <div class="homeContainer">
       <div class="part first-part" v-if="windowWidth > 768">
         <el-tabs
@@ -126,7 +132,114 @@
             label="Popular assets"
             name="first"
           >
-            <el-table :data="tableData" style="width: 100%" ref="tableChart">
+            <el-table :data="coinMarketCapData.data.slice(0, 7)" style="width: 100%">
+              <el-table-column  label="Asset">
+                <template v-slot="{ row }" class="clearfloat">
+                      <el-icon class="crypto-star clearfloat"
+                        ><StarFilled
+                      /></el-icon>
+                      <div
+                        v-for="item in tableData.filter(i => i.tag === row.symbol)"
+                        :key="item.id"
+                        class="crypto-icon"
+                      >
+                        <img :src="item.img" alt="icon" />
+                      </div>
+                      <div class="table-tag">
+                        {{ row.symbol }}
+                        <div class="table-asset">
+                          {{ row.name }}
+                        </div>
+                      </div>
+                     
+                    </template>
+              </el-table-column>
+              <el-table-column
+                prop="quote.AUD.price"
+                label="Last price"
+                align="right"
+                width="150"
+              >
+                <template v-slot="{ row }">
+                  A${{ row.quote.AUD.price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column
+                prop="volume_change_24h"
+                label="Change(24H)"
+                sortable
+                width="200"
+                align="right"
+              >
+                <template v-slot="{ row }">
+                  <span
+                    v-if="row.quote.AUD.volume_change_24h > 0"
+                    style="color: #01c19a"
+                  >
+                    {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                  </span>
+                  <span
+                    v-else-if="row.quote.AUD.volume_change_24h < 0"
+                    style="color: #f15958"
+                  >
+                    {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Chart" align="center">
+                <template v-slot="{ row }">
+                   <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="setEchartRef"
+                    :rowId="row.id"
+                    :id="'echart' + row.id"
+                  >
+                  {{ row.volume_change_24h }}</div>
+                </template>
+              </el-table-column>
+
+              <!-- <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="setEchartRef"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column> -->
+              
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button
+                    class="table-buy"
+                    size="default"
+                    @click="handleBuy(scope.$index, scope.row)"
+                    plain
+                  >
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+
+          <el-tab-pane class="first-tab-pan" label="New assets" name="second">
+            <el-table :data="tableData.slice(0, 7)" style="width: 100%" ref="tableChart">
               <el-table-column prop="asset" label="Asset">
                 <template #default="scope">
                   <div style="display: flex; align-items: center">
@@ -149,7 +262,7 @@
               <el-table-column prop="change" label="Change(24H)" align="right">
                 <template #default="scope">
                   <span
-                    v-if="scope.row.change.indexOf('-') > -1"
+                    v-if="scope.row.change > 0"
                     style="color: #f15958"
                   >
                     <span class="table-change">
@@ -160,7 +273,7 @@
                     </el-icon>
                   </span>
                   <span
-                    v-if="scope.row.change.indexOf('+') > -1"
+                    v-if="scope.row.change < 0"
                     style="color: #01c19a"
                   >
                     <span class="table-change">
@@ -200,9 +313,6 @@
                 </template>
               </el-table-column>
             </el-table>
-          </el-tab-pane>
-          <el-tab-pane class="first-tab-pan" label="New assets" name="second"
-            >New assets
             <div style="height: 40px; width: 100px"></div>
           </el-tab-pane>
           <el-tab-pane class="first-tab-pan" label="Gains ranking" name="third"
@@ -657,11 +767,11 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
+import { getCoinMarketCap } from "../../api/market";
+
 //icon
 import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
-
 import type { TabsPaneContext } from "element-plus";
-
 // img
 import registered_icon from "../../assets/home/registered_icon.png";
 import banner_01 from "../../assets/home/banner_01.png";
@@ -692,18 +802,83 @@ import part06_icon06 from "../../assets/home/part06_icon06.png";
 
 import * as echarts from "echarts";
 
+
 import BTC from "../../assets/home/part01_BTC.png";
 import ETH from "../../assets/home/part01_ETH.png";
 import OKB from "../../assets/home/part01_OKB.png";
 import OKT from "../../assets/home/part01_OKT.png";
 import LTC from "../../assets/home/part01_LTC.png";
 import DOT from "../../assets/home/part01_DOT.png";
-import ADA from "../../assets/home/part01_ADA.png";
+import USDT from "../../assets/home/crypto_icon_usdt.png";
+import USDC from "../../assets/home/crypto_icon_usdc.png";
+import BNB from "../../assets/home/BNB.png";
+import XRP from "../../assets/home/xrp.png";
+import ADA from "../../assets/home/crypto_icon_ada.png";
+import DOGE from "../../assets/home/dogecoin.png";
+import MATIC from "../../assets/home/polygon.png";
+import SOL from "../../assets/home/solana.png";
+
 
 import { getProfile } from "../../api/user";
 import { useUserInfoStore } from "../../store/user";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+
+// 货币类型\
+interface Coin {
+  id: number;
+  name: string;
+  symbol: string;
+  slug: string;
+  num_market_pairs: number;
+  date_added: string;
+  tags: string[];
+  max_supply: number | null;
+  circulating_supply: number;
+  total_supply: number;
+  infinite_supply: boolean;
+  platform: {
+    id: number;
+    name: string;
+    symbol: string;
+    slug: string;
+    token_address: string;
+  } | null;
+  cmc_rank: number;
+  self_reported_circulating_supply: number | null;
+  self_reported_market_cap: number | null;
+  tvl_ratio: number | null;
+  last_updated: string;
+  quote: {
+    AUD: {
+      price: number;
+      volume_24h: number;
+      volume_change_24h: number;
+      percent_change_1h: number;
+      percent_change_24h: number;
+      percent_change_7d: number;
+      percent_change_30d: number;
+      percent_change_60d: number;
+      percent_change_90d: number;
+      market_cap: number;
+      market_cap_dominance: number;
+      fully_diluted_market_cap: number;
+      tvl: number | null;
+      last_updated: string;
+    };
+  };
+}
+
+const coinMarketCapData = ref<any>({ data: [] });
+
+onMounted(async () => {
+  try {
+    const response = await getCoinMarketCap();
+    coinMarketCapData.value = JSON.parse(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -715,11 +890,6 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
-
-const text = ref("Get started, it's free");
-const start = ref("Get started");
-const trading = ref("Get trading in minutes ");
-const trade = ref("Trade");
 
 const dialogTableVisible = ref(false);
 
@@ -751,7 +921,6 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   // console.log(tab, event);
 };
 
-// table
 const tableData = [
   {
     id: 1,
@@ -760,8 +929,8 @@ const tableData = [
     asset: "Bitcoin",
     price: "$22,678.00",
     change: "-2.58%",
-    type: "down",
-    data: [30, 20, 30, 10, 0, 10],
+    type: "up",
+    data: [30, 20, 30, 10, 50, 60],
   },
   {
     id: 2,
@@ -771,32 +940,32 @@ const tableData = [
     price: "$1,570",
     change: "+0.25%",
     type: "up",
-    data: [10, 0, 30, 50, 40, 70],
+    data: [30, 20, 30, 10, 50, 60],
   },
   {
     id: 3,
-    img: OKB,
-    tag: "OKB",
+    img: USDT,
+    tag: "USDT",
     asset: "OKB",
     price: "$15.44",
     change: "+0.88%",
     type: "up",
-    data: [40, 20, 30],
+    data: [30, 20, 30, 10, 50, 60],
   },
   {
     id: 4,
-    img: OKT,
-    tag: "OKT",
+    img: BNB,
+    tag: "BNB",
     asset: "OKC Token",
     price: "$15.56",
     change: "-0.02%",
-    type: "down",
-    data: [10, 20, 70],
+    type: "up",
+    data: [30, 20, 30, 10, 50, 60],
   },
   {
     id: 5,
-    img: LTC,
-    tag: "LTC",
+    img: USDC,
+    tag: "USDC",
     asset: "Litecoin",
     price: "$56.57",
     change: "-2.58%",
@@ -805,8 +974,8 @@ const tableData = [
   },
   {
     id: 6,
-    img: DOT,
-    tag: "DOT",
+    img: XRP,
+    tag: "XRP",
     asset: "Polkadot",
     price: "$7.40",
     change: "-1.67%",
@@ -822,6 +991,24 @@ const tableData = [
     change: "+0.20%",
     type: "up",
     data: [10, 0, 30, 0, 50, 10, 90],
+  },
+  {
+    id: 8,
+    img: DOGE,
+    tag: "DOGE",
+    asset: "Cardano",
+  },
+  {
+    id: 9,
+    img: MATIC,
+    tag: "MATIC",
+    asset: "Cardano",
+  },
+  {
+    id: 10,
+    img: SOL,
+    tag: "SOL",
+    asset: "Cardano",
   },
 ];
 const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
@@ -1047,4 +1234,5 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "./index.scss";
+
 </style>

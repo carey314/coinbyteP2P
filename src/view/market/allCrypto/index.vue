@@ -21,10 +21,19 @@
           >
             <el-tab-pane name="first">
               <template #label>
-                <span class="custom-tabs-label">
-                  <el-icon><StarFilled /></el-icon>
-                  <span>{{ $t('messages.market.Favorites') }}</span>
-                </span>
+                <router-link
+                  to="/market-favorite"
+                  style="
+                    text-decoration: none;
+                    color: #9b9b9b;
+                    font-weight: 500;
+                  "
+                >
+                  <span class="custom-tabs-label">
+                    <el-icon><StarFilled /></el-icon>
+                    <span>{{ $t("messages.market.Favorites") }}</span>
+                  </span>
+                </router-link>
               </template>
             </el-tab-pane>
 
@@ -51,88 +60,95 @@
                 </el-scrollbar>
               </el-radio-group>
               <div>
+                <!-- // Symbol Name -->
+                <!-- Price -->
+                <!-- volume_change_24h -->
+                <!-- Market Cap -->
                 <el-table
-                  :data="filterTableData"
+                  :data="coinMarketCapData.data"
                   :table-layout="tableLayout"
                   class="crypto-table"
                   :default-sort="{ prop: 'address', order: 'ascending' }"
                 >
-                  <el-table-column prop="date" :label=" t('messages.market.table_Crypto')" width="500px">
-                    <template #default="scope" class="cleatfloat">
+                  <el-table-column
+                    prop="quote.AUD.price"
+                    :label="t('messages.market.table_Crypto')"
+                    width="500px"
+                  >
+                    <template v-slot="{ row }" class="clearfloat">
                       <el-icon class="crypto-star clearfloat"
                         ><StarFilled
                       /></el-icon>
-
-                      <div class="crypto-icon clearfloat">
-                        <img
-                          class="table-img"
-                          style="width: 2rem"
-                          :src="scope.row.img"
-                          alt=""
-                        />
-                        <span class="table-tag">{{ scope.row.tag }}</span>
-                        <span class="table-asset" style="color: #9b9b9b">{{
-                          scope.row.asset
-                        }}</span>
-                      </div>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-                    prop="name"
-                    :label=" t('messages.market.table_Price')"
-                    align="right"
-                    width="150"
-                  >
-                    <template #default="scope">
-                      <span class="table-price">{{ scope.row.price }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="change"
-                    :label=" t('messages.market.table_Change')"
-                    sortable
-                    width="150"
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span
-                        v-if="scope.row.change.indexOf('-') > -1"
-                        style="color: #f15958"
+                      <div
+                        v-for="item in tableData.filter(i => i.tag === row.symbol)"
+                        :key="item.id"
+                        class="crypto-icon"
                       >
-                        <span class="table-change">
-                          {{ scope.row.change }}
-                        </span>
-                      </span>
+                        <img :src="item.img" alt="icon" />
+                      </div>
+                      <div class="table-tag">
+                        {{ row.symbol }}
+                        <div class="table-asset">
+                          {{ row.name }}
+                        </div>
+                      </div>
+                     
+                    </template>
+                  </el-table-column>
+
+                  <el-table-column
+                    prop="quote.AUD.price"
+                    :label="t('messages.market.table_Price')"
+                    align="right"
+                    width="150"
+                  >
+                    <template v-slot="{ row }">
+                      A${{ row.quote.AUD.price.toFixed(2) }}
+                    </template>
+                  </el-table-column>
+                  <el-table-column
+                    prop="volume_change_24h"
+                    :label="t('messages.market.table_Change')"
+                    sortable
+                    width="200"
+                    align="right"
+                  >
+                    <template v-slot="{ row }">
                       <span
-                        v-if="scope.row.change.indexOf('+') > -1"
+                        v-if="row.quote.AUD.volume_change_24h > 0"
                         style="color: #01c19a"
                       >
-                        <span class="table-change">
-                          {{ scope.row.change }}
-                        </span>
+                        {{ row.quote.AUD.volume_change_24h }}%
+                      </span>
+                      <span
+                        v-else-if="row.quote.AUD.volume_change_24h < 0"
+                        style="color: #f15958"
+                      >
+                        {{ row.quote.AUD.volume_change_24h }}%
                       </span>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="address"
+                    prop="quote.AUD.market_cap"
                     :label="t('messages.market.table_cap')"
                     sortable
-                    width="170"
+                    width="250"
                     align="right"
                   >
-                    <template #default="scope">
-                      <span class="table-price">{{ scope.row.cap }}</span>
+                    <template v-slot="{ row }">
+                      ${{ row.quote.AUD.market_cap.toFixed(2) }}B
                     </template>
                   </el-table-column>
 
                   <el-table-column
+                    fixed="right"
                     align="right"
-                    prop="address"
-                    width="300"
+                    width="200"
                     class="action"
                   >
-                    <template #header> {{ t('messages.market.table_Action') }} </template>
+                    <template #header>
+                      {{ t("messages.market.table_Action") }}
+                    </template>
                     <template #default="scope">
                       <div class="action-btn">
                         <el-button text link>Buy</el-button>
@@ -160,167 +176,21 @@
               </div>
             </el-tab-pane>
 
-            <el-tab-pane :label="t('messages.market.Spot')" name="third">
-              <el-radio-group v-model="radioValue">
-                <el-scrollbar>
-                  <div class="scrollbar-flex-content">
-                    <el-radio-button label="All" />
-                    <el-radio-button label="USDT" />
-                    <el-radio-button label="BNB" />
-                    <el-radio-button label="BTC" />
-                    <el-radio-button label="ALTS" />
-                    <el-radio-button label="FIAT(All)" />
-                    <el-radio-button label="ETF" />
-                  </div>
-                </el-scrollbar>
-              </el-radio-group>
-              <div>
-                <el-table
-                  :data="filterSpotData"
-                  :table-layout="tableLayout"
-                  class="crypto-table"
-                  :default-sort="{ prop: 'address', order: 'ascending' }"
+            <el-tab-pane name="third">
+              <template #label>
+                <router-link
+                  to="/market-spot"
+                  style="
+                    text-decoration: none;
+                    color: #9b9b9b;
+                    font-weight: 500;
+                  "
                 >
-                  <el-table-column prop="date" :label="t('messages.market.table_Crypto')" width="260px">
-                    <template #default="scope" class="cleatfloat">
-                      <el-icon class="crypto-star clearfloat"
-                        ><StarFilled
-                      /></el-icon>
-
-                      <div class="crypto-icon clearfloat">
-                        <img
-                          class="table-img"
-                          style="width: 2rem"
-                          :src="scope.row.img"
-                          alt=""
-                        />
-                        <span class="table-tag">{{ scope.row.tag }}</span>
-                        <span class="table-asset" style="color: #9b9b9b">{{
-                          scope.row.asset
-                        }}</span>
-                      </div>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    :label="t('messages.market.table_Price')"
-                    width="240px"
-                    sortable
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span
-                        class="table-price"
-                        style="margin-right: 4px; color: #01c19a"
-                        >{{ scope.row.upPirce }}</span
-                      >
-                      <span
-                        class="table-price"
-                        style="margin-right: 4px; color: #f15958"
-                        >{{ scope.row.downPirce }}</span
-                      >
-                      <span
-                        class="table-price"
-                        style="margin-right: 4px; color: #000"
-                        >{{ scope.row.changePrice }}</span
-                      >
-                      <span class="table-price" style="color: #878787">{{
-                        scope.row.price
-                      }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="change"
-                    :label="t('messages.market.table_Change')"
-                    width="150px"
-                    sortable
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span
-                        v-if="scope.row.change.indexOf('-') > -1"
-                        style="color: #f15958"
-                      >
-                        <span class="table-change">
-                          {{ scope.row.change }}
-                        </span>
-                      </span>
-                      <span
-                        v-if="scope.row.change.indexOf('+') > -1"
-                        style="color: #01c19a"
-                      >
-                        <span class="table-change">
-                          {{ scope.row.change }}
-                        </span>
-                      </span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    prop="name"
-                    :label="t('messages.market.table_high')"
-                    width="230px"
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span
-                        class="table-price"
-                        style="margin-right: 4px; color: #000"
-                        >{{ scope.row.changeCount }}</span
-                      >
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                    sortable
-                    :label="t('messages.market.table_volumn')"
-                    width="140px"
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span class="table-price">{{ scope.row.volume }}</span>
-                    </template>
-                  </el-table-column>
-                  <el-table-column
-                  :label="t('messages.market.table_cap')"
-
-                    width="140px"
-                    sortable
-                    align="right"
-                  >
-                    <template #default="scope">
-                      <span class="table-price">{{ scope.row.cap }}</span>
-                    </template>
-                  </el-table-column>
-
-                  <el-table-column
-                    align="right"
-                    fixed="right"
-                    prop="address"
-                    label="Action"
-                    class="action"
-                  >
-                    <template #header> {{ t('messages.market.table_Action') }} </template>
-                    <template #default="scope">
-                      <div class="action-btn">
-                        <el-button text link>Trade</el-button>
-                      </div>
-                    </template>
-                  </el-table-column>
-
-                  <template #empty>
-                    <el-empty :image="no_found" description="No Results Found">
-                    </el-empty>
-                  </template>
-                </el-table>
-                <div class="example-pagination-block min-pagination">
-                  <el-pagination
-                    background
-                    :hide-on-single-page="filterSpotData.length < 10"
-                    layout="prev, pager, next"
-                    :page-size="3"
-                    :total="filterSpotData.length"
-                  />
-                </div>
-              </div>
+                  <span class="custom-tabs-label">
+                    <span>{{ $t("messages.market.Spot") }}</span>
+                  </span>
+                </router-link>
+              </template>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -338,6 +208,7 @@ import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
+import { getCoinMarketCap } from "../../../api/market";
 
 import type { TabsPaneContext } from "element-plus";
 import { CaretBottom, CaretTop } from "@element-plus/icons";
@@ -350,10 +221,17 @@ import OKB from "../../../assets/home/part01_OKB.png";
 import OKT from "../../../assets/home/part01_OKT.png";
 import LTC from "../../../assets/home/part01_LTC.png";
 import DOT from "../../../assets/home/part01_DOT.png";
-import ADA from "../../../assets/home/part01_ADA.png";
+import USDT from "../../../assets/home/crypto_icon_usdt.png";
+import USDC from "../../../assets/home/crypto_icon_usdc.png";
+import BNB from "../../../assets/home/BNB.png";
+import XRP from "../../../assets/home/xrp.png";
+import ADA from "../../../assets/home/crypto_icon_ada.png";
+import DOGE from "../../../assets/home/dogecoin.png";
+import MATIC from "../../../assets/home/polygon.png";
+import SOL from "../../../assets/home/solana.png";
 
-import { useI18n } from 'vue-i18n';
-const {t} = useI18n();
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const activeName = ref("second");
 const radioValue = ref("All");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -363,266 +241,122 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 const search = ref("");
 
 const tableLayout = ref("fixed");
-// const sortMethod = (a : any,b : any) => {
-//   console.log(a,b);
 
-//   return a.cap - b.cap;
-// }
+interface Coin {
+  id: number;
+  name: string;
+  symbol: string;
+  slug: string;
+  num_market_pairs: number;
+  date_added: string;
+  tags: string[];
+  max_supply: number | null;
+  circulating_supply: number;
+  total_supply: number;
+  infinite_supply: boolean;
+  platform: {
+    id: number;
+    name: string;
+    symbol: string;
+    slug: string;
+    token_address: string;
+  } | null;
+  cmc_rank: number;
+  self_reported_circulating_supply: number | null;
+  self_reported_market_cap: number | null;
+  tvl_ratio: number | null;
+  last_updated: string;
+  quote: {
+    AUD: {
+      price: number;
+      volume_24h: number;
+      volume_change_24h: number;
+      percent_change_1h: number;
+      percent_change_24h: number;
+      percent_change_7d: number;
+      percent_change_30d: number;
+      percent_change_60d: number;
+      percent_change_90d: number;
+      market_cap: number;
+      market_cap_dominance: number;
+      fully_diluted_market_cap: number;
+      tvl: number | null;
+      last_updated: string;
+    };
+  };
+}
+
+const coinMarketCapData = ref<any>({ data: [] });
+
+onMounted(async () => {
+  try {
+    const response = await getCoinMarketCap();
+    coinMarketCapData.value = JSON.parse(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 const tableData = [
   {
     id: 1,
-    isFavorites: true,
     img: BTC,
     tag: "BTC",
     asset: "Bitcoin",
-    price: "A$24087.40",
-    change: "+4.33%",
-    cap: "$460.00B",
-    type: "down",
-    data: [30, 20, 30, 10, 0, 10],
   },
   {
     id: 2,
     img: ETH,
     tag: "ETH",
     asset: "Ethereum",
-    price: "A$1807.10",
-    change: "+6.37%",
-    cap: "$216.69B",
-    type: "up",
-    data: [10, 0, 30, 50, 40, 70],
   },
   {
     id: 3,
-    img: OKB,
-    tag: "OKB",
-    asset: "OKB",
-    price: "A$1.01",
-    change: "-0.02%",
-    cap: "$65.89B",
-    type: "up",
-    data: [40, 20, 30],
+    img: USDT,
+    tag: "USDT",
+    asset: "USDT",
   },
   {
     id: 4,
-    img: OKT,
-    tag: "OKT",
+    img: BNB,
+    tag: "BNB",
     asset: "OKC Token",
-    price: "A$1.00",
-    cap: "$54.76B",
-    change: "-0.02%",
-    type: "down",
-    data: [10, 20, 70],
   },
   {
     id: 5,
-    img: LTC,
-    tag: "LTC",
+    img: USDC,
+    tag: "USDC",
     asset: "Litecoin",
-    price: "$56.57",
-    cap: "$18.50B",
-    change: "-2.58%",
-    type: "down",
-    data: [20, 20, 60],
   },
   {
     id: 6,
-    img: DOT,
-    tag: "DOT",
+    img: XRP,
+    tag: "XRP",
     asset: "Polkadot",
-    price: "$7.40",
-    cap: "$18.50B",
-    change: "-1.67%",
-    type: "down",
-    data: [10, 20, 30],
   },
   {
     id: 7,
     img: ADA,
     tag: "ADA",
     asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
   },
   {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
+    id: 8,
+    img: DOGE,
+    tag: "DOGE",
     asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
   },
   {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
+    id: 9,
+    img: MATIC,
+    tag: "MATIC",
     asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
   },
   {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
+    id: 10,
+    img: SOL,
+    tag: "SOL",
     asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "Metaverse",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "Metaverse",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "Metaverse",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "Metaverse",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "Metaverse",
-    asset: "Cardano",
-    price: "$0.49",
-    cap: "$18.50B",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
   },
 ];
 
@@ -979,7 +713,8 @@ function resetWidth() {
 // }
 .center-part {
   max-width: 1290px;
-  min-height: 985px;
+  min-height: calc(100vh - 394px);
+  // align-items: center;
   margin: auto;
   padding: 21px 0 141px 0;
   position: relative;
@@ -990,7 +725,7 @@ function resetWidth() {
 }
 .search-input {
   position: absolute;
-  right: 0;
+  right: 0px;
   top: 20px;
   width: 231px;
   height: 37px;
@@ -1119,16 +854,26 @@ function resetWidth() {
 
 .crypto-icon {
   display: flex;
-  align-items: center;
-  margin-left: 35px;
+  float: left;
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
 .table-tag {
+  display: flex;
+  float: left;
   margin-left: 11px;
+  color: #020202;
 }
 .table-asset {
   margin-left: 11px;
   color: #9b9b9b;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .action {

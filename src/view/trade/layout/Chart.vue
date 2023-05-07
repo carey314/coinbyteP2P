@@ -1,121 +1,277 @@
 <template>
-  <div id="myChart">
-
+<div class="chart-box">
+  <div class="coin-name">
+    <div>
+      <img :src="BTC" />
+    </div>
+    <div class="coin-number" v-if="coinMarketCapData.data.length > 0">
+      A$ {{ coinMarketCapData.data[0].quote.AUD.price.toFixed(2) }}
+    </div>
   </div>
+  <div class="coin-time">
+    <el-tabs v-model="activeName" class="demo-tabs">
+      <el-tab-pane label="24H" name="first">
+        <div class="chart-container">
+          <LWChart
+            :type="chartType"
+            :data="data"
+            :autosize="true"  
+            :chart-options="chartOptions"
+            :series-options="seriesOptions"
+            ref="lwChart"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="1W" name="second">
+        <div class="chart-container">
+          <LWChart
+            :type="chartType"
+            :data="data"
+            :autosize="true"
+            :chart-options="chartOptions"
+            :series-options="seriesOptions"
+            ref="lwChart"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="1M" name="third">
+        <div class="chart-container">
+          <LWChart
+            :type="chartType"
+            :data="data"
+            :autosize="true"
+            :chart-options="chartOptions"
+            :series-options="seriesOptions"
+            ref="lwChart"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="1Y" name="fourth">
+        <div class="chart-container">
+          <LWChart
+            :type="chartType"
+            :data="data"
+            :autosize="true"
+            :chart-options="chartOptions"
+            :series-options="seriesOptions"
+            ref="lwChart"
+          />
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="All" name="fifth">
+        <div class="chart-container">
+          <LWChart
+            :type="chartType"
+            :data="data"
+            :autosize="true"
+            :chart-options="chartOptions"
+            :series-options="seriesOptions"
+            ref="lwChart"
+          />
+        </div>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
+</div>
 </template>
 
-<script setup lang='ts'>
-import { ref,reactive } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+import LWChart from "./components/LWChart.vue";
+import { getCoinMarketCap } from "../../../api/market";
 
-import * as echarts from 'echarts';
+import BTC from "../../../assets/home/part01_BTC.png";
+import type { TabsPaneContext } from "element-plus";
 
-type EChartsOption = echarts.EChartsOption;
+const activeName = ref("third");
+const coinMarketCapData = ref<any>({ data: [] });
 
-var chartDom = document.getElementById('main')!;
-var myChart = echarts.init(chartDom);
-var option: EChartsOption;
+onMounted(async () => {
+  try {
+    const response = await getCoinMarketCap();
+    coinMarketCapData.value = JSON.parse(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-option = {
-  title: {
-    text: 'Stacked Area Chart'
-  },
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'cross',
-      label: {
-        backgroundColor: '#6a7985'
-      }
+interface DataPoint {
+  time: number;
+  value?: number;
+  open?: number;
+  high?: number;
+  low?: number;
+  close?: number;
+}
+
+/**
+ * Generates sample data for the Lightweight Charts™ example
+ * @param  {Boolean} ohlc Whether generated dat should include open, high, low, and close values
+ * @returns {Array} sample data
+ */
+function generateSampleData(ohlc: boolean): DataPoint[] {
+  const randomFactor = 25 + Math.random() * 25;
+  function samplePoint(i: number): number {
+    return (
+      i *
+        (0.5 +
+          Math.sin(i / 10) * 0.2 +
+          Math.sin(i / 20) * 0.4 +
+          Math.sin(i / randomFactor) * 0.8 +
+          Math.sin(i / 500) * 0.5) +
+      200
+    );
+  }
+
+  const res: DataPoint[] = [];
+  let date = new Date(Date.UTC(2022, 0, 1, 0, 0, 0, 0));
+  const numberOfPoints = ohlc ? 100 : 500;
+  for (var i = 0; i < numberOfPoints; ++i) {
+    const time = date.getTime() / 1000;
+    const value = samplePoint(i);
+    if (ohlc) {
+      const randomRanges = [
+        -1 * Math.random(),
+        Math.random(),
+        Math.random(),
+      ].map((i) => i * 10);
+      const sign = Math.sin(Math.random() - 0.5);
+      res.push({
+        time,
+        low: value + randomRanges[0],
+        high: value + randomRanges[1],
+        open: value + sign * randomRanges[2],
+        close: samplePoint(i + 1),
+      });
+    } else {
+      res.push({
+        time,
+        value,
+      });
     }
+
+    date.setUTCDate(date.getUTCDate() + 1);
+  }
+
+  return res;
+}
+
+const chartOptions = ref({
+  timeScale: {
+    timeFormat: "%Y-%m-%d %H:%M:%S",
   },
-  legend: {
-    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-  },
-  toolbox: {
-    feature: {
-      saveAsImage: {}
-    }
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  xAxis: [
-    {
-      type: 'category',
-      boundaryGap: false,
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-    }
-  ],
-  yAxis: [
-    {
-      type: 'value'
-    }
-  ],
-  series: [
-    {
-      name: 'Email',
-      type: 'line',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Union Ads',
-      type: 'line',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Video Ads',
-      type: 'line',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [150, 232, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Direct',
-      type: 'line',
-      stack: 'Total',
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [320, 332, 301, 334, 390, 330, 320]
-    },
-    {
-      name: 'Search Engine',
-      type: 'line',
-      stack: 'Total',
-      label: {
-        show: true,
-        position: 'top'
-      },
-      areaStyle: {},
-      emphasis: {
-        focus: 'series'
-      },
-      data: [820, 932, 901, 934, 1290, 1330, 1320]
-    }
-  ]
+});
+const data = ref<DataPoint[]>(generateSampleData(false));
+const seriesOptions = ref<{ [key: string]: string | number }>({
+  color: "rgb(24, 183, 136)",
+});
+const chartType = ref<string>("area");
+const lwChart = ref<typeof LWChart>();
+
+function randomShade(): number {
+  return Math.round(Math.random() * 255);
+}
+
+const randomColor = (alpha: number = 1): string => {
+  return `rgba(${randomShade()}, ${randomShade()}, ${randomShade()}, ${alpha})`;
 };
 
-option && myChart.setOption(option);
+const colorsTypeMap: { [key: string]: [string, number][] } = {
+  area: [
+    ["topColor", 0.4],
+    ["bottomColor", 0],
+    ["lineColor", 1],
+  ],
+  bar: [
+    ["upColor", 1],
+    ["downColor", 1],
+  ],
+  baseline: [
+    ["topFillColor1", 0.28],
+    ["topFillColor2", 0.05],
+    ["topLineColor", 1],
+    ["bottomFillColor1", 0.28],
+    ["bottomFillColor2", 0.05],
+    ["bottomLineColor", 1],
+  ],
+  candlestick: [
+    ["upColor", 1],
+    ["downColor", 1],
+    ["borderUpColor", 1],
+    ["borderDownColor", 1],
+    ["wickUpColor", 1],
+    ["wickDownColor", 1],
+  ],
+  histogram: [["color", 1]],
+  line: [["color", 1]],
+};
 
+const changeData = () => {
+  const candlestickTypeData = ["candlestick", "bar"].includes(chartType.value);
+  const newData = generateSampleData(candlestickTypeData);
+  data.value = newData;
+  if (chartType.value === "baseline") {
+    const average =
+      newData.reduce((s, c) => {
+        return s + (c.value || 0);
+      }, 0) / newData.length;
+    seriesOptions.value = {
+      baseValue: { type: "price", price: average } as any,
+    };
+  }
+};
+
+const changeColors = () => {
+  const options: { [key: string]: string } = {};
+  const colorsToSet = colorsTypeMap[chartType.value];
+  colorsToSet.forEach((c) => {
+    options[c[0]] = randomColor(c[1]);
+  });
+  seriesOptions.value = options;
+};
+
+const changeType = () => {
+  const types = ["area"].filter((t) => t !== chartType.value);
+  const randIndex = Math.round(Math.random() * (types.length - 1));
+  chartType.value = types[randIndex];
+  changeData();
+  // call a method on the component.
+  lwChart.value!.fitContent();
+};
 </script>
 
-<style scoped lang='scss'>
 
+<style scoped>
+.coin-number{
+  font-size: 40px;
+  margin-left: 18px;
+  margin-top: 3px;
+}
+.coin-name{
+  display: flex;
+  float: left;
+  font-size: 14px;
+}
+:deep(.el-tabs__nav-scroll){
+  float: right;
+}
+:deep(.el-tabs__nav-wrap::after){
+  width: 0;
+}
+:deep(.el-tabs__active-bar){
+  width: 30px;
+  height: 4px;
+  background-color: #01C19A;
+}
+:deep(.el-tabs__item){
+  color: #878787;
+}
+:deep(.el-tabs__item.is-active){
+  color: #01C19A;
+}
+.chart-container {
+  margin-top: 42px;
+  width: 100%;
+  height: 390px;
+}
 </style>

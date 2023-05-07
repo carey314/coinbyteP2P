@@ -28,9 +28,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/about/index.vue') 
   },
   { 
-    path: '/allCrypto',
+    path: '/market-allCrypto',
     name: 'allCrypto',
     component: () => import('../view/market/allCrypto/index.vue') 
+  },
+  { 
+    path: '/market-favorite',
+    name: 'favorite',
+    component: () => import('../view/market/favorite/index.vue') 
+  },
+  { 
+    path: '/market-spot',
+    name: 'spot',
+    component: () => import('../view/market/spot/index.vue') 
   },
   { 
     path: '/learnCenter',
@@ -150,11 +160,11 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   },
-  // {
-  //   path: '/test',
-  //   name: 'test',
-  //   component: () => import('../view/test/test1/test1.vue') 
-  // },
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../view/test/test1/test1.vue'),
+  },
   {
     path: "/user",
     name: "user",

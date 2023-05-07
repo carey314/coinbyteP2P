@@ -11,10 +11,16 @@
             :label="t('messages.wallet.history_Deposit')"
             name="first"
           >
-        </el-tab-pane>
-          <el-tab-pane :label="t('messages.wallet.history_Buy')" name="second"> </el-tab-pane>
-          <el-tab-pane :label="t('messages.wallet.history_Convert')" name="third"> </el-tab-pane>
-          <el-tab-pane :label="t('messages.wallet.history_Spot')" name="fourth"> </el-tab-pane>
+          </el-tab-pane>
+          <el-tab-pane :label="t('messages.wallet.history_Buy')" name="second">
+          </el-tab-pane>
+          <el-tab-pane
+            :label="t('messages.wallet.history_Convert')"
+            name="third"
+          >
+          </el-tab-pane>
+          <el-tab-pane :label="t('messages.wallet.history_Spot')" name="fourth">
+          </el-tab-pane>
         </el-tabs>
       </div>
     </el-scrollbar>
@@ -34,14 +40,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref,watch,onBeforeMount } from "vue";
+import { ref, watch, onBeforeMount } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import DepositWithdraw from "./modules/DepositWithdraw/DepositWithdraw.vue";
 import Spot from "./modules/Spot/Spot.vue";
 import BuySell from "./modules/BuySell/BuySell.vue";
 import Convert from "./modules/Convert/Convert.vue";
 import { useRoute, useRouter } from "vue-router";
-
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -65,7 +70,6 @@ onBeforeMount(() => {
     activeName.value = tabs;
   }
 });
-
 
 // children: [
 //           {
@@ -93,7 +97,6 @@ onBeforeMount(() => {
 //             meta: { tab: 'third' }
 //           },
 //         ]
-
 </script>
 
 <style lang="scss" scoped>

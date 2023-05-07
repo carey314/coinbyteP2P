@@ -61,6 +61,7 @@ export default {
       support_connect: "Connect with Coinbyte",
     },
     home: {
+      first_chart: 'Chart',
       banner_title: "Unlock the future of Crypto",
       banner_content:
         "Buy, trade and hold 500+ crypto with AUD. Enjoy trading with local FIAT.",

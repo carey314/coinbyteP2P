@@ -15,5 +15,5 @@ const app = createApp(App);
 for (const name in ElIcons){
 	app.component(name,(ElIcons as any)[name])
 }
-console.log(i18n)
+
 createApp(App).use(ElementPlus).use(router).use(i18n).use(pinia).mount('#app')

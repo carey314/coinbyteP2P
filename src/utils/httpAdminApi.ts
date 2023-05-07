@@ -8,10 +8,9 @@ const userInfoStore = useUserInfoStore();
 const { token, refreshToken } = storeToRefs(userInfoStore);
 // 创建实例对象
 const instance = axios.create({
-  baseURL: "/api",
+  baseURL: "/adminapi",
   timeout: 20000,
 });
-
 instance.interceptors.request.use(
   function (config) {
     if (token && token !== null) {

@@ -61,6 +61,7 @@ export default {
       support_connect: "与Coinbyte联系",
     },
     home: {
+      first_chart: '图表',
       banner_title: "开启加密货币的未来",
       banner_content:
         "使用澳元购买、交易和持有超过500种加密货币。享受与本地法定货币交易的乐趣。",

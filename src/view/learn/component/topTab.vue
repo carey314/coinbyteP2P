@@ -142,6 +142,7 @@
                     <div class="content">{{ item.content }}</div>
                   </div>
                 </div>
+                
                 <div>
                   <GetButton class="trade-btn" type="success" :text="trade" />
                 </div>

@@ -18,7 +18,6 @@ const storedLocale = getStoredLanguage() || defaultLocale;
 const i18n = createI18n({
     globalInjection: true, //全局生效$t
     fallbackLocale: 'English/USD',
-    // locale: c.value,
     locale: storedLocale,
     legacy: false, // 解决legacy mode 报错
     messages

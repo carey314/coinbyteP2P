@@ -1,12 +1,10 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
 
-import path from 'path'
+import path from "path";
 
 export default defineConfig({
-  plugins: [
-    vue(),
-  ],
+  plugins: [vue()],
   server: {
     // host: '0.0.0.0',
     proxy: {
@@ -17,13 +15,17 @@ export default defineConfig({
         target: 'https://api.b2broker.com/api/',
         changeOrigin: true, //是否跨域
         rewrite: path => path.replace(/^\/api/, '')
-      }
-    }
+      },
+      "/adminapi": {
+        target: "http://adminapi.coinbyte.com.au:88/api/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/adminapi/, ""),
+      },
+    },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  }
-
-})
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+});

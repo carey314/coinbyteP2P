@@ -15,7 +15,7 @@
           <div class="box-left">
             <div>
               <!-- chart区域 -->
-              <!-- <Chart /> -->
+              <Chart/>
             </div>
             <div class="crypto-info">
               <div><PriceInfo /></div>
@@ -134,9 +134,6 @@ $fontMain: 14px;
   @media (max-width: 992px) {
     padding-left: 20px !important;
     padding-right: 20px !important;
-  }
-  .box-left {
-    // padding-left: 15px;
   }
 }
 .trade-page-text {

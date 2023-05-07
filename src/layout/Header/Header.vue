@@ -36,14 +36,14 @@
                     @tab-click="handleClick"
                   >
                     <el-radio-button
-                      :label="$t('messages.header.AUD')"
-                      :name="$t('messages.header.AUD')"
-                      >{{ $t("messages.header.AUD") }}</el-radio-button
+                      label="AUD"
+                      name="AUD"
+                      ></el-radio-button
                     >
                     <el-radio-button
-                      :label="$t('messages.header.NZD')"
+                      label="NZD"
                       name="NZD"
-                      >{{ $t("messages.header.NZD") }}</el-radio-button
+                      ></el-radio-button
                     >
                   </el-radio-group>
                 </el-dropdown-item>
@@ -107,7 +107,7 @@
           </el-dropdown>
         </li>
         <li>
-          <a href="/allCrypto" style="color: #fff; text-decoration: none">{{
+          <a href="/market-allCrypto" style="color: #fff; text-decoration: none">{{
             $t("messages.header.market")
           }}</a>
         </li>
@@ -723,7 +723,9 @@ import { storeToRefs } from "pinia";
 import { getCurrentInstance } from "vue";
 import { useI18n } from "vue-i18n";
 import { saveStoredLanguage } from "../../languageStorage";
-
+// t
+const i18n = useI18n();
+const { t } = useI18n({});
 //切换中英文
 // const changeZh = () => {
 //   const selectedLanguage = "zh";
@@ -767,9 +769,6 @@ if (isActive.value) {
   window.location.reload(); 
 }
 });
-// t
-const i18n = useI18n();
-const { t } = useI18n({});
 
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
