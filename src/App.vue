@@ -5,8 +5,12 @@
 </template>
 
 <script setup lang="ts">
-//  console.log(import.meta.env, "import.meta.env.VITE_BASE_PORT");
-//   import.meta.env[BASE_URL]='111'
+import { onMounted } from 'vue'
+ 
+ onMounted(() => {
+   document.body.style.setProperty('--el-color-primary', '#01c19a');
+ })
+ 
 </script>
 
 <style scoped lang="scss">

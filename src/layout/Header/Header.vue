@@ -35,16 +35,8 @@
                     size="small"
                     @tab-click="handleClick"
                   >
-                    <el-radio-button
-                      label="AUD"
-                      name="AUD"
-                      ></el-radio-button
-                    >
-                    <el-radio-button
-                      label="NZD"
-                      name="NZD"
-                      ></el-radio-button
-                    >
+                    <el-radio-button label="AUD" name="AUD"></el-radio-button>
+                    <el-radio-button label="NZD" name="NZD"></el-radio-button>
                   </el-radio-group>
                 </el-dropdown-item>
 
@@ -107,9 +99,11 @@
           </el-dropdown>
         </li>
         <li>
-          <a href="/market-allCrypto" style="color: #fff; text-decoration: none">{{
-            $t("messages.header.market")
-          }}</a>
+          <a
+            href="/market-allCrypto"
+            style="color: #fff; text-decoration: none"
+            >{{ $t("messages.header.market") }}</a
+          >
         </li>
         <li>
           <a href="/trade" style="color: #fff; text-decoration: none">{{
@@ -321,7 +315,11 @@
                       <div class="verify-text">
                         <router-link
                           :to="{ name: 'verification' }"
-                          style="color: rgb(239, 129, 51);text-decoration: none;">
+                          style="
+                            color: rgb(239, 129, 51);
+                            text-decoration: none;
+                          "
+                        >
                           {{ $t("messages.header.verify_unverified") }}
                         </router-link>
                       </div>
@@ -577,36 +575,18 @@
                         {{ $t("messages.header.language") }}
                       </div>
                       <el-divider style="margin: 12px 0" />
-                      <el-dropdown-item>
+                      <el-dropdown-item
+                        v-for="option in languageOptions"
+                        :key="option.value"
+                      >
                         <div
                           class="alert-cont"
                           :class="{
-                            selected: currentLanguage === 'English/USD',
+                            selected: currentLanguage === option.label,
                           }"
-                          @click.native="changeLanguage('English/USD')"
+                          @click.native="changeLanguage(option.label)"
                         >
-                          English
-                        </div>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <div
-                          class="alert-cont"
-                          :class="{
-                            selected: currentLanguage === '简体中文',
-                          }"
-                          @click.native="changeLanguage('简体中文')"
-                        >
-                          简体中文
-                        </div>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <div
-                          class="alert-cont"
-                          :class="{
-                            selected: currentLanguage === '繁體中文',
-                          }"
-                        >
-                          繁體中文
+                          {{ option.label }}
                         </div>
                       </el-dropdown-item>
                     </div>
@@ -617,11 +597,13 @@
                         {{ $t("messages.header.local_currency") }}
                       </div>
                       <el-divider style="margin: 12px 0" />
-                      <el-dropdown-item>
-                        <div class="alert-cont">USD</div>
-                      </el-dropdown-item>
-                      <el-dropdown-item>
-                        <div class="alert-cont">NZD</div>
+                      <el-dropdown-item
+                        v-for="(item, index) in currencies"
+                        :key="item.value"
+                        :class="{ highlight: index === selectedIndex }"
+                        @click="handleItemClick(index)"
+                      >
+                        <div class="alert-cont">{{ item.label }}</div>
                       </el-dropdown-item>
                     </div>
                   </el-col>
@@ -726,49 +708,58 @@ import { saveStoredLanguage } from "../../languageStorage";
 // t
 const i18n = useI18n();
 const { t } = useI18n({});
-//切换中英文
-// const changeZh = () => {
-//   const selectedLanguage = "zh";
-//   $this.$i18n.locale = selectedLanguage;
-//   saveStoredLanguage(selectedLanguage);
-//   location.reload();
-// };
-// const changeEn = () => {
-//   const selectedLanguage = "en";
-//   $this.$i18n.locale = selectedLanguage;
-//   saveStoredLanguage(selectedLanguage);
-//   location.reload();
-// };
+
 const isActive = ref(false);
-const currentLanguage = ref("English/USD");
+const currencies = [
+  {
+    value: "USD",
+    label: "USD",
+  },
+  {
+    value: "AUD",
+    label: "AUD",
+  },
+  {
+    value: "NZD",
+    label: "NZD",
+  },
+];
 
-let $this = getCurrentInstance()?.appContext.config.globalProperties as any;
+const selectedIndex = ref(0);
 
-const changeLanguage = (selectedLanguage: any) => {
-  isActive.value = true;
-  $this.$i18n.locale = selectedLanguage;
-  saveStoredLanguage(selectedLanguage);
-  currentLanguage.value = selectedLanguage;
-  // location.reload(); //会因为onMounted无限刷新
+function handleItemClick(index: number): void {
+  selectedIndex.value = index; // 更新 selectedIndex 的值
+}
+const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
+const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为存储的语言设置
+const languageOptions = [
+  {
+    value: "en-US",
+    label: "English/USD",
+  },
+  {
+    value: "zh-CN",
+    label: "简体中文",
+  },
+  {
+    value: "zh-TW",
+    label: "繁體中文",
+  },
+];
+const changeLanguage = (selectedLanguage: string) => {
+  const storedLanguage = getStoredLanguage();
+  if (selectedLanguage !== storedLanguage) {
+    // 仅在语言发生更改时刷新页面
+    $this.$i18n.locale = selectedLanguage;
+    saveStoredLanguage(selectedLanguage);
+    currentLanguage.value = selectedLanguage;
+    location.reload();
+  }
 };
 // 保存当前语言,高亮显示
 function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");
 }
-
-onMounted(() => {
-  const storedLanguage = getStoredLanguage();
-  if (storedLanguage) {
-    changeLanguage(storedLanguage);
-  }
-});
-// 切换语言 刷新页面
-onUpdated(() => {
-if (isActive.value) {
-  isActive.value = false;
-  window.location.reload(); 
-}
-});
 
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
@@ -1074,6 +1065,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   .btn-signup {
+    cursor: pointer;
     font-size: 15px;
     box-sizing: border-box;
     color: #fff;
@@ -1404,5 +1396,8 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 .selected {
   color: #01c19a !important;
+}
+.highlight .alert-cont {
+  color: #01c19a;
 }
 </style>

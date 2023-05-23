@@ -277,7 +277,7 @@
                     </div>
                   </div>
                 </div>
-                <template v-if="stableCoinsToOptions.length > 0">
+                <!-- <template v-if="stableCoinsToOptions.length > 0"> -->
                   <div class="exchange-icon">
                     <!-- 中间转换图片 -->
                     <img :src="crypto_buy" />
@@ -401,15 +401,15 @@
                   <div class="convert-button">
                     <GetButton :text="text" @click="handleToConvert" />
                   </div>
-                </template>
-                <template v-else>
+                <!-- </template>
+                <template v-else> -->
                   <div style="margin-top: 20px">
                     <h4 style="font-size: 18px; line-height: 35px">
                       {{ $t("messages.convert.tip_notAvailable") }}
                     </h4>
                     <p> {{ $t("messages.convert.tip_select") }}</p>
                   </div>
-                </template>
+                <!-- </template> -->
               </div>
             </div>
           </div>
@@ -496,8 +496,8 @@ const numberStable = ref();
 const countCrypto = ref("214.2958");
 // const countStable = ref("1.0002");
 const firstSelect = ref("BTC");
-const secondSelect = ref("");
-const thirdSelect = ref("");
+const secondSelect = ref("USDT");
+const thirdSelect = ref("USDC");
 const select = ref("BTC");
 const text = ref("Convert");
 const options = ref([
@@ -693,6 +693,9 @@ $fontSizeMin: 12px;
     .center-part {
       padding-top: 48px;
       padding-bottom: 90px;
+      @media (max-width: 769px) {
+        padding: 0;
+      }
       .center-convert {
         max-width: 618px;
         flex: 1;
@@ -961,6 +964,9 @@ $fontSizeMin: 12px;
               width: 73px;
               height: auto;
               object-fit: contain;
+              @media (max-width: 769px) {
+                width: 63px;
+              }
             }
           }
 
@@ -969,6 +975,9 @@ $fontSizeMin: 12px;
             font-size: 20px;
             color: #060606;
             margin-top: 12px;
+            @media (max-width: 769px) {
+              font-size: 16px;
+            }
           }
         }
       }

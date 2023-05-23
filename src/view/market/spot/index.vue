@@ -17,9 +17,8 @@
           <el-tabs
             v-model="activeName"
             class="demo-tabs"
-            @tab-click="handleClick"
           >
-            <el-tab-pane name="first">
+            <el-tab-pane name="first" @click="handleTabClick('/market-favorite')">
               <template #label>
                 <router-link
                   to="/market-favorite"
@@ -37,23 +36,23 @@
               </template>
             </el-tab-pane>
 
-            <el-tab-pane name="second">
+            <el-tab-pane name="second" @click="handleTabClick('/market-allCrypto')">
             
-            <template #label>
-              <router-link
-                to="/market-allCrypto"
-                style="
-                  text-decoration: none;
-                  color: #9b9b9b;
-                  font-weight: 500;
-                "
-              >
-                <span class="custom-tabs-label">
-                  <span>{{ $t("messages.market.All") }}</span>
-                </span>
-              </router-link>
-            </template>
-          </el-tab-pane>
+              <template #label>
+                <router-link
+                  to="/market-allCrypto"
+                  style="
+                    text-decoration: none;
+                    color: #9b9b9b;
+                    font-weight: 500;
+                  "
+                >
+                  <span class="custom-tabs-label">
+                    <span>{{ $t("messages.market.All") }}</span>
+                  </span>
+                </router-link>
+              </template>
+            </el-tab-pane>
 
             <el-tab-pane :label="t('messages.market.Spot')" name="third">
               <el-radio-group v-model="radioValue">
@@ -256,13 +255,22 @@ import DOGE from "../../../assets/home/dogecoin.png";
 import MATIC from "../../../assets/home/polygon.png";
 import SOL from "../../../assets/home/solana.png";
 
+import { useRouter } from 'vue-router';
+
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-const activeName = ref("third");
 const radioValue = ref("All");
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
+const activeName = ref("third");
+
+const router = useRouter();
+const routeMap: Record<string, string> = {
+  first: '/market-favorite',
+  second: '/market-allCrypto'
 };
+const handleTabClick = (route: string) => {
+  router.push(route);
+};
+
 
 const search = ref("");
 

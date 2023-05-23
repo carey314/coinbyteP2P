@@ -1,91 +1,200 @@
 <template>
-<div class="chart-box">
-  <div class="coin-name">
-    <div>
-      <img :src="BTC" />
+  <div class="chart-box">
+    <div class="chart-nav">
+      <div class="nav-left">
+        <div class="currency nav">
+          <el-radio-group v-model="activeName" @tab-click="handleClick">
+            <el-radio-button
+              :class="{ selected: activeName === 'first' }"
+              label="first"
+            >
+              <span>Price</span>
+            </el-radio-button>
+            <el-radio-button
+              :class="{ selected: activeName === 'second' }"
+              label="second"
+            >
+              <span>Market Cap</span>
+            </el-radio-button>
+          </el-radio-group>
+        </div>
+        <div class="type nav">
+          <el-radio-group
+            v-model="activeType"
+            v-show="shouldShowChartType"
+            @change="changeType"
+            @tab-click="handleClick"
+          >
+            <el-radio-button
+              :class="{ selected: activeType === 'first' }"
+              label="first"
+            >
+              <span
+                ><el-icon><Sort /></el-icon
+              ></span>
+            </el-radio-button>
+            <el-radio-button
+              :class="{ selected: activeType === 'second' }"
+              label="second"
+            >
+              <span
+                ><el-icon><Finished /></el-icon
+              ></span>
+            </el-radio-button>
+          </el-radio-group>
+        </div>
+      </div>
+      <div class="nav-right">
+        <div class="data nav">
+          <el-radio-group v-model="activeData" @change="changeData" @tab-click="handleClick"> 
+            <el-radio-button :class="{ selected: activeData === 'first' }" label="first"><span>1D</span></el-radio-button>
+            <el-radio-button :class="{ selected: activeData === 'second' }" label="second"><span>7D</span></el-radio-button>
+            <el-radio-button :class="{ selected: activeData === 'third' }" label="third"><span>1M</span></el-radio-button>
+            <el-radio-button :class="{ selected: activeData === 'forth' }" label="forth"><span>1Y</span></el-radio-button>
+            <el-radio-button :class="{ selected: activeData === 'fifth' }" label="fifth"><span>ALL</span></el-radio-button>
+            <el-radio-button @click.stop @click="showDatePicker">
+              <el-icon><Calendar /></el-icon>
+              <template #slot>
+                <div class="demo-date-picker">
+                  <div class="block">
+                    <el-date-picker
+                      v-model="value2"
+                      type="date"
+                      :disabled-date="disabledDate"
+                      :shortcuts="shortcuts"
+                    />
+                  </div>
+                </div>
+              </template>
+            </el-radio-button>
+            <el-radio-button :class="{ selected: activeData === 'seventh' }" label="seventh"><span>LOG</span></el-radio-button>
+            <el-radio-button label="eigth">
+              <el-icon><Download /></el-icon>
+            </el-radio-button>
+          </el-radio-group>
+        </div>
+      </div>
     </div>
-    <div class="coin-number" v-if="coinMarketCapData.data.length > 0">
-      A$ {{ coinMarketCapData.data[0].quote.AUD.price.toFixed(2) }}
+    <div class="chart-container">
+      <LWChart
+        :type="chartType"
+        :data="data"
+        :autosize="true"
+        :chart-options="chartOptions"
+        :series-options="seriesOptions"
+        ref="lwChart"
+      />
+    </div>
+    <div class="nav-bottom">
+      <div class="compare-input">
+        <el-select v-model="value" clearable placeholder="Compare with">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
+      <div class="trade-view">
+        <div class="chart-view" @click="visible = true">
+          <span class="custom-tabs-label">
+            <el-icon><TrendCharts /></el-icon>
+          </span>
+          <span>TradingView</span>
+        </div>
+        <el-dialog v-model="visible" :show-close="false">
+          <template #header="{ close, titleId, titleClass }">
+            <div class="my-header">
+              <h4 :id="titleId" :class="titleClass">
+                This is a custom header!
+              </h4>
+              <el-button @click="close">
+                <el-icon class="el-icon--left"><Close /></el-icon>
+              </el-button>
+            </div>
+          </template>
+          This is dialog content.
+        </el-dialog>
+      </div>
     </div>
   </div>
-  <div class="coin-time">
-    <el-tabs v-model="activeName" class="demo-tabs">
-      <el-tab-pane label="24H" name="first">
-        <div class="chart-container">
-          <LWChart
-            :type="chartType"
-            :data="data"
-            :autosize="true"  
-            :chart-options="chartOptions"
-            :series-options="seriesOptions"
-            ref="lwChart"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="1W" name="second">
-        <div class="chart-container">
-          <LWChart
-            :type="chartType"
-            :data="data"
-            :autosize="true"
-            :chart-options="chartOptions"
-            :series-options="seriesOptions"
-            ref="lwChart"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="1M" name="third">
-        <div class="chart-container">
-          <LWChart
-            :type="chartType"
-            :data="data"
-            :autosize="true"
-            :chart-options="chartOptions"
-            :series-options="seriesOptions"
-            ref="lwChart"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="1Y" name="fourth">
-        <div class="chart-container">
-          <LWChart
-            :type="chartType"
-            :data="data"
-            :autosize="true"
-            :chart-options="chartOptions"
-            :series-options="seriesOptions"
-            ref="lwChart"
-          />
-        </div>
-      </el-tab-pane>
-      <el-tab-pane label="All" name="fifth">
-        <div class="chart-container">
-          <LWChart
-            :type="chartType"
-            :data="data"
-            :autosize="true"
-            :chart-options="chartOptions"
-            :series-options="seriesOptions"
-            ref="lwChart"
-          />
-        </div>
-      </el-tab-pane>
-    </el-tabs>
-  </div>
-</div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import LWChart from "./components/LWChart.vue";
 import { getCoinMarketCap } from "../../../api/market";
 
+import {
+  Calendar,
+  Sort,
+  TrendCharts,
+  Finished,
+  Close,
+  Download,
+} from "@element-plus/icons-vue";
 import BTC from "../../../assets/home/part01_BTC.png";
 import type { TabsPaneContext } from "element-plus";
 
-const activeName = ref("third");
-const coinMarketCapData = ref<any>({ data: [] });
+const activeName = ref("first");
+const radioGroupRef = ref();
+const activeType = ref("first");
+const activeData = ref("first");
+const visible = ref(false);
+const shouldShowChartType = computed(() => activeName.value !== "second");
 
+function handleClick() {
+  activeName.value = radioGroupRef.value.modelValue;
+  activeType.value = radioGroupRef.value.modelValue;
+  activeData.value = radioGroupRef.value.modelValue;
+}
+
+const value2 = ref("");
+
+const shortcuts = [
+  {
+    text: "Today",
+    value: new Date(),
+  },
+  {
+    text: "Yesterday",
+    value: () => {
+      const date = new Date();
+      date.setTime(date.getTime() - 3600 * 1000 * 24);
+      return date;
+    },
+  },
+  {
+    text: "A week ago",
+    value: () => {
+      const date = new Date();
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+      return date;
+    },
+  },
+];
+
+const disabledDate = (time: Date) => {
+  return time.getTime() > Date.now();
+};
+
+function showDatePicker() {
+  (ref as any).value.$el.querySelector(".el-date-picker__header-label").click();
+}
+
+const coinMarketCapData = ref<any>({ data: [] });
+const value = ref("");
+const options = [
+  {
+    value: "BTC",
+    label: "BTC",
+  },
+  {
+    value: "BNB",
+    label: "BNB",
+  },
+];
 onMounted(async () => {
   try {
     const response = await getCoinMarketCap();
@@ -231,47 +340,134 @@ const changeColors = () => {
 };
 
 const changeType = () => {
-  const types = ["area"].filter((t) => t !== chartType.value);
+  const types = ["area", "candlestick", "line"].filter(
+    (t) => t !== chartType.value
+  );
   const randIndex = Math.round(Math.random() * (types.length - 1));
   chartType.value = types[randIndex];
   changeData();
   // call a method on the component.
   lwChart.value!.fitContent();
 };
+
+watch(activeName, () => {
+  changeData();
+});
 </script>
 
-
-<style scoped>
-.coin-number{
-  font-size: 40px;
-  margin-left: 18px;
-  margin-top: 3px;
-}
-.coin-name{
-  display: flex;
-  float: left;
-  font-size: 14px;
-}
-:deep(.el-tabs__nav-scroll){
-  float: right;
-}
-:deep(.el-tabs__nav-wrap::after){
-  width: 0;
-}
-:deep(.el-tabs__active-bar){
-  width: 30px;
-  height: 4px;
-  background-color: #01C19A;
-}
-:deep(.el-tabs__item){
-  color: #878787;
-}
-:deep(.el-tabs__item.is-active){
-  color: #01C19A;
-}
+<style scoped lang="scss">
 .chart-container {
   margin-top: 42px;
   width: 100%;
   height: 390px;
+}
+// #eff2f5
+.chart-nav {
+  display: flex;
+  justify-content: space-between;
+  :deep() {
+    // .el-radio-button__inner {
+    //   height: 30px;
+    // }
+    .el-radio-button__inner {
+      background-color: #eff2f5;
+      border-color: #eff2f5;
+    }
+    .el-radio-button {
+      --el-radio-button-checked-border-color: #eff2f5;
+    }
+  }
+  .nav-left {
+    color: #616e85;
+    display: flex;
+
+    .selected span {
+      background-color: #fff;
+      color: #616e85;
+
+      padding: 2px 15px;
+      border-radius: 4px;
+    }
+    .type {
+      margin-left: 20px;
+    }
+  }
+  .nav-right{
+    .selected span {
+      background-color: #fff;
+      color: #616e85;
+      padding: 2px 15px;
+      border-radius: 4px;
+    }
+  }
+  :deep() {
+    .el-tabs__header {
+      margin: 0;
+    }
+  }
+}
+
+.demo-date-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.demo-date-picker .block {
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
+}
+
+.demo-date-picker .block:last-child {
+  border-right: none;
+}
+
+.demo-date-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.nav-bottom {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  flex: 1 1 0%;
+  gap: var(--c-space-100);
+  .compare-input {
+    width: 45%;
+    :deep() {
+      .el-input__wrapper {
+        background-color: #eff2f5 !important;
+        border-color: #eff2f5 !important;
+      }
+      .el-select {
+        width: 100%;
+      }
+    }
+  }
+  .trade-view {
+    width: 45%;
+    height: 30px;
+    background-color: #eff2f5 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    span {
+      background: none;
+    }
+  }
+}
+:deep() {
+  .el-date-editor.el-input,
+  .el-date-editor.el-input__wrapper {
+    width: 40px;
+  }
+  .el-input__wrapper {
+    box-shadow: none;
+  }
 }
 </style>

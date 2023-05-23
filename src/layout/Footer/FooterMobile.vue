@@ -389,10 +389,10 @@ export default defineComponent({
         value: "简体中文",
         label: "简体中文",
       },
-      // {
-      //   value: "zh-TW",
-      //   label: "繁体中文",
-      // },
+      {
+        value: "zh-TW",
+        label: "繁体中文",
+      },
     ];
     const changeLanguage = (selectedLanguage: string) => {
       $this.$i18n.locale = selectedLanguage;
@@ -1719,4 +1719,17 @@ footer {
     }
   }
 }
+:deep(.el-select .el-input.is-focus .el-input__wrapper) {
+  box-shadow: 0 0 0 1px #5c6368 !important;
+  border-color: #5c6368;
+}
+:deep() {
+  .el-select {
+    --el-select-input-focus-border-color: #5c6368;
+  }
+  .el-select-dropdown__item{
+    text-align: center;
+  }
+}
+
 </style>

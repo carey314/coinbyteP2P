@@ -26,6 +26,10 @@ const props = defineProps({
   chartOptions: {
     type: Object,
   },
+  // gridOptions: {
+  //   type: Object,
+  //   default: () => ({ visible: false }),
+  // },
   seriesOptions: {
     type: Object,
   },
@@ -87,7 +91,10 @@ onMounted(() => {
   if (props.priceScaleOptions) {
     chart.priceScale().applyOptions(props.priceScaleOptions);
   }
-
+  // if (props.gridOptions) {
+  //   chart.applyOptions({ grid: props.gridOptions });
+  // }
+  
   if (props.timeScaleOptions) {
     chart.timeScale().applyOptions(props.timeScaleOptions);
   }
@@ -157,7 +164,13 @@ watch(
     chart.applyOptions(newOptions);
   }
 );
-
+// watch(
+//   () => props.gridOptions,
+//   (newOptions) => {
+//     // if (!chart) return;
+//     chart.applyOptions({ grid: newOptions });
+//   }
+// );
 watch(
   () => props.seriesOptions,
   (newOptions) => {

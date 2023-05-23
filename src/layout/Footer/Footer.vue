@@ -14,6 +14,7 @@
             placeholder="Select"
             size="large"
             @change="changeLanguage"
+            :popper-append-to-body="false"
           >
             <el-option
               v-for="item in options"
@@ -44,6 +45,7 @@
               :key="item.value"
               :label="item.label"
               :value="item.value"
+              class="selectOption"
             />
           </el-select>
         </div>
@@ -359,10 +361,10 @@ const options = [
     value: "简体中文",
     label: "简体中文",
   },
-  // {
-  //   value: "zh-TW",
-  //   label: "繁体中文",
-  // },
+  {
+    value: "zh-TW",
+    label: "繁体中文",
+  },
 ];
 const changeLanguage = (selectedLanguage: string) => {
   $this.$i18n.locale = selectedLanguage;
@@ -427,6 +429,11 @@ footer {
       }
       .selectLan {
         width: 148px;
+        .selectOption{
+          :deep(.el-select-dropdown__item.selected){
+            color: red !important;
+          } 
+        }
         :deep() {
           .el-input--large .el-input__inner {
             color: #e3e3e3;
@@ -441,6 +448,7 @@ footer {
           .el-input__suffix-inner > :first-child {
             margin-left: 0;
           }
+         
         }
       }
     }
@@ -702,6 +710,7 @@ footer {
       text-align-last: start !important;
     }
   }
+
   /* Style Definitions */
   // p.MsoNormal, li.MsoNormal, div.MsoNormal
   // {mso-style-unhide:no;
@@ -928,4 +937,18 @@ footer {
   // ul
   // {margin-bottom:0in;}
 }
+:deep(.el-select .el-input.is-focus .el-input__wrapper) {
+  box-shadow: 0 0 0 1px #5c6368 !important;
+  border-color: #5c6368;
+}
+:deep() {
+  .el-select {
+    --el-select-input-focus-border-color: #5c6368;
+  }
+  .el-select-dropdown__item{
+    text-align: center;
+  }
+}
+
+
 </style>
