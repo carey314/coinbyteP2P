@@ -110,8 +110,8 @@
           </div>
           <div class="login-other">
             <div class="other-login">
-              <div class="other-login-icon"><img :src="login_telegram" /></div>
-              <div class="other-login-name">Telegram</div>
+              <div class="other-sign-icon"><img :src="twitter" /></div>
+              <div class="other-sign-name">Twitter</div>
             </div>
             <div class="other-login">
               <div class="other-login-icon"><img :src="login_google" /></div>
@@ -254,6 +254,8 @@ import login_telegram from "../../assets/home/login_telegram.svg";
 import login_google from "../../assets/home/login_google.svg";
 import login_download from "../../assets/home/login_download.svg";
 import login_qrcode from "../../assets/home/login_qrcode.png";
+import twitter from "../../assets/home/twitter.png";
+
 import http from "../../utils/http";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "../../store/user";
@@ -969,6 +971,7 @@ $fontSizeMin: 12px;
           align-items: center;
           justify-content: center;
           float: left;
+
           .other-login-name {
             margin-left: 5px;
           }
@@ -1041,5 +1044,17 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+.other-sign-icon {
+  width: 16px;
+  height: 16px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+.other-sign-name {
+  margin-left: 3px;
 }
 </style>
