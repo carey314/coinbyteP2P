@@ -9,11 +9,62 @@
           class="login"
           @submit.native.prevent
         >
-          <div class="login-title">{{ $t('messages.login.welcome') }}</div>
+          <div class="login-title">{{ $t("messages.login.welcome") }}</div>
 
-          <el-form-item class="login-referral" prop="username">
-            <el-input v-model="form.username" placeholder="Phone / Email " />
-          </el-form-item>
+          <el-tabs v-model="activeLogin" class="login-tabs">
+            <el-tab-pane label="Phone" name="first" class="first-pan">
+              <el-form-item class="login-referral" prop="username">
+                <el-input
+                  v-model="form.number"
+                  placeholder="Phone"
+                  class="input-with-select"
+                >
+                  <div
+                    style="
+                      width: 1px;
+                      height: 10px;
+                      background: #01c19a;
+                      z-index: 999;
+                    "
+                  ></div>
+
+                  <template #prepend>
+                    <el-select
+                      v-model="numberSelect"
+                      placeholder="Select"
+                      filterable
+                      style="width: 130px"
+                    >
+                      <el-option
+                        v-for="item in areas"
+                        :key="item.value"
+                        :label="item.value"
+                        :value="item.value"
+                        style="width: 353px"
+                      >
+                        <span style="float: left">{{ item.label }}</span>
+                        <span
+                          style="
+                            float: right;
+                            color: var(--el-text-color-secondary);
+                            font-size: 13px;
+                          "
+                          >{{ item.value }}</span
+                        >
+                      </el-option>
+                    </el-select>
+                  </template>
+                  <!-- <el-divider direction="vertical" /> -->
+                </el-input>
+              </el-form-item>
+            </el-tab-pane>
+            <el-tab-pane label="Email" name="second">
+              <el-form-item class="login-referral" prop="number">
+                <el-input v-model="form.username" placeholder="Email" />
+              </el-form-item>
+            </el-tab-pane>
+          </el-tabs>
+
           <el-form-item class="login-password" prop="password">
             <el-input
               v-model="form.password"
@@ -42,7 +93,7 @@
                 <a
                   href="/password"
                   style="color: #01c19a; text-decoration: none"
-                  >{{ $t('messages.login.forgot_password') }}</a
+                  >{{ $t("messages.login.forgot_password") }}</a
                 >
               </div>
             </div>
@@ -54,7 +105,7 @@
           </el-form-item>
           <div class="login-with">
             <el-divider>
-              <div  class="or-with">{{ $t('messages.login.or') }}</div>
+              <div class="or-with">{{ $t("messages.login.or") }}</div>
             </el-divider>
           </div>
           <div class="login-other">
@@ -69,23 +120,26 @@
           </div>
           <div class="login-signup">
             <div>
-              {{ $t('messages.login.no_have') }} &nbsp;&nbsp;
-              <a href="/signup" style="color: #01c19a; text-decoration: none"
-                >{{ $t('messages.login.sign') }}</a
-              >
+              {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
+              <a href="/signup" style="color: #01c19a; text-decoration: none">{{
+                $t("messages.login.sign")
+              }}</a>
             </div>
           </div>
         </el-form>
       </div>
       <div class="scan clearfloat">
         <div class="scan-box">
-          <div class="scan-title">{{ $t('messages.login.with_qr') }}</div>
+          <div class="scan-title">{{ $t("messages.login.with_qr") }}</div>
           <div class="scan-qr"><img :src="login_qrcode" /></div>
-          <div class="scan-tip">{{ $t('messages.login.scan') }}</div><br>
+          <div class="scan-tip">{{ $t("messages.login.scan") }}</div>
+          <br />
           <div class="scan-download">
             <div class="other-sign">
               <div class="other-sign-icon"><img :src="login_download" /></div>
-              <div class="other-sign-name">{{ $t('messages.login.download') }}</div>
+              <div class="other-sign-name">
+                {{ $t("messages.login.download") }}
+              </div>
             </div>
           </div>
         </div>
@@ -99,7 +153,7 @@
           class="login"
           @submit.native.prevent
         >
-          <div class="login-title">{{ $t('messages.login.welcome') }}</div>
+          <div class="login-title">{{ $t("messages.login.welcome") }}</div>
           <el-form-item class="login-referral" prop="username">
             <el-input v-model="form.username" placeholder="Phone / Email " />
           </el-form-item>
@@ -131,7 +185,7 @@
                 <a
                   href="/password"
                   style="color: #01c19a; text-decoration: none"
-                  >{{ $t('messages.login.forgot_password') }}</a
+                  >{{ $t("messages.login.forgot_password") }}</a
                 >
               </div>
             </div>
@@ -143,7 +197,7 @@
           </el-form-item>
           <div class="login-with">
             <el-divider>
-              <div class="or-with">{{ $t('messages.login.or') }}</div>
+              <div class="or-with">{{ $t("messages.login.or") }}</div>
             </el-divider>
           </div>
           <div class="login-other">
@@ -158,23 +212,25 @@
           </div>
           <div class="login-signup">
             <div>
-              {{ $t('messages.login.no_have') }} &nbsp;&nbsp;
-              <a href="signup" style="color: #01c19a; text-decoration: none"
-                >{{ $t('messages.login.sign') }}</a
-              >
+              {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
+              <a href="signup" style="color: #01c19a; text-decoration: none">{{
+                $t("messages.login.sign")
+              }}</a>
             </div>
           </div>
         </el-form>
       </div>
       <div class="scan clearfloat">
         <div class="scan-box">
-          <div class="scan-title">{{ $t('messages.login.with_qr') }}</div>
+          <div class="scan-title">{{ $t("messages.login.with_qr") }}</div>
           <div class="scan-qr"><img :src="login_qrcode" /></div>
-          <div class="scan-tip">{{ $t('messages.login.scan') }}</div>
+          <div class="scan-tip">{{ $t("messages.login.scan") }}</div>
           <div class="scan-download">
             <div class="other-sign">
               <div class="other-sign-icon"><img :src="login_download" /></div>
-              <div class="other-sign-name">{{ $t('messages.login.download') }}</div>
+              <div class="other-sign-name">
+                {{ $t("messages.login.download") }}
+              </div>
             </div>
           </div>
         </div>
@@ -206,11 +262,17 @@ import { ElMessage } from "element-plus";
 import { getLoginUUID, toLogin as Tologin } from "../../api/login";
 
 import type { FormInstance, FormRules } from "element-plus";
+
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 const rules = reactive<FormRules>({
   username: [
     { required: true, message: "Please input your username!", trigger: "blur" },
   ],
   password: [{ required: true, message: "Please input your password!" }],
+  number: [
+    { required: true, message: "Please input your number!", trigger: "blur" },
+  ],
 });
 
 const userInfoStore = useUserInfoStore();
@@ -222,13 +284,24 @@ const optional = ref("");
 const form = reactive({
   username: "",
   password: "",
+  number: "",
 });
+const number = ref("");
+const numberSelect = ref("+61");
+const areas = [
+  { label: "Australia", value: "+61" },
+  { label: "United States", value: "+1" },
+];
 const isShowPass = ref(false);
 const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
 };
 const text = ref("Log in");
 
+const activeLogin = ref("second");
+// const handleClick = (tab: TabsPaneContext, event: Event) => {
+//   console.log(tab, event)
+// }
 const uuid = ref("");
 
 const windowWidth = ref(window.document.body.offsetWidth);
@@ -250,16 +323,6 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
-const options = ref([
-  {
-    value: "1",
-    label: "Mobile number",
-  },
-  {
-    value: "2",
-    label: "Email",
-  },
-]);
 //async (formEl: FormInstance | undefined)
 const toLogin = async (formEl: FormInstance | undefined) => {
   console.log(form);
@@ -282,6 +345,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   const uploadMsg = {
     uuid: uuid.value,
     email: form.username,
+    number: form.number,
     password: form.password,
     device_fingerprint: base64String,
     recaptchaResponse: "in quis cillum nisi",
@@ -327,6 +391,25 @@ $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
+:deep() {
+  .el-tabs__nav-wrap::after {
+    height: 0;
+  }
+  .el-input-group__append,
+  .el-input-group__prepend {
+    box-shadow: none;
+    background: none;
+    width: 78px;
+  }
+  .el-form-item__content .el-input-group {
+    border: 1px solid #dfdfe5;
+    border-radius: 4px;
+  }
+  // .center-box .login-box .login .login-referral[data-v-26188718] .el-input__wrapper{
+  //   border: none;
+  // }
+}
+
 .login-page {
   background: #1d262f;
 }
@@ -376,97 +459,29 @@ $fontSizeMin: 12px;
         font-weight: 600;
         text-align: center;
       }
-      .login-radio {
-        margin-top: 28px;
+      .login-tabs {
         :deep() {
-          .el-radio__inner {
-            border-color: #dfdfe5;
-            border-radius: 3px;
-          }
-          .el-radio__input.is-checked .el-radio__inner {
-            background: #01c19a;
-            border-radius: 4px;
-          }
-          .el-radio__input.is-checked + .el-radio__label {
-            color: #000;
-          }
-
-          .el-radio-group {
-            display: flex;
-            justify-content: space-between;
-          }
-          .el-radio {
-            width: 48%;
-            margin-right: 0;
-            --el-radio-text-color: #c4c9d0;
-            // --el-radio-font-size:14px;
+          .el-tabs__content {
+            margin-top: -37px;
+            height: 78px;
           }
         }
-        .el-radio {
-          height: 48px;
-          border: 1px solid #dfdfe5;
-          border-radius: 4px;
-          padding: 15px;
-        }
-        .activeNumber {
-          .input-with-select {
-            :deep() {
-              .el-input__inner {
-                font-size: $fontSizeMinPro;
-                color: #000;
-                line-height: 16px;
-              }
-            }
-          }
+        .first-pan {
           :deep() {
-            .el-input {
-              --el-input-border-color: none;
+            .center-box
+              .login-box
+              .login
+              .login-referral[data-v-26188718]
+              .el-input__wrapper {
+              border: none;
             }
-            .el-input-group__prepend {
-              width: 73px;
-              border-radius: 8px;
-            }
-            .el-input-group--prepend > .el-input__wrapper {
-              margin-left: 16px;
-            }
-            .el-select {
-              --el-select-input-focus-border-color: none;
-            }
-
-            //right input
             .el-input__wrapper {
-              background: #fff;
-              border: 1px solid #dfdfe5;
-              height: 48px;
-              border-radius: 4px;
-              --el-input-focus-border-color: none;
-              --el-input-hover-border-color: none;
-              box-shadow: none;
-              padding-left: 15px;
-            }
-            .el-input__inner {
-              font-size: $fontSizeMinPro;
-              color: #c4c9d0;
-              line-height: 16px;
-            }
-          }
-        }
-        .activeEmail {
-          margin-top: 18px;
-          :deep() {
-            .el-input__wrapper {
-              background: #fff;
-              border: 1px solid #dfdfe5;
-              height: 48px;
-              border-radius: 4px;
-              --el-input-focus-border-color: none;
-              --el-input-hover-border-color: none;
-              box-shadow: none;
-              padding-left: 15px;
+              border: none;
             }
           }
         }
       }
+
       .login-password {
         margin-top: 19px;
         .password-condition {
@@ -582,11 +597,11 @@ $fontSizeMin: 12px;
           text-align: center;
         }
         :deep() {
-          .el-divider__text.is-center{
+          .el-divider__text.is-center {
             margin-top: -2px;
           }
-          .el-divider__text{
-            padding: 0px ;
+          .el-divider__text {
+            padding: 0px;
           }
         }
       }
@@ -627,7 +642,7 @@ $fontSizeMin: 12px;
     .scan-box {
       background: #f1f1f1;
       border-radius: 0 8px 8px 0;
-      padding: 93px 42px 72px 42px;
+      padding: 103px 42px 83px 42px;
       @media (max-width: 769px) {
         border-radius: 0px;
         padding: 94px 13px 72px 13px;
@@ -930,11 +945,11 @@ $fontSizeMin: 12px;
           text-align: center;
         }
         :deep() {
-          .el-divider__text.is-center{
+          .el-divider__text.is-center {
             margin-top: -2px;
           }
-          .el-divider__text{
-            padding: 0px ;
+          .el-divider__text {
+            padding: 0px;
           }
         }
       }

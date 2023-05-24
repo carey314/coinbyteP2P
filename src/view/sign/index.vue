@@ -31,15 +31,13 @@
               class="input-with-select"
             >
               <template #prepend>
-                <el-select v-model="select" placeholder="Select" filterable>
-                  <template #prefix>
-                    <i class="el-input__icon el-icon-search"></i>
-                  </template>
+                <el-select v-model="numberSelect" placeholder="Select" filterable>
                   <el-option
                     v-for="item in areas"
                     :key="item.value"
                     :label="item.value"
                     :value="item.value"
+                    style="width: 358px;"
                   >
                     <span style="float: left">{{ item.label }}</span>
                     <span
@@ -215,18 +213,10 @@ const fingerprintStore = useFingerprintStore();
 
 const activeSign = ref("1");
 const number = ref("");
-const select = ref("");
+const numberSelect = ref("+61");
 const areas = [
-  { label: "中国大陆", value: "+86" },
-  { label: "香港", value: "+852" },
-  { label: "澳大利亚", value: "+61" },
-  { label: "美国", value: "+1" },
-  { label: "加拿大", value: "+1" },
-  { label: "日本", value: "+81" },
-  { label: "韩国", value: "+82" },
-  { label: "新加坡", value: "+65" },
-  { label: "英国", value: "+44" },
-  { label: "德国", value: "+49" },
+{ label: "Australia", value: "+61" },
+  { label: "United States", value: "+1" },
 ];
 const filterMethod = (query: string, option: any) => {
   return (
@@ -454,7 +444,7 @@ $fontSizeMin: 12px;
             --el-input-border-color: none;
           }
           .el-input-group__prepend {
-            width: 30%;
+            width: 73px;
             border-radius: 8px;
           }
           .el-input-group--prepend > .el-input__wrapper {
@@ -670,12 +660,13 @@ $fontSizeMin: 12px;
   }
 }
 
-:deep(){
-  .el-select-dropdown{
+:deep() {
+  .el-select-dropdown {
     min-width: 358px !important;
   }
   // .sign-box .sign .sign-radio .activeNumber[data-v-47e17749] .el-input__wrapper{
   //   margin-left: -8px;
   // }
+
 }
 </style>
