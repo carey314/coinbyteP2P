@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createChart } from "lightweight-charts";
+import { createChart, version } from "lightweight-charts";
 
 import {
   ref,
@@ -49,6 +49,7 @@ function getChartSeriesConstructorName(type: string) {
 // Lightweight Charts™ instances are stored as normal JS variables
 // If you need to use a ref then it is recommended that you use `shallowRef` instead
 let series: any;
+let series2: any;
 let chart: any;
 
 const chartContainer = ref();
@@ -61,13 +62,16 @@ const fitContent = () => {
 const getChart = () => {
   return chart;
 };
+const getSeries = () => {
+  return series;
+};
 const resizeChart = () => {
   if (!chart || !chartContainer.value) return;
   const dimensions = chartContainer.value.getBoundingClientRect();
   chart.resize(dimensions.width, dimensions.height);
 };
 
-defineExpose({ fitContent, getChart,resizeChart });
+defineExpose({ fitContent, getChart, getSeries, resizeChart });
 
 // Auto resizes the chart when the browser window is resized.
 const resizeHandler = () => {
@@ -78,9 +82,30 @@ const resizeHandler = () => {
 
 // Creates the chart series and sets the data.
 const addSeriesAndData = (props: any) => {
+  console.log(props)
   const seriesConstructor = getChartSeriesConstructorName(props.type);
+  console.log(seriesConstructor)
   series = chart[seriesConstructor](props.seriesOptions);
+
   series.setData(props.data);
+};
+// Creates the chart series and sets the data.
+const addVolumeAndData = (props: any) => {
+  const seriesConstructor = 'addHistogramSeries';
+  series = chart[seriesConstructor]({
+    color: '#aaa',
+    priceFormat: {
+      type: 'volume',
+    },
+    priceScaleId: 'test',
+  });
+  const data = [].concat(props.data);
+  props.data.forEach((item:any)=>{
+    item.value = Math.random() * 150 + 300;
+    const ran = Math.random() > 0.5 ? 1 : 0;
+    item.color = ran ? 'rgba(0, 150, 136, 0.8)' : 'rgba(255, 82, 82, 0.8)'
+  })
+  series.setData(data);
 };
 
 onMounted(() => {
@@ -88,17 +113,18 @@ onMounted(() => {
   chart = createChart(chartContainer.value, props.chartOptions);
   addSeriesAndData(props);
 
+  // addVolumeAndData(props);
   if (props.priceScaleOptions) {
-    chart.priceScale().applyOptions(props.priceScaleOptions);
+    chart.priceScale('test').applyOptions(props.priceScaleOptions);
   }
   // if (props.gridOptions) {
   //   chart.applyOptions({ grid: props.gridOptions });
   // }
-  
+
   if (props.timeScaleOptions) {
     chart.timeScale().applyOptions(props.timeScaleOptions);
   }
-
+  // console.log(chart.timeScale())
   chart.timeScale().fitContent();
 
   if (props.autosize) {
@@ -151,9 +177,10 @@ watch(
 
 watch(
   () => props.data,
-  (newData) => {
+  (newData:any) => {
     if (!series) return;
     series.setData(newData);
+    chart.timeScale().fitContent();
   }
 );
 

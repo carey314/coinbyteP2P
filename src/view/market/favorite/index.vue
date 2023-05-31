@@ -29,7 +29,7 @@
             </el-tab-pane>
 
             <el-tab-pane name="second">
-            
+
               <template #label>
                 <router-link
                   to="/market-allCrypto"
@@ -157,8 +157,8 @@ const coinMarketCapData = ref<any>({ data: [] });
 
 onMounted(async () => {
   try {
-    const response = await getCoinMarketCap();
-    coinMarketCapData.value = JSON.parse(response.data);
+    // const response = await getCoinMarketCap();
+    // coinMarketCapData.value = JSON.parse(response.data);
   } catch (error) {
     console.error(error);
   }

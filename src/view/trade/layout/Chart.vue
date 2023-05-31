@@ -22,7 +22,7 @@
           <el-radio-group
             v-model="activeType"
             v-show="shouldShowChartType"
-            @change="changeType"
+            @change="changeData"
             @tab-click="handleClick"
           >
             <el-radio-button
@@ -46,7 +46,7 @@
       </div>
       <div class="nav-right">
         <div class="data nav">
-          <el-radio-group v-model="activeData" @change="changeData" @tab-click="handleClick"> 
+          <el-radio-group v-model="activeData" @change="changeData" @tab-click="handleClick">
             <el-radio-button :class="{ selected: activeData === 'first' }" label="first"><span>1D</span></el-radio-button>
             <el-radio-button :class="{ selected: activeData === 'second' }" label="second"><span>7D</span></el-radio-button>
             <el-radio-button :class="{ selected: activeData === 'third' }" label="third"><span>1M</span></el-radio-button>
@@ -78,10 +78,12 @@
     <div class="chart-container">
       <LWChart
         :type="chartType"
-        :data="data"
+        :data="coinMarketCapData"
         :autosize="true"
         :chart-options="chartOptions"
         :series-options="seriesOptions"
+        :price-scale-options="priceScaleOptions"
+        :time-scale-options="timeScaleOptions"
         ref="lwChart"
       />
     </div>
@@ -124,7 +126,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
 import LWChart from "./components/LWChart.vue";
-import { getCoinMarketCap } from "../../../api/market";
+import { getCoinMarketCap, getCoinMarketCapOhlc } from "../../../api/market";
 
 import {
   Calendar,
@@ -183,7 +185,7 @@ function showDatePicker() {
   (ref as any).value.$el.querySelector(".el-date-picker__header-label").click();
 }
 
-const coinMarketCapData = ref<any>({ data: [] });
+const coinMarketCapData = ref<any>([]);
 const value = ref("");
 const options = [
   {
@@ -196,14 +198,105 @@ const options = [
   },
 ];
 onMounted(async () => {
+  getData();
+});
+onMounted(async () => {
+  getData();
+  setInterval(()=>{
+    getData();
+  }, 60000)
+});
+
+async function getData(isRefresh = false) {
   try {
-    const response = await getCoinMarketCap();
-    coinMarketCapData.value = JSON.parse(response.data);
+    let days = 1;
+    if (activeData.value === 'first') {
+      days = 1;
+    } else if (activeData.value === 'second') {
+      days = 7;
+    } else if (activeData.value === 'third') {
+      days = 30;
+    } else if (activeData.value === 'forth') {
+      days = 365;
+    } else if (activeData.value === 'fifth') {
+      days = 365 * 3;
+    }
+
+    let type = 'prices'
+    if (activeName.value === 'first') {
+      if (activeType.value === 'first') {
+        chartType.value = 'baseline'
+      } else {
+        chartType.value = 'candlestick'
+      }
+      type = 'prices'
+    } else {
+      chartType.value = 'line'
+      type = 'market_caps'
+    }
+
+    if (chartType.value == 'candlestick') {
+      if (days > 367) {
+        days = 365 * 2
+      }
+      const response = await getCoinMarketCapOhlc({
+        symbols:'bitcoin',
+        days,
+      });
+      const jsonData = JSON.parse(response.data.bitcoin)
+      const mapData = jsonData.map((item:any) => {
+        return {
+          time: Math.floor(item[0] / 1000),
+          open: item[1],
+          high: item[2],
+          low: item[3],
+          close: item[4]
+        }
+      })
+      if (isRefresh) {
+        lwChart.value!.getSeries().update(mapData[mapData.length -1])
+      } else {
+        coinMarketCapData.value = mapData;
+      }
+    } else {
+      const response = await getCoinMarketCap({
+        symbols:'bitcoin',
+        days,
+      });
+      const jsonData = JSON.parse(response.data.bitcoin)
+      console.log(jsonData);
+
+      const mapData = jsonData[type].map((item:any) => {
+        return {
+          time: Math.floor(item[0] / 1000),
+          value: item[1]
+        }
+      })
+      if (isRefresh) {
+        lwChart.value!.getSeries().update(mapData[mapData.length -1])
+      } else {
+        // mapData.length = 10
+        coinMarketCapData.value = mapData;
+
+        changeColors();
+        if (chartType.value === "baseline") {
+          seriesOptions.value = {
+            ...seriesOptions.value,
+            baseLineWidth: 1,
+            baseValue: { type: "price", price: mapData[0].value } as any,
+          };
+        }
+      }
+
+    }
   } catch (error) {
     console.error(error);
   }
-});
+}
 
+const changeData = () => {
+  getData();
+};
 interface DataPoint {
   time: number;
   value?: number;
@@ -213,68 +306,49 @@ interface DataPoint {
   close?: number;
 }
 
-/**
- * Generates sample data for the Lightweight Charts™ example
- * @param  {Boolean} ohlc Whether generated dat should include open, high, low, and close values
- * @returns {Array} sample data
- */
-function generateSampleData(ohlc: boolean): DataPoint[] {
-  const randomFactor = 25 + Math.random() * 25;
-  function samplePoint(i: number): number {
-    return (
-      i *
-        (0.5 +
-          Math.sin(i / 10) * 0.2 +
-          Math.sin(i / 20) * 0.4 +
-          Math.sin(i / randomFactor) * 0.8 +
-          Math.sin(i / 500) * 0.5) +
-      200
-    );
-  }
-
-  const res: DataPoint[] = [];
-  let date = new Date(Date.UTC(2022, 0, 1, 0, 0, 0, 0));
-  const numberOfPoints = ohlc ? 100 : 500;
-  for (var i = 0; i < numberOfPoints; ++i) {
-    const time = date.getTime() / 1000;
-    const value = samplePoint(i);
-    if (ohlc) {
-      const randomRanges = [
-        -1 * Math.random(),
-        Math.random(),
-        Math.random(),
-      ].map((i) => i * 10);
-      const sign = Math.sin(Math.random() - 0.5);
-      res.push({
-        time,
-        low: value + randomRanges[0],
-        high: value + randomRanges[1],
-        open: value + sign * randomRanges[2],
-        close: samplePoint(i + 1),
-      });
-    } else {
-      res.push({
-        time,
-        value,
-      });
-    }
-
-    date.setUTCDate(date.getUTCDate() + 1);
-  }
-
-  return res;
-}
 
 const chartOptions = ref({
-  timeScale: {
-    timeFormat: "%Y-%m-%d %H:%M:%S",
+  rightPriceScale: {
+    scaleMargins: {
+      top: 0.3,
+      bottom: 0.25,
+    },
+    borderVisible: false,
+  },
+  localization: {
+    priceFormatter: (price:any) => {
+      if (price >= 1e15) {
+        return (price / 1e15).toFixed(2) + 'Q';
+      } else if (price >= 1e12) {
+        return (price / 1e12).toFixed(2) + 'T';
+      } else if (price >= 1e9) {
+        return (price / 1e9).toFixed(2) + 'B';
+      } else if (price >= 1e6) {
+        return (price / 1e6).toFixed(2) + 'M';
+      } else if (price >= 1e3) {
+        return (price / 1e3).toFixed(2) + 'K';
+      } else {
+        return price.toFixed(2);
+      }
+    },
   },
 });
-const data = ref<DataPoint[]>(generateSampleData(false));
+
 const seriesOptions = ref<{ [key: string]: string | number }>({
   color: "rgb(24, 183, 136)",
 });
-const chartType = ref<string>("area");
+const priceScaleOptions = ref<any>({
+  scaleMargins: {
+    top: 0.8,
+    bottom: 0,
+  },
+});
+const timeScaleOptions = {
+  timeVisible: true,
+  secondsVisible: false,
+  rightOffset: 0
+};
+const chartType = ref<string>("baseline");
 const lwChart = ref<typeof LWChart>();
 
 function randomShade(): number {
@@ -285,70 +359,57 @@ const randomColor = (alpha: number = 1): string => {
   return `rgba(${randomShade()}, ${randomShade()}, ${randomShade()}, ${alpha})`;
 };
 
-const colorsTypeMap: { [key: string]: [string, number][] } = {
-  area: [
-    ["topColor", 0.4],
-    ["bottomColor", 0],
-    ["lineColor", 1],
-  ],
-  bar: [
-    ["upColor", 1],
-    ["downColor", 1],
-  ],
+const colorsTypeMap: { [key: string]: [string, string][] } = {
+  // area: [
+  //   ["topColor", 0.4],
+  //   ["bottomColor", 0],
+  //   ["lineColor", 1],
+  // ],
+  // bar: [
+  //   ["upColor", 1],
+  //   ["downColor", 1],
+  // ],
   baseline: [
-    ["topFillColor1", 0.28],
-    ["topFillColor2", 0.05],
-    ["topLineColor", 1],
-    ["bottomFillColor1", 0.28],
-    ["bottomFillColor2", 0.05],
-    ["bottomLineColor", 1],
+    ["topFillColor1", 'rgba( 38, 166, 154, 0.28)'],
+    ["topFillColor2", 'rgba( 38, 166, 154, 0.05)'],
+    ["topLineColor", 'rgba( 38, 166, 154, 1)'],
+    ["bottomFillColor1", 'rgba( 239, 83, 80, 0.05)'],
+    ["bottomFillColor2", 'rgba( 239, 83, 80, 0.28)'],
+    ["bottomLineColor", 'rgba( 239, 83, 80, 1)'],
   ],
-  candlestick: [
-    ["upColor", 1],
-    ["downColor", 1],
-    ["borderUpColor", 1],
-    ["borderDownColor", 1],
-    ["wickUpColor", 1],
-    ["wickDownColor", 1],
-  ],
-  histogram: [["color", 1]],
-  line: [["color", 1]],
+  candlestick: [],
+  // candlestick: [
+  //   ["upColor", 1],
+  //   ["downColor", 1],
+  //   ["borderUpColor", 1],
+  //   ["borderDownColor", 1],
+  //   ["wickUpColor", 1],
+  //   ["wickDownColor", 1],
+  // ],
+  // histogram: [["color", 1]],
+  line: [["color", "blue"]],
 };
 
-const changeData = () => {
-  const candlestickTypeData = ["candlestick", "bar"].includes(chartType.value);
-  const newData = generateSampleData(candlestickTypeData);
-  data.value = newData;
-  if (chartType.value === "baseline") {
-    const average =
-      newData.reduce((s, c) => {
-        return s + (c.value || 0);
-      }, 0) / newData.length;
-    seriesOptions.value = {
-      baseValue: { type: "price", price: average } as any,
-    };
-  }
-};
 
 const changeColors = () => {
   const options: { [key: string]: string } = {};
   const colorsToSet = colorsTypeMap[chartType.value];
   colorsToSet.forEach((c) => {
-    options[c[0]] = randomColor(c[1]);
+    options[c[0]] = c[1];
   });
   seriesOptions.value = options;
 };
 
-const changeType = () => {
-  const types = ["area", "candlestick", "line"].filter(
-    (t) => t !== chartType.value
-  );
-  const randIndex = Math.round(Math.random() * (types.length - 1));
-  chartType.value = types[randIndex];
-  changeData();
-  // call a method on the component.
-  lwChart.value!.fitContent();
-};
+// const changeType = () => {
+//   const types = ["area", "candlestick", "line"].filter(
+//     (t) => t !== chartType.value
+//   );
+//   const randIndex = Math.round(Math.random() * (types.length - 1));
+//   chartType.value = types[randIndex];
+//   changeData();
+//   // call a method on the component.
+//   lwChart.value!.fitContent();
+// };
 
 watch(activeName, () => {
   changeData();

@@ -60,16 +60,16 @@ const coinMarketCapData = ref<Coin[] | null>([]);
 
 const fetchData = async () => {
   try {
-    const [historicalResponse, latestResponse] = await Promise.all([
-      getCoinMarketCap(),
+    const [latestResponse] = await Promise.all([
+      // getCoinMarketCap(),
       getLastCoinMarketCap()
     ]);
 
-    const historicalData = JSON.parse(historicalResponse.data);
+    // const historicalData = JSON.parse(historicalResponse.data);
     const latestData = JSON.parse(latestResponse.data);
 
     // Combine historical and latest data
-    coinMarketCapData.value = historicalData.concat(latestData);
+    // coinMarketCapData.value = historicalData.concat(latestData);
     console.log(coinMarketCapData.value);
   } catch (error) {
     console.error(error);

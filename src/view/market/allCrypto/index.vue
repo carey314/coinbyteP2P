@@ -65,7 +65,7 @@
                 <!-- volume_change_24h -->
                 <!-- Market Cap -->
                 <el-table
-                  :data="coinMarketCapData.data"
+                  :data="coinMarketCapData"
                   :table-layout="tableLayout"
                   class="crypto-table"
                   :default-sort="{ prop: 'address', order: 'ascending' }"
@@ -92,7 +92,7 @@
                           {{ row.name }}
                         </div>
                       </div>
-                     
+
                     </template>
                   </el-table-column>
 
@@ -118,13 +118,13 @@
                         v-if="row.quote.AUD.volume_change_24h > 0"
                         style="color: #01c19a"
                       >
-                        {{ row.quote.AUD.volume_change_24h }}%
+                        {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
                       </span>
                       <span
                         v-else-if="row.quote.AUD.volume_change_24h < 0"
                         style="color: #f15958"
                       >
-                        {{ row.quote.AUD.volume_change_24h }}%
+                        {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
                       </span>
                     </template>
                   </el-table-column>
@@ -208,7 +208,7 @@ import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
-import { getCoinMarketCap } from "../../../api/market";
+import {getCoinMarketCap, getLastCoinMarketCap} from "../../../api/market";
 
 import type { TabsPaneContext } from "element-plus";
 import { CaretBottom, CaretTop } from "@element-plus/icons";
@@ -286,16 +286,30 @@ interface Coin {
   };
 }
 
-const coinMarketCapData = ref<any>({ data: [] });
+const coinMarketCapData = ref<any>([]);
 
 onMounted(async () => {
+  refreshData();
+  setInterval(()=>{
+    refreshData();
+  }, 60000)
+});
+
+async function refreshData(){
   try {
-    const response = await getCoinMarketCap();
-    coinMarketCapData.value = JSON.parse(response.data);
+    const response = await getLastCoinMarketCap();
+    const resJson = JSON.parse(response.data);
+    const arr = [];
+    // object for getting
+    for (let key in resJson.data) {
+      arr.push(resJson.data[key][0])
+    }
+    coinMarketCapData.value = arr;
+    console.log(coinMarketCapData.value)
   } catch (error) {
     console.error(error);
   }
-});
+}
 
 const tableData = [
   {

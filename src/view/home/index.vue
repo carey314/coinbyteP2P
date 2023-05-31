@@ -132,18 +132,16 @@
             label="Popular assets"
             name="first"
           >
-            <el-table :data="coinMarketCapData.data.slice(0, 7)" style="width: 100%">
+            <el-table :data="coinMarketCapData" style="width: 100%">
               <el-table-column  label="Asset">
                 <template v-slot="{ row }" class="clearfloat">
                       <el-icon class="crypto-star clearfloat"
                         ><StarFilled
                       /></el-icon>
                       <div
-                        v-for="item in tableData.filter(i => i.tag === row.symbol)"
-                        :key="item.id"
                         class="crypto-icon"
                       >
-                        <img :src="item.img" alt="icon" />
+                        <img :src="row.image" alt="icon" />
                       </div>
                       <div class="table-tag">
                         {{ row.symbol }}
@@ -151,17 +149,17 @@
                           {{ row.name }}
                         </div>
                       </div>
-                     
-                    </template>
+
+                </template>
               </el-table-column>
               <el-table-column
-                prop="quote.AUD.price"
+                prop="current_price"
                 label="Last price"
                 align="right"
                 width="150"
               >
                 <template v-slot="{ row }">
-                  A${{ row.quote.AUD.price.toFixed(2) }}
+                  ${{ row.current_price.toFixed(2) }}
                 </template>
               </el-table-column>
 
@@ -174,16 +172,16 @@
               >
                 <template v-slot="{ row }">
                   <span
-                    v-if="row.quote.AUD.volume_change_24h > 0"
+                    v-if="row.market_cap_change_percentage_24h > 0"
                     style="color: #01c19a"
                   >
-                    {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
                   <span
-                    v-else-if="row.quote.AUD.volume_change_24h < 0"
+                    v-else-if="row.market_cap_change_percentage_24h < 0"
                     style="color: #f15958"
                   >
-                    {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
                 </template>
               </el-table-column>
@@ -222,7 +220,7 @@
                   ></div>
                 </template>
               </el-table-column> -->
-              
+
               <el-table-column prop="" label="Trade" align="right" width="100">
                 <template #default="scope">
                   <el-button
@@ -767,7 +765,7 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
-import { getCoinMarketCap } from "../../api/market";
+import {getCoinMarketCap, getLastCoinMarketCap} from "../../api/market";
 
 //icon
 import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
@@ -869,16 +867,31 @@ interface Coin {
   };
 }
 
-const coinMarketCapData = ref<any>({ data: [] });
+const coinMarketCapData = ref<any>([]);
 
 onMounted(async () => {
+  refreshData();
+  setInterval(()=>{
+    refreshData();
+  }, 60000 * 5)
+});
+
+async function refreshData(){
   try {
-    const response = await getCoinMarketCap();
-    coinMarketCapData.value = JSON.parse(response.data);
+    const response = await getLastCoinMarketCap();
+    const resJson = JSON.parse(response.data);
+    // console.log(resJson)
+    // const arr = [];
+    // // object for getting
+    // for (let key in resJson.data) {
+    //   arr.push(resJson.data[key][0])
+    // }
+    coinMarketCapData.value = resJson;
+    console.log(coinMarketCapData.value)
   } catch (error) {
     console.error(error);
   }
-});
+}
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
