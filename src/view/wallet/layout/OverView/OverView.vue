@@ -5,7 +5,7 @@
         <el-col :span="16" class="left-box">
           <div class="left-value">
             <div class="value-top">
-              {{ $t('messages.wallet.Overview_balance') }}
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -23,11 +23,20 @@
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
               <div class="bottom-title minMainFont">
-                {{ $t('messages.wallet.Overview_current') }}
+                {{ $t("messages.wallet.Overview_current") }}
               </div>
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
+                <router-link to="transaction/DepositCrypto">
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                /></router-link
+                  >
+                <GetButton
+                  class="buy-btn"
+                  :text="t('messages.wallet.Overview_buyBtn')"
+                />
               </div>
             </div>
           </div>
@@ -35,13 +44,15 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_myAssets') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_myAssets") }}</span>
                 </div>
               </template>
               <div class="assets-body">
                 <div class="assets-item">
                   <div class="assets-icon"><img :src="icon_trading" /></div>
-                  <div class="item-title">{{ $t('messages.wallet.Overview_Trading') }}</div>
+                  <div class="item-title">
+                    {{ $t("messages.wallet.Overview_Trading") }}
+                  </div>
                 </div>
                 <div>₮0.00</div>
                 <div class="demo-progress">
@@ -54,23 +65,38 @@
                   />
                 </div>
                 <div class="assets-btn">
-                  <el-button class="deposit-btn" type="success"
-                    >{{ $t('messages.wallet.Overview_depositBtn') }}</el-button
-                  >
+                 
+                    <el-button class="deposit-btn" type="success">{{
+                      $t("messages.wallet.Overview_depositBtn")
+                    }}</el-button>
                   <el-dropdown
                     trigger="click"
                     placement="bottom-end"
                     style="margin-left: 10px"
                   >
-                    <el-button class="more"> {{ $t('messages.wallet.Overview_moreBtn') }}</el-button>
+                    <el-button class="more">
+                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button
+                    >
                     <template #dropdown>
                       <el-dropdown-menu style="width: 180px">
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Withdraw') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Buy') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Sell') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Trade') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Convert') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Transfer') }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Withdraw")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Buy")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Sell")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Trade")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Convert")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Transfer")
+                        }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
@@ -80,7 +106,9 @@
               <div class="assets-body">
                 <div class="assets-item">
                   <div class="assets-icon"><img :src="icon_trading" /></div>
-                  <div class="item-title">{{ $t('messages.wallet.Overview_Earning') }}</div>
+                  <div class="item-title">
+                    {{ $t("messages.wallet.Overview_Earning") }}
+                  </div>
                 </div>
                 <div>₮0.00</div>
                 <div class="demo-progress">
@@ -93,8 +121,12 @@
                   />
                 </div>
                 <div class="assets-btn">
-                  <el-button type="success"> {{ $t('messages.wallet.Overview_earnBtn') }}</el-button>
-                  <el-button class="more"> {{ $t('messages.wallet.Overview_transferBtn') }}</el-button>
+                  <el-button type="success">
+                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
+                  >
+                  <el-button class="more">
+                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button
+                  >
                 </div>
               </div>
             </el-card>
@@ -103,7 +135,7 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_transactions') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <div class="empty-transactions">
@@ -112,7 +144,7 @@
                     <img :src="wallet_search_none" />
                   </div>
                   <div class="bottom-title minMainFont">
-                    {{ $t('messages.wallet.Overview_noTransaction') }}
+                    {{ $t("messages.wallet.Overview_noTransaction") }}
                   </div>
                 </div>
               </div>
@@ -123,17 +155,24 @@
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>{{ $t('messages.wallet.Overview_assets') }}</span>
+                <span>{{ $t("messages.wallet.Overview_assets") }}</span>
               </div>
             </template>
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
               <div class="bottom-title minMainFont">
-                {{ $t('messages.wallet.Overview_noAssets') }}
+                {{ $t("messages.wallet.Overview_noAssets") }}
               </div>
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="buy-btn"
+                  :text="t('messages.wallet.Overview_buyBtn')"
+                />
               </div>
             </div>
           </el-card>
@@ -145,7 +184,7 @@
         <el-col :span="24" class="left-box">
           <div class="left-value">
             <div class="value-top">
-              {{ $t('messages.wallet.Overview_balance') }}
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -163,11 +202,18 @@
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
               <div class="bottom-title minMainFont">
-                {{ $t('messages.wallet.Overview_current') }}
+                {{ $t("messages.wallet.Overview_current") }}
               </div>
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="buy-btn"
+                  :text="t('messages.wallet.Overview_buyBtn')"
+                />
               </div>
             </div>
           </div>
@@ -175,7 +221,7 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_myAssets') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_myAssets") }}</span>
                 </div>
               </template>
               <el-scrollbar>
@@ -183,7 +229,9 @@
                   <div class="assets-body">
                     <div class="assets-item">
                       <div class="assets-icon"><img :src="icon_trading" /></div>
-                      <div class="item-title">{{ $t('messages.wallet.Overview_Trading') }}</div>
+                      <div class="item-title">
+                        {{ $t("messages.wallet.Overview_Trading") }}
+                      </div>
                     </div>
                     <div>₮0.00</div>
                     <div class="demo-progress">
@@ -196,21 +244,39 @@
                       />
                     </div>
                     <div class="assets-btn">
-                      <el-button type="success">{{ $t('messages.wallet.Overview_depositBtn') }}</el-button>
+                      <el-button type="success">{{
+                        $t("messages.wallet.Overview_depositBtn")
+                      }}</el-button>
                       <el-dropdown
                         trigger="click"
                         placement="bottom-end"
                         style="margin-left: 10px"
                       >
-                        <el-button class="more"> {{ $t('messages.wallet.Overview_moreBtn') }}</el-button>
+                        <el-button class="more">
+                          {{
+                            $t("messages.wallet.Overview_moreBtn")
+                          }}</el-button
+                        >
                         <template #dropdown>
                           <el-dropdown-menu style="width: 180px">
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Withdraw') }}</el-dropdown-item>
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Buy') }}</el-dropdown-item>
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Sell') }}</el-dropdown-item>
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Trade') }}</el-dropdown-item>
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Convert') }}</el-dropdown-item>
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Transfer') }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Withdraw")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Buy")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Sell")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Trade")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Convert")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Transfer")
+                            }}</el-dropdown-item>
                           </el-dropdown-menu>
                         </template>
                       </el-dropdown>
@@ -224,7 +290,9 @@
                   <div class="assets-body">
                     <div class="assets-item">
                       <div class="assets-icon"><img :src="icon_trading" /></div>
-                      <div class="item-title">{{ $t('messages.wallet.Overview_Earning') }}</div>
+                      <div class="item-title">
+                        {{ $t("messages.wallet.Overview_Earning") }}
+                      </div>
                     </div>
                     <div>₮0.00</div>
                     <div class="demo-progress">
@@ -237,8 +305,14 @@
                       />
                     </div>
                     <div class="assets-btn">
-                      <el-button type="success"> {{ $t('messages.wallet.Overview_earnBtn') }}</el-button>
-                      <el-button class="more"> {{ $t('messages.wallet.Overview_transferBtn') }}</el-button>
+                      <el-button type="success">
+                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
+                      >
+                      <el-button class="more">
+                        {{
+                          $t("messages.wallet.Overview_transferBtn")
+                        }}</el-button
+                      >
                     </div>
                   </div>
                 </div>
@@ -249,7 +323,7 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_transactions') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <div class="empty-transactions">
@@ -258,7 +332,7 @@
                     <img :src="wallet_search_none" />
                   </div>
                   <div class="bottom-title minMainFont">
-                    {{ $t('messages.wallet.Overview_noTransaction') }}
+                    {{ $t("messages.wallet.Overview_noTransaction") }}
                   </div>
                 </div>
               </div>
@@ -269,17 +343,24 @@
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>{{ $t('messages.wallet.Overview_assets') }}</span>
+                <span>{{ $t("messages.wallet.Overview_assets") }}</span>
               </div>
             </template>
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
               <div class="bottom-title minMainFont">
-                {{ $t('messages.wallet.Overview_noAssets') }}
+                {{ $t("messages.wallet.Overview_noAssets") }}
               </div>
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="buy-btn"
+                  :text="t('messages.wallet.Overview_buyBtn')"
+                />
               </div>
             </div>
           </el-card>
@@ -293,7 +374,7 @@
         <el-col :span="16" class="left-box">
           <div class="left-value clearfloat">
             <div class="value-top">
-              {{ $t('messages.wallet.Overview_balance') }}
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -310,10 +391,23 @@
             </div>
             <div class="value-bottom">
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Convert')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Withdraw')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Transfer')" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Convert')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Withdraw')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Transfer')"
+                />
               </div>
             </div>
           </div>
@@ -321,13 +415,15 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_myAssets') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_myAssets") }}</span>
                 </div>
               </template>
               <div class="assets-body">
                 <div class="assets-item">
                   <div class="assets-icon"><img :src="icon_trading" /></div>
-                  <div class="item-title">{{ $t('messages.wallet.Overview_Trading') }}</div>
+                  <div class="item-title">
+                    {{ $t("messages.wallet.Overview_Trading") }}
+                  </div>
                 </div>
                 <div class="assets-price">₮{{ TotalAmount }}</div>
                 <div class="demo-progress">
@@ -340,22 +436,38 @@
                   />
                 </div>
                 <div class="assets-btn">
-                  <el-button type="success">{{ $t('messages.wallet.Overview_depositBtn') }}</el-button>
+                  <el-button type="success">{{
+                    $t("messages.wallet.Overview_depositBtn")
+                  }}</el-button>
 
                   <el-dropdown
                     trigger="click"
                     placement="bottom-end"
                     style="margin-left: 10px"
                   >
-                    <el-button class="more"> {{ $t('messages.wallet.Overview_moreBtn') }}</el-button>
+                    <el-button class="more">
+                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button
+                    >
                     <template #dropdown>
                       <el-dropdown-menu style="width: 180px">
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Withdraw') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Buy') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Sell') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Trade') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Convert') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Transfer') }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Withdraw")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Buy")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Sell")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Trade")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Convert")
+                        }}</el-dropdown-item>
+                        <el-dropdown-item>{{
+                          $t("messages.wallet.Overview_Transfer")
+                        }}</el-dropdown-item>
                       </el-dropdown-menu>
                     </template>
                   </el-dropdown>
@@ -365,7 +477,9 @@
               <div class="assets-body">
                 <div class="assets-item">
                   <div class="assets-icon"><img :src="icon_earining" /></div>
-                  <div class="item-title">{{ $t('messages.wallet.Overview_Earning') }}</div>
+                  <div class="item-title">
+                    {{ $t("messages.wallet.Overview_Earning") }}
+                  </div>
                 </div>
                 <div class="assets-price">₮0.00</div>
                 <div class="demo-progress">
@@ -378,8 +492,12 @@
                   />
                 </div>
                 <div class="assets-btn">
-                  <el-button type="success"> {{ $t('messages.wallet.Overview_earnBtn') }}</el-button>
-                  <el-button class="more"> {{ $t('messages.wallet.Overview_transferBtn') }}</el-button>
+                  <el-button type="success">
+                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
+                  >
+                  <el-button class="more">
+                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button
+                  >
                 </div>
               </div>
             </el-card>
@@ -388,7 +506,7 @@
             <el-card class="recent-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_transactions') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <template v-if="viewTransactions">
@@ -411,7 +529,9 @@
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div>
+                <div class="view-more">
+                  {{ $t("messages.wallet.wallet_more") }} &gt;
+                </div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -420,7 +540,7 @@
                       <img :src="wallet_search_none" />
                     </div>
                     <div class="bottom-title minMainFont">
-                      {{ $t('messages.wallet.Overview_noTransaction') }}
+                      {{ $t("messages.wallet.Overview_noTransaction") }}
                     </div>
                   </div>
                 </div>
@@ -432,7 +552,7 @@
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>{{ $t('messages.wallet.Overview_assets') }}</span>
+                <span>{{ $t("messages.wallet.Overview_assets") }}</span>
               </div>
             </template>
             <div class="value-bottom">
@@ -497,7 +617,9 @@
                 <div class="recent-count">₮10.00</div>
               </div>
               <el-divider style="margin-left: -20px; width: 200%" /> -->
-              <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div>
+              <div class="view-more">
+                {{ $t("messages.wallet.wallet_more") }} &gt;
+              </div>
             </div>
           </el-card>
         </el-col>
@@ -508,7 +630,7 @@
         <el-col :span="24" class="left-box">
           <div class="left-value clearfloat">
             <div class="value-top">
-              {{ $t('messages.wallet.Overview_balance') }}
+              {{ $t("messages.wallet.Overview_balance") }}
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
@@ -525,10 +647,23 @@
             </div>
             <div class="value-bottom clearfloat">
               <div class="bottom-btn">
-                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Convert')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Withdraw')" />
-                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Transfer')" />
+                <GetButton
+                  class="deposit-btn"
+                  type="success"
+                  :text="t('messages.wallet.Overview_depositBtn')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Convert')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Withdraw')"
+                />
+                <GetButton
+                  class="func-btn"
+                  :text="t('messages.wallet.Overview_Transfer')"
+                />
               </div>
             </div>
           </div>
@@ -536,7 +671,7 @@
             <el-card class="box-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_myAssets') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_myAssets") }}</span>
                 </div>
               </template>
               <el-scrollbar>
@@ -544,7 +679,9 @@
                   <div class="assets-body">
                     <div class="assets-item">
                       <div class="assets-icon"><img :src="icon_trading" /></div>
-                      <div class="item-title">{{ $t('messages.wallet.Overview_Trading') }}</div>
+                      <div class="item-title">
+                        {{ $t("messages.wallet.Overview_Trading") }}
+                      </div>
                     </div>
                     <div class="assets-price">₮{{ TotalAmount }}</div>
                     <div class="demo-progress">
@@ -557,21 +694,41 @@
                       />
                     </div>
                     <div class="assets-btn">
-                      <el-button type="success"> {{ $t('messages.wallet.Overview_depositBtn') }}</el-button>
+                      <el-button type="success">
+                        {{
+                          $t("messages.wallet.Overview_depositBtn")
+                        }}</el-button
+                      >
                       <el-dropdown
                         trigger="click"
                         placement="bottom-end"
                         style="margin-left: 10px"
                       >
-                        <el-button class="more"> {{ $t('messages.wallet.Overview_moreBtn') }}</el-button>
+                        <el-button class="more">
+                          {{
+                            $t("messages.wallet.Overview_moreBtn")
+                          }}</el-button
+                        >
                         <template #dropdown>
                           <el-dropdown-menu style="width: 179px">
-                            <el-dropdown-item>{{ $t('messages.wallet.Overview_Withdraw') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Buy') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Sell') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Trade') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Convert') }}</el-dropdown-item>
-                        <el-dropdown-item>{{ $t('messages.wallet.Overview_Transfer') }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Withdraw")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Buy")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Sell")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Trade")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Convert")
+                            }}</el-dropdown-item>
+                            <el-dropdown-item>{{
+                              $t("messages.wallet.Overview_Transfer")
+                            }}</el-dropdown-item>
                           </el-dropdown-menu>
                         </template>
                       </el-dropdown>
@@ -587,7 +744,9 @@
                       <div class="assets-icon">
                         <img :src="icon_earining" />
                       </div>
-                      <div class="item-title">{{ $t('messages.wallet.Overview_Earning') }}</div>
+                      <div class="item-title">
+                        {{ $t("messages.wallet.Overview_Earning") }}
+                      </div>
                     </div>
                     <div class="assets-price">₮0.00</div>
                     <div class="demo-progress">
@@ -600,8 +759,14 @@
                       />
                     </div>
                     <div class="assets-btn">
-                      <el-button type="success"> {{ $t('messages.wallet.Overview_earnBtn') }}</el-button>
-                      <el-button class="more"> {{ $t('messages.wallet.Overview_transferBtn') }}</el-button>
+                      <el-button type="success">
+                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
+                      >
+                      <el-button class="more">
+                        {{
+                          $t("messages.wallet.Overview_transferBtn")
+                        }}</el-button
+                      >
                     </div>
                   </div>
                 </div>
@@ -612,7 +777,7 @@
             <el-card class="recent-card">
               <template #header>
                 <div class="card-header">
-                  <span>{{ $t('messages.wallet.Overview_transactions') }}</span>
+                  <span>{{ $t("messages.wallet.Overview_transactions") }}</span>
                 </div>
               </template>
               <template v-if="viewTransactions">
@@ -644,7 +809,9 @@
                   </div>
                   <el-divider style="margin-left: -20px; width: 200%" />
                 </template>
-                <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div>
+                <div class="view-more">
+                  {{ $t("messages.wallet.wallet_more") }} &gt;
+                </div>
               </template>
               <template v-else>
                 <div class="empty-transactions">
@@ -653,7 +820,7 @@
                       <img :src="wallet_search_none" />
                     </div>
                     <div class="bottom-title minMainFont">
-                      {{ $t('messages.wallet.Overview_noTransaction') }}
+                      {{ $t("messages.wallet.Overview_noTransaction") }}
                     </div>
                   </div>
                 </div>
@@ -705,7 +872,7 @@
           <el-card class="box-card">
             <template #header>
               <div class="card-header">
-                <span>{{ $t('messages.wallet.Overview_assets') }}</span>
+                <span>{{ $t("messages.wallet.Overview_assets") }}</span>
               </div>
             </template>
             <div class="value-bottom">
@@ -785,7 +952,9 @@
                 </div>
                 <el-divider style="margin-left: -20px; width: 200%" />
               </template>
-              <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div>
+              <div class="view-more">
+                {{ $t("messages.wallet.wallet_more") }} &gt;
+              </div>
             </div>
           </el-card>
         </el-col>
@@ -821,7 +990,7 @@ import { getTransactions } from "../../../../api/transactions";
 import moment from "moment";
 
 import { useI18n } from "vue-i18n";
-const {t} = useI18n();
+const { t } = useI18n();
 //Recent transactions --- icon
 const iconCollects = ref({
   deposit: {

@@ -22,19 +22,23 @@
             </div>
             <div class="value-bottom clearfloat">
               <div class="bottom-btn">
+                <router-link to="transaction/DepositCrypto">
                 <GetButton
                   class="deposit-btn"
                   type="success"
                   :text="t('messages.wallet.Overview_depositBtn')"
                 />
+                </router-link>
                 <GetButton
                   class="func-btn"
                   :text="t('messages.wallet.Overview_Convert')"
                 />
+                <router-link to="transaction/WithdrawCrypto">
                 <GetButton
                   class="func-btn"
                   :text="t('messages.wallet.Overview_Withdraw')"
                 />
+                </router-link>
                 <GetButton
                   class="func-btn"
                   :text="t('messages.wallet.Overview_Transfer')"

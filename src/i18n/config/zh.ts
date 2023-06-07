@@ -441,6 +441,7 @@ export default {
       trade_role: "角色",
       fiat_Time: "时间",
       fiat_Coin: "货币",
+      fiat_Asset: "资产",
       fiat_Amount: "数量",
       fiat_Status: "状态",
       fiat_Information: "信息",

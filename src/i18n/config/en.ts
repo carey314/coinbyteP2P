@@ -455,6 +455,7 @@ export default {
       trade_role: "Role",
       fiat_Time: "Time",
       fiat_Coin: "Coin",
+      fiat_Asset: "Asset",
       fiat_Amount: "Amount",
       fiat_Status: "Status",
       fiat_Information: "Information",

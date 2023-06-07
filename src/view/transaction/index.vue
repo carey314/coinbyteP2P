@@ -5,7 +5,7 @@
       <el-scrollbar>
         <div class="scrollbar-flex-content">
           
-          <el-tabs v-model="activeName" class="demo-tabs">
+          <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleTabClick">
             <el-tab-pane
               :label="t('messages.wallet.Overview')"
               name="first"
@@ -39,7 +39,8 @@
         </div>
       </el-scrollbar>
       <div class="min-height" v-if="activeName === 'first'">
-        <OverView />
+        <!-- <WithdrawCrypto /> -->
+        <router-view></router-view>
       </div>
       <div class="min-height" v-if="activeName === 'second'">
         <Trading />
@@ -51,7 +52,7 @@
       <div class="min-height" v-if="activeName === 'fifth'">
         <AccountStatement />
       </div>
-    </div>
+    </div> 
 
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
@@ -64,10 +65,11 @@ import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import OverView from "./layout/OverView/OverView.vue";
-import Trading from "./layout/Trading/Trading.vue";
-import History from "./layout/History/History.vue";
-import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
+import DepositCrypto from "./layout/OverView/DepositCrypto.vue";
+import DepositFiat from "./layout/OverView/DepositFiat.vue";
+import WithdrawCrypto from "./layout/OverView/WithdrawCrypto.vue";
+import WithdrawFiat from "./layout/OverView/WithdrawFiat.vue";
+
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
@@ -132,6 +134,24 @@ onMounted(() => {
   });
 });
 provide("transactions", transactions);
+const handleTabClick = (tab:any) => {
+  switch (tab.name) {
+    case 'first':
+      router.push({ name: 'transaction/DepositCrypto' });
+      break;
+    case 'second':
+      router.push({ name: 'transaction/DepositFiat' });
+      break;
+    case 'third':
+      router.push({ name: 'transaction/WithdrawFiat' });
+      break;
+    case 'fourth':
+      router.push({ name: 'transaction/WithdrawCrypto' });
+      break;
+    default:
+      break;
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -139,7 +159,7 @@ provide("transactions", transactions);
   max-width: 1290px;
   min-height: calc(100vh - 394px);
   margin: auto;
-  padding: 21px 0 141px 0;
+  padding: 21px 0 100px 0;
   position: relative;
   @media (max-width: 1440px) {
     max-width: 940px;
@@ -186,7 +206,7 @@ provide("transactions", transactions);
     height: 4px;
   }
   .el-tabs__nav-wrap::after {
-    height: 1px solid #EBEBEB ;
+    height: 1px;
   }
 
   .el-radio-button {
@@ -236,5 +256,8 @@ provide("transactions", transactions);
 }
 :deep(.el-table__row) {
   height: 70px;
+}
+:deep(.el-tabs__nav-scroll){
+  border-bottom: 1px solid #EBEBEB !important;
 }
 </style>

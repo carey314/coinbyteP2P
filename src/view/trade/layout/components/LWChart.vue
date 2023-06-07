@@ -82,13 +82,14 @@ const resizeHandler = () => {
 
 // Creates the chart series and sets the data.
 const addSeriesAndData = (props: any) => {
-  console.log(props)
+  // console.log(props)
   const seriesConstructor = getChartSeriesConstructorName(props.type);
-  console.log(seriesConstructor)
+  // console.log(seriesConstructor)
   series = chart[seriesConstructor](props.seriesOptions);
 
   series.setData(props.data);
 };
+
 // Creates the chart series and sets the data.
 const addVolumeAndData = (props: any) => {
   const seriesConstructor = 'addHistogramSeries';

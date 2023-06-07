@@ -118,6 +118,9 @@ function resetWidth() {
         display: block;
         align-items: center;
         width: 180px;
+        @media (max-width: 992px) {
+          width: 110px;
+        }
       }
       .progress-buy {
         display: flex;

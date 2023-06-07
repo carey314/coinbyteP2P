@@ -138,7 +138,7 @@ onBeforeMount(() => {
     height: 4px;
   }
   .el-tabs__nav-wrap::after {
-    height: 1px;
+    height: 1px solid #EBEBEB;
   }
 
   .el-radio-button {

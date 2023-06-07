@@ -434,6 +434,10 @@ watch(activeName, () => {
       background-color: #eff2f5;
       border-color: #eff2f5;
     }
+    .convert-page .convert-content .center-part .center-convert .convert-radio[data-v-618d032f] .el-radio-button__original-radio:checked + .el-radio-button__inner{
+      border: none !important;
+
+    }
     .el-radio-button {
       --el-radio-button-checked-border-color: #eff2f5;
     }

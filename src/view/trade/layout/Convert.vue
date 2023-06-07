@@ -555,20 +555,56 @@ $fontSizeMin: 12px;
 .convert-page {
   position: relative;
   .convert-content {
-    // min-height: calc(100vh - 394px);
+    min-height: calc(100vh - 394px);
     align-items: center;
-
+    .top-part {
+      background: #1d262f;
+      width: 100%;
+      padding: 46px 0 68px 0;
+      position: relative;
+      display: flex;
+      .top-part-box {
+        margin: auto;
+        text-align: center;
+        width: 654px;
+        @media (max-width: 769px) {
+          & {
+            padding: 0 5%;
+          }
+        }
+        .top-part-title {
+          font-size: $fontSizeMax;
+          color: #01c19a;
+          font-weight: 600;
+          line-height: 51px;
+        }
+        .top-part-content {
+          font-size: $fontSizeMed;
+          color: #ffffff;
+          margin-top: 12px;
+          line-height: 29px;
+          @media (max-width: 769px) {
+            & {
+              font-size: $fontSizeDef !important;
+            }
+          }
+        }
+      }
+    }
     .center-part {
+
+      @media (max-width: 769px) {
+        padding-top: 10px;
+      }
       .center-convert {
-        max-width: 420px;
+        max-width: 618px;
         flex: 1;
         margin: auto;
         background: #fff;
         box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
         border-radius: 8px;
-        @media (max-width: 1200px) {
-          // border-radius: 0px;
-          margin-top: 50px;
+        @media (max-width: 768px) {
+          border-radius: 0px;
         }
         .convert-radio {
           :deep() {
@@ -579,7 +615,7 @@ $fontSizeMin: 12px;
               width: 50%;
             }
             .el-radio-button__inner {
-              font-size: 16px;
+              font-size: 18px;
               line-height: 23px;
               color: #878787;
               font-weight: 600;
@@ -591,7 +627,8 @@ $fontSizeMin: 12px;
               justify-content: center;
             }
             .el-radio-button:first-child .el-radio-button__inner {
-              background: #fff;
+              background: #f1f4f5;
+              border-radius: 8px 0;
             }
             .el-radio-button:last-child .el-radio-button__inner {
               border-radius: 0 0 0 8px;
@@ -599,7 +636,8 @@ $fontSizeMin: 12px;
             .el-radio-button__original-radio:checked + .el-radio-button__inner {
               color: #000 !important;
               box-shadow: none;
-              // background: #fff;
+              border-radius: 0 8px 0 0;
+              background: #fff;
             }
           }
           .el-radio {
@@ -608,7 +646,6 @@ $fontSizeMin: 12px;
             padding: 15px;
             background: #f1f4f5;
           }
-
           .change-count {
             position: relative;
             // border: 1px solid #DFDFE5;
@@ -731,7 +768,7 @@ $fontSizeMin: 12px;
         }
       }
       .radio-content {
-        padding: 32px 25px 33px 25px;
+        padding: 32px 40px 40px 40px;
         position: relative;
 
         :deep() {
@@ -762,7 +799,7 @@ $fontSizeMin: 12px;
         .input-title {
           position: absolute;
           top: 40px;
-          left: 36px;
+          left: 52px;
           z-index: 1;
           color: #878787;
           font-size: $fontSizeMin;
@@ -770,7 +807,7 @@ $fontSizeMin: 12px;
         .input-tip {
           position: absolute;
           top: 50px;
-          right: 155px;
+          right: 168px;
           z-index: 1;
           color: #f15958;
           font-size: $fontSizeMin;
@@ -835,6 +872,43 @@ $fontSizeMin: 12px;
               padding: 16px 0;
             }
           }
+        }
+      }
+      .center-service {
+        max-width: 618px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 83px;
+        padding: 0 20px;
+        .service {
+          .service-icon {
+            text-align: center;
+            img {
+              width: 73px;
+              height: auto;
+              object-fit: contain;
+              @media (max-width: 769px) {
+                width: 63px;
+              }
+            }
+          }
+
+          .service-msg {
+            line-height: 25px;
+            font-size: 20px;
+            color: #060606;
+            margin-top: 12px;
+            @media (max-width: 769px) {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+      .center-faq {
+        margin-top: 102px;
+        @media (max-width: 1000px) {
+          margin-top: 60px;
         }
       }
     }

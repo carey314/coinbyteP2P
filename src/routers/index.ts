@@ -161,6 +161,37 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/transaction',
+    name: 'transaction',
+    component: () => import('../view/transaction/index.vue'),
+    children: [
+      {
+        path: 'DepositCrypto',
+        name: 'transaction/DepositCrypto',
+        meta: { tab: "first" },
+        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
+      },
+      {
+        path: 'DepositFiat',
+        name: 'transaction/DepositFiat',
+        meta: { tab: "first" },
+        component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
+      },
+      {
+        path: 'WithdrawFiat',
+        name: 'transaction/WithdrawFiat',
+        meta: { tab: "first" },
+        component: () => import('../view/transaction/layout/OverView/WithdrawFiat.vue'),
+      },
+      {
+        path: 'WithdrawCrypto',
+        name: 'transaction/WithdrawCrypto',
+        meta: { tab: "first" },
+        component: () => import('../view/transaction/layout/OverView/WithdrawCrypto.vue'),
+      },
+    ],
+  },
+  {
     path: '/test',
     name: 'test',
     component: () => import('../view/test/test1/test1.vue'),
