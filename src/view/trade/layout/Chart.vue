@@ -130,7 +130,8 @@
               label="seventh"
               ><span>LOG</span></el-radio-button
             >
-            <el-radio-button label="eigth">
+            <a ref="downloadLink" download="chart.png" target="_blank" style="display: none;"></a>
+            <el-radio-button label="eigth"  @click="downloadChart">
               <el-icon><Download /></el-icon>
             </el-radio-button>
           </el-radio-group>
@@ -183,6 +184,29 @@ function handleClick() {
 
 const value2 = ref("");
 
+const downloadLink = ref();
+
+import html2canvas from "html2canvas";
+
+async function downloadChart() {
+  try {
+    const chartContainer = document.querySelector(".chart-container");
+
+    // 将图表渲染到一个隐藏的 <canvas> 元素
+    const canvas = await html2canvas(chartContainer as HTMLElement);
+
+    // 将 <canvas> 元素转换为DataURL
+    const dataUrl = canvas.toDataURL("image/png");
+
+    // 设置 <a> 标签的 href 属性为DataURL
+    downloadLink.value.href = dataUrl;
+
+    // 模拟点击 <a> 标签以触发下载
+    downloadLink.value.click();
+  } catch (error) {
+    console.error("Failed to download chart:", error);
+  }
+}
 const shortcuts = [
   {
     text: "Today",
@@ -426,17 +450,6 @@ const changeColors = () => {
   seriesOptions.value = options;
 };
 
-// const changeType = () => {
-//   const types = ["area", "candlestick", "line"].filter(
-//     (t) => t !== chartType.value
-//   );
-//   const randIndex = Math.round(Math.random() * (types.length - 1));
-//   chartType.value = types[randIndex];
-//   changeData();
-//   // call a method on the component.
-//   lwChart.value!.fitContent();
-// };
-
 watch(activeName, () => {
   changeData();
 });
@@ -485,9 +498,7 @@ watch(activeName, () => {
       padding: 2px 6px;
       border-radius: 4px;
     }
-    .currency {
-      // width: 180px;
-    }
+
     .type {
       margin-left: 15px;
     }
@@ -495,6 +506,9 @@ watch(activeName, () => {
   .nav-right {
     @media (max-width: 1250px) {
       width: 35%;
+    }
+    :deep(.el-radio-button){
+      --el-radio-button-checked-text-color:#000;
     }
     .selected span {
       background-color: #fff;
