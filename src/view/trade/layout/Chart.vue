@@ -110,20 +110,18 @@
               label="fifth"
               ><span>ALL</span></el-radio-button
             >
-            <el-radio-button @click.stop @click="showDatePicker">
+            <el-radio-button @click.stop
+                             label="sixth"
+                             :class="{ selected: activeData === 'sixth' }">
               <el-icon><Calendar /></el-icon>
-              <template #slot>
-                <div class="demo-date-picker">
-                  <div class="block">
-                    <el-date-picker
-                      v-model="value2"
-                      type="date"
-                      :disabled-date="disabledDate"
-                      :shortcuts="shortcuts"
-                    />
-                  </div>
-                </div>
-              </template>
+              <el-date-picker
+                  class="test-date"
+                  v-model="value2"
+                  @change="changeData()"
+                  type="daterange"
+                  :disabled-date="disabledDate"
+                  :shortcuts="shortcuts"
+              />
             </el-radio-button>
             <el-radio-button
               :class="{ selected: activeData === 'seventh' }"
@@ -185,26 +183,42 @@ const value2 = ref("");
 
 const shortcuts = [
   {
-    text: "Today",
-    value: new Date(),
-  },
-  {
-    text: "Yesterday",
+    text: 'Last 7 days',
     value: () => {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24);
-      return date;
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+      return [start, end]
     },
   },
   {
-    text: "A week ago",
+    text: 'Last 30 days',
     value: () => {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-      return date;
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+      return [start, end]
     },
   },
-];
+  {
+    text: 'Last 90 days',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+      return [start, end]
+    },
+  },
+  {
+    text: 'Last 180 days',
+    value: () => {
+      const end = new Date()
+      const start = new Date()
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 180)
+      return [start, end]
+    },
+  },
+]
 
 const disabledDate = (time: Date) => {
   return time.getTime() > Date.now();
@@ -237,6 +251,7 @@ onMounted(async () => {
 });
 
 async function getData(isRefresh = false) {
+  // console.log(value2.value)
   try {
     let days = 1;
     if (activeData.value === "first") {
@@ -345,6 +360,7 @@ async function getData(isRefresh = false) {
 const changeData = () => {
   getData();
 };
+
 interface DataPoint {
   time: number;
   value?: number;
@@ -360,7 +376,12 @@ const chartOptions = ref({
       top: 0.3,
       bottom: 0.25,
     },
-    borderVisible: false,
+  },
+  priceScale: {
+    borderColor: '#eee',
+  },
+  grid: {
+    vertLines: false,
   },
   localization: {
     priceFormatter: (price: any) => {
@@ -592,5 +613,18 @@ watch(activeName, () => {
   .el-input__wrapper {
     box-shadow: none;
   }
+  .el-radio-button{
+    position: relative;
+    overflow: hidden;
+  }
+  .test-date{
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    left: -40px;
+    top: 0px;
+    width: 80px!important;
+  }
 }
+
 </style>

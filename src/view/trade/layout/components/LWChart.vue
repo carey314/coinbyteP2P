@@ -126,6 +126,8 @@ onMounted(() => {
       ...props.timeScaleOptions,
       fixRightEdge:true,
       fixLeftEdge: true,
+      borderColor: '#eee',
+      color: '#eee',
       tickMarkFormatter: (time:any, tickMarkType:any, locale:any) => {
         const visibleRange = chart.timeScale().getVisibleRange();
         const timeRange = visibleRange.to - visibleRange.from;
