@@ -497,26 +497,29 @@ watch(activeName, () => {
   .nav-left {
     color: #616e85;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     .selected span {
       background-color: #fff;
       color: #616e85;
 
-      padding: 2px 15px;
+      padding: 2px 6px;
       border-radius: 4px;
     }
-    .currency{
-      width: 180px;
+    .currency {
+      // width: 180px;
     }
     .type {
-      margin-left: 20px;
+      margin-left: 15px;
     }
   }
   .nav-right {
+    @media (max-width: 1250px) {
+      width: 35%;
+    }
     .selected span {
       background-color: #fff;
       color: #616e85;
-      padding: 2px 15px;
+      padding: 2px;
       border-radius: 4px;
     }
   }
@@ -557,7 +560,7 @@ watch(activeName, () => {
   flex: 1 1 0%;
   gap: var(--c-space-100);
   .compare-input {
-    width: 45%;
+    width: 48%;
     :deep() {
       .el-input__wrapper {
         background-color: #eff2f5 !important;
@@ -569,13 +572,13 @@ watch(activeName, () => {
     }
   }
   .trade-view {
-    width: 40%;
     height: 30px;
     background-color: #eff2f5 !important;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 4px;
+    padding: 0 8px;
     span {
       background: none;
     }

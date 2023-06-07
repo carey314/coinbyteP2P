@@ -12,11 +12,20 @@ const instance = axios.create({
   timeout: 20000,
 });
 
+let isRefreshing = false;
+let refreshSubscribers: ((token: string) => void)[] = [];
+
+const onRefreshed = (token: string) => {
+  refreshSubscribers.forEach((callback) => callback(token));
+  refreshSubscribers = [];
+};
+
 instance.interceptors.request.use(
   function (config) {
-    if (token && token !== null) {
-      // config.headers.Authorization = "Bearer " + token.value;
-      config.headers.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7";
+    if (token.value && token.value !== null) {
+      config.headers.Accept =
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7";
+      config.headers.Authorization = "Bearer " + token.value;
     }
     return config;
   },
@@ -25,27 +34,28 @@ instance.interceptors.request.use(
   }
 );
 
-let isRefreshing = false;
-
 instance.interceptors.response.use(
   function (response: any) {
     if (response.data && response.data.status === 401) {
+      const originalRequest = response.config;
+
       if (!isRefreshing) {
         isRefreshing = true;
+
         return toRefreshToken()
           .then((res: any) => {
             const resRefresh = res.data;
             if (resRefresh.code === 200 || resRefresh.code === 202) {
-              console.log("Bearer " + resRefresh.data.accessToken.token);
-              userInfoStore.changeToken(resRefresh.data.accessToken.token);
+              const newToken = resRefresh.data.accessToken.token;
+              userInfoStore.changeToken(newToken);
               userInfoStore.changeRefreshToken(
                 resRefresh.data.refreshToken.token
               );
-              // 更新 token 后重新发起之前失败的请求
-              const config = response.config;
-              config.headers.Authorization =
-                "Bearer " + resRefresh.data.accessToken.token;
-              return instance.request(config);
+
+              originalRequest.headers.Authorization = "Bearer " + newToken;
+              originalRequest.baseURL = "/api";
+              onRefreshed(newToken);
+              return axios(originalRequest);
             } else {
               if (userInfoStore.isLogin) {
                 ElMessage({
@@ -55,6 +65,7 @@ instance.interceptors.response.use(
                 });
                 userInfoStore.clearToken();
               }
+              return Promise.reject(new Error("Token refresh failed"));
             }
           })
           .catch((err: any) => {
@@ -72,7 +83,7 @@ instance.interceptors.response.use(
                   userInfoStore.clearToken();
                 }
               }
-              return;
+              return Promise.reject(err);
             }
             if (userInfoStore.isLogin) {
               ElMessage({
@@ -82,34 +93,45 @@ instance.interceptors.response.use(
               });
               userInfoStore.clearToken();
             }
+            return Promise.reject(err);
           })
           .finally(() => {
             isRefreshing = false;
           });
+      } else {
+        return new Promise((resolve) => {
+          refreshSubscribers.push((token) => {
+            originalRequest.headers.Authorization = "Bearer " + token;
+            originalRequest.baseURL = "/api";
+            resolve(axios(originalRequest));
+          });
+        });
       }
-      // userInfoStore.clearToken();
     }
     return response;
   },
   function (error) {
     let status = error.response.status;
     if (status === 401) {
+      const originalRequest = error.config;
+
       if (!isRefreshing) {
         isRefreshing = true;
-        const config = error.config;
+
         return toRefreshToken()
           .then((res: any) => {
             const resRefresh = res.data;
             if (resRefresh.code === 200 || resRefresh.code === 202) {
-              console.log("Bearer " + resRefresh.data.accessToken.token);
-              userInfoStore.changeToken(resRefresh.data.accessToken.token);
+              const newToken = resRefresh.data.accessToken.token;
+              userInfoStore.changeToken(newToken);
               userInfoStore.changeRefreshToken(
                 resRefresh.data.refreshToken.token
               );
-              // 更新 token 后重新发起之前失败的请求
-              config.headers.Authorization =
-                "Bearer " + resRefresh.data.accessToken.token;
-              return instance.request(config);
+
+              originalRequest.headers.Authorization = "Bearer " + newToken;
+              originalRequest.baseURL = "/api";
+              onRefreshed(newToken);
+              return axios(originalRequest);
             } else {
               if (userInfoStore.isLogin) {
                 ElMessage({
@@ -119,6 +141,7 @@ instance.interceptors.response.use(
                 });
                 userInfoStore.clearToken();
               }
+              return Promise.reject(new Error("Token refresh failed"));
             }
           })
           .catch((err: any) => {
@@ -140,7 +163,7 @@ instance.interceptors.response.use(
                   userInfoStore.clearToken();
                 }
               }
-              return;
+              return Promise.reject(err);
             }
             if (userInfoStore.isLogin) {
               ElMessage({
@@ -150,10 +173,19 @@ instance.interceptors.response.use(
               });
               userInfoStore.clearToken();
             }
+            return Promise.reject(err);
           })
           .finally(() => {
             isRefreshing = false;
           });
+      } else {
+        return new Promise((resolve) => {
+          refreshSubscribers.push((token) => {
+            originalRequest.headers.Authorization = "Bearer " + token;
+            originalRequest.baseURL = "/api";
+            resolve(axios(originalRequest));
+          });
+        });
       }
     }
     return Promise.reject(error);
@@ -187,22 +219,25 @@ const http = {
 export default http;
 
 async function toRefreshToken() {
-  const config = {
-    headers: {
-      Authorization: "Bearer " + token.value,
-    },
-  };
   try {
-    const response = await axios.post("/api/v2/my/refresh", {
-      refreshToken: "Bearer " + refreshToken.value,
-    });
+    const response = await axios.post(
+      "/api/v2/my/refresh",
+      {
+        refreshToken: refreshToken.value,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + token.value,
+        },
+      }
+    );
     if (response.data.code === 200) {
       return response;
     } else {
-      return null;
+      return Promise.reject(new Error("Token refresh failed"));
     }
   } catch (error) {
     console.error(error);
-    return null;
+    return Promise.reject(error);
   }
 }
