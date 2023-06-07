@@ -306,10 +306,10 @@ async function getData(isRefresh = false) {
       console.log(jsonData);
 
       const mapData = jsonData[type].map((item: any) => {
-        const localTime = moment();
-        const offsetInMinutes = localTime.utcOffset();
-        const offsetInHours = offsetInMinutes / 60;
-        item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
+        // const localTime = moment();
+        // const offsetInMinutes = localTime.utcOffset();
+        // const offsetInHours = offsetInMinutes / 60;
+        // item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
 
         return {
           time: Math.floor(item[0] / 1000),
