@@ -43,15 +43,73 @@
             </el-radio-button>
           </el-radio-group>
         </div>
+        <div class="nav-bottom">
+          <div class="compare-input">
+            <el-select v-model="value" clearable placeholder="Compare with">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              />
+            </el-select>
+          </div>
+          <div class="trade-view">
+            <div class="chart-view" @click="visible = true">
+              <span class="custom-tabs-label">
+                <el-icon><TrendCharts /></el-icon>
+              </span>
+              <span>TradingView</span>
+            </div>
+            <el-dialog v-model="visible" :show-close="false">
+              <template #header="{ close, titleId, titleClass }">
+                <div class="my-header">
+                  <h4 :id="titleId" :class="titleClass">
+                    This is a custom header!
+                  </h4>
+                  <el-button @click="close">
+                    <el-icon class="el-icon--left"><Close /></el-icon>
+                  </el-button>
+                </div>
+              </template>
+              This is dialog content.
+            </el-dialog>
+          </div>
+        </div>
       </div>
+
       <div class="nav-right">
         <div class="data nav">
-          <el-radio-group v-model="activeData" @change="changeData" @tab-click="handleClick">
-            <el-radio-button :class="{ selected: activeData === 'first' }" label="first"><span>1D</span></el-radio-button>
-            <el-radio-button :class="{ selected: activeData === 'second' }" label="second"><span>7D</span></el-radio-button>
-            <el-radio-button :class="{ selected: activeData === 'third' }" label="third"><span>1M</span></el-radio-button>
-            <el-radio-button :class="{ selected: activeData === 'forth' }" label="forth"><span>1Y</span></el-radio-button>
-            <el-radio-button :class="{ selected: activeData === 'fifth' }" label="fifth"><span>ALL</span></el-radio-button>
+          <el-radio-group
+            v-model="activeData"
+            @change="changeData"
+            @tab-click="handleClick"
+          >
+            <el-radio-button
+              :class="{ selected: activeData === 'first' }"
+              label="first"
+              ><span>1D</span></el-radio-button
+            >
+            <el-radio-button
+              :class="{ selected: activeData === 'second' }"
+              label="second"
+              ><span>7D</span></el-radio-button
+            >
+            <el-radio-button
+              :class="{ selected: activeData === 'third' }"
+              label="third"
+              ><span>1M</span></el-radio-button
+            >
+            <el-radio-button
+              :class="{ selected: activeData === 'forth' }"
+              label="forth"
+              ><span>1Y</span></el-radio-button
+            >
+            <el-radio-button
+              :class="{ selected: activeData === 'fifth' }"
+              label="fifth"
+              ><span>ALL</span></el-radio-button
+            >
             <el-radio-button @click.stop @click="showDatePicker">
               <el-icon><Calendar /></el-icon>
               <template #slot>
@@ -67,7 +125,11 @@
                 </div>
               </template>
             </el-radio-button>
-            <el-radio-button :class="{ selected: activeData === 'seventh' }" label="seventh"><span>LOG</span></el-radio-button>
+            <el-radio-button
+              :class="{ selected: activeData === 'seventh' }"
+              label="seventh"
+              ><span>LOG</span></el-radio-button
+            >
             <el-radio-button label="eigth">
               <el-icon><Download /></el-icon>
             </el-radio-button>
@@ -86,39 +148,6 @@
         :time-scale-options="timeScaleOptions"
         ref="lwChart"
       />
-    </div>
-    <div class="nav-bottom">
-      <div class="compare-input">
-        <el-select v-model="value" clearable placeholder="Compare with">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </div>
-      <div class="trade-view">
-        <div class="chart-view" @click="visible = true">
-          <span class="custom-tabs-label">
-            <el-icon><TrendCharts /></el-icon>
-          </span>
-          <span>TradingView</span>
-        </div>
-        <el-dialog v-model="visible" :show-close="false">
-          <template #header="{ close, titleId, titleClass }">
-            <div class="my-header">
-              <h4 :id="titleId" :class="titleClass">
-                This is a custom header!
-              </h4>
-              <el-button @click="close">
-                <el-icon class="el-icon--left"><Close /></el-icon>
-              </el-button>
-            </div>
-          </template>
-          This is dialog content.
-        </el-dialog>
-      </div>
     </div>
   </div>
 </template>
@@ -202,78 +231,78 @@ onMounted(async () => {
 });
 onMounted(async () => {
   getData();
-  setInterval(()=>{
+  setInterval(() => {
     getData();
-  }, 60000)
+  }, 60000);
 });
 
 async function getData(isRefresh = false) {
   try {
     let days = 1;
-    if (activeData.value === 'first') {
+    if (activeData.value === "first") {
       days = 1;
-    } else if (activeData.value === 'second') {
+    } else if (activeData.value === "second") {
       days = 7;
-    } else if (activeData.value === 'third') {
+    } else if (activeData.value === "third") {
       days = 30;
-    } else if (activeData.value === 'forth') {
+    } else if (activeData.value === "forth") {
       days = 365;
-    } else if (activeData.value === 'fifth') {
+    } else if (activeData.value === "fifth") {
       days = 365 * 3;
     }
 
-    let type = 'prices'
-    if (activeName.value === 'first') {
-      if (activeType.value === 'first') {
-        chartType.value = 'baseline'
+    let type = "prices";
+    if (activeName.value === "first") {
+      if (activeType.value === "first") {
+        chartType.value = "baseline";
       } else {
-        chartType.value = 'candlestick'
+        chartType.value = "candlestick";
       }
-      type = 'prices'
+      type = "prices";
     } else {
-      chartType.value = 'line'
-      type = 'market_caps'
+      chartType.value = "line";
+      type = "market_caps";
     }
 
-    if (chartType.value == 'candlestick') {
+    if (chartType.value == "candlestick") {
       if (days > 367) {
-        days = 365 * 2
+        days = 365 * 2;
       }
       const response = await getCoinMarketCapOhlc({
-        symbols:'bitcoin',
+        symbols: "bitcoin",
         days,
       });
-      const jsonData = JSON.parse(response.data.bitcoin)
-      const mapData = jsonData.map((item:any) => {
+      const jsonData = JSON.parse(response.data.bitcoin);
+      const mapData = jsonData.map((item: any) => {
         return {
           time: Math.floor(item[0] / 1000),
           open: item[1],
           high: item[2],
           low: item[3],
-          close: item[4]
-        }
-      })
+          close: item[4],
+        };
+      });
       if (isRefresh) {
-        lwChart.value!.getSeries().update(mapData[mapData.length -1])
+        lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
         coinMarketCapData.value = mapData;
       }
     } else {
       const response = await getCoinMarketCap({
-        symbols:'bitcoin',
+        symbols: "bitcoin",
         days,
       });
-      const jsonData = JSON.parse(response.data.bitcoin)
+      const jsonData = JSON.parse(response.data.bitcoin);
       console.log(jsonData);
 
-      const mapData = jsonData[type].map((item:any) => {
+      const mapData = jsonData[type].map((item: any) => {
         return {
           time: Math.floor(item[0] / 1000),
-          value: item[1]
-        }
-      })
+          value: item[1],
+        };
+      });
       if (isRefresh) {
-        lwChart.value!.getSeries().update(mapData[mapData.length -1])
+        lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
         // mapData.length = 10
         coinMarketCapData.value = mapData;
@@ -287,7 +316,6 @@ async function getData(isRefresh = false) {
           };
         }
       }
-
     }
   } catch (error) {
     console.error(error);
@@ -306,7 +334,6 @@ interface DataPoint {
   close?: number;
 }
 
-
 const chartOptions = ref({
   rightPriceScale: {
     scaleMargins: {
@@ -316,17 +343,17 @@ const chartOptions = ref({
     borderVisible: false,
   },
   localization: {
-    priceFormatter: (price:any) => {
+    priceFormatter: (price: any) => {
       if (price >= 1e15) {
-        return (price / 1e15).toFixed(2) + 'Q';
+        return (price / 1e15).toFixed(2) + "Q";
       } else if (price >= 1e12) {
-        return (price / 1e12).toFixed(2) + 'T';
+        return (price / 1e12).toFixed(2) + "T";
       } else if (price >= 1e9) {
-        return (price / 1e9).toFixed(2) + 'B';
+        return (price / 1e9).toFixed(2) + "B";
       } else if (price >= 1e6) {
-        return (price / 1e6).toFixed(2) + 'M';
+        return (price / 1e6).toFixed(2) + "M";
       } else if (price >= 1e3) {
-        return (price / 1e3).toFixed(2) + 'K';
+        return (price / 1e3).toFixed(2) + "K";
       } else {
         return price.toFixed(2);
       }
@@ -346,7 +373,7 @@ const priceScaleOptions = ref<any>({
 const timeScaleOptions = {
   timeVisible: true,
   secondsVisible: false,
-  rightOffset: 0
+  rightOffset: 0,
 };
 const chartType = ref<string>("baseline");
 const lwChart = ref<typeof LWChart>();
@@ -370,12 +397,12 @@ const colorsTypeMap: { [key: string]: [string, string][] } = {
   //   ["downColor", 1],
   // ],
   baseline: [
-    ["topFillColor1", 'rgba( 38, 166, 154, 0.28)'],
-    ["topFillColor2", 'rgba( 38, 166, 154, 0.05)'],
-    ["topLineColor", 'rgba( 38, 166, 154, 1)'],
-    ["bottomFillColor1", 'rgba( 239, 83, 80, 0.05)'],
-    ["bottomFillColor2", 'rgba( 239, 83, 80, 0.28)'],
-    ["bottomLineColor", 'rgba( 239, 83, 80, 1)'],
+    ["topFillColor1", "rgba( 38, 166, 154, 0.28)"],
+    ["topFillColor2", "rgba( 38, 166, 154, 0.05)"],
+    ["topLineColor", "rgba( 38, 166, 154, 1)"],
+    ["bottomFillColor1", "rgba( 239, 83, 80, 0.05)"],
+    ["bottomFillColor2", "rgba( 239, 83, 80, 0.28)"],
+    ["bottomLineColor", "rgba( 239, 83, 80, 1)"],
   ],
   candlestick: [],
   // candlestick: [
@@ -389,7 +416,6 @@ const colorsTypeMap: { [key: string]: [string, string][] } = {
   // histogram: [["color", 1]],
   line: [["color", "blue"]],
 };
-
 
 const changeColors = () => {
   const options: { [key: string]: string } = {};
@@ -433,10 +459,16 @@ watch(activeName, () => {
     .el-radio-button__inner {
       background-color: #eff2f5;
       border-color: #eff2f5;
+      padding: 8px 4px !important;
     }
-    .convert-page .convert-content .center-part .center-convert .convert-radio[data-v-618d032f] .el-radio-button__original-radio:checked + .el-radio-button__inner{
+    .convert-page
+      .convert-content
+      .center-part
+      .center-convert
+      .convert-radio[data-v-618d032f]
+      .el-radio-button__original-radio:checked
+      + .el-radio-button__inner {
       border: none !important;
-
     }
     .el-radio-button {
       --el-radio-button-checked-border-color: #eff2f5;
@@ -445,7 +477,7 @@ watch(activeName, () => {
   .nav-left {
     color: #616e85;
     display: flex;
-
+    justify-content: space-between;
     .selected span {
       background-color: #fff;
       color: #616e85;
@@ -453,11 +485,14 @@ watch(activeName, () => {
       padding: 2px 15px;
       border-radius: 4px;
     }
+    .currency{
+      width: 180px;
+    }
     .type {
       margin-left: 20px;
     }
   }
-  .nav-right{
+  .nav-right {
     .selected span {
       background-color: #fff;
       color: #616e85;
@@ -497,8 +532,8 @@ watch(activeName, () => {
 }
 .nav-bottom {
   display: flex;
-  margin-top: 20px;
-  justify-content: space-between;
+  margin-left: 5px;
+  justify-content: space-around;
   flex: 1 1 0%;
   gap: var(--c-space-100);
   .compare-input {
@@ -514,7 +549,7 @@ watch(activeName, () => {
     }
   }
   .trade-view {
-    width: 45%;
+    width: 40%;
     height: 30px;
     background-color: #eff2f5 !important;
     display: flex;
