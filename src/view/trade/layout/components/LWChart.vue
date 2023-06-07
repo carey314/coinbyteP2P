@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { createChart, version } from "lightweight-charts";
-
 import {
   ref,
   onMounted,
@@ -113,7 +112,6 @@ onMounted(() => {
   // Create the Lightweight Charts Instance using the container ref.
   chart = createChart(chartContainer.value, props.chartOptions);
   addSeriesAndData(props);
-
   // addVolumeAndData(props);
   if (props.priceScaleOptions) {
     chart.priceScale('test').applyOptions(props.priceScaleOptions);
@@ -123,7 +121,29 @@ onMounted(() => {
   // }
 
   if (props.timeScaleOptions) {
-    chart.timeScale().applyOptions(props.timeScaleOptions);
+    chart.timeScale().applyOptions({
+      ...props.timeScaleOptions,
+      fixRightEdge:true,
+      fixLeftEdge: true,
+    });
+    // let lastVisibleRange = chart.timeScale().getVisibleRange();
+    // chart.timeScale().subscribeVisibleTimeRangeChange((newVisibleRange:any) => {
+    //   console.log(newVisibleRange)
+    //   lastVisibleRange = newVisibleRange;
+    // });
+    // chart.timeScale().fitContent();
+    // chart.timeScale().applyOptions({
+    //   lockVisibleTimeRangeOnResize: true,
+    //   rightOffset: 12,
+    //   leftOffset: 0,
+    //   maxBarSpacing: 50,
+    //   minBarSpacing: 1,
+    //   fixLeftEdge: false,
+    //   fixRightEdge: false,
+    //   visibleRange: {
+    //     minRange: chart.timeScale().getVisibleRange(),
+    //   },
+    // })
   }
   // console.log(chart.timeScale())
   chart.timeScale().fitContent();

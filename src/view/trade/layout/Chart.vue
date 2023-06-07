@@ -156,7 +156,7 @@
 import { ref, onMounted, watch, computed } from "vue";
 import LWChart from "./components/LWChart.vue";
 import { getCoinMarketCap, getCoinMarketCapOhlc } from "../../../api/market";
-
+import moment from "moment-timezone";
 import {
   Calendar,
   Sort,
@@ -274,6 +274,11 @@ async function getData(isRefresh = false) {
       });
       const jsonData = JSON.parse(response.data.bitcoin);
       const mapData = jsonData.map((item: any) => {
+        const localTime = moment();
+        const offsetInMinutes = localTime.utcOffset();
+        const offsetInHours = offsetInMinutes / 60;
+
+        item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf();
         return {
           time: Math.floor(item[0] / 1000),
           open: item[1],
@@ -282,6 +287,11 @@ async function getData(isRefresh = false) {
           close: item[4],
         };
       });
+      timeScaleOptions.value = {
+        ...timeScaleOptions.value,
+        from: mapData[0].time,
+        to: mapData[mapData.length - 1]
+      }
       if (isRefresh) {
         lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
@@ -296,11 +306,21 @@ async function getData(isRefresh = false) {
       console.log(jsonData);
 
       const mapData = jsonData[type].map((item: any) => {
+        const localTime = moment();
+        const offsetInMinutes = localTime.utcOffset();
+        const offsetInHours = offsetInMinutes / 60;
+        item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
+
         return {
           time: Math.floor(item[0] / 1000),
           value: item[1],
         };
       });
+      timeScaleOptions.value = {
+        ...timeScaleOptions.value,
+        from: mapData[0].time,
+        to: mapData[mapData.length - 1]
+      }
       if (isRefresh) {
         lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
@@ -370,11 +390,11 @@ const priceScaleOptions = ref<any>({
     bottom: 0,
   },
 });
-const timeScaleOptions = {
+const timeScaleOptions = ref<any>({
   timeVisible: true,
   secondsVisible: false,
   rightOffset: 0,
-};
+});
 const chartType = ref<string>("baseline");
 const lwChart = ref<typeof LWChart>();
 
