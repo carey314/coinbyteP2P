@@ -110,28 +110,35 @@
               label="fifth"
               ><span>ALL</span></el-radio-button
             >
-            <el-radio-button @click.stop @click="showDatePicker">
+
+            <el-radio-button
+              @click.stop
+              label="sixth"
+              :class="{ selected: activeData === 'sixth' }"
+              style="cursor: pointer"
+            >
               <el-icon><Calendar /></el-icon>
-              <template #slot>
-                <div class="demo-date-picker">
-                  <div class="block">
-                    <el-date-picker
-                      v-model="value2"
-                      type="date"
-                      :disabled-date="disabledDate"
-                      :shortcuts="shortcuts"
-                    />
-                  </div>
-                </div>
-              </template>
+              <el-date-picker
+                class="test-date"
+                v-model="value2"
+                @change="changeData()"
+                type="daterange"
+                :disabled-date="disabledDate"
+                :shortcuts="shortcuts"
+              />
             </el-radio-button>
             <el-radio-button
               :class="{ selected: activeData === 'seventh' }"
               label="seventh"
               ><span>LOG</span></el-radio-button
             >
-            <a ref="downloadLink" download="chart.png" target="_blank" style="display: none;"></a>
-            <el-radio-button label="eigth"  @click="downloadChart">
+            <a
+              ref="downloadLink"
+              download="chart.png"
+              target="_blank"
+              style="display: none"
+            ></a>
+            <el-radio-button label="eigth" @click="downloadChart">
               <el-icon><Download /></el-icon>
             </el-radio-button>
           </el-radio-group>
@@ -157,7 +164,7 @@
 import { ref, onMounted, watch, computed } from "vue";
 import LWChart from "./components/LWChart.vue";
 import { getCoinMarketCap, getCoinMarketCapOhlc } from "../../../api/market";
-
+import moment from "moment-timezone";
 import {
   Calendar,
   Sort,
@@ -168,6 +175,7 @@ import {
 } from "@element-plus/icons-vue";
 import BTC from "../../../assets/home/part01_BTC.png";
 import type { TabsPaneContext } from "element-plus";
+import html2canvas from "html2canvas";
 
 const activeName = ref("first");
 const radioGroupRef = ref();
@@ -183,11 +191,7 @@ function handleClick() {
 }
 
 const value2 = ref("");
-
 const downloadLink = ref();
-
-import html2canvas from "html2canvas";
-
 async function downloadChart() {
   try {
     const chartContainer = document.querySelector(".chart-container");
@@ -209,23 +213,39 @@ async function downloadChart() {
 }
 const shortcuts = [
   {
-    text: "Today",
-    value: new Date(),
-  },
-  {
-    text: "Yesterday",
+    text: "Last 7 days",
     value: () => {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24);
-      return date;
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+      return [start, end];
     },
   },
   {
-    text: "A week ago",
+    text: "Last 30 days",
     value: () => {
-      const date = new Date();
-      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-      return date;
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+      return [start, end];
+    },
+  },
+  {
+    text: "Last 90 days",
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+      return [start, end];
+    },
+  },
+  {
+    text: "Last 180 days",
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 180);
+      return [start, end];
     },
   },
 ];
@@ -261,6 +281,7 @@ onMounted(async () => {
 });
 
 async function getData(isRefresh = false) {
+  // console.log(value2.value)
   try {
     let days = 1;
     if (activeData.value === "first") {
@@ -298,6 +319,11 @@ async function getData(isRefresh = false) {
       });
       const jsonData = JSON.parse(response.data.bitcoin);
       const mapData = jsonData.map((item: any) => {
+        const localTime = moment();
+        const offsetInMinutes = localTime.utcOffset();
+        const offsetInHours = offsetInMinutes / 60;
+
+        item[0] = moment(item[0]).add(offsetInHours, "hours").valueOf();
         return {
           time: Math.floor(item[0] / 1000),
           open: item[1],
@@ -306,6 +332,11 @@ async function getData(isRefresh = false) {
           close: item[4],
         };
       });
+      timeScaleOptions.value = {
+        ...timeScaleOptions.value,
+        from: mapData[0].time,
+        to: mapData[mapData.length - 1],
+      };
       if (isRefresh) {
         lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
@@ -320,11 +351,21 @@ async function getData(isRefresh = false) {
       console.log(jsonData);
 
       const mapData = jsonData[type].map((item: any) => {
+        // const localTime = moment();
+        // const offsetInMinutes = localTime.utcOffset();
+        // const offsetInHours = offsetInMinutes / 60;
+        // item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
+
         return {
           time: Math.floor(item[0] / 1000),
           value: item[1],
         };
       });
+      timeScaleOptions.value = {
+        ...timeScaleOptions.value,
+        from: mapData[0].time,
+        to: mapData[mapData.length - 1],
+      };
       if (isRefresh) {
         lwChart.value!.getSeries().update(mapData[mapData.length - 1]);
       } else {
@@ -349,6 +390,7 @@ async function getData(isRefresh = false) {
 const changeData = () => {
   getData();
 };
+
 interface DataPoint {
   time: number;
   value?: number;
@@ -364,7 +406,12 @@ const chartOptions = ref({
       top: 0.3,
       bottom: 0.25,
     },
-    borderVisible: false,
+  },
+  priceScale: {
+    borderColor: "#eee",
+  },
+  grid: {
+    vertLines: false,
   },
   localization: {
     priceFormatter: (price: any) => {
@@ -394,11 +441,11 @@ const priceScaleOptions = ref<any>({
     bottom: 0,
   },
 });
-const timeScaleOptions = {
+const timeScaleOptions = ref<any>({
   timeVisible: true,
   secondsVisible: false,
   rightOffset: 0,
-};
+});
 const chartType = ref<string>("baseline");
 const lwChart = ref<typeof LWChart>();
 
@@ -450,6 +497,17 @@ const changeColors = () => {
   seriesOptions.value = options;
 };
 
+// const changeType = () => {
+//   const types = ["area", "candlestick", "line"].filter(
+//     (t) => t !== chartType.value
+//   );
+//   const randIndex = Math.round(Math.random() * (types.length - 1));
+//   chartType.value = types[randIndex];
+//   changeData();
+//   // call a method on the component.
+//   lwChart.value!.fitContent();
+// };
+
 watch(activeName, () => {
   changeData();
 });
@@ -498,7 +556,9 @@ watch(activeName, () => {
       padding: 2px 6px;
       border-radius: 4px;
     }
-
+    .currency {
+      // width: 180px;
+    }
     .type {
       margin-left: 15px;
     }
@@ -507,8 +567,10 @@ watch(activeName, () => {
     @media (max-width: 1250px) {
       width: 35%;
     }
-    :deep(.el-radio-button){
-      --el-radio-button-checked-text-color:#000;
+    :deep() {
+      .el-radio-button {
+        --el-radio-button-checked-text-color: #000;
+      }
     }
     .selected span {
       background-color: #fff;
@@ -585,6 +647,18 @@ watch(activeName, () => {
   }
   .el-input__wrapper {
     box-shadow: none;
+  }
+  .el-radio-button {
+    position: relative;
+    overflow: hidden;
+  }
+  .test-date {
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    left: -40px;
+    top: 0px;
+    width: 80px !important;
   }
 }
 </style>
