@@ -156,7 +156,7 @@
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                      to="/wallet/trading"
+                      to="/transaction/DepositCrypto"
                       style="display: flex; text-decoration: none"
                     >
                       <div class="help-box">
@@ -171,7 +171,7 @@
                   </el-dropdown-item>
                   <el-dropdown-item class="help-dropdown-item">
                     <router-link
-                      to="/wallet/trading"
+                      to="/transaction/WithdrawCrypto"
                       style="display: flex; text-decoration: none"
                     >
                       <div class="help-box">
@@ -329,54 +329,64 @@
                     style="margin: 10px; width: 266px; margin-left: -20px"
                   />
                   <el-dropdown-item class="user-dropdown-item">
-                    <div class="user-box">
-                      <div class="user-icon">
-                        <img :src="dropdown_usercenter_overview" />
+                    <router-link to="/user/overview" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_overview" />
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_overview") }}
+                        </div>
                       </div>
-                      <div class="user-title">
-                        {{ $t("messages.header.verify_overview") }}
-                      </div>
-                    </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
-                    <div class="user-box">
-                      <div class="user-icon">
-                        <img :src="dropdown_usercenter_security" />
+                    <router-link to="/user/security" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_security" />
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_security") }}
+                        </div>
                       </div>
-                      <div class="user-title">
-                        {{ $t("messages.header.verify_security") }}
-                      </div>
-                    </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
-                    <div class="user-box">
-                      <div class="user-icon">
-                        <img :src="dropdown_usercenter_verification" />
+                    <router-link to="/user/verification" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_verification" />
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_verification") }}
+                        </div>
                       </div>
-                      <div class="user-title">
-                        {{ $t("messages.header.verify_verification") }}
-                      </div>
-                    </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
-                    <div class="user-box">
-                      <div class="user-icon">
-                        <img :src="dropdown_usercenter_bankaccount" />
+                    <router-link to="/user/bankaccount" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_bankaccount" />
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_bank") }}
+                        </div>
                       </div>
-                      <div class="user-title">
-                        {{ $t("messages.header.verify_bank") }}
-                      </div>
-                    </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
-                    <div class="user-box">
-                      <div class="user-icon">
-                        <img :src="dropdown_usercenter_preferences" />
+                    <router-link to="/user/accountstatement" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_preferences" />
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_preferences") }}
+                        </div>
                       </div>
-                      <div class="user-title">
-                        {{ $t("messages.header.verify_preferences") }}
-                      </div>
-                    </div>
+                    </router-link>
                   </el-dropdown-item>
                   <el-divider
                     style="margin: 10px; width: 266px; margin-left: -20px"

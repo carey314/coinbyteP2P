@@ -55,7 +55,7 @@
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/"
+                  to="/user/security"
                   style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
@@ -81,7 +81,7 @@
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/"
+                  to="/user/verification"
                   style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Verification_Verify') }}</div>
@@ -116,7 +116,7 @@
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/"
+                  to="/user/bankaccount"
                   style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
@@ -141,7 +141,7 @@
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/"
+                  to="/user/accountstatement"
                   style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>

@@ -66,7 +66,7 @@
       <!-- <el-divider class="divider"  style="color: #fff !important;"/> -->
     </div>
     <div class="view-more">
-      <div class="view-more-button">View more</div>
+      <router-link to="/market-allCrypto" style="text-decoration: none;"><div class="view-more-button">View more</div></router-link>
     </div>
   </div>
 </template>

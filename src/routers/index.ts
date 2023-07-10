@@ -202,32 +202,32 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../view/user/index.vue"),
     children: [
       {
-        path: "overview",
+        path: "/user/overview",
         name: "overview",
         component: () => import("../view/user/layout/OverView/OverView.vue"),
         meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
       },
       {
-        path: "security",
+        path: "/user/security",
         name: "security",
         component: () => import("../view/user/layout/Security/Security.vue"),
         meta: { tab: 'second' }
       },
       {
-        path: "verification",
+        path: "/user/verification",
         name: "verification",
         component: () => import("../view/user/layout/Verification/Verfication.vue"),
         meta: { tab: 'third' }
       },
       {
-        path: "bank-account",
-        name: "bank-account",
+        path: "/user/bankaccount",
+        name: "bankaccount",
         component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
         meta: { tab: 'fourth' },
       },
       {
-        path: "account-statement",
-        name: "account-statement",
+        path: "/user/accountstatement",
+        name: "accountstatement",
         component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
         meta: { tab: 'fifth' }
       },

@@ -46,7 +46,8 @@
               </template>
             </el-tab-pane>
 
-            <el-tab-pane name="third">
+            <!-- /market-spot -->
+            <!-- <el-tab-pane name="third">
               <template #label>
                 <router-link
                   to="/market-spot"
@@ -61,7 +62,7 @@
                   </span>
                 </router-link>
               </template>
-            </el-tab-pane>
+            </el-tab-pane> -->
           </el-tabs>
         </div>
       </el-scrollbar>

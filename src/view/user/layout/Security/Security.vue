@@ -27,10 +27,10 @@
           </div>
 
           <div class="content-item-btn" v-if="index == 3">
-            <el-button link>{{ $t('messages.user.turn_link') }}</el-button>
+            <router-link to="/user/verification"><el-button link>{{ $t('messages.user.turn_link') }}</el-button></router-link>
           </div>
           <div class="content-item-btn" v-else>
-            <GetButton class="func-btn" :text="t('messages.user.set_btn')" />
+            <router-link to="/user/verification"><GetButton class="func-btn" :text="t('messages.user.set_btn')" /></router-link>
           </div>
         </div>
       </div>

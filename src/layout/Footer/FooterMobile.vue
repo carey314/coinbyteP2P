@@ -75,9 +75,9 @@
               <div class="list-item">
                 {{ $t("messages.footer.service_instant") }}
               </div>
-              <div class="list-item">
+              <!-- <div class="list-item">
                 {{ $t("messages.footer.service_spot_trading") }}
-              </div>
+              </div> -->
             </el-collapse-item>
             <el-collapse-item name="4">
               <template #title>

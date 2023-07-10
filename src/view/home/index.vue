@@ -337,8 +337,96 @@
           style="color: #01c19a"
           stretch="true"
         >
-          <el-tab-pane label="Popular assets" name="first">
-            <el-table :data="tableData" style="width: 100%">
+        <el-tab-pane
+            class="first-tab-pan"
+            label="Popular assets"
+            name="first"
+          >
+            <el-table :data="coinMarketCapData" style="width: 100%">
+              <el-table-column label="Asset" width="150">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat"
+                    ><StarFilled
+                  /></el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="current_price"
+                label="Last price"
+                align="right"
+                width="150"
+              >
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column
+                prop="volume_change_24h"
+                label="Change(24H)"
+                sortable
+                width="200"
+                align="right"
+              >
+                <template v-slot="{ row }">
+                  <span
+                    v-if="row.market_cap_change_percentage_24h > 0"
+                    style="color: #01c19a"
+                  >
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span
+                    v-else-if="row.market_cap_change_percentage_24h < 0"
+                    style="color: #f15958"
+                  >
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+          
+              <!-- <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="setEchartRef"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column> -->
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button
+                    class="table-buy"
+                    size="default"
+                    @click="handleBuy(scope.$index, scope.row)"
+                    plain
+                  >
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <!-- <el-tab-pane label="Popular assets" name="first">
+            <el-table :data="coinMarketCapData" style="width: 100%">
               <el-table-column prop="asset" label="Asset">
                 <template #default="scope">
                   <div style="display: flex; align-items: center">
@@ -366,7 +454,7 @@
                 </template>
               </el-table-column>
             </el-table>
-          </el-tab-pane>
+          </el-tab-pane> -->
           <el-tab-pane label="New assets" name="second"
             >New assets
           </el-tab-pane>

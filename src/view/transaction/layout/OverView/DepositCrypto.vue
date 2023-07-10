@@ -51,6 +51,13 @@
                     :value="item.value"
                   ></el-option>
                 </el-select>
+                <div class="step-options" >
+                  <div class="step-option" @click="selectedOption1 = 'BTC'">BTC</div>
+                  <div class="step-option" @click="selectedOption1 = 'ETH'">ETH</div>
+                  <div class="step-option" @click="selectedOption1 = 'USDT'">USDT</div>
+                  <div class="step-option" @click="selectedOption1 = 'XRP'">XRP</div>
+                  <div class="step-option" @click="selectedOption1 = 'ADA'">ADA</div>
+                </div>
               </div>
               <div
                 v-if="activeStep === 2"
@@ -647,6 +654,7 @@ const showContinueBtn = ref(true);
 function handleContinue() {
   if (activeStep.value === 1 && selectedOption1.value !== "") {
     activeStep.value = 2;
+    // options1 = options1.filter((o) => o.value === selectedOption1.value);
     options1 = options1.filter((o) => o.value === selectedOption1.value);
   } else if (activeStep.value === 2 && canContinue.value) {
     activeStep.value = 3;
@@ -654,6 +662,10 @@ function handleContinue() {
     showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
   }
 }
+const selectOption = (option: string) => {
+  selectedOption1.value = option;
+  handleContinue();
+};
 
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
@@ -968,5 +980,27 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+.step-options {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.step-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.step-option:hover {
+  background-color: #ccc;
 }
 </style>

@@ -71,7 +71,6 @@
                   :default-sort="{ prop: 'address', order: 'ascending' }"
                 >
                   <el-table-column
-                    prop="quote.AUD.price"
                     :label="t('messages.market.table_Crypto')"
                     width="500px"
                   >
@@ -79,35 +78,29 @@
                       <el-icon class="crypto-star clearfloat"
                         ><StarFilled
                       /></el-icon>
-                      <div
-                        v-for="item in tableData.filter(i => i.tag === row.symbol)"
-                        :key="item.id"
-                        class="crypto-icon"
-                      >
-                        <img :src="item.img" alt="icon" />
-                      </div>
+                      <div><img :src="row.image" class="crypto-icon" alt="icon" /></div>
                       <div class="table-tag">
                         {{ row.symbol }}
                         <div class="table-asset">
                           {{ row.name }}
                         </div>
                       </div>
-
                     </template>
                   </el-table-column>
 
                   <el-table-column
-                    prop="quote.AUD.price"
+                    prop="current_price"
                     :label="t('messages.market.table_Price')"
                     align="right"
                     width="150"
                   >
                     <template v-slot="{ row }">
-                      A${{ row.quote.AUD.price.toFixed(2) }}
+                      A${{ row.current_price.toFixed(2) }}
                     </template>
                   </el-table-column>
+
                   <el-table-column
-                    prop="volume_change_24h"
+                    prop="price_change_percentage_24h"
                     :label="t('messages.market.table_Change')"
                     sortable
                     width="200"
@@ -115,28 +108,28 @@
                   >
                     <template v-slot="{ row }">
                       <span
-                        v-if="row.quote.AUD.volume_change_24h > 0"
+                        v-if="row.price_change_percentage_24h > 0"
                         style="color: #01c19a"
                       >
-                        {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                        {{ row.price_change_percentage_24h.toFixed(2) }}%
                       </span>
                       <span
-                        v-else-if="row.quote.AUD.volume_change_24h < 0"
+                        v-else-if="row.price_change_percentage_24h < 0"
                         style="color: #f15958"
                       >
-                        {{ row.quote.AUD.volume_change_24h.toFixed(2) }}%
+                        {{ row.price_change_percentage_24h.toFixed(2) }}%
                       </span>
                     </template>
                   </el-table-column>
                   <el-table-column
-                    prop="quote.AUD.market_cap"
+                    prop="market_cap"
                     :label="t('messages.market.table_cap')"
                     sortable
                     width="250"
                     align="right"
                   >
                     <template v-slot="{ row }">
-                      ${{ row.quote.AUD.market_cap.toFixed(2) }}B
+                      ${{ row.market_cap.toFixed(2) }}B
                     </template>
                   </el-table-column>
 
@@ -175,8 +168,8 @@
                 </div>
               </div>
             </el-tab-pane>
-
-            <el-tab-pane name="third">
+            <!-- /market-spot -->
+            <!-- <el-tab-pane name="third">
               <template #label>
                 <router-link
                   to="/market-spot"
@@ -191,7 +184,7 @@
                   </span>
                 </router-link>
               </template>
-            </el-tab-pane>
+            </el-tab-pane> -->
           </el-tabs>
         </div>
       </el-scrollbar>
@@ -208,7 +201,7 @@ import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
-import {getCoinMarketCap, getLastCoinMarketCap} from "../../../api/market";
+import { getCoinMarketCap, getLastCoinMarketCap } from "../../../api/market";
 
 import type { TabsPaneContext } from "element-plus";
 import { CaretBottom, CaretTop } from "@element-plus/icons";
@@ -290,22 +283,23 @@ const coinMarketCapData = ref<any>([]);
 
 onMounted(async () => {
   refreshData();
-  setInterval(()=>{
+  setInterval(() => {
     refreshData();
-  }, 60000)
+  }, 60000);
 });
 
-async function refreshData(){
+async function refreshData() {
   try {
     const response = await getLastCoinMarketCap();
     const resJson = JSON.parse(response.data);
-    const arr = [];
-    // object for getting
-    for (let key in resJson.data) {
-      arr.push(resJson.data[key][0])
-    }
-    coinMarketCapData.value = arr;
-    console.log(coinMarketCapData.value)
+    // console.log(resJson)
+    // const arr = [];
+    // // object for getting
+    // for (let key in resJson.data) {
+    //   arr.push(resJson.data[key][0])
+    // }
+    coinMarketCapData.value = resJson;
+    console.log(coinMarketCapData.value);
   } catch (error) {
     console.error(error);
   }

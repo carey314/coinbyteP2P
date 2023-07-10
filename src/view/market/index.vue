@@ -7,50 +7,35 @@
           
           <el-tabs v-model="activeName" class="demo-tabs">
             <el-tab-pane
-              :label="t('messages.wallet.Overview')"
+              label="Favorites"
               name="first"
               :lazy="true"
             />
-
             <el-tab-pane
-              :label="t('messages.wallet.Trading')"
+              label="All Cryptos"
               name="second"
               :lazy="true"
             />
-
-            <!-- <el-tab-pane
-              :label="t('messages.wallet.Earning')"
+            <el-tab-pane
+              label="Spot Markets"
               name="third"
               :lazy="true"
-            /> -->
-
-            <el-tab-pane
-              :label="t('messages.wallet.History')"
-              name="fourth"
-              :lazy="true"
             />
-
-            <el-tab-pane
-              :label="t('messages.wallet.Account')"
-              name="fifth"
-              :lazy="true"
-            />
+          
           </el-tabs>
         </div>
       </el-scrollbar>
       <div class="min-height" v-if="activeName === 'first'">
-        <OverView />
+        <Favorite />
       </div>
       <div class="min-height" v-if="activeName === 'second'">
-        <Trading />
+        <allCrypto />
       </div>
-      <div class="min-height" v-if="activeName === 'third'"></div>
-      <div class="min-height" v-if="activeName === 'fourth'">
-        <History />
+      <div class="min-height" v-if="activeName === 'third'">
+        <Spot />
       </div>
-      <div class="min-height" v-if="activeName === 'fifth'">
-        <AccountStatement />
-      </div>
+     
+
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -64,10 +49,10 @@ import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import OverView from "./layout/OverView/OverView.vue";
-import Trading from "./layout/Trading/Trading.vue";
-import History from "./layout/History/History.vue";
-import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
+import allCrypto from "./allCrypto/index.vue";
+import Favorite from "./favorite/index.vue";
+import Spot from "./spot/index.vue";
+
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
@@ -80,7 +65,7 @@ const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
-const activeName = ref<any>("first");
+const activeName = ref<any>("second");
 
 watch(route, () => {
   activeName.value = route.meta.tab;
