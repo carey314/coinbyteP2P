@@ -91,7 +91,7 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
-    let status = error.response.status;
+    let status = error?.response?.status;
     if (status === 401) {
       if (!isRefreshing) {
         isRefreshing = true;
@@ -195,7 +195,7 @@ async function toRefreshToken() {
     const response = await axios.post("/api/v2/my/refresh", {
       refreshToken: "Bearer " + refreshToken.value,
     });
-    if (response.data.code === 200) {
+    if (response?.status === 200 && response?.statusText === "OK") {
       return response;
     } else {
       return null;

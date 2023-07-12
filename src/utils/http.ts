@@ -231,7 +231,7 @@ async function toRefreshToken() {
         },
       }
     );
-    if (response.data.code === 200) {
+    if (response.status === 200 && response.statusText === "OK") {
       return response;
     } else {
       return Promise.reject(new Error("Token refresh failed"));
