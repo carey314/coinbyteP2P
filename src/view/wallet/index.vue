@@ -9,14 +9,26 @@
             <el-tab-pane
               :label="t('messages.wallet.Overview')"
               name="first"
-              :lazy="true"
-            />
+              :lazy="true" 
+            >
+            <template #label>  
+              <div style="height: 100%;" @click="changeTab('')">
+                {{ t('messages.wallet.Overview') }}
+              </div>
+            </template>
+          </el-tab-pane>
 
             <el-tab-pane
               :label="t('messages.wallet.Trading')"
               name="second"
               :lazy="true"
-            />
+            >
+            <template #label>  
+              <div @click="changeTab('trading')">
+                {{ t('messages.wallet.Trading') }}
+              </div>
+            </template>
+          </el-tab-pane>
 
             <!-- <el-tab-pane
               :label="t('messages.wallet.Earning')"
@@ -28,18 +40,36 @@
               :label="t('messages.wallet.History')"
               name="fourth"
               :lazy="true"
-            />
+            >
+            <template #label>  
+              <div @click="changeTab('')">
+                {{ t('messages.wallet.History') }}
+              </div>
+            </template>
+          </el-tab-pane>
 
             <el-tab-pane
               :label="t('messages.wallet.Account')"
               name="fifth"
               :lazy="true"
-            />
+            >
+            <template #label>  
+              <div @click="changeTab('')">
+                {{ t('messages.wallet.Account') }}
+              </div>
+            </template>
+          </el-tab-pane>
           </el-tabs>
         </div>
       </el-scrollbar>
       <div class="min-height" v-if="activeName === 'first'">
-        <OverView />
+        <!-- <DepositCrypto v-if="isTransaction" /> -->
+       
+        <div v-if="isTransaction">
+          <router-view></router-view>
+        </div>
+        <OverView v-else/>
+        <!-- <component :is="currentTab" /> -->
       </div>
       <div class="min-height" v-if="activeName === 'second'">
         <Trading />
@@ -59,7 +89,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeMount, provide, watch } from "vue";
+import { ref, onMounted, onBeforeMount, provide, watch, computed, defineExpose, watchEffect } from "vue";
 import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -68,11 +98,17 @@ import OverView from "./layout/OverView/OverView.vue";
 import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
 import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
+
+import DepositCrypto from "../transaction/layout/OverView/DepositCrypto.vue";
+import DepositFiat from "../transaction/layout/OverView/DepositFiat.vue";
+import WithdrawCrypto from "../transaction/layout/OverView/WithdrawCrypto.vue";
+import WithdrawFiat from "../transaction/layout/OverView/WithdrawFiat.vue";
+
 import { StarFilled, Search } from "@element-plus/icons-vue";
 import { getMyAssets } from "../../api/wallet";
 import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute, useRouter,RouteLocationNormalizedLoaded } from "vue-router";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -80,22 +116,61 @@ const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
+const isTransaction = ref(false);
+
 const activeName = ref<any>("first");
+  const currentTab = computed(() => {
+  const tab = route.params.tab
+  const childTab = route.params.childTab
+
+  if (tab === 'first') {
+    return 'OverView'
+  } else if (tab === 'second') {
+    return 'Trading'
+  } else if (tab === 'third') {
+    return 'Earning'
+  } else if (tab === 'fourth') {
+    if (childTab === 'first') {
+      return 'DepositWithdraw'
+    } else if (childTab === 'second') {
+      return 'BuySell'
+    } else if (childTab === 'third') {
+      return 'Convert'
+    } else if (childTab === 'fourth') {
+      return 'Spot'
+    } else {
+      return 'DepositWithdraw'
+    }
+  } else if (tab === 'fifth') {
+    return 'AccountStatement'
+  } else {
+    return 'OverView'
+  }
+})
+
+defineExpose({ currentTab })
 
 watch(route, () => {
+  const transaction = route.meta.isTransaction
+  if(transaction) {
+    isTransaction.value = true;
+  }
   activeName.value = route.meta.tab;
 });
 
 onBeforeMount(() => {
   const tab = route.meta.tab;
-
+  const transaction = route.meta.isTransaction
+  if(transaction) {
+    isTransaction.value = true;
+  } else {
+    isTransaction.value = false;
+  }
   if (tab) {
     activeName.value = tab;
   }
 });
-// const handleClick = (tab: TabsPaneContext, event: Event) => {
-//   console.log(tab, event);
-// };
+
 // ==== 主页请求数据 共享状态
 interface AssetsData {
   currency: string;
@@ -132,11 +207,17 @@ onMounted(() => {
   });
 });
 provide("transactions", transactions);
+
+const changeTab = (path: string) => {
+  const url = path ? '/wallet/' + path : '/wallet'
+  router.push(url)
+  isTransaction.value = false
+}
 </script>
 
 <style scoped lang="scss">
 .center-part {
-  max-width: 1290px;
+  max-width: 1290px; 
   min-height: calc(100vh - 394px);
   margin: auto;
   padding: 21px 0 141px 0;

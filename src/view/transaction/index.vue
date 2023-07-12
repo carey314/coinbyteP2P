@@ -12,7 +12,7 @@
               :lazy="true"
             />
 
-            <el-tab-pane
+            <!-- <el-tab-pane
               :label="t('messages.wallet.Trading')"
               name="second"
               :lazy="true"
@@ -34,7 +34,7 @@
               :label="t('messages.wallet.Account')"
               name="fifth"
               :lazy="true"
-            />
+            /> -->
           </el-tabs>
         </div>
       </el-scrollbar>
@@ -42,7 +42,7 @@
         <!-- <WithdrawCrypto /> -->
         <router-view></router-view>
       </div>
-      <div class="min-height" v-if="activeName === 'second'">
+      <!-- <div class="min-height" v-if="activeName === 'second'">
         <Trading />
       </div>
       <div class="min-height" v-if="activeName === 'third'"></div>
@@ -51,7 +51,7 @@
       </div>
       <div class="min-height" v-if="activeName === 'fifth'">
         <AccountStatement />
-      </div>
+      </div> -->
     </div> 
 
     <Footer v-if="windowWidth > 769" />

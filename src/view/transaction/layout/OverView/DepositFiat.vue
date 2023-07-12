@@ -6,7 +6,7 @@
           <div class="left-header">
             <div class="header-title">Deposit Fiat</div>
             <router-link
-              to="/transaction/DepositCrypto"
+              to="/wallet/DepositCrypto"
               style="text-decoration: none"
             >
               <div class="header-toFiat">

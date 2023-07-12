@@ -102,7 +102,7 @@
                       Available: 0.01 BTC <span>Insufficient</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/" style="color: #01c19a">Deposit</a>
+                      <a href="/transaction/DepositCrypto" style="color: #01c19a">Deposit</a>
                     </div>
                   </div>
                 </div>

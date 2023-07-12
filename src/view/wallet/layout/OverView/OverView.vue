@@ -26,7 +26,7 @@
                 {{ $t("messages.wallet.Overview_current") }}
               </div>
               <div class="bottom-btn">
-                <router-link to="transaction/DepositCrypto">
+                <router-link to="/wallet/DepositCrypto">
                 <GetButton
                   class="deposit-btn"
                   type="success"

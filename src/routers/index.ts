@@ -94,71 +94,146 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   {
-    path: '/wallet',
-    name: 'wallet',
-    component: () => import('../view/wallet/index.vue') ,
+    path: "/wallet",
+    name: "wallet",
+    component: () => import("../view/wallet/index.vue"),
     children: [
       {
-        path: '',
-        name: 'walletOverview',
-        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
-        meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
+        path: "",
+        name: "walletOverview",
+        component: () => import("../view/wallet/layout/OverView/OverView.vue"),
+        meta: { tab: "first" },
       },
       {
-        path: 'trading',
-        name: 'walletTrading',
-        component: () => import('../view/wallet/layout/Trading/Trading.vue'),
-        meta: { tab: 'second' }
+        path: "trading",
+        name: "walletTrading",
+        component: () => import("../view/wallet/layout/Trading/Trading.vue"),
+        meta: { tab: "second" },
       },
       {
-        path: 'earning',
-        name: 'walletEarning',
-        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
-        meta: { tab: 'third' }
+        path: "transaction",
+        name: "walletTransaction",
+        component: () => import("../view/wallet/layout/OverView/OverView.vue"),
+        meta: { tab: "first", isTransaction: true },
+        children: [
+          
+        ],
       },
       {
-        path: 'history',
-        name: 'walletHistory',
-        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
-        meta: { tab: 'fourth' },
+        path: 'depositCrypto',
+        name: 'DepositCrypto',
+        meta: { tab: "first", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
+      },
+      {
+        path: 'depositFiat',
+        name: 'DepositFiat',
+        meta: { tab: "first", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
+      },
+      {
+        path: 'withdrawFiat',
+        name: 'WithdrawFiat',
+        meta: { tab: "first", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/WithdrawFiat.vue'),
+      },
+      {
+        path: 'withdrawCrypto',
+        name: 'WithdrawCrypto',
+        meta: { tab: "first", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/WithdrawCrypto.vue'),
+      },
+      {
+        path: "earning",
+        name: "walletEarning",
+        component: () => import("../view/wallet/layout/OverView/OverView.vue"),
+        meta: { tab: "third" },
+      },
+      {
+        path: "history",
+        name: "walletHistory",
+        component: () => import("../view/wallet/layout/OverView/OverView.vue"),
+        meta: { tab: "fourth" },
         children: [
           {
-            path: '',
-            name: 'walletHistoryDepositWithdraw',
-            component: () => import('../view/wallet/layout/History/modules/DepositWithdraw/DepositWithdraw.vue'),
-            meta: { tabs: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
-
+            path: "",
+            name: "walletHistoryDepositWithdraw",
+            component: () =>
+              import(
+                "../view/wallet/layout/History/modules/DepositWithdraw/DepositWithdraw.vue"
+              ),
+            meta: { tabs: "first" },
           },
           {
-            path: 'buy-sell',
-            name: 'walletHistoryBuySell',
-            component: () => import('../view/wallet/layout/History/modules/BuySell/BuySell.vue'),
-            meta: { tabs: 'second' }
-
+            path: "buy-sell",
+            name: "walletHistoryBuySell",
+            component: () =>
+              import(
+                "../view/wallet/layout/History/modules/BuySell/BuySell.vue"
+              ),
+            meta: { tabs: "second" },
           },
           {
-            path: 'convert', 
-            name: 'walletHistoryConvert',
-            component: () => import('../view/wallet/layout/History/modules/Convert/Convert.vue'),
-            meta: { tabs: 'third' }
-
+            path: "convert",
+            name: "walletHistoryConvert",
+            component: () =>
+              import(
+                "../view/wallet/layout/History/modules/Convert/Convert.vue"
+              ),
+            meta: { tabs: "third" },
           },
           {
-            path: 'spot',
-            name: 'walletHistorySpot',
-            component: () => import('../view/wallet/layout/History/modules/Spot/Spot.vue'),
-            meta: { tabs: 'fourth' },
-
-          }
-        ]
+            path: "spot",
+            name: "walletHistorySpot",
+            component: () =>
+              import(
+                "../view/wallet/layout/History/modules/Spot/Spot.vue"
+              ),
+            meta: { tabs: "fourth" },
+          },
+          {
+            path: "transaction/DepositCrypto",
+            name: "walletHistoryDepositCrypto",
+            component: () =>
+              import(
+                "../view/transaction/layout/OverView/DepositCrypto.vue"
+              ),
+            meta: { tabs: "first" },
+          },
+          {
+            path: "transaction/DepositFiat",
+            name: "walletHistoryDepositFiat",
+            component: () =>
+              import("../view/transaction/layout/OverView/DepositFiat.vue"),
+            meta: { tabs: "first" },
+          },
+          {
+            path: "transaction/WithdrawFiat",
+            name: "walletHistoryWithdrawFiat",
+            component: () =>
+              import(
+                "../view/transaction/layout/OverView/WithdrawFiat.vue"
+              ),
+            meta: { tabs: "first" },
+          },
+          {
+            path: "transaction/WithdrawCrypto",
+            name: "walletHistoryWithdrawCrypto",
+            component: () =>
+              import(
+                "../view/transaction/layout/OverView/WithdrawCrypto.vue"
+              ),
+            meta: { tabs: "first" },
+          },
+        ],
       },
       {
-        path: 'account',
-        name: 'walletAccount',
-        component: () => import('../view/wallet/layout/OverView/OverView.vue'),
-        meta: { tab: 'fifth' }
-      }
-    ]
+        path: "account",
+        name: "walletAccount",
+        component: () => import("../view/wallet/layout/OverView/OverView.vue"),
+        meta: { tab: "fifth" },
+      },
+    ],
   },
   {
     path: '/transaction',
