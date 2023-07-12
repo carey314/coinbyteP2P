@@ -10,7 +10,7 @@ export interface CurrentPair {
     currency: string,
     alphabeticCode : string,
     numericCode : string,
-    maxAmount : string,
+    maxAmount : string = "0",
     quoteId : string,
     rate : string,
     minorUnit : number,

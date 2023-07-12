@@ -5,7 +5,7 @@ function getBaseCurrency (baseCurrency : string) {
     return http.get("/v2/my/rates/" + baseCurrency);
 }
 //Get an exchange rate for a currency pair
-function getExchangeRateForCurrencyPair (baseCurrency : string, quoteCurrency : string) {
+async function getExchangeRateForCurrencyPair (baseCurrency : string, quoteCurrency : string) {
     return http.get(`/v2/my/rates/${baseCurrency}/${quoteCurrency}`);
 }
 //Get a list of paired currencies

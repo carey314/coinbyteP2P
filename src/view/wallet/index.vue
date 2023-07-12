@@ -12,7 +12,7 @@
               :lazy="true" 
             >
             <template #label>  
-              <div style="height: 100%;" @click="changeTab('')">
+              <div class="click-success" @click="changeTab('')">
                 {{ t('messages.wallet.Overview') }}
               </div>
             </template>
@@ -24,7 +24,7 @@
               :lazy="true"
             >
             <template #label>  
-              <div @click="changeTab('trading')">
+              <div class="click-success" @click="changeTab('trading')">
                 {{ t('messages.wallet.Trading') }}
               </div>
             </template>
@@ -42,7 +42,7 @@
               :lazy="true"
             >
             <template #label>  
-              <div @click="changeTab('')">
+              <div class="click-success" @click="changeTab('')">
                 {{ t('messages.wallet.History') }}
               </div>
             </template>
@@ -54,7 +54,7 @@
               :lazy="true"
             >
             <template #label>  
-              <div @click="changeTab('')">
+              <div class="click-success" @click="changeTab('')">
                 {{ t('messages.wallet.Account') }}
               </div>
             </template>
@@ -317,5 +317,8 @@ const changeTab = (path: string) => {
 }
 :deep(.el-table__row) {
   height: 70px;
+}
+.click-success{
+  height: 100% !important;
 }
 </style>
