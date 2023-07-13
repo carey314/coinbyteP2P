@@ -543,6 +543,9 @@ export default {
       label_Number: "Account Number",
       label_Status: "Account Status",
       label_Operation: "Operation",
+      prefer_title: "Preferences",
+      prefer_lan: 'Language',
+      prefer_currency: 'Currency',
     },
   },
 };

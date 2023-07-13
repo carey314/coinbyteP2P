@@ -522,6 +522,9 @@ export default {
       label_Number: "账户号码",
       label_Status: "账户状态",
       label_Operation: "操作",
+      prefer_title: "偏好设置",
+      prefer_lan: '语言',
+      prefer_currency: '货币',
     },
   },
 };
