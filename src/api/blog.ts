@@ -1,10 +1,14 @@
 import {default as httpAdmin} from '../utils/httpAdminApi';
-
-async function getBlogs(){
-    return httpAdmin.get("/coin/blog",{
+import { GetBlogs } from '../models/blog';
+async function getBlogs(data?: GetBlogs){
+    let configData = {
         pageNumber: 1,
-        pageSize: 10000
-    });
+        pageSize: 1000
+    }
+    if(data) {
+        configData = Object.assign(configData, data);
+    }
+    return httpAdmin.get("/coin/blog", configData);
 }
 
 async function getBlog(id: string){

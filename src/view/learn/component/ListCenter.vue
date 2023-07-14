@@ -3,19 +3,19 @@
     <div class="center-box" v-if="windowWidth > 769">
       <div class="center-part max1290">
         <el-row :gutter="20">
-          <el-col :span="6" v-for="(item, index) in firstCenter" :key="index">
-            <router-link to="centerContent" style="text-decoration: none">
+          <el-col :span="6" v-for="(item, index) in blogs?.content" :key="index">
+            <router-link :to="'/centerContent/' + item.id" style="text-decoration: none">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.image" />
+                  <img :src="item.icon" />
                 </div>
-                <div class="message">{{ item.message }}</div>
+                <div class="message">{{ item.title }}</div>
               </div>
             </router-link>
           </el-col>
         </el-row>
       </div>
-      <div class="center-part max1290">
+      <!-- <div class="center-part max1290">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in secondCenter" :key="index">
             <div class="content clearfloat">
@@ -38,44 +38,33 @@
             </div>
           </el-col>
         </el-row>
-      </div>
-      <div class="example-pagination-block">
-        <el-pagination
-          background
-          :pager-count="4"
-          layout="prev, pager, next"
-          :total="40"
-        />
-      </div>
+      </div> -->
+      <el-row>
+        <el-col :span="24">
+          <div class="example-pagination-block" style="width: 100%;">
+            <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements" @current-change="pageChange"/>
+          </div>
+        </el-col>
+      </el-row>
     </div>
     <div class="center-box max1290" v-if="windowWidth <= 769">
       <div class="center-part">
         <el-row>
-          <el-col
-            :span="24"
-            style="margin: auto"
-            v-for="(item, index) in firstCenter"
-            :key="index"
-          >
-            <router-link to="centerContent" style="text-decoration: none">
+          <el-col :span="24" style="margin: auto" v-for="(item, index) in blogs?.content" :key="index">
+            <router-link :to="'/centerContent/' + item.id" style="text-decoration: none">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.image" />
+                  <img :src="item.icon" />
                 </div>
-                <div class="message">{{ item.message }}</div>
+                <div class="message">{{ item.title }}</div>
               </div>
             </router-link>
           </el-col>
         </el-row>
       </div>
-      <div class="center-part">
+      <!-- <div class="center-part">
         <el-row>
-          <el-col
-            :span="24"
-            style="margin: auto"
-            v-for="(item, index) in secondCenter"
-            :key="index"
-          >
+          <el-col :span="24" style="margin: auto" v-for="(item, index) in secondCenter" :key="index">
             <div class="content clearfloat">
               <div class="image">
                 <img :src="item.image" />
@@ -87,12 +76,7 @@
       </div>
       <div class="center-part">
         <el-row>
-          <el-col
-            :span="24"
-            style="margin: auto"
-            v-for="(item, index) in thirdCenter"
-            :key="index"
-          >
+          <el-col :span="24" style="margin: auto" v-for="(item, index) in thirdCenter" :key="index">
             <div class="content clearfloat">
               <div class="image">
                 <img :src="item.image" />
@@ -101,14 +85,10 @@
             </div>
           </el-col>
         </el-row>
-      </div>
+      </div> -->
+
       <div class="example-pagination-block">
-        <el-pagination
-          background
-          :pager-count="4"
-          layout="prev, pager, next"
-          :total="40"
-        />
+        <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements"  @current-change="pageChange"/>
       </div>
     </div>
   </div>
@@ -136,6 +116,20 @@ import learn_image16 from "../../../assets/home/learn_image16.png";
 import learn_image17 from "../../../assets/home/learn_image17.png";
 import learn_image18 from "../../../assets/home/learn_image18.png";
 import learn_image19 from "../../../assets/home/learn_image19.png";
+
+import { Blog, GetBlogs } from "../../../models/blog";
+import { number } from "echarts";
+
+const props = defineProps<
+  {
+    toGetBlogs: (getConfig: GetBlogs) => Promise<{
+      content: Blog[];
+      totalElements: number;
+    } | undefined>;
+    index: number;
+  }
+>();
+
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -205,6 +199,31 @@ const thirdCenter = [
     message: "Can algo trading beat the market?",
   },
 ];
+
+const blogs = ref<{
+  content: Blog[];
+  totalElements: number;
+}>();
+
+onMounted(() => {
+  getBlogsValue(props.index);
+})
+
+const getBlogsValue = async (pageIndex: number) => {
+  const res: any = await props.toGetBlogs(
+    {
+      pageNumber: 1,
+      pageSize: 12,
+      typeOne: pageIndex
+    }
+  );
+  blogs.value = res;
+}
+
+const pageChange = (value: number) => {
+  getBlogsValue(value);
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -218,13 +237,16 @@ $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
+
 .max1290 {
   max-width: 1290px;
   margin: 0 auto;
 }
+
 .center-box {
   // width: auto;
   margin-top: -15px;
+
   @media (max-width: 769px) {
     & {
       padding: 0;
@@ -233,6 +255,7 @@ $fontSizeMin: 12px;
 
   .content {
     margin-top: 40px;
+
     .image {
       img {
         width: 100%;
@@ -246,6 +269,7 @@ $fontSizeMin: 12px;
       color: #000000;
       line-height: 20px;
       font-weight: 400;
+
       @media (max-width: 769px) {
         text-align: center;
       }
@@ -254,28 +278,36 @@ $fontSizeMin: 12px;
 }
 
 .example-pagination-block {
-  float: right;
+  // float: right;
   margin-top: 60px;
   color: #9b9b9b;
+  display: flex;
+  justify-content: flex-end;
+
   :deep() {
+
     // .el-pager{
     //   margin-top: 15px;
     // }
     .el-pager li {
       color: #9b9b9b;
     }
+
     .el-pagination.is-background .el-pager li {
       background-color: #ffffff;
     }
+
     .el-pager li.is-active {
       background-color: #f1f1f1 !important;
       color: #000;
     }
+
     .el-pagination.is-background .btn-next,
     .el-pagination.is-background .btn-prev,
     .el-pagination.is-background .el-pager li {
       background-color: #ffffff;
     }
+
     // .el-pager li:hover {
     //   color: #01c19a !important;
     // }

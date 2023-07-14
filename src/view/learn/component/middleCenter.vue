@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="center-box" v-if="windowWidth > 769">
-      <div class="center-part max1290">
+      <div class="center-part max1290" v-if="filterBlogs(0).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
@@ -12,16 +12,18 @@
         </div>
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(0)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
-              </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
-          </el-col>
+            <a class="to-article"  :href="'/centerContent/' + item.id">
+                <div class="content clearfloat">
+                  <div class="image">
+                    <img :src="item.icon" />
+                  </div>
+                  <div class="message">{{ item.title || "----" }}</div>
+                </div>
+              </a>
+            </el-col>
         </el-row>
       </div>
-      <div class="center-part max1290">
+      <div class="center-part max1290" v-if="filterBlogs(1).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
@@ -42,16 +44,18 @@
         </el-row> -->
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(1)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
+            <a class="to-article"  :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.title || "----" }}</div>
               </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
       </div>
-      <div class="center-part max1290">
+      <div class="center-part max1290" v-if="filterBlogs(2).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
@@ -71,19 +75,21 @@
           </el-col> -->
           <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(2)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
+            <a class="to-article" :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.title || "----" }}</div>
               </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
         </el-row>
       </div>
     </div>
     <div class="center-box max1290" v-if="windowWidth <= 769">
-      <div class="center-part">
+      <div class="center-part" v-if="filterBlogs(0).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
@@ -96,19 +102,21 @@
           <el-col
             :span="24"
             style="margin: auto"
-            v-for="(item, index) in firstCenter"
+            v-for="(item, index) in filterBlogs(0)"
             :key="index"
           >
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.image" />
+            <a class="to-article" :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.title }}</div>
               </div>
-              <div class="message">{{ item.message }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
       </div>
-      <div class="center-part">
+      <div class="center-part" v-if="filterBlogs(1).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
@@ -121,19 +129,21 @@
           <el-col
             :span="24"
             style="margin: auto"
-            v-for="(item, index) in secondCenter"
+            v-for="(item, index) in filterBlogs(1)"
             :key="index"
           >
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.image" />
+            <a class="to-article" :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.title }}</div>
               </div>
-              <div class="message">{{ item.message }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
       </div>
-      <div class="center-part">
+      <div class="center-part" v-if="filterBlogs(2).length > 0">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
@@ -146,15 +156,17 @@
           <el-col
             :span="24"
             style="margin: auto"
-            v-for="(item, index) in thirdCenter"
+            v-for="(item, index) in filterBlogs(2)"
             :key="index"
           >
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.image" />
+            <a class="to-article" :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.title }}</div>
               </div>
-              <div class="message">{{ item.message }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
       </div>
@@ -178,8 +190,12 @@ import learn_image10 from "../../../assets/home/learn_image10.png";
 import learn_image11 from "../../../assets/home/learn_image11.png";
 import learn_image12 from "../../../assets/home/learn_image12.png";
 
-import { getBlogs } from "../../../api/blog";
 import { Blog } from "../../../models/blog";
+
+const props = defineProps<
+{
+  filterBlogs: (id: number) => Blog[]
+}>();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -247,25 +263,6 @@ const thirdCenter = [
     message: "Markets stay range-bound, new launch rumors invade DeFi",
   },
 ];
-
-
-const blogs = ref<Blog[]>([]);
-
-onMounted(async () => {
-  try {
-    const res: any = await getBlogs();
-    const data: Blog[] = res.data.content;
-    blogs.value = data;
-    console.log(blogs.value)
-  } catch(e) {
-    console.log(e)
-  }
-})
-
-const filterBlogs = (index: number) => {
-  return blogs.value.filter((v: Blog) => v.typeOne === index);
-}
-
 
 
 </script>
@@ -343,5 +340,11 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+.to-article {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 </style>

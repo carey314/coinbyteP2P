@@ -1,5 +1,7 @@
 
 export interface Blog {
+    author: string;
+    createTime: string;
     blogTxt: string;
     icon: string;
     id: number;
@@ -9,4 +11,13 @@ export interface Blog {
     typeOne: number;
     typeTwo: number;
     subDesc: string;
+}
+
+
+interface GetBlogs {
+    pageNumber?: number;
+    pageSize?: number;
+    title?: string;
+    typeOne?: number;
+    top?: number;
 }
