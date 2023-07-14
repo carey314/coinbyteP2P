@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/learn/learnList/index.vue') 
   },
   { 
-    path: '/centerContent',
+    path: '/centerContent/:id',
     name: 'centerContent',
     component: () => import('../view/learn/centerContent/index.vue') 
   },

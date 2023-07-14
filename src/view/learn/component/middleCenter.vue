@@ -11,12 +11,12 @@
           </div>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6" v-for="(item, index) in firstCenter" :key="index">
+          <el-col :span="6" v-for="(item, index) in filterBlogs(0)" :key="index">
             <div class="content clearfloat">
               <div class="image">
-                <img :src="item.image" />
+                <img :src="item.icon" />
               </div>
-              <div class="message">{{ item.message }}</div>
+              <div class="message">{{ item.subDesc || "----" }}</div>
             </div>
           </el-col>
         </el-row>
@@ -30,13 +30,23 @@
             >
           </div>
         </div>
-        <el-row :gutter="20">
+        <!-- <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in secondCenter" :key="index">
             <div class="content clearfloat">
               <div class="image">
                 <img :src="item.image" />
               </div>
               <div class="message">{{ item.message }}</div>
+            </div>
+          </el-col>
+        </el-row> -->
+        <el-row :gutter="20">
+          <el-col :span="6" v-for="(item, index) in filterBlogs(1)" :key="index">
+            <div class="content clearfloat">
+              <div class="image">
+                <img :src="item.icon" />
+              </div>
+              <div class="message">{{ item.subDesc || "----" }}</div>
             </div>
           </el-col>
         </el-row>
@@ -51,14 +61,24 @@
           </div>
         </div>
         <el-row :gutter="20">
-          <el-col :span="6" v-for="(item, index) in thirdCenter" :key="index">
+          <!-- <el-col :span="6" v-for="(item, index) in thirdCenter" :key="index">
             <div class="content clearfloat">
               <div class="image">
                 <img :src="item.image" />
               </div>
               <div class="message">{{ item.message }}</div>
             </div>
+          </el-col> -->
+          <el-row :gutter="20">
+          <el-col :span="6" v-for="(item, index) in filterBlogs(2)" :key="index">
+            <div class="content clearfloat">
+              <div class="image">
+                <img :src="item.icon" />
+              </div>
+              <div class="message">{{ item.subDesc || "----" }}</div>
+            </div>
           </el-col>
+        </el-row>
         </el-row>
       </div>
     </div>
@@ -143,7 +163,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, Ref } from "vue";
 
 import learn_image01 from "../../../assets/home/learn_image01.png";
 import learn_image02 from "../../../assets/home/learn_image02.png";
@@ -157,6 +177,9 @@ import learn_image09 from "../../../assets/home/learn_image09.png";
 import learn_image10 from "../../../assets/home/learn_image10.png";
 import learn_image11 from "../../../assets/home/learn_image11.png";
 import learn_image12 from "../../../assets/home/learn_image12.png";
+
+import { getBlogs } from "../../../api/blog";
+import { Blog } from "../../../models/blog";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -224,6 +247,27 @@ const thirdCenter = [
     message: "Markets stay range-bound, new launch rumors invade DeFi",
   },
 ];
+
+
+const blogs = ref<Blog[]>([]);
+
+onMounted(async () => {
+  try {
+    const res: any = await getBlogs();
+    const data: Blog[] = res.data.content;
+    blogs.value = data;
+    console.log(blogs.value)
+  } catch(e) {
+    console.log(e)
+  }
+})
+
+const filterBlogs = (index: number) => {
+  return blogs.value.filter((v: Blog) => v.typeOne === index);
+}
+
+
+
 </script>
 
 <style scoped lang="scss">

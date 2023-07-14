@@ -4,25 +4,18 @@
     <div class="main-part">
       <div class="nav">
         <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item :to="{ path: '/learnCenter' }"
-            >Learn</el-breadcrumb-item
-          >
-          <el-breadcrumb-item :to="{ path: '/learnList' }"
-            >Explained</el-breadcrumb-item
-          >
-          <el-breadcrumb-item :to="{ path: '/centerContent' }"
-            >Article</el-breadcrumb-item
-          >
+          <el-breadcrumb-item :to="{ path: '/learnCenter' }">Learn</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/learnList' }">Explained</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/centerContent' }">Article</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="part-container">
         <div class="title-box">
           <div class="first-title">
-            How to use the COINBYTE crypto trading bot for automated crypto buys
-            and sells
+            {{ blogInfo.title || '----' }}
           </div>
           <div class="info clearfloat">
-            <div class="date">2020.09.01 &nbsp;&nbsp; COINBYTE</div>
+            <div class="date">{{ blogInfo.createTime || '----' }} &nbsp;&nbsp; {{ blogInfo.author || '----' }}</div>
             <div class="icon">
               <img :src="downbar_icon03" alt="" />
               <img :src="paper_full" alt="" />
@@ -33,11 +26,8 @@
           </div>
           <div class="divide-line"></div>
         </div>
-        <div
-          class="content-box"
-          v-for="(item, index) in contentCard"
-          :key="index"
-        >
+        <div v-html="blogInfo.blogTxt || '----'" class="content-box"></div>
+        <!-- <div class="content-box" v-for="(item, index) in contentCard" :key="index">
           <div class="second-title">
             {{ item.title }}
           </div>
@@ -67,14 +57,14 @@
               <img :src="image2" />
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="bottom-part">
       <div class="second-title">
         {{ $t('messages.centerContent.recommend') }}
       </div>
-      <CenterContent style="margin-top:-20px"/>
+      <CenterContent style="margin-top:-20px" />
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -84,7 +74,12 @@
 
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted } from "vue";
-import type { TabsPaneContext } from "element-plus";
+
+import { useRoute } from "vue-router";
+import { getBlog } from '../../../api/blog';
+import { Blog } from "../../../models/blog";
+
+import { ElMessage, type TabsPaneContext } from "element-plus";
 import { ArrowRight } from "@element-plus/icons-vue";
 import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
@@ -137,6 +132,31 @@ const contentCard = ref([
       "A crucial difference between the futures and spot grid modes is the ability to trade with leverage on futures contracts. Users can amplify their position size with leverage, potentially making it a more capital-efficient strategy that can result in more significant gains. Of course, leverage trading carries its own risks, and it's crucial to understand them before using the futures grid trading bot.",
   },
 ]);
+
+const route = useRoute();
+const blogInfo = ref<Blog>({
+  blogTxt: '',
+  icon: '',
+  id: 0,
+  status: 0,
+  title: '',
+  top: 0,
+  typeOne: 0,
+  typeTwo: 0,
+  subDesc: ''
+});
+onMounted(async () => {
+  try {
+    if (route.params.id) {
+      const res: any = await getBlog(route.params.id as string);
+      const resData: Blog = res.data;
+      blogInfo.value = resData;
+    }
+  } catch (e) {
+    ElMessage.error('Please try again later.');
+  }
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -157,16 +177,20 @@ $fontSizeMin: 12px;
   line-height: 49px;
   font-weight: 600;
 }
+
 .content {
   font-size: $fontSizeDef;
   line-height: 22px;
   color: #282828;
+
   .con-content {
     margin-top: 28px;
   }
-  .screenshot{
+
+  .screenshot {
     margin-top: 30px;
-    img{
+
+    img {
       width: 100%;
       height: 100%;
     }
@@ -177,11 +201,14 @@ $fontSizeMin: 12px;
   max-width: 1290px;
   margin: auto;
   padding: 45px 130px 77px 130px;
+
   @media (max-width: 1440px) {
     padding: 45px 30px 37px 30px;
   }
+
   .nav {
     :deep() {
+
       .el-breadcrumb__inner a,
       .el-breadcrumb__inner.is-link {
         color: #878787;
@@ -190,8 +217,10 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .part-container {
     margin-top: 21px;
+
     .title-box {
       margin-top: 32px;
 
@@ -201,8 +230,10 @@ $fontSizeMin: 12px;
         line-height: 49px;
         font-weight: 600;
       }
+
       .info {
         margin-top: 32px;
+
         .date {
           font-size: $fontSizeMinPro;
           color: #878787;
@@ -210,11 +241,14 @@ $fontSizeMin: 12px;
           display: flex;
           float: left;
         }
+
         .icon {
           float: right;
-          @media(max-width:769px){
+
+          @media(max-width:769px) {
             margin-top: -7px;
           }
+
           img {
             cursor: pointer;
             width: 1rem;
@@ -223,23 +257,26 @@ $fontSizeMin: 12px;
           }
         }
       }
+
       .divide-line {
         width: 100%;
         border: 1px solid #ebebeb;
         margin-top: 6px;
       }
     }
+
     .content-box {
       margin-top: 45px;
     }
   }
 }
+
 .bottom-part {
   max-width: 1290px;
   margin: auto;
   padding: 45px 0 134px 0;
+
   @media (max-width: 1440px) {
     padding: 45px 30px 134px 30px;
   }
-}
-</style>
+}</style>
