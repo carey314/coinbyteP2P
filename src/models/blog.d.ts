@@ -12,3 +12,12 @@ export interface Blog {
     typeTwo: number;
     subDesc: string;
 }
+
+
+interface GetBlogs {
+    pageNumber?: number;
+    pageSize?: number;
+    title?: string;
+    typeOne?: number;
+    top?: number;
+}

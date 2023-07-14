@@ -2,8 +2,8 @@
   <div class="learn-center">
     <Header />
     <topCenter />
-    <middleCenter />
-    <bottomCenter />
+    <middleCenter :filterBlogs="filterBlogs"/>
+    <bottomCenter :filterBlogs="filterBlogs"/>
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
   </div>
@@ -19,6 +19,12 @@ import topCenter from "./component/topCenter.vue";
 import middleCenter from "./component/middleCenter.vue";
 import bottomCenter from "./component/bottomCenter.vue";
 
+
+import { getBlogs } from "../../api/blog";
+import { Blog } from "../../models/blog";
+
+import { GetBlogs } from '../../models/blog';
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -29,6 +35,26 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
+
+const blogs = ref<Blog[]>([]);
+
+onMounted(async () => {
+  try {
+    const res: any = await getBlogs();
+    const data: Blog[] = res.data.content;
+    blogs.value = data;
+    console.log(blogs.value)
+  } catch(e) {
+    console.log(e)
+  }
+})
+
+const filterBlogs = (index: number) => {
+  return blogs.value.filter((v: Blog) => v.typeOne === index);
+}
+
+
 </script>
 
 <style scoped lang="scss">
