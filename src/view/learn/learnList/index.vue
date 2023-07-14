@@ -5,20 +5,107 @@
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
         <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
           <div class="min-height">
-            <ListCenter />
+            <!-- <ListCenter /> -->
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="(item, index) in filterBlogs(0)" :key="index">
+                <a class="to-article"  :href="'/centerContent/' + item.id">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="item.icon" />
+                      </div>
+                      <div class="message">{{ item.subDesc || "----" }}</div>
+                    </div>
+                  </a>
+                </el-col>
+            </el-row>
+            <!-- <div style="display: flex; flex-wrap: wrap;">
+              
+            </div> -->
           </div>
         </el-tab-pane>
         <el-tab-pane :label="t('messages.learnList.second_label')" name="second">
-          <div class="min-height">Trading Ideas</div>
+          <div class="min-height">
+            <div class="min-height">
+            <!-- <ListCenter /> -->
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="(item, index) in filterBlogs(1)" :key="index">
+                <a class="to-article"  :href="'/centerContent/' + item.id">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="item.icon" />
+                      </div>
+                      <div class="message">{{ item.subDesc || "----" }}</div>
+                    </div>
+                  </a>
+                </el-col>
+            </el-row>
+            <!-- <div style="display: flex; flex-wrap: wrap;">
+              
+            </div> -->
+          </div>
+          </div>
         </el-tab-pane>
         <el-tab-pane :label="t('messages.learnList.third_label')" name="third">
-          <div class="min-height">Industry Analysis</div>
+          <div class="min-height">
+            <div class="min-height">
+            <!-- <ListCenter /> -->
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="(item, index) in filterBlogs(2)" :key="index">
+                <a class="to-article"  :href="'/centerContent/' + item.id">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="item.icon" />
+                      </div>
+                      <div class="message">{{ item.subDesc || "----" }}</div>
+                    </div>
+                  </a>
+                </el-col>
+            </el-row>
+            <!-- <div style="display: flex; flex-wrap: wrap;">
+              
+            </div> -->
+          </div>
+          </div>
         </el-tab-pane>
         <el-tab-pane :label="t('messages.learnList.forth_label')" name="fourth">
-          <div class="min-height">Blockchain Glossary</div>
+          <div class="min-height"><div class="min-height">
+            <!-- <ListCenter /> -->
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="(item, index) in filterBlogs(3)" :key="index">
+                <a class="to-article"  :href="'/centerContent/' + item.id">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="item.icon" />
+                      </div>
+                      <div class="message">{{ item.subDesc || "----" }}</div>
+                    </div>
+                  </a>
+                </el-col>
+            </el-row>
+            <!-- <div style="display: flex; flex-wrap: wrap;">
+              
+            </div> -->
+          </div></div>
         </el-tab-pane>
         <el-tab-pane :label="t('messages.learnList.fifth_label')" name="fifth">
-          <div class="min-height">Company Updates</div>
+          <div class="min-height"><div class="min-height">
+            <!-- <ListCenter /> -->
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="(item, index) in filterBlogs(4)" :key="index">
+                <a class="to-article"  :href="'/centerContent/' + item.id">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="item.icon" />
+                      </div>
+                      <div class="message">{{ item.subDesc || "----" }}</div>
+                    </div>
+                  </a>
+                </el-col>
+            </el-row>
+            <!-- <div style="display: flex; flex-wrap: wrap;">
+              
+            </div> -->
+          </div></div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -52,7 +139,6 @@
         <ListCenter />
       </div>
     </div>
-
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
   </div>
@@ -66,7 +152,11 @@ import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import ListCenter from "../component/ListCenter.vue";
 import { useI18n } from 'vue-i18n'
+import { Blog } from "../../../models/blog";
+import { getBlogs } from "../../../api/blog";
+
 const { t } = useI18n();
+
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -83,6 +173,28 @@ const activeName = ref("first");
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
 };
+
+
+const blogs = ref<Blog[]>([]);
+
+onMounted(async () => {
+  try {
+    const res: any = await getBlogs();
+    const data: Blog[] = res.data.content;
+    blogs.value = data;
+    console.log(blogs.value)
+  } catch(e) {
+    console.log(e)
+  }
+})
+
+const filterBlogs = (index: number) => {
+  return blogs.value.filter((v: Blog) => v.typeOne === index);
+}
+
+
+
+
 </script>
 
 <style scoped lang="scss">
@@ -145,5 +257,33 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   .el-scrollbar__bar.is-horizontal>div{
     height: 0; //iPhone滑动样式高度
   }
+}
+
+.content {
+    margin-top: 23px;
+    .image {
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .message {
+      margin-top: 9px;
+      color: #000000;
+      line-height: 20px;
+      font-weight: 500;
+      @media (max-width: 769px) {
+        text-align: center;
+        font-weight: 400;
+      }
+    }
+  }
+  .to-article {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 </style>

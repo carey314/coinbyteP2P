@@ -135,6 +135,8 @@ const contentCard = ref([
 
 const route = useRoute();
 const blogInfo = ref<Blog>({
+  author: '',
+  createTime: '',
   blogTxt: '',
   icon: '',
   id: 0,

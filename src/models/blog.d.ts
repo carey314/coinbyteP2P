@@ -1,5 +1,7 @@
 
 export interface Blog {
+    author: string;
+    createTime: string;
     blogTxt: string;
     icon: string;
     id: number;

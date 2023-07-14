@@ -12,13 +12,15 @@
         </div>
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(0)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
-              </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
-          </el-col>
+            <a class="to-article"  :href="'/centerContent/' + item.id">
+                <div class="content clearfloat">
+                  <div class="image">
+                    <img :src="item.icon" />
+                  </div>
+                  <div class="message">{{ item.subDesc || "----" }}</div>
+                </div>
+              </a>
+            </el-col>
         </el-row>
       </div>
       <div class="center-part max1290">
@@ -42,12 +44,14 @@
         </el-row> -->
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(1)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
+            <a class="to-article"  :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.subDesc || "----" }}</div>
               </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
       </div>
@@ -71,12 +75,14 @@
           </el-col> -->
           <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in filterBlogs(2)" :key="index">
-            <div class="content clearfloat">
-              <div class="image">
-                <img :src="item.icon" />
+            <a class="to-article" :href="'/centerContent/' + item.id">
+              <div class="content clearfloat">
+                <div class="image">
+                  <img :src="item.icon" />
+                </div>
+                <div class="message">{{ item.subDesc || "----" }}</div>
               </div>
-              <div class="message">{{ item.subDesc || "----" }}</div>
-            </div>
+            </a>
           </el-col>
         </el-row>
         </el-row>
@@ -343,5 +349,11 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+.to-article {
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 </style>
