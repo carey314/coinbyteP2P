@@ -58,6 +58,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/learn/centerContent/index.vue') 
   },
   { 
+    path: '/noticesList',
+    name: 'noticesList',
+    component: () => import('../view/notices/index.vue') 
+  },
+  { 
+    path: '/noticeContent',
+    name: 'noticeContent',
+    component: () => import('../view/notices/noticeContent/index.vue') 
+  },
+  { 
     path: '/signup',
     name: 'signup',
     component: () => import('../view/sign/index.vue') 

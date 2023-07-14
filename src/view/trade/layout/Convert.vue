@@ -69,10 +69,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="exchange-icon">
-                  <!-- 中间转换图片 -->
+                <!-- <div class="exchange-icon">
+                  <-- 中间转换图片 
                   <img :src="crypto_buy" @click="switchSelect" />
-                </div>
+                </div> -->
                 <div class="pro-input">
                   <div class="input-second-title">{{ $t("messages.convert.receive") }}</div>
                   <el-input v-model="countCrypto" placeholder="receive" class="change-count clearfloat">
@@ -177,10 +177,10 @@
                   </div>
                 </div>
                 <template v-if="stableCoinsToOptions.length > 0">
-                  <div class="exchange-icon">
-                    <!-- 中间转换图片 -->
+                  <!-- <div class="exchange-icon">
+                    <-- 中间转换图片 
                     <img :src="crypto_buy" />
-                  </div>
+                  </div> -->
                   <div class="pro-input">
                     <div class="input-second-title">You Receive</div>
                     <el-input v-model="countStable" placeholder="Receive" class="change-count clearfloat">
@@ -267,7 +267,6 @@ import convert_icon03 from "../../../assets/home/convert_icon03.png";
 import part01_BTC from "../../../assets/home/part01_BTC.png";
 import crypto_icon_usdt from "../../../assets/home/crypto_icon_usdt.png";
 import crypto_icon_usdc from "../../../assets/home/crypto_icon_usdc.png";
-import crypto_buy from "../../../assets/home/crypto_buy.png";
 import buy_info from "../../../assets/home/buy_info.svg";
 import { getMyAssets } from "../../../api/wallet";
 import {
@@ -340,13 +339,13 @@ onMounted(async () => {
   }
 });
 
-const switchSelect = () => {
-  if (activeSign.value === '1' && currentPairCrypto.value?.rate) {
-    [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value]
-    numberCrypto.value = String(countCrypto.value)
-    cryptoChange()
-  }
-}
+// const switchSelect = () => {
+//   if (activeSign.value === '1' && currentPairCrypto.value?.rate) {
+//     [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value]
+//     numberCrypto.value = String(countCrypto.value)
+//     cryptoChange()
+//   }
+// }
 
 const currentPairCrypto = ref<CurrentPair>();
 const countCrypto = computed(() => {
