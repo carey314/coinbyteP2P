@@ -308,10 +308,6 @@ const activeSign = ref("1");
 const text = ref("Log in to Convert");
 const assetsData = ref<AssetsData[]>([]);
 const currenciesTypesCrypto = ref<CurrencyType[]>([])
-const currenciesTypesStable = ref<CurrencyType[]>([
-  { id: "1", slug: "AUD", area: "" }, // AUD
-  { id: "2", slug: "USDT", area: "" }
-])
 onMounted(async () => {
   window.addEventListener("resize", resetWidth);
   //
@@ -412,6 +408,10 @@ const cryptoMax = () => {
 /** 
  * Stablecoin 
  */
+ const currenciesTypesStable = ref<CurrencyType[]>([
+  { id: "1", slug: "AUD", area: "" }, // AUD
+  { id: "2", slug: "BTC", area: "" }
+])
 // const insufficientStableCoin = ref("display:none;")
 const numberStable = ref("0.0000");
 // const countStable = ref("1.0002");

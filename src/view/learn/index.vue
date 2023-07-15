@@ -51,7 +51,7 @@ onMounted(async () => {
 })
 
 const filterBlogs = (index: number) => {
-  return blogs.value.filter((v: Blog) => v.typeOne === index);
+  return blogs.value.filter((v: Blog) => v.typeOne === index).slice(0,4);
 }
 
 

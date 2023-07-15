@@ -7,13 +7,9 @@
           <div class="top-title">Rank</div>
           <div><img :src="icon_question" /></div>
         </div>
-        <div class="market">#1</div>
+        <div class="market">#{{ rank }}</div>
       </div>
-      <el-divider
-        v-if="windowWidth > 976"
-        class="divider"
-        direction="vertical"
-      />
+      <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
       <el-divider v-else class="divider" />
       <div class="market-infomation-part">
         <div class="part-top">
@@ -22,11 +18,7 @@
         </div>
         <div class="market">263 days</div>
       </div>
-      <el-divider
-        v-if="windowWidth > 976"
-        class="divider"
-        direction="vertical"
-      />
+      <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
       <el-divider v-else class="divider" />
       <div class="market-infomation-part market-third">
         <div class="part-top">
@@ -36,12 +28,7 @@
 
         <div class="market market-progress clearfloat">
           <div class="progress-buy">74% Buy</div>
-          <el-progress
-            :percentage="74"
-            :stroke-width="9"
-            :show-text="false"
-            class="progress-bar"
-          />
+          <el-progress :percentage="74" :stroke-width="9" :show-text="false" class="progress-bar" />
           <div class="progress-sell">26% Sell</div>
         </div>
       </div>
@@ -50,9 +37,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed, provide } from "vue";
+import { ref, reactive, onUnmounted, onMounted, computed, provide, toRefs, defineProps } from "vue";
 
 import icon_question from "../../../assets/home/icon_question.svg";
+import { CurrencyInformation } from "../../../models/currencyInformation";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -64,6 +52,13 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
+const props = defineProps<{
+  info: CurrencyInformation
+}>()
+const { info } = toRefs(props);
+console.log("info", info)
+const rank = info.value.market_cap_rank
 </script>
 
 <style scoped lang="scss">
@@ -72,9 +67,11 @@ function resetWidth() {
   font-size: 20px;
   line-height: 24px;
 }
+
 :deep(.el-divider--horizontal) {
   margin: 1px 0;
 }
+
 .market-infomation {
   width: 100%;
   border: 1px solid #dfdfe5;
@@ -82,15 +79,19 @@ function resetWidth() {
   display: flex;
   justify-content: space-between;
   margin-top: 18px;
+
   :deep(.el-divider--vertical) {
     height: 117px !important;
   }
+
   @media (max-width: 992px) {
     display: block;
   }
+
   .market-infomation-part {
     padding: 15px 10px 12px 15px;
     width: 100%;
+
     .part-top {
       display: flex;
       justify-content: space-between;
@@ -101,27 +102,33 @@ function resetWidth() {
         line-height: 18px;
       }
     }
+
     .market {
       margin-top: 24px;
       font-size: 22px;
       color: #010000;
       font-weight: 400;
+
       span {
         color: #878787;
       }
     }
+
     .market-progress {
       :deep(.el-progress-bar__inner) {
         background-color: #01c19a;
       }
+
       .el-progress--line {
         display: block;
         align-items: center;
         width: 180px;
+
         @media (max-width: 992px) {
           width: 110px;
         }
       }
+
       .progress-buy {
         display: flex;
         float: left;
@@ -129,15 +136,18 @@ function resetWidth() {
         color: #010000;
         font-weight: 400;
       }
+
       .progress-bar {
         float: left;
         margin-left: 3%;
         margin-top: 5px;
         border-radius: 4.5px;
+
         :deep(.el-progress-bar__outer) {
           background-color: red !important;
         }
       }
+
       .progress-sell {
         display: flex;
         font-size: 22px;
@@ -147,11 +157,12 @@ function resetWidth() {
       }
     }
   }
+
   .market-third {
     width: 219%;
+
     @media (max-width: 992px) {
       width: 100%;
     }
   }
-}
-</style>
+}</style>

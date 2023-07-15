@@ -16,8 +16,14 @@ async function getOneCoin(slug: string, area: string = 'US') {
     return httpAdmin.get(`/coin/info/${slug}/${area}`);
 }
 
+async function queryCurrencyInformation(symbols:string) {
+    return httpAdmin.get("/coin/coingecko/latest/markets",{
+        symbols
+    })
+}
 
 export {
     queryCurrenciesType,
-    getOneCoin
+    getOneCoin,
+    queryCurrencyInformation
 }

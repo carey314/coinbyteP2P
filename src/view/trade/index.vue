@@ -18,8 +18,8 @@
               <Chart/>
             </div>
             <div class="crypto-info">
-              <div><PriceInfo /></div>
-              <div><MarketInfo /></div>
+              <div><PriceInfo :info="currencyInformation" /></div>
+              <div><MarketInfo :info="currencyInformation" /></div>
             </div>
           </div>
         </el-col>
@@ -78,6 +78,8 @@ import joinEmail from "../../layout/joinStarted/joinEmail.vue";
 import Chart from "./layout/Chart.vue";
 
 import markets_buy_image from "../../assets/home/markets_buy_image.png";
+import { CurrencyInformation } from "../../models/currencyInformation";
+import {queryCurrencyInformation} from "../../api/currencies"
 
 import { useRoute } from "vue-router";
 import { getOneCoin } from '../../api/currencies';
@@ -87,6 +89,8 @@ const route = useRoute();
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+  // query Price and MarketInformation
+  queryCurrencyInfo()
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -106,6 +110,20 @@ const getCoinInfo = async (id: string) => {
   console.log(coinInfo.value)
 }
 
+<<<<<<< HEAD
+=======
+const currencyType = ref("bitcoin")
+const currencyInformation = ref<CurrencyInformation>({} as CurrencyInformation)
+const queryCurrencyInfo = async ()=>{
+  const res = await queryCurrencyInformation(currencyType.value)
+  if(res.status == 200 && res.data){
+    const data = JSON.parse(res.data)
+    if (data.length > 0) {
+      currencyInformation.value = data[0]
+    }
+  }
+}
+>>>>>>> 91470748d2f2366674f5aa78bb9202bed59873f5
 
 </script>
 
