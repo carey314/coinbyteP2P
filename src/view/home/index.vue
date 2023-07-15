@@ -908,6 +908,10 @@ import SOL from "../../assets/home/solana.png";
 import { getProfile } from "../../api/user";
 import { useUserInfoStore } from "../../store/user";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const { t } = useI18n();
 
 // 货币类型\
@@ -1199,8 +1203,9 @@ const setEchartRef: any = (el: HTMLDivElement) => {
     createChart(el, data as Array<any>, color);
   }
 };
-const handleBuy = (index: number, row: object) => {
+const handleBuy = (index: number, row: Coin) => {
   console.log(index, row);
+  router.push('/trade/' + row.symbol);
 };
 const forthList = [
   {

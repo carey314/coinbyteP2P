@@ -1,51 +1,19 @@
 <template>
   <div class="about-box">
-    <div class="about-crypto">About <span>Bitcoin</span></div>
-    <div class="about-introduce">
-      Bitcoin is one of the most popular cryptocurrencies in the market. First
-      introduced in 2009 by Satoshi Nakamoto, Bitcoin has held the crypto
-      market's number one spot according to market capitalization. Bitcoin paved
-      the way for many existing altcoins in the market and marked a pivotal
-      moment for digital payment solutions.
-    </div>
-    <div class="about-introduce">
-      As the world's first cryptocurrency, Bitcoin has come a long way in terms
-      of its value. However, one does not have to buy an entire bitcoin as
-      bitcoins can be divided into small units called satoshis, named after the
-      creator. A satoshi is equivalent to 0.00000001 bitcoin.
-    </div>
-    <div class="about-introduce">
-      There is no physical BTC token so you can think of bitcoin as digital
-      money. Bitcoin transactions are fully transparent and can't be censored.
-      You can send money to anyone in the world with ease. It's a financial
-      system backed by thousands of computers, known as 'nodes', around the
-      world, instead of a single central bank or government, i.e. hence the term
-      'decentralization'.
-    </div>
-    <div class="upgrades">Bitcoin Upgrades</div>
-    <div class="gradient-text">
-      Because Bitcoin is decentralized and community-driven, many upgrades to
-      Bitcoin come in the form of formal proposals called Bitcoin Improvement
-      Proposals, or BIPs. This ensures that the software is always undergoing
-      upgrades that can further contribute to the community's needs. Anyone can
-      propose a BIP, and the community will reject or approve of the BIP
-      collectively. One major upgrade to Bitcoin's consensus protocol is the
-      SegWit Upgrade, proposed in BIP 141 and designed to help the bitcoin scale
-      to support more transactions to meet growing demand. BIPs like these
-      change Bitcoin's consensus rules, resulting in forks.
-    </div>
-    <div class="view-more">
-      <div class="view-more-button">View more</div>
+    <div class="about-box-content" v-html="coinInfo ? coinInfo.infoTxt : copy" :style="{height: viewMore ? 'auto' : '509px'}"></div>
+    <div v-if="!viewMore" class="view-more">
+      <div class="view-more-mask"></div>
+      <div class="view-more-button" @click="toggleViewMore">View more</div>
     </div>
   </div>
   <div class="resource-box">
-    <div class="resource-title"><span>Bitcoin</span> Resources</div>
+    <div class="resource-title"><span>{{ coinInfo?.name || 'Bitcoin' }}</span> Resources</div>
     <div class="resource-way">
       <div class="way-website clearfloat">
         <div class="website-icon">
           <img :src="icon_official" />
         </div>
-        <div class="website-name">Official Bitcoin Website &gt;</div>
+        <div class="website-name">Official {{ coinInfo?.name || 'Bitcoin' }} Website &gt;</div>
       </div>
       <div class="way-paper clearfloat">
         <div class="paper-icon">
@@ -58,10 +26,10 @@
   <div class="question-box">
     <div class="question-part">
       <div class="question-title">
-        People Also Ask: Other Questions About <span>Bitcoin</span>
+        People Also Ask: Other Questions About <span>{{ coinInfo?.name || 'Bitcoin' }}</span>
       </div>
       <div class="question-part-collapse">
-        <el-collapse v-model="activeNames" @change="handleChange">
+        <!-- <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item title="How Many Bitcoins Are There?" name="1">
             <div class="collapse-content">How Many Bitcoins Are There?</div>
           </el-collapse-item>
@@ -98,6 +66,11 @@
           <el-collapse-item title="How Can I Store My Bitcoin?" name="7">
             <div class="collapse-content">How Can I Store My Bitcoin?</div>
           </el-collapse-item>
+        </el-collapse> -->
+        <el-collapse v-if="decodeData(coinInfo?.questionJson).length > 0" v-model="activeNames">
+          <el-collapse-item v-for="(item, index) in decodeData(coinInfo?.questionJson)" :key="index" :title="item.que" :name="item.que + index">
+            <div class="collapse-content" v-html="item.ans" />
+          </el-collapse-item>
         </el-collapse>
       </div>
     </div>
@@ -109,6 +82,12 @@ import { ref, reactive, onUnmounted, onMounted } from "vue";
 
 import icon_official from "../../../assets/home/icon_official.svg";
 import icon_whitepaperl from "../../../assets/home/icon_whitepaperl.svg";
+
+const props = defineProps<
+  {
+    coinInfo: any;
+  }
+>();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -124,6 +103,65 @@ const activeNames = ref([""]);
 const handleChange = (val: string[]) => {
   // console.log(val);
 };
+
+const copy = `
+    <div class="about-crypto">About <span>Bitcoin</span></div>
+    <div class="about-introduce">
+      Bitcoin is one of the most popular cryptocurrencies in the market. First
+      introduced in 2009 by Satoshi Nakamoto, Bitcoin has held the crypto
+      market's number one spot according to market capitalization. Bitcoin paved
+      the way for many existing altcoins in the market and marked a pivotal
+      moment for digital payment solutions.
+    </div>
+    <div class="about-introduce">
+      As the world's first cryptocurrency, Bitcoin has come a long way in terms
+      of its value. However, one does not have to buy an entire bitcoin as
+      bitcoins can be divided into small units called satoshis, named after the
+      creator. A satoshi is equivalent to 0.00000001 bitcoin.
+    </div>
+    <div class="about-introduce">
+      There is no physical BTC token so you can think of bitcoin as digital
+      money. Bitcoin transactions are fully transparent and can't be censored.
+      You can send money to anyone in the world with ease. It's a financial
+      system backed by thousands of computers, known as 'nodes', around the
+      world, instead of a single central bank or government, i.e. hence the term
+      'decentralization'.
+    </div>
+    <div class="upgrades">Bitcoin Upgrades</div>
+    <div class="gradient-text">
+      Because Bitcoin is decentralized and community-driven, many upgrades to
+      Bitcoin come in the form of formal proposals called Bitcoin Improvement
+      Proposals, or BIPs. This ensures that the software is always undergoing
+      upgrades that can further contribute to the community's needs. Anyone can
+      propose a BIP, and the community will reject or approve of the BIP
+      collectively. One major upgrade to Bitcoin's consensus protocol is the
+      SegWit Upgrade, proposed in BIP 141 and designed to help the bitcoin scale
+      to support more transactions to meet growing demand. BIPs like these
+      change Bitcoin's consensus rules, resulting in forks.
+    </div>
+`;
+
+const viewMore = ref(false);
+const toggleViewMore = () => {
+  viewMore.value = !viewMore.value;
+}
+
+onMounted(() => {
+  const content = document.querySelector('.about-box-content') as HTMLElement;
+  if(content) {
+    if(content.offsetHeight <= 509) {
+      viewMore.value = true;
+    }
+  }
+})
+
+const decodeData = (data: any) => {
+  try {
+    return JSON.parse(data);
+  } catch(e) {
+    return [];
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -188,10 +226,14 @@ $fontSizeMin: 12px;
 }
 
 .about-box {
-  .about-crypto {
+  &-content {
+    overflow: hidden;
+  }
+  :deep() {
+    .about-crypto {
     font-size: 32px;
     color: #010000;
-    line-height: 39px;
+    line-height: 39px; 
     font-weight: 600;
     span {
       color: #01c19a;
@@ -218,19 +260,40 @@ $fontSizeMin: 12px;
     color: transparent;
   }
   .view-more {
-    width: 133px;
-    height: 41px;
-    border: 1px solid #d7d7d7;
+    width: 100%;
+    display: flex;
+    justify-content: center;
     border-radius: 3px;
     margin: auto;
-    cursor: pointer;
+    position: relative;
+    &-mask {
+      background-image: linear-gradient(to bottom, 
+      rgba(255,255,255, .3),
+      rgba(255,255,255, 1)
+      );
+      // background-color: red;
+      // -webkit-background-clip: text;
+      // -moz-background-clip: text;
+      // background-clip: text;
+      color: transparent;
+      height: 200px;
+      width: 100%;
+      position: absolute;
+      top: -200px;
+      z-index: 1000;
+    }
     .view-more-button {
+      cursor: pointer;
+      width: 133px;
+      height: 41px;
+      border: 1px solid #d7d7d7;
       height: 41px;
       color: #878787;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+  }
   }
 }
 
