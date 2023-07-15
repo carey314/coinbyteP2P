@@ -6,7 +6,7 @@
         <span>Home&nbsp; &gt;</span>&nbsp; <span>Bitcoin&nbsp; &gt;</span>&nbsp;
         <span>Buy</span>
       </div>
-      <div class="header-name">Buy <span>BTC Bitcoin</span></div>
+      <div class="header-name">Buy <span>{{ coinInfo?.slug ? coinInfo.slug + ' ' + coinInfo.name : 'BTC Bitcoin' }}</span></div>
     </div>
 
     <div class="trade-page-box">
@@ -34,7 +34,7 @@
     <div class="trade-page-text">
       <el-row>
         <el-col :span="16" :xs="24" :sm="24" :md="24" :lg="16">
-          <AboutCrypto />
+          <AboutCrypto :coinInfo="coinInfo"/>
         </el-col>
       </el-row>
     </div>
@@ -79,6 +79,11 @@ import Chart from "./layout/Chart.vue";
 
 import markets_buy_image from "../../assets/home/markets_buy_image.png";
 
+import { useRoute } from "vue-router";
+import { getOneCoin } from '../../api/currencies';
+
+const route = useRoute();
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -89,6 +94,18 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
+const coinInfo = ref();
+onMounted(() => {
+  getCoinInfo(route.params.id as string);
+})
+
+const getCoinInfo = async (id: string) => {
+  const res = await getOneCoin(id);
+  coinInfo.value = res.data;
+  console.log(coinInfo.value)
+}
+
 </script>
 
 <style scoped lang="scss">

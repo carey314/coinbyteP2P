@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/learn/learnList/index.vue') 
   },
   { 
-    path: '/centerContent/:id',
+    path: '/centerContent/:id?',
     name: 'centerContent',
     component: () => import('../view/learn/centerContent/index.vue') 
   },
@@ -319,7 +319,7 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
   { 
-    path: '/trade',
+    path: '/trade/:id?',
     name: 'trade',
     component: () => import('../view/trade/index.vue') 
   },
