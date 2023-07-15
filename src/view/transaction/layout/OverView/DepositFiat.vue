@@ -29,166 +29,189 @@
                   align-center
                   space="100%"
                 >
-                  <el-step title="Select currency"></el-step>
-                  <el-step title="Enter Amount"></el-step>
+                  <el-step title="Select currency">
+                    <template #description>
+                      <div v-if="activeStep >= 1" class="select">
+                        <el-select
+                          class="select-first"
+                          v-model="selectedOption1"
+                          placeholder="Select currency"
+                          @change="handleContinue"
+                        >
+                          <el-option
+                            v-for="item in options1"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          ></el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-step>
+                  <el-step title="Enter Amount">
+                    <template #description>
+                      <div
+                        v-if="activeStep === 2"
+                        class="select clearfloat"
+                        style="position: relative"
+                      >
+                        <div
+                          class="enter-amount-tips"
+                          @click="dialogVisible = true"
+                        >
+                          <el-icon><Warning /></el-icon> Transaction
+                          requirements
+                        </div>
+                        <el-dialog
+                          v-model="dialogVisible"
+                          class="dialog-box"
+                          width="30%"
+                          style="padding-bottom: 36px"
+                        >
+                          <template #header>
+                            <div class="dialog-header">
+                              Transaction requirements
+                            </div>
+                          </template>
+                          <div class="divider"></div>
+                          <div class="suggest">Suggested Amount</div>
+
+                          <div class="count-range">A$50-2,000,000</div>
+                          <div class="limit requirements">
+                            <div class="limit-icon">
+                              <el-icon><Switch /></el-icon>
+                            </div>
+                            <div class="limit-title">Limit per transaction</div>
+                            <div class="limit-count">A$50-1,000,000,000</div>
+                          </div>
+                          <div class="remain requirements clearfloat">
+                            <div class="limit-icon">
+                              <el-icon><Clock /></el-icon>
+                            </div>
+                            <div class="limit-title">Remaining daily limit</div>
+                            <div class="limit-count">A$2,000,000</div>
+                            <div class="limit-sign">/A$2M</div>
+                          </div>
+                        </el-dialog>
+                        <el-select
+                          class="select-second"
+                          v-model="selectedOption2"
+                          placeholder="0"
+                          @change="updateCanContinue"
+                        >
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          ></el-option>
+                        </el-select>
+                        <div class="enter-amount-rule">
+                          <div class="fait-rule-item">
+                            <div class="title">Transaction Method:</div>
+                            <div class="require">
+                              <div class="pay-img">
+                                <img :src="crypto_icon_usdt" />
+                              </div>
+
+                              <span>PayID/Osko</span>
+                            </div>
+                          </div>
+                          <div class="fait-rule-item">
+                            <div class="title">Transaction Fee:</div>
+                            <div class="require">0.00 AUD</div>
+                          </div>
+                          <el-divider
+                            style="margin-left: 35px; width: 92%"
+                          ></el-divider>
+                          <div class="receive-box">
+                            <div class="receive">You Receive:</div>
+                            <div class="receive-count">
+                              <span>0.00</span> AUD
+                            </div>
+                          </div>
+                        </div>
+                        <el-button
+                          v-if="showContinueBtn"
+                          class="continue-btn"
+                          type="primary"
+                          :disabled="!canContinue"
+                          @click="handleContinue"
+                        >
+                          Continue
+                        </el-button>
+                      </div>
+                    </template>
+                  </el-step>
                   <el-step
                     v-if="showStepThree"
                     title="Transfer Money to Proceed With the Order"
-                  ></el-step>
-                </el-steps>
-              </div>
-              <div v-if="activeStep >= 1" class="select">
-                <el-select
-                  class="select-first"
-                  v-model="selectedOption1"
-                  placeholder="Select currency"
-                  @change="handleContinue"
-                >
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </div>
-              <div
-                v-if="activeStep === 2"
-                class="select clearfloat"
-                style="position: relative"
-              >
-                <div class="enter-amount-tips" @click="dialogVisible = true">
-                  <el-icon><Warning /></el-icon> Transaction requirements
-                </div>
-                <el-dialog
-                  v-model="dialogVisible"
-                  class="dialog-box"
-                  width="30%"
-                  style="padding-bottom: 36px"
-                >
-                  <template #header>
-                    <div class="dialog-header">Transaction requirements</div>
-                  </template>
-                  <div class="divider"></div>
-                  <div class="suggest">Suggested Amount</div>
-
-                  <div class="count-range">A$50-2,000,000</div>
-                  <div class="limit requirements">
-                    <div class="limit-icon">
-                      <el-icon><Switch /></el-icon>
-                    </div>
-                    <div class="limit-title">Limit per transaction</div>
-                    <div class="limit-count">A$50-1,000,000,000</div>
-                  </div>
-                  <div class="remain requirements clearfloat">
-                    <div class="limit-icon">
-                      <el-icon><Clock /></el-icon>
-                    </div>
-                    <div class="limit-title">Remaining daily limit</div>
-                    <div class="limit-count">A$2,000,000</div>
-                    <div class="limit-sign">/A$2M</div>
-                  </div>
-                </el-dialog>
-                <el-select
-                  class="select-second"
-                  v-model="selectedOption2"
-                  placeholder="0"
-                  @change="updateCanContinue"
-                >
-                  <el-option
-                    v-for="item in options2"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-                <div class="enter-amount-rule">
-                  <div class="fait-rule-item">
-                    <div class="title">Transaction Method:</div>
-                    <div class="require">
-                      <div class="pay-img">
-                        <img :src="crypto_icon_usdt" />
-                      </div>
-
-                      <span>PayID/Osko</span>
-                    </div>
-                  </div>
-                  <div class="fait-rule-item">
-                    <div class="title">Transaction Fee:</div>
-                    <div class="require">0.00 AUD</div>
-                  </div>
-                  <el-divider
-                    style="margin-left: 35px; width: 92%"
-                  ></el-divider>
-                  <div class="receive-box">
-                    <div class="receive">You Receive:</div>
-                    <div class="receive-count"><span>0.00</span> AUD</div>
-                  </div>
-                </div>
-                <el-button
-                  v-if="showContinueBtn"
-                  class="continue-btn"
-                  type="primary"
-                  :disabled="!canContinue"
-                  @click="handleContinue"
-                >
-                  Continue
-                </el-button>
-              </div>
-              <div
-                v-if="activeStep === 3 && showStepThree"
-                class="deposit-details clearfloat"
-              >
-                <div class="select clearfloat">
-                  <el-select
-                    class="select-second"
-                    style="margin-top: 20px"
-                    v-model="selectedOption2"
-                    placeholder="Select Network"
-                    @change="updateCanContinue"
                   >
-                    <el-option
-                      v-for="item in options2"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
-                  </el-select>
-
-                  <div class="detail-box clearfloat">
-                    <div class="detail-box-tips">
-                      Please use the PayID detail below to make the transfer and
-                      <span
-                        >Select the email option, and NOT organisation ID</span
+                    <template #description>
+                      <div
+                        v-if="activeStep === 3 && showStepThree"
+                        class="deposit-details clearfloat"
                       >
-                      when depositing from online banking or mobile app. How to
-                      deposit AUD via PayID/Osko?
-                      <span style="text-decoration: underline">Click Here</span>
-                    </div>
+                        <div class="select clearfloat">
+                          <el-select
+                            class="select-second"
+                            style="margin-top: 20px"
+                            v-model="selectedOption2"
+                            placeholder="Select Network"
+                            @change="updateCanContinue"
+                          >
+                            <el-option
+                              v-for="item in options2"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            ></el-option>
+                          </el-select>
 
-                    <div class="detail-card">
-                      <div class="card-item">
-                        <div class="item-title">
-                          <div class="item-title-img">
-                            <img :src="crypto_icon_usdt" />
+                          <div class="detail-box clearfloat">
+                            <div class="detail-box-tips">
+                              Please use the PayID detail below to make the
+                              transfer and
+                              <span
+                                >Select the email option, and NOT organisation
+                                ID</span
+                              >
+                              when depositing from online banking or mobile app.
+                              How to deposit AUD via PayID/Osko?
+                              <span style="text-decoration: underline"
+                                >Click Here</span
+                              >
+                            </div>
+
+                            <div class="detail-card">
+                              <div class="card-item">
+                                <div class="item-title">
+                                  <div class="item-title-img">
+                                    <img :src="crypto_icon_usdt" />
+                                  </div>
+                                  <span>AUD</span>
+                                </div>
+                                <div class="item-count">10,000.00</div>
+                              </div>
+                              <div class="card-divider"></div>
+                              <div class="card-info">
+                                <div class="title">PayID Information</div>
+                              </div>
+                              <div class="indo-detail">
+                                <div class="title">
+                                  user2022@au.coinbyte.com
+                                </div>
+                                <div class="copy">
+                                  <el-icon><CopyDocument /></el-icon> Copy
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <span>AUD</span>
-                        </div>
-                        <div class="item-count">10,000.00</div>
-                      </div>
-                      <div class="card-divider"></div>
-                      <div class="card-info">
-                        <div class="title">PayID Information</div>
-                      </div>
-                      <div class="indo-detail">
-                        <div class="title">user2022@au.coinbyte.com</div>
-                        <div class="copy">
-                          <el-icon><CopyDocument /></el-icon> Copy
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
+                    </template>
+                  </el-step>
+                </el-steps>
               </div>
             </div>
           </div>

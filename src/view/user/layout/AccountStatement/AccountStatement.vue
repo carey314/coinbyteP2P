@@ -113,18 +113,18 @@ const { t } = useI18n({});
 
 const isActive = ref(false);
 const currencies = [
-  {
-    value: "USD",
-    label: "USD",
-  },
+  // {
+  //   value: "USD",
+  //   label: "USD",
+  // },
   {
     value: "AUD",
     label: "AUD",
   },
-  {
-    value: "NZD",
-    label: "NZD",
-  },
+  // {
+  //   value: "NZD",
+  //   label: "NZD",
+  // },
 ];
 
 const selectedIndex = ref(0);
