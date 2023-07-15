@@ -106,6 +106,7 @@ const getCoinInfo = async (id: string) => {
   console.log(coinInfo.value)
 }
 
+
 </script>
 
 <style scoped lang="scss">

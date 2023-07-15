@@ -371,7 +371,7 @@ async function getData(isRefresh = false) {
       } else {
         // mapData.length = 10
         coinMarketCapData.value = mapData;
-
+        console.log(mapData);
         changeColors();
         if (chartType.value === "baseline") {
           seriesOptions.value = {

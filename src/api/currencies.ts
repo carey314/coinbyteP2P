@@ -15,6 +15,8 @@ async function queryCurrenciesType(data?: any){
 async function getOneCoin(slug: string, area: string = 'US') {
     return httpAdmin.get(`/coin/info/${slug}/${area}`);
 }
+
+
 export {
     queryCurrenciesType,
     getOneCoin

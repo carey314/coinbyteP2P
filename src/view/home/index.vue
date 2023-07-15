@@ -4,25 +4,15 @@
     <div class="bannerContainer">
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
-          <el-col
-            :md="10"
-            :sm="24"
-            :xs="24"
-            class="banner-left"
-            style="height: 100%"
-          >
+          <el-col :md="10" :sm="24" :xs="24" class="banner-left" style="height: 100%">
             <div class="banner-title">
               {{ $t("messages.home.banner_title") }}
             </div>
             <div class="banner-content">
               {{ $t("messages.home.banner_content") }}
             </div>
-            <GetButton
-              type="success"
-              :text="$t('messages.home.banner_btn')"
-              class="banner-btn"
-              style="width: 226px; box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5)"
-            ></GetButton>
+            <GetButton type="success" :text="$t('messages.home.banner_btn')" class="banner-btn"
+              style="width: 226px; box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5)"></GetButton>
             <div class="banner-more">
               <div class="banner-more-img">
                 <img :src="registered_icon" alt="" />
@@ -31,10 +21,7 @@
                 <div class="banner-more-title">
                   {{ $t("messages.home.banner_registered") }}
                 </div>
-                <div
-                  class="banner-learn-more"
-                  @click="dialogTableVisible = true"
-                >
+                <div class="banner-learn-more" @click="dialogTableVisible = true">
                   {{ $t("messages.home.banner_more") }}
                   <el-icon class="more-arrow">
                     <Right />
@@ -42,12 +29,7 @@
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog">
                   <el-row :gutter="20">
-                    <el-col
-                      :md="12"
-                      :xs="24"
-                      v-for="(item, index) in gridData"
-                      :key="index"
-                    >
+                    <el-col :md="12" :xs="24" v-for="(item, index) in gridData" :key="index">
                       <div class="alert-box">
                         <div class="alert-title">{{ item.title }}</div>
                         <div class="alert-cont">{{ item.content1 }}</div>
@@ -62,13 +44,7 @@
                         </div>
                       </div>
                     </el-col>
-                    <el-col
-                      :md="12"
-                      :xs="24"
-                      v-for="(item, index) in gridData1"
-                      :key="index"
-                      class="gap"
-                    >
+                    <el-col :md="12" :xs="24" v-for="(item, index) in gridData1" :key="index" class="gap">
                       <div class="alert-box">
                         <div class="alert-title">{{ item.title }}</div>
                         <div class="alert-cont">{{ item.content1 }}</div>
@@ -98,13 +74,7 @@
               </div>
             </div>
           </el-col>
-          <el-col
-            :md="14"
-            :sm="0"
-            :xs="0"
-            style="height: 100%"
-            class="banner-right"
-          >
+          <el-col :md="14" :sm="0" :xs="0" style="height: 100%" class="banner-right">
             <img :src="banner_01" alt="" class="hacker-img" />
             <img :src="banner_code" alt="" class="banner-bg" />
           </el-col>
@@ -120,87 +90,53 @@
     </div> -->
     <div class="homeContainer">
       <div class="part first-part" v-if="windowWidth > 768">
-        <el-tabs
-          v-model="activeName"
-          class="demo-tabs"
-          @tab-click="handleClick"
-          style="color: #01c19a"
-          :stretch="true"
-        >
-          <el-tab-pane
-            class="first-tab-pan"
-            label="Popular assets"
-            name="first"
-          >
-            <el-table :data="coinMarketCapData" style="width: 100%">
-              <el-table-column  label="Asset">
+        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" style="color: #01c19a" :stretch="true">
+          <el-tab-pane class="first-tab-pan" label="Popular assets" name="1">
+            <el-table :data="coinMarketCapData[`tab-${1}`]" style="width: 100%">
+              <el-table-column label="Asset">
                 <template v-slot="{ row }" class="clearfloat">
-                      <el-icon class="crypto-star clearfloat"
-                        ><StarFilled
-                      /></el-icon>
-                      <div
-                        class="crypto-icon"
-                      >
-                        <img :src="row.image" alt="icon" />
-                      </div>
-                      <div class="table-tag">
-                        {{ row.symbol }}
-                        <div class="table-asset">
-                          {{ row.name }}
-                        </div>
-                      </div>
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
 
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="current_price"
-                label="Last price"
-                align="right"
-                width="150"
-              >
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
                 <template v-slot="{ row }">
                   ${{ row.current_price.toFixed(2) }}
                 </template>
               </el-table-column>
 
-              <el-table-column
-                prop="volume_change_24h"
-                label="Change(24H)"
-                sortable
-                width="200"
-                align="right"
-              >
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
                 <template v-slot="{ row }">
-                  <span
-                    v-if="row.market_cap_change_percentage_24h > 0"
-                    style="color: #01c19a"
-                  >
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
                     {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
-                  <span
-                    v-else-if="row.market_cap_change_percentage_24h < 0"
-                    style="color: #f15958"
-                  >
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
                     {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
                 </template>
               </el-table-column>
 
-              <el-table-column prop="volume_change_24h" label="Chart" align="center">
+              <el-table-column prop="chart" label="Chart" align="center">
                 <template v-slot="{ row }">
-                   <div
-                    style="
+                  <div style="
                       height: 40px;
                       width: 140px;
                       margin: 0 auto;
                       position: relative;
                       bottom: -14px;
-                    "
-                    :ref="setEchartRef"
-                    :rowId="row.id"
-                    :id="'echart' + row.id"
-                  >
-                  {{ row.volume_change_24h }}</div>
+                    " :ref="(e) => setEchartRef(e, 1)" :rowId="row.id" :id="'echart' + row.id">
+                    {{ row.volume_change_24h }}</div>
                 </template>
               </el-table-column>
 
@@ -223,12 +159,7 @@
 
               <el-table-column prop="" label="Trade" align="right" width="100">
                 <template #default="scope">
-                  <el-button
-                    class="table-buy"
-                    size="default"
-                    @click="handleBuy(scope.$index, scope.row)"
-                    plain
-                  >
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
                     <span>Buy</span>
                   </el-button>
                 </template>
@@ -236,8 +167,8 @@
             </el-table>
           </el-tab-pane>
 
-          <el-tab-pane class="first-tab-pan" label="New assets" name="second">
-            <el-table :data="tableData.slice(0, 7)" style="width: 100%" ref="tableChart">
+          <el-tab-pane class="first-tab-pan" label="New assets" name="2">
+            <!-- <el-table :data="tableData.slice(0, 7)" style="width: 100%" ref="tableChart">
               <el-table-column prop="asset" label="Asset">
                 <template #default="scope">
                   <div style="display: flex; align-items: center">
@@ -310,44 +241,13 @@
                   </el-button>
                 </template>
               </el-table-column>
-            </el-table>
-            <div style="height: 40px; width: 100px"></div>
-          </el-tab-pane>
-          <el-tab-pane class="first-tab-pan" label="Gains ranking" name="third"
-            >Gains ranking</el-tab-pane
-          >
-          <el-tab-pane
-            class="first-tab-pan"
-            label="Turnover ranking"
-            name="fourth"
-            >Turnover ranking</el-tab-pane
-          >
-        </el-tabs>
-        <div class="first-part-link">
-          <div class="view-more">
-            <span>View all crypto assets for trading ></span>
-          </div>
-        </div>
-      </div>
-      <div class="part part01" v-if="windowWidth <= 768">
-        <el-tabs
-          v-model="activeName"
-          class="demo-tabs"
-          @tab-click="handleClick"
-          style="color: #01c19a"
-          stretch="true"
-        >
-        <el-tab-pane
-            class="first-tab-pan"
-            label="Popular assets"
-            name="first"
-          >
-            <el-table :data="coinMarketCapData" style="width: 100%">
-              <el-table-column label="Asset" width="150">
+            </el-table> -->
+            <el-table :data="coinMarketCapData[`tab-${2}`]" style="width: 100%">
+              <el-table-column label="Asset">
                 <template v-slot="{ row }" class="clearfloat">
-                  <el-icon class="crypto-star clearfloat"
-                    ><StarFilled
-                  /></el-icon>
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
                   <div class="crypto-icon">
                     <img :src="row.image" alt="icon" />
                   </div>
@@ -357,43 +257,39 @@
                       {{ row.name }}
                     </div>
                   </div>
+
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="current_price"
-                label="Last price"
-                align="right"
-                width="150"
-              >
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
                 <template v-slot="{ row }">
                   ${{ row.current_price.toFixed(2) }}
                 </template>
               </el-table-column>
 
-              <el-table-column
-                prop="volume_change_24h"
-                label="Change(24H)"
-                sortable
-                width="200"
-                align="right"
-              >
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
                 <template v-slot="{ row }">
-                  <span
-                    v-if="row.market_cap_change_percentage_24h > 0"
-                    style="color: #01c19a"
-                  >
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
                     {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
-                  <span
-                    v-else-if="row.market_cap_change_percentage_24h < 0"
-                    style="color: #f15958"
-                  >
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
                     {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
                   </span>
                 </template>
               </el-table-column>
 
-          
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template v-slot="{ row }">
+                  <div style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    " :ref="(e) => setEchartRef(e, 2)" :rowId="row.id" :id="'echart' + row.id">
+                    {{ row.volume_change_24h }}</div>
+                </template>
+              </el-table-column>
+
               <!-- <el-table-column prop="chart" label="Chart" align="center">
                 <template #default="scope">
                   <div
@@ -413,12 +309,229 @@
 
               <el-table-column prop="" label="Trade" align="right" width="100">
                 <template #default="scope">
-                  <el-button
-                    class="table-buy"
-                    size="default"
-                    @click="handleBuy(scope.$index, scope.row)"
-                    plain
-                  >
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane class="first-tab-pan" label="Gains ranking" name="3">
+            <el-table :data="coinMarketCapData[`tab-${3}`]" style="width: 100%">
+              <el-table-column label="Asset">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template v-slot="{ row }">
+                  <div style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    " :ref="(e) => setEchartRef(e, 3)" :rowId="row.id" :id="'echart' + row.id">
+                    {{ row.volume_change_24h }}</div>
+                </template>
+              </el-table-column>
+
+              <!-- <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="setEchartRef"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column> -->
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane class="first-tab-pan" label="Turnover ranking" name="4">
+            <el-table :data="coinMarketCapData[`tab-${4}`]" style="width: 100%">
+              <el-table-column label="Asset">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template v-slot="{ row }">
+                  <div style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    " :ref="(e) => setEchartRef(e, 4)" :rowId="row.id" :id="'echart' + row.id">
+                    {{ row.volume_change_24h }}</div>
+                </template>
+              </el-table-column>
+
+              <!-- <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="setEchartRef"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column> -->
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+        </el-tabs>
+
+        <div class="first-part-link">
+          <div class="view-more">
+            <span>View all crypto assets for trading ></span>
+          </div>
+        </div>
+      </div>
+      <div class="part part01" v-if="windowWidth <= 768">
+        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" style="color: #01c19a" stretch="true">
+          <el-tab-pane class="first-tab-pan" label="Popular assets" name="1">
+            <el-table :data="coinMarketCapData[`tab-${1}`]" style="width: 100%">
+              <el-table-column label="Asset" width="150">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="(e) => setEchartRef(e, 1)"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
                     <span>Buy</span>
                   </el-button>
                 </template>
@@ -455,15 +568,192 @@
               </el-table-column>
             </el-table>
           </el-tab-pane> -->
-          <el-tab-pane label="New assets" name="second"
-            >New assets
+          <el-tab-pane label="New assets" name="2">
+            <el-table :data="coinMarketCapData[`tab-${2}`]" style="width: 100%">
+              <el-table-column label="Asset" width="150">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="(e) => setEchartRef(e, 2)"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
           </el-tab-pane>
-          <el-tab-pane label="Gains ranking" name="third"
-            >Gains ranking</el-tab-pane
-          >
-          <el-tab-pane label="Turnover ranking" name="fourth"
-            >Turnover ranking</el-tab-pane
-          >
+          <el-tab-pane label="Gains ranking" name="3">
+            <el-table :data="coinMarketCapData[`tab-${3}`]" style="width: 100%">
+              <el-table-column label="Asset" width="150">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="(e) => setEchartRef(e, 3)"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
+          <el-tab-pane label="Turnover ranking" name="4">
+            <el-table :data="coinMarketCapData[`tab-${4}`]" style="width: 100%">
+              <el-table-column label="Asset" width="150">
+                <template v-slot="{ row }" class="clearfloat">
+                  <el-icon class="crypto-star clearfloat">
+                    <StarFilled />
+                  </el-icon>
+                  <div class="crypto-icon">
+                    <img :src="row.image" alt="icon" />
+                  </div>
+                  <div class="table-tag">
+                    {{ row.symbol }}
+                    <div class="table-asset">
+                      {{ row.name }}
+                    </div>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column prop="current_price" label="Last price" align="right" width="150">
+                <template v-slot="{ row }">
+                  ${{ row.current_price.toFixed(2) }}
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="volume_change_24h" label="Change(24H)" sortable width="200" align="right">
+                <template v-slot="{ row }">
+                  <span v-if="row.market_cap_change_percentage_24h > 0" style="color: #01c19a">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                  <span v-else-if="row.market_cap_change_percentage_24h < 0" style="color: #f15958">
+                    {{ row.market_cap_change_percentage_24h.toFixed(2) }}%
+                  </span>
+                </template>
+              </el-table-column>
+
+
+              <el-table-column prop="chart" label="Chart" align="center">
+                <template #default="scope">
+                  <div
+                    style="
+                      height: 40px;
+                      width: 140px;
+                      margin: 0 auto;
+                      position: relative;
+                      bottom: -14px;
+                    "
+                    :ref="(e) => setEchartRef(e, 4)"
+                    :rowId="scope.row.id"
+                    :id="'echart' + scope.row.id"
+                  ></div>
+                </template>
+              </el-table-column>
+
+              <el-table-column prop="" label="Trade" align="right" width="100">
+                <template #default="scope">
+                  <el-button class="table-buy" size="default" @click="handleBuy(scope.$index, scope.row)" plain>
+                    <span>Buy</span>
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-tab-pane>
         </el-tabs>
         <div class="part01-link">
           <span>View all crypto assets for trading ></span>
@@ -485,12 +775,10 @@
             <div class="second-level-title">
               <a href="#" class="no-underline link-color">{{
                 $t("messages.home.second_sign")
-              }}</a
-              >{{ $t("messages.home.second_also")
-              }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_verify")
-              }}</a
-              >{{ $t("messages.home.second_msg") }}
+              }}</a>{{ $t("messages.home.second_also")
+}}<a href="#" class="no-underline link-color">{{
+  $t("messages.home.second_verify")
+}}</a>{{ $t("messages.home.second_msg") }}
             </div>
             <div class="second-part-guild">
               {{ $t("messages.home.second_Deposit") }}
@@ -498,9 +786,8 @@
             <div class="second-level-title">
               {{ $t("messages.home.second_Easily")
               }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_deposit")
-              }}</a
-              >{{ $t("messages.home.second_into") }}
+  $t("messages.home.second_deposit")
+}}</a>{{ $t("messages.home.second_into") }}
             </div>
             <div class="second-part-guild">
               {{ $t("messages.home.second_tradeCry") }}
@@ -508,19 +795,13 @@
             <div class="second-level-title">
               <a href="#" class="no-underline link-color">{{
                 $t("messages.home.second_shop")
-              }}</a
-              >{{ $t("messages.home.second_and")
-              }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_trade")
-              }}</a
-              >{{ $t("messages.home.second_with") }}
+              }}</a>{{ $t("messages.home.second_and")
+}}<a href="#" class="no-underline link-color">{{
+  $t("messages.home.second_trade")
+}}</a>{{ $t("messages.home.second_with") }}
             </div>
-            <GetButton
-              type="success"
-              :text="$t('messages.home.second_btn')"
-              class="start-btn"
-              style="margin-top: 40px"
-            ></GetButton>
+            <GetButton type="success" :text="$t('messages.home.second_btn')" class="start-btn" style="margin-top: 40px">
+            </GetButton>
           </el-col>
         </el-row>
         <el-row v-if="windowWidth <= 768">
@@ -533,12 +814,10 @@
             </div>
             <div class="second-level-title">
               <a href="#" class="no-underline link-color">
-                {{ $t("messages.home.second_sign") }}</a
-              >{{ $t("messages.home.second_also")
-              }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_verify")
-              }}</a
-              >{{ $t("messages.home.second_msg") }}
+                {{ $t("messages.home.second_sign") }}</a>{{ $t("messages.home.second_also")
+                }}<a href="#" class="no-underline link-color">{{
+  $t("messages.home.second_verify")
+}}</a>{{ $t("messages.home.second_msg") }}
             </div>
             <div class="second-part-guild">
               {{ $t("messages.home.second_Deposit") }}
@@ -546,9 +825,8 @@
             <div class="second-level-title">
               {{ $t("messages.home.second_Easily")
               }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_deposit")
-              }}</a
-              >{{ $t("messages.home.second_into") }}
+  $t("messages.home.second_deposit")
+}}</a>{{ $t("messages.home.second_into") }}
             </div>
             <div class="second-part-guild">
               {{ $t("messages.home.second_tradeCry") }}
@@ -556,19 +834,13 @@
             <div class="second-level-title">
               <a href="#" class="no-underline link-color">{{
                 $t("messages.home.second_shop")
-              }}</a
-              >{{ $t("messages.home.second_and")
-              }}<a href="#" class="no-underline link-color">{{
-                $t("messages.home.second_trade")
-              }}</a
-              >{{ $t("messages.home.second_with") }}
+              }}</a>{{ $t("messages.home.second_and")
+}}<a href="#" class="no-underline link-color">{{
+  $t("messages.home.second_trade")
+}}</a>{{ $t("messages.home.second_with") }}
             </div>
-            <GetButton
-              type="success"
-              :text="$t('messages.home.second_btn')"
-              class="start-btn"
-              style="padding: 12px 16px !important"
-            ></GetButton>
+            <GetButton type="success" :text="$t('messages.home.second_btn')" class="start-btn"
+              style="padding: 12px 16px !important"></GetButton>
             <img :src="home_25" alt="" style="margin-top: 40px" />
           </el-col>
         </el-row>
@@ -589,12 +861,8 @@
             <div class="second-level-title third-down">
               {{ $t("messages.home.third_service") }}
             </div>
-            <GetButton
-              type="success"
-              :text="$t('messages.home.second_btn')"
-              class="start-btn"
-              style="margin-top: 40px"
-            ></GetButton>
+            <GetButton type="success" :text="$t('messages.home.second_btn')" class="start-btn" style="margin-top: 40px">
+            </GetButton>
             <div style="width: 100px" class="third-down">
               <img :src="part03_b1" alt="" />
             </div>
@@ -618,11 +886,7 @@
             <div class="second-level-title third-down">
               {{ $t("messages.home.third_service") }}
             </div>
-            <GetButton
-              type="success"
-              :text="$t('messages.home.second_btn')"
-              class="start-btn"
-            ></GetButton>
+            <GetButton type="success" :text="$t('messages.home.second_btn')" class="start-btn"></GetButton>
 
             <div class="third-part-img">
               <img :src="part03_im1" alt="" />
@@ -644,11 +908,7 @@
             {{ $t("messages.home.forth_innovative") }}
           </div>
           <div>
-            <GetButton
-              class="trade-btn"
-              type="success"
-              :text="$t('messages.home.forth_trade')"
-            />
+            <GetButton class="trade-btn" type="success" :text="$t('messages.home.forth_trade')" />
           </div>
         </div>
       </div>
@@ -664,11 +924,7 @@
             {{ $t("messages.home.forth_innovative") }}
           </div>
           <div>
-            <GetButton
-              class="trade-btn"
-              type="success"
-              :text="$t('messages.home.forth_trade')"
-            />
+            <GetButton class="trade-btn" type="success" :text="$t('messages.home.forth_trade')" />
           </div>
         </div>
       </div>
@@ -676,8 +932,7 @@
       <div class="part fifth-part">
         <div class="first-level-title">
           {{ $t("messages.home.fifth_why") }}
-          <span>{{ $t("messages.home.fifth_CoinByte") }}</span
-          >?
+          <span>{{ $t("messages.home.fifth_CoinByte") }}</span>?
         </div>
         <div class="fifth-second-title">
           {{ $t("messages.home.fifth_exchange") }}
@@ -700,55 +955,37 @@
         <div class="sixth-part part">
           <img class="sixth-part-top" :src="part06_icon01" alt="" />
           <div class="first-level-title" style="margin-top: 8px">
-            <span>{{ $t("messages.home.sixth_Premium") }}</span
-            >{{ $t("messages.home.sixth_support") }}
+            <span>{{ $t("messages.home.sixth_Premium") }}</span>{{ $t("messages.home.sixth_support") }}
           </div>
           <div class="sixth-part-card">
-            <div
-              class="card-item"
-              v-for="(item, index) in cardSupport"
-              :key="index"
-            >
+            <div class="card-item" v-for="(item, index) in cardSupport" :key="index">
               <img class="item-img" :src="item.src" alt="" />
               <div class="card-title">{{ item.title }}</div>
               <div class="card-desc">{{ item.desc }}</div>
             </div>
             <div class="card-item" style="visibility: hidden"></div>
           </div>
-          <GetButton
-            type="success"
-            :text="t('messages.home.sixth_btn')"
-            style="
+          <GetButton type="success" :text="t('messages.home.sixth_btn')" style="
               margin-top: 40px;
               box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
-            "
-          />
+            " />
         </div>
       </div>
       <div class="bg-gray" v-if="windowWidth <= 768">
         <div class="sixth-part">
           <img class="sixth-part-top" :src="part06_icon01" alt="" />
           <div class="first-level-title">
-            <span>{{ $t("messages.home.sixth_Premium") }}</span
-            >{{ $t("messages.home.sixth_support") }}
+            <span>{{ $t("messages.home.sixth_Premium") }}</span>{{ $t("messages.home.sixth_support") }}
           </div>
           <div class="sixth-part-card">
-            <div
-              class="card-item"
-              v-for="(item, index) in minCardList2"
-              :key="index"
-            >
+            <div class="card-item" v-for="(item, index) in minCardList2" :key="index">
               <img :src="item.src" alt="" />
               <div class="card-title">{{ item.title }}</div>
               <div class="card-desc">{{ item.desc }}</div>
             </div>
             <!-- <div class="card-item" style="visibility: hidden"></div> -->
           </div>
-          <GetButton
-            class="sixth-btn"
-            type="success"
-            :text="t('messages.home.sixth_btn')"
-          />
+          <GetButton class="sixth-btn" type="success" :text="t('messages.home.sixth_btn')" />
         </div>
       </div>
 
@@ -757,12 +994,7 @@
           {{ $t("messages.home.seventh_explore")
           }}<span>{{ $t("messages.home.seventh_coin") }}</span>
         </div>
-        <el-row
-          class="seventh-part-list"
-          type="flex"
-          justify="space-between"
-          :gutter="40"
-        >
+        <el-row class="seventh-part-list" type="flex" justify="space-between" :gutter="40">
           <el-col :span="7" class="listItem">
             <div class="seventh-part-img">
               <img :src="part07_pic01" alt="" />
@@ -798,12 +1030,7 @@
           {{ $t("messages.home.seventh_explore")
           }}<span>{{ $t("messages.home.seventh_coin") }}</span>
         </div>
-        <el-row
-          class="seventh-part-list"
-          type="flex"
-          justify="space-between"
-          :gutter="40"
-        >
+        <el-row class="seventh-part-list" type="flex" justify="space-between" :gutter="40">
           <el-col :span="24" class="listItem">
             <div class="seventh-part-img">
               <img :src="part07_pic01" alt="" />
@@ -846,15 +1073,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, watch as vueWatch } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
-import {getCoinMarketCap, getLastCoinMarketCap} from "../../api/market";
-
+import { getCoinMarketCap, getLastCoinMarketCap } from "../../api/market";
+import { queryCurrenciesType } from "../../api/currencies";
 //icon
 import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
 import type { TabsPaneContext } from "element-plus";
@@ -909,6 +1136,8 @@ import { getProfile } from "../../api/user";
 import { useUserInfoStore } from "../../store/user";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
+import { watch } from "fs";
+
 
 const router = useRouter();
 
@@ -963,27 +1192,104 @@ const coinMarketCapData = ref<any>([]);
 
 onMounted(async () => {
   refreshData();
-  setInterval(()=>{
+  refreshData(2);
+  refreshData(3);
+  refreshData(4);
+  setInterval(() => {
     refreshData();
+    refreshData(2);
+    refreshData(3);
+    refreshData(4);
   }, 60000 * 5)
 });
 
-async function refreshData(){
+const coinSymbolToName: {
+  [key: string]: string
+} = {
+  BTC: 'bitcoin',
+  ETH: 'ethereum',
+  XRP: 'ripple',
+  LTC: 'litecoin',
+  DOT: 'polkadot',
+  SOL: 'solana',
+  DOGE: 'dogecoin',
+  LINK: 'chainlink',
+  USDC: 'usdcoin',
+  BCH: 'bitcoincash',
+  NEO: 'neo',
+  USDT: 'tether',
+  TRX: 'tron',
+  EOS: 'eos',
+  NANO: 'nano',
+  MIOTA: 'iota',
+  ENJ: 'enjincoin',
+  CRV: 'curvedaotoken',
+  VIOLET: 'violetcoin',
+  FRONT: 'frontier'
+  // 添加更多的加密货币
+};
+
+async function refreshData(typeId: number = 1) {
   try {
-    const response = await getLastCoinMarketCap();
+    const coins: any = await queryCurrenciesType(
+      {
+        typeId: typeId
+      }
+    );
+    const symbols = coins.data.content.map((v: any) => coinSymbolToName[v.slug]);
+    const response = await getLastCoinMarketCap(
+      {
+        symbols: symbols.join(',')
+      }
+    );
     const resJson = JSON.parse(response.data);
-    // console.log(resJson)
     // const arr = [];
     // // object for getting
     // for (let key in resJson.data) {
     //   arr.push(resJson.data[key][0])
     // }
-    coinMarketCapData.value = resJson;
-    console.log(coinMarketCapData.value)
+    coinMarketCapData.value[`tab-${typeId}`] = resJson;
+
+    coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
+      getChart(v.id).then((res) => {
+        v.data = res;
+      })
+    });
+
   } catch (error) {
     console.error(error);
   }
 }
+
+const activeName = ref("1");
+
+// vueWatch(activeName, (value) => {
+//   refreshData(Number(value));
+// })
+
+async function getChart(coin: string = "bitcoin") {
+  const response = await getCoinMarketCap({
+    symbols: coin,
+    days: 1
+  });
+  const jsonData: any = JSON.parse(response.data[coin]);
+
+  const mapData = jsonData['market_caps'].map((item: any) => {
+    // const localTime = moment();
+    // const offsetInMinutes = localTime.utcOffset();
+    // const offsetInHours = offsetInMinutes / 60;
+    // item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
+
+    // return {
+    //   time: Math.floor(item[0] / 1000),
+    //   value: item[1],
+    // };
+
+    return item[1];
+  });
+  return mapData;
+}
+
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -1021,7 +1327,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
   // console.log(key, keyPath);
 };
 // tabs
-const activeName = ref("first");
+
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   // console.log(tab, event);
 };
@@ -1189,20 +1495,37 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
 };
 const echartDomRef = [];
 
-const setEchartRef: any = (el: HTMLDivElement) => {
+// const setEchartRef: any = (el: HTMLDivElement) => {
+//   // console.log(el);
+//   if (el) {
+//     echartDomRef.push(el);
+//     const data = tableData.find(
+//       (e) => e.id === Number(el.getAttribute("rowId"))
+//     )?.data;
+//     const type = tableData.find(
+//       (e) => e.id === Number(el.getAttribute("rowId"))
+//     )?.type;
+//     let color = type == "up" ? "#01C19A" : "#F15958";
+//     createChart(el, data as Array<any>, color);
+//   }
+// };
+
+const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
   // console.log(el);
   if (el) {
     echartDomRef.push(el);
-    const data = tableData.find(
-      (e) => e.id === Number(el.getAttribute("rowId"))
+    const data = coinMarketCapData.value[`tab-${typeId}`].find(
+      (e: any) => {
+        return e.id === el.getAttribute("rowId");
+      }
     )?.data;
-    const type = tableData.find(
-      (e) => e.id === Number(el.getAttribute("rowId"))
-    )?.type;
+    const type = 'up';
+
     let color = type == "up" ? "#01C19A" : "#F15958";
     createChart(el, data as Array<any>, color);
   }
 };
+
 const handleBuy = (index: number, row: Coin) => {
   console.log(index, row);
   router.push('/trade/' + row.symbol);
@@ -1340,5 +1663,5 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "./index.scss";
-
 </style>
+

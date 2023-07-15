@@ -6,8 +6,9 @@ function getCoinMarketCap (params:any) {
 function getCoinMarketCapOhlc (params:any) {
   return httpAdminApi.get('/coin/coingecko/historical/ohlc', params);
 }
-function getLastCoinMarketCap () {
-  return httpAdminApi.get('/coin/coingecko/latest/markets?symbols=ethereum,bitcoin');
+function getLastCoinMarketCap (params?:any) {
+  // return httpAdminApi.get('/coin/coingecko/latest/markets?symbols=ethereum,bitcoin');
+  return httpAdminApi.get('/coin/coingecko/latest/markets', params);
 }
 
 export {
