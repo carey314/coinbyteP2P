@@ -110,8 +110,6 @@ const getCoinInfo = async (id: string) => {
   console.log(coinInfo.value)
 }
 
-<<<<<<< HEAD
-=======
 const currencyType = ref("bitcoin")
 const currencyInformation = ref<CurrencyInformation>({} as CurrencyInformation)
 const queryCurrencyInfo = async ()=>{
@@ -123,7 +121,6 @@ const queryCurrencyInfo = async ()=>{
     }
   }
 }
->>>>>>> 91470748d2f2366674f5aa78bb9202bed59873f5
 
 </script>
 

@@ -1,6 +1,8 @@
 <template>
   <div class="about-box">
-    <div class="about-box-content" v-html="coinInfo ? coinInfo.infoTxt : copy" :style="{height: viewMore ? 'auto' : '509px'}"></div>
+    <div class="about-box-content" :style="{height: viewMore ? 'auto' : '509px'}">
+      <div class="about-box-content-inner" v-html="coinInfo ? coinInfo.infoTxt : copy"></div>
+    </div>
     <div v-if="!viewMore" class="view-more">
       <div class="view-more-mask"></div>
       <div class="view-more-button" @click="toggleViewMore">View more</div>
@@ -147,8 +149,9 @@ const toggleViewMore = () => {
 }
 
 onMounted(() => {
-  const content = document.querySelector('.about-box-content') as HTMLElement;
+  const content = document.querySelector('.about-box-content-inner') as HTMLElement;
   if(content) {
+    console.log(content.offsetHeight <= 509)
     if(content.offsetHeight <= 509) {
       viewMore.value = true;
     }
