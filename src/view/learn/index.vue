@@ -3,7 +3,7 @@
     <Header />
     <topCenter />
     <middleCenter :filterBlogs="filterBlogs"/>
-    <bottomCenter :filterBlogs="filterBlogs"/>
+    <bottomCenter :filterBlogsBottom="filterBlogsBottom"/>
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
   </div>
@@ -54,6 +54,9 @@ const filterBlogs = (index: number) => {
   return blogs.value.filter((v: Blog) => v.typeOne === index).slice(0,4);
 }
 
+const filterBlogsBottom = (index: number) => {
+  return blogs.value.filter((v: Blog) => v.typeOne === index).slice(0,6);
+}
 
 </script>
 
