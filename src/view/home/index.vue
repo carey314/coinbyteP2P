@@ -102,7 +102,7 @@
                     <img :src="row.image" alt="icon" />
                   </div>
                   <div class="table-tag">
-                    {{ row.symbol }}
+                    {{ row.symbol.toUpperCase() }}
                     <div class="table-asset">
                       {{ row.name }}
                     </div>
@@ -252,7 +252,7 @@
                     <img :src="row.image" alt="icon" />
                   </div>
                   <div class="table-tag">
-                    {{ row.symbol }}
+                    {{ row.symbol.toUpperCase() }}
                     <div class="table-asset">
                       {{ row.name }}
                     </div>
@@ -327,7 +327,7 @@
                     <img :src="row.image" alt="icon" />
                   </div>
                   <div class="table-tag">
-                    {{ row.symbol }}
+                    {{ row.symbol.toUpperCase() }}
                     <div class="table-asset">
                       {{ row.name }}
                     </div>
@@ -402,7 +402,7 @@
                     <img :src="row.image" alt="icon" />
                   </div>
                   <div class="table-tag">
-                    {{ row.symbol }}
+                    {{ row.symbol.toUpperCase() }}
                     <div class="table-asset">
                       {{ row.name }}
                     </div>
