@@ -1249,13 +1249,18 @@ async function refreshData(typeId: number = 1) {
     //   arr.push(resJson.data[key][0])
     // }
     coinMarketCapData.value[`tab-${typeId}`] = resJson;
-
-    coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
-      getChart(v.id).then((res) => {
-        v.data = res;
-      })
+    const symbolsSlug = coinMarketCapData.value[`tab-${typeId}`].map((v: any) => v.id)
+    const chartRes = await getCoinMarketCap({
+      symbols: symbolsSlug.join(','),
+      days: 1
     });
-
+    coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
+      // getChart(v.id).then((res) => {
+      //   v.data = res;
+      // })
+      v.data = getChart(chartRes.data[v.id])
+    });
+    console.log(coinMarketCapData.value)
   } catch (error) {
     console.error(error);
   }
@@ -1267,12 +1272,9 @@ const activeName = ref("1");
 //   refreshData(Number(value));
 // })
 
-async function getChart(coin: string = "bitcoin") {
-  const response = await getCoinMarketCap({
-    symbols: coin,
-    days: 1
-  });
-  const jsonData: any = JSON.parse(response.data[coin]);
+function getChart(chartJson: any) {
+
+  const jsonData: any = JSON.parse(chartJson);
 
   const mapData = jsonData['market_caps'].map((item: any) => {
     // const localTime = moment();
@@ -1287,6 +1289,7 @@ async function getChart(coin: string = "bitcoin") {
 
     return item[1];
   });
+  // console.log(mapData)
   return mapData;
 }
 
