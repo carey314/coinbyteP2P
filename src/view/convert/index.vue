@@ -67,7 +67,7 @@
                       <span>{{ errorTxtCrypto }}</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
+                      <a href="/wallet/depositCrypto" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
                     </div>
                   </div>
                 </div>

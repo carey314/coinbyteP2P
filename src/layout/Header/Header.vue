@@ -75,7 +75,7 @@
           <a href="/market-allCrypto" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
         </li>
         <li>
-          <a href="/trade" style="color: #fff; text-decoration: none">{{
+          <a href="/trade/btc" style="color: #fff; text-decoration: none">{{
             $t("messages.header.trade")
           }}</a>
         </li>

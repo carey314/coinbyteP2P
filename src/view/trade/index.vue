@@ -34,7 +34,7 @@
     <div class="trade-page-text">
       <el-row>
         <el-col :span="16" :xs="24" :sm="24" :md="24" :lg="16">
-          <AboutCrypto :coinInfo="coinInfo"/>
+          <AboutCrypto :coinInfo="coinInfo" class="about-box"/>
         </el-col>
       </el-row>
     </div>
@@ -236,6 +236,10 @@ $fontMain: 14px;
       }
     }
   }
+}
+.about-box{
+  line-height: 22px;
+  font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 .bottom-part {
   background-color: #f8f8f8;

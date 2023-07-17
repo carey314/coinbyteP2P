@@ -301,7 +301,7 @@ $fontSizeMin: 12px;
 }
 
 .resource-box {
-  margin-top: 92px;
+  margin-top: 70px;
   .resource-title {
     font-size: 32px;
     color: #010000;
@@ -343,4 +343,9 @@ $fontSizeMin: 12px;
     }
   }
 }
+.about-box{
+  line-height: 22px;
+  font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+}
+
 </style>
