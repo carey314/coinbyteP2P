@@ -4,7 +4,7 @@
       <div class="center-part">
         <div class="center-convert">
           <div class="convert-radio">
-            <el-radio-group v-model="activeSign">
+            <el-radio-group v-model="activeSign" @change="switchSelect">
               <el-radio-button :label="option.value" v-for="option in options" :key="option.value">
                 <el-row>
                   <el-col span="12">
@@ -16,7 +16,7 @@
               </el-radio-button>
             </el-radio-group>
             <!-- pay -->
-            <div v-if="activeSign === '1'" class="convert-crypto">
+            <div class="convert-crypto">
               <div class="quick-amount">
                 <div class="quick-amount-title">How much ?</div>
                 <div class="quick-amount-part">
@@ -29,13 +29,13 @@
               <div class="radio-content">
                 <div class="pre-input">
                   <div class="input-title">{{ $t("messages.convert.pay") }}</div>
-                  <el-input v-model="numberCrypto" placeholder="pay" class="change-count clearfloat">
+                  <el-input v-model="numberBuyOrSell" placeholder="pay" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="part01_BTC" />
+                        <img :src="firstIcon" v-show="firstIcon" />
                       </div>
                       <el-select v-model="firstSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
-                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug">
+                        <el-option v-for="item in currenciesTypes" :label="item.slug" :value="item.slug">
                           <div style="
                               width: 20px;
                               display: flex;
@@ -44,7 +44,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="part01_BTC" style="
+                            <img :src="item.icon" v-show="item.icon" style="
                                 width: 100%;
                                 height: 100%;
                                 margin-right: 5px;
@@ -61,8 +61,8 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left">
-                      {{ $t("messages.convert.tip_Available") }} : {{ currentPairCrypto?.maxAmount }} {{ firstSelect }}
-                      <span>{{ errorTxtCrypto }}</span>
+                      {{ $t("messages.convert.tip_Available") }} : {{ currentPairs?.maxAmount }} {{ firstSelect }}
+                      <span>{{ errorTxtBuy }}</span>
                     </div>
                     <div class="tip-right">
                       <a href="/wallet/DepositCrypto" style="color: #01c19a">Deposit</a>
@@ -75,13 +75,13 @@
                 </div> -->
                 <div class="pro-input">
                   <div class="input-second-title">{{ $t("messages.convert.receive") }}</div>
-                  <el-input v-model="countCrypto" placeholder="receive" class="change-count clearfloat">
+                  <el-input v-model="countBuy" placeholder="receive" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="crypto_icon_usdt" />
+                        <img :src="secondIcon" v-show="secondIcon" />
                       </div>
                       <el-select v-model="secondSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
-                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug">
+                        <el-option v-for="item in currenciesTypes" :label="item.slug" :value="item.slug">
                           <div style="
                               width: 20px;
                               display: flex;
@@ -90,7 +90,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="part01_BTC" style="
+                            <img :src="item.icon" v-show="item.icon" style="
                                 width: 100%;
                                 height: 100%;
                                 margin-right: 5px;
@@ -106,7 +106,7 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left" style="display: flex">
-                      {{ $t("messages.convert.tip_Estimated") }} : 1 {{ secondSelect }} ≈ {{ currentPairCrypto?.rate }} {{
+                      {{ $t("messages.convert.tip_Estimated") }} : 1 {{ secondSelect }} ≈ {{ currentPairs?.rate }} {{
                         firstSelect }}
                       <div style="margin-left: 8px">
                         <img :src="buy_info" />
@@ -117,135 +117,6 @@
                 <div class="convert-button">
                   <GetButton :text="text" />
                 </div>
-              </div>
-            </div>
-            <!-- sell -->
-            <div v-if="activeSign === '2'" class="convert-stable">
-              <div class="quick-amount">
-                <div class="quick-amount-title">How much ?</div>
-                <div class="quick-amount-part">
-                  <div class="amount">$500</div>
-                  <div class="amount">$1000</div>
-                  <div class="amount">$5000</div>
-                  <div class="amount">$10,000</div>
-                </div>
-              </div>
-              <div class="radio-content">
-                <div class="pre-input">
-                  <div class="input-title">You pay</div>
-                  <el-input v-model="numberStable" placeholder="pay" class="change-count clearfloat" type="number">
-                    <template #append>
-                      <div class="option-icon">
-                        <img :src="crypto_icon_usdt" />
-                      </div>
-                      <el-select v-model="secondSelect" placeholder="Select" style="width: 97px"
-                        @change="handleCoinsChange">
-                        <template v-for="item in stableCoinsOptions">
-                          <el-option :label="item.alphabeticCode" :value="item.alphabeticCode">
-                            <div style="
-                                width: 20px;
-                                display: flex;
-                                align-items: center;
-                                font-size: 14px !important;
-                                color: #000;
-                                margin-left: -5px;
-                              ">
-                              <img :src="part01_BTC" style="
-                                  width: 100%;
-                                  height: 100%;
-                                  margin-right: 5px;
-                                " />
-                              {{ item.alphabeticCode }}
-                            </div>
-                          </el-option>
-                        </template>
-                      </el-select>
-                    </template>
-                  </el-input>
-                  <div class="input-tip">
-                    Max
-                    <el-divider direction="vertical" style="height: 22px" />
-                  </div>
-                  <div class="convert-tip">
-                    <div class="tip-left">
-                      Available: {{ availableAmount }} {{ secondSelect }}
-                      <span>Insufficient</span>
-                    </div>
-                    <div class="tip-right">
-                      <a href="/" style="color: #01c19a">Deposit</a>
-                    </div>
-                  </div>
-                </div>
-                <template v-if="stableCoinsToOptions.length > 0">
-                  <!-- <div class="exchange-icon">
-                    <-- 中间转换图片 
-                    <img :src="crypto_buy" />
-                  </div> -->
-                  <div class="pro-input">
-                    <div class="input-second-title">You Receive</div>
-                    <el-input v-model="countStable" placeholder="Receive" class="change-count clearfloat">
-                      <template #append>
-                        <div class="option-icon">
-                          <img :src="crypto_icon_usdc" />
-                        </div>
-                        <el-select v-model="thirdSelect" placeholder="Select" style="width: 97px" @change="handleSetRate">
-                          <template v-for="item in stableCoinsToOptions">
-                            <el-option :label="item.alphabeticCode" :value="item.alphabeticCode">
-                              <div style="
-                                  width: 20px;
-                                  display: flex;
-                                  align-items: center;
-                                  font-size: 14px !important;
-                                  color: #000;
-                                  margin-left: -5px;
-                                ">
-                                <img :src="part01_BTC" style="
-                                    width: 100%;
-                                    height: 100%;
-                                    margin-right: 5px;
-                                  " />
-                                {{ item.alphabeticCode }}
-                              </div>
-                            </el-option>
-                          </template>
-                        </el-select>
-                      </template>
-                    </el-input>
-                    <div class="input-split">
-                      <el-divider direction="vertical" style="height: 22px" />
-                    </div>
-                    <div class="convert-tip">
-                      <div class="tip-left" style="display: flex">
-                        <template v-if="currentPair && currentPair.rate && thirdSelect">
-                          Estimated : 1 {{ secondSelect }} ≈
-                          {{
-                            parseFloat(currentPair.rate).toFixed(
-                              currentPair ? currentPair.minorUnit : 0
-                            )
-                          }}
-                          {{ thirdSelect }}
-                        </template>
-                        <template v-else>
-                          Estimated : This is the exchange message !
-                        </template>
-                        <div style="margin-left: 8px">
-                          <img :src="buy_info" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="convert-button">
-                    <GetButton :text="text" @click="handleToConvert" />
-                  </div>
-                </template>
-                <template v-else>
-                  <div style="margin-top: 20px">
-                    <h4 style="font-size: 18px; line-height: 35px">
-                      Exchange is not available
-                    </h4>
-                    <p>Please, select another currency</p>
-                  </div>
-                </template>
               </div>
             </div>
           </div>
@@ -281,16 +152,20 @@ import type {
 import type { AssetsData } from "../../../models/assets";
 import { CurrencyType } from "../../../models/currencyType";
 import { queryCurrenciesType } from "../../../api/currencies";
+import { storeToRefs } from "pinia";
+import { useUserInfoStore } from "../../../store/user";
+import { tradeStore } from "../../../store/trade";
 
+const userInfoStore = useUserInfoStore()
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 const activeSign = ref("1");
-const numberCrypto = ref("0.0000");
-const numberStable = ref();
-// const countStable = ref("1.0002");
-const firstSelect = ref("");
+const numberBuyOrSell = ref("0.0000");
+const firstSelect = ref(currencySlug.value);
 const secondSelect = ref("");
-const thirdSelect = ref("");
-const text = ref("Buy Bitcoin");
-const currenciesTypesCrypto = ref<CurrencyType[]>([])
+const firstIcon = ref(currencyIcon.value)
+const secondIcon = ref("")
+const currenciesTypes = ref<CurrencyType[]>([])
 const options = ref([
   {
     value: "1",
@@ -301,8 +176,15 @@ const options = ref([
     label: "Sell",
   },
 ]);
-const errorTxtCrypto = computed(() => {
-  if (numberCrypto.value && Number(numberCrypto.value) < 0.00000001) {
+const text = computed(()=>{
+  if(activeSign.value === '2'){
+    return userInfoStore.isLogin ? `Sell ${currencyName.value}` : `Login to Sell ${currencyName.value}`
+  } else {
+    return userInfoStore.isLogin ? `Buy ${currencyName.value}` : `Login to Buy ${currencyName.value}`
+  }
+})
+const errorTxtBuy = computed(() => {
+  if (numberBuyOrSell.value && Number(numberBuyOrSell.value) < 0.00000001) {
     return "Minimum amount: 0.00000001"
   }
   return null
@@ -311,53 +193,76 @@ const errorTxtCrypto = computed(() => {
 
 const assetsData = ref<AssetsData[]>([]);
 onMounted(async () => {
-  getMyAssets().then((res) => {
-    console.log(res.data.data);
-    if (res.data.data) {
-      assetsData.value = res.data.data.map((v: any) => {
-        return {
-          currency: v.currency.name,
-          balance: v.statement.availableBalance,
-          alphabeticCode: v.currency.alphabeticCode,
-          caption: v.caption,
-          accountNumber: v.accountNumber,
-          accountId: v.accountId,
-          group: v.group.name,
-          minorUnit: v.currency.minorUnit,
-        };
-      });
-      console.log(assetsData.value);
-    }
-  });
+  if (userInfoStore.token) {
+    getMyAssets().then((res) => {
+      console.log(res.data.data);
+      if (res.data.data) {
+        assetsData.value = res.data.data.map((v: any) => {
+          return {
+            currency: v.currency.name,
+            balance: v.statement.availableBalance,
+            alphabeticCode: v.currency.alphabeticCode,
+            caption: v.caption,
+            accountNumber: v.accountNumber,
+            accountId: v.accountId,
+            group: v.group.name,
+            minorUnit: v.currency.minorUnit,
+          };
+        });
+        console.log(assetsData.value);
+      }
+    });
+  }
+  
   // 
   const res = await queryCurrenciesType()
   console.log(res)
   if (res.status == 200) {
     if (res.data.content) {
-      currenciesTypesCrypto.value = res.data.content
+      currenciesTypes.value = res.data.content
+      const payCurrency = currenciesTypes.value.filter((e)=> {
+        return e.slug == currencySlug.value
+      })
     }
   }
 });
 
-// const switchSelect = () => {
-//   if (activeSign.value === '1' && currentPairCrypto.value?.rate) {
-//     [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value]
-//     numberCrypto.value = String(countCrypto.value)
-//     cryptoChange()
-//   }
-// }
+const switchSelect = () => {
+  [firstIcon.value, secondIcon.value] = [secondIcon.value, firstIcon.value];
+  [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value];
+  numberBuyOrSell.value = String(countBuy.value)
+  cryptoChange()
+}
 
-const currentPairCrypto = ref<CurrentPair>();
-const countCrypto = computed(() => {
-  if (numberCrypto.value && currentPairCrypto.value?.rate) {
-    return (parseFloat(numberCrypto.value) * parseFloat(currentPairCrypto.value.rate)).toFixed(8)
+const currentPairs = ref<CurrentPair>();
+const countBuy = computed(() => {
+  if (numberBuyOrSell.value && currentPairs.value?.rate) {
+    return (parseFloat(numberBuyOrSell.value) * parseFloat(currentPairs.value.rate)).toFixed(8)
   } else {
-    return null;
+    return "0.0000";
   }
 });
 
 const cryptoChange = async () => {
-  if (firstSelect.value && secondSelect.value) {
+  if(firstSelect.value && currenciesTypes.value){
+    firstIcon.value = ""
+    const arr =  currenciesTypes.value.filter((e)=>{
+      return e.slug == firstSelect.value
+    })
+    if(arr.length > 0){
+      firstIcon.value = arr[0].icon
+    }
+  }
+  if(secondSelect.value && currenciesTypes.value){
+    secondIcon.value = ""
+    const arr = currenciesTypes.value.filter((e)=>{
+      return e.slug == secondSelect.value
+    })
+    if(arr.length > 0){
+      secondIcon.value = arr[0].icon
+    }
+  }
+  if (firstSelect.value && secondSelect.value && userInfoStore.token) {
     const res = await getExchangeRateForCurrencyPair(secondSelect.value, firstSelect.value)
     console.log(res.data);
     let newData = _.cloneDeep(res.data);
@@ -370,13 +275,13 @@ const cryptoChange = async () => {
       rate: newData.rate,
       minorUnit: newData.currency.minorUnit,
     };
-    currentPairCrypto.value = newObj;
+    currentPairs.value = newObj;
   }
 }
 
 const cryptoMax = () => {
-  if (currentPairCrypto.value?.maxAmount) {
-    numberCrypto.value = String(currentPairCrypto.value?.maxAmount)
+  if (currentPairs.value?.maxAmount) {
+    numberBuyOrSell.value = String(currentPairs.value?.maxAmount)
   }
 }
 // witch fiat || crypto || stablecoins
@@ -420,7 +325,7 @@ const handleCoinsChange = () => {
 };
 const currentPair = ref<CurrentPair>();
 const handleSetRate = () => {
-  getExchangeRateForCurrencyPair(secondSelect.value, thirdSelect.value).then(
+  getExchangeRateForCurrencyPair(firstSelect.value, secondSelect.value).then(
     (res) => {
       console.log(res.data);
       // currentPair.value = res.data.data;
@@ -438,13 +343,6 @@ const handleSetRate = () => {
     }
   );
 };
-const countStable = computed(() => {
-  if (numberStable.value && currentPair.value && currentPair.value.rate) {
-    return parseFloat(numberStable.value) * parseFloat(currentPair.value.rate);
-  } else {
-    return null;
-  }
-});
 const availableAmount = computed(() => {
   if (secondSelect.value && stableCoinsOptions.value.length > 0) {
     let selectOption = stableCoinsOptions.value.find(
@@ -458,16 +356,16 @@ const availableAmount = computed(() => {
   }
 });
 const handleToConvert = () => {
-  if (numberStable.value) {
+  if (numberBuyOrSell.value) {
     let fromObj = stableCoinsOptions.value.find(
-      (v) => v.alphabeticCode === secondSelect.value
+      (v) => v.alphabeticCode === firstSelect.value
     );
     let toObj = assetsData.value.find(
-      (v) => v.alphabeticCode === thirdSelect.value
+      (v) => v.alphabeticCode === secondSelect.value
     );
     if (fromObj && toObj && currentPair.value) {
       let exchangeData = {
-        amount: numberStable.value as string,
+        amount: numberBuyOrSell.value as string,
         destinationAccountId: parseInt(toObj.accountId),
         quoteId: currentPair.value.quoteId as string,
         sourceAccountId: parseInt(fromObj.accountId),

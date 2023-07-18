@@ -34,10 +34,10 @@
                   <el-input v-model="numberCrypto" placeholder="pay" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="part01_BTC" />
+                        <img :src="firstIcon" v-show="firstIcon" />
                       </div>
                       <el-select v-model="firstSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
-                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug">
+                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
                           <div style="
                               width: 20px;
                               display: flex;
@@ -46,7 +46,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="part01_BTC" style="
+                            <img :src="item.icon" style="
                               width: 100%;
                               height: 100%;
                               margin-right: 5px;
@@ -80,10 +80,10 @@
                   <el-input v-model="countCrypto" placeholder="receive" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="crypto_icon_usdt" />
+                        <img :src="secondIcon" v-show="secondIcon" />
                       </div>
                       <el-select v-model="secondSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
-                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug">
+                        <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
                           <div style="
                               width: 20px;
                               display: flex;
@@ -92,7 +92,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="crypto_icon_usdt" style="
+                            <img :src="item.icon" style="
                                 width: 100%;
                                 height: 100%;
                                 margin-right: 5px;
@@ -130,7 +130,7 @@
                   <el-input v-model="numberStable" placeholder="pay" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="crypto_icon_usdc" />
+                        <img :src="thirdIcon" v-show="thirdIcon" />
                       </div>
                       <el-select v-model="thirdSelect" placeholder="Select" style="width: 97px"
                         @change="handleCoinsChange">
@@ -143,7 +143,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="part01_BTC" style="
+                            <img :src="item.icon" v-show="item.icon" style="
                                 width: 100%;
                                 height: 100%;
                                 margin-right: 5px;
@@ -178,7 +178,7 @@
                   <el-input v-model="countStable" placeholder="receive" class="change-count clearfloat">
                     <template #append>
                       <div class="option-icon">
-                        <img :src="crypto_icon_usdt" @click="switchSelect" />
+                        <img :src="fourthIcon" v-show="fourthIcon" />
                       </div>
                       <el-select v-model="fourthSelect" placeholder="Select" style="width: 97px" @change="handleSetRate">
                         <el-option v-for="item in currenciesTypesStable" :label="item.slug" :value="item.slug">
@@ -190,7 +190,7 @@
                               color: #000;
                               margin-left: -5px;
                             ">
-                            <img :src="crypto_icon_usdt" style="
+                            <img :src="item.icon" v-show="item.icon" style="
                                 width: 100%;
                                 height: 100%;
                                 margin-right: 5px;
@@ -224,7 +224,7 @@
                 </div>
                 <!-- </template>
                 <template v-else> -->
-                <div style="margin-top: 20px">
+                <div style="margin-top: 20px" v-if="!userInfoStore.isLogin">
                   <h4 style="font-size: 18px; line-height: 35px">
                     {{ $t("messages.convert.tip_notAvailable") }}
                   </h4>
@@ -291,6 +291,7 @@ import crypto_icon_usdt from "../../assets/home/crypto_icon_usdt.png";
 import crypto_icon_usdc from "../../assets/home/crypto_icon_usdc.png";
 import crypto_buy from "../../assets/home/crypto_buy.png";
 import buy_info from "../../assets/home/buy_info.svg";
+import { useUserInfoStore } from "../../store/user";
 
 const { t } = useI18n();
 const windowWidth = ref(window.document.body.offsetWidth);
@@ -304,31 +305,33 @@ const options = ref([
     label: t("messages.convert.convert_Stablecoins"),
   },
 ]);
+const userInfoStore = useUserInfoStore();
 const activeSign = ref("1");
-const text = ref("Log in to Convert");
 const assetsData = ref<AssetsData[]>([]);
 const currenciesTypesCrypto = ref<CurrencyType[]>([])
 onMounted(async () => {
   window.addEventListener("resize", resetWidth);
   //
-  getMyAssets().then((res) => {
-    console.log(res.data.data);
-    if (res.data.data) {
-      assetsData.value = res.data.data.map((v: any) => {
-        return {
-          currency: v.currency.name,
-          balance: v.statement.availableBalance,
-          alphabeticCode: v.currency.alphabeticCode,
-          caption: v.caption,
-          accountNumber: v.accountNumber,
-          accountId: v.accountId,
-          group: v.group.name,
-          minorUnit: v.currency.minorUnit,
-        };
-      });
-      console.log(assetsData.value);
-    }
-  });
+  if(userInfoStore.token){
+    getMyAssets().then((res) => {
+      console.log(res.data.data);
+      if (res.data.data) {
+        assetsData.value = res.data.data.map((v: any) => {
+          return {
+            currency: v.currency.name,
+            balance: v.statement.availableBalance,
+            alphabeticCode: v.currency.alphabeticCode,
+            caption: v.caption,
+            accountNumber: v.accountNumber,
+            accountId: v.accountId,
+            group: v.group.name,
+            minorUnit: v.currency.minorUnit,
+          };
+        });
+        console.log(assetsData.value);
+      }
+    });
+  }
   // 
   const res = await queryCurrenciesType()
   console.log(res)
@@ -345,14 +348,24 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 
+const text = computed(()=>{
+  if(userInfoStore.isLogin){
+    return "Convert"
+  } else {
+    return "Login to Convert"
+  }
+})
+
 const switchSelect = () => {
-  if (activeSign.value === '1' && currentPairCrypto.value?.rate) {
-    [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value]
+  if (activeSign.value === '1') {
+    [firstIcon.value, secondIcon.value] = [secondIcon.value, firstIcon.value];
+    [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value];
     numberCrypto.value = String(countCrypto.value)
     cryptoChange()
   }
-  if (activeSign.value === '2' && currentPairStable.value?.rate) {
-    [thirdSelect.value, fourthSelect.value] = [fourthSelect.value, thirdSelect.value]
+  if (activeSign.value === '2') {
+    [thirdIcon.value, fourthIcon.value] = [fourthIcon.value, thirdIcon.value];
+    [thirdSelect.value, fourthSelect.value] = [fourthSelect.value, thirdSelect.value];
     numberStable.value = String(countStable.value)
     handleSetRate()
   }
@@ -366,6 +379,8 @@ const numberCrypto = ref("0.0000")
 // const countCrypto = ref("0.0000")
 const firstSelect = ref("")
 const secondSelect = ref("")
+const firstIcon = ref("")
+const secondIcon = ref("")
 const errorTxtCrypto = computed(() => {
   if (numberCrypto.value && Number(numberCrypto.value) < 0.00000001) {
     return "Minimum amount: 0.00000001"
@@ -377,12 +392,30 @@ const countCrypto = computed(() => {
   if (numberCrypto.value && currentPairCrypto.value?.rate) {
     return (parseFloat(numberCrypto.value) * parseFloat(currentPairCrypto.value.rate)).toFixed(8)
   } else {
-    return null;
+    return "0.0000";
   }
 });
 
 const cryptoChange = async () => {
-  if (firstSelect.value && secondSelect.value) {
+  if(firstSelect.value && currenciesTypesCrypto.value){
+    firstIcon.value = ""
+    const arr =  currenciesTypesCrypto.value.filter((e)=>{
+      return e.slug == firstSelect.value
+    })
+    if(arr.length > 0){
+      firstIcon.value = arr[0].icon
+    }
+  }
+  if(secondSelect.value && currenciesTypesCrypto.value){
+    secondIcon.value = ""
+    const arr = currenciesTypesCrypto.value.filter((e)=>{
+      return e.slug == secondSelect.value
+    })
+    if(arr.length > 0){
+      secondIcon.value = arr[0].icon
+    }
+  }
+  if (firstSelect.value && secondSelect.value && userInfoStore.token) {
     const res = await getExchangeRateForCurrencyPair(secondSelect.value, firstSelect.value)
     console.log(res.data);
     let newData = _.cloneDeep(res.data);
@@ -409,14 +442,16 @@ const cryptoMax = () => {
  * Stablecoin 
  */
  const currenciesTypesStable = ref<CurrencyType[]>([
-  { id: "1", slug: "AUD", area: "" }, // AUD
-  { id: "2", slug: "BTC", area: "" }
+  { id: "1", slug: "AUD", area: "", icon: crypto_icon_usdc, name:"" }, // AUD
+  { id: "2", slug: "BTC", area: "", icon: part01_BTC, name:"" }
 ])
 // const insufficientStableCoin = ref("display:none;")
 const numberStable = ref("0.0000");
 // const countStable = ref("1.0002");
-const thirdSelect = ref("");
-const fourthSelect = ref("");
+const thirdSelect = ref("AUD");
+const fourthSelect = ref("BTC");
+const thirdIcon = ref(crypto_icon_usdc)
+const fourthIcon = ref(part01_BTC)
 
 const errorTxtStable = computed(() => {
   if (numberStable.value && Number(numberStable.value) < 0.00000001) {
@@ -448,7 +483,24 @@ const stableCoinsOptions = computed(() => {
 });
 const stableCoinsToOptions = ref<StableCoinsToOptions[]>([]);
 const handleCoinsChange = () => {
-  console.log(thirdSelect.value);
+  if(thirdSelect.value && currenciesTypesStable.value){
+    thirdIcon.value = ""
+    const arr =  currenciesTypesStable.value.filter((e)=>{
+      return e.slug == thirdSelect.value
+    })
+    if(arr.length > 0){
+      thirdIcon.value = arr[0].icon
+    }
+  }
+  if(fourthSelect.value && currenciesTypesStable.value){
+    fourthIcon.value = ""
+    const arr = currenciesTypesStable.value.filter((e)=>{
+      return e.slug == fourthIcon.value
+    })
+    if(arr.length > 0){
+      fourthIcon.value = arr[0].icon
+    }
+  }
   getBaseCurrency(thirdSelect.value).then((res) => {
     console.log(res.data);
     stableCoinsToOptions.value = res.data.data.map((v: any) => {
@@ -486,7 +538,7 @@ const countStable = computed(() => {
   if (numberStable.value && currentPairStable.value?.rate) {
     return (parseFloat(numberStable.value) * parseFloat(currentPairStable.value.rate)).toFixed(8)
   } else {
-    return null;
+    return "0.0000";
   }
 });
 const availableAmount = computed(() => {
@@ -497,7 +549,7 @@ const availableAmount = computed(() => {
     if (selectOption) {
       return parseFloat(selectOption.balance).toFixed(selectOption.minorUnit);
     } else {
-      return null;
+      return "0.0000";
     }
   }
 });

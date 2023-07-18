@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">BTC Price Information</div>
+    <div class="title">{{ currencySlug }} Price Information</div>
     <div class="price-infomation">
       <div class="price-infomation-part">
         <div class="part-top">
@@ -67,6 +67,8 @@ import { CaretTop } from "@element-plus/icons-vue";
 
 import icon_question from "../../../assets/home/icon_question.svg";
 import { CurrencyInformation } from "../../../models/currencyInformation";
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../../store/trade";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -88,6 +90,8 @@ const marketCap = info.value.market_cap
 const ath = info.value.ath
 const circulatingSupply = info.value.circulating_supply
 const totalVolume = info.value.total_volume
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 
 </script>
 
