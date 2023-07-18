@@ -46,7 +46,7 @@ function getClientTypeDetails (typeId : string) {
 }
 
 //log out
-function logOut () {
+async function logOut () {
     return http.post("/v2/my/signout");
 }
 //Get client permissions

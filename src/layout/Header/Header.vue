@@ -766,9 +766,8 @@ const activeLanguage = ref<string>("first");
 
 //click to log out
 const handleToLogOut = async () => {
-  const response = await logOut();
-  // console.log(response);
   userInfoStore.clearToken();
+  const response = await logOut();
   router.push("/login");
 };
 </script>
