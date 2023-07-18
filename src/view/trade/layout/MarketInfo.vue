@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">BTC Market Information</div>
+    <div class="title">{{ currencySlug }} Market Information</div>
     <div class="market-infomation">
       <div class="market-infomation-part">
         <div class="part-top">
@@ -41,6 +41,11 @@ import { ref, reactive, onUnmounted, onMounted, computed, provide, toRefs, defin
 
 import icon_question from "../../../assets/home/icon_question.svg";
 import { CurrencyInformation } from "../../../models/currencyInformation";
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../../store/trade";
+
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {

@@ -6,7 +6,7 @@
         <span>Home&nbsp; &gt;</span>&nbsp; <span>Bitcoin&nbsp; &gt;</span>&nbsp;
         <span>Buy</span>
       </div>
-      <div class="header-name">Buy <span>{{ coinInfo?.slug ? coinInfo.slug + ' ' + coinInfo.name : 'BTC Bitcoin' }}</span></div>
+      <div class="header-name">Buy <span>{{ coinInfo?.slug ? coinInfo.slug + ' ' + coinInfo.name : `${currencySlug} ${currencyName}` }}</span></div>
     </div>
 
     <div class="trade-page-box">
@@ -34,7 +34,7 @@
     <div class="trade-page-text">
       <el-row>
         <el-col :span="16" :xs="24" :sm="24" :md="24" :lg="16">
-          <AboutCrypto :coinInfo="coinInfo" class="about-box"/>
+          <AboutCrypto :coinInfo="coinInfo"/>
         </el-col>
       </el-row>
     </div>
@@ -83,6 +83,11 @@ import {queryCurrencyInformation} from "../../api/currencies"
 
 import { useRoute } from "vue-router";
 import { getOneCoin } from '../../api/currencies';
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../store/trade";
+
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 
 const route = useRoute();
 
@@ -110,10 +115,9 @@ const getCoinInfo = async (id: string) => {
   console.log(coinInfo.value)
 }
 
-const currencyType = ref("bitcoin")
 const currencyInformation = ref<CurrencyInformation>({} as CurrencyInformation)
 const queryCurrencyInfo = async ()=>{
-  const res = await queryCurrencyInformation(currencyType.value)
+  const res = await queryCurrencyInformation(currencyName.value)
   if(res.status == 200 && res.data){
     const data = JSON.parse(res.data)
     if (data.length > 0) {
@@ -236,10 +240,6 @@ $fontMain: 14px;
       }
     }
   }
-}
-.about-box{
-  line-height: 22px;
-  font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
 }
 .bottom-part {
   background-color: #f8f8f8;
