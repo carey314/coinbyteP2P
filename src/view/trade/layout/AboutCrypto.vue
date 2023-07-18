@@ -9,13 +9,13 @@
     </div>
   </div>
   <div class="resource-box">
-    <div class="resource-title"><span>{{ coinInfo?.name || 'Bitcoin' }}</span> Resources</div>
+    <div class="resource-title"><span>{{ coinInfo?.name || currencyName }}</span> Resources</div>
     <div class="resource-way">
       <div class="way-website clearfloat">
         <div class="website-icon">
           <img :src="icon_official" />
         </div>
-        <div class="website-name">Official {{ coinInfo?.name || 'Bitcoin' }} Website &gt;</div>
+        <div class="website-name">Official {{ coinInfo?.name || currencyName }} Website &gt;</div>
       </div>
       <div class="way-paper clearfloat">
         <div class="paper-icon">
@@ -28,7 +28,7 @@
   <div class="question-box">
     <div class="question-part">
       <div class="question-title">
-        People Also Ask: Other Questions About <span>{{ coinInfo?.name || 'Bitcoin' }}</span>
+        People Also Ask: Other Questions About <span>{{ coinInfo?.name || currencyName }}</span>
       </div>
       <div class="question-part-collapse">
         <!-- <el-collapse v-model="activeNames" @change="handleChange">
@@ -84,6 +84,11 @@ import { ref, reactive, onUnmounted, onMounted } from "vue";
 
 import icon_official from "../../../assets/home/icon_official.svg";
 import icon_whitepaperl from "../../../assets/home/icon_whitepaperl.svg";
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../../store/trade";
+
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 
 const props = defineProps<
   {
@@ -107,7 +112,7 @@ const handleChange = (val: string[]) => {
 };
 
 const copy = `
-    <div class="about-crypto">About <span>Bitcoin</span></div>
+    <div class="about-crypto">About <span>${currencyName.value}</span></div>
     <div class="about-introduce">
       Bitcoin is one of the most popular cryptocurrencies in the market. First
       introduced in 2009 by Satoshi Nakamoto, Bitcoin has held the crypto

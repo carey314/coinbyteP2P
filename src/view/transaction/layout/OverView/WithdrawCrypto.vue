@@ -611,6 +611,7 @@
                         <div class="receive-count"><span>0.00</span> AUD</div>
                       </div>
                     </div>
+                    <!-- 点击出现弹出框 -->
                     <el-button
                       v-if="showContinueBtn"
                       class="continue-btn"
@@ -977,7 +978,6 @@ function handleContinue() {
     options1 = options1.filter((o) => o.value === selectedOption1.value);
   } else if (activeStep.value === 2 && canContinue.value) {
     activeStep.value = 3;
-
     showStepThree.value = true;
     showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
     continueBtnVisible.value = true;

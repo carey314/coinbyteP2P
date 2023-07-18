@@ -1131,7 +1131,8 @@ import DOGE from "../../assets/home/dogecoin.png";
 import MATIC from "../../assets/home/polygon.png";
 import SOL from "../../assets/home/solana.png";
 
-
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../store/trade";
 import { getProfile } from "../../api/user";
 import { useUserInfoStore } from "../../store/user";
 import { useI18n } from "vue-i18n";
@@ -1143,12 +1144,15 @@ const router = useRouter();
 
 const { t } = useI18n();
 
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 // 货币类型\
 interface Coin {
   id: number;
   name: string;
   symbol: string;
   slug: string;
+  image: string;
   num_market_pairs: number;
   date_added: string;
   tags: string[];
@@ -1531,6 +1535,9 @@ const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
 
 const handleBuy = (index: number, row: Coin) => {
   console.log(index, row);
+  currencySlug.value = row.symbol?.toUpperCase()
+  currencyName.value = row.name
+  currencyIcon.value = row.image
   router.push('/trade/' + row.symbol);
 };
 const forthList = [
