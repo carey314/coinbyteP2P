@@ -59,7 +59,6 @@
                         </el-select>
                       </div>
                     </template>
-                   
                   </el-step>
                   <el-step title="Enter Amount" style="margin-top: 20px">
                     <template #description>
@@ -109,7 +108,7 @@
                         <div class="step-input">
                           <el-input
                             v-model="coinAmount"
-                            placeholder="Please input"
+                            placeholder="Please enter the amount"
                             @change="updateCanContinue"
                             class="input"
                           />
@@ -132,7 +131,10 @@
                               <span>PayID/Osko</span>
                             </div>
                           </div>
-                          <div class="fait-rule-item" style="padding-bottom: 15px;">
+                          <div
+                            class="fait-rule-item"
+                            style="padding-bottom: 15px"
+                          >
                             <div class="title">Transaction Fee:</div>
                             <div class="require">0.00 AUD</div>
                           </div>
@@ -153,26 +155,35 @@
                         >
                           Continue
                         </el-button>
-                        <el-dialog
-                          v-model="dialogContinue"
-                          class="dialog-box"
-                          width="30%"
-                          style="padding: 0 22px 36px 22px"
-                        >
-                          <template #header>
-                            <div class="dialog-header">
-                              第三步
-                            </div>
-                          </template>
-                          <div class="divider"></div>
-                          <div class="suggest">Suggested Amount</div>
-
-                          <div class="count-range">A$50-2,000,000</div>
-                          <div class="limit requirements">
-                            ok
-                          </div>
-                        </el-dialog>
                       </div>
+                      <el-dialog
+                        v-model="dialogContinue"
+                        class="dialog-box"
+                        width="30%"
+                        style="padding: 0 22px 36px 22px"
+                      >
+                        <template #header>
+                          <div class="dialog-header-require">
+                            Transaction requirements
+                          </div>
+                        </template>
+                        <div class="divider-require"></div>
+                        <div
+                          class="require-list"
+                          v-for="(item, index) in requireList"
+                          :key="index"
+                        >
+                          <div class="list-img">
+                            <img class="image" :src="item.img" />
+                          </div>
+                          <div class="list-info">
+                            {{ item.info }}<br />{{ item.info2 }}
+                          </div>
+                        </div>
+                        <template #footer>
+                          <el-button @click="closeDialog" class="know-btn">OK</el-button>
+                        </template>
+                      </el-dialog>
                     </template>
                   </el-step>
                   <el-step
@@ -379,6 +390,7 @@ import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { ElMessageBox } from "element-plus";
+import requireOne from "../../../../assets/home/part05_icon06.png";
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
@@ -411,18 +423,44 @@ function handleContinue() {
     options1 = options1.filter((o) => o.value === selectedOption1.value);
   } else if (activeStep.value === 2 && canContinue.value) {
     // 不再隐藏步骤二的内容，直接进入第三步
+    console.log(activeStep.value);
     activeStep.value = 3;
     showStepThree.value = true;
     showContinueBtn.value = false; // 隐藏继续按钮
-  } else if (activeStep.value === 3) {
-    console.log("Open dialog");
     dialogContinue.value = true;
   }
 }
-
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== null;
 }
+function closeDialog() {
+  dialogContinue.value = false
+}
+const requireList = [
+  {
+    img: requireOne,
+    info: "In line with AML/CTF laws, deposits are only accepted from the bank account that is in the same name as the account you have verified on CoinByte.",
+  },
+  {
+    img: requireOne,
+    info: "To cover processing costs, a AU$3 processing fee will be charged to refund desposits received from third-party bank accounts",
+    info2:
+      "Deposits will only be refunded if the deposit is greater than AU$10",
+  },
+  {
+    img: requireOne,
+    info: "This service is supported by CoinByte, in accordance to CoinByte's Terms of Use and Privacy Policy.",
+  },
+  {
+    img: requireOne,
+    info: "Failed deposits will be returned to the source account within 2 business days",
+  },
+  {
+    img: requireOne,
+    info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.",
+    info2: "Subsequent transfers are instant."
+  },
+];
 const tableData = ref([
   {
     time: "2023-04-20 20:22",
@@ -854,5 +892,48 @@ $fontSizeMin: 12px;
   line-height: 18px;
   width: 442px;
   margin-top: 15px;
+}
+.dialog-header-require {
+  font-size: 20px;
+  color: #000000;
+  line-height: 25px;
+}
+.divider-require {
+  height: 1px;
+  width: 100%;
+  background-color: #dfdfe5;
+}
+.require-list {
+  margin-top: 24px;
+  padding: 5px 20px;
+  display: flex;
+  justify-content: space-around;
+
+  .image {
+    width: 36px;
+    height: auto;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .list-info {
+    font-size: 14px;
+    color: #878787;
+    line-height: 20px;
+    margin-left: 17px;
+    width: 100%;
+    word-break: break-all;
+  }
+}
+.know-btn{
+  width: 100% !important;
+  height: 48px !important;
+  border-radius: 4px;
+  border: 1px solid #DFDFE5;
+  background-color: #01c19a;
+  color: #fff;
+
 }
 </style>
