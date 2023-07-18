@@ -3,8 +3,9 @@ import {default as httpAdmin} from '../utils/httpAdminApi';
 
 async function queryCurrenciesType(data?: any){
     let configData = {
-        pageNumber: 1,
-        pageSize: 1000
+        page: 0,
+        size: 1000,
+        sort: 'id,desc'
     }
     if(data) {
         configData = Object.assign(configData, data);
@@ -22,8 +23,20 @@ async function queryCurrencyInformation(symbols:string) {
     })
 }
 
+async function queryCategorize(data?: any){
+    let configData = {
+        page: 0,
+        size: 1000
+    }
+    if(data) {
+        configData = Object.assign(configData, data);
+    }
+    return httpAdmin.get("/coin/info/type", configData);
+}
+
 export {
     queryCurrenciesType,
     getOneCoin,
-    queryCurrencyInformation
+    queryCurrencyInformation,
+    queryCategorize
 }

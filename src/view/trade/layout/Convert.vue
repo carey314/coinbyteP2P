@@ -291,6 +291,20 @@ const secondSelect = ref("");
 const thirdSelect = ref("");
 const text = ref("Buy Bitcoin");
 const currenciesTypesCrypto = ref<CurrencyType[]>([])
+
+const props = defineProps<
+  {
+    isSell: boolean
+  }
+>();
+
+onMounted(() => {
+  if(props.isSell) {
+    console.log(props.isSell);
+    activeSign.value = '2';
+  }
+})
+
 const options = ref([
   {
     value: "1",

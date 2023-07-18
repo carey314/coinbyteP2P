@@ -1236,7 +1236,7 @@ async function refreshData(typeId: number = 1) {
         typeId: typeId
       }
     );
-    const symbols = coins.data.content.map((v: any) => v.name.toLowerCase());
+    const symbols = coins.data.content.map((v: any) => v.alias && v.alias.toLowerCase());
     const response = await getLastCoinMarketCap(
       {
         symbols: symbols.join(',')

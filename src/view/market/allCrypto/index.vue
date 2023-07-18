@@ -3,34 +3,23 @@
     <Header></Header>
     <div class="center-part">
       <div class="search-input" v-if="windowWidth > 769">
-        <el-input
-          v-model="search"
-          class="w-50 m-2"
-          size="large"
-          placeholder="Search"
-          :prefix-icon="Search"
-        />
+        <el-input v-model="search" class="w-50 m-2" size="large" placeholder="Search" :prefix-icon="Search" @input="debounceSearchBlurry" />
       </div>
 
       <el-scrollbar>
         <div class="scrollbar-flex-content">
-          <el-tabs
-            v-model="activeName"
-            class="demo-tabs"
-            @tab-click="handleClick"
-          >
+          <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
             <el-tab-pane name="first">
               <template #label>
-                <router-link
-                  to="/market-favorite"
-                  style="
+                <router-link to="/market-favorite" style="
                     text-decoration: none;
                     color: #9b9b9b;
                     font-weight: 500;
-                  "
-                >
+                  ">
                   <span class="custom-tabs-label">
-                    <el-icon><StarFilled /></el-icon>
+                    <el-icon>
+                      <StarFilled />
+                    </el-icon>
                     <span>{{ $t("messages.market.Favorites") }}</span>
                   </span>
                 </router-link>
@@ -41,7 +30,7 @@
               <el-radio-group v-model="radioValue">
                 <el-scrollbar>
                   <div class="scrollbar-flex-content">
-                    <el-radio-button label="All" />
+                    <!-- <el-radio-button label="All" />
                     <el-radio-button label="Metaverse" />
                     <el-radio-button label="Gaming" />
                     <el-radio-button label="DeFi" />
@@ -55,7 +44,8 @@
                     <el-radio-button label="POW" />
                     <el-radio-button label="Launchpad" />
                     <el-radio-button label="Launchpool" />
-                    <el-radio-button label="BNB Chain" />
+                    <el-radio-button label="BNB Chain" /> -->
+                    <el-radio-button v-for="(item, index) in typeIdSelect" :key="item.label" :disabled="loading" :label="item.label" />
                   </div>
                 </el-scrollbar>
               </el-radio-group>
@@ -64,20 +54,13 @@
                 <!-- Price -->
                 <!-- volume_change_24h -->
                 <!-- Market Cap -->
-                <el-table
-                  :data="coinMarketCapData"
-                  :table-layout="tableLayout"
-                  class="crypto-table"
-                  :default-sort="{ prop: 'address', order: 'ascending' }"
-                >
-                  <el-table-column
-                    :label="t('messages.market.table_Crypto')"
-                    width="500px"
-                  >
+                <el-table :data="coinMarketCapData" v-loading="loading" :table-layout="tableLayout" class="crypto-table"
+                  :default-sort="{ prop: 'address', order: 'ascending' }">
+                  <el-table-column :label="t('messages.market.table_Crypto')" width="500px">
                     <template v-slot="{ row }" class="clearfloat">
-                      <el-icon class="crypto-star clearfloat"
-                        ><StarFilled
-                      /></el-icon>
+                      <el-icon class="crypto-star clearfloat">
+                        <StarFilled />
+                      </el-icon>
                       <div><img :src="row.image" class="crypto-icon" alt="icon" /></div>
                       <div class="table-tag">
                         {{ row.symbol }}
@@ -88,66 +71,41 @@
                     </template>
                   </el-table-column>
 
-                  <el-table-column
-                    prop="current_price"
-                    :label="t('messages.market.table_Price')"
-                    align="right"
-                    width="150"
-                  >
+                  <el-table-column prop="current_price" :label="t('messages.market.table_Price')" align="right"
+                    width="150">
                     <template v-slot="{ row }">
                       A${{ row.current_price.toFixed(2) }}
                     </template>
                   </el-table-column>
 
-                  <el-table-column
-                    prop="price_change_percentage_24h"
-                    :label="t('messages.market.table_Change')"
-                    sortable
-                    width="200"
-                    align="right"
-                  >
+                  <el-table-column prop="price_change_percentage_24h" :label="t('messages.market.table_Change')" sortable
+                    width="200" align="right">
                     <template v-slot="{ row }">
-                      <span
-                        v-if="row.price_change_percentage_24h > 0"
-                        style="color: #01c19a"
-                      >
+                      <span v-if="row.price_change_percentage_24h > 0" style="color: #01c19a">
                         {{ row.price_change_percentage_24h.toFixed(2) }}%
                       </span>
-                      <span
-                        v-else-if="row.price_change_percentage_24h < 0"
-                        style="color: #f15958"
-                      >
+                      <span v-else-if="row.price_change_percentage_24h < 0" style="color: #f15958">
                         {{ row.price_change_percentage_24h.toFixed(2) }}%
                       </span>
                     </template>
                   </el-table-column>
-                  <el-table-column
-                    prop="market_cap"
-                    :label="t('messages.market.table_cap')"
-                    sortable
-                    width="250"
-                    align="right"
-                  >
+                  <el-table-column prop="market_cap" :label="t('messages.market.table_cap')" sortable width="250"
+                    align="right">
                     <template v-slot="{ row }">
                       ${{ row.market_cap.toFixed(2) }}B
                     </template>
                   </el-table-column>
 
-                  <el-table-column
-                    fixed="right"
-                    align="right"
-                    width="200"
-                    class="action"
-                  >
+                  <el-table-column fixed="right" align="right" width="200" class="action">
                     <template #header>
                       {{ t("messages.market.table_Action") }}
                     </template>
-                    <template #default="scope">
+                    <template #default="{ row }">
                       <div class="action-btn">
-                        <el-button text link>Buy</el-button>
+                        <el-button text link @click="hrefTo('/trade/' + row.symbol)">Buy</el-button>
                         <el-divider direction="vertical" />
 
-                        <el-button text link>Sell</el-button>
+                        <el-button text link @click="hrefTo('/trade/' + row.symbol + '?isSell=1')">Sell</el-button>
                       </div>
                     </template>
                   </el-table-column>
@@ -158,13 +116,7 @@
                   </template>
                 </el-table>
                 <div class="example-pagination-block min-pagination">
-                  <el-pagination
-                    background
-                    :hide-on-single-page="filterTableData.length < 10"
-                    layout="prev, pager, next"
-                    :page-size="3"
-                    :total="filterTableData.length"
-                  />
+                  <el-pagination background layout="prev, pager, next" :total="currentSearchItem.total" @current-change="pageChange"/>
                 </div>
               </div>
             </el-tab-pane>
@@ -196,7 +148,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, computed } from "vue";
+import { ref, watch, onUnmounted, onMounted, computed } from "vue";
 import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
@@ -224,9 +176,66 @@ import MATIC from "../../../assets/home/polygon.png";
 import SOL from "../../../assets/home/solana.png";
 
 import { useI18n } from "vue-i18n";
+
+import { queryCurrenciesType, queryCategorize } from "../../../api/currencies";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const loading = ref(false);
+
 const { t } = useI18n();
 const activeName = ref("second");
 const radioValue = ref("All");
+const currentSearchItem = ref({
+  label: "All",
+  size: 10,
+  page: 0,
+  id: null,
+  total: 0
+})
+
+const typeIdSelect  = ref([
+  { label: 'All', id: null },
+  { label: 'Metaverse', id: null },
+  { label: 'Gaming', id: null },
+  { label: 'DeFi', id: null },
+  { label: 'Innovation', id: null },
+  { label: 'Layer 1 / Layer 2', id: null },
+  { label: 'Fan Token', id: null },
+  { label: 'NFT', id: null },
+  { label: 'Storage', id: null },
+  { label: 'Polkadot', id: null },
+  { label: 'POS', id: null },
+  { label: 'POW', id: null },
+  { label: 'Launchpad', id: null },
+  { label: 'Launchpool', id: null },
+  { label: 'BNB Chain', id: null }
+]);
+
+watch(radioValue, async (newValue) => {
+  const findItem = typeIdSelect.value.find((v: {label: string, id: null | number}) => v.label === newValue);
+  if(findItem) {
+    currentSearchItem.value.label = findItem?.label;
+    currentSearchItem.value.id = findItem?.id;
+    currentSearchItem.value.size = 10;
+    currentSearchItem.value.page = 0;
+    refreshData(currentSearchItem.value.id, currentSearchItem.value.size, currentSearchItem.value.page);
+  }
+});
+
+const pageChange = (page: number) => {
+  currentSearchItem.value.page = page - 1;
+  refreshData(currentSearchItem.value.id, currentSearchItem.value.size, currentSearchItem.value.page);
+}
+
+const searchBlurry = async () => {
+  currentSearchItem.value.size = 10;
+  currentSearchItem.value.page = 0;
+  refreshData(currentSearchItem.value.id, currentSearchItem.value.size, currentSearchItem.value.page, search.value);
+}
+
+const debounceSearchBlurry = debounce(searchBlurry, 500);
+
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
 };
@@ -282,28 +291,71 @@ interface Coin {
 const coinMarketCapData = ref<any>([]);
 
 onMounted(async () => {
-  refreshData();
-  setInterval(() => {
-    refreshData();
-  }, 60000);
+  await getCategorize();
+  refreshData(null, 10, 0);
+  // setInterval(() => {
+  //   refreshData();
+  // }, 60000);
 });
 
-async function refreshData() {
+interface QueryCurrenciesType {
+  typeId?: number;
+  page?: number;
+  size?: number;
+  blurry?: string;
+}
+
+async function refreshData(typeId?: number | null, pageSize: number = 10, pageNumber: number = 0, blurry?: string) {
+  loading.value = true;
   try {
-    const response = await getLastCoinMarketCap();
+    let queryCurrenciesTypeParams: QueryCurrenciesType = {
+      size: pageSize,
+      page: pageNumber
+    };
+    typeId && (queryCurrenciesTypeParams.typeId = typeId);
+    blurry && (queryCurrenciesTypeParams.blurry = blurry);
+    const coins: any = await queryCurrenciesType(queryCurrenciesTypeParams);
+    currentSearchItem.value.total = coins.data.totalElements;
+    const symbols = coins.data.content.map((v: any) => v.alias && v.alias.toLowerCase());
+    const getLastCoinMarketCapParams: {symbols?: string} = {symbols: '\'\''};
+    if(symbols.length > 0) {
+      getLastCoinMarketCapParams.symbols = symbols.join(',')
+    }
+    const response = await getLastCoinMarketCap(getLastCoinMarketCapParams);
     const resJson = JSON.parse(response.data);
-    // console.log(resJson)
-    // const arr = [];
-    // // object for getting
-    // for (let key in resJson.data) {
-    //   arr.push(resJson.data[key][0])
-    // }
     coinMarketCapData.value = resJson;
-    console.log(coinMarketCapData.value);
+    loading.value = false;
   } catch (error) {
     console.error(error);
+    loading.value = false;
   }
 }
+
+interface GetCategorizeRes {
+  id: number,
+  name: string
+}
+
+async function getCategorize() {
+  try {
+    const cateGorize = await queryCategorize();
+    console.log(cateGorize);
+    // typeIdSelect.value
+    if(cateGorize.data.content?.length > 0) {
+      typeIdSelect.value.forEach((e:{label: string, id: null | number}) => {
+        const findValue = cateGorize.data.content.find((v: GetCategorizeRes) => e.label === v.name);
+        if(findValue) {
+          e.id = findValue.id;
+        }
+      })
+    }
+    console.log(typeIdSelect.value);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+
 
 const tableData = [
   {
@@ -713,6 +765,22 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
+function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (...args: Parameters<F>) => void {
+  let timer: NodeJS.Timeout | null;
+  return function(this: any, ...args: Parameters<F>) {
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, delay);
+  };
+}
+
+function hrefTo(url: string) {
+  router.push(url);
+}
 </script>
 
 <style scoped lang="scss">
@@ -726,11 +794,13 @@ function resetWidth() {
   margin: auto;
   padding: 21px 0 141px 0;
   position: relative;
+
   @media (max-width: 1440px) {
     padding: 21px 20px 141px 20px;
     max-width: 940px;
   }
 }
+
 .search-input {
   position: absolute;
   right: 0px;
@@ -738,6 +808,7 @@ function resetWidth() {
   width: 231px;
   height: 37px;
   z-index: 99;
+
   @media (max-width: 1440px) {
     right: 20px;
   }
@@ -747,6 +818,7 @@ function resetWidth() {
   .el-input--large {
     height: 37px; //搜索框
   }
+
   // .el-scrollbar__bar.is-horizontal > div {
   //   height: 0; //iPhone滑动样式高度
   // }
@@ -760,35 +832,43 @@ function resetWidth() {
     box-shadow: none;
     border-radius: 6px;
   }
+
   .el-tabs__item {
     color: #9b9b9b !important;
     font-size: 16px;
     line-height: 19px;
   }
+
   .el-table__inner-wrapper {
     margin-top: 10px;
     margin-left: -10px;
   }
+
   .el-table__header {
     font-size: 14px;
     line-height: 16px;
     color: #878787;
   }
+
   .el-table th.el-table__cell {
     font-weight: 400;
   }
+
   .el-table__body {
     font-weight: 500;
   }
+
   .el-tabs__item is-top {
     --el-menu-active-color: #01c19a;
     font-size: 16px;
     line-height: 19px;
   }
+
   .el-tabs__item.is-active {
     color: #01c19a !important;
     font-weight: 500;
   }
+
   .el-tabs__active-bar {
     background-color: #01c19a;
     height: 4px;
@@ -798,6 +878,7 @@ function resetWidth() {
     &:hover span {
       color: #01c19a;
     }
+
     .el-radio-button__inner {
       border-radius: 6px !important;
       border: none !important;
@@ -805,26 +886,31 @@ function resetWidth() {
       font-size: 14px;
       line-height: 17px;
     }
+
     --el-radio-button-checked-bg-color: #f1f1f1;
     --el-radio-button-checked-text-color: #01c19a !important;
   }
+
   .el-table .descending .sort-caret.descending {
     border-top-color: #01c19a;
   }
+
   .el-table .ascending .sort-caret.ascending {
     border-bottom-color: #01c19a;
   }
+
   .el-radio-button__inner {
     color: #9b9b9b;
   }
 }
 
-.demo-tabs > .el-tabs__content {
+.demo-tabs>.el-tabs__content {
   padding: 32px;
   color: #6b778c;
   font-size: 32px;
   font-weight: 600;
 }
+
 .demo-tabs .custom-tabs-label {
   :deep(.el-icon) {
     vertical-align: middle;
@@ -832,27 +918,33 @@ function resetWidth() {
     color: #dfdfdf;
   }
 }
+
 .demo-tabs .custom-tabs-label span {
   vertical-align: middle;
   margin-left: 4px;
 }
+
 :deep(.el-table__inner-wrapper::before) {
   height: 0px;
 }
+
 :deep(.el-table__row) {
   height: 70px;
 }
+
 .crypto-star {
   margin-top: 3px;
   display: flex;
   float: left;
   font-size: 25px;
   color: #dfdfdf;
+
   img {
     width: 100%;
     height: 100%;
   }
 }
+
 .crypto-table {
   font-size: 16px;
   font-weight: 600;
@@ -866,18 +958,21 @@ function resetWidth() {
   width: 32px;
   height: 32px;
   margin-left: 10px;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 }
+
 .table-tag {
   display: flex;
   float: left;
   margin-left: 11px;
   color: #020202;
 }
+
 .table-asset {
   margin-left: 11px;
   color: #9b9b9b;
@@ -889,6 +984,7 @@ function resetWidth() {
     float: right;
   }
 }
+
 .action-btn {
   :deep(.el-button > span) {
     font-size: 16px;
@@ -897,38 +993,47 @@ function resetWidth() {
     font-weight: 500;
   }
 }
+
 :deep(.el-empty__image) {
   margin-left: 40px;
   margin-top: 52px;
 }
+
 :deep(.el-empty__description p) {
   font-weight: 400;
   font-size: 16px !important;
   color: #9b9b9b !important;
 }
+
 .example-pagination-block {
   float: right;
   margin-top: 27px;
   color: #9b9b9b;
+
   :deep() {
+
     // .el-pager{
     //   margin-top: 15px;
     // }
     .el-pager li {
       color: #9b9b9b;
     }
+
     .el-pagination.is-background .el-pager li {
       background-color: #ffffff;
     }
+
     .el-pager li.is-active {
       background-color: #f1f1f1 !important;
       color: #000;
     }
+
     .el-pagination.is-background .btn-next,
     .el-pagination.is-background .btn-prev,
     .el-pagination.is-background .el-pager li {
       background-color: #ffffff;
     }
+
     // .el-pager li:hover {
     //   color: #01c19a !important;
     // }
@@ -938,6 +1043,7 @@ function resetWidth() {
     }
   }
 }
+
 .min-pagination {
   :deep(.el-pagination) {
     --el-pagination-button-width: 20px;

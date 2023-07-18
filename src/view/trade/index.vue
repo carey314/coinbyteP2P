@@ -25,7 +25,7 @@
         </el-col>
         <el-col :span="8" :xs="24" :sm="24" :md="24" :lg="8">
           <div class="box-right">
-            <div><Convert /></div>
+            <div><Convert :is-sell="!!(route.query.isSell && (route.query.isSell === '1'))"/></div>
             <div><Similar /></div>
           </div>
         </el-col>
