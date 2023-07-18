@@ -1118,6 +1118,6 @@ $fontSizeMin: 12px;
 }
 
 .step-option:hover {
-  color: blue;
+  color: #01c19a;
 }
 </style>

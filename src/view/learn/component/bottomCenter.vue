@@ -15,7 +15,7 @@
             <a class="to-article"  :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner" />
                 </div>
                 <div class="text-content">
                   <div class="tip">{{ item.title }}</div>

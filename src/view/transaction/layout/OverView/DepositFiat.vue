@@ -25,15 +25,12 @@
                 <el-steps
                   :active="activeStep"
                   direction="vertical"
-                  style="height: 400px"
                   align-center
-                  space="100%"
                 >
                   <el-step title="Select currency">
                     <template #description>
                       <div v-if="activeStep >= 1" class="select">
                         <el-select
-                          class="select-first"
                           v-model="selectedOption1"
                           placeholder="Select currency"
                           @change="handleContinue"
@@ -43,15 +40,31 @@
                             :key="item.value"
                             :label="item.label"
                             :value="item.value"
-                          ></el-option>
+                          >
+                            <div
+                              style="
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                              "
+                            >
+                              <el-avatar
+                                :size="26"
+                                src="asdfasdf"
+                                style="margin-right: 8px"
+                              />
+                              {{ item.label }}
+                            </div>
+                          </el-option>
                         </el-select>
                       </div>
                     </template>
+                   
                   </el-step>
-                  <el-step title="Enter Amount">
+                  <el-step title="Enter Amount" style="margin-top: 20px">
                     <template #description>
                       <div
-                        v-if="activeStep === 2"
+                        v-if="activeStep === 2 || activeStep === 3"
                         class="select clearfloat"
                         style="position: relative"
                       >
@@ -66,7 +79,7 @@
                           v-model="dialogVisible"
                           class="dialog-box"
                           width="30%"
-                          style="padding-bottom: 36px"
+                          style="padding: 0 22px 36px 22px"
                         >
                           <template #header>
                             <div class="dialog-header">
@@ -93,19 +106,22 @@
                             <div class="limit-sign">/A$2M</div>
                           </div>
                         </el-dialog>
-                        <el-select
-                          class="select-second"
-                          v-model="selectedOption2"
-                          placeholder="0"
-                          @change="updateCanContinue"
-                        >
-                          <el-option
-                            v-for="item in options2"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          ></el-option>
-                        </el-select>
+                        <div class="step-input">
+                          <el-input
+                            v-model="coinAmount"
+                            placeholder="Please input"
+                            @change="updateCanContinue"
+                            class="input"
+                          />
+                          <div v-for="item in options1" class="label">
+                            {{ item.label }}
+                          </div>
+                        </div>
+                        <!-- 输入数值判断 -->
+                        <!-- <div class="input-rule">
+                          The limit per transaction is between 50-2000000 AUD.
+                          Please adjust the amount.
+                        </div> -->
                         <div class="enter-amount-rule">
                           <div class="fait-rule-item">
                             <div class="title">Transaction Method:</div>
@@ -113,18 +129,15 @@
                               <div class="pay-img">
                                 <img :src="crypto_icon_usdt" />
                               </div>
-
                               <span>PayID/Osko</span>
                             </div>
                           </div>
-                          <div class="fait-rule-item">
+                          <div class="fait-rule-item" style="padding-bottom: 15px;">
                             <div class="title">Transaction Fee:</div>
                             <div class="require">0.00 AUD</div>
                           </div>
-                          <el-divider
-                            style="margin-left: 35px; width: 92%"
-                          ></el-divider>
-                          <div class="receive-box">
+                          <div class="receive-box" v-show="activeStep === 2">
+                            <el-divider style="width: 62%"></el-divider>
                             <div class="receive">You Receive:</div>
                             <div class="receive-count">
                               <span>0.00</span> AUD
@@ -132,7 +145,7 @@
                           </div>
                         </div>
                         <el-button
-                          v-if="showContinueBtn"
+                          v-show="showContinueBtn"
                           class="continue-btn"
                           type="primary"
                           :disabled="!canContinue"
@@ -140,6 +153,25 @@
                         >
                           Continue
                         </el-button>
+                        <el-dialog
+                          v-model="dialogContinue"
+                          class="dialog-box"
+                          width="30%"
+                          style="padding: 0 22px 36px 22px"
+                        >
+                          <template #header>
+                            <div class="dialog-header">
+                              第三步
+                            </div>
+                          </template>
+                          <div class="divider"></div>
+                          <div class="suggest">Suggested Amount</div>
+
+                          <div class="count-range">A$50-2,000,000</div>
+                          <div class="limit requirements">
+                            ok
+                          </div>
+                        </el-dialog>
                       </div>
                     </template>
                   </el-step>
@@ -152,58 +184,39 @@
                         v-if="activeStep === 3 && showStepThree"
                         class="deposit-details clearfloat"
                       >
-                        <div class="select clearfloat">
-                          <el-select
-                            class="select-second"
-                            style="margin-top: 20px"
-                            v-model="selectedOption2"
-                            placeholder="Select Network"
-                            @change="updateCanContinue"
-                          >
-                            <el-option
-                              v-for="item in options2"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                            ></el-option>
-                          </el-select>
+                        <div class="detail-box clearfloat">
+                          <div class="detail-box-tips">
+                            Please use the PayID detail below to make the
+                            transfer and
+                            <span
+                              >Select the email option, and NOT organisation
+                              ID</span
+                            >
+                            when depositing from online banking or mobile app.
+                            How to deposit AUD via PayID/Osko?
+                            <span style="text-decoration: underline"
+                              >Click Here</span
+                            >
+                          </div>
 
-                          <div class="detail-box clearfloat">
-                            <div class="detail-box-tips">
-                              Please use the PayID detail below to make the
-                              transfer and
-                              <span
-                                >Select the email option, and NOT organisation
-                                ID</span
-                              >
-                              when depositing from online banking or mobile app.
-                              How to deposit AUD via PayID/Osko?
-                              <span style="text-decoration: underline"
-                                >Click Here</span
-                              >
+                          <div class="detail-card">
+                            <div class="card-item">
+                              <div class="item-title">
+                                <div class="item-title-img">
+                                  <img :src="crypto_icon_usdt" />
+                                </div>
+                                <span>AUD</span>
+                              </div>
+                              <div class="item-count">10,000.00</div>
                             </div>
-
-                            <div class="detail-card">
-                              <div class="card-item">
-                                <div class="item-title">
-                                  <div class="item-title-img">
-                                    <img :src="crypto_icon_usdt" />
-                                  </div>
-                                  <span>AUD</span>
-                                </div>
-                                <div class="item-count">10,000.00</div>
-                              </div>
-                              <div class="card-divider"></div>
-                              <div class="card-info">
-                                <div class="title">PayID Information</div>
-                              </div>
-                              <div class="indo-detail">
-                                <div class="title">
-                                  user2022@au.coinbyte.com
-                                </div>
-                                <div class="copy">
-                                  <el-icon><CopyDocument /></el-icon> Copy
-                                </div>
+                            <div class="card-divider"></div>
+                            <div class="card-info">
+                              <div class="title">PayID Information</div>
+                            </div>
+                            <div class="indo-detail">
+                              <div class="title">user2022@au.coinbyte.com</div>
+                              <div class="copy">
+                                <el-icon><CopyDocument /></el-icon> Copy
                               </div>
                             </div>
                           </div>
@@ -248,8 +261,9 @@
                 <br />
                 <div>
                   This service is supported by CoinByte Australia, in accordance
-                  to CoinByte Australia's <span>terms of Use</span> and
-                  <span>Privacy Policy</span>.
+                  to CoinByte Australia's
+                  <span style="cursor: pointer">terms of Use</span> and
+                  <span style="cursor: pointer">Privacy Policy</span>.
                 </div>
               </div>
             </div>
@@ -260,7 +274,7 @@
         class="deposit-details clearfloat"
         v-if="activeStep === 3 && showStepThree"
       >
-        <div class="recent-deposit">
+        <div class="recent-deposit clearfloat">
           <div class="table-name">Recent Deposits</div>
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
@@ -340,7 +354,7 @@
         </div>
       </div>
     </div>
-    <div v-else></div>
+    <!-- <div v-else></div> -->
   </div>
 </template>
 
@@ -367,10 +381,11 @@ import { useI18n } from "vue-i18n";
 import { ElMessageBox } from "element-plus";
 
 const dialogVisible = ref(false);
+const dialogContinue = ref(false);
 
 const { t } = useI18n();
 const noFound = ref(false);
-
+const coinAmount = ref("");
 const windowWidth = useWindowSize().width;
 const activeStep = ref(1);
 const selectedOption1 = ref("");
@@ -395,17 +410,18 @@ function handleContinue() {
     activeStep.value = 2;
     options1 = options1.filter((o) => o.value === selectedOption1.value);
   } else if (activeStep.value === 2 && canContinue.value) {
+    // 不再隐藏步骤二的内容，直接进入第三步
     activeStep.value = 3;
-
     showStepThree.value = true;
-    showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
+    showContinueBtn.value = false; // 隐藏继续按钮
   } else if (activeStep.value === 3) {
-    dialogVisible.value = true;
+    console.log("Open dialog");
+    dialogContinue.value = true;
   }
 }
 
 function updateCanContinue() {
-  canContinue.value = selectedOption2.value !== "";
+  canContinue.value = selectedOption2.value !== null;
 }
 const tableData = ref([
   {
@@ -472,7 +488,7 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .deposit-crypto {
   margin-top: 20px;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
   :deep() {
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
@@ -531,29 +547,37 @@ $fontSizeMin: 12px;
   .left-center {
     .center-step-box {
       margin-top: 23px;
+      :deep() {
+        .el-step__line {
+          border-left: 2px dashed var(--el-text-color-placeholder);
+          border-image: repeating-linear-gradient(
+              359deg,
+              var(--el-text-color-placeholder) 0,
+              var(--el-text-color-placeholder) 5px,
+              transparent 0,
+              transparent 10px
+            )
+            30 12;
+          background-color: transparent;
+          .el-step__line-inner {
+            display: none;
+          }
+        }
+      }
       .select {
         position: relative;
+        margin-top: 20px;
         :deep() {
           .el-select .el-input__wrapper {
             width: 442px;
             height: 48px;
           }
         }
-        .select-first {
-          position: absolute;
-          top: -355px;
-          left: 35px;
-        }
-        .select-second {
-          position: absolute;
-          top: -160px;
-          left: 35px;
-        }
         .enter-amount-tips {
           cursor: pointer;
-          position: absolute;
-          top: -198px;
-          left: 36%;
+          float: left;
+          margin-top: -45px;
+          margin-left: 260px;
           font-size: 14px;
           color: #878787;
         }
@@ -586,14 +610,12 @@ $fontSizeMin: 12px;
           .requirements {
             background: #f7f7f7;
             border-radius: 8px;
-            width: 367px;
             height: 67px;
             margin: 23px auto;
             align-items: center;
             padding: 13px 14px 14px 14px;
             .limit-icon {
               float: left;
-
               margin-top: 16px;
             }
             .limit-title {
@@ -618,11 +640,9 @@ $fontSizeMin: 12px;
           }
         }
         .enter-amount-rule {
-          position: absolute;
-          top: -100px;
+          margin-top: 20px;
           .fait-rule-item {
             width: 442px;
-            margin-left: 35px;
             display: flex;
             justify-content: space-between;
             font-size: 14px;
@@ -649,7 +669,6 @@ $fontSizeMin: 12px;
             }
           }
           .receive-box {
-            margin-left: 35px;
             .receive {
               font-size: 16px;
               color: #000000;
@@ -671,17 +690,13 @@ $fontSizeMin: 12px;
         .continue-btn {
           width: 442px;
           height: 60px;
-          position: absolute;
-          top: 90px;
-          left: 35px;
+          margin-top: 10px;
           font-size: 20px;
         }
       }
       .deposit-details {
         // position: relative;
         .detail-box {
-          margin-top: -90px;
-          margin-left: 35px;
           .detail-box-tips {
             margin-top: 10px;
             background: #fef9e0;
@@ -770,7 +785,7 @@ $fontSizeMin: 12px;
   color: #000000;
   line-height: 32px;
   font-weight: 500;
-  margin-top: 100px;
+  margin-top: 400px;
   .not-arrive {
     float: right;
 
@@ -819,5 +834,25 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+.step-input {
+  position: relative;
+  .input {
+    width: 442px;
+    height: 48px;
+  }
+  .label {
+    position: absolute;
+    left: 400px;
+    top: 15px;
+    color: #9b9b9b;
+  }
+}
+.input-rule {
+  font-size: 16px;
+  color: #f35854;
+  line-height: 18px;
+  width: 442px;
+  margin-top: 15px;
 }
 </style>

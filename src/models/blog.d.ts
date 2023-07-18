@@ -1,9 +1,11 @@
 
 export interface Blog {
+banner: string | undefined;
     author: string;
     createTime: string;
     blogTxt: string;
     icon: string;
+    banner: string;
     id: number;
     status: number;
     title: string;

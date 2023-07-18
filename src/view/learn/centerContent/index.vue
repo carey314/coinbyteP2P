@@ -139,6 +139,7 @@ const blogInfo = ref<Blog>({
   createTime: '',
   blogTxt: '',
   icon: '',
+  banner: '',
   id: 0,
   status: 0,
   title: '',
