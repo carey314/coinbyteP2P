@@ -105,6 +105,7 @@
                             <div class="limit-sign">/A$2M</div>
                           </div>
                         </el-dialog>
+                        
                         <div class="step-input">
                           <el-input
                             v-model="coinAmount"
@@ -181,7 +182,9 @@
                           </div>
                         </div>
                         <template #footer>
-                          <el-button @click="closeDialog" class="know-btn">OK</el-button>
+                          <el-button @click="closeDialog" class="know-btn"
+                            >OK</el-button
+                          >
                         </template>
                       </el-dialog>
                     </template>
@@ -434,7 +437,7 @@ function updateCanContinue() {
   canContinue.value = selectedOption2.value !== null;
 }
 function closeDialog() {
-  dialogContinue.value = false
+  dialogContinue.value = false;
 }
 const requireList = [
   {
@@ -458,7 +461,7 @@ const requireList = [
   {
     img: requireOne,
     info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.",
-    info2: "Subsequent transfers are instant."
+    info2: "Subsequent transfers are instant.",
   },
 ];
 const tableData = ref([
@@ -564,7 +567,7 @@ $fontSizeMin: 12px;
       font-size: $fontSizeMed;
       color: #000;
       line-height: 32px;
-      font-weight: 500;
+      font-weight: bold;
     }
     .header-toFiat {
       width: 128px;
@@ -826,7 +829,6 @@ $fontSizeMin: 12px;
   margin-top: 400px;
   .not-arrive {
     float: right;
-
     font-size: 14px;
     color: #9b9b9b;
     line-height: 16px;
@@ -927,13 +929,12 @@ $fontSizeMin: 12px;
     word-break: break-all;
   }
 }
-.know-btn{
+.know-btn {
   width: 100% !important;
   height: 48px !important;
   border-radius: 4px;
-  border: 1px solid #DFDFE5;
+  border: 1px solid #dfdfe5;
   background-color: #01c19a;
   color: #fff;
-
 }
 </style>

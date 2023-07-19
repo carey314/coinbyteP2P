@@ -21,775 +21,659 @@
           </div>
           <div class="left-center">
             <div class="center-step-box" style="height: 300px">
-              <div>
+              <div v-if="withdrawStatus === false">
                 <el-steps
                   :active="activeStep"
                   direction="vertical"
-                  style="height: 530px"
                   align-center
-                  space="100%"
                 >
-                  <el-step title="Select crypto"></el-step>
-                  <el-step title="Send to"></el-step>
-                  <el-step v-if="showStepThree" title="Enter Amount"></el-step>
-                </el-steps>
-              </div>
-              <div v-if="activeStep >= 1" class="select">
-                <el-select
-                  class="select-first"
-                  v-model="selectedOption1"
-                  placeholder="Select currency"
-                  @change="handleContinue"
-                >
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </div>
-              <div
-                v-if="activeStep === 2"
-                class="select clearfloat"
-                style="position: relative"
-              >
-                <div class="address">Address</div>
-                <el-input
-                  v-model="input2"
-                  class="local-input"
-                  size="large"
-                  placeholder="Enter Address"
-                  @click="dialogVisible = true"
-                  :suffix-icon="HomeFilled"
-                />
-
-                <el-dialog
-                  v-model="dialogVisible"
-                  class="continue-dialog-box"
-                  width="38%"
-                >
-                  <template #header>
-                    <div class="dialog-header">Choose Address</div>
-                  </template>
-
-                  <div class="divider"></div>
-
-                  <div class="detail-rules">
-                    <div class="first-rule">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked1" label="" size="large" />
-                      </div>
-                      <div class="text">
-                        <div class="mode">Address Whitelist mode</div>
-                        <div class="enabled">
-                          Whitelist enabled. Only withdrawals to whitelisted
-                          address are supported.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked2" label="" size="large" />
-                      </div>
-                      <div class="title">B2BX</div>
-                      <div class="require">
-                        Address:
-                        <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span> Network:
-                        <span>TRX</span>
-                      </div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked3" label="" size="large" />
-                      </div>
-                      <div class="title">b2broker</div>
-                      <div class="require">
-                        Address:
-                        <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span> Network:
-                        <span>TRX</span>
-                      </div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked4" label="" size="large" />
-                      </div>
-                      <div class="title">SD BinaceIndividual</div>
-                      <div class="require">
-                        Address:
-                        <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span> Network:
-                        <span>TRX</span>
-                      </div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked5" label="" size="large" />
-                      </div>
-                      <div class="title">SD BinaceIndividual</div>
-                      <div class="require">
-                        Address:
-                        <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span> Network:
-                        <span>TRX</span>
-                      </div>
-                    </div>
-                  </div>
-                  <template #footer>
-                    <div class="dialog-footer">
-                      <el-button @click="innerVisible = true">
-                        New Address
-                      </el-button>
-                      <el-button type="primary" @click="continueVisible = false"
-                        >Confirm</el-button
+                  <el-step title="Select crypto">
+                    <template #description>
+                      <div
+                        v-if="activeStep >= 1"
+                        class="select"
+                        style="margin-top: 20px"
                       >
+                        <el-select
+                          v-model="selectedOption1"
+                          placeholder="Select crypto"
+                          @change="handleContinue"
+                        >
+                          <el-option
+                            v-for="item in options1"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          >
+                            <div
+                              style="
+                                display: flex;
+                                align-items: center;
+                                gap: 8px;
+                              "
+                            >
+                              <el-avatar
+                                :size="26"
+                                src="asdfasdf"
+                                style="margin-right: 8px"
+                              />
+                              {{ item.label }}
+                            </div>
+                          </el-option>
+                        </el-select>
+                      </div>
+                    </template>
+                  </el-step>
+                  <el-step title="Send to" style="margin-top: 20px">
+                    <template #description>
+                      <div
+                        v-if="activeStep === 2 || activeStep === 3"
+                        class="select clearfloat"
+                        style="position: relative"
+                      >
+                        <div class="address">Address</div>
+                        <el-input
+                          v-model="input2"
+                          class="local-input"
+                          size="large"
+                          placeholder="Enter Address"
+                          @click="dialogVisible = true"
+                          :suffix-icon="HomeFilled"
+                        />
+
+                        <el-dialog
+                          v-model="dialogVisible"
+                          class="continue-dialog-box"
+                          width="38%"
+                        >
+                          <template #header>
+                            <div
+                              class="dialog-header"
+                              style="color: #000; font-size: 20px"
+                            >
+                              Choose Address
+                            </div>
+                          </template>
+
+                          <div class="divider"></div>
+
+                          <div class="detail-rules">
+                            <div class="first-rule">
+                              <div class="checkbox">
+                                <el-checkbox
+                                  v-model="checked1"
+                                  label=""
+                                  size="large"
+                                />
+                              </div>
+                              <div class="text">
+                                <div class="mode">Address Whitelist mode</div>
+                                <div class="enabled">
+                                  Whitelist enabled. Only withdrawals to
+                                  whitelisted address are supported.
+                                </div>
+                              </div>
+                            </div>
+                            <div class="rule-item">
+                              <div class="checkbox">
+                                <el-checkbox
+                                  v-model="checked2"
+                                  label=""
+                                  size="large"
+                                />
+                              </div>
+                              <div class="title">B2BX</div>
+                              <div class="require">
+                                Address:
+                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
+                                Network:
+                                <span>TRX</span>
+                              </div>
+                            </div>
+                            <div class="rule-item">
+                              <div class="checkbox">
+                                <el-checkbox
+                                  v-model="checked3"
+                                  label=""
+                                  size="large"
+                                />
+                              </div>
+                              <div class="title">b2broker</div>
+                              <div class="require">
+                                Address:
+                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
+                                Network:
+                                <span>TRX</span>
+                              </div>
+                            </div>
+                            <div class="rule-item">
+                              <div class="checkbox">
+                                <el-checkbox
+                                  v-model="checked4"
+                                  label=""
+                                  size="large"
+                                />
+                              </div>
+                              <div class="title">SD BinaceIndividual</div>
+                              <div class="require">
+                                Address:
+                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
+                                Network:
+                                <span>TRX</span>
+                              </div>
+                            </div>
+                            <div class="rule-item">
+                              <div class="checkbox">
+                                <el-checkbox
+                                  v-model="checked5"
+                                  label=""
+                                  size="large"
+                                />
+                              </div>
+                              <div class="title">SD BinaceIndividual</div>
+                              <div class="require">
+                                Address:
+                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
+                                Network:
+                                <span>TRX</span>
+                              </div>
+                            </div>
+                          </div>
+                          <template #footer>
+                            <div class="dialog-footer">
+                              <el-button @click="innerVisible = true">
+                                New Address
+                              </el-button>
+                              <el-button
+                                type="primary"
+                                @click="continueVisible = false"
+                                >Confirm</el-button
+                              >
+                              <el-dialog
+                                class="inner-dialog"
+                                v-model="innerVisible"
+                                width="38%"
+                                title="Inner Dialog"
+                                append-to-body
+                              >
+                                <template #header>
+                                  <div style="font-weight: 600">
+                                    Add new address
+                                  </div>
+                                </template>
+
+                                <div class="divider"></div>
+                                <div class="receive">
+                                  <div class="network">Coin</div>
+                                  <el-select
+                                    class="select-second"
+                                    style="height: 48px"
+                                    v-model="selectedOption2"
+                                    placeholder="Select withdrawal network"
+                                    @change="updateCanContinue"
+                                  >
+                                    <el-option
+                                      v-for="item in options2"
+                                      :key="item.value"
+                                      :label="item.label"
+                                      :value="item.value"
+                                    ></el-option>
+                                  </el-select>
+                                  <div class="checkbox">
+                                    <el-checkbox
+                                      v-model="checked6"
+                                      label=""
+                                      size="large"
+                                    />
+                                    <span
+                                      >Set as a universal address, without
+                                      specific coins.</span
+                                    >
+                                  </div>
+                                </div>
+                                <div class="identify-box">
+                                  <div class="func-text">Address</div>
+                                  <div class="container">
+                                    <input
+                                      class="container-input"
+                                      v-model="inputValue"
+                                      type="text"
+                                      placeholder="Enter Address"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="identify-box">
+                                  <div class="func-text">Network</div>
+                                  <div class="container">
+                                    <input
+                                      class="container-input"
+                                      v-model="inputValue"
+                                      type="text"
+                                      placeholder="Select network"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="identify-box">
+                                  <div class="func-text">Address Origin</div>
+                                  <div class="container">
+                                    <input
+                                      class="container-input"
+                                      v-model="inputValue"
+                                      type="text"
+                                      placeholder="Select"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="identify-box">
+                                  <div class="func-text">
+                                    Wallet Label (Optional)
+                                  </div>
+                                  <div class="container">
+                                    <input
+                                      class="container-input"
+                                      v-model="inputValue"
+                                      type="text"
+                                      placeholder="Enter Wallet Label"
+                                    />
+                                  </div>
+                                </div>
+
+                                <div class="security">
+                                  <div class="checkbox">
+                                    <el-checkbox
+                                      v-model="checked7"
+                                      label=""
+                                      size="large"
+                                    />
+                                  </div>
+                                  <span style="font-size: 20px"
+                                    >Add to Whitelist</span
+                                  >
+                                </div>
+                                <el-button
+                                  v-if="showContinueBtn"
+                                  class="save-btnww"
+                                  @click="handleSubmit"
+                                >
+                                  Save
+                                </el-button>
+                              </el-dialog>
+                            </div>
+                          </template>
+                        </el-dialog>
+
+                        <div class="network">Network</div>
+                        <el-select
+                          class="select-second"
+                          v-model="selectedOption2"
+                          placeholder="Select withdrawal network"
+                          @change="handleContinue"
+                        >
+                          <el-option
+                            v-for="item in options2"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value"
+                          ></el-option>
+                        </el-select>
+                        <div
+                          class="enter-amount-rule"
+                          v-show="activeStep === 2"
+                        >
+                          <div class="region">
+                            <div class="region-item">
+                              <div class="title">USDT Balance</div>
+                              <div class="price">1000.00193034 USDT</div>
+                            </div>
+                            <div class="region-item">
+                              <div class="title">Minimun withdrawal</div>
+                              <div class="price">0.44 USDT</div>
+                            </div>
+                          </div>
+                          <div class="region">
+                            <div class="region-item">
+                              <div class="title">Network Fee</div>
+                              <div class="price">0.22~4.5 USDT</div>
+                            </div>
+                            <div class="region-item">
+                              <div class="title">24h remaining limit</div>
+                              <div class="price">
+                                8,000,000.00 BUSD/8,000,000.00 BUSD
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <el-button
+                          v-if="showContinueBtn"
+                          class="continue-btn"
+                          type="primary"
+                          :disabled="!canContinue"
+                          @click="handleContinue"
+                        >
+                          Continue
+                        </el-button> -->
+                      </div>
+                    </template>
+                  </el-step>
+                  <el-step
+                    v-if="showStepThree"
+                    title="Enter Amount"
+                    style="margin-top: 27px"
+                  >
+                    <template #description>
+                      <div
+                        v-if="activeStep === 3 && showStepThree"
+                        class="deposit-details clearfloat"
+                      >
+                        <div
+                          class="enter-amount-tips"
+                          @click="dialogRequire = true"
+                        >
+                          <el-icon><Warning /></el-icon> Transaction
+                          requirements
+                        </div>
+                        <el-dialog
+                          v-model="dialogRequire"
+                          class="dialog-box"
+                          width="30%"
+                          style="padding: 0 22px 36px 22px"
+                        >
+                          <template #header>
+                            <div class="dialog-header">
+                              Transaction requirements
+                            </div>
+                          </template>
+                          <div class="divider"></div>
+                          <div class="suggest">Suggested Amount</div>
+
+                          <div class="count-range">A$50-2,000,000</div>
+                          <div class="limit requirements">
+                            <div class="limit-icon">
+                              <el-icon><Switch /></el-icon>
+                            </div>
+                            <div class="limit-title">Limit per transaction</div>
+                            <div class="limit-count">A$50-1,000,000,000</div>
+                          </div>
+                          <div class="remain requirements clearfloat">
+                            <div class="limit-icon">
+                              <el-icon><Clock /></el-icon>
+                            </div>
+                            <div class="limit-title">Remaining daily limit</div>
+                            <div class="limit-count">A$2,000,000</div>
+                            <div class="limit-sign">/A$2M</div>
+                          </div>
+                        </el-dialog>
+
+                        <div class="step-input">
+                          <el-input
+                            v-model="coinAmount"
+                            placeholder="Please enter the amount"
+                            @change="updateCanContinue"
+                            class="input"
+                          />
+                          <div v-for="item in options1" class="label">
+                            {{ item.label }}
+                          </div>
+                        </div>
+                        <div
+                          class="enter-amount-rule"
+                          v-show="activeStep === 3"
+                        >
+                          <div class="pirce-available">
+                            Available: <span>108.47146073 USDT</span>
+                          </div>
+                          <div class="pirce-fee">
+                            <div>
+                              Transaction Fee:
+                              <el-icon><Warning /></el-icon>
+                            </div>
+                            <div>0.80 USDT</div>
+                          </div>
+
+                          <div class="receive-box">
+                            <el-divider style="width: 87%"></el-divider>
+                            <div class="receive">You Receive:</div>
+                            <div class="receive-count">
+                              <span>999,000</span> USDT
+                            </div>
+                          </div>
+                        </div>
+
+                        <el-button
+                          v-show="showContinueBtn"
+                          class="continue-btn"
+                          type="primary"
+                          @click="continueDialog"
+                        >
+                          Continue
+                        </el-button>
+                      </div>
                       <el-dialog
-                        class="inner-dialog"
-                        v-model="innerVisible"
-                        width="38%"
-                        title="Inner Dialog"
-                        append-to-body
+                        v-model="dialogContinue"
+                        class="confirm-dialog"
+                        width="30%"
+                        style="padding: 0 22px 36px 22px"
                       >
                         <template #header>
-                          <div style="font-weight: 600">Add new address</div>
+                          <div class="dialog-header">
+                            Withdrawal Confirmation
+                          </div>
                         </template>
 
                         <div class="divider"></div>
-                        <div class="receive">
-                          <div class="network">Coin</div>
-                          <el-select
-                            class="select-second"
-                            style="height: 48px"
-                            v-model="selectedOption2"
-                            placeholder="Select withdrawal network"
-                            @change="updateCanContinue"
-                          >
-                            <el-option
-                              v-for="item in options2"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                            ></el-option>
-                          </el-select>
-                          <div class="checkbox">
-                            <el-checkbox
-                              v-model="checked6"
-                              label=""
-                              size="large"
-                            />
-                            <span
-                              >Set as a universal address, without specific
-                              coins.</span
+                        <div style="text-align: center">
+                          <div class="receive">Your receive</div>
+                          <div class="confirm-count">
+                            1000.00 <span>USDT</span>
+                          </div>
+                          <div class="receive" style="margin-top: 7px">
+                            ≈153.75 AUD
+                          </div>
+                        </div>
+                        <!-- 交易信息 -->
+                        <div class="detail-rules">
+                          <div class="rule-item">
+                            <div class="title">Address</div>
+                            <div class="require">
+                              TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU
+                            </div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Network</div>
+                            <div class="require">TRX Tron (TRC20)</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Source</div>
+                            <div class="require">Trading Wallet</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Coin</div>
+                            <div class="require">USDT</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Amount</div>
+                            <div class="require">1000 USDT</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Network fee</div>
+                            <div class="require">0.8 USDT</div>
+                          </div>
+                        </div>
+                        <div class="confirm-tip">
+                          Ensure that the address is correct and on the same
+                          network.<br />
+                          Transactions cannot be cancelled.
+                        </div>
+                        <div class="confirm-agree">
+                          <el-checkbox
+                            v-model="confirmCheck"
+                            label=""
+                            size="large"
+                          />
+                          <div class="agree">
+                            I fully understand the potential risks associated
+                            with asset withdrawal, and confirm that I would like
+                            to continue withdrawing my assets.
+                          </div>
+                        </div>
+                        <template #footer>
+                          <div class="dialog-footer" style="text-align: center">
+                            <el-button
+                              style="width: 45%; height: 40px"
+                              @click="continueVisible = false"
+                              >Cancel</el-button
                             >
-                          </div>
-                        </div>
-                        <div class="identify-box">
-                          <div class="func-text">Address</div>
-                          <div class="container">
-                            <input
-                              class="container-input"
-                              v-model="inputValue"
-                              type="text"
-                              placeholder="Enter Address"
-                            />
-                          </div>
-                        </div>
+                            <el-button
+                              style="width: 45%; height: 40px"
+                              type="primary"
+                              @click="innerVisible = true"
+                            >
+                              Confirm
+                            </el-button>
+                            <el-dialog
+                              class="inner-dialog"
+                              v-model="innerVisible"
+                              width="32%"
+                              title="Inner Dialog"
+                              append-to-body
+                            >
+                              <template #header>
+                                <div style="font-weight: 600">
+                                  Security Verification
+                                </div>
+                              </template>
 
-                        <div class="identify-box">
-                          <div class="func-text">Network</div>
-                          <div class="container">
-                            <input
-                              class="container-input"
-                              v-model="inputValue"
-                              type="text"
-                              placeholder="Select network"
-                            />
-                          </div>
-                        </div>
+                              <div class="divider"></div>
+                              <div class="receive">
+                                To secure your account. please complete the
+                                following Verificatio.
+                              </div>
+                              <div class="identify-box">
+                                <div class="func-text">
+                                  Enter the 6-digit code sent to 481***1234
+                                </div>
+                                <div class="container">
+                                  <input
+                                    class="container-input"
+                                    v-model="inputValue"
+                                    type="text"
+                                    placeholder="Phone Number Verification Code"
+                                  />
+                                  <el-button
+                                    class="resend-btn"
+                                    key="button.text"
+                                    type="success"
+                                    link
+                                    >Resend</el-button
+                                  >
+                                </div>
+                              </div>
 
-                        <div class="identify-box">
-                          <div class="func-text">Address Origin</div>
-                          <div class="container">
-                            <input
-                              class="container-input"
-                              v-model="inputValue"
-                              type="text"
-                              placeholder="Select"
-                            />
-                          </div>
-                        </div>
+                              <div class="identify-box">
+                                <div class="func-text">
+                                  Enter the 6-gigit code sent to aar***@bitu.co
+                                </div>
+                                <div class="container">
+                                  <input
+                                    class="container-input"
+                                    v-model="inputValue"
+                                    type="text"
+                                    placeholder="Email Verification Code"
+                                  />
+                                  <el-button
+                                    class="resend-btn"
+                                    key="button.text"
+                                    type="success"
+                                    link
+                                    >Resend</el-button
+                                  >
+                                </div>
+                              </div>
 
-                        <div class="identify-box">
-                          <div class="func-text">Wallet Label (Optional)</div>
-                          <div class="container">
-                            <input
-                              class="container-input"
-                              v-model="inputValue"
-                              type="text"
-                              placeholder="Enter Wallet Label"
-                            />
-                          </div>
-                        </div>
+                              <div class="identify-box">
+                                <div class="func-text">
+                                  Enter the 6-digit code form authenticator
+                                </div>
+                                <div class="container">
+                                  <input
+                                    class="container-input"
+                                    v-model="inputValue"
+                                    type="text"
+                                    placeholder="Google verification code"
+                                  />
+                                  <el-button
+                                    class="resend-btn"
+                                    key="button.text"
+                                    type="success"
+                                    link
+                                    >Resend</el-button
+                                  >
+                                </div>
+                              </div>
 
-                        <div class="security">
-                          <div class="checkbox">
-                            <el-checkbox
-                              v-model="checked7"
-                              label=""
-                              size="large"
-                            />
+                              <div class="security">
+                                Security verification unavailable?
+                              </div>
+                              <el-button
+                                class="submit-btn"
+                                @click="handleSubmit"
+                              >
+                                Submit
+                              </el-button>
+                            </el-dialog>
                           </div>
-                          <span>Add to Whitelist</span>
-                        </div>
-                        <el-button
-                          v-if="showContinueBtn"
-                          class="save-btnww"
-                          @click="handleSubmit"
-                        >
-                          Save
-                        </el-button>
+                        </template>
                       </el-dialog>
-                    </div>
-                  </template>
-                </el-dialog>
-
-                <div class="network">Network</div>
-                <el-select
-                  class="select-second"
-                  v-model="selectedOption2"
-                  placeholder="Select withdrawal network"
-                  @change="updateCanContinue"
-                >
-                  <el-option
-                    v-for="item in options2"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-                <div class="enter-amount-rule">
-                  <div class="region">
-                    <div class="region-item">
-                      <div class="title">USDT Balance</div>
-                      <div class="price">1000.00193034 USDT</div>
-                    </div>
-                    <div class="region-item">
-                      <div class="title">Minimun withdrawal</div>
-                      <div class="price">0.44 USDT</div>
-                    </div>
-                  </div>
-                  <div class="region">
-                    <div class="region-item">
-                      <div class="title">Network Fee</div>
-                      <div class="price">0.22~4.5 USDT</div>
-                    </div>
-                    <div class="region-item">
-                      <div class="title">24h remaining limit</div>
-                      <div class="price">
-                        8,000,000.00 BUSD/8,000,000.00 BUSD
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <el-button
-                  v-if="showContinueBtn"
-                  class="continue-btn"
-                  type="primary"
-                  :disabled="!canContinue"
-                  @click="handleContinue"
-                >
-                  Continue
-                </el-button>
+                    </template>
+                  </el-step>
+                </el-steps>
               </div>
-
-              <div
-                v-if="activeStep === 3 && showStepThree"
-                class="deposit-details clearfloat"
-              >
-                <div class="select clearfloat">
-                  <div class="address">Address</div>
-                  <el-input
-                    v-model="input2"
-                    class="local-input"
-                    size="large"
-                    placeholder="Enter Address"
-                    @click="addressVisible = true"
-                    :suffix-icon="HomeFilled"
-                  />
-
-                  <el-dialog
-                    v-model="addressVisible"
-                    class="continue-dialog-box"
-                    width="38%"
-                  >
-                    <template #header>
-                      <div class="dialog-header">Choose Address</div>
-                    </template>
-
-                    <div class="divider"></div>
-
-                    <div class="detail-rules">
-                      <div class="first-rule">
-                        <div class="checkbox">
-                          <el-checkbox
-                            v-model="checked1"
-                            label=""
-                            size="large"
-                          />
-                        </div>
-                        <div class="text">
-                          <div class="mode">Address Whitelist mode</div>
-                          <div class="enabled">
-                            Whitelist enabled. Only withdrawals to whitelisted
-                            address are supported.
-                          </div>
-                        </div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="checkbox">
-                          <el-checkbox
-                            v-model="checked2"
-                            label=""
-                            size="large"
-                          />
-                        </div>
-                        <div class="title">B2BX</div>
-                        <div class="require">
-                          Address:
-                          <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                          Network:
-                          <span>TRX</span>
-                        </div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="checkbox">
-                          <el-checkbox
-                            v-model="checked3"
-                            label=""
-                            size="large"
-                          />
-                        </div>
-                        <div class="title">b2broker</div>
-                        <div class="require">
-                          Address:
-                          <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                          Network:
-                          <span>TRX</span>
-                        </div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="checkbox">
-                          <el-checkbox
-                            v-model="checked4"
-                            label=""
-                            size="large"
-                          />
-                        </div>
-                        <div class="title">SD BinaceIndividual</div>
-                        <div class="require">
-                          Address:
-                          <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                          Network:
-                          <span>TRX</span>
-                        </div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="checkbox">
-                          <el-checkbox
-                            v-model="checked5"
-                            label=""
-                            size="large"
-                          />
-                        </div>
-                        <div class="title">SD BinaceIndividual</div>
-                        <div class="require">
-                          Address:
-                          <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                          Network:
-                          <span>TRX</span>
-                        </div>
-                      </div>
-                    </div>
-                    <template #footer>
-                      <div class="dialog-footer">
-                        <el-button @click="innerVisible = true">
-                          New Address
-                        </el-button>
-                        <el-button
-                          type="primary"
-                          @click="continueVisible = false"
-                          >Confirm</el-button
-                        >
-                        <el-dialog
-                          class="inner-dialog"
-                          v-model="innerVisible"
-                          width="38%"
-                          title="Inner Dialog"
-                          append-to-body
-                        >
-                          <template #header>
-                            <div style="font-weight: 600">Add new address</div>
-                          </template>
-
-                          <div class="divider"></div>
-                          <div class="receive">
-                            <div class="network">Coin</div>
-                            <el-select
-                              class="select-second"
-                              style="height: 48px"
-                              v-model="selectedOption2"
-                              placeholder="Select withdrawal network"
-                              @change="updateCanContinue"
-                            >
-                              <el-option
-                                v-for="item in options2"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value"
-                              ></el-option>
-                            </el-select>
-                            <div class="checkbox">
-                              <el-checkbox
-                                v-model="checked6"
-                                label=""
-                                size="large"
-                              />
-                              <span
-                                >Set as a universal address, without specific
-                                coins.</span
-                              >
-                            </div>
-                          </div>
-                          <div class="identify-box">
-                            <div class="func-text">Address</div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Enter Address"
-                              />
-                            </div>
-                          </div>
-
-                          <div class="identify-box">
-                            <div class="func-text">Network</div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Select network"
-                              />
-                            </div>
-                          </div>
-
-                          <div class="identify-box">
-                            <div class="func-text">Address Origin</div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Select"
-                              />
-                            </div>
-                          </div>
-
-                          <div class="identify-box">
-                            <div class="func-text">Wallet Label (Optional)</div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Enter Wallet Label"
-                              />
-                            </div>
-                          </div>
-
-                          <div class="security">
-                            <div class="checkbox">
-                              <el-checkbox
-                                v-model="checked7"
-                                label=""
-                                size="large"
-                              />
-                            </div>
-                            <span>Add to Whitelist</span>
-                          </div>
-                          <el-button
-                            v-if="showContinueBtn"
-                            class="save-btnww"
-                            @click="handleSubmit"
-                          >
-                            Save
-                          </el-button>
-                        </el-dialog>
-                      </div>
-                    </template>
-                  </el-dialog>
-
-                  <div class="network">Network</div>
-                  <el-select
-                    class="select-second"
-                    v-model="selectedOption2"
-                    placeholder="Select withdrawal network"
-                    @change="updateCanContinue"
-                  >
-                    <el-option
-                      v-for="item in options2"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
-                  </el-select>
-
-                  <div class="detail-box clearfloat">
-                    <div
-                      class="enter-amount-tips"
-                      @click="dialogVisible = true"
-                    >
-                      <el-icon><Warning /></el-icon> Transaction requirements
-                    </div>
-                    <el-dialog
-                      v-model="dialogVisible"
-                      class="dialog-box"
-                      width="30%"
-                      style="padding-bottom: 36px"
-                    >
-                      <template #header>
-                        <div class="dialog-header">
-                          Transaction requirements
-                        </div>
-                      </template>
-                      <div class="divider"></div>
-                      <div class="suggest">Suggested Amount</div>
-
-                      <div class="count-range">A$50-2,000,000</div>
-                      <div class="limit requirements">
-                        <div class="limit-icon">
-                          <el-icon><Switch /></el-icon>
-                        </div>
-                        <div class="limit-title">Limit per transaction</div>
-                        <div class="limit-count">A$50-1,000,000,000</div>
-                      </div>
-                      <div class="remain requirements clearfloat">
-                        <div class="limit-icon">
-                          <el-icon><Clock /></el-icon>
-                        </div>
-                        <div class="limit-title">Remaining daily limit</div>
-                        <div class="limit-count">A$2,000,000</div>
-                        <div class="limit-sign">/A$2M</div>
-                      </div>
-                    </el-dialog>
-                    <el-select
-                      class="select-second"
-                      v-model="selectedOption2"
-                      placeholder="0"
-                      @change="updateCanContinue"
-                    >
-                      <el-option
-                        v-for="item in options2"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value"
-                      ></el-option>
-                    </el-select>
-                    <div class="enter-amount-rule-step">
-                      <div class="available">
-                        <div class="title">
-                          Available: <span>531.6517381 AUD</span>
-                        </div>
-                      </div>
-                      <div class="fait-rule-item">
-                        <div class="title">Transaction Fee:</div>
-                        <div class="require">0.00 AUD</div>
-                      </div>
-                      <div class="divider" style="margin: 15px 0"></div>
-
-                      <div class="receive-box">
-                        <div class="receive">You Receive:</div>
-                        <div class="receive-count"><span>0.00</span> AUD</div>
-                      </div>
-                    </div>
-                    <!-- 点击出现弹出框 -->
-                    <el-button
-                      v-if="showContinueBtn"
-                      class="continue-btn"
-                      type="primary"
-                      :disabled="!canContinue"
-                      @click="handleContinue"
-                    >
-                      Continue
-                    </el-button>
+              <div v-else>
+                <div class="success-box">
+                  <img src="" />
+                  <div class="success-title">Withdraw Successful</div>
+                  <div class="success-tip">
+                    Withdrawal request submitted.<br />
+                    Visit History to view your order status.
                   </div>
-
-                  <el-dialog
-                    v-model="continueBtnVisible"
-                    class="continue-dialog-box"
-                    width="30%"
-                  >
-                    <template #header>
-                      <div class="dialog-header">Withdrawal Confirmation</div>
-                    </template>
-
-                    <div class="divider"></div>
-                    <div class="receive-text">Your receive</div>
-                    <div class="confirm-count">1000.00 <span>AUD</span></div>
-                    <div class="receive-text">≈ 153.75 AUD</div>
-                    <div class="detail-rules">
-                      <div class="rule-item">
-                        <div class="title">Address</div>
-                        <div class="require">
-                          TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU
+                  <div class="success-people">Recipient amount</div>
+                  <div class="success-account">
+                    <img src="" />
+                    999.00 USDT
+                  </div>
+                  <div class="detail-rules">
+                          <div class="rule-item">
+                            <div class="title">Address</div>
+                            <div class="require">
+                              TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU
+                            </div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Network</div>
+                            <div class="require">TRX Tron (TRC20)</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Source</div>
+                            <div class="require">Trading Wallet</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Coin</div>
+                            <div class="require">USDT</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Amount</div>
+                            <div class="require">1000 USDT</div>
+                          </div>
+                          <div class="rule-item">
+                            <div class="title">Network fee</div>
+                            <div class="require">0.8 USDT</div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Network</div>
-
-                        <div class="require">TRX Tron (TRC20)</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Source</div>
-                        <div class="require">Trading Wallet</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Coin</div>
-                        <div class="require">USDT</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Amount</div>
-                        <div class="require">1000 USDT</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Network fee</div>
-                        <div class="require">0.8 USDT</div>
-                      </div>
-                    </div>
-                    <div class="tips">
-                      <div>
-                        Ensure that the address is correct and on the same
-                        network.
-                      </div>
-                      <div>Transactions cannot be cancelled.</div>
-                    </div>
-                    <div class="choose-agree">
-                      <div class="checkbox">
-                        <el-checkbox v-model="checked8" label="" size="large" />
-                      </div>
-                      <div class="agree-text">
-                        I fully understand the potential risks associated with
-                        asset withdrawal, and confirm that I would like to
-                        continue withdrawing my assets.
-                      </div>
-                    </div>
-                    <template #footer>
-                      <div class="dialog-footer">
-                        <el-button @click="continueVisible = false"
-                          >Cancel</el-button
-                        >
-                        <el-button type="primary" @click="innerVisible = true">
-                          Confirm
-                        </el-button>
-                        <el-dialog
-                          class="inner-dialog"
-                          v-model="innerVisible"
-                          width="30%"
-                          title="Inner Dialog"
-                          append-to-body
-                        >
-                          <template #header>
-                            <div style="font-weight: 600">
-                              Security Verification
-                            </div>
-                          </template>
-
-                          <div class="divider"></div>
-                          <div class="receive">
-                            To secure your account. please complete the
-                            following Verificatio.
-                          </div>
-                          <div class="identify-box">
-                            <div class="func-text">
-                              Enter the 6-digit code sent to 481***1234
-                            </div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Phone Number Verification Code"
-                              />
-                              <el-button
-                                class="resend-btn"
-                                key="button.text"
-                                type="success"
-                                link
-                                >Resend</el-button
-                              >
-                            </div>
-                          </div>
-
-                          <div class="identify-box">
-                            <div class="func-text">
-                              Enter the 6-gigit code sent to aar***@bitu.co
-                            </div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Email Verification Code"
-                              />
-                              <el-button
-                                class="resend-btn"
-                                key="button.text"
-                                type="success"
-                                link
-                                >Resend</el-button
-                              >
-                            </div>
-                          </div>
-
-                          <div class="identify-box">
-                            <div class="func-text">
-                              Enter the 6-digit code form authenticator
-                            </div>
-                            <div class="container">
-                              <input
-                                class="container-input"
-                                v-model="inputValue"
-                                type="text"
-                                placeholder="Google verification code"
-                              />
-                              <el-button
-                                class="resend-btn"
-                                key="button.text"
-                                type="success"
-                                link
-                                >Resend</el-button
-                              >
-                            </div>
-                          </div>
-
-                          <div
-                            class="security-text"
-                            style="text-align: center; color: #01c19a;margin-top: 20px;"
-                          >
-                            Security verification unavailable?
-                          </div>
-                          <el-button
-                            v-if="!showContinueBtn"
-                            class="submit-btn"
-                            :disabled="!canContinue"
-                            @click="handleSubmit"
-                          >
-                            Submit
-                          </el-button>
-                        </el-dialog>
-                      </div>
-                    </template>
-                  </el-dialog>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -816,12 +700,16 @@
           </div>
         </el-col>
       </el-row>
-      <div
+     
+    </div>
+   
+    <div v-else></div>
+    <div
         class="deposit-details clearfloat"
         v-if="activeStep === 3 && showStepThree"
       >
         <div class="recent-deposit">
-          <div class="table-name">Recent Deposits</div>
+          <div class="table-name">Recent Withdraws</div>
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
             <template v-slot:columns>
@@ -899,8 +787,6 @@
           </Table>
         </div>
       </div>
-    </div>
-    <div v-else></div>
   </div>
 </template>
 
@@ -932,6 +818,9 @@ function handleClick() {
   // 处理按钮点击事件
   console.log("按钮被点击");
 }
+const coinAmount = ref("");
+const dialogContinue = ref(false);
+const dialogRequire = ref(false);
 const dialogVisible = ref(false);
 const continueBtnVisible = ref(false);
 const addressVisible = ref(false);
@@ -946,7 +835,7 @@ const checked5 = ref(false);
 const checked6 = ref(true);
 const checked7 = ref(true);
 const checked8 = ref(true);
-
+const confirmCheck = ref(false);
 const { t } = useI18n();
 const noFound = ref(false);
 
@@ -971,19 +860,27 @@ const showContinueBtn = ref(true);
 const withdrawStatus = ref(false);
 function handleSubmit() {
   withdrawStatus.value = true;
+  innerVisible.value = false;
 }
 function handleContinue() {
   if (activeStep.value === 1 && selectedOption1.value !== "") {
     activeStep.value = 2;
     options1 = options1.filter((o) => o.value === selectedOption1.value);
-  } else if (activeStep.value === 2 && canContinue.value) {
+  } else if (activeStep.value === 2) {
+    console.log(activeStep.value);
     activeStep.value = 3;
     showStepThree.value = true;
-    showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
+    showContinueBtn.value = true; // 只隐藏继续按钮,不隐藏步骤二的选择框
     continueBtnVisible.value = true;
+    // dialogContinue.value = true
   }
 }
-
+function closeDialog() {
+  dialogContinue.value = false;
+}
+function continueDialog() {
+  dialogContinue.value = true;
+}
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
 }
@@ -1052,7 +949,7 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .deposit-crypto {
   margin-top: 20px;
-  padding-bottom: 360px;
+  padding-bottom: 160px;
   :deep() {
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
@@ -1090,7 +987,7 @@ $fontSizeMin: 12px;
       font-size: $fontSizeMed;
       color: #000;
       line-height: 32px;
-      font-weight: 500;
+      font-weight: bold;
     }
     .header-toFiat {
       // width: 128px;
@@ -1112,51 +1009,54 @@ $fontSizeMin: 12px;
   .left-center {
     .center-step-box {
       margin-top: 23px;
+      :deep() {
+        .el-step__line {
+          border-left: 2px dashed var(--el-text-color-placeholder);
+          border-image: repeating-linear-gradient(
+              359deg,
+              var(--el-text-color-placeholder) 0,
+              var(--el-text-color-placeholder) 5px,
+              transparent 0,
+              transparent 10px
+            )
+            30 12;
+          background-color: transparent;
+          .el-step__line-inner {
+            display: none;
+          }
+        }
+      }
       .select {
-        position: relative;
+        margin-top: 20px;
         :deep() {
           .el-select .el-input__wrapper {
             width: 442px;
             height: 48px;
           }
         }
-        .select-first {
-          position: absolute;
-          top: -480px;
-          left: 35px;
-        }
         .address {
           font-size: 16px;
           color: #878787;
-          position: absolute;
-          top: -245px;
-          left: 35px;
         }
         .network {
           font-size: 16px;
           color: #878787;
-          position: absolute;
-          top: -165px;
-          left: 35px;
+          margin-top: 20px;
         }
         .local-input {
           width: 442px;
-          margin-left: 35px;
           height: 48px;
-          position: absolute;
-          top: -225px;
+          margin-top: 12px;
         }
         .select-second {
-          position: absolute;
-          top: -145px;
-          left: 35px;
+          margin-top: 12px;
         }
 
         .dialog-box {
           .dialog-header {
             font-weight: 500;
             size: 20px;
-            color: #000000;
+            color: #000000 !important;
             line-height: 25px;
           }
 
@@ -1174,47 +1074,13 @@ $fontSizeMin: 12px;
             margin-top: 12px;
             line-height: 25px;
           }
-          .requirements {
-            background: #f7f7f7;
-            border-radius: 8px;
-            width: 367px;
-            height: 67px;
-            margin: 23px auto;
-            align-items: center;
-            padding: 13px 14px 14px 14px;
-            .limit-icon {
-              float: left;
-
-              margin-top: 16px;
-            }
-            .limit-title {
-              font-size: 12px;
-              color: #878787;
-              line-height: 15px;
-              margin-left: 30px;
-            }
-            .limit-count {
-              font-size: 16px;
-              color: #000000;
-              line-height: 19px;
-              margin-left: 30px;
-              margin-top: 10px;
-            }
-            .limit-sign {
-              float: right;
-              font-size: 12px;
-              color: #878787;
-              margin-top: -12px;
-            }
-          }
         }
         .enter-amount-rule {
-          position: absolute;
-          top: -70px;
+          margin-top: 23px;
           background: #f7f7f7;
           border-radius: 4px;
           width: 443px;
-          margin-left: 35px;
+          // margin-left: 35px;
           padding: 12px 10px 17px 10px;
           .region {
             display: flex;
@@ -1238,9 +1104,6 @@ $fontSizeMin: 12px;
         .continue-btn {
           width: 442px;
           height: 60px;
-          position: absolute;
-          top: 140px;
-          left: 35px;
           font-size: 20px;
         }
       }
@@ -1268,17 +1131,20 @@ $fontSizeMin: 12px;
           padding: 10px 17px;
           margin-left: 23px;
           margin-right: 23px;
-          background: #f7f7f7;
           border-radius: 8px;
           padding: 9px 8px 14px 8px;
           .first-rule {
+            padding-left: 19px;
+            padding-bottom: 12px;
             .checkbox {
               float: left;
             }
             .text {
               line-height: 16px;
+              margin-left: 30px;
               .mode {
                 font-size: 14px;
+                font-weight: 500;
                 color: #000000;
               }
               .enabled {
@@ -1289,24 +1155,29 @@ $fontSizeMin: 12px;
             }
           }
           .rule-item {
-            display: flex;
-            justify-content: space-between;
+            // display: flex;
+            // justify-content: space-between;
+            background: #f7f7f7;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px;
             .checkbox {
               float: left;
               margin-top: 13px;
             }
             .title {
               font-size: $fontSizeMinPro;
-              color: #878787;
+              color: #000;
               line-height: 32px;
+              margin-left: 25px;
             }
             .require {
               font-size: $fontSizeMinPro;
               margin-left: 25px;
-              color: #000;
-              line-height: 32px;
+              color: #878787;
+
               span {
-                color: #000000;
+                color: #000;
               }
             }
           }
@@ -1340,8 +1211,6 @@ $fontSizeMin: 12px;
       .deposit-details {
         // position: relative;
         .detail-box {
-          margin-top: -82px;
-          margin-left: 35px;
           .detail-box-tips {
             margin-top: 10px;
             background: #fef9e0;
@@ -1435,10 +1304,9 @@ $fontSizeMin: 12px;
   color: #000000;
   line-height: 32px;
   font-weight: 500;
-  margin-top: 400px;
+  margin-top: 450px;
   .not-arrive {
     float: right;
-
     font-size: 14px;
     color: #9b9b9b;
     line-height: 16px;
@@ -1488,7 +1356,7 @@ $fontSizeMin: 12px;
   }
   .receive {
     margin-top: 21px;
-    font-size: 16px;
+    font-size: 14px;
     color: #878787;
     line-height: 32px;
     .select-second {
@@ -1505,7 +1373,7 @@ $fontSizeMin: 12px;
   }
   .identify-box {
     .func-text {
-      font-size: 16px;
+      font-size: 14px;
       color: #878787;
       line-height: 32px;
       margin-top: 14px;
@@ -1517,29 +1385,37 @@ $fontSizeMin: 12px;
         height: 48px;
         border-radius: 4px;
         border: 1px solid #dfdfe5;
-        margin-top: 5px;
+        font-size: 14px;
       }
       .resend-btn {
+        color: #01c19a;
         position: absolute;
         right: 10px;
-        top: 18px;
-        color: #01c19a;
+        top: 14px;
+      }
+      .send-btn {
+        position: absolute;
+        right: 10px;
+        top: 14px;
       }
     }
   }
 
   .security {
-    margin-left: 0px;
+    text-align: center;
     position: relative;
+    font-size: 14px;
+    color: #01c19a;
+    line-height: 32px;
     .checkbox {
       float: left;
     }
     span {
-      position: absolute;
-      top: 12px;
       margin-left: 10px;
       font-size: 14px;
       color: #878787;
+      position: absolute;
+      top: 12px;
     }
   }
 }
@@ -1569,9 +1445,9 @@ $fontSizeMin: 12px;
 }
 .enter-amount-tips {
   cursor: pointer;
-  position: absolute;
-  top: -85px;
-  left: 36%;
+  float: left;
+  margin-top: -45px;
+  margin-left: 260px;
   font-size: 14px;
   color: #878787;
 }
@@ -1600,7 +1476,6 @@ $fontSizeMin: 12px;
   .requirements {
     background: #f7f7f7;
     border-radius: 8px;
-    width: 367px;
     height: 67px;
     margin: 23px auto;
     align-items: center;
@@ -1632,8 +1507,6 @@ $fontSizeMin: 12px;
   }
 }
 .enter-amount-rule-step {
-  position: absolute;
-  top: -20px;
   .available {
     padding: 10px 0 20px 0;
     .title {
@@ -1706,31 +1579,164 @@ $fontSizeMin: 12px;
       }
     }
   }
-  .receive-box {
-    .receive {
-      font-size: 16px;
+}
+.pirce-available {
+  margin-top: 15px;
+  color: #878787;
+  span {
+    color: #01c19a;
+  }
+}
+.pirce-fee {
+  margin-top: 35px;
+  width: 420px;
+  color: #878787;
+  display: flex;
+  justify-content: space-between;
+}
+.receive-box {
+  .receive {
+    font-size: 16px;
+    color: #000000;
+    line-height: 18px;
+  }
+  .receive-count {
+    font-size: 14px;
+    color: #000000;
+    margin-top: 12px;
+    span {
+      font-size: 28px;
       color: #000000;
-      line-height: 18px;
-    }
-    .receive-count {
-      font-size: 14px;
-      color: #000000;
-      margin-top: 12px;
-      span {
-        font-size: 28px;
-        color: #000000;
-        line-height: 34px;
-        font-weight: 600;
-      }
+      line-height: 34px;
+      font-weight: 600;
     }
   }
 }
 .continue-btn {
   width: 442px;
   height: 60px;
-  position: absolute;
-  top: 160px;
-  left: 35px;
+  margin-top: 20px;
   font-size: 20px;
 }
+.step-input {
+  position: relative;
+  margin-top: 18px;
+  .input {
+    width: 442px;
+    height: 48px;
+  }
+  .label {
+    position: absolute;
+    left: 400px;
+    top: 15px;
+    color: #9b9b9b;
+  }
+}
+:deep(.el-divider--horizontal) {
+  margin: 10px 0;
+}
+:deep(.el-dialog__header) {
+  font-size: 20px;
+}
+.confirm-dialog {
+  min-width: 420px;
+  .dialog-header {
+    font-weight: 500;
+    size: 20px;
+    color: #000 !important;
+    line-height: 25px;
+  }
+  .receive {
+    font-size: 14px;
+    color: #878787;
+    margin-top: 24px;
+  }
+  .confirm-count {
+    color: #01c19a;
+    font-size: 32px;
+    margin-top: 7px;
+    span {
+      font-size: 14px;
+    }
+  }
+  .detail-rules {
+    background: #f7f7f7;
+    border-radius: 8px;
+    padding: 12px 19px;
+    margin-top: 18px;
+    .rule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      gap: 30px;
+      .title {
+        color: #878787;
+        width: 90px;
+      }
+      .require {
+        text-align: right;
+      }
+    }
+  }
+  .confirm-tip {
+    background: #fef9e0;
+    border-radius: 4px;
+    padding: 11px 7px;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #878787;
+  }
+  .confirm-agree {
+    margin-top: 15px;
+    display: flex;
+    .agree {
+      font-size: 12px;
+      color: #9b9b9b;
+      line-height: 20px;
+      margin-left: 5px;
+    }
+  }
+}
+.success-box {
+  width: 65%;
+  text-align: center;
+  .success-title {
+    margin-top: 25px;
+    font-size: 28px;
+    color: #000000;
+    font-weight: bold;
+  }
+  .success-tip {
+    font-size: 16px;
+    color: #878787;
+    margin-top: 10px;
+  }
+  .success-people {
+    font-size: 16px;
+    color: #878787;
+    margin-top: 17px;
+  }
+  .success-account {
+    font-size: 22px;
+    color: #000000;
+    line-height: 27px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}
+.detail-rules {
+    background: #f7f7f7;
+    border-radius: 5px;
+    padding: 12px 19px;
+    margin-top: 18px;
+    .rule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      gap: 30px;
+      .title {
+        color: #878787;
+      }
+    }
+  }
 </style>

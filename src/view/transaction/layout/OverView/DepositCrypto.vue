@@ -843,7 +843,7 @@ $fontSizeMin: 12px;
       font-size: $fontSizeMed;
       color: #000;
       line-height: 32px;
-      font-weight: 500;
+      font-weight: bold;
     }
 
     .header-toFiat {
