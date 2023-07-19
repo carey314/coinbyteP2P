@@ -20,10 +20,10 @@
               <div class="quick-amount">
                 <div class="quick-amount-title">How much ?</div>
                 <div class="quick-amount-part">
-                  <div class="amount">$500</div>
-                  <div class="amount">$1000</div>
-                  <div class="amount">$5000</div>
-                  <div class="amount">$10,000</div>
+                  <el-button @click="howMuchInput(500)" type="info" plain class="amount">{{ activeSign == "1" ? "$" : ""}}500</el-button>
+                  <el-button @click="howMuchInput(1000)" type="info" plain class="amount">{{ activeSign == "1" ? "$" : ""}}1000</el-button>
+                  <el-button @click="howMuchInput(5000)" type="info" plain class="amount">{{ activeSign == "1" ? "$" : ""}}5000</el-button>
+                  <el-button @click="howMuchInput(10000)" type="info" plain class="amount">{{ activeSign == "1" ? "$" : ""}}10,000</el-button>
                 </div>
               </div>
               <div class="radio-content">
@@ -161,8 +161,6 @@ const useTradeStore = tradeStore()
 const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 const activeSign = ref("1");
 const numberBuyOrSell = ref("0.0000");
-const firstSelect = ref(currencySlug.value);
-const secondSelect = ref("");
 const thirdSelect = ref("");
 // const text = ref("Buy Bitcoin");
 const currenciesTypesCrypto = ref<CurrencyType[]>([])
@@ -180,8 +178,10 @@ onMounted(() => {
   }
 })
 
-const firstIcon = ref(currencyIcon.value)
-const secondIcon = ref("")
+const firstSelect = ref("AUD");
+const secondSelect = ref(currencySlug.value);
+const firstIcon = ref("")
+const secondIcon = ref(currencyIcon.value)
 const currenciesTypes = ref<CurrencyType[]>([])
 const options = ref([
   {
@@ -232,21 +232,25 @@ onMounted(async () => {
   }
   
   // 
-  const res = await queryCurrenciesType()
-  console.log(res)
-  if (res.status == 200) {
-    if (res.data.content) {
-      currenciesTypes.value = res.data.content
-      const payCurrency = currenciesTypes.value.filter((e)=> {
-        return e.slug == currencySlug.value
-      })
-    }
-  }
+  // const res = await queryCurrenciesType()
+  // console.log(res)
+  // if (res.status == 200) {
+  //   if (res.data.content) {
+  //     currenciesTypes.value = res.data.content
+  //     const payCurrency = currenciesTypes.value.filter((e)=> {
+  //       return e.slug == currencySlug.value
+  //     })
+  //   }
+  // }
 });
 
+const howMuchInput = (howMuch: number)=>{
+  numberBuyOrSell.value = String(howMuch)
+}
+
 const switchSelect = () => {
-  [firstIcon.value, secondIcon.value] = [secondIcon.value, firstIcon.value];
-  [firstSelect.value, secondSelect.value] = [secondSelect.value, firstSelect.value];
+  [secondIcon.value, firstIcon.value] = [firstIcon.value, secondIcon.value];
+  [secondSelect.value, firstSelect.value] = [firstSelect.value, secondSelect.value];
   numberBuyOrSell.value = String(countBuy.value)
   cryptoChange()
 }
@@ -261,24 +265,24 @@ const countBuy = computed(() => {
 });
 
 const cryptoChange = async () => {
-  if(firstSelect.value && currenciesTypes.value){
-    firstIcon.value = ""
-    const arr =  currenciesTypes.value.filter((e)=>{
-      return e.slug == firstSelect.value
-    })
-    if(arr.length > 0){
-      firstIcon.value = arr[0].icon
-    }
-  }
-  if(secondSelect.value && currenciesTypes.value){
-    secondIcon.value = ""
-    const arr = currenciesTypes.value.filter((e)=>{
-      return e.slug == secondSelect.value
-    })
-    if(arr.length > 0){
-      secondIcon.value = arr[0].icon
-    }
-  }
+  // if(firstSelect.value && currenciesTypes.value){
+  //   firstIcon.value = ""
+  //   const arr =  currenciesTypes.value.filter((e)=>{
+  //     return e.slug == firstSelect.value
+  //   })
+  //   if(arr.length > 0){
+  //     firstIcon.value = arr[0].icon
+  //   }
+  // }
+  // if(secondSelect.value && currenciesTypes.value){
+  //   secondIcon.value = ""
+  //   const arr = currenciesTypes.value.filter((e)=>{
+  //     return e.slug == secondSelect.value
+  //   })
+  //   if(arr.length > 0){
+  //     secondIcon.value = arr[0].icon
+  //   }
+  // }
   if (firstSelect.value && secondSelect.value && userInfoStore.token) {
     const res = await getExchangeRateForCurrencyPair(secondSelect.value, firstSelect.value)
     console.log(res.data);
