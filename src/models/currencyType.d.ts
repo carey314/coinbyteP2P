@@ -1,5 +1,5 @@
 export interface CurrencyType {
-    id : string;
+    id : number;
     slug : string;
     area : string;
     icon: string;

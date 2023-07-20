@@ -19,157 +19,78 @@
           <div class="left-center">
             <div class="center-step-box" style="height: 300px">
               <div>
-                <el-steps
-                  :active="activeStep"
-                  direction="vertical"
-                  align-center
-                >
+                <el-steps :active="activeStep" direction="vertical" align-center>
                   <el-step title="Select crypto">
                     <template #description>
                       <div v-if="activeStep >= 1" class="select">
-                        <el-select
-                          v-model="selectedOption1"
-                          placeholder="Select crypto"
-                          @change="handleContinue"
-                        >
-                          <el-option
-                            v-for="item in options1"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                            <div
-                              style="
+                        <el-select v-model="selectedOption1" filterable :filter-method="filter1" placeholder="Select or Search"
+                          @change="handleContinue">
+                          <template #prefix>
+                            <img :src="firstIcon" v-show="firstIcon" style="
+                              width: 20px;
+                              height: 20px;
+                              margin-right: 5px;
+                            " />
+                            <span style="float: left;font-weight: bold;color: rgb(52, 44, 44);">{{ selectedOption1 }}</span>
+                          </template>
+                          <el-option v-for="item in options1" :key="item.id" :label="item.name" :value="item.slug">
+                            <div style="
                                 display: flex;
                                 align-items: center;
                                 gap: 8px;
-                              "
-                            >
-                              <el-avatar
-                                :size="26"
-                                src="asdfasdf"
-                                style="margin-right: 8px"
-                              />
-                              {{ item.label }}
+                              ">
+                              <img :src="item.icon" v-show="item.icon" style="
+                                  width: 26px;
+                                  height: 26px;
+                                  margin-right: 5px;
+                                " />
+                              <span style="float: left;font-weight: bold;">{{ item.slug }}</span>
+                              <span style="
+                                  float: right;
+                                  color: var(--el-text-color-secondary);
+                                  font-size: 13px;
+                                ">{{ item.name }}</span>
                             </div>
                           </el-option>
                         </el-select>
                         <div class="step-options">
-                          <div
-                            class="step-option"
-                            @click="selectedOption1 = 'BTC'"
-                          >
-                            <el-avatar
-                              :size="26"
-                              src="asdfasdf"
-                              style="margin-right: 8px"
-                            />
-                            BTC
-                          </div>
-                          <div
-                            class="step-option"
-                            @click="selectedOption1 = 'ETH'"
-                          >
-                            <el-avatar
-                              :size="26"
-                              src="asdfasdf"
-                              style="margin-right: 8px"
-                            />
-                            ETH
-                          </div>
-                          <div
-                            class="step-option"
-                            @click="selectedOption1 = 'USDT'"
-                          >
-                            <el-avatar
-                              :size="26"
-                              src="asdfasdf"
-                              style="margin-right: 8px"
-                            />
-                            USDT
-                          </div>
-                          <div
-                            class="step-option"
-                            @click="selectedOption1 = 'XRP'"
-                          >
-                            <el-avatar
-                              :size="26"
-                              src="asdfasdf"
-                              style="margin-right: 8px"
-                            />
-                            XRP
-                          </div>
-                          <div
-                            class="step-option"
-                            @click="selectedOption1 = 'ADA'"
-                          >
-                            <el-avatar
-                              :size="26"
-                              src="asdfasdf"
-                              style="margin-right: 8px"
-                            />
-                            ADA
+                          <div v-for="item in buttons1" key="item.slug" class="step-option" @click="btnClick1(item.slug)">
+                            <img :src="item.icon" v-show="item.icon" style="
+                                width: 26px;
+                                height: 26px;
+                                margin-right: 5px;
+                              " />
+                            {{ item.slug }}
                           </div>
                         </div>
                       </div>
-                      <div></div>
                     </template>
                   </el-step>
                   <el-step title="Deposit to">
                     <template #description>
-                      <div v-if="activeStep === 2"
-                        class="select clearfloat"
-                        style="position: relative"
-                      >
-                        <el-select
-                          class="select-second"
-                          v-model="selectedOption2"
-                          placeholder="Select Network"
-                          @change="updateCanContinue"
-                        >
-                          <el-option
-                            v-for="item in options2"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          ></el-option>
+                      <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
+                        <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
+                          @change="updateCanContinue">
+                          <el-option v-for="item in options2" :key="item.value" :label="item.label"
+                            :value="item.value"></el-option>
                         </el-select>
-                        <el-button
-                          v-if="showContinueBtn"
-                          class="continue-btn"
-                          type="primary"
-                          :disabled="!canContinue"
-                          @click="handleContinue"
-                        >
+                        <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
+                          @click="handleContinue">
                           Continue
                         </el-button>
                       </div>
-                      <div v-if="activeStep === 3 && showStepThree"
-                        class="select"
-                      >
-                        <el-select
-                          class="select-second"
-                          style="margin-bottom: 20px"
-                          v-model="selectedOption2"
-                          placeholder="Select Network"
-                          @change="updateCanContinue"
-                        >
-                          <el-option
-                            v-for="item in options2"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          ></el-option>
+                      <div v-if="activeStep === 3 && showStepThree" class="select">
+                        <el-select class="select-second" style="margin-bottom: 20px" v-model="selectedOption2"
+                          placeholder="Select Network" @change="updateCanContinue">
+                          <el-option v-for="item in options2" :key="item.value" :label="item.label"
+                            :value="item.value"></el-option>
                         </el-select>
                       </div>
                     </template>
                   </el-step>
                   <el-step v-if="showStepThree" title="Deposit details">
                     <template #description>
-                      <div
-                        v-if="activeStep === 3 && showStepThree"
-                        class="deposit-details clearfloat"
-                      >
+                      <div v-if="activeStep === 3 && showStepThree" class="deposit-details clearfloat">
                         <div class="select clearfloat">
                           <div class="detail-box clearfloat">
                             <div class="detail-box-title">
@@ -270,35 +191,20 @@
           </div>
         </el-col>
       </el-row>
-      <div
-        class="deposit-details clearfloat"
-        v-if="activeStep === 3 && showStepThree"
-      >
+      <div class="deposit-details clearfloat" v-if="activeStep === 3 && showStepThree">
         <div class="recent-deposit">
           <div class="table-name">Recent Deposits</div>
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
             <template v-slot:columns>
-              <el-table-column
-                prop="time"
-                :label="t('messages.wallet.fiat_Time')"
-                width="180"
-              />
-              <el-table-column
-                prop="coin"
-                :label="t('messages.wallet.fiat_Asset')"
-                width="120"
-              >
+              <el-table-column prop="time" :label="t('messages.wallet.fiat_Time')" width="180" />
+              <el-table-column prop="coin" :label="t('messages.wallet.fiat_Asset')" width="120">
                 <template #default="scope">
                   <img :src="crypto_icon_usdt" style="width: 21px" />
                   {{ scope.row.coin }}
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="amount"
-                :label="t('messages.wallet.fiat_Amount')"
-                width="160"
-              />
+              <el-table-column prop="amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
               <el-table-column prop="network" label="Network" width="160" />
               <el-table-column label="Address" width="190">
                 <template #default="scope">
@@ -323,34 +229,20 @@
                   </el-icon>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="wallet"
-                label="Deposit wallet"
-                width="120"
-              />
+              <el-table-column prop="wallet" label="Deposit wallet" width="120" />
               <el-table-column label="">
                 <template #default="scope">
-                  <el-button
-                    type="text"
-                    :class="{
-                      icon_button: true,
-                      isRotate: isFoldArr.includes(scope.row.key),
-                    }"
-                    @click="getKey(scope.row.key)"
-                    ><el-icon style="color: #9b9b9b">
-                      <CaretBottom /> </el-icon
-                  ></el-button>
+                  <el-button type="text" :class="{
+                    icon_button: true,
+                    isRotate: isFoldArr.includes(scope.row.key),
+                  }" @click="getKey(scope.row.key)"><el-icon style="color: #9b9b9b">
+                      <CaretBottom />
+                    </el-icon></el-button>
                 </template>
               </el-table-column>
-              <el-table-column
-                :label="t('messages.wallet.fiat_Status')"
-                width="100"
-              >
+              <el-table-column :label="t('messages.wallet.fiat_Status')" width="100">
                 <template #default="scope">
-                  <div
-                    v-if="scope.row.status === 'Successful'"
-                    style="color: #01c19a; cursor: pointer"
-                  >
+                  <div v-if="scope.row.status === 'Successful'" style="color: #01c19a; cursor: pointer">
                     Completed
                   </div>
                   <div v-else-if="scope.row.status === 'Faild'">Faild</div>
@@ -366,10 +258,7 @@
         <el-col :span="24" class="left-box">
           <div class="left-header">
             <div class="header-title">Deposit Crypto</div>
-            <router-link
-              to="/wallet/DepositCrypto"
-              style="text-decoration: none"
-            >
+            <router-link to="/wallet/DepositCrypto" style="text-decoration: none">
               <div class="header-toFiat">
                 <div class="toFiat">
                   Deposit Fiat
@@ -383,82 +272,35 @@
           <div class="left-center">
             <div class="center-step-box" style="height: 300px">
               <div>
-                <el-steps
-                  :active="activeStep"
-                  direction="vertical"
-                  style="height: 400px"
-                  align-center
-                  space="100%"
-                >
+                <el-steps :active="activeStep" direction="vertical" style="height: 400px" align-center space="100%">
                   <el-step title="Select crypto"></el-step>
                   <el-step title="Deposit to"></el-step>
-                  <el-step
-                    v-if="showStepThree"
-                    title="Deposit details"
-                  ></el-step>
+                  <el-step v-if="showStepThree" title="Deposit details"></el-step>
                 </el-steps>
               </div>
               <div v-if="activeStep >= 1" class="select">
-                <el-select
-                  class="select-first"
-                  v-model="selectedOption1"
-                  placeholder="Select crypto"
-                  @change="handleContinue"
-                >
-                  <el-option
-                    v-for="item in options1"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
+                <el-select class="select-first" v-model="selectedOption1" placeholder="Select crypto"
+                  @change="handleContinue">
+                  <el-option v-for="item in options1" :key="item.slug" :label="item.name" :value="item.name"></el-option>
                 </el-select>
               </div>
-              <div
-                v-if="activeStep === 2"
-                class="select clearfloat"
-                style="position: relative"
-              >
-                <el-select
-                  class="select-second"
-                  v-model="selectedOption2"
-                  placeholder="Select Network"
-                  @change="updateCanContinue"
-                >
-                  <el-option
-                    v-for="item in options2"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
+              <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
+                <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
+                  @change="updateCanContinue">
+                  <el-option v-for="item in options2" :key="item.value" :label="item.label"
+                    :value="item.value"></el-option>
                 </el-select>
-                <el-button
-                  v-if="showContinueBtn"
-                  class="continue-btn"
-                  type="primary"
-                  :disabled="!canContinue"
-                  @click="handleContinue"
-                >
+                <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
+                  @click="handleContinue">
                   Continue
                 </el-button>
               </div>
-              <div
-                v-if="activeStep === 3 && showStepThree"
-                class="deposit-details clearfloat"
-              >
+              <div v-if="activeStep === 3 && showStepThree" class="deposit-details clearfloat">
                 <div class="select clearfloat">
-                  <el-select
-                    class="select-second"
-                    style="margin-top: 20px"
-                    v-model="selectedOption2"
-                    placeholder="Select Network"
-                    @change="updateCanContinue"
-                  >
-                    <el-option
-                      v-for="item in options2"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
-                    ></el-option>
+                  <el-select class="select-second" style="margin-top: 20px" v-model="selectedOption2"
+                    placeholder="Select Network" @change="updateCanContinue">
+                    <el-option v-for="item in options2" :key="item.value" :label="item.label"
+                      :value="item.value"></el-option>
                   </el-select>
 
                   <div class="detail-box clearfloat">
@@ -552,35 +394,20 @@
           </div>
         </el-col>
       </el-row>
-      <div
-        class="deposit-details clearfloat"
-        v-if="activeStep === 3 && showStepThree"
-      >
+      <div class="deposit-details clearfloat" v-if="activeStep === 3 && showStepThree">
         <div class="recent-deposit">
           <div class="table-name">Recent Deposits</div>
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
             <template v-slot:columns>
-              <el-table-column
-                prop="time"
-                :label="t('messages.wallet.fiat_Time')"
-                width="180"
-              />
-              <el-table-column
-                prop="coin"
-                :label="t('messages.wallet.fiat_Asset')"
-                width="120"
-              >
+              <el-table-column prop="time" :label="t('messages.wallet.fiat_Time')" width="180" />
+              <el-table-column prop="coin" :label="t('messages.wallet.fiat_Asset')" width="120">
                 <template #default="scope">
                   <img :src="crypto_icon_usdt" style="width: 21px" />
                   {{ scope.row.coin }}
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="amount"
-                :label="t('messages.wallet.fiat_Amount')"
-                width="160"
-              />
+              <el-table-column prop="amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
               <el-table-column prop="network" label="Network" width="160" />
               <el-table-column label="Address" width="190">
                 <template #default="scope">
@@ -605,11 +432,7 @@
                   </el-icon>
                 </template>
               </el-table-column>
-              <el-table-column
-                prop="wallet"
-                label="Deposit wallet"
-                width="120"
-              />
+              <el-table-column prop="wallet" label="Deposit wallet" width="120" />
               <!-- <el-table-column :label="t('messages.wallet.fiat_Information')">
                 <template #default="scope">
                   <template v-if="!isFoldArr.includes(scope.row.key)">
@@ -640,27 +463,17 @@
               </el-table-column> -->
               <el-table-column label="">
                 <template #default="scope">
-                  <el-button
-                    type="text"
-                    :class="{
-                      icon_button: true,
-                      isRotate: isFoldArr.includes(scope.row.key),
-                    }"
-                    @click="getKey(scope.row.key)"
-                    ><el-icon style="color: #9b9b9b">
-                      <CaretBottom /> </el-icon
-                  ></el-button>
+                  <el-button type="text" :class="{
+                    icon_button: true,
+                    isRotate: isFoldArr.includes(scope.row.key),
+                  }" @click="getKey(scope.row.key)"><el-icon style="color: #9b9b9b">
+                      <CaretBottom />
+                    </el-icon></el-button>
                 </template>
               </el-table-column>
-              <el-table-column
-                :label="t('messages.wallet.fiat_Status')"
-                width="100"
-              >
+              <el-table-column :label="t('messages.wallet.fiat_Status')" width="100">
                 <template #default="scope">
-                  <div
-                    v-if="scope.row.status === 'Successful'"
-                    style="color: #01c19a; cursor: pointer"
-                  >
+                  <div v-if="scope.row.status === 'Successful'" style="color: #01c19a; cursor: pointer">
                     Completed
                   </div>
                   <div v-else-if="scope.row.status === 'Faild'">Faild</div>
@@ -684,6 +497,8 @@ import login_qrcode from "../../../../assets/home/download_qrcode.png";
 import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
+import { CurrencyType } from "../../../../models/currencyType";
+import { queryCurrenciesType } from "../../../../api/currencies";
 const { t } = useI18n();
 const noFound = ref(false);
 
@@ -692,13 +507,9 @@ const activeStep = ref(1);
 const selectedOption1 = ref("");
 const selectedOption2 = ref("");
 const canContinue = ref(false);
-let options1 = [
-  { value: "option1", label: "BTC", icon: "crypto_icon_btc" },
-  { value: "option2", label: "ETH" },
-  { value: "option3", label: "USDT" },
-  { value: "option4", label: "XRP" },
-  { value: "option5", label: "ADA" },
-];
+let options1 = ref<CurrencyType[]>([])
+let option1 = ref<CurrencyType[]>([])
+const buttons1 = ref<CurrencyType[]>([])
 let options2 = [
   { value: "optionA", label: "Polygon" },
   { value: "optionB", label: "Solana" },
@@ -708,22 +519,69 @@ let options2 = [
 
 const showStepThree = ref(false);
 const showContinueBtn = ref(true);
+const firstIcon = ref("")
+
+onMounted(async () => {
+  const res = await queryCurrenciesType()
+  console.log(res)
+  if (res.status == 200) {
+    if (res.data.content) {
+      const datas = res.data.content.sort((i: CurrencyType, j: CurrencyType) => {
+        return i.id - j.id
+      })
+      option1.value = options1.value.concat(datas)
+      options1.value = options1.value.concat(datas)
+      buttons1.value = datas.splice(0, 5)
+    }
+  }
+})
 
 function handleContinue() {
+  const arr = options1.value.filter((e) => {
+    return e.slug == selectedOption1.value
+  })
+  if (arr.length > 0) {
+    firstIcon.value = arr[0].icon
+  }
   if (activeStep.value === 1 && selectedOption1.value !== "") {
     activeStep.value = 2;
     // options1 = options1.filter((o) => o.value === selectedOption1.value);
-    options1 = options1.filter((o) => o.value === selectedOption1.value);
+    // options1 = options1.value.filter((o) => o.value === selectedOption1.value);
   } else if (activeStep.value === 2 && canContinue.value) {
     activeStep.value = 3;
     showStepThree.value = true;
     showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
   }
 }
+const btnClick1 = (slug: string) => {
+  firstIcon.value = ""
+  selectedOption1.value = slug
+  const arr = buttons1.value.filter((e) => {
+    return e.slug == slug
+  })
+  if (arr.length > 0) {
+    firstIcon.value = arr[0].icon
+  }
+}
 const selectOption = (option: string) => {
   selectedOption1.value = option;
   handleContinue();
 };
+
+const filter1 = (val:string)=>{
+  if (val) {
+    //val存在筛选数组
+    options1.value = option1.value.filter((i) => {
+      if(i.slug.indexOf(val.toUpperCase())){
+        return false
+      }
+      return true
+    })
+  } else {
+    //val不存在还原数组
+    options1.value = option1.value
+  }
+}
 
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
@@ -797,6 +655,7 @@ $fontSizeMin: 12px;
   padding-bottom: 50px;
 
   :deep() {
+
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
     .el-button.is-disabled:hover {
@@ -873,23 +732,23 @@ $fontSizeMin: 12px;
 
     .center-step-box {
       margin-top: 23px;
+
       :deep() {
         .el-step__line {
           border-left: 2px dashed var(--el-text-color-placeholder);
-          border-image: repeating-linear-gradient(
-              359deg,
+          border-image: repeating-linear-gradient(359deg,
               var(--el-text-color-placeholder) 0,
               var(--el-text-color-placeholder) 5px,
               transparent 0,
-              transparent 10px
-            )
-            30 12;
+              transparent 10px) 30 12;
           background-color: transparent;
+
           .el-step__line-inner {
             display: none;
           }
         }
       }
+
       .continue-btn {
         width: 442px;
         height: 60px;
@@ -929,6 +788,7 @@ $fontSizeMin: 12px;
       }
 
       .deposit-details {
+
         // position: relative;
         .detail-box {
           // margin-top: -90px;
@@ -1115,6 +975,7 @@ $fontSizeMin: 12px;
   color: #020202;
   cursor: pointer;
   transition: all 0.2s;
+  margin-right: 20px;
 }
 
 .step-option:hover {
