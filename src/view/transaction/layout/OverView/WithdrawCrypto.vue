@@ -83,7 +83,7 @@
 
                         <el-dialog
                           v-model="dialogVisible"
-                          class="continue-dialog-box"
+                          class="choose-address-box"
                           width="38%"
                         >
                           <template #header>
@@ -94,27 +94,25 @@
                               Choose Address
                             </div>
                           </template>
-
                           <div class="divider"></div>
-
-                          <div class="detail-rules">
-                            <div class="first-rule">
-                              <div class="checkbox">
-                                <el-checkbox
-                                  v-model="checked1"
-                                  label=""
-                                  size="large"
-                                />
-                              </div>
-                              <div class="text">
-                                <div class="mode">Address Whitelist mode</div>
-                                <div class="enabled">
-                                  Whitelist enabled. Only withdrawals to
-                                  whitelisted address are supported.
-                                </div>
+                          <div class="first-rule">
+                            <div class="checkbox">
+                              <el-checkbox
+                                v-model="checked1"
+                                label=""
+                                size="large"
+                              />
+                            </div>
+                            <div class="text">
+                              <div class="mode">Address Whitelist mode</div>
+                              <div class="enabled">
+                                Whitelist enabled. Only withdrawals to
+                                whitelisted address are supported.
                               </div>
                             </div>
-                            <div class="rule-item">
+                          </div>
+                          <div class="address-rules">
+                            <div class="address-item">
                               <div class="checkbox">
                                 <el-checkbox
                                   v-model="checked2"
@@ -122,15 +120,19 @@
                                   size="large"
                                 />
                               </div>
-                              <div class="title">B2BX</div>
-                              <div class="require">
-                                Address:
-                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                                Network:
-                                <span>TRX</span>
+                              <div class="address-content">
+                                <div class="title">B2BX</div>
+                                <div class="require">
+                                  Address:
+                                  <span
+                                    >TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span
+                                  >
+                                  Network:
+                                  <span>TRX</span>
+                                </div>
                               </div>
                             </div>
-                            <div class="rule-item">
+                            <div class="address-item">
                               <div class="checkbox">
                                 <el-checkbox
                                   v-model="checked3"
@@ -138,15 +140,19 @@
                                   size="large"
                                 />
                               </div>
-                              <div class="title">b2broker</div>
-                              <div class="require">
-                                Address:
-                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                                Network:
-                                <span>TRX</span>
+                              <div class="address-content">
+                                <div class="title">b2broker</div>
+                                <div class="require">
+                                  Address:
+                                  <span
+                                    >TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span
+                                  >
+                                  Network:
+                                  <span>TRX</span>
+                                </div>
                               </div>
                             </div>
-                            <div class="rule-item">
+                            <div class="address-item">
                               <div class="checkbox">
                                 <el-checkbox
                                   v-model="checked4"
@@ -154,15 +160,19 @@
                                   size="large"
                                 />
                               </div>
-                              <div class="title">SD BinaceIndividual</div>
-                              <div class="require">
-                                Address:
-                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                                Network:
-                                <span>TRX</span>
+                              <div class="address-content">
+                                <div class="title">SD BinaceIndividual</div>
+                                <div class="require">
+                                  Address:
+                                  <span
+                                    >TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span
+                                  >
+                                  Network:
+                                  <span>TRX</span>
+                                </div>
                               </div>
                             </div>
-                            <div class="rule-item">
+                            <div class="address-item">
                               <div class="checkbox">
                                 <el-checkbox
                                   v-model="checked5"
@@ -170,18 +180,22 @@
                                   size="large"
                                 />
                               </div>
-                              <div class="title">SD BinaceIndividual</div>
-                              <div class="require">
-                                Address:
-                                <span>TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span>
-                                Network:
-                                <span>TRX</span>
+                              <div class="address-content">
+                                <div class="title">SD BinaceIndividual</div>
+                                <div class="require">
+                                  Address:
+                                  <span
+                                    >TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU</span
+                                  >
+                                  Network:
+                                  <span>TRX</span>
+                                </div>
                               </div>
                             </div>
                           </div>
                           <template #footer>
                             <div class="dialog-footer">
-                              <el-button @click="innerVisible = true">
+                              <el-button @click="addressVisible = true">
                                 New Address
                               </el-button>
                               <el-button
@@ -191,7 +205,7 @@
                               >
                               <el-dialog
                                 class="inner-dialog"
-                                v-model="innerVisible"
+                                v-model="addressVisible"
                                 width="38%"
                                 title="Inner Dialog"
                                 append-to-body
@@ -289,9 +303,7 @@
                                       size="large"
                                     />
                                   </div>
-                                  <span style="font-size: 20px"
-                                    >Add to Whitelist</span
-                                  >
+                                  <span>Add to Whitelist</span>
                                 </div>
                                 <el-button
                                   v-if="showContinueBtn"
@@ -633,7 +645,7 @@
               </div>
               <div v-else>
                 <div class="success-box">
-                  <img src="" />
+                  <img :src="success_img" />
                   <div class="success-title">Withdraw Successful</div>
                   <div class="success-tip">
                     Withdrawal request submitted.<br />
@@ -645,35 +657,34 @@
                     999.00 USDT
                   </div>
                   <div class="detail-rules">
-                          <div class="rule-item">
-                            <div class="title">Address</div>
-                            <div class="require">
-                              TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU
-                            </div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Network</div>
-                            <div class="require">TRX Tron (TRC20)</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Source</div>
-                            <div class="require">Trading Wallet</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Coin</div>
-                            <div class="require">USDT</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Amount</div>
-                            <div class="require">1000 USDT</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Network fee</div>
-                            <div class="require">0.8 USDT</div>
-                          </div>
-                        </div>
+                    <div class="rule-item">
+                      <div class="title">Address</div>
+                      <div class="require">
+                        TT8LGKUGRN3X5TuW6RwVjb4AKQGrVX19yU
+                      </div>
+                    </div>
+                    <div class="rule-item">
+                      <div class="title">Network</div>
+                      <div class="require">TRX Tron (TRC20)</div>
+                    </div>
+                    <div class="rule-item">
+                      <div class="title">Source</div>
+                      <div class="require">Trading Wallet</div>
+                    </div>
+                    <div class="rule-item">
+                      <div class="title">Coin</div>
+                      <div class="require">USDT</div>
+                    </div>
+                    <div class="rule-item">
+                      <div class="title">Amount</div>
+                      <div class="require">1000 USDT</div>
+                    </div>
+                    <div class="rule-item">
+                      <div class="title">Network fee</div>
+                      <div class="require">0.8 USDT</div>
+                    </div>
+                  </div>
                 </div>
-                
               </div>
             </div>
           </div>
@@ -700,93 +711,92 @@
           </div>
         </el-col>
       </el-row>
-     
     </div>
-   
+
     <div v-else></div>
     <div
-        class="deposit-details clearfloat"
-        v-if="activeStep === 3 && showStepThree"
-      >
-        <div class="recent-deposit">
-          <div class="table-name">Recent Withdraws</div>
-          <div class="not-arrive">Hasn't arrived?</div>
-          <Table :sourceData="tableData">
-            <template v-slot:columns>
-              <el-table-column
-                prop="time"
-                :label="t('messages.wallet.fiat_Time')"
-                width="210"
-              />
-              <el-table-column
-                prop="coin"
-                :label="t('messages.wallet.fiat_Coin')"
-                width="210"
-              />
-              <el-table-column
-                prop="amount"
-                :label="t('messages.wallet.fiat_Amount')"
-                width="240"
-              />
-              <el-table-column
-                :label="t('messages.wallet.fiat_Status')"
-                width="230"
-              >
-                <template #default="scope">
-                  <div
-                    v-if="scope.row.status === 'Successful'"
-                    style="color: #01c19a"
-                  >
-                    Successful
+      class="deposit-details clearfloat"
+      v-if="activeStep === 3 && showStepThree"
+    >
+      <div class="recent-deposit">
+        <div class="table-name">Recent Withdraws</div>
+        <div class="not-arrive">Hasn't arrived?</div>
+        <Table :sourceData="tableData">
+          <template v-slot:columns>
+            <el-table-column
+              prop="time"
+              :label="t('messages.wallet.fiat_Time')"
+              width="210"
+            />
+            <el-table-column
+              prop="coin"
+              :label="t('messages.wallet.fiat_Coin')"
+              width="210"
+            />
+            <el-table-column
+              prop="amount"
+              :label="t('messages.wallet.fiat_Amount')"
+              width="240"
+            />
+            <el-table-column
+              :label="t('messages.wallet.fiat_Status')"
+              width="230"
+            >
+              <template #default="scope">
+                <div
+                  v-if="scope.row.status === 'Successful'"
+                  style="color: #01c19a"
+                >
+                  Successful
+                </div>
+                <div v-else-if="scope.row.status === 'Faild'">Faild</div>
+              </template>
+            </el-table-column>
+            <el-table-column :label="t('messages.wallet.fiat_Information')">
+              <template #default="scope">
+                <template v-if="!isFoldArr.includes(scope.row.key)">
+                  <div class="info">
+                    <p>Payment Method:</p>
+                    <p>{{ scope.row.payment_method }}</p>
                   </div>
-                  <div v-else-if="scope.row.status === 'Faild'">Faild</div>
                 </template>
-              </el-table-column>
-              <el-table-column :label="t('messages.wallet.fiat_Information')">
-                <template #default="scope">
-                  <template v-if="!isFoldArr.includes(scope.row.key)">
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                    <div class="info">
-                      <p>indicated Amount:</p>
-                      <p>{{ scope.row.indicated_amount }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Fee:</p>
-                      <p>{{ scope.row.fee }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Order ID:</p>
-                      <p>{{ scope.row.order_ID }}</p>
-                    </div>
-                  </template>
+                <template v-else>
+                  <div class="info">
+                    <p>Payment Method:</p>
+                    <p>{{ scope.row.payment_method }}</p>
+                  </div>
+                  <div class="info">
+                    <p>indicated Amount:</p>
+                    <p>{{ scope.row.indicated_amount }}</p>
+                  </div>
+                  <div class="info">
+                    <p>Fee:</p>
+                    <p>{{ scope.row.fee }}</p>
+                  </div>
+                  <div class="info">
+                    <p>Order ID:</p>
+                    <p>{{ scope.row.order_ID }}</p>
+                  </div>
                 </template>
-              </el-table-column>
-              <el-table-column label="">
-                <template #default="scope">
-                  <el-button
-                    type="text"
-                    :class="{
-                      icon_button: true,
-                      isRotate: isFoldArr.includes(scope.row.key),
-                    }"
-                    @click="getKey(scope.row.key)"
-                    ><el-icon style="color: #9b9b9b"><CaretBottom /></el-icon
-                  ></el-button>
-                </template>
-              </el-table-column>
-            </template>
-          </Table>
-        </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="">
+              <template #default="scope">
+                <el-button
+                  type="text"
+                  :class="{
+                    icon_button: true,
+                    isRotate: isFoldArr.includes(scope.row.key),
+                  }"
+                  @click="getKey(scope.row.key)"
+                  ><el-icon style="color: #9b9b9b"><CaretBottom /></el-icon
+                ></el-button>
+              </template>
+            </el-table-column>
+          </template>
+        </Table>
       </div>
+    </div>
   </div>
 </template>
 
@@ -808,7 +818,7 @@ import {
 import GetButton from "../../../../components/GetButton.vue";
 import { useWindowSize } from "../../../../hooks/useWindowSize";
 import login_qrcode from "../../../../assets/home/download_qrcode.png";
-import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
+import success_img from "../../../..//assets/deposit/Successful.png";
 import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { ElMessageBox } from "element-plus";
@@ -1126,41 +1136,33 @@ $fontSizeMin: 12px;
             font-size: 14px;
           }
         }
-        .detail-rules {
-          margin-top: 23px;
-          padding: 10px 17px;
-          margin-left: 23px;
-          margin-right: 23px;
-          border-radius: 8px;
-          padding: 9px 8px 14px 8px;
-          .first-rule {
-            padding-left: 19px;
-            padding-bottom: 12px;
-            .checkbox {
-              float: left;
+        .first-rule {
+          margin-left: 19px;
+          margin-top: 12px;
+          background-color: #fff;
+          .checkbox {
+            float: left;
+          }
+          .text {
+            line-height: 16px;
+            margin-left: 30px;
+            width: 80%;
+            .mode {
+              font-size: 14px;
+              font-weight: 500;
+              color: #000000;
             }
-            .text {
-              line-height: 16px;
-              margin-left: 30px;
-              .mode {
-                font-size: 14px;
-                font-weight: 500;
-                color: #000000;
-              }
-              .enabled {
-                font-size: 14px;
-                color: #878787;
-                margin-top: 2px;
-              }
+            .enabled {
+              font-size: 14px;
+              color: #878787;
+              margin-top: 2px;
             }
           }
+        }
+        .detail-rules {
           .rule-item {
-            // display: flex;
-            // justify-content: space-between;
             background: #f7f7f7;
-            padding: 10px;
             border-radius: 8px;
-            margin: 10px;
             .checkbox {
               float: left;
               margin-top: 13px;
@@ -1175,7 +1177,6 @@ $fontSizeMin: 12px;
               font-size: $fontSizeMinPro;
               margin-left: 25px;
               color: #878787;
-
               span {
                 color: #000;
               }
@@ -1402,20 +1403,20 @@ $fontSizeMin: 12px;
   }
 
   .security {
-    text-align: center;
-    position: relative;
     font-size: 14px;
     color: #01c19a;
     line-height: 32px;
+    margin-top: 12px;
+
     .checkbox {
       float: left;
     }
     span {
       margin-left: 10px;
-      font-size: 14px;
+      font-size: 16px;
       color: #878787;
-      position: absolute;
-      top: 12px;
+      margin-top: 4px;
+      float: left;
     }
   }
 }
@@ -1428,12 +1429,7 @@ $fontSizeMin: 12px;
   color: #fff;
   line-height: 23px;
 }
-.security {
-  font-size: 14px;
-  color: #878787;
-  margin-top: 18px;
-  margin-left: 30px;
-}
+
 .submit-btn {
   height: 48px;
   margin-top: 8px;
@@ -1725,18 +1721,56 @@ $fontSizeMin: 12px;
   }
 }
 .detail-rules {
-    background: #f7f7f7;
-    border-radius: 5px;
-    padding: 12px 19px;
-    margin-top: 18px;
-    .rule-item {
+  background: #f7f7f7;
+  border-radius: 5px;
+  padding: 12px 19px;
+  margin-top: 18px;
+  .rule-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    gap: 30px;
+    .title {
+      color: #878787;
+    }
+  }
+}
+.choose-address-box {
+  .first-rule {
+    margin-left: 40px;
+    margin-top: 20px;
+    .checkbox {
       display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      gap: 30px;
+      float: left;
+    }
+    .text {
+      margin-left: 30px;
+    }
+  }
+  .address-rules {
+    background: #fff;
+    padding: 20px;
+
+    .address-item {
+      background: #f7f7f7;
+      margin: 10px 0;
+      padding: 20px;
+    }
+    .address-content {
+      margin-left: 35px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
       .title {
+        color: #000000;
+      }
+      .require {
         color: #878787;
       }
     }
+    .checkbox {
+      float: left;
+    }
   }
+}
 </style>

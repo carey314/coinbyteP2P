@@ -428,7 +428,7 @@
 
               <div v-else>
                 <div class="success-box">
-                  <img src="" />
+                  <img :src="success_img" />
                   <div class="success-title">Withdraw Successful</div>
                   <div class="success-tip">
                     Withdrawal request submitted.<br />
@@ -619,7 +619,7 @@ import {
 } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 import { useWindowSize } from "../../../../hooks/useWindowSize";
-import login_qrcode from "../../../../assets/home/download_qrcode.png";
+import success_img from "../../../..//assets/deposit/Successful.png";
 import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
