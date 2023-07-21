@@ -1476,9 +1476,9 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
     yAxis: {
       type: "value",
       show: false,
-      min:function(value){
-        return value.min;
-      }
+      // min:function(value){
+      //   return Math.floor(value.min / 10) * 10;
+      // }
     },
     series: [
       {
