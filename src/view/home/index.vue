@@ -1252,7 +1252,8 @@ async function refreshData(typeId: number = 1) {
     const symbolsSlug = coinMarketCapData.value[`tab-${typeId}`].map((v: any) => v.id)
     const chartRes = await getCoinMarketCap({
       symbols: symbolsSlug.join(','),
-      days: '2h'
+      days: 1,
+      interval: 2
     });
     coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
       // getChart(v.id).then((res) => {
@@ -1290,6 +1291,13 @@ function getChart(chartJson: any) {
 
     return item[1];
   });
+
+  // const newArray = mapData.reduce((result:any, value:any, index:any) => {
+  //   if (index % 10 === 0) {
+  //     result.push(value);
+  //   }
+  //   return result;
+  // }, []);
   // console.log(mapData)
   return mapData;
 }
@@ -1468,6 +1476,9 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
     yAxis: {
       type: "value",
       show: false,
+      min:function(value){
+        return value.min;
+      }
     },
     series: [
       {
@@ -1515,7 +1526,6 @@ const echartDomRef = [];
 // };
 
 const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
-  // console.log(el);
   if (el) {
     echartDomRef.push(el);
     const foundData = coinMarketCapData.value[`tab-${typeId}`].find(
