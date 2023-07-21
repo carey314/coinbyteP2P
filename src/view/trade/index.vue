@@ -117,7 +117,7 @@ const getCoinInfo = async (id: string) => {
 
 const currencyInformation = ref<CurrencyInformation>({} as CurrencyInformation)
 const queryCurrencyInfo = async ()=>{
-  const res = await queryCurrencyInformation(currencyName.value)
+  const res = await queryCurrencyInformation(currencyName.value.toLowerCase())
   if(res.status == 200 && res.data){
     const data = JSON.parse(res.data)
     if (data.length > 0) {
