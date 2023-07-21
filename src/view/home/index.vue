@@ -1118,10 +1118,6 @@ import * as echarts from "echarts";
 
 import BTC from "../../assets/home/part01_BTC.png";
 import ETH from "../../assets/home/part01_ETH.png";
-import OKB from "../../assets/home/part01_OKB.png";
-import OKT from "../../assets/home/part01_OKT.png";
-import LTC from "../../assets/home/part01_LTC.png";
-import DOT from "../../assets/home/part01_DOT.png";
 import USDT from "../../assets/home/crypto_icon_usdt.png";
 import USDC from "../../assets/home/crypto_icon_usdc.png";
 import BNB from "../../assets/home/BNB.png";
@@ -1262,7 +1258,8 @@ async function refreshData(typeId: number = 1) {
       // getChart(v.id).then((res) => {
       //   v.data = res;
       // })
-      v.data = getChart(chartRes.data[v.id])
+      v.data = getChart(chartRes.data[v.id]);
+      v.isUp = v.data[0] < v.data[v.data.length - 1];
     });
     console.log(coinMarketCapData.value)
   } catch (error) {
@@ -1280,7 +1277,7 @@ function getChart(chartJson: any) {
 
   const jsonData: any = JSON.parse(chartJson);
 
-  const mapData = jsonData['market_caps'].map((item: any) => {
+  const mapData = jsonData['prices'].map((item: any) => {
     // const localTime = moment();
     // const offsetInMinutes = localTime.utcOffset();
     // const offsetInHours = offsetInMinutes / 60;
@@ -1521,12 +1518,13 @@ const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
   // console.log(el);
   if (el) {
     echartDomRef.push(el);
-    const data = coinMarketCapData.value[`tab-${typeId}`].find(
+    const foundData = coinMarketCapData.value[`tab-${typeId}`].find(
       (e: any) => {
         return e.id === el.getAttribute("rowId");
       }
-    )?.data;
-    const type = 'up';
+    );
+    const data = foundData.data;
+    const type = foundData.isUp ? 'up' : 'down';
 
     let color = type == "up" ? "#01C19A" : "#F15958";
     createChart(el, data as Array<any>, color);
