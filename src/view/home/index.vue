@@ -1252,7 +1252,7 @@ async function refreshData(typeId: number = 1) {
     const symbolsSlug = coinMarketCapData.value[`tab-${typeId}`].map((v: any) => v.id)
     const chartRes = await getCoinMarketCap({
       symbols: symbolsSlug.join(','),
-      days: 1
+      days: '2h'
     });
     coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
       // getChart(v.id).then((res) => {
