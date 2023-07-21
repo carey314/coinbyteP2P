@@ -179,6 +179,9 @@ import { useI18n } from "vue-i18n";
 
 import { queryCurrenciesType, queryCategorize } from "../../../api/currencies";
 import { useRouter } from "vue-router";
+import { tradeStore } from "../../../store/trade";
+
+const useTradeStore = tradeStore()
 const router = useRouter();
 
 const loading = ref(false);
@@ -778,11 +781,8 @@ function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (
   };
 }
 
-import { tradeStore } from "../../../store/trade";
-
-const useTradeStore = tradeStore()
 function hrefTo(url: string, slug:string, name:string, icon:string) {
-  useTradeStore.currencySlug = slug
+  useTradeStore.currencySlug = slug.toUpperCase()
   useTradeStore.currencyName = name
   useTradeStore.currencyIcon = icon
   router.push(url);

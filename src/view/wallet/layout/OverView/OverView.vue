@@ -9,16 +9,29 @@
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
-              <div>₮0.00</div>
-              <div>
-                <button class="language-chose">
-                  <img :src="wallet_select_usdt_off" alt="" />
-                  USDT
-                  <el-icon style="width: 18px; color: #cbcccf"
-                    ><ArrowDown
-                  /></el-icon>
-                </button>
-              </div>
+              <div>₮{{ selectedBalance }}</div>
+              <el-select v-model="firstSelect" placeholder="Select" style="width: 127px;margin-left: 10px;">
+                <template #prefix>
+                  <img :src="firstIcon" v-show="firstIcon" style="width: 20px;height: 20px;margin-right: 5px;" />
+                </template>
+                <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
+                  <div style="
+                      width: 20px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 14px !important;
+                      color: #000;
+                      margin-left: -5px;
+                    ">
+                    <img :src="item.icon" v-show="item.icon" style="
+                      width: 100%;
+                      height: 100%;
+                      margin-right: 5px;
+                    " />
+                    {{ item.slug }}
+                  </div>
+                </el-option>
+              </el-select>
             </div>
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
@@ -27,16 +40,9 @@
               </div>
               <div class="bottom-btn">
                 <router-link to="/wallet/DepositCrypto">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                /></router-link
-                  >
-                <GetButton
-                  class="buy-btn"
-                  :text="t('messages.wallet.Overview_buyBtn')"
-                />
+                  <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                </router-link>
+                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
               </div>
             </div>
           </div>
@@ -57,26 +63,16 @@
                 <div>₮0.00</div>
                 <div class="demo-progress">
                   <div class="progress-count">0.00%</div>
-                  <el-progress
-                    :percentage="0"
-                    :stroke-width="9"
-                    :show-text="false"
-                    class="progress-bar"
-                  />
+                  <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                 </div>
                 <div class="assets-btn">
-                 
-                    <el-button class="deposit-btn" type="success">{{
-                      $t("messages.wallet.Overview_depositBtn")
-                    }}</el-button>
-                  <el-dropdown
-                    trigger="click"
-                    placement="bottom-end"
-                    style="margin-left: 10px"
-                  >
+
+                  <el-button class="deposit-btn" type="success">{{
+                    $t("messages.wallet.Overview_depositBtn")
+                  }}</el-button>
+                  <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px">
                     <el-button class="more">
-                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button
-                    >
+                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button>
                     <template #dropdown>
                       <el-dropdown-menu style="width: 180px">
                         <el-dropdown-item>{{
@@ -113,20 +109,13 @@
                 <div>₮0.00</div>
                 <div class="demo-progress">
                   <div class="progress-count">0.00%</div>
-                  <el-progress
-                    :percentage="0"
-                    :stroke-width="9"
-                    :show-text="false"
-                    class="progress-bar"
-                  />
+                  <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                 </div>
                 <div class="assets-btn">
                   <el-button type="success">
-                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
-                  >
+                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button>
                   <el-button class="more">
-                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button
-                  >
+                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button>
                 </div>
               </div>
             </el-card>
@@ -164,15 +153,8 @@
                 {{ $t("messages.wallet.Overview_noAssets") }}
               </div>
               <div class="bottom-btn">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                />
-                <GetButton
-                  class="buy-btn"
-                  :text="t('messages.wallet.Overview_buyBtn')"
-                />
+                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
               </div>
             </div>
           </el-card>
@@ -188,16 +170,29 @@
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
-              <div>₮0.00</div>
-              <div>
-                <button class="language-chose">
-                  <img :src="wallet_select_usdt_off" alt="" />
-                  USDT
-                  <el-icon style="width: 18px; color: #cbcccf"
-                    ><ArrowDown
-                  /></el-icon>
-                </button>
-              </div>
+              <div>₮{{ selectedBalance }}</div>
+              <el-select v-model="firstSelect" placeholder="Select" style="width: 127px;margin-left: 10px;">
+                <template #prefix>
+                  <img :src="firstIcon" v-show="firstIcon" style="width: 20px;height: 20px;margin-right: 5px;" />
+                </template>
+                <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
+                  <div style="
+                      width: 20px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 14px !important;
+                      color: #000;
+                      margin-left: -5px;
+                    ">
+                    <img :src="item.icon" v-show="item.icon" style="
+                      width: 100%;
+                      height: 100%;
+                      margin-right: 5px;
+                    " />
+                    {{ item.slug }}
+                  </div>
+                </el-option>
+              </el-select>
             </div>
             <div class="value-bottom">
               <div class="bottom-image"><img :src="icon_wallet" /></div>
@@ -205,15 +200,8 @@
                 {{ $t("messages.wallet.Overview_current") }}
               </div>
               <div class="bottom-btn">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                />
-                <GetButton
-                  class="buy-btn"
-                  :text="t('messages.wallet.Overview_buyBtn')"
-                />
+                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
               </div>
             </div>
           </div>
@@ -236,27 +224,17 @@
                     <div>₮0.00</div>
                     <div class="demo-progress">
                       <div class="progress-count">0.00%</div>
-                      <el-progress
-                        :percentage="0"
-                        :stroke-width="9"
-                        :show-text="false"
-                        class="progress-bar"
-                      />
+                      <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">{{
                         $t("messages.wallet.Overview_depositBtn")
                       }}</el-button>
-                      <el-dropdown
-                        trigger="click"
-                        placement="bottom-end"
-                        style="margin-left: 10px"
-                      >
+                      <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px">
                         <el-button class="more">
                           {{
                             $t("messages.wallet.Overview_moreBtn")
-                          }}</el-button
-                        >
+                          }}</el-button>
                         <template #dropdown>
                           <el-dropdown-menu style="width: 180px">
                             <el-dropdown-item>{{
@@ -297,22 +275,15 @@
                     <div>₮0.00</div>
                     <div class="demo-progress">
                       <div class="progress-count">0.00%</div>
-                      <el-progress
-                        :percentage="0"
-                        :stroke-width="9"
-                        :show-text="false"
-                        class="progress-bar"
-                      />
+                      <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">
-                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
-                      >
+                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button>
                       <el-button class="more">
                         {{
                           $t("messages.wallet.Overview_transferBtn")
-                        }}</el-button
-                      >
+                        }}</el-button>
                     </div>
                   </div>
                 </div>
@@ -352,15 +323,8 @@
                 {{ $t("messages.wallet.Overview_noAssets") }}
               </div>
               <div class="bottom-btn">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                />
-                <GetButton
-                  class="buy-btn"
-                  :text="t('messages.wallet.Overview_buyBtn')"
-                />
+                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                <GetButton class="buy-btn" :text="t('messages.wallet.Overview_buyBtn')" />
               </div>
             </div>
           </el-card>
@@ -378,36 +342,36 @@
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
-              <div>₮{{ TotalAmount }}</div>
-              <div>
-                <button class="language-chose">
-                  <img :src="wallet_select_usdt_on" alt="" />
-                  USDT
-                  <el-icon style="width: 18px; color: #cbcccf"
-                    ><ArrowDown
-                  /></el-icon>
-                </button>
-              </div>
+              <div>₮{{ selectedBalance }}</div>
+              <el-select v-model="firstSelect" placeholder="Select" style="width: 127px;margin-left: 10px;">
+                <template #prefix>
+                  <img :src="firstIcon" v-show="firstIcon" style="width: 20px;height: 20px;margin-right: 5px;" />
+                </template>
+                <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
+                  <div style="
+                      width: 20px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 14px !important;
+                      color: #000;
+                      margin-left: -5px;
+                    ">
+                    <img :src="item.icon" v-show="item.icon" style="
+                      width: 100%;
+                      height: 100%;
+                      margin-right: 5px;
+                    " />
+                    {{ item.slug }}
+                  </div>
+                </el-option>
+              </el-select>
             </div>
             <div class="value-bottom">
               <div class="bottom-btn">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Convert')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Withdraw')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Transfer')"
-                />
+                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Convert')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Withdraw')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Transfer')" />
               </div>
             </div>
           </div>
@@ -428,26 +392,16 @@
                 <div class="assets-price">₮{{ TotalAmount }}</div>
                 <div class="demo-progress">
                   <div class="progress-count">100.00%</div>
-                  <el-progress
-                    :percentage="100"
-                    :stroke-width="9"
-                    :show-text="false"
-                    class="progress-bar"
-                  />
+                  <el-progress :percentage="100" :stroke-width="9" :show-text="false" class="progress-bar" />
                 </div>
                 <div class="assets-btn">
                   <el-button type="success">{{
                     $t("messages.wallet.Overview_depositBtn")
                   }}</el-button>
 
-                  <el-dropdown
-                    trigger="click"
-                    placement="bottom-end"
-                    style="margin-left: 10px"
-                  >
+                  <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px">
                     <el-button class="more">
-                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button
-                    >
+                      {{ $t("messages.wallet.Overview_moreBtn") }}</el-button>
                     <template #dropdown>
                       <el-dropdown-menu style="width: 180px">
                         <el-dropdown-item>{{
@@ -484,20 +438,13 @@
                 <div class="assets-price">₮0.00</div>
                 <div class="demo-progress">
                   <div class="progress-count">0.00%</div>
-                  <el-progress
-                    :percentage="0"
-                    :stroke-width="9"
-                    :show-text="false"
-                    class="progress-bar"
-                  />
+                  <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                 </div>
                 <div class="assets-btn">
                   <el-button type="success">
-                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
-                  >
+                    {{ $t("messages.wallet.Overview_earnBtn") }}</el-button>
                   <el-button class="more">
-                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button
-                  >
+                    {{ $t("messages.wallet.Overview_transferBtn") }}</el-button>
                 </div>
               </div>
             </el-card>
@@ -556,26 +503,15 @@
               </div>
             </template>
             <div class="value-bottom">
-              <template
-                v-for="item in assetsData && assetsData.length >= 3
-                  ? assetsData.slice(0, 3)
-                  : assetsData"
-              >
+              <template v-for="item in assetsData && assetsData.length >= 3
+                ? assetsData.slice(0, 3)
+                : assetsData">
                 <div class="recent-box">
                   <div class="box-left clearfloat">
                     <div class="rencent-image">
-                      <img
-                        v-if="item.alphabeticCode === 'USD'"
-                        :src="wallet_select_usdt_on"
-                      />
-                      <img
-                        v-else-if="item.alphabeticCode === 'ETH'"
-                        :src="crypto_icon_eth"
-                      />
-                      <img
-                        v-else-if="item.alphabeticCode === 'BTC'"
-                        :src="crypto_icon_btc"
-                      />
+                      <img v-if="item.alphabeticCode === 'USD'" :src="wallet_select_usdt_on" />
+                      <img v-else-if="item.alphabeticCode === 'ETH'" :src="crypto_icon_eth" />
+                      <img v-else-if="item.alphabeticCode === 'BTC'" :src="crypto_icon_btc" />
                     </div>
                     <div style="margin-left: 43px">
                       <div class="recent-title">{{ item.currency }}</div>
@@ -634,36 +570,36 @@
               <img :src="overview_eye" />
             </div>
             <div class="value-center">
-              <div>₮{{ TotalAmount }}</div>
-              <div>
-                <button class="language-chose">
-                  <img :src="wallet_select_usdt_on" alt="" />
-                  USDT
-                  <el-icon style="width: 18px; color: #cbcccf"
-                    ><ArrowDown
-                  /></el-icon>
-                </button>
-              </div>
+              <div>₮{{ selectedBalance }}</div>
+              <el-select v-model="firstSelect" placeholder="Select" style="width: 127px;margin-left: 10px;">
+                <template #prefix>
+                  <img :src="firstIcon" v-show="firstIcon" style="width: 20px;height: 20px;margin-right: 5px;" />
+                </template>
+                <el-option v-for="item in currenciesTypesCrypto" :label="item.slug" :value="item.slug" :key="item.id">
+                  <div style="
+                      width: 20px;
+                      display: flex;
+                      align-items: center;
+                      font-size: 14px !important;
+                      color: #000;
+                      margin-left: -5px;
+                    ">
+                    <img :src="item.icon" v-show="item.icon" style="
+                      width: 100%;
+                      height: 100%;
+                      margin-right: 5px;
+                    " />
+                    {{ item.slug }}
+                  </div>
+                </el-option>
+              </el-select>
             </div>
             <div class="value-bottom clearfloat">
               <div class="bottom-btn">
-                <GetButton
-                  class="deposit-btn"
-                  type="success"
-                  :text="t('messages.wallet.Overview_depositBtn')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Convert')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Withdraw')"
-                />
-                <GetButton
-                  class="func-btn"
-                  :text="t('messages.wallet.Overview_Transfer')"
-                />
+                <GetButton class="deposit-btn" type="success" :text="t('messages.wallet.Overview_depositBtn')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Convert')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Withdraw')" />
+                <GetButton class="func-btn" :text="t('messages.wallet.Overview_Transfer')" />
               </div>
             </div>
           </div>
@@ -686,29 +622,18 @@
                     <div class="assets-price">₮{{ TotalAmount }}</div>
                     <div class="demo-progress">
                       <div class="progress-count">100.00%</div>
-                      <el-progress
-                        :percentage="100"
-                        :stroke-width="9"
-                        :show-text="false"
-                        class="progress-bar"
-                      />
+                      <el-progress :percentage="100" :stroke-width="9" :show-text="false" class="progress-bar" />
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">
                         {{
                           $t("messages.wallet.Overview_depositBtn")
-                        }}</el-button
-                      >
-                      <el-dropdown
-                        trigger="click"
-                        placement="bottom-end"
-                        style="margin-left: 10px"
-                      >
+                        }}</el-button>
+                      <el-dropdown trigger="click" placement="bottom-end" style="margin-left: 10px">
                         <el-button class="more">
                           {{
                             $t("messages.wallet.Overview_moreBtn")
-                          }}</el-button
-                        >
+                          }}</el-button>
                         <template #dropdown>
                           <el-dropdown-menu style="width: 179px">
                             <el-dropdown-item>{{
@@ -751,22 +676,15 @@
                     <div class="assets-price">₮0.00</div>
                     <div class="demo-progress">
                       <div class="progress-count">0.00%</div>
-                      <el-progress
-                        :percentage="0"
-                        :stroke-width="9"
-                        :show-text="false"
-                        class="progress-bar"
-                      />
+                      <el-progress :percentage="0" :stroke-width="9" :show-text="false" class="progress-bar" />
                     </div>
                     <div class="assets-btn">
                       <el-button type="success">
-                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button
-                      >
+                        {{ $t("messages.wallet.Overview_earnBtn") }}</el-button>
                       <el-button class="more">
                         {{
                           $t("messages.wallet.Overview_transferBtn")
-                        }}</el-button
-                      >
+                        }}</el-button>
                     </div>
                   </div>
                 </div>
@@ -917,26 +835,15 @@
               <el-divider style="margin-left: -20px; width: 200%" />
               <div class="view-more">{{ $t('messages.wallet.wallet_more') }} &gt;</div> -->
 
-              <template
-                v-for="item in assetsData && assetsData.length >= 3
-                  ? assetsData.slice(0, 3)
-                  : assetsData"
-              >
+              <template v-for="item in assetsData && assetsData.length >= 3
+                ? assetsData.slice(0, 3)
+                : assetsData">
                 <div class="recent-box">
                   <div class="box-left clearfloat">
                     <div class="rencent-image">
-                      <img
-                        v-if="item.alphabeticCode === 'USD'"
-                        :src="wallet_select_usdt_on"
-                      />
-                      <img
-                        v-else-if="item.alphabeticCode === 'ETH'"
-                        :src="crypto_icon_eth"
-                      />
-                      <img
-                        v-else-if="item.alphabeticCode === 'BTC'"
-                        :src="crypto_icon_btc"
-                      />
+                      <img v-if="item.alphabeticCode === 'USD'" :src="wallet_select_usdt_on" />
+                      <img v-else-if="item.alphabeticCode === 'ETH'" :src="crypto_icon_eth" />
+                      <img v-else-if="item.alphabeticCode === 'BTC'" :src="crypto_icon_btc" />
                     </div>
                     <div style="margin-left: 43px">
                       <div class="recent-title">{{ item.currency }}</div>
@@ -990,6 +897,9 @@ import { getTransactions } from "../../../../api/transactions";
 import moment from "moment";
 
 import { useI18n } from "vue-i18n";
+import { queryCurrenciesType } from "../../../../api/currencies";
+import { CurrencyType } from "../../../../models/currencyType";
+import { AssetsData } from "../../../../models/assets";
 const { t } = useI18n();
 //Recent transactions --- icon
 const iconCollects = ref({
@@ -1061,28 +971,26 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 // =====================获取assets列表
-interface AssetsData {
-  currency: "Tether" | "Ethereum" | "Bitcoin" | "USD Coin";
-  balance: string;
-  alphabeticCode: string;
-  caption: string;
-  accountNumber: string;
-  accountId: string;
-}
+// interface AssetsData {
+//   currency: "Tether" | "Ethereum" | "Bitcoin" | "USD Coin";
+//   balance: string;
+//   alphabeticCode: string;
+//   caption: string;
+//   accountNumber: string;
+//   accountId: string;
+// }
+
+const currenciesTypesCrypto = ref<CurrencyType[]>([])
 const assetsData = inject<Ref<AssetsData[]>>("assetsData");
-onMounted(() => {
-  // assetsData.value = AssetsData;
-  // getMyAssets().then((res) => {
-  //   console.log(res.data.data);
-  //   if (res.data.data) {
-  //     assetsData.value = res.data.data.map((v: any) => {
-  //       return {
-  //         currency: v.currency.name,
-  //         balance: v.statement.availableBalance,
-  //       };
-  //     });
-  //   };
-  // });
+onMounted(async () => {
+  // 
+  const res = await queryCurrenciesType()
+  console.log(res)
+  if (res.status == 200) {
+    if (res.data.content) {
+      currenciesTypesCrypto.value = res.data.content?.sort((e: CurrencyType, f: CurrencyType) => e.id - f.id)
+    }
+  }
 });
 // const noneOverView = ref<boolean>(false);
 
@@ -1094,6 +1002,15 @@ const noneOverView = computed(() => {
   }
 }); //
 
+const firstSelect = ref("")
+const firstIcon = computed(() => {
+  if (firstSelect) {
+    const arr = currenciesTypesCrypto.value.find((e) => e.slug == firstSelect.value)
+    return arr ? arr.icon : ""
+  }
+  return ""
+})
+
 const TotalAmount = computed(() => {
   let count = 0;
   if (assetsData) {
@@ -1104,6 +1021,13 @@ const TotalAmount = computed(() => {
   } else {
     return 0;
   }
+});
+const selectedBalance = computed(() => {
+  const arr = assetsData?.value.find((e) => e.alphabeticCode == firstSelect.value)
+  if (arr) {
+    return Number(arr.balance).toFixed(4)
+  }
+  return 0.0.toFixed(4)
 });
 // =====================获取最近交易
 // const transactions = ref<any>([]);
@@ -1171,22 +1095,27 @@ $fontSizeMin: 12px;
   color: #7b8293;
   line-height: $fontSizeDefPro;
 }
+
 :deep() {
   .el-card {
     --el-card-border-radius: 5px;
   }
 }
+
 .empty-transactions {
   text-align: center;
   padding-top: 42px;
+
   .bottom-image {
     margin-top: 17px;
+
     img {
       width: 70px;
       height: auto;
     }
   }
 }
+
 .overview-none-page {
   .left-box {
     .left-value {
@@ -1194,22 +1123,26 @@ $fontSizeMin: 12px;
       padding: 24px 23px 41px 23px;
       border: 1px solid #ebebeb;
       border-radius: 5px;
+
       .value-top {
         font-size: 18px;
         color: #cbcccf;
         line-height: 22px;
+
         img {
           margin-left: 15px;
           width: 17px;
           height: 13px;
         }
       }
+
       .value-center {
         margin-top: 18px;
         display: flex;
         font-size: 32px;
         color: #cbcccf;
         line-height: 38px;
+
         button.language-chose {
           margin-left: 19px;
           margin-top: 3px;
@@ -1224,36 +1157,46 @@ $fontSizeMin: 12px;
           border: 1px solid #e2e2e2;
           border-radius: 2px;
           padding: 0 10px;
+
           img {
             width: 18px;
             margin-right: 6px;
             vertical-align: middle;
           }
+
           svg {
             margin-left: 5px;
           }
+
           :deep(el-icon) {
             width: 18px !important;
           }
         }
       }
+
       .value-bottom {
         text-align: center;
+
         :deep(.button) {
           width: 110px;
         }
+
         .bottom-image {
           margin-top: 17px;
+
           img {
             width: 70px;
             height: auto;
           }
         }
+
         .bottom-title {
           margin-top: 17px;
         }
+
         .bottom-btn {
           margin-top: 21px;
+
           @media (max-width: 451px) {
             display: flex;
             justify-content: space-around;
@@ -1262,16 +1205,19 @@ $fontSizeMin: 12px;
           .deposit-btn {
             margin-left: -10px;
             font-weight: 100;
+
             @media (max-width: 451px) {
               margin-left: 0px;
             }
           }
+
           .buy-btn {
             margin-left: 10px;
             font-weight: 100;
             color: #000;
             background: #fff;
             border: 1px solid #dfdfe5;
+
             @media (max-width: 451px) {
               margin-left: 0px;
               // margin-top: 5px;
@@ -1280,20 +1226,25 @@ $fontSizeMin: 12px;
         }
       }
     }
+
     .left-assets {
       margin-top: 27px;
+
       :deep() {
         .el-table__row {
           height: 63px;
         }
+
         .el-table__body-wrapper {
           margin-left: 10px;
         }
+
         .el-progress__text {
           font-size: 14px !important;
           color: #000000;
           line-height: 16px;
         }
+
         .el-button--success {
           --el-button-bg-color: #01c19a;
           --el-button-border-color: #01c19a;
@@ -1304,6 +1255,7 @@ $fontSizeMin: 12px;
           --el-button-active-bg-color: #01c19a;
         }
       }
+
       .card-header {
         span {
           font-size: 18px;
@@ -1311,13 +1263,16 @@ $fontSizeMin: 12px;
           line-height: 23px;
         }
       }
+
       .box-card {
         box-shadow: none;
         width: 100%;
+
         .assets-body {
           display: flex;
           justify-content: space-between;
           align-items: center;
+
           @media (max-width: 768px) {
             display: grid;
             grid-gap: 10px;
@@ -1326,22 +1281,27 @@ $fontSizeMin: 12px;
           .assets-item {
             display: flex;
             align-items: center;
+
             .assets-icon {
               width: 30px;
               height: 30px;
+
               img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
               }
             }
+
             .item-title {
               margin-left: 13px;
             }
           }
+
           .assets-price {
             width: 100px;
             text-align: right;
+
             @media (max-width: 768px) {
               text-align: left;
             }
@@ -1353,21 +1313,25 @@ $fontSizeMin: 12px;
               align-items: center;
               width: 100px;
             }
+
             .progress-count {
               display: flex;
               float: left;
               font-size: 14px;
               color: #000;
             }
+
             .progress-bar {
               float: right;
               margin-left: 11px;
               border-radius: 4.5px;
+
               :deep(.el-progress-bar__outer) {
                 background-color: #ebebeb !important;
               }
             }
           }
+
           .assets-btn {
             :deep() {
               .el-button {
@@ -1375,10 +1339,12 @@ $fontSizeMin: 12px;
                 height: 30px;
                 font-size: $fontSizeMin;
               }
-              .el-button + .el-button {
+
+              .el-button+.el-button {
                 margin-left: 11px !important;
               }
             }
+
             .more {
               color: #000;
               font-size: $fontSizeMin;
@@ -1388,8 +1354,10 @@ $fontSizeMin: 12px;
         }
       }
     }
+
     .left-recent {
       margin-top: 27px;
+
       .card-header {
         span {
           font-size: 18px;
@@ -1397,6 +1365,7 @@ $fontSizeMin: 12px;
           line-height: 23px;
         }
       }
+
       .box-card {
         box-shadow: none;
         width: 100%;
@@ -1405,16 +1374,20 @@ $fontSizeMin: 12px;
         .value-bottom {
           text-align: center;
           padding-top: 42px;
+
           :deep(.button) {
             width: 110px;
           }
+
           .bottom-image {
             margin-top: 17px;
+
             img {
               width: 70px;
               height: auto;
             }
           }
+
           .bottom-title {
             margin-top: 17px;
           }
@@ -1422,10 +1395,12 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .right-box {
     @media (max-width: 1000px) {
       margin-top: 27px;
     }
+
     .card-header {
       span {
         font-size: 18px;
@@ -1437,38 +1412,48 @@ $fontSizeMin: 12px;
     .box-card {
       box-shadow: none;
       width: 100%;
+
       .value-bottom {
         text-align: center;
         padding-top: 22px;
         padding-bottom: 21px;
+
         :deep(.button) {
           width: 110px;
         }
+
         .bottom-image {
           margin-top: 17px;
+
           img {
             width: 70px;
             height: auto;
           }
         }
+
         .bottom-title {
           margin-top: 17px;
         }
+
         .bottom-btn {
           margin-top: 21px;
+
           .deposit-btn {
             margin-left: -10px;
             font-weight: lighter;
+
             @media (max-width: 451px) {
               margin-left: 0px;
             }
           }
+
           .buy-btn {
             margin-left: 10px;
             font-weight: 100;
             color: #000;
             background: #fff;
             border: 1px solid #dfdfe5;
+
             @media (max-width: 451px) {
               margin-left: 0px;
               margin-top: 5px;
@@ -1479,6 +1464,7 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .overview-date-page {
   .left-box {
     .left-value {
@@ -1486,16 +1472,19 @@ $fontSizeMin: 12px;
       padding: 24px 23px 41px 23px;
       border: 1px solid #ebebeb;
       border-radius: 5px;
+
       .value-top {
         font-size: 18px;
         color: #000;
         line-height: 22px;
+
         img {
           margin-left: 15px;
           width: 17px;
           height: 13px;
         }
       }
+
       .value-center {
         margin-top: 18px;
         display: flex;
@@ -1503,9 +1492,11 @@ $fontSizeMin: 12px;
         color: #000;
         line-height: 38px;
         float: left;
+
         @media (max-width: 768px) {
           // display: none;
         }
+
         button.language-chose {
           margin-left: 19px;
           margin-top: 3px;
@@ -1519,36 +1510,45 @@ $fontSizeMin: 12px;
           border: 1px solid #e2e2e2;
           border-radius: 2px;
           padding: 0 10px;
+
           img {
             width: 20px;
             margin-right: 6px;
             vertical-align: middle;
           }
+
           svg {
             margin-left: 5px;
           }
+
           :deep(el-icon) {
             width: 18px !important;
           }
         }
       }
+
       .value-bottom {
         text-align: center;
+
         @media (max-width: 768px) {
           // float: left;
           width: 295px;
         }
+
         :deep(.button) {
           width: 110px;
         }
+
         .bottom-image {
           margin-top: 17px;
         }
+
         .bottom-btn {
           margin-top: 21px;
           display: flex;
           float: right;
           justify-content: space-between;
+
           :depp(.button) {
             padding: 0;
             font-size: 12px;
@@ -1562,6 +1562,7 @@ $fontSizeMin: 12px;
             padding: 0;
             font-weight: 100;
           }
+
           .func-btn {
             width: 70px;
             height: 30px;
@@ -1573,6 +1574,7 @@ $fontSizeMin: 12px;
             background: #fff;
             border: 1px solid #dfdfe5;
             padding: 0;
+
             @media (max-width: 768px) {
               margin-left: 5px;
               // margin-top: 5px;
@@ -1581,20 +1583,25 @@ $fontSizeMin: 12px;
         }
       }
     }
+
     .left-assets {
       margin-top: 27px;
+
       :deep() {
         .el-table__row {
           height: 63px;
         }
+
         .el-table__body-wrapper {
           margin-left: 10px;
         }
+
         .el-progress__text {
           font-size: 14px !important;
           color: #000000;
           line-height: 16px;
         }
+
         .el-button--success {
           --el-button-bg-color: #01c19a;
           --el-button-border-color: #01c19a;
@@ -1605,6 +1612,7 @@ $fontSizeMin: 12px;
           --el-button-active-bg-color: #01c19a;
         }
       }
+
       .card-header {
         span {
           font-size: 18px;
@@ -1612,36 +1620,45 @@ $fontSizeMin: 12px;
           line-height: 23px;
         }
       }
+
       .box-card {
         box-shadow: none;
         width: 100%;
+
         .assets-body {
           display: flex;
           justify-content: space-between;
           align-items: center;
+
           @media (max-width: 768px) {
             display: grid;
             grid-gap: 10px;
           }
+
           .assets-item {
             display: flex;
             align-items: center;
+
             .assets-icon {
               width: 30px;
               height: 30px;
+
               img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
               }
             }
+
             .item-title {
               margin-left: 13px;
             }
           }
+
           .assets-price {
             width: 100px;
             text-align: right;
+
             @media (max-width: 768px) {
               text-align: left;
             }
@@ -1653,9 +1670,11 @@ $fontSizeMin: 12px;
               align-items: center;
               width: 100px;
             }
+
             :deep(.el-progress-bar__inner) {
               background-color: #01c19a;
             }
+
             .progress-count {
               float: left;
               font-size: 14px;
@@ -1667,16 +1686,19 @@ $fontSizeMin: 12px;
                 text-align: left;
               }
             }
+
             .progress-bar {
               float: right;
               margin-left: 15px;
               margin-top: 2px;
               border-radius: 4.5px;
+
               :deep(.el-progress-bar__outer) {
                 background-color: #ebebeb !important;
               }
             }
           }
+
           .assets-btn {
             :deep() {
               .el-button {
@@ -1684,10 +1706,12 @@ $fontSizeMin: 12px;
                 height: 30px;
                 font-size: $fontSizeMin;
               }
-              .el-button + .el-button {
+
+              .el-button+.el-button {
                 margin-left: 11px !important;
               }
             }
+
             .more {
               color: #000;
               font-size: $fontSizeMin;
@@ -1697,20 +1721,24 @@ $fontSizeMin: 12px;
         }
       }
     }
+
     .left-recent {
       margin-top: 27px;
+
       .up {
         font-size: 16px;
         color: #01c19a;
         line-height: 18px;
         text-align: right;
       }
+
       .down {
         font-size: 16px;
         color: #f35854;
         line-height: 18px;
         text-align: right;
       }
+
       .card-header {
         span {
           font-size: 18px;
@@ -1718,6 +1746,7 @@ $fontSizeMin: 12px;
           line-height: 23px;
         }
       }
+
       .recent-card {
         box-shadow: none;
         width: 100%;
@@ -1731,21 +1760,25 @@ $fontSizeMin: 12px;
 
           .box-left {
             width: 80%;
+
             .rencent-image {
               float: left;
               width: 30px;
+
               img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
               }
             }
+
             .recent-title {
               font-size: 14px;
               color: #000000;
               line-height: 16px;
               margin-left: 43px;
             }
+
             .recent-date {
               margin-left: 43px;
               margin-top: 4px;
@@ -1755,6 +1788,7 @@ $fontSizeMin: 12px;
             }
           }
         }
+
         .view-more {
           float: right;
           font-size: 14px;
@@ -1765,10 +1799,12 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .right-box {
     @media (max-width: 1000px) {
       margin-top: 27px;
     }
+
     .card-header {
       span {
         font-size: 18px;
@@ -1780,7 +1816,9 @@ $fontSizeMin: 12px;
     .box-card {
       box-shadow: none;
       width: 100%;
+
       .value-bottom {
+
         // text-align: center;
         // padding-top: 22px;
         // padding-bottom: 21px;
@@ -1789,22 +1827,26 @@ $fontSizeMin: 12px;
           justify-content: space-between;
           align-items: center;
           height: 21px;
+
           .recent-count {
             font-size: 16px;
             color: #020202;
             line-height: 18px;
           }
+
           .box-left {
             .rencent-image {
               float: left;
               width: 32px;
               height: 32px;
+
               img {
                 width: 100%;
                 height: 100%;
                 object-fit: contain;
               }
             }
+
             .recent-title {
               display: block;
               font-size: 14px;
@@ -1812,6 +1854,7 @@ $fontSizeMin: 12px;
               line-height: 17px;
               // margin-left: 11px;
             }
+
             .recent-date {
               // margin-left: 11px;
               width: 100%;
@@ -1822,6 +1865,7 @@ $fontSizeMin: 12px;
             }
           }
         }
+
         .view-more {
           float: right;
           font-size: 14px;

@@ -12,4 +12,17 @@ export const tradeStore = defineStore('trade', () => {
     currencyName,
     currencyIcon
   }
+},
+{
+  persist:{
+    enabled: true,
+      // 要存储的数据
+      // 存储键
+      strategies: [
+        {
+          storage: localStorage,//表示存储在localStorage
+          paths: ['currencySlug','currencyName',"currencyIcon"],//指定要长久化的字段
+        }
+      ]
+  }
 })

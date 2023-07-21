@@ -62,7 +62,7 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left">
-                      {{ $t("messages.convert.tip_Available") }} : {{ currentPairs?.maxAmount }} {{ firstSelect }}
+                      {{ $t("messages.convert.tip_Available") }} : {{ availableBalance }} {{ firstSelect }}
                       <span>{{ errorTxtBuy }}</span>
                     </div>
                     <div class="tip-right">
@@ -133,12 +133,6 @@ import { ref, reactive, onMounted, onUnmounted, computed } from "vue";
 import type { Ref } from "vue";
 import GetButton from "../../../components/GetButton.vue";
 //img
-import convert_icon01 from "../../../assets/home/convert_icon01.png";
-import convert_icon02 from "../../../assets/home/convert_icon02.png";
-import convert_icon03 from "../../../assets/home/convert_icon03.png";
-import part01_BTC from "../../../assets/home/part01_BTC.png";
-import crypto_icon_usdt from "../../../assets/home/crypto_icon_usdt.png";
-import crypto_icon_usdc from "../../../assets/home/crypto_icon_usdc.png";
 import buy_info from "../../../assets/home/buy_info.svg";
 import { getMyAssets } from "../../../api/wallet";
 import {
@@ -152,7 +146,6 @@ import type {
 } from "../../../models/convert";
 import type { AssetsData } from "../../../models/assets";
 import { CurrencyType } from "../../../models/currencyType";
-import { queryCurrenciesType } from "../../../api/currencies";
 import { storeToRefs } from "pinia";
 import { useUserInfoStore } from "../../../store/user";
 import { tradeStore } from "../../../store/trade";
@@ -206,6 +199,13 @@ const errorTxtBuy = computed(() => {
     return "Minimum amount: 0.00000001"
   }
   return null
+})
+const availableBalance = computed(()=>{
+  const arr = assetsData.value.find((e)=> e.alphabeticCode == firstSelect.value)
+  if(arr){
+    return Number(arr.balance)
+  }
+  return 0
 })
 //get rates
 
@@ -266,24 +266,7 @@ const countBuy = computed(() => {
 });
 
 const cryptoChange = async () => {
-  // if(firstSelect.value && currenciesTypes.value){
-  //   firstIcon.value = ""
-  //   const arr =  currenciesTypes.value.filter((e)=>{
-  //     return e.slug == firstSelect.value
-  //   })
-  //   if(arr.length > 0){
-  //     firstIcon.value = arr[0].icon
-  //   }
-  // }
-  // if(secondSelect.value && currenciesTypes.value){
-  //   secondIcon.value = ""
-  //   const arr = currenciesTypes.value.filter((e)=>{
-  //     return e.slug == secondSelect.value
-  //   })
-  //   if(arr.length > 0){
-  //     secondIcon.value = arr[0].icon
-  //   }
-  // }
+  // 查汇率
   if (firstSelect.value && secondSelect.value && userInfoStore.token) {
     const res = await getExchangeRateForCurrencyPair(secondSelect.value, firstSelect.value)
     console.log(res.data);

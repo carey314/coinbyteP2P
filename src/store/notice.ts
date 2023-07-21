@@ -28,4 +28,17 @@ export const noticeInfoStore = defineStore('noticeInfo', () => {
     markReads,
     markReadsAll
   }
+},
+{
+  persist:{
+    enabled: true,
+      // 要存储的数据
+      // 存储键
+      strategies: [
+        {
+          storage: localStorage,//表示存储在localStorage
+          paths: ['noticesList','noticeInfo'],//指定要长久化的字段
+        }
+      ]
+  }
 })

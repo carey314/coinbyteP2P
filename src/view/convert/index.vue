@@ -63,7 +63,7 @@
                   </div>
                   <div class="convert-tip">
                     <div class="tip-left">
-                      {{ $t("messages.convert.tip_Available") }} : {{ currentPairCrypto?.maxAmount }} {{ firstSelect }}
+                      {{ $t("messages.convert.tip_Available") }} : {{ availableBalance }} {{ firstSelect }}
                       <span>{{ errorTxtCrypto }}</span>
                     </div>
                     <div class="tip-right">
@@ -180,7 +180,7 @@
                       <div class="option-icon">
                         <img :src="fourthIcon" v-show="fourthIcon" />
                       </div>
-                      <el-select v-model="fourthSelect" placeholder="Select" style="width: 97px" @change="handleSetRate">
+                      <el-select disabled filterable="false" remote v-model="fourthSelect" placeholder="Select" style="width: 97px" @change="handleSetRate">
                         <el-option v-for="item in currenciesTypesStable" :label="item.slug" :value="item.slug">
                           <div style="
                               width: 20px;
@@ -337,7 +337,7 @@ onMounted(async () => {
   console.log(res)
   if (res.status == 200) {
     if (res.data.content) {
-      currenciesTypesCrypto.value = res.data.content
+      currenciesTypesCrypto.value = res.data.content?.sort((e:CurrencyType, f:CurrencyType)=> e.id-f.id)
     }
   }
 });
@@ -381,6 +381,13 @@ const firstSelect = ref("")
 const secondSelect = ref("")
 const firstIcon = ref("")
 const secondIcon = ref("")
+const availableBalance = computed(()=>{
+  const arr = assetsData.value.find((e)=> e.alphabeticCode == firstSelect.value)
+  if(arr){
+    return Number(arr.balance)
+  }
+  return 0
+})
 const errorTxtCrypto = computed(() => {
   if (numberCrypto.value && Number(numberCrypto.value) < 0.00000001) {
     return "Minimum amount: 0.00000001"
@@ -397,24 +404,22 @@ const countCrypto = computed(() => {
 });
 
 const cryptoChange = async () => {
+  // 换图标
   if(firstSelect.value && currenciesTypesCrypto.value){
     firstIcon.value = ""
-    const arr =  currenciesTypesCrypto.value.filter((e)=>{
-      return e.slug == firstSelect.value
-    })
-    if(arr.length > 0){
-      firstIcon.value = arr[0].icon
+    const arr =  currenciesTypesCrypto.value.find((e)=> e.slug == firstSelect.value )
+    if(arr){
+      firstIcon.value = arr.icon
     }
   }
   if(secondSelect.value && currenciesTypesCrypto.value){
     secondIcon.value = ""
-    const arr = currenciesTypesCrypto.value.filter((e)=>{
-      return e.slug == secondSelect.value
-    })
-    if(arr.length > 0){
-      secondIcon.value = arr[0].icon
+    const arr = currenciesTypesCrypto.value.find((e)=> e.slug == secondSelect.value )
+    if(arr){
+      secondIcon.value = arr.icon
     }
   }
+  // 查汇率
   if (firstSelect.value && secondSelect.value && userInfoStore.token) {
     const res = await getExchangeRateForCurrencyPair(secondSelect.value, firstSelect.value)
     console.log(res.data);
