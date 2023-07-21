@@ -176,6 +176,11 @@ import {
 import BTC from "../../../assets/home/part01_BTC.png";
 import type { TabsPaneContext } from "element-plus";
 import html2canvas from "html2canvas";
+import { storeToRefs } from "pinia";
+import { tradeStore } from "../../../store/trade";
+
+const useTradeStore = tradeStore()
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 
 const activeName = ref("first");
 const radioGroupRef = ref();
@@ -314,10 +319,10 @@ async function getData(isRefresh = false) {
         days = 365 * 2;
       }
       const response = await getCoinMarketCapOhlc({
-        symbols: "bitcoin",
+        symbols: currencyName.value.toLowerCase(),
         days,
       });
-      const jsonData = JSON.parse(response.data.bitcoin);
+      const jsonData = JSON.parse(response.data[currencyName.value.toLowerCase()]);
       const mapData = jsonData.map((item: any) => {
         const localTime = moment();
         const offsetInMinutes = localTime.utcOffset();
@@ -344,10 +349,10 @@ async function getData(isRefresh = false) {
       }
     } else {
       const response = await getCoinMarketCap({
-        symbols: "bitcoin",
+        symbols: currencyName.value.toLowerCase(),
         days,
       });
-      const jsonData = JSON.parse(response.data.bitcoin);
+      const jsonData = JSON.parse(response.data[currencyName.value.toLowerCase()]);
       console.log(jsonData);
 
       const mapData = jsonData[type].map((item: any) => {

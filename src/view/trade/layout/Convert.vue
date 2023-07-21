@@ -34,7 +34,8 @@
                       <div class="option-icon">
                         <img :src="firstIcon" v-show="firstIcon" />
                       </div>
-                      <el-select v-model="firstSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
+                      
+                      <el-select disabled filterable="false" remote v-model="firstSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
                         <el-option v-for="item in currenciesTypes" :label="item.slug" :value="item.slug">
                           <div style="
                               width: 20px;
@@ -51,7 +52,7 @@
                               " />
                             {{ item.slug }}
                           </div>
-                        </el-option>
+                        </el-option> 
                       </el-select>
                     </template>
                   </el-input>
@@ -80,7 +81,7 @@
                       <div class="option-icon">
                         <img :src="secondIcon" v-show="secondIcon" />
                       </div>
-                      <el-select v-model="secondSelect" placeholder="Select" style="width: 97px" @change="cryptoChange">
+                      <el-select disabled filterable="false" remote v-model="secondSelect" style="width: 97px" @change="cryptoChange">
                         <el-option v-for="item in currenciesTypes" :label="item.slug" :value="item.slug">
                           <div style="
                               width: 20px;

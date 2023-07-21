@@ -102,10 +102,10 @@
                     </template>
                     <template #default="{ row }">
                       <div class="action-btn">
-                        <el-button text link @click="hrefTo('/trade/' + row.symbol)">Buy</el-button>
+                        <el-button text link @click="hrefTo('/trade/' + row.symbol, row.symbol, row.name, row.image)">Buy</el-button>
                         <el-divider direction="vertical" />
 
-                        <el-button text link @click="hrefTo('/trade/' + row.symbol + '?isSell=1')">Sell</el-button>
+                        <el-button text link @click="hrefTo('/trade/' + row.symbol + '?isSell=1', row.symbol, row.name, row.image)">Sell</el-button>
                       </div>
                     </template>
                   </el-table-column>
@@ -778,7 +778,13 @@ function debounce<F extends (...args: any[]) => void>(func: F, delay: number): (
   };
 }
 
-function hrefTo(url: string) {
+import { tradeStore } from "../../../store/trade";
+
+const useTradeStore = tradeStore()
+function hrefTo(url: string, slug:string, name:string, icon:string) {
+  useTradeStore.currencySlug = slug
+  useTradeStore.currencyName = name
+  useTradeStore.currencyIcon = icon
   router.push(url);
 }
 </script>

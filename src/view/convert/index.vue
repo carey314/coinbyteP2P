@@ -441,15 +441,16 @@ const cryptoMax = () => {
 /** 
  * Stablecoin 
  */
- const currenciesTypesStable = ref<CurrencyType[]>([
-  { id: 1, slug: "AUD", area: "", icon: crypto_icon_usdc, name:"" }, // AUD
-  { id: 2, slug: "BTC", area: "", icon: part01_BTC, name:"" }
-])
+//  const currenciesTypesStable = ref<CurrencyType[]>([
+//   { id: 1, slug: "AUD", area: "", icon: crypto_icon_usdc, name:"" }, // AUD
+//   { id: 2, slug: "USDT", area: "", icon: part01_BTC, name:"" }
+// ])
+const currenciesTypesStable = ref<CurrencyType[]>([])
 // const insufficientStableCoin = ref("display:none;")
 const numberStable = ref("0.0000");
 // const countStable = ref("1.0002");
 const thirdSelect = ref("AUD");
-const fourthSelect = ref("BTC");
+const fourthSelect = ref("USDT");
 const thirdIcon = ref(crypto_icon_usdc)
 const fourthIcon = ref(part01_BTC)
 
