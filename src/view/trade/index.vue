@@ -92,10 +92,10 @@ const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 const route = useRoute();
 
 const windowWidth = ref(window.document.body.offsetWidth);
-onMounted(() => {
+onMounted(async () => {
   window.addEventListener("resize", resetWidth);
   // query Price and MarketInformation
-  queryCurrencyInfo()
+  await queryCurrencyInfo()
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -122,6 +122,7 @@ const queryCurrencyInfo = async ()=>{
     const data = JSON.parse(res.data)
     if (data.length > 0) {
       currencyInformation.value = data[0]
+      console.log("currencyInformation", currencyInformation)
     }
   }
 }

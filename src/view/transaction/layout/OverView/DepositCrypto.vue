@@ -23,15 +23,16 @@
                   <el-step title="Select crypto">
                     <template #description>
                       <div v-if="activeStep >= 1" class="select">
-                        <el-select v-model="selectedOption1" filterable :filter-method="filter1" placeholder="Select or Search"
-                          @change="handleContinue">
+                        <el-select v-model="selectedOption1" filterable :filter-method="filter1"
+                          placeholder="Select or Search" @change="handleContinue">
                           <template #prefix>
                             <img :src="firstIcon" v-show="firstIcon" style="
                               width: 20px;
                               height: 20px;
                               margin-right: 5px;
                             " />
-                            <span style="float: left;font-weight: bold;color: rgb(52, 44, 44);">{{ selectedOption1 }}</span>
+                            <span style="float: left;font-weight: bold;color: rgb(52, 44, 44);">{{ selectedOption1
+                            }}</span>
                           </template>
                           <el-option v-for="item in options1" :key="item.id" :label="item.name" :value="item.slug">
                             <div style="
@@ -71,8 +72,8 @@
                       <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
                         <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
                           @change="updateCanContinue">
-                          <el-option v-for="item in options2" :key="item.value" :label="item.label"
-                            :value="item.value"></el-option>
+                          <el-option v-for="item in options2" :key="item.id" :label="item.name"
+                            :value="item.name"></el-option>
                         </el-select>
                         <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
                           @click="handleContinue">
@@ -82,8 +83,8 @@
                       <div v-if="activeStep === 3 && showStepThree" class="select">
                         <el-select class="select-second" style="margin-bottom: 20px" v-model="selectedOption2"
                           placeholder="Select Network" @change="updateCanContinue">
-                          <el-option v-for="item in options2" :key="item.value" :label="item.label"
-                            :value="item.value"></el-option>
+                          <el-option v-for="item in options2" :key="item.id" :label="item.name"
+                            :value="item.name"></el-option>
                         </el-select>
                       </div>
                     </template>
@@ -125,18 +126,12 @@
                             <div class="detail-rules">
                               <div class="rule-item">
                                 <div class="title">Minimum deposit</div>
-                                <div class="require">0.00000001 USDT</div>
+                                <div class="require">{{ minimumDeposit }} USDT</div>
                               </div>
                               <div class="rule-item">
                                 <div class="title">Expected arrival</div>
                                 <div class="require">
-                                  1 network confirmation
-                                </div>
-                              </div>
-                              <div class="rule-item">
-                                <div class="title">Expected unlock</div>
-                                <div class="require">
-                                  1 network confirmation
+                                  {{ expectedArrival }}
                                 </div>
                               </div>
                               <div class="rule-item">
@@ -197,14 +192,14 @@
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
             <template v-slot:columns>
-              <el-table-column prop="time" :label="t('messages.wallet.fiat_Time')" width="180" />
-              <el-table-column prop="coin" :label="t('messages.wallet.fiat_Asset')" width="120">
+              <el-table-column prop="createTime" :label="t('messages.wallet.fiat_Time')" width="180" />
+              <el-table-column prop="debitDetails.currency.alphabeticCode" :label="t('messages.wallet.fiat_Asset')" width="120">
                 <template #default="scope">
-                  <img :src="crypto_icon_usdt" style="width: 21px" />
-                  {{ scope.row.coin }}
+                  <!-- <img :src="crypto_icon_usdt" style="width: 21px" /> -->
+                  {{ scope.row.debitDetails.currency.alphabeticCode }}
                 </template>
               </el-table-column>
-              <el-table-column prop="amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
+              <el-table-column prop="debitDetails.amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
               <el-table-column prop="network" label="Network" width="160" />
               <el-table-column label="Address" width="190">
                 <template #default="scope">
@@ -218,9 +213,9 @@
                 </template>
               </el-table-column>
 
-              <el-table-column prop="network" label="TxID" width="180">
+              <el-table-column prop="transactionId" label="TxID" width="180">
                 <template #default="scope">
-                  {{ scope.row.TxID }}
+                  {{ scope.row.transactionId }}
                   <el-icon>
                     <Link />
                   </el-icon>
@@ -240,14 +235,7 @@
                     </el-icon></el-button>
                 </template>
               </el-table-column>
-              <el-table-column :label="t('messages.wallet.fiat_Status')" width="100">
-                <template #default="scope">
-                  <div v-if="scope.row.status === 'Successful'" style="color: #01c19a; cursor: pointer">
-                    Completed
-                  </div>
-                  <div v-else-if="scope.row.status === 'Faild'">Faild</div>
-                </template>
-              </el-table-column>
+              <el-table-column prop="status" :label="t('messages.wallet.fiat_Status')" width="100" />
             </template>
           </Table>
         </div>
@@ -287,8 +275,7 @@
               <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
                 <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
                   @change="updateCanContinue">
-                  <el-option v-for="item in options2" :key="item.value" :label="item.label"
-                    :value="item.value"></el-option>
+                  <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.name"></el-option>
                 </el-select>
                 <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
                   @click="handleContinue">
@@ -299,8 +286,7 @@
                 <div class="select clearfloat">
                   <el-select class="select-second" style="margin-top: 20px" v-model="selectedOption2"
                     placeholder="Select Network" @change="updateCanContinue">
-                    <el-option v-for="item in options2" :key="item.value" :label="item.label"
-                      :value="item.value"></el-option>
+                    <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.name"></el-option>
                   </el-select>
 
                   <div class="detail-box clearfloat">
@@ -336,15 +322,11 @@
                     <div class="detail-rules">
                       <div class="rule-item">
                         <div class="title">Minimum deposit</div>
-                        <div class="require">0.00000001 USDT</div>
+                        <div class="require">{{ minimumDeposit }} USDT</div>
                       </div>
                       <div class="rule-item">
                         <div class="title">Expected arrival</div>
-                        <div class="require">1 network confirmation</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Expected unlock</div>
-                        <div class="require">1 network confirmation</div>
+                        <div class="require">{{ expectedArrival }}</div>
                       </div>
                       <div class="rule-item">
                         <div class="title">Slected wallet</div>
@@ -400,14 +382,14 @@
           <div class="not-arrive">Hasn't arrived?</div>
           <Table :sourceData="tableData">
             <template v-slot:columns>
-              <el-table-column prop="time" :label="t('messages.wallet.fiat_Time')" width="180" />
-              <el-table-column prop="coin" :label="t('messages.wallet.fiat_Asset')" width="120">
+              <el-table-column prop="createTime" :label="t('messages.wallet.fiat_Time')" width="180" />
+              <el-table-column prop="debitDetails.currency.alphabeticCode" :label="t('messages.wallet.fiat_Asset')" width="120">
                 <template #default="scope">
-                  <img :src="crypto_icon_usdt" style="width: 21px" />
-                  {{ scope.row.coin }}
+                  <!-- <img :src="crypto_icon_usdt" style="width: 21px" /> -->
+                  {{ scope.row.debitDetails.currency.alphabeticCode }}
                 </template>
               </el-table-column>
-              <el-table-column prop="amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
+              <el-table-column prop="debitDetails.amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
               <el-table-column prop="network" label="Network" width="160" />
               <el-table-column label="Address" width="190">
                 <template #default="scope">
@@ -421,9 +403,9 @@
                 </template>
               </el-table-column>
 
-              <el-table-column prop="network" label="TxID" width="180">
+              <el-table-column prop="transactionId" label="TxID" width="180">
                 <template #default="scope">
-                  {{ scope.row.TxID }}
+                  {{ scope.row.transactionId }}
                   <el-icon>
                     <Link />
                   </el-icon>
@@ -433,34 +415,6 @@
                 </template>
               </el-table-column>
               <el-table-column prop="wallet" label="Deposit wallet" width="120" />
-              <!-- <el-table-column :label="t('messages.wallet.fiat_Information')">
-                <template #default="scope">
-                  <template v-if="!isFoldArr.includes(scope.row.key)">
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                    <div class="info">
-                      <p>indicated Amount:</p>
-                      <p>{{ scope.row.indicated_amount }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Fee:</p>
-                      <p>{{ scope.row.fee }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Order ID:</p>
-                      <p>{{ scope.row.order_ID }}</p>
-                    </div>
-                  </template>
-                </template>
-              </el-table-column> -->
               <el-table-column label="">
                 <template #default="scope">
                   <el-button type="text" :class="{
@@ -471,14 +425,7 @@
                     </el-icon></el-button>
                 </template>
               </el-table-column>
-              <el-table-column :label="t('messages.wallet.fiat_Status')" width="100">
-                <template #default="scope">
-                  <div v-if="scope.row.status === 'Successful'" style="color: #01c19a; cursor: pointer">
-                    Completed
-                  </div>
-                  <div v-else-if="scope.row.status === 'Faild'">Faild</div>
-                </template>
-              </el-table-column>
+              <el-table-column prop="status" :label="t('messages.wallet.fiat_Status')" width="100" />
             </template>
           </Table>
         </div>
@@ -499,6 +446,9 @@ import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { CurrencyType } from "../../../../models/currencyType";
 import { queryCurrenciesType } from "../../../../api/currencies";
+import { getDepositMethods, getDepositTransactions } from "../../../../api/deposit";
+import { DepositMethodObject } from "../../../../models/depositMethod";
+import { Transaction } from "../../../../models/transactions";
 const { t } = useI18n();
 const noFound = ref(false);
 
@@ -510,17 +460,21 @@ const canContinue = ref(false);
 let options1 = ref<CurrencyType[]>([])
 let option1 = ref<CurrencyType[]>([])
 const buttons1 = ref<CurrencyType[]>([])
-let options2 = [
+let options2 = ref<DepositMethodObject[]>([])
+/*[
   { value: "optionA", label: "Polygon" },
   { value: "optionB", label: "Solana" },
   { value: "optionC", label: "Tezos" },
   { value: "optionD", label: "Tron(TRC20)" },
-];
+];*/
 
 const showStepThree = ref(false);
 const showContinueBtn = ref(true);
 const firstIcon = ref("")
-
+const minimumDeposit = ref("0.0000")
+const expectedArrival = ref("")
+const tableData = ref<Transaction[]>([]);
+const depositMethods = ref<DepositMethodObject[]>([])
 onMounted(async () => {
   const res = await queryCurrenciesType()
   console.log(res)
@@ -534,9 +488,19 @@ onMounted(async () => {
       buttons1.value = datas.splice(0, 5)
     }
   }
+  // get Deposit Methods
+  const depositMethodsRes = await getDepositMethods()
+  if (depositMethodsRes.status === 200) {
+    depositMethods.value = depositMethodsRes.data
+    console.log("depositMethods", depositMethods.value)
+  }
 })
 
-function handleContinue() {
+async function handleContinue() {
+  if (activeStep.value === 1) {
+    selectedOption2.value = ""
+    options2.value = depositMethods.value.filter((e) => e.caption === `Deposit with ${selectedOption1.value}`)
+  }
   const arr = options1.value.filter((e) => {
     return e.slug == selectedOption1.value
   })
@@ -551,6 +515,20 @@ function handleContinue() {
     activeStep.value = 3;
     showStepThree.value = true;
     showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
+    // 设置第三步的值
+    const selectedDepositMethod = depositMethods.value.find((e) => e.name == selectedOption2.value)
+    if (selectedDepositMethod) {
+      const paymentSystemCurrencies = selectedDepositMethod.paymentSystemCurrencies
+      if (paymentSystemCurrencies && paymentSystemCurrencies.length > 0) {
+        minimumDeposit.value = paymentSystemCurrencies[0].min.value
+      }
+      expectedArrival.value = selectedDepositMethod.libraryTimeToFund
+    }
+    // Recent Deposits
+    const depositTransactions = await getDepositTransactions(10, 0, "desc", "createTime", "deposit", null, null)
+    if(depositTransactions.status === 200){
+      tableData.value = depositTransactions.data.data
+    }
   }
 }
 const btnClick1 = (slug: string) => {
@@ -562,17 +540,24 @@ const btnClick1 = (slug: string) => {
   if (arr.length > 0) {
     firstIcon.value = arr[0].icon
   }
+  selectedOption2.value = ""
+  options2.value = depositMethods.value.filter((e) => e.caption === `Deposit with ${selectedOption1.value}`)
+  // if (activeStep.value === 1 && selectedOption1.value !== "") {
+  activeStep.value = 2;
+  showStepThree.value = false
+  showContinueBtn.value = true
+  // }
 }
 const selectOption = (option: string) => {
   selectedOption1.value = option;
   handleContinue();
 };
 
-const filter1 = (val:string)=>{
+const filter1 = (val: string) => {
   if (val) {
     //val存在筛选数组
     options1.value = option1.value.filter((i) => {
-      if(i.slug.indexOf(val.toUpperCase())){
+      if (i.slug.indexOf(val.toUpperCase())) {
         return false
       }
       return true
@@ -586,51 +571,6 @@ const filter1 = (val:string)=>{
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
 }
-const tableData = ref([
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    icon: "crypto_icon_usdt",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "1",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "2",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "3",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-]);
 const isFoldArr = ref<string[]>([]);
 const getKey = (key: string) => {
   let index = isFoldArr.value.indexOf(key);

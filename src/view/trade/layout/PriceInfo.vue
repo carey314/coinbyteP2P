@@ -7,7 +7,7 @@
           <div class="top-title">Market Cap</div>
           <div><img :src="icon_question" /></div>
         </div>
-        <div class="price">A$ {{ marketCap }}</div>
+        <div class="price">A$ {{ info.market_cap }}</div>
         <div class="rate">
           <el-icon>
             <CaretTop />
@@ -22,12 +22,12 @@
           <div class="top-title">Valume (24 hours)</div>
           <div class="top-icon"><img :src="icon_question" /></div>
         </div>
-        <div class="price">A${{ totalVolume }}</div>
+        <div class="price">A${{ info.total_volume }}</div>
         <div class="rate">
-          <el-icon>
+          <!-- <el-icon>
             <CaretTop />
           </el-icon>
-          +8.75%
+          +8.75% -->
         </div>
       </div>
       <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
@@ -37,12 +37,12 @@
           <div class="top-title">Circulating supply</div>
           <div class="top-icon"><img :src="icon_question" /></div>
         </div>
-        <div class="price">{{ circulatingSupply }} <span>BTC</span></div>
+        <div class="price">{{ info.circulating_supply }} <span>BTC</span></div>
         <div class="rate">
-          <el-icon>
+          <!-- <el-icon>
             <CaretTop />
           </el-icon>
-          +8.75%
+          +8.75% -->
         </div>
       </div>
       <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
@@ -53,7 +53,7 @@
           <div class="top-title">All-time high</div>
           <div class="top-icon"><img :src="icon_question" /></div>
         </div>
-        <div class="price">A$ {{ ath }}</div>
+        <div class="price">A$ {{ info.ath }}</div>
         <div class="rate clearfloat">&nbsp;</div>
       </div>
     </div>
@@ -85,11 +85,6 @@ const props = defineProps<{
   info: CurrencyInformation
 }>()
 const {info} = toRefs(props);
-console.log("info", info)
-const marketCap = info.value.market_cap
-const ath = info.value.ath
-const circulatingSupply = info.value.circulating_supply
-const totalVolume = info.value.total_volume
 const useTradeStore = tradeStore()
 const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
 

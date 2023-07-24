@@ -7,9 +7,9 @@
           <div class="top-title">Rank</div>
           <div><img :src="icon_question" /></div>
         </div>
-        <div class="market">#{{ rank }}</div>
+        <div class="market">#{{ info.market_cap_rank }}</div>
       </div>
-      <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
+      <!-- <el-divider v-if="windowWidth > 976" class="divider" direction="vertical" />
       <el-divider v-else class="divider" />
       <div class="market-infomation-part">
         <div class="part-top">
@@ -31,7 +31,7 @@
           <el-progress :percentage="74" :stroke-width="9" :show-text="false" class="progress-bar" />
           <div class="progress-sell">26% Sell</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -62,8 +62,6 @@ const props = defineProps<{
   info: CurrencyInformation
 }>()
 const { info } = toRefs(props);
-console.log("info", info)
-const rank = info.value.market_cap_rank
 </script>
 
 <style scoped lang="scss">

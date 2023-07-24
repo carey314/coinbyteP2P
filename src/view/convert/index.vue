@@ -132,7 +132,7 @@
                       <div class="option-icon">
                         <img :src="thirdIcon" v-show="thirdIcon" />
                       </div>
-                      <el-select v-model="thirdSelect" placeholder="Select" style="width: 97px"
+                      <el-select disabled filterable="false" remote v-model="thirdSelect" placeholder="Select" style="width: 97px"
                         @change="handleCoinsChange">
                         <el-option v-for="item in currenciesTypesStable" :label="item.slug" :value="item.slug">
                           <div style="
