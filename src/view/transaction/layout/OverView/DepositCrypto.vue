@@ -5,7 +5,7 @@
         <el-col :span="15" class="left-box">
           <div class="left-header">
             <div class="header-title">Deposit Crypto</div>
-            <router-link to="/wallet/DepositFiat" style="text-decoration: none">
+            <router-link to="/user/depositFiat" style="text-decoration: none">
               <div class="header-toFiat">
                 <div class="toFiat">
                   Deposit Fiat

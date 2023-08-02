@@ -367,7 +367,7 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .sign-box {
   display: flex;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   align-items: center;
   background: #1d262f;
   padding: 80px 0;

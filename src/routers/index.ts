@@ -287,6 +287,18 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import("../view/user/index.vue"),
     children: [
       {
+        path: 'depositCrypto',
+        name: 'DepositCrypto',
+        meta: { tab: "second", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
+      },
+      {
+        path: 'depositFiat',
+        name: 'DepositFiat',
+        meta: { tab: "second", isTransaction: true },
+        component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
+      },
+      {
         path: "/user/overview",
         name: "overview",
         component: () => import("../view/user/layout/OverView/OverView.vue"),

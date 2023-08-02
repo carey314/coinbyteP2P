@@ -614,7 +614,7 @@ $fontSizeMin: 12px;
   position: relative;
 
   .convert-content {
-    min-height: calc(100vh - 394px);
+    min-height: calc(100vh - 160px);
     align-items: center;
 
     .top-part {

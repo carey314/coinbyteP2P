@@ -9,18 +9,43 @@
             class="demo-tabs"
           >
             <el-tab-pane :label="t('messages.user.label_overview')" name="first" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('overview')">
+                  {{ t('messages.user.label_overview') }}
+                </div>
+              </template>
             </el-tab-pane>
 
-            <el-tab-pane :label="t('messages.user.label_Security')" name="second" :lazy="true">
+            <el-tab-pane :label="t('messages.user.label_orders')" name="second" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('depositFiat')">
+                  {{ t('messages.user.label_orders') }}
+                </div>
+              </template>
             </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_Verification')" name="third" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('verification')">
+                  {{ t('messages.user.label_Verification') }}
+                </div>
+              </template>
             </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_Bank')" name="fourth" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('bankaccount')">
+                  {{ t('messages.user.label_Bank') }}
+                </div>
+              </template>
             </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_Preferences')" name="fifth" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('accountstatement')">
+                  {{ t('messages.user.label_Preferences') }}
+                </div>
+              </template>
             </el-tab-pane>
           </el-tabs>
         </div>
@@ -29,7 +54,9 @@
         <OverView />
       </div>
       <div class="min-height" v-if="activeName === 'second'">
-        <Security />
+        <!-- <Security /> -->
+        <router-view></router-view>
+
       </div>
       <div class="min-height" v-if="activeName === 'third'">
         <Verification />
@@ -55,7 +82,7 @@ import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import OverView from "./layout/OverView/OverView.vue";
 import Security from "./layout/Security/Security.vue";
-import Verification from "./layout/Verification/Verfication.vue";
+import Verification from "../transaction/layout/OverView/WithdrawFiat.vue";
 import BankAccount from "./layout/BankAccount/BankAccount.vue";
 import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 import { StarFilled, Search } from "@element-plus/icons-vue";
@@ -67,9 +94,10 @@ import { useRoute, useRouter } from "vue-router";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+const router = useRouter();
 
 const activeName = ref<any>("first");
-  const route = useRoute();
+const route = useRoute();
 
 watch(route, () => {
   activeName.value = route.meta.tab;
@@ -82,13 +110,16 @@ onBeforeMount(() => {
     activeName.value = tab;
   }
 });
-// con
+const changeTab = (path: string) => {
+  const url = path ? '/user/' + path : '/user'
+  router.push(url)
+}
 </script>
 
 <style scoped lang="scss">
 .center-part {
   max-width: 1290px;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - -290px);
   margin: auto;
   padding: 21px 0 110px 0;
   position: relative;
@@ -188,5 +219,8 @@ onBeforeMount(() => {
 }
 :deep(.el-table__row) {
   height: 70px;
+}
+.click-success{
+  height: 100% !important;
 }
 </style>

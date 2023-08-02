@@ -5,10 +5,7 @@
         <el-col :span="15" class="left-box">
           <div class="left-header">
             <div class="header-title">Deposit Fiat</div>
-            <router-link
-              to="/wallet/DepositCrypto"
-              style="text-decoration: none"
-            >
+            <router-link to="/user/depositCrypto" style="text-decoration: none">
               <div class="header-toFiat">
                 <div class="toFiat">
                   Deposit Crypto
@@ -21,7 +18,7 @@
           </div>
           <div class="left-center">
             <div class="center-step-box" style="height: 300px">
-              <div>
+              <div v-if="depositStatus === false">
                 <el-steps
                   :active="activeStep"
                   direction="vertical"
@@ -60,6 +57,21 @@
                       </div>
                     </template>
                   </el-step>
+                  <el-step
+                    title="Select Payment method"
+                    style="margin-top: 25px"
+                  >
+                    <template #description>
+                      <div class="payment-box">
+                        <div class="payment-way">
+                          <img class="payment pay" :src="payment_payid" />
+                        </div>
+                        <div class="payment-way">
+                          <img class="payment bank" :src="payment_bank" />
+                        </div>
+                      </div>
+                    </template>
+                  </el-step>
                   <el-step title="Enter Amount" style="margin-top: 20px">
                     <template #description>
                       <div
@@ -77,7 +89,7 @@
                         <el-dialog
                           v-model="dialogVisible"
                           class="dialog-box"
-                          width="30%"
+                          width="412px"
                           style="padding: 0 22px 36px 22px"
                         >
                           <template #header>
@@ -91,21 +103,21 @@
                           <div class="count-range">A$50-2,000,000</div>
                           <div class="limit requirements">
                             <div class="limit-icon">
-                              <el-icon><Switch /></el-icon>
+                              <img class="icon" :src="trans_01" />
                             </div>
                             <div class="limit-title">Limit per transaction</div>
                             <div class="limit-count">A$50-1,000,000,000</div>
                           </div>
                           <div class="remain requirements clearfloat">
                             <div class="limit-icon">
-                              <el-icon><Clock /></el-icon>
+                              <img class="icon" :src="trans_02" />
                             </div>
                             <div class="limit-title">Remaining daily limit</div>
                             <div class="limit-count">A$2,000,000</div>
                             <div class="limit-sign">/A$2M</div>
                           </div>
                         </el-dialog>
-                        
+
                         <div class="step-input">
                           <el-input
                             v-model="coinAmount"
@@ -140,7 +152,7 @@
                             <div class="require">0.00 AUD</div>
                           </div>
                           <div class="receive-box" v-show="activeStep === 2">
-                            <el-divider style="width: 62%"></el-divider>
+                            <el-divider style="width: 442px"></el-divider>
                             <div class="receive">You Receive:</div>
                             <div class="receive-count">
                               <span>0.00</span> AUD
@@ -160,7 +172,7 @@
                       <el-dialog
                         v-model="dialogContinue"
                         class="dialog-box"
-                        width="30%"
+                        width="412px"
                         style="padding: 0 22px 36px 22px"
                       >
                         <template #header>
@@ -177,13 +189,11 @@
                           <div class="list-img">
                             <img class="image" :src="item.img" />
                           </div>
-                          <div class="list-info">
-                            {{ item.info }}<br />{{ item.info2 }}
-                          </div>
+                          <div class="list-info" v-html="item.info"></div>
                         </div>
                         <template #footer>
-                          <el-button @click="closeDialog" class="know-btn"
-                            >OK</el-button
+                          <el-button @click="handleSubmit" class="know-btn"
+                            >I Agree</el-button
                           >
                         </template>
                       </el-dialog>
@@ -240,20 +250,112 @@
                   </el-step>
                 </el-steps>
               </div>
+              <div v-else>
+                <div class="success-box">
+                  <div class="title">
+                    Transfer Money to Proceed With the Order
+                  </div>
+                  <div v-if="previousStatus === false">
+                    <div class="tip">
+                      Please use your unique PayID detail below to make the
+                      transfer and
+                      <span
+                        >select the email option, and NOT organisation ID</span
+                      >
+                      when transferring from online banking or mobile app.
+                    </div>
+                    <div class="info">
+                      <div class="info-price">
+                        <div class="coin">
+                          <div><img :src="coin_aud" /></div>
+                          <div class="coin-name">AUD</div>
+                        </div>
+                        <div class="count">1,000.00</div>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="info-con">PayID Information</div>
+                      <div class="info-email">
+                        <div class="email-number">user2022@au.coinbyte.com</div>
+                        <div class="email-copy">
+                          <img :src="copy" />
+                          Copy
+                        </div>
+                      </div>
+                    </div>
+                    <div class="previous" @click="clickPrevious">previous</div>
+                  </div>
+                  <div v-else>
+                    <div class="tip">
+                      Please use your unique Direct Credit detail below to make
+                      the transfer and select select
+                      <span>'Pay Anyone'</span> when transferring from online
+                      banking or mobile app.
+                    </div>
+                    <div class="info">
+                      <div class="info-price">
+                        <div class="coin">
+                          <div><img :src="coin_aud" /></div>
+                          <div class="coin-name">AUD</div>
+                        </div>
+                        <div class="count">1,000.00</div>
+                      </div>
+                      <div class="divider"></div>
+                      <div class="info-con">PayID Information</div>
+                      <div class="info-title">Account Name:</div>
+                      <div class="info-email">
+                        <div class="email-number">BITU</div>
+                        <div class="email-copy">
+                          <img :src="copy" />
+                          Copy
+                        </div>
+                      </div>
+
+                      <div class="info-title">Account Name:</div>
+                      <div class="info-email">
+                        <div class="email-number">802919</div>
+                        <div class="email-copy">
+                          <img :src="copy" />
+                          Copy
+                        </div>
+                      </div>
+
+                      <div class="info-title">Account Number:</div>
+                      <div class="info-email">
+                        <div class="email-number">7560035</div>
+                        <div class="email-copy">
+                          <img :src="copy" />
+                          Copy
+                        </div>
+                      </div>
+
+                      <div class="info-title">Reference (Optional):</div>
+                      <div class="info-email">
+                        <div class="email-number">Purchase</div>
+                        <div class="email-copy">
+                          <img :src="copy" />
+                          Copy
+                        </div>
+                      </div>
+                    </div>
+                    <div class="previous" @click="clickPrevious">previous</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </el-col>
         <el-col :span="9" class="right-box">
-          <div class="tips">
+          <div class="tips" v-if="depositStatus === false">
             <div class="tips-question">
               <div class="question-title">
-                <el-icon><Upload /></el-icon>
+                <img :src="appeal" />
               </div>
               <div class="question-content content">Appeal</div>
             </div>
             <div class="tips-faq">
               <div class="faq-title">
-                <el-icon><Opportunity /></el-icon> Notice
+                <img style="width: 14px; height: auto" :src="notice" />
+                Notice
               </div>
               <el-divider />
               <div class="faq-content content">
@@ -274,11 +376,65 @@
                 </div>
                 <br />
                 <div>
-                  This service is supported by CoinByte Australia, in accordance
-                  to CoinByte Australia's
-                  <span style="cursor: pointer">terms of Use</span> and
-                  <span style="cursor: pointer">Privacy Policy</span>.
+                  This service is supported by CoinByte, in accordance to
+                  CoinByte's
+                  <span style="cursor: pointer; color: #01c19a !important"
+                    >Terms of Use</span
+                  >
+                  and
+                  <span style="cursor: pointer; color: #01c19a !important"
+                    >Privacy Policy</span
+                  >.
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="tips" v-else>
+            <div class="success-right">
+              <div class="tips-question">
+                <div class="question-title">
+                  <img :src="appeal" />
+                </div>
+                <div class="question-content content">Appeal</div>
+              </div>
+
+              <div class="tips-question">
+                <div class="question-title">
+                  <img :src="notice" style="width: 13px;height: auto;" />
+                </div>
+                <div class="question-content content">View Important Notes</div>
+              </div>
+            </div>
+            <div class="tips-faq">
+              <div class="faq-title">
+                <img style="width: 14px; height: auto" :src="notice" />
+                How it works
+              </div>
+              <el-divider />
+              <div class="faq-content content">
+                <div class="work-title">Transfer Money</div>
+                <div class="work-content">
+                  Transfer your money to CoinByte account
+                </div>
+                <br />
+                <div class="work-title">Order Processed</div>
+
+                <div class="work-content">
+                  The time it takes for this to happen will depend on your bank
+                </div>
+                <div class="view">
+                  View History &gt;
+                </div>
+                <br />
+                <div class="work-title">Funds Arrived</div>
+
+                <div class="work-content">
+                  Receive your deposit amount
+                </div>
+                <div class="view">
+                  View Wallet &gt;
+                </div>
+              
               </div>
             </div>
           </div>
@@ -394,10 +550,26 @@ import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { ElMessageBox } from "element-plus";
 import requireOne from "../../../../assets/home/part05_icon06.png";
+import trans_01 from "../../../../assets/image/trans_01.svg";
+import trans_02 from "../../../../assets/image/trans_02.svg";
+import payment_payid from "../../../../assets/image/payment_payid.png";
+import payment_bank from "../../../../assets/image/payment_bank.png";
+import appeal from "../../../../assets/image/appeal.svg";
+import notice from "../../../../assets/image/notice.svg";
+import coin_aud from "../../../../assets/image/coin_aud.svg";
+import copy from "../../../../assets/image/copy.svg";
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
+const depositStatus = ref(false);
+function handleSubmit() {
+  depositStatus.value = true;
+}
+const previousStatus = ref(false);
 
+function clickPrevious() {
+  previousStatus.value = !previousStatus.value;
+}
 const { t } = useI18n();
 const noFound = ref(false);
 const coinAmount = ref("");
@@ -446,13 +618,11 @@ const requireList = [
   },
   {
     img: requireOne,
-    info: "To cover processing costs, a AU$3 processing fee will be charged to refund desposits received from third-party bank accounts",
-    info2:
-      "Deposits will only be refunded if the deposit is greater than AU$10",
+    info: "To cover processing costs, a AU$3 processing fee will be charged to refund desposits received from third-party bank accounts <br/>Deposits will only be refunded if the deposit is greater than AU$10",
   },
   {
     img: requireOne,
-    info: "This service is supported by CoinByte, in accordance to CoinByte's Terms of Use and Privacy Policy.",
+    info: "This service is supported by CoinByte, in accordance to CoinByte's <span style='color: #01c19a;cursor:pointer;'>Terms of Use</span> and <span style='color: #01c19a;cursor:pointer;'>Privacy Policy</span>.",
   },
   {
     img: requireOne,
@@ -460,8 +630,7 @@ const requireList = [
   },
   {
     img: requireOne,
-    info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.",
-    info2: "Subsequent transfers are instant.",
+    info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.<br/>Subsequent transfers are instant.",
   },
 ];
 const tableData = ref([
@@ -529,7 +698,6 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .deposit-crypto {
   margin-top: 20px;
-  padding-bottom: 100px;
   :deep() {
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
@@ -586,6 +754,100 @@ $fontSizeMin: 12px;
     }
   }
   .left-center {
+    .success-box {
+      width: 443px;
+      .title {
+        font-size: 20px;
+        color: #000000;
+        line-height: 25px;
+        font-weight: 500;
+      }
+      .tip {
+        margin-top: 19px;
+        padding: 14px 4px 8px 13px;
+        background: #fef9e0;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #878787;
+        line-height: 16px;
+        span {
+          color: #01c19a;
+        }
+      }
+      .info {
+        margin-top: 23px;
+        padding: 16px 13px 17px 12px;
+        background: #f7f7f7;
+        border-radius: 5px;
+      }
+      .info-price {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .coin {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          color: #000000;
+          gap: 12px;
+          font-weight: 600;
+          .coin-name {
+            font-size: 14px;
+            line-height: 17px;
+          }
+        }
+        .count {
+          font-size: 22px;
+          line-height: 27px;
+        }
+      }
+      .divider {
+        height: 1px;
+        width: 443px;
+        margin-left: -12px;
+        background-color: #ebebeb;
+        margin-top: 11px;
+      }
+      .info-con {
+        font-size: 12px;
+        color: #878787;
+        line-height: 14px;
+        margin-top: 12px;
+      }
+      .info-title {
+        font-size: 12px;
+        color: #878787;
+        line-height: 14px;
+        margin-top: 14px;
+      }
+      .info-email {
+        margin-top: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #000;
+        .email-number {
+          font-size: 14px;
+          line-height: 17px;
+        }
+        .email-copy {
+          font-size: 12px;
+          line-height: 14px;
+          cursor: pointer;
+        }
+      }
+      .previous {
+        background: #f1f1f1;
+        border-radius: 2px;
+        margin-top: 24px;
+        width: 96px;
+        padding: 10px 20px;
+        font-size: 14px;
+        color: #000000;
+        line-height: 17px;
+        cursor: pointer;
+      }
+    }
     .center-step-box {
       margin-top: 23px;
       :deep() {
@@ -602,6 +864,32 @@ $fontSizeMin: 12px;
           background-color: transparent;
           .el-step__line-inner {
             display: none;
+          }
+        }
+      }
+      .payment-box {
+        display: flex;
+        justify-content: start;
+        gap: 24px;
+        .payment-way {
+          cursor: pointer;
+          .pay {
+            padding: 9px 30px;
+          }
+          .bank {
+            padding: 11px 21px;
+          }
+          .payment {
+            margin-top: 24px;
+            width: 153px;
+            height: 54px;
+            border: 1px solid #dfdfe5;
+            border-radius: 4px;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
           }
         }
       }
@@ -625,7 +913,7 @@ $fontSizeMin: 12px;
         .dialog-box {
           .dialog-header {
             font-weight: 500;
-            size: 20px;
+            font-size: 20px;
             color: #000000;
             line-height: 25px;
           }
@@ -647,6 +935,7 @@ $fontSizeMin: 12px;
             color: #01c19a;
             margin-top: 12px;
             line-height: 25px;
+            font-weight: 600;
           }
           .requirements {
             background: #f7f7f7;
@@ -658,25 +947,35 @@ $fontSizeMin: 12px;
             .limit-icon {
               float: left;
               margin-top: 16px;
+              .icon {
+                width: 22px;
+                height: 22px;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: contain;
+                }
+              }
             }
             .limit-title {
               font-size: 12px;
               color: #878787;
               line-height: 15px;
-              margin-left: 30px;
+              margin-top: 5px;
+              margin-left: 40px;
             }
             .limit-count {
               font-size: 16px;
               color: #000000;
               line-height: 19px;
-              margin-left: 30px;
-              margin-top: 10px;
+              margin-left: 40px;
+              margin-top: 5px;
             }
             .limit-sign {
               float: right;
               font-size: 12px;
               color: #878787;
-              margin-top: -12px;
+              margin-top: -19px;
             }
           }
         }
@@ -835,8 +1134,14 @@ $fontSizeMin: 12px;
     text-decoration: underline #9b9b9b;
   }
 }
+
 .right-box {
   .tips {
+    .success-right {
+      display: flex;
+      justify-content: start;
+      gap: 30px;
+    }
     .tips-question {
       .question-title {
         float: left;
@@ -871,6 +1176,23 @@ $fontSizeMin: 12px;
         span {
           color: #01c19a;
         }
+        .work-title{
+          font-size: 16px;
+          color: #000;
+          font-weight: 500;
+        }
+        .work-content{
+          font-size: 14px;
+          color: #878787;
+          margin-top: 2px;
+        }
+        .view{
+          color: #01c19a;
+          text-decoration: underline;
+          font-size: 14px;
+          cursor: pointer;
+          margin-top: 7px;
+        }
       }
     }
   }
@@ -896,7 +1218,7 @@ $fontSizeMin: 12px;
   margin-top: 15px;
 }
 .dialog-header-require {
-  font-size: 20px;
+  font-size: 20px !important;
   color: #000000;
   line-height: 25px;
 }

@@ -157,7 +157,7 @@ const handleTabClick = (tab:any) => {
 <style scoped lang="scss">
 .center-part {
   max-width: 1290px;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   margin: auto;
   padding: 21px 0 100px 0;
   position: relative;

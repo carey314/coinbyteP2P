@@ -1,148 +1,17 @@
 <template>
   <footer>
-    <div class="footer-box max1290">
-      <div class="footer-logo">
-        <img class="logo" :src="logo" alt="logo" />
-        <span>©2022 COINBYTE.COM</span>
-        <div class="lan-box">
-          <div class="lan-icon">
-            <img :src="top_en" alt="" />
-          </div>
-          <el-select
-            v-model="currentLanguage"
-            class="selectLan"
-            placeholder="Select"
-            size="large"
-            @change="changeLanguage"
-            :popper-append-to-body="false"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </div>
-      </div>
-      <div class="footer-logo-md">
-        <div>
-          <img class="logo" :src="logo" alt="logo" />
-          <span>©2022 COINBYTE.COM</span>
-        </div>
-        <div class="lan-box">
-          <div class="lan-icon">
-            <img :src="top_en" alt="" />
-          </div>
-          <el-select
-            v-model="currentLanguage"
-            class="selectLan"
-            placeholder="Select"
-            size="large"
-          >
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-              class="selectOption"
-            />
-          </el-select>
-        </div>
-      </div>
-
-      <div class="link-cards">
-        <ul class="link-list">
-          <li>{{ $t("messages.footer.about") }}</li>
-          <li>
-            <a
-              href="/about"
-              style="color: rgb(144, 144, 144); text-decoration: none"
-              >{{ $t("messages.footer.about_us") }}</a
-            >
-          </li>
-          <li>
-            <a
-              href="/contact"
-              style="color: rgb(144, 144, 144); text-decoration: none"
-              >{{ $t("messages.footer.contact_us") }}</a
-            >
-          </li>
-          <li>
-            <a
-              href="/fees"
-              style="color: rgb(144, 144, 144); text-decoration: none"
-              >{{ $t("messages.footer.fees") }}</a
-            >
-          </li>
-        </ul>
-        <ul class="link-list">
-          <li>{{ $t("messages.footer.legal") }}</li>
-          <li>{{ $t("messages.footer.terms") }}</li>
-          <li>{{ $t("messages.footer.privacy") }}</li>
-          <li @click="dialogTableVisible = true">
-            {{ $t("messages.footer.kyc_aml") }}
-          </li>
-        </ul>
-        <ul class="link-list">
-          <li>{{ $t("messages.footer.service") }}</li>
-          <li>{{ $t("messages.footer.service_instant") }}</li>
-          <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
-        </ul>
-        <ul class="link-list">
-          <li>{{ $t("messages.footer.support") }}</li>
-          <li>{{ $t("messages.footer.support_center") }}</li>
-          <li>{{ $t("messages.footer.support_announcement") }}</li>
-          <li>
-            <a
-              href="/contact"
-              style="color: rgb(144, 144, 144); text-decoration: none"
-              >{{ $t("messages.footer.support_connect") }}</a
-            >
-          </li>
-        </ul>
-      </div>
-
-      <div class="icon-links">
-        <img src="../../assets/home/downbar_icon01.svg" alt="" />
-        <img src="../../assets/home/downbar_icon02.svg" alt="" />
-        <img src="../../assets/home/downbar_icon03.svg" alt="" />
-        <img src="../../assets/home/downbar_icon04.svg" alt="" />
-        <img src="../../assets/home/downbar_icon05.svg" alt="" />
-        <img src="../../assets/home/downbar_icon06.svg" alt="" />
-        <img src="../../assets/home/downbar_icon07.svg" alt="" />
-        <img src="../../assets/home/downbar_icon08.svg" alt="" />
-        <img src="../../assets/home/downbar_icon09.svg" alt="" />
-        <img src="../../assets/home/downbar_icon10.png" alt="" />
-      </div>
-    </div>
-
-    <div class="icon-links-lg max1290">
-      <img src="../../assets/home/downbar_icon01.svg" alt="" />
-      <img src="../../assets/home/downbar_icon02.svg" alt="" />
-      <img src="../../assets/home/downbar_icon03.svg" alt="" />
-      <img src="../../assets/home/downbar_icon04.svg" alt="" />
-      <img src="../../assets/home/downbar_icon05.svg" alt="" />
-      <img src="../../assets/home/downbar_icon06.svg" alt="" />
-      <img src="../../assets/home/downbar_icon07.svg" alt="" />
-      <img src="../../assets/home/downbar_icon08.svg" alt="" />
-      <img src="../../assets/home/downbar_icon09.svg" alt="" />
-      <img src="../../assets/home/downbar_icon10.png" alt="" />
-    </div>
-
     <div class="footer-bottom-box">
-      <div class="footer-bottom max1290">
-        <span class="final-links">Links:</span>
-        <span class="final-span">Bitcoin Price</span>
-        <span class="final-span">Buy Bitcoin</span>
-        <span class="final-span">Buy Crypto</span>
-        <span class="final-span">Buy ETH</span>
-        <span class="final-span">Buy Litecoin</span>
-        <span class="final-span">ETH Price</span>
-        <span class="final-span">Free Bitcoin</span>
-        <span class="final-span">Ripple</span>
-        <span class="final-span">Matic price</span>
-        <span class="final-span">NFT Marketplace</span>
+      <div class="footer-bottom max1290" style="height: 104px;display: flex;justify-content: space-between;">
+        <div style="display: flex;align-items: center;"><img :src="logo" /></div>
+        <div>
+          <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P.COM</span></div>
+          <div style="margin-top: -30px;display: flex;gap: 20px;">
+            <span class="final-span">Terms  & conditions</span>
+            <span class="final-span">Privacy collection notice</span>
+            <span class="final-span">Privacy policy</span>
+            <span class="final-span">Anti money laundering( AML) policy</span>
+          </div>
+        </div>
       </div>
     </div>
     <!-- <div
@@ -335,8 +204,7 @@
 <script setup lang="ts">
 import { defineComponent, getCurrentInstance, ref, watch } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
-import logo from "../../assets/home/logo.svg";
-import top_en from "../../assets/home/top_en.svg";
+import logo from "../../assets/image/logo.svg";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 
 const showWin = ref(false);
@@ -378,6 +246,42 @@ watch(currentLanguage, (newLanguage) => {
 </script>
 
 <style scoped lang="scss">
+.footer-trade {
+  display: flex;
+  justify-content: space-around;
+  gap: 11px;
+  margin-top: 23px;
+  font-size: 17px;
+  color: #ffffff;
+  line-height: 21px;
+  .buy {
+    width: 140px;
+    height: 38px;
+    border: 1px solid #01c19a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .sell {
+    width: 140px;
+    height: 38px;
+    background: #01c19a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+}
+.footer-info {
+  margin-top: 50px;
+  .info {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 9px;
+    color: #fff;
+  }
+}
 .max1290 {
   max-width: 1290px;
   margin: 0 auto;
@@ -405,7 +309,7 @@ footer {
 
   div.footer-box {
     box-sizing: border-box;
-    height: 270px;
+    height: 370px;
     border-bottom: none;
     margin: 0 auto;
     display: flex;
@@ -429,10 +333,10 @@ footer {
       }
       .selectLan {
         width: 148px;
-        .selectOption{
-          :deep(.el-select-dropdown__item.selected){
+        .selectOption {
+          :deep(.el-select-dropdown__item.selected) {
             color: red !important;
-          } 
+          }
         }
         :deep() {
           .el-input--large .el-input__inner {
@@ -448,7 +352,6 @@ footer {
           .el-input__suffix-inner > :first-child {
             margin-left: 0;
           }
-         
         }
       }
     }
@@ -498,7 +401,7 @@ footer {
     }
     .footer-logo {
       display: inline-block;
-      width: 20%;
+      width: 34%;
       padding-top: 40px;
       @media (max-width: 985px) {
         & {
@@ -527,7 +430,7 @@ footer {
       width: 100%;
       vertical-align: top;
       justify-content: space-around;
-      padding: 0 5% 0 12%;
+      padding: 0 5% 0 8%;
 
       @media (max-width: 985px) {
         & {
@@ -619,11 +522,6 @@ footer {
       color: #909090;
       letter-spacing: 0;
       box-sizing: border-box;
-
-      .final-span {
-        margin-right: 8px;
-      }
-
       .final-links {
         margin-right: 16px;
       }
@@ -945,10 +843,8 @@ footer {
   .el-select {
     --el-select-input-focus-border-color: #5c6368;
   }
-  .el-select-dropdown__item{
+  .el-select-dropdown__item {
     text-align: center;
   }
 }
-
-
 </style>

@@ -136,6 +136,7 @@ $fontSizeMin: 12px;
   background-color: #fff;
   padding: 46px 0;
   margin-top: 20px;
+  margin-bottom: 100px;
 
   @media (max-width: 985px) {
     & {

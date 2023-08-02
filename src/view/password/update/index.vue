@@ -105,7 +105,7 @@ $fontSizeMin: 12px;
 $lineH: 16px;
 .password-box {
   display: flex;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   align-items: center;
   background: #1d262f;
   padding: 110px 0;

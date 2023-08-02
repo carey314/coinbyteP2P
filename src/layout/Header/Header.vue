@@ -5,82 +5,24 @@
     </div>
     <div class="header-menu">
       <ul class="menu">
-        <li @mouseover="cryptoShow" @mouseleave="cryptoHide" class="crypto-dropdown-box">
-          {{ $t("messages.header.buy") }}
-          <span class="aud-badge">{{ activeName }}</span>
-          <el-dropdown ref="navCurrency" style="vertical-align: middle; color: #fff" class="money-dropdown"
-            @visible-change="changeArrow">
-            <img :src="down_arrow" alt="" style="width: 18px" :style="{ transform: `rotate(${deg}deg)` }" />
-            <template #dropdown>
-              <el-dropdown-menu class="crypto-dropdown-menu">
-                <el-dropdown-item class="crypto-dropdown-item">
-                  <div class="pay">{{ $t("messages.header.pay") }}</div>
-                  <el-radio-group v-model="activeName" type="card" class="demo-tabs" size="small"
-                    @tab-click="handleClick">
-                    <el-radio-button label="AUD" name="AUD"></el-radio-button>
-                    <el-radio-button label="NZD" name="NZD"></el-radio-button>
-                  </el-radio-group>
-                </el-dropdown-item>
-
-                <el-dropdown-item class="crypto-item-box">
-                  <router-link to="/wallet/trading" style="display: flex; text-decoration: none">
-                    <div class="crypto-item-icon">
-                      <img :src="dropdown_buy_bank" />
-                    </div>
-                    <div class="crypto-item-text">
-                      <div class="crypto-item-title">
-                        {{ $t("messages.header.bank") }}
-                      </div>
-                      <div class="crypto-item-msg">
-                        {{ $t("messages.header.bank_msg") }}
-                      </div>
-                    </div>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item class="crypto-item-box">
-                  <router-link to="/wallet/" style="display: flex; text-decoration: none">
-                    <div class="crypto-item-icon">
-                      <img :src="dropdown_buy_quick" />
-                    </div>
-                    <div class="crypto-item-text">
-                      <div class="crypto-item-title">
-                        {{ $t("messages.header.quick") }}
-                      </div>
-                      <div class="crypto-item-msg">
-                        {{ $t("messages.header.quick_msg") }}
-                      </div>
-                    </div>
-                  </router-link>
-                </el-dropdown-item>
-                <el-dropdown-item class="crypto-item-box">
-                  <router-link to="/convert" style="display: flex; text-decoration: none">
-                    <div class="crypto-item-icon">
-                      <img :src="dropdown_buy_convert" />
-                    </div>
-                    <div class="crypto-item-text">
-                      <div class="crypto-item-title">
-                        {{ $t("messages.header.convert") }}
-                      </div>
-                      <div class="crypto-item-msg">
-                        {{ $t("messages.header.convert_msg") }}
-                      </div>
-                    </div>
-                  </router-link>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+        <li class="crypto-dropdown-box">
+          <a href="/" style="color: #fff; text-decoration: none">{{
+            $t("messages.header.buy")
+          }}</a>
         </li>
         <li>
-          <a href="/market-allCrypto" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
+          <!-- Latest Scams -->
+          <a href="/" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
         </li>
         <li>
-          <a href="/trade/btc" style="color: #fff; text-decoration: none">{{
+          <!-- about us -->
+          <a href="/about" style="color: #fff; text-decoration: none">{{
             $t("messages.header.trade")
           }}</a>
         </li>
         <li>
-          <a href="/learnCenter" style="color: #fff; text-decoration: none">{{
+          <!-- Support -->
+          <a href="/" style="color: #fff; text-decoration: none">{{
             $t("messages.header.learn")
           }}</a>
         </li>
@@ -90,7 +32,7 @@
       <ul class="right-menu">
         <!-- 登录后 -->
         <template v-if="userInfoStore.isLogin">
-          <li @mouseover="walletShow" @mouseleave="walletHide" class="right-dropdown-box">
+          <!-- <li @mouseover="walletShow" @mouseleave="walletHide" class="right-dropdown-box">
             <el-dropdown class="help-dropdown align-icon" ref="navWallet">
               <router-link to="/wallet" style="text-decoration: none">
                 <div class="login-span">
@@ -155,8 +97,8 @@
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
-          </li>
-          <li style="margin-left: 10px" @mouseover="orderShow" @mouseleave="orderHide" class="right-dropdown-box">
+          </li> -->
+          <!-- <li style="margin-left: 10px" @mouseover="orderShow" @mouseleave="orderHide" class="right-dropdown-box">
             <el-dropdown class="help-dropdown align-icon" ref="navOrder">
               <router-link to="/" style="text-decoration: none">
                 <div class="login-span">
@@ -209,7 +151,7 @@
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
-          </li>
+          </li> -->
           <li @mouseover="userShow" @mouseleave="userHide" class="right-dropdown-box">
             <el-dropdown class="user-dropdown align-icon" ref="navUser">
               <router-link to="/user">
@@ -326,52 +268,7 @@
               </template>
             </el-dropdown>
           </li>
-        </template>
-        <template v-else>
-          <li>
-            <router-link to="/login" style="text-decoration: none"><span class="login-span">{{
-              $t("messages.header.login")
-            }}</span></router-link>
-          </li>
-          <li>
-            <router-link to="/signup" style="text-decoration: none"><button class="btn-signup">
-                {{ $t("messages.header.signup") }}
-              </button></router-link>
-          </li>
-        </template>
-
-        <li @mouseover="downloadShow" @mouseleave="downloadHide" class="right-dropdown-box">
-          <el-dropdown class="download-dropdown align-icon" ref="navDownload">
-            <img :src="top_down" alt="" />
-            <template #dropdown>
-              <el-dropdown-menu class="download-dropdown-menu" style="width: 178px; background: #f7f7f7">
-                <el-dropdown-item class="download-dropdown-item" style="background: #fff">
-                  <div class="qr-code">
-                    <img src="../../assets/home/download_qrcode.png" />
-                  </div>
-                  <div class="msg">
-                    {{ $t("messages.header.download_scan") }}
-                  </div>
-                  <div class="msg" style="padding-bottom: 10px">
-                    {{ $t("messages.header.download_equipment") }}
-                  </div>
-                </el-dropdown-item>
-                <router-link to="/download" style="text-decoration: none">
-                  <div class="more-option">
-                    <button class="option-btn">
-                      <router-link to="/download" style="text-decoration: none; color: #000">{{
-                        $t("messages.header.download_option")
-                      }}</router-link>
-                    </button>
-                  </div>
-                </router-link>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </li>
-
-        <!-- notice -->
-        <li @mouseover="noticeShow" @mouseleave="noticeHide" class="right-dropdown-box">
+          <li @mouseover="noticeShow" @mouseleave="noticeHide" class="right-dropdown-box">
           <el-dropdown class="notice-dropdown align-icon" ref="navNotice">
             <img :src="top_notice" alt="" />
             <template #dropdown>
@@ -396,47 +293,7 @@
           </el-dropdown>
         </li>
 
-        <li @mouseover="helpShow" @mouseleave="helpHide" class="right-dropdown-box">
-          <el-dropdown class="help-dropdown align-icon" ref="navHelp">
-            <img :src="top_bangzhu" alt="" />
-            <template #dropdown>
-              <el-dropdown-menu class="help-dropdown-menu" style="width: 224px">
-                <el-dropdown-item class="help-dropdown-item">
-                  <div class="help-box">
-                    <div class="help-icon">
-                      <img :src="dropdown_help_support" />
-                    </div>
-                    <div class="help-title">
-                      {{ $t("messages.header.help_support") }}
-                    </div>
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item class="help-dropdown-item">
-                  <div class="help-box">
-                    <div class="help-icon">
-                      <img :src="dropdown_help_connect" />
-                    </div>
-                    <div class="help-title">
-                      <a href="/contact" style="color: #000; text-decoration: none">{{ $t("messages.header.help_connect")
-                      }}</a>
-                    </div>
-                  </div>
-                </el-dropdown-item>
-                <el-dropdown-item class="help-dropdown-item">
-                  <div class="help-box">
-                    <div class="help-icon">
-                      <img :src="dropdown_help_telegram" />
-                    </div>
-                    <div class="help-title">
-                      {{ $t("messages.header.help_telegram") }}
-                    </div>
-                  </div>
-                </el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </li>
-        <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
+          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
           <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
             <img :src="top_en" alt="" />
 
@@ -475,6 +332,20 @@
             </template>
           </el-dropdown>
         </li>
+        </template>
+        <template v-else>
+          <li>
+            <router-link to="/login" style="text-decoration: none"><span class="login-span">{{
+              $t("messages.header.login")
+            }}</span></router-link>
+          </li>
+          <li>
+            <!-- 用户认证页面   -->
+            <router-link to="/user/verification"  style="text-decoration: none"><button class="btn-signup">
+              {{ $t("messages.header.signup") }}
+            </button></router-link>
+          </li>
+        </template>
       </ul>
       <span class="el-dropdown-link">
         <img :src="menu_icon" alt="" @click="showClickMenu" />
@@ -488,21 +359,26 @@
             <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>
           </div>
           <div class="button-group" v-else>
-            <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign
-                up</el-button></router-link>
+            <!-- <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign
+                up</el-button></router-link> -->
             <router-link to="/login" style="text-decoration: none; color: #fff"><span>Login</span></router-link>
           </div>
           <ul class="nav-list">
-            <li><a href="/allCrypto" class="no-underline">Buy Crypto</a></li>
+            <!-- <li><a href="/allCrypto" class="no-underline">Buy Crypto</a></li>
             <li><a href="/allCrypto" class="no-underline">Markets</a></li>
-            <li><a href="/trade" class="no-underline">Trade</a></li>
-            <li><a href="/learnCenter" class="no-underline">Learn</a></li>
-            <li><a href="/download" class="no-underline">Help</a></li>
-            <li><a href="/download" class="no-underline">Language</a></li>
+            <li><a href="/trade" class="no-underline">Trade</a></li> -->
+            <li><a href="/learnCenter" class="no-underline">
+              {{
+            $t("messages.header.buy")
+          }}
+            </a></li>
+            <li><a href="/download" class="no-underline">{{ $t("messages.header.market") }}</a></li>
+            <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
+            <li><a href="/download" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
           </ul>
-          <div class="download-app">
-            <a href="/download" class="no-underline">Download COINBYTE App</a>
-          </div>
+          <!-- <div class="download-app">
+            <a href="/download" class="no-underline">Download COINBYTEP2P App</a>
+          </div> -->
         </div>
       </div>
     </div>
@@ -515,7 +391,7 @@ import type { TabsPaneContext } from "element-plus";
 import { useRouter } from "vue-router";
 import { CaretBottom } from "@element-plus/icons-vue";
 // img
-import logo from "../../assets/home/logo.svg";
+import logo from "../../assets/image/logo.svg";
 import top_down from "../../assets/home/top_down.svg";
 import top_notice from "../../assets/home/top_notice.svg";
 import top_bangzhu from "../../assets/home/top_bangzhu.svg";
@@ -991,7 +867,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 
   .btn-signup {
     cursor: pointer;
-    font-size: 15px;
+    font-size: 14px;
     box-sizing: border-box;
     color: #fff;
     line-height: 80%;

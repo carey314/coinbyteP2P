@@ -5,7 +5,173 @@
       {{ $t("messages.user.bank_msg") }}
     </div>
     <div class="bank-account-add">
-      <GetButton class="func-btn" :text="t('messages.user.add_bank')" />
+      <GetButton
+        class="func-btn"
+        :text="t('messages.user.add_bank')"
+        @click="addressVisible = true"
+      />
+      <el-dialog
+        class="inner-dialog"
+        v-model="addressVisible"
+        width="448px"
+        title="Inner Dialog"
+        append-to-body
+      >
+        <template #header>
+          <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
+        </template>
+
+        <div class="divider"></div>
+        <div class="receive" style="position: relative">
+          <div class="network">Bank Country</div>
+          <div
+            style="
+              position: absolute;
+              left: -15px;
+              top: 39px;
+              z-index: 9999;
+              color: #cd1e1e;
+            "
+          >
+            *
+          </div>
+
+          <el-select
+            class="select-second"
+            style="height: 48px"
+            v-model="selectedOption2"
+            placeholder="Select bank country"
+            @change="updateCanContinue"
+          >
+            <el-option
+              v-for="item in options2"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+        <div class="receive" style="position: relative">
+          <div class="network">Currency</div>
+          <div
+            style="
+              position: absolute;
+              left: -15px;
+              top: 38px;
+              z-index: 9999;
+              color: #cd1e1e;
+            "
+          >
+            *
+          </div>
+
+          <el-select
+            class="select-second"
+            style="height: 48px"
+            v-model="selectCurrency"
+            placeholder="Select Currency"
+            @change="updateCanContinue"
+          >
+            <el-option
+              v-for="item in options3"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </div>
+        <div class="identify-box">
+          <div class="func-text">Back Name</div>
+          <div class="container" style="position: relative">
+            <div
+              style="
+                position: absolute;
+                left: -15px;
+                top: 18px;
+                z-index: 9999;
+                color: #cd1e1e;
+              "
+            >
+              *
+            </div>
+            <input
+              class="container-input"
+              v-model="bankName"
+              type="text"
+              placeholder="Please enter"
+            />
+          </div>
+        </div>
+
+        <div class="identify-box">
+          <div class="func-text">Branch Code</div>
+          <div class="container" style="position: relative">
+            <div
+              style="
+                position: absolute;
+                left: -15px;
+                top: 18px;
+                z-index: 9999;
+                color: #cd1e1e;
+              "
+            >
+              *
+            </div>
+            <input
+              class="container-input"
+              v-model="codeValue"
+              type="text"
+              placeholder="Please enter"
+            />
+          </div>
+        </div>
+
+        <div class="identify-box">
+          <div class="func-text">Account Number</div>
+          <div class="container" style="position: relative">
+            <div
+              style="
+                position: absolute;
+                left: -15px;
+                top: 18px;
+                z-index: 9999;
+                color: #cd1e1e;
+              "
+            >
+              *
+            </div>
+            <input
+              class="container-input"
+              v-model="accountNumber"
+              type="text"
+              placeholder="Please enter"
+            />
+          </div>
+        </div>
+
+        <div class="identify-box">
+          <div class="func-text">Submit Bank Statement</div>
+          <div>
+            <el-upload
+              class="upload-demo"
+              drag
+              action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+              multiple
+            >
+              <img :src="upload" style="width: 18px; height: 18px" />
+              <div class="el-upload__text">Upload</div>
+            </el-upload>
+          </div>
+        </div>
+
+        <el-button
+          v-if="showContinueBtn"
+          class="save-btn"
+          @click="handleSubmit"
+        >
+          Submit
+        </el-button>
+      </el-dialog>
     </div>
     <div class="table-body" v-if="windowWidth > 820">
       <Table :sourceData="bankDate">
@@ -136,11 +302,34 @@ import { Right } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 import Table from "../../component/Table.vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
-import usercenter_verification_cor from "../../../../assets/home/usercenter_verification_cor.png";
-
+import upload from "../../../../assets/image/upload.png";
+import { UploadFilled } from "@element-plus/icons-vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+const addressVisible = ref(false);
+const selectedOption2 = ref("");
+const selectCurrency = ref("");
+const canContinue = ref(false);
 
+function updateCanContinue() {
+  canContinue.value = selectedOption2.value !== "";
+  canContinue.value = selectCurrency.value !== "";
+}
+let options2 = [
+  { value: "optionA", label: "Australia" },
+  { value: "optionB", label: "America" },
+];
+let options3 = [
+  { value: "optionA", label: "AUD" },
+  { value: "optionB", label: "NZD" },
+];
+const innerVisible = ref(false);
+const withdrawStatus = ref(false);
+const showContinueBtn = ref(true);
+function handleSubmit() {
+  withdrawStatus.value = true;
+  innerVisible.value = false;
+}
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -152,6 +341,10 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 const add = ref("+ Add Bank Account");
+const inputValue = ref("");
+const bankName = ref("");
+const codeValue = ref("");
+const accountNumber = ref("");
 
 const bankDate = [
   {
@@ -245,6 +438,114 @@ $fontSizeMin: 12px;
   }
   :deep(.el-card) {
     margin-top: 10px;
+  }
+}
+.inner-dialog {
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ebebeb;
+    margin-top: -20px;
+  }
+  .receive {
+    margin-top: 21px;
+    font-size: 14px;
+    color: #878787;
+    line-height: 32px;
+    .network {
+      font-size: 16px;
+      color: #000000;
+      line-height: 19px;
+      font-weight: 600;
+    }
+    .select-second {
+      width: 100%;
+      height: 48px;
+      margin-top: 10px;
+    }
+    .checkbox {
+      span {
+        font-size: 14px;
+        color: #878787;
+        margin-left: 16px;
+      }
+    }
+  }
+  .identify-box {
+    .func-text {
+      font-size: 16px;
+      color: #000000;
+      line-height: 19px;
+      margin-top: 14px;
+      font-weight: 600;
+    }
+    .container {
+      margin-top: 13px;
+      position: relative;
+      .container-input {
+        width: 100%;
+        height: 48px;
+        border-radius: 4px;
+        border: 1px solid #dfdfe5;
+        font-size: 14px;
+      }
+      .resend-btn {
+        color: #01c19a;
+        position: absolute;
+        right: 10px;
+        top: 14px;
+      }
+      .send-btn {
+        position: absolute;
+        right: 10px;
+        top: 14px;
+      }
+    }
+  }
+
+  .security {
+    font-size: 14px;
+    color: #01c19a;
+    line-height: 32px;
+    margin-top: 12px;
+
+    .checkbox {
+      float: left;
+    }
+    span {
+      margin-left: 10px;
+      font-size: 16px;
+      color: #878787;
+      margin-top: 4px;
+      float: left;
+    }
+  }
+}
+.upload-demo {
+  width: 50%;
+  margin-top: 17px;
+  background: #fbfbfb;
+  .el-upload__text {
+    font-size: 12px;
+    color: #424242;
+    line-height: 14px;
+  }
+}
+.save-btn {
+  width: 100%;
+  height: 60px;
+  background-color: #01c19a;
+  border-radius: 8px;
+  color: #fff;
+  margin-top: 17px;
+}
+:deep() {
+  .el-select .el-input__inner {
+    height: 48px;
+  }
+  .container-input {
+    padding-left: 8px;
+    color: #878787;
   }
 }
 </style>

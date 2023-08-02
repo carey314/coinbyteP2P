@@ -419,7 +419,7 @@ $fontSizeMin: 12px;
   margin: auto;
   display: flex;
   justify-content: center;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   align-items: center;
   border-bottom: 1px solid #2e3945;
 
@@ -699,7 +699,7 @@ $fontSizeMin: 12px;
   margin: auto;
   display: flex;
   justify-content: center;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   align-items: center;
   border-bottom: 1px solid #2e3945;
 

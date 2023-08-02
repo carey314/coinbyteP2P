@@ -4,8 +4,8 @@
       <el-row :gutter="80">
         <el-col :span="15" class="left-box">
           <div class="left-header">
-            <div class="header-title">Withdraw Fiat</div>
-            <router-link
+            <div class="header-title">Account Verification</div>
+            <!-- <router-link
               to="/wallet/WithdrawCrypto"
               style="text-decoration: none"
             >
@@ -17,7 +17,7 @@
                   </el-icon>
                 </div>
               </div>
-            </router-link>
+            </router-link> -->
           </div>
           <div class="left-center">
             <div class="center-step-box" style="height: 300px">
@@ -27,402 +27,123 @@
                   direction="vertical"
                   align-center
                 >
-                  <el-step title="Select currency" class="select">
+                  <el-step title="I am selling my crypto" class="select">
                     <template #description>
-                      <div v-if="activeStep >= 1">
-                        <el-select
-                          v-model="selectedOption1"
-                          placeholder="Select currency"
-                          @change="handleContinue"
-                          style="margin-top: 20px"
-                        >
-                          <el-option
-                            v-for="item in options1"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value"
-                          >
-                            <div
-                              style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                              "
-                            >
-                              <el-avatar
-                                :size="26"
-                                src="asdfasdf"
-                                style="margin-right: 8px"
-                              />
-                              {{ item.label }}
-                            </div>
-                          </el-option>
-                        </el-select>
+                      <!-- v-if="activeStep >= 1" -->
+                      <div class="sell-box">
+                        <div class="sell-title">Features and limits</div>
+                        <div class="sell-verified">
+                          <div class="verified-name">
+                            <el-icon class="icon" style="color: #01c19a"
+                              ><Select
+                            /></el-icon>
+                            <div class="whether">Sell my crypto</div>
+                          </div>
+                          <div class="verified-info">Unlimited</div>
+                        </div>
+                        <div class="sell-verified">
+                          <div class="verified-name">
+                            <el-icon class="icon" style="color: #f35854"
+                              ><CloseBold
+                            /></el-icon>
+                            <div class="whether">Buy crypto</div>
+                          </div>
+                          <div class="verified-info">50K USD Daily</div>
+                        </div>
+                        <div
+                          style="
+                            height: 2px;
+                            width: 100%;
+                            background-color: #ebebeb;
+                            margin-top: 24px !important;
+                          "
+                        ></div>
+                        <div class="sell-requirement">Requirements</div>
+                        <div class="require-box">
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Government-issued ID</span>
+                          </div>
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Facial recognition</span>
+                          </div>
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Proof of address</span>
+                          </div>
+                        </div>
+                        <el-button class="continue-btn" type="primary">
+                          Verify
+                        </el-button>
                       </div>
                     </template>
                   </el-step>
-                  <el-step title="Enter Amount" style="margin-top: 25px">
+                  <el-step
+                    title="I am buying crypto"
+                    class="clearfloat"
+                    style="margin-top: 25px"
+                  >
                     <template #description>
-                      <div
-                        v-if="activeStep === 2 || activeStep === 3"
-                        class="select clearfloat"
-                        style="position: relative"
-                      >
+                      <!-- v-if="activeStep === 2 || activeStep === 3" -->
+                      <div class="sell-box clearfloat">
+                        <div class="sell-title">Features and limits</div>
+                        <div class="sell-verified">
+                          <div class="verified-name">
+                            <el-icon class="icon" style="color: #01c19a"
+                              ><Select
+                            /></el-icon>
+                            <div class="whether">Sell my crypto</div>
+                          </div>
+                          <div class="verified-info">Unlimited</div>
+                        </div>
+                        <div class="sell-verified">
+                          <div class="verified-name">
+                            <el-icon class="icon" style="color: #01c19a"
+                              ><Select
+                            /></el-icon>
+                            <div class="whether">Buy crypto</div>
+                          </div>
+                          <div class="verified-info">1M USD Daily</div>
+                        </div>
                         <div
-                          class="enter-amount-tips"
-                          @click="dialogVisible = true"
-                        >
-                          <el-icon><Warning /></el-icon> Transaction
-                          requirements
-                        </div>
-                        <el-dialog
-                          v-model="dialogVisible"
-                          class="dialog-box"
-                          width="30%"
-                          style="padding-bottom: 36px"
-                        >
-                          <template #header>
-                            <div class="dialog-header">
-                              Transaction requirements
-                            </div>
-                          </template>
-                          <div class="divider"></div>
-                          <div class="suggest">Suggested Amount</div>
-
-                          <div class="count-range">A$50-2,000,000</div>
-                          <div class="limit requirements">
-                            <div class="limit-icon">
-                              <el-icon><Switch /></el-icon>
-                            </div>
-                            <div class="limit-title">Limit per transaction</div>
-                            <div class="limit-count">A$50-1,000,000,000</div>
+                          style="
+                            height: 2px;
+                            width: 100%;
+                            background-color: #ebebeb;
+                            margin-top: 24px !important;
+                          "
+                        ></div>
+                        <div class="sell-requirement">Requirements</div>
+                        <div class="require-box">
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Government-issued ID</span>
                           </div>
-                          <div class="remain requirements clearfloat">
-                            <div class="limit-icon">
-                              <el-icon><Clock /></el-icon>
-                            </div>
-                            <div class="limit-title">Remaining daily limit</div>
-                            <div class="limit-count">A$2,000,000</div>
-                            <div class="limit-sign">/A$2M</div>
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Facial recognition</span>
                           </div>
-                        </el-dialog>
-
-                        <div class="step-input">
-                          <el-input
-                            v-model="coinAmount"
-                            placeholder="Please enter the amount"
-                            @change="updateCanContinue"
-                            class="input"
-                          />
-                          <div v-for="item in options1" class="label">
-                            {{ item.label }}
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Proof of address</span>
                           </div>
-                        </div>
-
-                        <div class="enter-amount-rule">
-                          <div class="available">
-                            <div class="title">
-                              Available: <span>531.6517381 AUD</span>
-                            </div>
-                          </div>
-                          <div class="divider" style="width: 61%"></div>
-                          <div class="fait-rule-item">
-                            <div class="title">Account Number:</div>
-                            <div class="require">
-                              <span>436*213</span>
-                              <div
-                                class="edit-info"
-                                @click="editVisible = true"
-                              >
-                                Edit
-                              </div>
-                              <el-dialog
-                                v-model="editVisible"
-                                class="edit-dialog"
-                                width="30%"
-                                style="padding-bottom: 14px"
-                              >
-                                <div class="iamge">
-                                  <img :src="crypto_icon_usdt" />
-                                </div>
-                                <div class="delete">Delete Bank Account</div>
-
-                                <div class="content">
-                                  To add a new account, you need to delete this
-                                  account first. Please note that you can only
-                                  Add one new account within 24 hours. Are you
-                                  sure you want to delete this bank account
-                                  (462**215)?
-                                </div>
-                                <template #footer>
-                                  <div
-                                    class="dialog-footer"
-                                    style="text-align: center"
-                                  >
-                                    <el-button
-                                      @click="editVisible = false"
-                                      style="height: 48px; width: 47%"
-                                      >Cancel</el-button
-                                    >
-                                    <el-button
-                                      type="primary"
-                                      style="height: 48px; width: 47%"
-                                      @click="editVisible = false"
-                                    >
-                                      Confirm
-                                    </el-button>
-                                  </div>
-                                </template>
-                              </el-dialog>
-                            </div>
-                          </div>
-                          <div class="fait-rule-item">
-                            <div class="title">Transaction Method:</div>
-                            <div class="require">
-                              <div class="pay-img">
-                                <img :src="crypto_icon_usdt" />
-                              </div>
-                              <span>PayID/Osko</span>
-                            </div>
-                          </div>
-                          <div class="fait-rule-item">
-                            <div class="title">Transaction Fee:</div>
-                            <div class="require">0.00 AUD</div>
-                          </div>
-                          <el-divider style="width: 61%"></el-divider>
-                          <div class="receive-box">
-                            <div class="receive">You Receive:</div>
-                            <div class="receive-count">
-                              <span>0.00</span> AUD
-                            </div>
+                          <div class="require-item">
+                            <div class="pointer"></div>
+                            <span>Video verification</span>
                           </div>
                         </div>
                         <el-button
-                          class="continue-btn"
+                          class="verify-btn"
                           type="primary"
                           :disabled="!canContinue"
                           @click="handleContinue"
                         >
-                          Continue
+                          Verify
                         </el-button>
                       </div>
-                      <el-dialog
-                        v-model="continueVisible"
-                        class="continue-dialog-box"
-                        width="30%"
-                      >
-                        <template #header>
-                          <div class="dialog-header">
-                            Withdrawal Confirmation
-                          </div>
-                        </template>
-
-                        <div class="divider"></div>
-                        <div class="receive">Your receive</div>
-                        <div class="confirm-count">
-                          1000.00 <span>AUD</span>
-                        </div>
-                        <div class="detail-rules">
-                          <div class="rule-item">
-                            <div class="title">Receiver's Name</div>
-                            <div class="require">Ausun Overseas Pty Ltd</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Bank Name</div>
-                            <div class="require">Others</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">BSB</div>
-                            <div class="require">123-123</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Account Number</div>
-                            <div class="require">436*123</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Fee</div>
-                            <div class="require">0.00 AUD</div>
-                          </div>
-                          <div class="rule-item">
-                            <div class="title">Indicated Amount</div>
-                            <div class="require">1000 AUD</div>
-                          </div>
-                        </div>
-                        <template #footer>
-                          <div class="dialog-footer">
-                            <el-button @click="continueVisible = false"
-                              >Cancel</el-button
-                            >
-                            <el-button
-                              type="primary"
-                              @click="innerVisible = true"
-                            >
-                              Confirm
-                            </el-button>
-                            <el-dialog
-                              class="inner-dialog"
-                              v-model="innerVisible"
-                              width="32%"
-                              title="Inner Dialog"
-                              append-to-body
-                            >
-                              <template #header>
-                                <div style="font-weight: 600">
-                                  Security Verification
-                                </div>
-                              </template>
-
-                              <div class="divider"></div>
-                              <div class="receive">
-                                To secure your account. please complete the
-                                following Verificatio.
-                              </div>
-                              <div class="identify-box">
-                                <div class="func-text">
-                                  Enter the 6-digit code sent to 481***1234
-                                </div>
-                                <div class="container">
-                                  <input
-                                    class="container-input"
-                                    v-model="inputValue"
-                                    type="text"
-                                    placeholder="Phone Number Verification Code"
-                                  />
-                                  <el-button
-                                    class="send-btn"
-                                    key="button.text"
-                                    type="success"
-                                    link
-                                    >Send</el-button
-                                  >
-                                </div>
-                              </div>
-
-                              <div class="identify-box">
-                                <div class="func-text">
-                                  Enter the 6-gigit code sent to aar***@bitu.co
-                                </div>
-                                <div class="container">
-                                  <input
-                                    class="container-input"
-                                    v-model="inputValue"
-                                    type="text"
-                                    placeholder="Email Verification Code"
-                                  />
-                                  <el-button
-                                    class="send-btn"
-                                    key="button.text"
-                                    type="success"
-                                    link
-                                    >Send</el-button
-                                  >
-                                </div>
-                              </div>
-
-                              <div class="identify-box">
-                                <div class="func-text">
-                                  Enter the 6-digit code form authenticator
-                                </div>
-                                <div class="container">
-                                  <input
-                                    class="container-input"
-                                    v-model="inputValue"
-                                    type="text"
-                                    placeholder="Google verification code"
-                                  />
-                                  <el-button
-                                    class="send-btn"
-                                    key="button.text"
-                                    type="success"
-                                    link
-                                    >Send</el-button
-                                  >
-                                </div>
-                              </div>
-
-                              <div class="security">
-                                Security verification unavailable?
-                              </div>
-                              <el-button
-                                class="submit-btn"
-                                @click="handleSubmit"
-                              >
-                                Submit
-                              </el-button>
-                            </el-dialog>
-                          </div>
-                        </template>
-                      </el-dialog>
                     </template>
                   </el-step>
-                  <!-- <el-step
-                    v-if="showStepThree"
-                    title="Transfer Money to Proceed With the Order"
-                  >
-                    <template #description>
-                      <div
-                        v-if="activeStep === 3 && showStepThree"
-                        class="deposit-details clearfloat"
-                      >
-                        <div class="select clearfloat">
-                          <el-select
-                            class="select-second"
-                            style="margin-top: 20px"
-                            v-model="selectedOption2"
-                            placeholder="Select Network"
-                            @change="updateCanContinue"
-                          >
-                            <el-option
-                              v-for="item in options2"
-                              :key="item.value"
-                              :label="item.label"
-                              :value="item.value"
-                            ></el-option>
-                          </el-select>
-
-                          <div class="detail-box clearfloat">
-                            <div class="detail-box-tips">
-                              Please use the PayID detail below to make the
-                              transfer and
-                              <span
-                                >Select the email option, and NOT organisation
-                                ID</span
-                              >
-                              when depositing from online banking or mobile app.
-                              How to deposit AUD via PayID/Osko?
-                              <span style="text-decoration: underline"
-                                >Click Here</span
-                              >
-                            </div>
-
-                            <div class="detail-card">
-                              <div class="card-item">
-                                <div class="item-title">
-                                  <div class="item-title-img">
-                                    <img :src="crypto_icon_usdt" />
-                                  </div>
-                                  <span>AUD</span>
-                                </div>
-                                <div class="item-count">10,000.00</div>
-                              </div>
-                              <div class="card-divider"></div>
-                              <div class="card-info">
-                                <div class="title">PayID Information</div>
-                              </div>
-                              <div class="indo-detail">
-                                <div class="title">
-                                  user2022@au.coinbyte.com
-                                </div>
-                                <div class="copy">
-                                  <el-icon><CopyDocument /></el-icon> Copy
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </template>
-                  </el-step> -->
                 </el-steps>
               </div>
 
@@ -466,50 +187,39 @@
               <div class="faq-title">FAQ</div>
               <div class="faq-content content">
                 <el-collapse v-model="faqActiveName" accordion>
-                  <el-collapse-item title="What is PayID/Osko?" name="1">
+                  <el-collapse-item
+                    title="Why do I need to verify my identity?"
+                    name="1"
+                  >
                     <div class="faq-text">
-                      PayID/Osko is a bank transfer method supported by over 100
-                      Australian banks and financial institutions. PayID/Osko
-                      withdrawals are free and available anytime.
+                      We use identity verification in order to comply with local
+                      laws and regulations. This process helps us prevent
+                      fraudulent accounts and activity on our platform.
                     </div>
                   </el-collapse-item>
                   <el-collapse-item
-                    title="How long does the Withdrawal take?"
+                    title="Identity verification troubleshooting"
                     name="2"
                   >
-                    <div class="faq-text">
-                      Operation feedback: enable the users to clearly perceive
-                      their operations by style updates and interactive effects;
+                    <div class="faq-text" style="text-decoration: underline">
+                      How to verify your account with a new device?
                     </div>
-                  </el-collapse-item>
-                  <el-collapse-item
-                    title="How much is the withdrawal fee?"
-                    name="3"
-                  >
-                    <div class="faq-text">
-                      Simplify the process: keep operating process simple and
-                      intuitive;
-                    </div>
-                  </el-collapse-item>
-                  <el-collapse-item
-                    title="How do I link my Australian bank account?"
-                    name="4"
-                  >
-                    <div class="faq-text">
-                      Decision making: giving advices about operations is
-                      acceptable, but do not make decisions for the users;
-                    </div>
-                  </el-collapse-item>
-                  <el-collapse-item
-                    title="How to Withdraw AUD from CoinByte.com"
-                    name="5"
-                  >
-                    <div class="faq-text">
-                      Decision making: giving advices about operations is
-                      acceptable, but do not make decisions for the users;
+                    <div class="faq-text" style="text-decoration: underline">
+                      How do I check my identity verification information?
                     </div>
                   </el-collapse-item>
                 </el-collapse>
+                <div
+                  style="
+                    text-align: right;
+                    font-size: 14px;
+                    color: #7b8293;
+                    margin-top: 5px;
+                    cursor: pointer;
+                  "
+                >
+                  View more &gt;
+                </div>
               </div>
             </div>
           </div>
@@ -607,9 +317,9 @@
 import { ref, reactive, onUnmounted, onMounted, computed, watch } from "vue";
 import type { Ref } from "vue";
 import {
-  Link,
+  Select,
   Right,
-  CopyDocument,
+  CloseBold,
   Upload,
   Opportunity,
   Warning,
@@ -798,6 +508,64 @@ $fontSizeMin: 12px;
       }
     }
   }
+  .sell-box {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-top: 16px;
+    padding: 18px 22px 33px 24px;
+    .sell-title {
+      font-size: 20px;
+      line-height: 25px;
+    }
+    .sell-verified {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 23px;
+      .verified-name {
+        display: flex;
+        .icon {
+          margin-top: 4px;
+        }
+        .whether {
+          margin-left: 10px;
+          font-size: 16px;
+          color: #878787;
+        }
+        .verified-info {
+          line-height: 40px;
+          font-size: 16px;
+        }
+      }
+    }
+    .sell-requirement {
+      font-size: 20px;
+      margin-top: 28px;
+    }
+    .require-box {
+      margin-top: 24px;
+      .require-item {
+        font-size: 16px;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        .pointer {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          border: 2px solid #9b9b9b;
+        }
+        span {
+          margin-left: 14px;
+        }
+      }
+    }
+  }
+  :deep() {
+    .el-step__description.is-finish {
+      color: #000;
+      padding-right: 0;
+    }
+  }
   .left-center {
     .center-step-box {
       margin-top: 23px;
@@ -984,12 +752,16 @@ $fontSizeMin: 12px;
           }
         }
         .continue-btn {
-          width: 442px;
+          width: 100%;
           height: 60px;
-
           font-size: 20px;
         }
       }
+      .verify-btn {
+          width: 100%;
+          height: 60px;
+          font-size: 20px;
+        }
       .continue-dialog-box {
         .dialog-header {
           font-weight: 600;

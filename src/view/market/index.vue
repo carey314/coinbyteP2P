@@ -122,7 +122,7 @@ provide("transactions", transactions);
 <style scoped lang="scss">
 .center-part {
   max-width: 1290px;
-  min-height: calc(100vh - 394px);
+  min-height: calc(100vh - 160px);
   margin: auto;
   padding: 21px 0 141px 0;
   position: relative;

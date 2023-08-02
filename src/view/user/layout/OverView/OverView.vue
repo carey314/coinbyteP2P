@@ -32,7 +32,8 @@
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Phone') }}</div>
             <div class="info-count">
-              {{ userInfo && userInfo.phone.maskedPhone }}
+              <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+              <img class="verify-img" :src="registered_icon" /><span>Verify</span>
             </div>
           </div>
         </div>
@@ -119,7 +120,7 @@
                   to="/user/bankaccount"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
+                  <div class="link-text">{{ $t('messages.user.paid') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>
@@ -144,7 +145,7 @@
                   to="/user/accountstatement"
                   style="color: #01c19a; text-decoration: none"
                 >
-                  <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
+                  <div class="link-text">{{ $t('messages.user.manage') }}</div>
                   <el-icon><Right /></el-icon>
                 </router-link>
               </div>
@@ -161,6 +162,7 @@ import { ref, reactive } from "vue";
 import { Right } from "@element-plus/icons-vue";
 
 import myprofile_user from "../../../../assets/wallet/myprofile_user.png";
+import registered_icon from "../../../../assets/image/registered_icon.png";
 import usercenter_email from "../../../../assets/home/usercenter_email.svg";
 import usercenter_security_mobile from "../../../../assets/home/usercenter_security_mobile.svg";
 import dropdown_usercenter_verified from "../../../../assets/home/dropdown_usercenter_verified.svg";
@@ -242,6 +244,24 @@ console.log(userInfo.value);
           color: #878787;
           line-height: 14px;
           margin-top: 2px;
+          position: relative;
+          span{
+            font-size: 14px;
+            color: #01C19A;
+            position: absolute;
+            top: 7px;
+            left: 22px;
+          }
+          .verify-img{
+            width: 16px;
+            height: 18px;
+            margin-top: 4px;
+            img{
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
         }
       }
     }
