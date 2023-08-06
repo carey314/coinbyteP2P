@@ -1,0 +1,44 @@
+name: build-and-deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  # To build the project
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ENV: prod
+    steps:
+      - name: Checking out code
+        uses: actions/checkout@v3
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: Installing dependencies
+        run: npm install
+      - name: Building project
+        run: npm run build
+
+      - name: Deploy to S3 Bucket
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --delete
+        env:
+          AWS_S3_BUCKET: coinbyte.exchange
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-southeast-2
+          SOURCE_DIR: dist
+
+#      - name: Invalidate CloudFront
+#        uses: chetan/invalidate-cloudfront-action@v2
+#        env:
+#          DISTRIBUTION: E3RO12SOI85Y5S
+#          PATHS: "/*"
+#          AWS_REGION: ap-southeast-2
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
