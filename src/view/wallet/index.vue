@@ -233,6 +233,9 @@ const changeTab = (path: string) => {
       display: flex;
     }
   }
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 135px);
+  }
 }
 
 :deep() {

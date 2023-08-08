@@ -1,434 +1,327 @@
 <template>
   <div class="deposit-crypto">
-    <div v-if="windowWidth > 985">
-      <el-row :gutter="80">
-        <el-col :span="15" class="left-box">
-          <div class="left-header">
-            <div class="header-title">Deposit Crypto</div>
-            <router-link to="/user/depositFiat" style="text-decoration: none">
-              <div class="header-toFiat">
-                <div class="toFiat">
-                  Deposit Fiat
-                  <el-icon>
-                    <Right />
-                  </el-icon>
-                </div>
+    <el-row :gutter="80">
+      <el-col :span="15" :xs="24" class="left-box">
+        <div class="left-header">
+          <div class="header-title">Deposit Crypto</div>
+          <router-link to="/user/depositFiat" style="text-decoration: none">
+            <div class="header-toFiat">
+              <div class="toFiat">
+                Deposit Fiat
+                <el-icon>
+                  <Right />
+                </el-icon>
               </div>
-            </router-link>
-          </div>
-          <div class="left-center">
-            <div class="center-step-box" style="height: 300px">
-              <div>
-                <el-steps :active="activeStep" direction="vertical" align-center>
-                  <el-step title="Select crypto">
-                    <template #description>
-                      <div v-if="activeStep >= 1" class="select">
-                        <el-select v-model="selectedOption1" filterable :filter-method="filter1"
-                          placeholder="Select or Search" @change="handleContinue">
-                          <template #prefix>
-                            <img :src="firstIcon" v-show="firstIcon" style="
-                              width: 20px;
-                              height: 20px;
-                              margin-right: 5px;
-                            " />
-                            <span style="float: left;font-weight: bold;color: rgb(52, 44, 44);">{{ selectedOption1
-                            }}</span>
-                          </template>
-                          <el-option v-for="item in options1" :key="item.id" :label="item.name" :value="item.slug">
-                            <div style="
-                                display: flex;
-                                align-items: center;
-                                gap: 8px;
-                              ">
-                              <img :src="item.icon" v-show="item.icon" style="
-                                  width: 26px;
-                                  height: 26px;
-                                  margin-right: 5px;
-                                " />
-                              <span style="float: left;font-weight: bold;">{{ item.slug }}</span>
-                              <span style="
-                                  float: right;
-                                  color: var(--el-text-color-secondary);
-                                  font-size: 13px;
-                                ">{{ item.name }}</span>
-                            </div>
-                          </el-option>
-                        </el-select>
-                        <div class="step-options">
-                          <div v-for="item in buttons1" key="item.slug" class="step-option" @click="btnClick1(item.slug)">
-                            <img :src="item.icon" v-show="item.icon" style="
+            </div>
+          </router-link>
+        </div>
+        <div class="left-center">
+          <div class="center-step-box" style="height: 300px">
+            <div>
+              <el-steps :active="activeStep" direction="vertical" align-center>
+                <el-step title="Select crypto">
+                  <template #description>
+                    <div v-if="activeStep >= 1" class="select">
+                      <el-select
+                        v-model="selectedOption1"
+                        filterable
+                        :filter-method="filter1"
+                        placeholder="Select or Search"
+                        @change="handleContinue"
+                      >
+                        <template #prefix>
+                          <img
+                            :src="firstIcon"
+                            v-show="firstIcon"
+                            style="width: 20px; height: 20px; margin-right: 5px"
+                          />
+                          <span
+                            style="
+                              float: left;
+                              font-weight: bold;
+                              color: rgb(52, 44, 44);
+                            "
+                            >{{ selectedOption1 }}</span
+                          >
+                        </template>
+                        <el-option
+                          v-for="item in options1"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.slug"
+                        >
+                          <div
+                            style="display: flex; align-items: center; gap: 8px"
+                          >
+                            <img
+                              :src="item.icon"
+                              v-show="item.icon"
+                              style="
                                 width: 26px;
                                 height: 26px;
                                 margin-right: 5px;
-                              " />
-                            {{ item.slug }}
+                              "
+                            />
+                            <span style="float: left; font-weight: bold">{{
+                              item.slug
+                            }}</span>
+                            <span
+                              style="
+                                float: right;
+                                color: var(--el-text-color-secondary);
+                                font-size: 13px;
+                              "
+                              >{{ item.name }}</span
+                            >
                           </div>
+                        </el-option>
+                      </el-select>
+                      <div class="step-options">
+                        <div
+                          v-for="item in buttons1"
+                          key="item.slug"
+                          class="step-option"
+                          @click="btnClick1(item.slug)"
+                        >
+                          <img
+                            :src="item.icon"
+                            v-show="item.icon"
+                            style="width: 26px; height: 26px; margin-right: 5px"
+                          />
+                          {{ item.slug }}
                         </div>
                       </div>
-                    </template>
-                  </el-step>
-                  <el-step title="Deposit to">
-                    <template #description>
-                      <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
-                        <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
-                          @change="updateCanContinue">
-                          <el-option v-for="item in options2" :key="item.id" :label="item.name"
-                            :value="item.name"></el-option>
-                        </el-select>
-                        <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
-                          @click="handleContinue">
-                          Continue
-                        </el-button>
-                      </div>
-                      <div v-if="activeStep === 3 && showStepThree" class="select">
-                        <el-select class="select-second" style="margin-bottom: 20px" v-model="selectedOption2"
-                          placeholder="Select Network" @change="updateCanContinue">
-                          <el-option v-for="item in options2" :key="item.id" :label="item.name"
-                            :value="item.name"></el-option>
-                        </el-select>
-                      </div>
-                    </template>
-                  </el-step>
-                  <el-step v-if="showStepThree" title="Deposit details">
-                    <template #description>
-                      <div v-if="activeStep === 3 && showStepThree" class="deposit-details clearfloat">
-                        <div class="select clearfloat">
-                          <div class="detail-box clearfloat">
-                            <div class="detail-box-title">
-                              Scan the QR code or copy the Link below to your
-                              sending platform
-                            </div>
-                            <div class="detail-box-tips">
-                              Send only USDT to this deposit address.<br />
-                              This address does not support deposit of
-                              non-fungible token,<br />
-                              Please go to NFT page to deposit NFT.
-                            </div>
-                            <div class="detail-box-address">
-                              <div class="address-left">
-                                <div class="address-title">USDT address</div>
-                                <div class="address-code clearfloat">
-                                  <div class="code">
-                                    TTXKTYFSSDWjkjdsJTWEWEWEWjosdw122223EEWwr
-                                  </div>
-                                  <div class="copy">
-                                    <el-icon>
-                                      <CopyDocument />
-                                    </el-icon>
-                                    Copy
-                                  </div>
+                    </div>
+                  </template>
+                </el-step>
+                <el-step title="Deposit to">
+                  <template #description>
+                    <div
+                      v-if="activeStep === 2"
+                      class="select clearfloat"
+                      style="position: relative"
+                    >
+                      <el-select
+                        class="select-second"
+                        v-model="selectedOption2"
+                        placeholder="Select Network"
+                        @change="updateCanContinue"
+                      >
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.name"
+                        ></el-option>
+                      </el-select>
+                      <el-button
+                        v-if="showContinueBtn"
+                        class="continue-btn"
+                        type="primary"
+                        :disabled="!canContinue"
+                        @click="handleContinue"
+                      >
+                        Continue
+                      </el-button>
+                    </div>
+                    <div
+                      v-if="activeStep === 3 && showStepThree"
+                      class="select"
+                    >
+                      <el-select
+                        class="select-second"
+                        style="margin-bottom: 20px"
+                        v-model="selectedOption2"
+                        placeholder="Select Network"
+                        @change="updateCanContinue"
+                      >
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.id"
+                          :label="item.name"
+                          :value="item.name"
+                        ></el-option>
+                      </el-select>
+                    </div>
+                  </template>
+                </el-step>
+                <el-step v-if="showStepThree" title="Deposit details">
+                  <template #description>
+                    <div
+                      v-if="activeStep === 3 && showStepThree"
+                      class="deposit-details clearfloat"
+                    >
+                      <div class="select clearfloat">
+                        <div class="detail-box clearfloat">
+                          <div class="detail-box-title">
+                            Scan the QR code or copy the Link below to your
+                            sending platform
+                          </div>
+                          <div class="detail-box-tips">
+                            Send only USDT to this deposit address.<br />
+                            This address does not support deposit of
+                            non-fungible token,<br />
+                            Please go to NFT page to deposit NFT.
+                          </div>
+                          <div class="detail-box-address">
+                            <div class="address-left">
+                              <div class="address-title">USDT address</div>
+                              <div class="address-code clearfloat">
+                                <div class="code">
+                                  TTXKTYFSSDWjkjdsJTWEWEWEWjosdw122223EEWwr
+                                </div>
+                                <div class="copy">
+                                  <el-icon>
+                                    <CopyDocument />
+                                  </el-icon>
+                                  Copy
                                 </div>
                               </div>
-                              <div class="address-right">
-                                <img :src="login_qrcode" alt="" />
+                            </div>
+                            <div class="address-right">
+                              <img :src="login_qrcode" alt="" />
+                            </div>
+                          </div>
+                          <div class="detail-rules">
+                            <div class="rule-item">
+                              <div class="title">Minimum deposit</div>
+                              <div class="require">
+                                {{ minimumDeposit }} USDT
                               </div>
                             </div>
-                            <div class="detail-rules">
-                              <div class="rule-item">
-                                <div class="title">Minimum deposit</div>
-                                <div class="require">{{ minimumDeposit }} USDT</div>
+                            <div class="rule-item">
+                              <div class="title">Expected arrival</div>
+                              <div class="require">
+                                {{ expectedArrival }}
                               </div>
-                              <div class="rule-item">
-                                <div class="title">Expected arrival</div>
-                                <div class="require">
-                                  {{ expectedArrival }}
-                                </div>
-                              </div>
-                              <div class="rule-item">
-                                <div class="title">Slected wallet</div>
-                                <div class="require">Trading Wallet</div>
-                              </div>
+                            </div>
+                            <div class="rule-item">
+                              <div class="title">Slected wallet</div>
+                              <div class="require">Trading Wallet</div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </template>
-                  </el-step>
-                </el-steps>
-              </div>
+                    </div>
+                  </template>
+                </el-step>
+              </el-steps>
             </div>
           </div>
-        </el-col>
-        <el-col :span="9" class="right-box">
-          <div class="tips">
-            <div class="tips-question">
-              <div class="question-title title">Deposit hasn't arrived?</div>
-              <div class="question-content content">
-                <div class="description">
-                  If you encounter the follwing problems during the deposit
-                  process, you can go to Deposit Status Wuery to search for your
-                  current deposit status or retrieve your assets via
-                  self-service application.
-                </div>
-                <br />
-                <div class="first">
-                  1. Deposit has not arrived after a long while.
-                </div>
-                <div class="second">2. Didn't enter Memo/Tag correctly</div>
-                <div class="third">3. Deposited unlisted coins</div>
-                <br />
-                <div class="more">View more &gt;</div>
+        </div>
+      </el-col>
+      <el-col :span="9" :xs="24" class="right-box">
+        <div class="tips">
+          <div class="tips-question">
+            <div class="question-title title">Deposit hasn't arrived?</div>
+            <div class="question-content content">
+              <div class="description">
+                If you encounter the follwing problems during the deposit
+                process, you can go to Deposit Status Wuery to search for your
+                current deposit status or retrieve your assets via self-service
+                application.
               </div>
-            </div>
-            <div class="tips-faq">
-              <div class="faq-title title">FAQ</div>
-              <el-divider />
-              <div class="faq-content content">
-                <div>How to Deposit Crypto Step-by Step Guide</div>
-                <br />
-                <div>Why has my Deposit not been credited yet?</div>
-                <br />
-                <div>Why has my Deposit not been credited yet?</div>
-                <br />
-                <div class="more">View more &gt;</div>
+              <br />
+              <div class="first">
+                1. Deposit has not arrived after a long while.
               </div>
+              <div class="second">2. Didn't enter Memo/Tag correctly</div>
+              <div class="third">3. Deposited unlisted coins</div>
+              <br />
+              <div class="more">View more &gt;</div>
             </div>
           </div>
-        </el-col>
-      </el-row>
-      <div class="deposit-details clearfloat" v-if="activeStep === 3 && showStepThree">
-        <div class="recent-deposit">
-          <div class="table-name">Recent Deposits</div>
-          <div class="not-arrive">Hasn't arrived?</div>
-          <Table :sourceData="tableData">
-            <template v-slot:columns>
-              <el-table-column prop="createTime" :label="t('messages.wallet.fiat_Time')" width="180" />
-              <el-table-column prop="debitDetails.currency.alphabeticCode" :label="t('messages.wallet.fiat_Asset')" width="120">
-                <template #default="scope">
-                  <!-- <img :src="crypto_icon_usdt" style="width: 21px" /> -->
-                  {{ scope.row.debitDetails.currency.alphabeticCode }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="debitDetails.amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
-              <el-table-column prop="network" label="Network" width="160" />
-              <el-table-column label="Address" width="190">
-                <template #default="scope">
-                  {{ scope.row.address }}
-                  <el-icon>
-                    <Link />
-                  </el-icon>
-                  <el-icon>
-                    <CopyDocument />
-                  </el-icon>
-                </template>
-              </el-table-column>
+          <div class="tips-faq">
+            <div class="faq-title title">FAQ</div>
+            <el-divider />
+            <div class="faq-content content">
+              <div>How to Deposit Crypto Step-by Step Guide</div>
+              <br />
+              <div>Why has my Deposit not been credited yet?</div>
+              <br />
+              <div>Why has my Deposit not been credited yet?</div>
+              <br />
+              <div class="more">View more &gt;</div>
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+    <div
+      class="deposit-details clearfloat"
+      v-if="activeStep === 3 && showStepThree"
+    >
+      <div class="recent-deposit">
+        <div class="table-name">Recent Deposits</div>
+        <div class="not-arrive">Hasn't arrived?</div>
+        <Table :sourceData="tableData">
+          <template v-slot:columns>
+            <el-table-column
+              prop="createTime"
+              :label="t('messages.wallet.fiat_Time')"
+              width="180"
+            />
+            <el-table-column
+              prop="debitDetails.currency.alphabeticCode"
+              :label="t('messages.wallet.fiat_Asset')"
+              width="120"
+            >
+              <template #default="scope">
+                <!-- <img :src="crypto_icon_usdt" style="width: 21px" /> -->
+                {{ scope.row.debitDetails.currency.alphabeticCode }}
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="debitDetails.amount"
+              :label="t('messages.wallet.fiat_Amount')"
+              width="160"
+            />
+            <el-table-column prop="network" label="Network" width="160" />
+            <el-table-column label="Address" width="190">
+              <template #default="scope">
+                {{ scope.row.address }}
+                <el-icon>
+                  <Link />
+                </el-icon>
+                <el-icon>
+                  <CopyDocument />
+                </el-icon>
+              </template>
+            </el-table-column>
 
-              <el-table-column prop="transactionId" label="TxID" width="180">
-                <template #default="scope">
-                  {{ scope.row.transactionId }}
-                  <el-icon>
-                    <Link />
-                  </el-icon>
-                  <el-icon>
-                    <CopyDocument />
-                  </el-icon>
-                </template>
-              </el-table-column>
-              <el-table-column prop="wallet" label="Deposit wallet" width="120" />
-              <el-table-column label="">
-                <template #default="scope">
-                  <el-button type="text" :class="{
+            <el-table-column prop="transactionId" label="TxID" width="180">
+              <template #default="scope">
+                {{ scope.row.transactionId }}
+                <el-icon>
+                  <Link />
+                </el-icon>
+                <el-icon>
+                  <CopyDocument />
+                </el-icon>
+              </template>
+            </el-table-column>
+            <el-table-column prop="wallet" label="Deposit wallet" width="120" />
+            <el-table-column label="">
+              <template #default="scope">
+                <el-button
+                  type="text"
+                  :class="{
                     icon_button: true,
                     isRotate: isFoldArr.includes(scope.row.key),
-                  }" @click="getKey(scope.row.key)"><el-icon style="color: #9b9b9b">
-                      <CaretBottom />
-                    </el-icon></el-button>
-                </template>
-              </el-table-column>
-              <el-table-column prop="status" :label="t('messages.wallet.fiat_Status')" width="100" />
-            </template>
-          </Table>
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <el-row>
-        <el-col :span="24" class="left-box">
-          <div class="left-header">
-            <div class="header-title">Deposit Crypto</div>
-            <router-link to="/wallet/DepositCrypto" style="text-decoration: none">
-              <div class="header-toFiat">
-                <div class="toFiat">
-                  Deposit Fiat
-                  <el-icon>
-                    <Right />
-                  </el-icon>
-                </div>
-              </div>
-            </router-link>
-          </div>
-          <div class="left-center">
-            <div class="center-step-box" style="height: 300px">
-              <div>
-                <el-steps :active="activeStep" direction="vertical" style="height: 400px" align-center space="100%">
-                  <el-step title="Select crypto"></el-step>
-                  <el-step title="Deposit to"></el-step>
-                  <el-step v-if="showStepThree" title="Deposit details"></el-step>
-                </el-steps>
-              </div>
-              <div v-if="activeStep >= 1" class="select">
-                <el-select class="select-first" v-model="selectedOption1" placeholder="Select crypto"
-                  @change="handleContinue">
-                  <el-option v-for="item in options1" :key="item.slug" :label="item.name" :value="item.name"></el-option>
-                </el-select>
-              </div>
-              <div v-if="activeStep === 2" class="select clearfloat" style="position: relative">
-                <el-select class="select-second" v-model="selectedOption2" placeholder="Select Network"
-                  @change="updateCanContinue">
-                  <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.name"></el-option>
-                </el-select>
-                <el-button v-if="showContinueBtn" class="continue-btn" type="primary" :disabled="!canContinue"
-                  @click="handleContinue">
-                  Continue
-                </el-button>
-              </div>
-              <div v-if="activeStep === 3 && showStepThree" class="deposit-details clearfloat">
-                <div class="select clearfloat">
-                  <el-select class="select-second" style="margin-top: 20px" v-model="selectedOption2"
-                    placeholder="Select Network" @change="updateCanContinue">
-                    <el-option v-for="item in options2" :key="item.id" :label="item.name" :value="item.name"></el-option>
-                  </el-select>
-
-                  <div class="detail-box clearfloat">
-                    <div class="detail-box-title">
-                      Scan the QR code or copy the Link below to your sending
-                      platform
-                    </div>
-                    <div class="detail-box-tips">
-                      Send only USDT to this deposit address.<br />
-                      This address does not support deposit of non-fungible
-                      token,<br />
-                      Please go to NFT page to deposit NFT.
-                    </div>
-                    <div class="detail-box-address">
-                      <div class="address-left">
-                        <div class="address-title">USDT address</div>
-                        <div class="address-code clearfloat">
-                          <div class="code">
-                            TTXKTYFSSDWjkjdsJTWEWEWEWjosdw122223EEWwr
-                          </div>
-                          <div class="copy">
-                            <el-icon>
-                              <CopyDocument />
-                            </el-icon>
-                            Copy
-                          </div>
-                        </div>
-                      </div>
-                      <div class="address-right">
-                        <img :src="login_qrcode" alt="" />
-                      </div>
-                    </div>
-                    <div class="detail-rules">
-                      <div class="rule-item">
-                        <div class="title">Minimum deposit</div>
-                        <div class="require">{{ minimumDeposit }} USDT</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Expected arrival</div>
-                        <div class="require">{{ expectedArrival }}</div>
-                      </div>
-                      <div class="rule-item">
-                        <div class="title">Slected wallet</div>
-                        <div class="require">Trading Wallet</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="24" class="right-box">
-          <div class="tips">
-            <div class="tips-question">
-              <div class="question-title title">Deposit hasn't arrived?</div>
-              <div class="question-content content">
-                <div class="description">
-                  If you encounter the follwing problems during the deposit
-                  process, you can go to Deposit Status Wuery to search for your
-                  current deposit status or retrieve your assets via
-                  self-service application.
-                </div>
-                <br />
-                <div class="first">
-                  1. Deposit has not arrived after a long while.
-                </div>
-                <div class="second">2. Didn't enter Memo/Tag correctly</div>
-                <div class="third">3. Deposited unlisted coins</div>
-                <br />
-                <div class="more">View more &gt;</div>
-              </div>
-            </div>
-            <div class="tips-faq">
-              <div class="faq-title title">FAQ</div>
-              <el-divider />
-              <div class="faq-content content">
-                <div>How to Deposit Crypto Step-by Step Guide</div>
-                <br />
-                <div>Why has my Deposit not been credited yet?</div>
-                <br />
-                <div>Why has my Deposit not been credited yet?</div>
-                <br />
-                <div class="more">View more &gt;</div>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <div class="deposit-details clearfloat" v-if="activeStep === 3 && showStepThree">
-        <div class="recent-deposit">
-          <div class="table-name">Recent Deposits</div>
-          <div class="not-arrive">Hasn't arrived?</div>
-          <Table :sourceData="tableData">
-            <template v-slot:columns>
-              <el-table-column prop="createTime" :label="t('messages.wallet.fiat_Time')" width="180" />
-              <el-table-column prop="debitDetails.currency.alphabeticCode" :label="t('messages.wallet.fiat_Asset')" width="120">
-                <template #default="scope">
-                  <!-- <img :src="crypto_icon_usdt" style="width: 21px" /> -->
-                  {{ scope.row.debitDetails.currency.alphabeticCode }}
-                </template>
-              </el-table-column>
-              <el-table-column prop="debitDetails.amount" :label="t('messages.wallet.fiat_Amount')" width="160" />
-              <el-table-column prop="network" label="Network" width="160" />
-              <el-table-column label="Address" width="190">
-                <template #default="scope">
-                  {{ scope.row.address }}
-                  <el-icon>
-                    <Link />
-                  </el-icon>
-                  <el-icon>
-                    <CopyDocument />
-                  </el-icon>
-                </template>
-              </el-table-column>
-
-              <el-table-column prop="transactionId" label="TxID" width="180">
-                <template #default="scope">
-                  {{ scope.row.transactionId }}
-                  <el-icon>
-                    <Link />
-                  </el-icon>
-                  <el-icon>
-                    <CopyDocument />
-                  </el-icon>
-                </template>
-              </el-table-column>
-              <el-table-column prop="wallet" label="Deposit wallet" width="120" />
-              <el-table-column label="">
-                <template #default="scope">
-                  <el-button type="text" :class="{
-                    icon_button: true,
-                    isRotate: isFoldArr.includes(scope.row.key),
-                  }" @click="getKey(scope.row.key)"><el-icon style="color: #9b9b9b">
-                      <CaretBottom />
-                    </el-icon></el-button>
-                </template>
-              </el-table-column>
-              <el-table-column prop="status" :label="t('messages.wallet.fiat_Status')" width="100" />
-            </template>
-          </Table>
-        </div>
+                  }"
+                  @click="getKey(scope.row.key)"
+                  ><el-icon style="color: #9b9b9b">
+                    <CaretBottom /> </el-icon
+                ></el-button>
+              </template>
+            </el-table-column>
+            <el-table-column
+              prop="status"
+              :label="t('messages.wallet.fiat_Status')"
+              width="100"
+            />
+          </template>
+        </Table>
       </div>
     </div>
   </div>
@@ -446,7 +339,10 @@ import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { CurrencyType } from "../../../../models/currencyType";
 import { queryCurrenciesType } from "../../../../api/currencies";
-import { getDepositMethods, getDepositTransactions } from "../../../../api/deposit";
+import {
+  getDepositMethods,
+  getDepositTransactions,
+} from "../../../../api/deposit";
 import { DepositMethodObject } from "../../../../models/depositMethod";
 import { Transaction } from "../../../../models/transactions";
 const { t } = useI18n();
@@ -457,10 +353,10 @@ const activeStep = ref(1);
 const selectedOption1 = ref("");
 const selectedOption2 = ref("");
 const canContinue = ref(false);
-let options1 = ref<CurrencyType[]>([])
-let option1 = ref<CurrencyType[]>([])
-const buttons1 = ref<CurrencyType[]>([])
-let options2 = ref<DepositMethodObject[]>([])
+let options1 = ref<CurrencyType[]>([]);
+let option1 = ref<CurrencyType[]>([]);
+const buttons1 = ref<CurrencyType[]>([]);
+let options2 = ref<DepositMethodObject[]>([]);
 /*[
   { value: "optionA", label: "Polygon" },
   { value: "optionB", label: "Solana" },
@@ -470,42 +366,46 @@ let options2 = ref<DepositMethodObject[]>([])
 
 const showStepThree = ref(false);
 const showContinueBtn = ref(true);
-const firstIcon = ref("")
-const minimumDeposit = ref("0.0000")
-const expectedArrival = ref("")
+const firstIcon = ref("");
+const minimumDeposit = ref("0.0000");
+const expectedArrival = ref("");
 const tableData = ref<Transaction[]>([]);
-const depositMethods = ref<DepositMethodObject[]>([])
+const depositMethods = ref<DepositMethodObject[]>([]);
 onMounted(async () => {
-  const res = await queryCurrenciesType()
-  console.log(res)
+  const res = await queryCurrenciesType();
+  console.log(res);
   if (res.status == 200) {
     if (res.data.content) {
-      const datas = res.data.content.sort((i: CurrencyType, j: CurrencyType) => {
-        return i.id - j.id
-      })
-      option1.value = options1.value.concat(datas)
-      options1.value = options1.value.concat(datas)
-      buttons1.value = datas.splice(0, 5)
+      const datas = res.data.content.sort(
+        (i: CurrencyType, j: CurrencyType) => {
+          return i.id - j.id;
+        }
+      );
+      option1.value = options1.value.concat(datas);
+      options1.value = options1.value.concat(datas);
+      buttons1.value = datas.splice(0, 5);
     }
   }
   // get Deposit Methods
-  const depositMethodsRes = await getDepositMethods()
+  const depositMethodsRes = await getDepositMethods();
   if (depositMethodsRes.status === 200) {
-    depositMethods.value = depositMethodsRes.data
-    console.log("depositMethods", depositMethods.value)
+    depositMethods.value = depositMethodsRes.data;
+    console.log("depositMethods", depositMethods.value);
   }
-})
+});
 
 async function handleContinue() {
   if (activeStep.value === 1) {
-    selectedOption2.value = ""
-    options2.value = depositMethods.value.filter((e) => e.caption === `Deposit with ${selectedOption1.value}`)
+    selectedOption2.value = "";
+    options2.value = depositMethods.value.filter(
+      (e) => e.caption === `Deposit with ${selectedOption1.value}`
+    );
   }
   const arr = options1.value.filter((e) => {
-    return e.slug == selectedOption1.value
-  })
+    return e.slug == selectedOption1.value;
+  });
   if (arr.length > 0) {
-    firstIcon.value = arr[0].icon
+    firstIcon.value = arr[0].icon;
   }
   if (activeStep.value === 1 && selectedOption1.value !== "") {
     activeStep.value = 2;
@@ -516,38 +416,51 @@ async function handleContinue() {
     showStepThree.value = true;
     showContinueBtn.value = false; // 只隐藏继续按钮,不隐藏步骤二的选择框
     // 设置第三步的值
-    const selectedDepositMethod = depositMethods.value.find((e) => e.name == selectedOption2.value)
+    const selectedDepositMethod = depositMethods.value.find(
+      (e) => e.name == selectedOption2.value
+    );
     if (selectedDepositMethod) {
-      const paymentSystemCurrencies = selectedDepositMethod.paymentSystemCurrencies
+      const paymentSystemCurrencies =
+        selectedDepositMethod.paymentSystemCurrencies;
       if (paymentSystemCurrencies && paymentSystemCurrencies.length > 0) {
-        minimumDeposit.value = paymentSystemCurrencies[0].min.value
+        minimumDeposit.value = paymentSystemCurrencies[0].min.value;
       }
-      expectedArrival.value = selectedDepositMethod.libraryTimeToFund
+      expectedArrival.value = selectedDepositMethod.libraryTimeToFund;
     }
     // Recent Deposits
-    const depositTransactions = await getDepositTransactions(10, 0, "desc", "createTime", "deposit", null, null)
-    if(depositTransactions.status === 200){
-      tableData.value = depositTransactions.data.data
+    const depositTransactions = await getDepositTransactions(
+      10,
+      0,
+      "desc",
+      "createTime",
+      "deposit",
+      null,
+      null
+    );
+    if (depositTransactions.status === 200) {
+      tableData.value = depositTransactions.data.data;
     }
   }
 }
 const btnClick1 = (slug: string) => {
-  firstIcon.value = ""
-  selectedOption1.value = slug
+  firstIcon.value = "";
+  selectedOption1.value = slug;
   const arr = buttons1.value.filter((e) => {
-    return e.slug == slug
-  })
+    return e.slug == slug;
+  });
   if (arr.length > 0) {
-    firstIcon.value = arr[0].icon
+    firstIcon.value = arr[0].icon;
   }
-  selectedOption2.value = ""
-  options2.value = depositMethods.value.filter((e) => e.caption === `Deposit with ${selectedOption1.value}`)
+  selectedOption2.value = "";
+  options2.value = depositMethods.value.filter(
+    (e) => e.caption === `Deposit with ${selectedOption1.value}`
+  );
   // if (activeStep.value === 1 && selectedOption1.value !== "") {
   activeStep.value = 2;
-  showStepThree.value = false
-  showContinueBtn.value = true
+  showStepThree.value = false;
+  showContinueBtn.value = true;
   // }
-}
+};
 const selectOption = (option: string) => {
   selectedOption1.value = option;
   handleContinue();
@@ -558,15 +471,15 @@ const filter1 = (val: string) => {
     //val存在筛选数组
     options1.value = option1.value.filter((i) => {
       if (i.slug.indexOf(val.toUpperCase())) {
-        return false
+        return false;
       }
-      return true
-    })
+      return true;
+    });
   } else {
     //val不存在还原数组
-    options1.value = option1.value
+    options1.value = option1.value;
   }
-}
+};
 
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
@@ -595,7 +508,6 @@ $fontSizeMin: 12px;
   padding-bottom: 50px;
 
   :deep() {
-
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
     .el-button.is-disabled:hover {
@@ -626,11 +538,10 @@ $fontSizeMin: 12px;
 }
 
 .left-box {
-  padding-left: 60px !important;
 
   @media (max-width: 769px) {
     & {
-      padding-left: 0 !important;
+      padding-left: 40px !important;
     }
   }
 
@@ -676,11 +587,14 @@ $fontSizeMin: 12px;
       :deep() {
         .el-step__line {
           border-left: 2px dashed var(--el-text-color-placeholder);
-          border-image: repeating-linear-gradient(359deg,
+          border-image: repeating-linear-gradient(
+              359deg,
               var(--el-text-color-placeholder) 0,
               var(--el-text-color-placeholder) 5px,
               transparent 0,
-              transparent 10px) 30 12;
+              transparent 10px
+            )
+            30 12;
           background-color: transparent;
 
           .el-step__line-inner {
@@ -706,6 +620,11 @@ $fontSizeMin: 12px;
       .select {
         position: relative;
         margin-top: 24px;
+        @media (max-width: 769px) {
+          & {
+            margin-top: 0;
+          }
+        }
 
         :deep() {
           .el-select .el-input__wrapper {
@@ -728,7 +647,6 @@ $fontSizeMin: 12px;
       }
 
       .deposit-details {
-
         // position: relative;
         .detail-box {
           // margin-top: -90px;

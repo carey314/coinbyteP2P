@@ -285,15 +285,15 @@
           v-for="(item, index) in tableData"
           :key="index"
         >
-          <div class="history-date">
-            <span>{{ $t("messages.user.label_time") }}:</span> {{ item.date }}
+          <div class="history-date flex">
+            <span>{{ $t("messages.user.label_time") }}:</span> <div>{{ item.date }}</div>
           </div>
-          <div class="history-name">
+          <div class="history-name flex">
             <span>{{ $t("messages.user.label_location") }}:</span>
-            {{ item.name }}
+            <div>{{ item.name }}</div>
           </div>
-          <div class="history-address">
-            <span>{{ $t("messages.user.label_ip") }}:</span> {{ item.address }}
+          <div class="history-address flex">
+            <span>{{ $t("messages.user.label_ip") }}:</span> <div>{{ item.address }}</div>
           </div>
           <el-divider style="margin-left: -30px; width: 200%"></el-divider>
         </div>
@@ -639,6 +639,10 @@ $fontSizeMin: 12px;
     span {
       font-size: $fontSizeMinPro;
       color: #878787;
+    }
+    .flex{
+      display: flex;
+      justify-content: space-between;
     }
   }
   :deep() {

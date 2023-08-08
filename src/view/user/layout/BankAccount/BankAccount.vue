@@ -13,9 +13,10 @@
       <el-dialog
         class="inner-dialog"
         v-model="addressVisible"
-        width="448px"
+        style="padding: 0 10px;"
         title="Inner Dialog"
         append-to-body
+        width="75%"
       >
         <template #header>
           <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
@@ -373,6 +374,11 @@ $fontSizeMed: 26px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 
+:depp(){
+  .el-dialog{
+    --el-dialog-width: 100% !important;
+  }
+}
 .bank-account-title {
   margin-top: 39px;
   font-size: 26px;
@@ -441,6 +447,8 @@ $fontSizeMin: 12px;
   }
 }
 .inner-dialog {
+
+
   .divider {
     width: 100%;
     height: 1px;
@@ -538,6 +546,9 @@ $fontSizeMin: 12px;
   border-radius: 8px;
   color: #fff;
   margin-top: 17px;
+  @media (max-width: 768px) {
+    height: 45px;
+  }
 }
 :deep() {
   .el-select .el-input__inner {

@@ -1,6 +1,7 @@
 <template>
   <div class="login-page">
     <Header />
+
     <div class="center-box" v-if="windowWidth > 769">
       <div class="login-box">
         <el-form
@@ -128,22 +129,6 @@
           </div>
         </el-form>
       </div>
-      <div class="scan clearfloat">
-        <div class="scan-box">
-          <div class="scan-title">{{ $t("messages.login.with_qr") }}</div>
-          <div class="scan-qr"><img :src="login_qrcode" /></div>
-          <div class="scan-tip">{{ $t("messages.login.scan") }}</div>
-          <br />
-          <div class="scan-download">
-            <div class="other-sign">
-              <div class="other-sign-icon"><img :src="login_download" /></div>
-              <div class="other-sign-name">
-                {{ $t("messages.login.download") }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="center-box-mobile" v-if="windowWidth <= 769">
       <div class="login-box">
@@ -154,9 +139,60 @@
           @submit.native.prevent
         >
           <div class="login-title">{{ $t("messages.login.welcome") }}</div>
-          <el-form-item class="login-referral" prop="username">
-            <el-input v-model="form.username" placeholder="Phone / Email " />
-          </el-form-item>
+          <el-tabs v-model="activeLogin" class="login-tabs">
+            <el-tab-pane label="Phone" name="first" class="first-pan">
+              <el-form-item class="login-referral" prop="username">
+                <el-input
+                  v-model="form.number"
+                  placeholder="Phone"
+                  class="input-with-select"
+                >
+                  <div
+                    style="
+                      width: 1px;
+                      height: 10px;
+                      background: #01c19a;
+                      z-index: 999;
+                    "
+                  ></div>
+
+                  <template #prepend>
+                    <el-select
+                      v-model="numberSelect"
+                      placeholder="Select"
+                      filterable
+                      style="width: 130px"
+                    >
+                      <el-option
+                        v-for="item in areas"
+                        :key="item.value"
+                        :label="item.value"
+                        :value="item.value"
+                        style="width: 353px"
+                      >
+                        <span style="float: left">{{ item.label }}</span>
+                        <span
+                          style="
+                            float: right;
+                            color: var(--el-text-color-secondary);
+                            font-size: 13px;
+                          "
+                          >{{ item.value }}</span
+                        >
+                      </el-option>
+                    </el-select>
+                  </template>
+                  <!-- <el-divider direction="vertical" /> -->
+                </el-input>
+              </el-form-item>
+            </el-tab-pane>
+            <el-tab-pane label="Email" name="second">
+              <el-form-item class="login-referral" prop="number">
+                <el-input v-model="form.username" placeholder="Email" />
+              </el-form-item>
+            </el-tab-pane>
+          </el-tabs>
+
           <el-form-item class="login-password" prop="password">
             <el-input
               v-model="form.password"
@@ -220,21 +256,6 @@
           </div>
         </el-form>
       </div>
-      <div class="scan clearfloat">
-        <div class="scan-box">
-          <div class="scan-title">{{ $t("messages.login.with_qr") }}</div>
-          <div class="scan-qr"><img :src="login_qrcode" /></div>
-          <div class="scan-tip">{{ $t("messages.login.scan") }}</div>
-          <div class="scan-download">
-            <div class="other-sign">
-              <div class="other-sign-icon"><img :src="login_download" /></div>
-              <div class="other-sign-name">
-                {{ $t("messages.login.download") }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
@@ -262,7 +283,7 @@ import { useUserInfoStore } from "../../store/user";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
 import { getLoginUUID, toLogin as Tologin } from "../../api/login";
-
+import { Minus, Plus } from "@element-plus/icons-vue";
 import type { FormInstance, FormRules } from "element-plus";
 
 import { useI18n } from "vue-i18n";
@@ -299,6 +320,21 @@ const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
 };
 const text = ref("Log in");
+// 进度条
+const percentage = ref(25);
+const customColor = ref("#01c19a");
+const increase = () => {
+  percentage.value += 25;
+  if (percentage.value > 100) {
+    percentage.value = 100;
+  }
+};
+const decrease = () => {
+  percentage.value -= 25;
+  if (percentage.value < 0) {
+    percentage.value = 0;
+  }
+};
 
 const activeLogin = ref("second");
 // const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -406,14 +442,30 @@ $fontSizeMin: 12px;
   .el-form-item__content .el-input-group {
     border: 1px solid #dfdfe5;
     border-radius: 4px;
+    
   }
+  .el-tabs__content {
+      margin-top: -37px;
+      height: 78px;
+    
+    }
   // .center-box .login-box .login .login-referral[data-v-26188718] .el-input__wrapper{
   //   border: none;
   // }
+  .el-progress__text {
+    display: none;
+  }
+  .el-progress-bar__outer {
+    background-color: #fff !important;
+    border-radius: 0;
+  }
 }
 
 .login-page {
   background: #1d262f;
+  @media (max-width: 768px) {
+    background: #fff;
+  }
 }
 .center-box {
   margin: auto;
@@ -426,7 +478,9 @@ $fontSizeMin: 12px;
   @media (max-width: 769px) {
     display: block !important;
   }
-
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 135px);
+  }
   .login-box {
     height: 100%;
     width: 439px;
@@ -462,12 +516,6 @@ $fontSizeMin: 12px;
         text-align: center;
       }
       .login-tabs {
-        :deep() {
-          .el-tabs__content {
-            margin-top: -37px;
-            height: 78px;
-          }
-        }
         .first-pan {
           :deep() {
             .center-box
@@ -702,9 +750,14 @@ $fontSizeMin: 12px;
   min-height: calc(100vh - 160px);
   align-items: center;
   border-bottom: 1px solid #2e3945;
-
-  @media (max-width: 769px) {
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 115px);
+  }
+  @media (max-width: 768px) {
+    margin-top: 30px;
     display: block !important;
+    border-bottom: none;
+    box-shadow: none;
   }
 
   .login-box {

@@ -1,185 +1,161 @@
 <template>
   <div>
     <Header />
+    <el-progress
+      :percentage="percentage"
+      :color="customColor"
+      show-text="none"
+    />
     <div class="sign-box">
-      <div class="sign">
-        <div class="sign-title">{{ $t("messages.sign.create") }}</div>
-        <div class="sign-radio">
-          <el-radio-group v-model="activeSign">
-            <el-radio
-              :label="option.value"
-              v-for="option in options"
-              :key="option.value"
+      <el-row>
+        <el-col :span="24" :xs="24">
+          <div class="create-title">Account Creation</div>
+
+          <div v-if="percentage === 50">
+            <div class="create-number">
+              My email address is
+              <span style="position: relative">
+                <el-input v-model="emailInput" placeholder="email address" />
+                <span class="tip" v-if="emailInput === ''">*</span>
+              </span>
+              . I can confirm it and I'm allowed to use it.
+            </div>
+            <div class="create-rule">
+              By clicking Continue, I accept the <a>Terms of Use</a> and
+              <a>Privacy Policy</a>
+            </div>
+            <div class="remind-box" v-if="!isValidEmail">
+              <div class="remind-title">
+                <img :src="icon_info" /> <span>Reminder</span>
+              </div>
+              <div class="remind-tip">* Fill out the empty field.</div>
+            </div>
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="!isValidEmail || emailInput === ''"
+              @click="increase()"
             >
-              <el-row>
-                <el-col span="12">
-                  <div class="label">
-                    {{ option.label }}
-                  </div>
-                </el-col>
-              </el-row>
-            </el-radio>
-          </el-radio-group>
-          <div
-            v-if="activeSign === '1'"
-            class="activeNumber"
-            style="margin-top: 18px"
-          >
-            <el-input
-              v-model="number"
-              :placeholder="t('messages.sign.mobile')"
-              class="input-with-select"
+              Continue
+            </el-button>
+          </div>
+          <div v-if="percentage === 100">
+            <div class="create-number">
+              We're sent an activation link to your email
+              <span style="text-decoration: underline" class="email-input"
+                >&nbsp;&nbsp;{{ emailInput }}&nbsp;&nbsp;</span
+              >
+              Please check your inbox to continue.
+            </div>
+
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="!isValidEmail || emailInput === ''"
+              @click="successContinue()"
             >
-              <template #prepend>
-                <el-select v-model="numberSelect" placeholder="Select" filterable>
-                  <el-option
-                    v-for="item in areas"
-                    :key="item.value"
-                    :label="item.value"
-                    :value="item.value"
-                    style="width: 358px;"
-                  >
-                    <span style="float: left">{{ item.label }}</span>
-                    <span
-                      style="
-                        float: right;
-                        color: var(--el-text-color-secondary);
-                        font-size: 13px;
-                      "
-                      >{{ item.value }}</span
-                    >
-                  </el-option>
-                </el-select>
-              </template>
-            </el-input>
+              Continue
+            </el-button>
           </div>
-          <div v-if="activeSign === '2'" class="activeEmail">
-            <el-input v-model="email" :placeholder="t('messages.sign.email')">
-              <template #prefix>
-                <img :src="login_email" />
-              </template>
-            </el-input>
-          </div>
-        </div>
-        <div class="sign-password">
-          <el-input
-            v-model="password"
-            :type="isShowPass ? 'text' : 'password'"
-            :placeholder="t('messages.sign.password')"
-          >
-            <template #prefix>
-              <img :src="login_password" />
-            </template>
-            <template v-if="!isShowPass" #suffix>
-              <img :src="login_eye_off" @click="showPassWord" />
-            </template>
-            <template v-else #suffix>
-              <img
-                :src="login_eye_view"
-                style="width: 22px; height: 20px"
-                @click="showPassWord"
-              />
-            </template>
-          </el-input>
-          <div class="password-condition">
-            <div class="condition clearfloat">
-              <div
-                :class="{
-                  'satisfy-frame': true,
-                  dot: passwordConditions.length,
-                }"
-              >
-                <div class="blank clearfloat"></div>
-              </div>
-              <div class="satisfy">{{ $t("messages.sign.characters") }}</div>
+          <!-- <div v-if="percentage === 60">
+            <div class="create-number">
+              My phone number is
+              <span style="position: relative">
+                <el-input v-model="phoneInput" placeholder="+00 000 000 000" />
+                <span class="tip" v-if="phoneInput === ''">*</span>
+              </span>
+              . I'll use it whenever I log in to COINBYTEP2P.
             </div>
-            <div class="condition clearfloat">
-              <div
-                :class="{
-                  'satisfy-frame': true,
-                  dot: passwordConditions.lowercase,
-                }"
-              >
-                <div class="blank clearfloat"></div>
+            <div class="remind-box" v-if="!isValidPhone">
+              <div class="remind-title">
+                <img :src="icon_info" /> <span>Reminder</span>
               </div>
-              <div class="satisfy">{{ $t("messages.sign.lowercase") }}</div>
-            </div>
-            <div class="condition clearfloat">
-              <div
-                :class="{
-                  'satisfy-frame': true,
-                  dot: passwordConditions.uppercase,
-                }"
-              >
-                <div class="blank clearfloat"></div>
+              <div class="remind-tip">* Fill out the empty field.</div>
+              <div class="remind-tip">
+                * Please enter the correct phone number
               </div>
-              <div class="satisfy">{{ $t("messages.sign.uppercase") }}</div>
             </div>
-            <div class="condition clearfloat">
-              <div
-                :class="{
-                  'satisfy-frame': true,
-                  dot: passwordConditions.number,
-                }"
-              >
-                <div class="blank clearfloat"></div>
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="!isValidPhone || phoneInput === ''"
+              @click="increase"
+            >
+              Continue
+            </el-button>
+          </div> -->
+
+          <!-- <div v-if="percentage === 80">
+            <div class="create-number">
+              My phone number is
+              <span style="text-decoration: underline"
+                >&nbsp;&nbsp;{{ phoneInput }}&nbsp;&nbsp;</span
+              >.
+              I'll use it whenever I log in to COINBYTEP2P.
+            </div>
+
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="!isValidPhone || phoneInput === ''"
+              @click="increase"
+            >
+              Continue
+            </el-button>
+          </div> -->
+
+          <!-- <div v-if="percentage === 80">
+            <div class="create-number">
+              I received a single-use code on my phone number ending with *86.
+              Here it is:
+              <span style="position: relative">
+                <el-input v-model="smsCode" placeholder="000 000" />
+                <span class="tip" v-if="smsCode === ''">*</span>
+              </span>
+            </div>
+
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="!isValidPhone || smsCode === ''"
+              @click="phoneContinue"
+            >
+              Continue
+            </el-button>
+          </div> -->
+
+          <!-- <div v-if="percentage === 100">
+            <div class="create-number">
+              Here is my personal passcode
+              <span style="position: relative">
+                <el-input
+                  v-model="passwordInput"
+                  placeholder="000 000"
+                  type="password"
+                />
+                <span class="tip" v-if="passwordInput === ''">*</span>
+              </span>
+            </div>
+            <div class="remind-box" v-if="passwordInput === ''">
+              <div class="remind-title">
+                <img :src="icon_info" /> <span>Reminder</span>
               </div>
-              <div class="satisfy">{{ $t("messages.sign.number") }}</div>
+              <div class="remind-tip">* Fill out the empty field.</div>
+              <div class="remind-tip">
+                * Please enter the correct phone number
+              </div>
             </div>
-            <!-- <div class="condition clearfloat">
-              <div :class="{'satisfy-frame' : true, 'dot' : password.match(/^(?=.*[@$!%*?&]).*$/)}"></div>
-              <div class="satisfy">{{ $t('messages.sign.symbol') }}</div>
-            </div> -->
-          </div>
-        </div>
-        <div class="sign-referral">
-          <el-input
-            v-model="optional"
-            :placeholder="t('messages.sign.referral')"
-          />
-        </div>
-        <div class="sign-agree clearfloat">
-          <div class="agree-frame">
-            <el-checkbox v-model="checked" />
-          </div>
-          <div class="agreement">
-            {{ $t("messages.sign.agree") }}
-            <a href="" style="color: #01c19a">{{
-              $t("messages.sign.Terms")
-            }}</a>
-            {{ $t("messages.sign.and") }}
-            <a href="" style="color: #01c19a"
-              >{{ $t("messages.sign.policies") }}
-            </a>
-          </div>
-        </div>
-        <div class="sign-button">
-          <GetButton :text="t('messages.sign.sign')" @click="handleToSignUp" />
-        </div>
-        <div class="sign-login">
-          <div>
-            {{ $t("messages.sign.to_login") }} &nbsp;
-            <a href="/login" style="color: #01c19a; text-decoration: none">{{
-              $t("messages.sign.login")
-            }}</a>
-          </div>
-        </div>
-        <div class="sign-with">
-          <el-divider>
-            <span>{{ $t("messages.sign.or") }}</span>
-          </el-divider>
-        </div>
-        <div class="sign-other">
-          <div class="other-sign">
-            <div class="other-sign-icon"><img :src="twitter" /></div>
-            <div class="other-sign-name">Twitter</div>
-          </div>
-          <div class="other-sign">
-            <div class="other-sign-icon"><img :src="login_google" /></div>
-            <div class="other-sign-name">Google</div>
-          </div>
-        </div>
-      </div>
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="passwordInput === ''"
+              @click="successContinue"
+            >
+              Continue
+            </el-button>
+          </div> -->
+        </el-col>
+      </el-row>
     </div>
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
@@ -187,13 +163,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, watchEffect } from "vue";
+import {
+  ref,
+  reactive,
+  onUnmounted,
+  onMounted,
+  watchEffect,
+  computed,
+} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
 
-import login_password from "../../assets/home/login_password.svg";
+import icon_info from "../../assets/image/icon_info.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_email from "../../assets/home/login_email.svg";
 import login_telegram from "../../assets/home/login_telegram.svg";
@@ -205,7 +188,8 @@ import { initializeSignUpWizard, signUp, choosePer } from "../../api/user";
 
 import { useFingerprintStore } from "../../store/fingerprint";
 import { ElMessage } from "element-plus";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -215,7 +199,7 @@ const activeSign = ref("1");
 const number = ref("");
 const numberSelect = ref("+61");
 const areas = [
-{ label: "Australia", value: "+61" },
+  { label: "Australia", value: "+61" },
   { label: "United States", value: "+1" },
 ];
 const filterMethod = (query: string, option: any) => {
@@ -224,6 +208,46 @@ const filterMethod = (query: string, option: any) => {
     option.value.toLowerCase().indexOf(query.toLowerCase()) >= 0
   );
 };
+const canContinue = ref(false);
+const emailInput = ref("");
+const phoneInput = ref("");
+const smsCode = ref("");
+const passwordInput = ref("");
+
+const EMAIL_REGEX = /\S+@\S+\.\S+/;
+// const PHONE_REGEX = /^\+\d{2} \d{3} \d{3} \d{3}$/;
+const PHONE_REGEX = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+const isValidEmail = computed(() => {
+  return EMAIL_REGEX.test(emailInput.value);
+});
+const isValidPhone = computed(() => {
+  return PHONE_REGEX.test(phoneInput.value);
+});
+
+const increase = () => {
+  if (isValidEmail.value) {
+    canContinue.value = true;
+    percentage.value += 50;
+    if (percentage.value > 100) {
+      percentage.value = 100;
+    }
+  }
+};
+const phoneContinue = () => {
+  if (isValidPhone.value) {
+    canContinue.value = true;
+    percentage.value += 20;
+    if (percentage.value > 100) {
+      percentage.value = 0;
+    }
+  }
+};
+const successContinue = () => {
+  router.push("/signupSuccess");
+};
+
+const currentStep = ref(1);
+
 const email = ref("");
 const password = ref("");
 const optional = ref("");
@@ -277,6 +301,18 @@ onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
 const regUUID = ref("");
+// 进度条
+const percentage = ref(50);
+const customColor = ref("#01c19a");
+// const increase = () => {
+//   if (emailInput.value !== "") {
+//     canContinue.value = true;
+//     percentage.value += 25;
+//     if (percentage.value > 100) {
+//       percentage.value = 100;
+//     }
+//   }
+// };
 
 onMounted(() => {
   initializeSignUpWizard({
@@ -366,297 +402,72 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .sign-box {
-  display: flex;
-  min-height: calc(100vh - 160px);
-  align-items: center;
-  background: #1d262f;
-  padding: 80px 0;
+  min-height: calc(100vh - 20px);
+  background: #ffffff;
+  padding: 0 70px;
   border-bottom: 1px solid #2e3945;
   @media (max-width: 768px) {
-    padding: 0;
+    padding: 0 20px;
+    min-height: calc(100vh - 92px);
   }
-  .sign {
-    max-width: 438px;
-    flex: 1;
-    margin: auto;
-    background: #fff;
-    box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
-    border-radius: 8px;
-    padding: 30px 40px 40px 40px;
+  .create-title {
+    margin-top: 56px;
+    font-size: 36px;
+    color: #060606;
+    line-height: 44px;
+    font-weight: 600;
+  }
+  .create-number {
+    font-size: 32px;
+    color: #060606;
+    line-height: 38px;
+    margin-top: 65px;
     @media (max-width: 768px) {
-      border-radius: 0px;
+      font-size: 26px;
+      display: block;
+  }
+  .email-input{
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+    .tip {
+      color: #f15958;
+      position: absolute;
+      top: -5px;
+      font-size: 14px;
     }
-    .sign-title {
-      font-size: $fontSizeMedPro;
-      color: #000000;
-      line-height: 34px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .sign-radio {
-      margin-top: 28px;
-      :deep() {
-        .el-radio__inner {
-          border-color: #dfdfe5;
-          border-radius: 3px;
-        }
-        .el-radio__input.is-checked .el-radio__inner {
-          background: #01c19a;
-          border-color: #01c19a;
-          border-radius: 4px;
-        }
-        .el-radio__input.is-checked + .el-radio__label {
-          color: #000;
-        }
-
-        .el-radio-group {
-          display: flex;
-          justify-content: space-between;
-        }
-        .el-radio {
-          width: 48%;
-          margin-right: 0;
-          --el-radio-text-color: #c4c9d0;
-          // --el-radio-font-size:14px;
-        }
-        .el-radio__inner::after {
-          border-radius: 0px;
-        }
-      }
-      .el-radio {
-        height: 48px;
-        border: 1px solid #dfdfe5;
-        border-radius: 4px;
-        padding: 15px;
-      }
-      .activeNumber {
-        .input-with-select {
-          :deep() {
-            .el-input__inner {
-              font-size: $fontSizeMinPro;
-              color: #000;
-              line-height: 16px;
-            }
-          }
-        }
-        :deep() {
-          .el-input {
-            --el-input-border-color: none;
-          }
-          .el-input-group__prepend {
-            width: 73px;
-            border-radius: 8px;
-          }
-          .el-input-group--prepend > .el-input__wrapper {
-            margin-left: 16px;
-          }
-          .el-select {
-            --el-select-input-focus-border-color: none;
-          }
-
-          //right input
-          .el-input__wrapper {
-            background: #fff;
-            border: 1px solid #dfdfe5;
-            height: 48px;
-            border-radius: 4px;
-            --el-input-focus-border-color: none;
-            --el-input-hover-border-color: none;
-            box-shadow: none;
-            padding-left: 15px;
-          }
-          .el-input__inner {
-            font-size: $fontSizeMinPro;
-            color: #c4c9d0;
-            line-height: 16px;
-          }
-        }
-      }
-      .activeEmail {
-        margin-top: 18px;
-        :deep() {
-          .el-input__wrapper {
-            background: #fff;
-            border: 1px solid #dfdfe5;
-            height: 48px;
-            border-radius: 4px;
-            --el-input-focus-border-color: none;
-            --el-input-hover-border-color: none;
-            box-shadow: none;
-            padding-left: 15px;
-          }
-        }
-      }
-    }
-    .sign-password {
-      margin-top: 17px;
-      .password-condition {
-        margin-top: 12px;
-        .condition {
-          margin-top: 9px;
-          .dot {
-            background-color: #01c19a;
-          }
-          .satisfy-frame {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            float: left;
-            width: 12px;
-            height: 12px;
-            border-radius: 4px;
-            .blank {
-              background: #fff;
-              width: 3.2px;
-              height: 3.2px;
-            }
-          }
-          .satisfy {
-            margin-top: -6px;
-            float: left;
-            margin-left: 10px;
-            font-size: $fontSizeMin;
-            color: #000000;
-            line-height: 22px;
-            font-weight: 500;
-          }
-        }
-      }
-      :deep() {
-        .el-input__wrapper {
-          height: 48px;
-          padding: 15px;
-        }
-        .el-input .el-input__clear,
-        .el-input .el-input__password {
-          font-size: 20px;
-        }
-        .el-icon svg {
-          height: 20px;
-          width: 20px;
-        }
-        .el-input__wrapper {
-          background: #fff;
-          border: 1px solid #dfdfe5;
-          height: 48px;
-          border-radius: 4px;
-          --el-input-focus-border-color: none;
-          --el-input-hover-border-color: none;
-          box-shadow: none;
-          padding-left: 15px;
-        }
-      }
-    }
-    .sign-referral {
-      margin-top: 14px;
-      :deep() {
-        .el-input__wrapper {
-          background: #fff;
-          border: 1px solid #dfdfe5;
-          height: 48px;
-          border-radius: 4px;
-          --el-input-focus-border-color: none;
-          --el-input-hover-border-color: none;
-          box-shadow: none;
-          padding-left: 15px;
-        }
-      }
-    }
-    .sign-agree {
-      margin-top: 26px;
-      .agree-frame {
-        float: left;
-        margin-top: -11px;
-        height: 12px;
-        :deep() {
-          .el-checkbox__inner {
-            width: 12px;
-            height: 12px;
-          }
-          .el-checkbox__inner::after {
-            height: 5px;
-            left: 3px;
-          }
-          .el-checkbox__inner:hover {
-            border-color: #01c19a;
-          }
-          .el-checkbox__input.is-checked .el-checkbox__inner {
-            background-color: #01c19a;
-            border-color: #01c19a;
-          }
-        }
-      }
-      .agreement {
-        font-size: $fontSizeMin;
-        color: #6e6e6e;
-        line-height: 22px;
-        float: left;
-        margin-top: -6px;
-        margin-left: 10px;
-      }
-    }
-    .sign-button {
-      margin-top: 7px;
-      :deep(.button) {
-        width: 100%;
-        height: 100%;
-        font-size: 20px;
-        line-height: 25px;
-        padding: 16px 0 14px 0px;
-        border: 8px;
-        @media (max-width: 769px) {
-          padding: 16px 0;
-        }
-      }
-    }
-    .sign-login {
-      text-align: center;
-      margin-top: 22px;
-      font-size: $fontSizeMinPro;
-      line-height: 16px;
-      color: #000;
-      font-weight: 500;
-    }
-    .sign-with {
-      margin-top: 29px;
-      span {
-        font-size: $fontSizeMin;
-        line-height: 14px;
-        color: #6e6e6e;
-      }
-      :deep(.el-divider__text.is-center) {
-        margin-top: -2px;
-      }
-    }
-    .sign-other {
-      margin-top: 18px;
-      display: flex;
+  }
+  .create-rule {
+    margin-top: 45px;
+    font-size: 24px;
+    color: #010000;
+    line-height: 29px;
+    a {
+      color: #01c19a;
+      text-decoration: underline;
       cursor: pointer;
-      justify-content: space-between;
-
-      .other-sign {
-        width: 48%;
-        height: 48px;
-        border: 1px solid #dfdfe5;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        float: left;
-        .other-sign-icon {
-          width: 16px;
-          height: 16px;
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          }
-        }
-        .other-sign-name {
-          margin-left: 5px;
-        }
+    }
+  }
+  .remind-box {
+    margin-top: 47px;
+    font-size: 18px;
+    color: #060606;
+    line-height: 23px;
+    .remind-title {
+      span {
+        margin-left: 9px;
       }
     }
+    .remind-tip {
+      margin-top: 18px;
+    }
+  }
+  .verify-btn {
+    font-size: 20px;
+    border-radius: 8px;
+    padding: 16px 131px;
+    margin-top: 64px;
+    height: 60px;
   }
 }
 
@@ -664,9 +475,36 @@ $fontSizeMin: 12px;
   .el-select-dropdown {
     min-width: 358px !important;
   }
-  // .sign-box .sign .sign-radio .activeNumber[data-v-47e17749] .el-input__wrapper{
-  //   margin-left: -8px;
-  // }
-
+  .el-progress__text {
+    display: none;
+  }
+  .el-progress-bar__outer {
+    background-color: #fff !important;
+    border-radius: 0;
+  }
+  .el-input {
+    width: 40%;
+    @media (max-width: 768px) {
+      width: 95%;
+  }
+  }
+  .el-input__wrapper {
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #060606;
+  }
+  .el-input__inner {
+    color: #000;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+  }
+  .el-button.is-disabled,
+  .el-button.is-disabled:focus,
+  .el-button.is-disabled:hover {
+    background-color: #f7f7f7;
+    color: #bdbdbd;
+    border-color: #f7f7f7;
+  }
 }
 </style>

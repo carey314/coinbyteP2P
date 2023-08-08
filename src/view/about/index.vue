@@ -178,7 +178,7 @@ import Footer from "../../layout/Footer/Footer.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 
 //img
-import logo from "../../assets/home/编组 62.svg";
+import logo from "../../assets/image/logo.svg";
 import banner_bgk_lightgreen from "../../assets/home/banner_bgk_lightgreen.png";
 import banner_left_bytecoin from "../../assets/home/banner_left_bytecoin.png";
 import banner_right_bytecoin from "../../assets/home/banner_right_bytecoin.png";

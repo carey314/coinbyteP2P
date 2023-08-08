@@ -1600,7 +1600,6 @@ footer {
     letter-spacing: 0;
     padding: 10px 5.3vw;
     box-sizing: border-box;
-
     span {
       display: block;
       font-size: 16px;

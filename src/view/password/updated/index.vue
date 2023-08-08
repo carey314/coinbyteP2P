@@ -82,7 +82,9 @@ $lineH: 16px;
   border-bottom: 1px solid #2e3945;
   @media (max-width: 768px) {
     padding: 0;
+    min-height: calc(100vh - 135px);
   }
+
   .password {
     max-width: 438px;
     flex: 1;

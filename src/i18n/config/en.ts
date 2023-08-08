@@ -26,10 +26,10 @@ export default {
       verify_unverified: "Verify your account",
       verify_certified: "Verified",
       verify_overview: "Overview",
-      verify_security: "Security",
+      verify_security: "Pay my orders",
       verify_verification: "Verification",
-      verify_bank: "Bank account",
-      verify_preferences: "Preferences",
+      verify_bank: "Get my order paid",
+      verify_preferences: "Security and Preference",
       logout: "Log out",
       download_scan: "Scan to download APP",
       download_equipment: "IOS & Android",
@@ -173,7 +173,7 @@ export default {
     },
     about: {
       about_exchange:
-        "COINBYTE is an innovative cryptocurrency exchange who providing safe and trustworthy digital currencies exchange services to its users.",
+        "COINBYTEP2P is an innovative cryptocurrency exchange who providing safe and trustworthy digital currencies exchange services to its users.",
       about_enjoy:
         "Users can enjoy the simplest way to start trading and Zero-Fee Deposit, and trading hundreds of Cryptos with your local FAIT pairs in COINBYTE",
       about_firstTitle: "Our mission",
@@ -184,8 +184,8 @@ export default {
         " Trust & Transparency are at the heart of everything we do. From the beginning, we made user protection and transparency our top priority. We implement highly sophisticated multi-layered security for users funds and data.",
       about_thirdTitle: "Working with regulators",
       about_thirdContent:
-        "COINBYTE is committed to meeting the highest standdards for regulatory compliance to maintain our responsibility to our users.",
-      about_forthTitle: "COINBYTE's registered",
+        "COINBYTEP2P is committed to meeting the highest standdards for regulatory compliance to maintain our responsibility to our users.",
+      about_forthTitle: "COINBYTEP2P's registered",
       about_forthCentre: "Australia Transaction Reports & Analysis Centre",
       about_forthExchange: "Digital Currency Exchange",
       about_forthProvider: "Remittance Service Provider",
@@ -219,7 +219,7 @@ export default {
     },
     join: {
       discover: "Join to discover Crypto and Build your portfolio on",
-      coinbyte: "COINBYTE",
+      coinbyte: "COINBYTEP2P",
       start: "Get started",
       local: "Join Local users",
       earn: "And start earing!",
@@ -292,7 +292,7 @@ export default {
       recommend: "Recommended",
     },
     login: {
-      welcome: "Welcome to CoinByte",
+      welcome: "Welcome to CoinByteP2P",
       forgot_password: "Forgot password?",
       or: "or sign up with",
       no_have: "Don't have an account?",
@@ -564,6 +564,15 @@ export default {
       prefer_tip: "choose your preferred languague and currency",
       prefer_lan: 'Language',
       prefer_currency: 'Currency',
+    },
+    created: {
+      title: 'Account created ',
+      continue: 'Verify your identification to enjoy your CoinByte Journey',
+      account: 'Creat Account',
+      complete: 'You have completed your registration',
+      verification: 'Account Verification',
+      vrify: 'Verify your account in few mins',
+      now: 'Verify Now',
     },
   },
 };

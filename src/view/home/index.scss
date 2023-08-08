@@ -568,6 +568,9 @@ img {
             box-shadow: none;
             font-size: 20px;
             line-height: 25px;
+            @media (max-width: 768px) {
+              width: 158px;
+            }
         }
           .el-radio-button__original-radio:checked+.el-radio-button__inner{
             background-color: #fff;

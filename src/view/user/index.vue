@@ -10,7 +10,7 @@
           >
             <el-tab-pane :label="t('messages.user.label_overview')" name="first" :lazy="true">
               <template #label>  
-                <div class="click-success" @click="changeTab('overview')">
+                <div class="click-success" @click="changeTab('')">
                   {{ t('messages.user.label_overview') }}
                 </div>
               </template>
@@ -119,7 +119,7 @@ const changeTab = (path: string) => {
 <style scoped lang="scss">
 .center-part {
   max-width: 1290px;
-  min-height: calc(100vh - -290px);
+  min-height: calc(100vh + -120px);
   margin: auto;
   padding: 21px 0 110px 0;
   position: relative;

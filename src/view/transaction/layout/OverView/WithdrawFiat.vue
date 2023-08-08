@@ -1,11 +1,10 @@
 <template>
   <div class="deposit-crypto">
-    <div v-if="windowWidth > 985">
-      <el-row :gutter="80">
-        <el-col :span="15" class="left-box">
-          <div class="left-header">
-            <div class="header-title">Account Verification</div>
-            <!-- <router-link
+    <el-row >
+      <el-col :span="15" :xs="24" class="left-box">
+        <div class="left-header">
+          <div class="header-title">Account Verification</div>
+          <!-- <router-link
               to="/wallet/WithdrawCrypto"
               style="text-decoration: none"
             >
@@ -18,298 +17,210 @@
                 </div>
               </div>
             </router-link> -->
-          </div>
-          <div class="left-center">
-            <div class="center-step-box" style="height: 300px">
-              <div v-if="withdrawStatus === false">
-                <el-steps
-                  :active="activeStep"
-                  direction="vertical"
-                  align-center
-                >
-                  <el-step title="I am selling my crypto" class="select">
-                    <template #description>
-                      <!-- v-if="activeStep >= 1" -->
-                      <div class="sell-box">
-                        <div class="sell-title">Features and limits</div>
-                        <div class="sell-verified">
-                          <div class="verified-name">
-                            <el-icon class="icon" style="color: #01c19a"
-                              ><Select
-                            /></el-icon>
-                            <div class="whether">Sell my crypto</div>
-                          </div>
-                          <div class="verified-info">Unlimited</div>
-                        </div>
-                        <div class="sell-verified">
-                          <div class="verified-name">
-                            <el-icon class="icon" style="color: #f35854"
-                              ><CloseBold
-                            /></el-icon>
-                            <div class="whether">Buy crypto</div>
-                          </div>
-                          <div class="verified-info">50K USD Daily</div>
-                        </div>
-                        <div
-                          style="
-                            height: 2px;
-                            width: 100%;
-                            background-color: #ebebeb;
-                            margin-top: 24px !important;
-                          "
-                        ></div>
-                        <div class="sell-requirement">Requirements</div>
-                        <div class="require-box">
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Government-issued ID</span>
-                          </div>
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Facial recognition</span>
-                          </div>
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Proof of address</span>
-                          </div>
-                        </div>
-                        <el-button class="continue-btn" type="primary">
-                          Verify
-                        </el-button>
-                      </div>
-                    </template>
-                  </el-step>
-                  <el-step
-                    title="I am buying crypto"
-                    class="clearfloat"
-                    style="margin-top: 25px"
-                  >
-                    <template #description>
-                      <!-- v-if="activeStep === 2 || activeStep === 3" -->
-                      <div class="sell-box clearfloat">
-                        <div class="sell-title">Features and limits</div>
-                        <div class="sell-verified">
-                          <div class="verified-name">
-                            <el-icon class="icon" style="color: #01c19a"
-                              ><Select
-                            /></el-icon>
-                            <div class="whether">Sell my crypto</div>
-                          </div>
-                          <div class="verified-info">Unlimited</div>
-                        </div>
-                        <div class="sell-verified">
-                          <div class="verified-name">
-                            <el-icon class="icon" style="color: #01c19a"
-                              ><Select
-                            /></el-icon>
-                            <div class="whether">Buy crypto</div>
-                          </div>
-                          <div class="verified-info">1M USD Daily</div>
-                        </div>
-                        <div
-                          style="
-                            height: 2px;
-                            width: 100%;
-                            background-color: #ebebeb;
-                            margin-top: 24px !important;
-                          "
-                        ></div>
-                        <div class="sell-requirement">Requirements</div>
-                        <div class="require-box">
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Government-issued ID</span>
-                          </div>
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Facial recognition</span>
-                          </div>
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Proof of address</span>
-                          </div>
-                          <div class="require-item">
-                            <div class="pointer"></div>
-                            <span>Video verification</span>
-                          </div>
-                        </div>
-                        <el-button
-                          class="verify-btn"
-                          type="primary"
-                          :disabled="!canContinue"
-                          @click="handleContinue"
-                        >
-                          Verify
-                        </el-button>
-                      </div>
-                    </template>
-                  </el-step>
-                </el-steps>
-              </div>
-
-              <div v-else>
-                <div class="success-box">
-                  <img :src="success_img" />
-                  <div class="success-title">Withdraw Successful</div>
-                  <div class="success-tip">
-                    Withdrawal request submitted.<br />
-                    Visit History to view your order status.
-                  </div>
-                  <div class="success-people">Recipient amount</div>
-                  <div class="success-account">
-                    <img src="" />
-                    999.00 USDT
-                  </div>
-                  <div class="detail-rules">
-                    <div class="rule-item">
-                      <div class="title">Bank account</div>
-                      <div class="require">462*125</div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="title">Type</div>
-                      <div class="require">Bank Transfer</div>
-                    </div>
-                    <div class="rule-item">
-                      <div class="title">Transaction fees</div>
-                      <div class="require">0.00 AUD</div>
-                    </div>
-                  </div>
-                </div>
-                <el-divider style="width: 65%" />
-                <div class="rate">Rate your experience</div>
-              </div>
-            </div>
-          </div>
-        </el-col>
-        <el-col :span="9" class="right-box">
-          <div class="tips">
-            <div class="tips-faq">
-              <div class="faq-title">FAQ</div>
-              <div class="faq-content content">
-                <el-collapse v-model="faqActiveName" accordion>
-                  <el-collapse-item
-                    title="Why do I need to verify my identity?"
-                    name="1"
-                  >
-                    <div class="faq-text">
-                      We use identity verification in order to comply with local
-                      laws and regulations. This process helps us prevent
-                      fraudulent accounts and activity on our platform.
-                    </div>
-                  </el-collapse-item>
-                  <el-collapse-item
-                    title="Identity verification troubleshooting"
-                    name="2"
-                  >
-                    <div class="faq-text" style="text-decoration: underline">
-                      How to verify your account with a new device?
-                    </div>
-                    <div class="faq-text" style="text-decoration: underline">
-                      How do I check my identity verification information?
-                    </div>
-                  </el-collapse-item>
-                </el-collapse>
-                <div
-                  style="
-                    text-align: right;
-                    font-size: 14px;
-                    color: #7b8293;
-                    margin-top: 5px;
-                    cursor: pointer;
-                  "
-                >
-                  View more &gt;
-                </div>
-              </div>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-      <div
-        class="deposit-details clearfloat"
-        v-if="activeStep === 3 && showStepThree"
-      >
-        <div class="recent-deposit">
-          <div class="table-name">Recent Deposits</div>
-          <div class="not-arrive">Hasn't arrived?</div>
-          <Table :sourceData="tableData">
-            <template v-slot:columns>
-              <el-table-column
-                prop="time"
-                :label="t('messages.wallet.fiat_Time')"
-                width="210"
-              />
-              <el-table-column
-                prop="coin"
-                :label="t('messages.wallet.fiat_Coin')"
-                width="210"
-              />
-              <el-table-column
-                prop="amount"
-                :label="t('messages.wallet.fiat_Amount')"
-                width="240"
-              />
-              <el-table-column
-                :label="t('messages.wallet.fiat_Status')"
-                width="230"
-              >
-                <template #default="scope">
-                  <div
-                    v-if="scope.row.status === 'Successful'"
-                    style="color: #01c19a"
-                  >
-                    Successful
-                  </div>
-                  <div v-else-if="scope.row.status === 'Faild'">Faild</div>
-                </template>
-              </el-table-column>
-              <el-table-column :label="t('messages.wallet.fiat_Information')">
-                <template #default="scope">
-                  <template v-if="!isFoldArr.includes(scope.row.key)">
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                  </template>
-                  <template v-else>
-                    <div class="info">
-                      <p>Payment Method:</p>
-                      <p>{{ scope.row.payment_method }}</p>
-                    </div>
-                    <div class="info">
-                      <p>indicated Amount:</p>
-                      <p>{{ scope.row.indicated_amount }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Fee:</p>
-                      <p>{{ scope.row.fee }}</p>
-                    </div>
-                    <div class="info">
-                      <p>Order ID:</p>
-                      <p>{{ scope.row.order_ID }}</p>
-                    </div>
-                  </template>
-                </template>
-              </el-table-column>
-              <el-table-column label="">
-                <template #default="scope">
-                  <el-button
-                    type="text"
-                    :class="{
-                      icon_button: true,
-                      isRotate: isFoldArr.includes(scope.row.key),
-                    }"
-                    @click="getKey(scope.row.key)"
-                    ><el-icon style="color: #9b9b9b"><CaretBottom /></el-icon
-                  ></el-button>
-                </template>
-              </el-table-column>
-            </template>
-          </Table>
         </div>
-      </div>
-    </div>
-    <div v-else></div>
+        <div class="left-center">
+          <div class="center-step-box">
+            <div v-if="withdrawStatus === false">
+              <el-steps :active="activeStep" direction="vertical" align-center>
+                <el-step title="I am selling my crypto" class="select">
+                  <template #description>
+                    <!-- v-if="activeStep >= 1" -->
+                    <div class="sell-box">
+                      <div class="sell-title">Features and limits</div>
+                      <div class="sell-verified">
+                        <div class="verified-name">
+                          <el-icon class="icon" style="color: #01c19a"
+                            ><Select
+                          /></el-icon>
+                          <div class="whether">Sell my crypto</div>
+                        </div>
+                        <div class="verified-info">Unlimited</div>
+                      </div>
+                      <div class="sell-verified">
+                        <div class="verified-name">
+                          <el-icon class="icon" style="color: #f35854"
+                            ><CloseBold
+                          /></el-icon>
+                          <div class="whether">Buy crypto</div>
+                        </div>
+                        <div class="verified-info">50K USD Daily</div>
+                      </div>
+                      <div
+                        style="
+                          height: 2px;
+                          width: 100%;
+                          background-color: #ebebeb;
+                          margin-top: 24px !important;
+                        "
+                      ></div>
+                      <div class="sell-requirement">Requirements</div>
+                      <div class="require-box">
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Government-issued ID</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Facial recognition</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Proof of address</span>
+                        </div>
+                      </div>
+                      <el-button class="continue-btn" type="primary">
+                        Verify
+                      </el-button>
+                    </div>
+                  </template>
+                </el-step>
+                <el-step
+                  title="I am buying crypto"
+                  class="clearfloat"
+                  style="margin-top: 25px"
+                >
+                  <template #description>
+                    <!-- v-if="activeStep === 2 || activeStep === 3" -->
+                    <div class="sell-box clearfloat">
+                      <div class="sell-title">Features and limits</div>
+                      <div class="sell-verified">
+                        <div class="verified-name">
+                          <el-icon class="icon" style="color: #01c19a"
+                            ><Select
+                          /></el-icon>
+                          <div class="whether">Sell my crypto</div>
+                        </div>
+                        <div class="verified-info">Unlimited</div>
+                      </div>
+                      <div class="sell-verified">
+                        <div class="verified-name">
+                          <el-icon class="icon" style="color: #01c19a"
+                            ><Select
+                          /></el-icon>
+                          <div class="whether">Buy crypto</div>
+                        </div>
+                        <div class="verified-info">1M USD Daily</div>
+                      </div>
+                      <div
+                        style="
+                          height: 2px;
+                          width: 100%;
+                          background-color: #ebebeb;
+                          margin-top: 24px !important;
+                        "
+                      ></div>
+                      <div class="sell-requirement">Requirements</div>
+                      <div class="require-box">
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Government-issued ID</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Facial recognition</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Proof of address</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>Video verification</span>
+                        </div>
+                      </div>
+                      <el-button
+                        class="verify-btn"
+                        type="primary"
+                        :disabled="!canContinue"
+                        @click="handleContinue"
+                      >
+                        Verify
+                      </el-button>
+                    </div>
+                  </template>
+                </el-step>
+              </el-steps>
+            </div>
+
+            <div v-else>
+              <div class="success-box">
+                <img :src="success_img" />
+                <div class="success-title">Withdraw Successful</div>
+                <div class="success-tip">
+                  Withdrawal request submitted.<br />
+                  Visit History to view your order status.
+                </div>
+                <div class="success-people">Recipient amount</div>
+                <div class="success-account">
+                  <img src="" />
+                  999.00 USDT
+                </div>
+                <div class="detail-rules">
+                  <div class="rule-item">
+                    <div class="title">Bank account</div>
+                    <div class="require">462*125</div>
+                  </div>
+                  <div class="rule-item">
+                    <div class="title">Type</div>
+                    <div class="require">Bank Transfer</div>
+                  </div>
+                  <div class="rule-item">
+                    <div class="title">Transaction fees</div>
+                    <div class="require">0.00 AUD</div>
+                  </div>
+                </div>
+              </div>
+              <el-divider style="width: 65%" />
+              <div class="rate">Rate your experience</div>
+            </div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="9" :xs="24" class="right-box">
+        <div class="tips">
+          <div class="tips-faq">
+            <div class="faq-title">FAQ</div>
+            <div class="faq-content content">
+              <el-collapse v-model="faqActiveName" accordion>
+                <el-collapse-item
+                  title="Why do I need to verify my identity?"
+                  name="1"
+                >
+                  <div class="faq-text">
+                    We use identity verification in order to comply with local
+                    laws and regulations. This process helps us prevent
+                    fraudulent accounts and activity on our platform.
+                  </div>
+                </el-collapse-item>
+                <el-collapse-item
+                  title="Identity verification troubleshooting"
+                  name="2"
+                  style="border-bottom: 0 !important;"
+                >
+                  <div class="faq-text" style="text-decoration: underline">
+                    How to verify your account with a new device?
+                  </div>
+                  <div class="faq-text" style="text-decoration: underline">
+                    How do I check my identity verification information?
+                  </div>
+                </el-collapse-item>
+              </el-collapse>
+              <div
+                style="
+                  text-align: right;
+                  font-size: 14px;
+                  color: #7b8293;
+                  margin-top: 10px;
+                  cursor: pointer;
+                "
+              >
+                View more &gt;
+              </div>
+            </div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -451,7 +362,12 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .deposit-crypto {
   margin-top: 20px;
-  padding-bottom: 250px;
+  @media (max-width: 768px) {
+    & {
+      padding-bottom: 0;
+      margin-right: 0px !important;
+    }
+  }
   :deep() {
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
@@ -481,7 +397,12 @@ $fontSizeMin: 12px;
   }
 }
 .left-box {
-  padding-left: 60px !important;
+  padding-right: 60px !important;
+  @media (max-width: 768px) {
+    & {
+      padding-right: 20px !important;
+    }
+  }
   .left-header {
     display: flex;
     justify-content: space-between;
@@ -758,10 +679,10 @@ $fontSizeMin: 12px;
         }
       }
       .verify-btn {
-          width: 100%;
-          height: 60px;
-          font-size: 20px;
-        }
+        width: 100%;
+        height: 60px;
+        font-size: 20px;
+      }
       .continue-dialog-box {
         .dialog-header {
           font-weight: 600;
@@ -913,6 +834,11 @@ $fontSizeMin: 12px;
   }
 }
 .right-box {
+  @media (max-width: 768px) {
+    & {
+      margin-top: 60px;
+    }
+  }
   .tips {
     .tips-faq {
       .faq-title {

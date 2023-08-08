@@ -201,7 +201,7 @@
                   </el-dropdown-item>
                   <el-divider style="margin: 10px; width: 266px; margin-left: -20px" />
                   <el-dropdown-item class="user-dropdown-item">
-                    <router-link to="/user/overview" style="text-decoration: none;">
+                    <router-link to="/user" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
                           <img :src="dropdown_usercenter_overview" />
@@ -213,7 +213,7 @@
                     </router-link>
                   </el-dropdown-item>
                   <el-dropdown-item class="user-dropdown-item">
-                    <router-link to="/user/security" style="text-decoration: none;">
+                    <router-link to="/user/depositFiat" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
                           <img :src="dropdown_usercenter_security" />
@@ -341,7 +341,7 @@
           </li>
           <li>
             <!-- 用户认证页面   -->
-            <router-link to="/user/verification"  style="text-decoration: none"><button class="btn-signup">
+            <router-link to="/user/verification" style="text-decoration: none"><button class="btn-signup">
               {{ $t("messages.header.signup") }}
             </button></router-link>
           </li>
@@ -361,20 +361,20 @@
           <div class="button-group" v-else>
             <!-- <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign
                 up</el-button></router-link> -->
-            <router-link to="/login" style="text-decoration: none; color: #fff"><span>Login</span></router-link>
+            <router-link to="/login" style="text-decoration: none; color: #fff;border: 1px solid #fafafa;border-radius: 5px;"><span>{{ $t("messages.header.login") }}</span></router-link>
           </div>
           <ul class="nav-list">
             <!-- <li><a href="/allCrypto" class="no-underline">Buy Crypto</a></li>
             <li><a href="/allCrypto" class="no-underline">Markets</a></li>
             <li><a href="/trade" class="no-underline">Trade</a></li> -->
-            <li><a href="/learnCenter" class="no-underline">
+            <li><a href="/" class="no-underline">
               {{
             $t("messages.header.buy")
           }}
             </a></li>
-            <li><a href="/download" class="no-underline">{{ $t("messages.header.market") }}</a></li>
+            <li><a href="/" class="no-underline">{{ $t("messages.header.market") }}</a></li>
             <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
-            <li><a href="/download" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
+            <li><a href="/" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
           </ul>
           <!-- <div class="download-app">
             <a href="/download" class="no-underline">Download COINBYTEP2P App</a>
@@ -757,7 +757,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   margin-left: auto;
   padding-right: 20px;
 
-  @media (max-width: 1100px) {
+  @media (max-width:930px) and (min-width: 910px) {
     // padding-right: 20px;
   }
 
@@ -1217,13 +1217,14 @@ $regular-font: HarmonyOS_Sans_Regular;
     .user-box {
       display: flex;
       padding: 5px 0;
-      margin-left: 46px;
+      margin-left: 26px;
 
       .user-title {
         font-size: 14px;
         color: #000000;
         line-height: 16px;
         margin-left: 15px;
+        margin-top: 1px;
       }
     }
   }

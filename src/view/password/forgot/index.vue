@@ -85,7 +85,7 @@ $headerBackGround: #1d262f;
 $bg-color: #fff;
 $main-color: #01c19a;
 $fontSizeMax: 42px;
-$fontSizeMedPro: 28px;
+$fontSizeMedPro: 28px;  
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
@@ -101,6 +101,9 @@ $lineH: 16px;
   border-bottom: 1px solid #2e3945;
   @media (max-width: 768px) {
     padding: 0;
+  }
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 135px);
   }
   .password {
     max-width: 438px;

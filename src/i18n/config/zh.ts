@@ -26,17 +26,17 @@ export default {
       verify_unverified: "验证您的账户",
       verify_certified: "已验证",
       verify_overview: "概述",
-      verify_security: "安全",
+      verify_security: "支付订单",
       verify_verification: "验证",
-      verify_bank: "银行账户",
-      verify_preferences: "偏好设置",
+      verify_bank: "查看订单付款状态",
+      verify_preferences: "安全与偏好",
       logout: "退出登录",
       download_scan: "扫描下载应用程序",
       download_equipment: "苹果 & 安卓",
       download_option: "更多下载选项",
       notice_more: "查看更多",
       help_support: "支持中心",
-      help_connect: "与Coinbyte联系",
+      help_connect: "COINBYTEP2P",
       help_telegram: "Telegram",
       language: "语言",
       local_currency: "本地货币",
@@ -157,9 +157,9 @@ export default {
     },
     about: {
       about_exchange:
-        "COINBYTE是一家创新的加密货币交易所,为用户提供安全可靠的数字货币交易服务。",
+        "COINBYTEP2P是一家创新的加密货币交易所,为用户提供安全可靠的数字货币交易服务。",
       about_enjoy:
-        "用户可以在COINBYTE上享受最简单的交易方式和零手续费存款,同时使用本地法定货币对数百种加密货币进行交易。",
+        "用户可以在COINBYTEP2P上享受最简单的交易方式和零手续费存款,同时使用本地法定货币对数百种加密货币进行交易。",
       about_firstTitle: "我们的使命",
       about_firstContent:
         "我们致力于消除障碍，推动全球经济发展。我们致力于创新和优化用户体验，以使加密货币交易和投资面向所有人。",
@@ -168,8 +168,8 @@ export default {
         "信任与透明度是我们所做的一切的核心。从一开始，我们就把用户保护和透明度作为我们的首要任务。我们为用户的资金和数据实施了高度复杂的多层安全措施。",
       about_thirdTitle: "与监管机构合作",
       about_thirdContent:
-        "COINBYTE致力于达到最高的监管合规标准,以保持我们对用户的责任。",
-      about_forthTitle: "COINBYTE已注册",
+        "COINBYTEP2P致力于达到最高的监管合规标准,以保持我们对用户的责任。",
+      about_forthTitle: "COINBYTEP2P已注册",
       about_forthCentre: "澳大利亚交易报告与分析中心",
       about_forthExchange: "数字货币交易所",
       about_forthProvider: "汇款服务提供商",
@@ -203,7 +203,7 @@ export default {
     },
     join: {
       discover: "加入我们，探索加密货币并在",
-      coinbyte: "COINBYTE上构建您的投资组合",
+      coinbyte: "COINBYTEP2P上构建您的投资组合",
       start: "开始",
       local: "加入本地用户",
       earn: "并开始赚钱！",
@@ -271,7 +271,7 @@ export default {
       recommend: "推荐",
     },
     login: {
-      welcome: "欢迎来到CoinByte",
+      welcome: "欢迎来到CoinByteP2P ",
       forgot_password: "忘记密码？",
       or: "或使用以下方式注册",
       no_have: "还没有账户？",
@@ -469,6 +469,7 @@ export default {
     },
     user: {
       label_overview: "概述",
+      label_orders: "支付我的订单",
       label_Security: "安全",
       label_Verification: "验证",
       label_Bank: "银行账户",
@@ -530,6 +531,15 @@ export default {
       prefer_tip: "选择您喜欢的语言和货币",
       prefer_lan: '语言',
       prefer_currency: '货币',
+    },
+    created: {
+      title: '账户已创建',
+      continue: '验证您的身份以享受 CoinByteP2P 之旅',
+      account: '创建账户',
+      complete: '您已完成注册',
+      verification: '账户验证',
+      vrify: '在几分钟内验证您的账户',
+      now: '立即验证',
     },
   },
 };

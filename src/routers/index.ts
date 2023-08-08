@@ -73,9 +73,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/sign/index.vue') 
   },
   { 
+    path: '/signupsuccess',
+    name: 'signupsuccess',
+    component: () => import('../view/signupSuccess/index.vue') 
+  },
+  { 
     path: '/login',
     name: 'login',
-    component: () => import('../view/login/index.vue') 
+    component: () => import('../view/login/index.vue') ,
   },
   { 
     path: '/download',
@@ -299,7 +304,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
       },
       {
-        path: "/user/overview",
+        path: "/user",
         name: "overview",
         component: () => import("../view/user/layout/OverView/OverView.vue"),
         meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
