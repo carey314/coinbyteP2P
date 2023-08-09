@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onMounted, onUnmounted} from "vue";
+import {ref, onMounted, onUnmounted} from "vue";
 import snsWebSdk from '@sumsub/websdk';
 
 import Header from "../../layout/Header/Header.vue";
