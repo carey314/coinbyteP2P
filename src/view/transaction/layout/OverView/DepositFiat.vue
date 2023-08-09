@@ -898,6 +898,9 @@ $fontSizeMin: 12px;
           margin-left: 36%;
           font-size: 14px;
           color: #878787;
+          @media(max-width:768px){
+            float: right;
+          }
         }
         .dialog-box {
           .dialog-header {
@@ -1221,7 +1224,7 @@ $fontSizeMin: 12px;
     top: 15px;
     color: #9b9b9b;
     @media (max-width: 768px) {
-      left: 280px;
+      left: 270px;
     }
   }
 }

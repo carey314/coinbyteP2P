@@ -402,20 +402,6 @@ import close_icon from "../../assets/home/close_icon.png";
 import top_bar_usercenter from "../../assets/wallet/top_bar_usercenter.svg";
 import dropdown_usercenter_verified from "../../assets/home/dropdown_usercenter_verified.svg";
 import dropdown_usercenter_unverified from "../../assets/home/dropdown_usercenter_unverified.svg";
-
-import dropdown_buy_bank from "../../assets/home/dropdown_buy_bank.svg";
-import dropdown_buy_quick from "../../assets/home/dropdown_buy_quick.svg";
-import dropdown_buy_convert from "../../assets/home/dropdown_buy_convert.svg";
-import dropdown_help_support from "../../assets/home/dropdown_help_support.svg";
-import dropdown_help_connect from "../../assets/home/dropdown_help_connect.svg";
-import dropdown_help_telegram from "../../assets/home/dropdown_help_telegram.svg";
-import dropdown_wallet_myasset from "../../assets/home/dropdown_wallet_myasset.svg";
-import dropdown_wallet_deposit from "../../assets/home/dropdown_wallet_deposit.svg";
-import dropdown_wallet_withdraw from "../../assets/home/dropdown_wallet_withdraw.svg";
-import dropdown_wallet_history from "../../assets/home/dropdown_wallet_history.svg";
-import dropdown_orders_spot from "../../assets/home/dropdown_orders_spot.svg";
-import dropdown_orders_buysell from "../../assets/home/dropdown_orders_buysell.svg";
-import dropdown_orders_history from "../../assets/home/dropdown_orders_history.svg";
 import dropdown_usercenter_overview from "../../assets/home/dropdown_usercenter_overview.svg";
 import dropdown_usercenter_security from "../../assets/home/dropdown_usercenter_security.svg";
 import dropdown_usercenter_verification from "../../assets/home/dropdown_usercenter_verification.svg";
@@ -460,14 +446,17 @@ const {noticesList} = storeToRefs(noticeStore)
 const notices = ref<NoticeObject[]>([])
 onMounted(async ()=>{
   if (userInfoStore.isLogin) {
-    const res = await getNotices()
-    console.log("notices", res)
-    if(res.status == 200){
-      noticesList.value = res.data.data
-      if (noticesList.value) {
-        notices.value = noticesList.value.slice(0, 5)
-      }
-    }
+    console.log("----is login!!!!")
+    // const res = await getNotices().then((res:any) =>{
+    //   console.log(res)
+    //   if(res.status == 200){
+    //   noticesList.value = res.data.data
+    //   if (noticesList.value) {
+    //     notices.value = noticesList.value.slice(0, 5)
+    //   }
+    // }
+    // })
+ 
   } else {
     
     notices.value = [

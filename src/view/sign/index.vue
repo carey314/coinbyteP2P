@@ -11,7 +11,7 @@
         <el-col :span="24" :xs="24">
           <div class="create-title">Account Creation</div>
 
-          <div v-if="percentage === 50">
+          <div v-if="percentage === 0">
             <div class="create-number">
               My email address is
               <span style="position: relative">
@@ -34,12 +34,12 @@
               class="verify-btn"
               type="primary"
               :disabled="!isValidEmail || emailInput === ''"
-              @click="increase()"
+              @click="toConfirmEmail()"
             >
               Continue
             </el-button>
           </div>
-          <div v-if="percentage === 100">
+          <div v-if="percentage === 20">
             <div class="create-number">
               We're sent an activation link to your email
               <span style="text-decoration: underline" class="email-input"
@@ -52,12 +52,34 @@
               class="verify-btn"
               type="primary"
               :disabled="!isValidEmail || emailInput === ''"
-              @click="successContinue()"
+              @click="increase()"
             >
               Continue
             </el-button>
           </div>
-          <!-- <div v-if="percentage === 60">
+
+          <div v-if="percentage === 40">
+            <div class="create-number">
+              I received a single-use code on my email code ending.
+              Here it is:
+              <span style="position: relative">
+                <el-input v-model="emailCode" placeholder="000 000" />
+                <span class="tip" v-if="emailCode === ''">*</span>
+              </span>
+            </div>
+
+            <el-button
+              class="verify-btn"
+              type="primary"
+              :disabled="emailCode === ''"
+              @click="emailConfirmed()"
+            >
+              Continue
+            </el-button>
+          </div>
+
+
+          <div v-if="percentage === 60">
             <div class="create-number">
               My phone number is
               <span style="position: relative">
@@ -79,13 +101,13 @@
               class="verify-btn"
               type="primary"
               :disabled="!isValidPhone || phoneInput === ''"
-              @click="increase"
+              @click="toCofirmPhone()"
             >
               Continue
             </el-button>
-          </div> -->
+          </div>
 
-          <!-- <div v-if="percentage === 80">
+          <div v-if="percentage === 80">
             <div class="create-number">
               My phone number is
               <span style="text-decoration: underline"
@@ -98,13 +120,13 @@
               class="verify-btn"
               type="primary"
               :disabled="!isValidPhone || phoneInput === ''"
-              @click="increase"
+              @click="phoneNumberInput()"
             >
               Continue
             </el-button>
-          </div> -->
+          </div>
 
-          <!-- <div v-if="percentage === 80">
+          <div v-if="percentage === 100">
             <div class="create-number">
               I received a single-use code on my phone number ending with *86.
               Here it is:
@@ -118,13 +140,13 @@
               class="verify-btn"
               type="primary"
               :disabled="!isValidPhone || smsCode === ''"
-              @click="phoneContinue"
+              @click="phoneConfirmed()"
             >
               Continue
             </el-button>
-          </div> -->
+          </div>
 
-          <!-- <div v-if="percentage === 100">
+          <div v-if="percentage === 120">
             <div class="create-number">
               Here is my personal passcode
               <span style="position: relative">
@@ -153,7 +175,7 @@
             >
               Continue
             </el-button>
-          </div> -->
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -184,7 +206,7 @@ import twitter from "../../assets/home/twitter.png";
 import login_google from "../../assets/home/login_google.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
 
-import { initializeSignUpWizard, signUp, choosePer } from "../../api/user";
+import { initializeSignUpWizard, signUp, choosePer, emailVefify,phoneSignup,phoneVefify } from "../../api/user";
 
 import { useFingerprintStore } from "../../store/fingerprint";
 import { ElMessage } from "element-plus";
@@ -192,6 +214,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+
 
 const fingerprintStore = useFingerprintStore();
 
@@ -212,7 +235,15 @@ const canContinue = ref(false);
 const emailInput = ref("");
 const phoneInput = ref("");
 const smsCode = ref("");
+const emailCode = ref("");
 const passwordInput = ref("");
+
+const token1 = reactive({
+  token: ''
+})
+const token2 = reactive({
+  token: ''
+})
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 // const PHONE_REGEX = /^\+\d{2} \d{3} \d{3} \d{3}$/;
@@ -224,15 +255,98 @@ const isValidPhone = computed(() => {
   return PHONE_REGEX.test(phoneInput.value);
 });
 
+const toConfirmEmail = () => {
+  percentage.value += 20;
+}
+
 const increase = () => {
   if (isValidEmail.value) {
-    canContinue.value = true;
-    percentage.value += 50;
-    if (percentage.value > 100) {
-      percentage.value = 100;
-    }
+    initializeSignUpWizard({
+      email: emailInput.value,  // 这是用户输入的email
+    }).then((res: any) => {
+      console.log(res)
+      if(res.data && (res.status === 200 || res.status === 202)) {
+        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+        if (res.data.code === 9001) {
+          ElMessage({ message: "E-mail has been registered", type: "error", });
+        } else {
+          percentage.value += 20;
+        }
+      } else {
+        ElMessage({ message: "Please try again later.", type: "error", });
+      }
+    }).catch((err) => {
+      ElMessage({ message: "Please try again later.", type: "error", });
+    });
   }
 };
+const toCofirmPhone = () => {
+  if(isValidPhone){
+    percentage.value += 20;
+  }
+}
+const phoneNumberInput = () => {
+  if (isValidPhone.value) {
+    phoneSignup({
+      phone: phoneInput.value,  // 这是用户输入的email
+    }).then((res: any) => {
+      if(res.data && (res.status === 200 || res.status === 202)) {
+        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+        if (res.data.code === 9001) {
+          ElMessage({ message: "E-mail has been registered", type: "error", });
+        } else {
+          percentage.value += 20;
+        }
+      } else {
+        ElMessage({ message: "Please try again later.", type: "error", });
+      }
+    }).catch((err) => {
+      ElMessage({ message: "Please try again later.", type: "error", });
+    });
+  }
+};
+const emailConfirmed = () => {
+  emailVefify({
+      code: emailCode.value,
+      email: emailInput.value  // 这是用户输入的email
+    }).then((res: any) => {
+      if(res.data && (res.status === 200 || res.status === 202)) {
+        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+        if (res.data.code === 1) {
+          token1.token = res.data.data.token;
+          percentage.value += 20;
+        } else {
+          ElMessage({ message: "E-mail code not correct", type: "error", });
+        }
+      } else {
+        ElMessage({ message: "Please try again later.", type: "error", });
+      }
+    }).catch((err) => {
+      ElMessage({ message: "Please try again later.", type: "error", });
+    });
+}
+
+const phoneConfirmed = () => {
+  phoneVefify({
+      code: smsCode.value,
+      phone: phoneInput.value,  // 这是用户输入的phone
+      token: token1.token
+    }).then((res: any) => {
+      if(res.data && (res.status === 200 || res.status === 202)) {
+        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+        if (res.data.code === 1) {
+          token2.token = res.data.data.token;
+          percentage.value += 20;
+        } else {
+          ElMessage({ message: "phone code not correct", type: "error", });
+        }
+      } else {
+        ElMessage({ message: "Please try again later.", type: "error", });
+      }
+    }).catch((err) => {
+      ElMessage({ message: "Please try again later.", type: "error", });
+    });
+}
 const phoneContinue = () => {
   if (isValidPhone.value) {
     canContinue.value = true;
@@ -243,11 +357,31 @@ const phoneContinue = () => {
   }
 };
 const successContinue = () => {
+
+  signUp({
+    email: emailInput.value,
+    phone: phoneInput.value,  // 这是用户输入的email
+    token: token2.token,
+    pass_word: passwordInput.value,
+  }).then((res: any) => {
+    if(res.data && (res.status === 200 || res.status === 202)) {
+      // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+      if (res.data.code === 9001) {
+        ElMessage({ message: "Count has been registered", type: "error", });
+      } else {
+        percentage.value += 20;
+      }
+    } else {
+      ElMessage({ message: "Please try again later.", type: "error", });
+    }
+  }).catch((err) => {
+    ElMessage({ message: "Please try again later.", type: "error", });
+  });
+  
   router.push("/signupSuccess");
 };
 
 const currentStep = ref(1);
-
 const email = ref("");
 const password = ref("");
 const optional = ref("");
@@ -299,61 +433,55 @@ onMounted(() => {
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
+
 });
 const regUUID = ref("");
 // 进度条
-const percentage = ref(50);
+const percentage = ref(0);
 const customColor = ref("#01c19a");
-// const increase = () => {
-//   if (emailInput.value !== "") {
-//     canContinue.value = true;
-//     percentage.value += 25;
-//     if (percentage.value > 100) {
-//       percentage.value = 100;
-//     }
-//   }
-// };
+
 
 onMounted(() => {
-  initializeSignUpWizard({
-    url: "https://my.b2bdemo-accounting.com/register/{registration}/{code}",
-    utm: {
-      referral: "",
-      uri: "https://my.b2bdemo-accounting.com/en/register",
-    },
-  })
-    .then((res: any) => {
-      if ((res.data && res.data.code === 200) || res.data.code === 202) {
-        signUp({ wizard_id: 13, uuid: res.data.uuid })
-          .then((regRes) => {
-            if (regRes.status === 200 || regRes.status === 202) {
-              regUUID.value = regRes.data.uuid;
-            } else {
-              ElMessage({
-                message: "Please try again later.",
-                type: "error",
-              });
-            }
-          })
-          .catch((err) => {
-            ElMessage({
-              message: "Please try again later.",
-              type: "error",
-            });
-          });
-      } else {
-        ElMessage({
-          message: "Please try again later.",
-          type: "error",
-        });
-      }
-    })
-    .catch(() => {
-      ElMessage({
-        message: "Please try again later.",
-        type: "error",
-      });
-    });
+
+  // initializeSignUpWizard({
+  //   url: "https://my.b2bdemo-accounting.com/register/{registration}/{code}",
+  //   utm: {
+  //     referral: "",
+  //     uri: "https://my.b2bdemo-accounting.com/en/register",
+  //   },
+  // })
+  //   .then((res: any) => {
+  //     if ((res.data && res.data.code === 200) || res.data.code === 202) {
+  //       signUp({ wizard_id: 13, uuid: res.data.uuid })
+  //         .then((regRes) => {
+  //           if (regRes.status === 200 || regRes.status === 202) {
+  //             regUUID.value = regRes.data.uuid;
+  //           } else {
+  //             ElMessage({
+  //               message: "Please try again later.",
+  //               type: "error",
+  //             });
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           ElMessage({
+  //             message: "Please try again later.",
+  //             type: "error",
+  //           });
+  //         });
+  //     } else {
+  //       ElMessage({
+  //         message: "Please try again later.",
+  //         type: "error",
+  //       });
+  //     }
+  //   })
+  //   .catch(() => {
+  //     ElMessage({
+  //       message: "Please try again later.",
+  //       type: "error",
+  //     });
+  //   });
 });
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
@@ -378,12 +506,9 @@ const handleToSignUp = () => {
     return;
   }
   signUp({
-    wizard_id: 13,
-    uuid: regUUID.value,
+    // wizard_id: 13,
+    // uuid: regUUID.value,
     email: email.value,
-    password: password.value,
-    password_confirmation: password.value,
-    device_fingerprint: fingerprintStore.fingerprint,
   }).then((res: any) => {
     console.log(res.data);
   });

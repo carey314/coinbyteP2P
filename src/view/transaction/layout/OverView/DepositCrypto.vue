@@ -357,12 +357,6 @@ let options1 = ref<CurrencyType[]>([]);
 let option1 = ref<CurrencyType[]>([]);
 const buttons1 = ref<CurrencyType[]>([]);
 let options2 = ref<DepositMethodObject[]>([]);
-/*[
-  { value: "optionA", label: "Polygon" },
-  { value: "optionB", label: "Solana" },
-  { value: "optionC", label: "Tezos" },
-  { value: "optionD", label: "Tron(TRC20)" },
-];*/
 
 const showStepThree = ref(false);
 const showContinueBtn = ref(true);

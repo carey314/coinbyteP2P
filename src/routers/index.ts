@@ -23,6 +23,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../view/fees/index.vue') 
   },
   { 
+    path: '/kyc',
+    name: 'kyc',
+    component: () => import('../view/kyc/index.vue') 
+  },
+  { 
     path: '/about',
     name: 'about',
     component: () => import('../view/about/index.vue') 

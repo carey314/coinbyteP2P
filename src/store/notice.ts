@@ -9,17 +9,17 @@ export const noticeInfoStore = defineStore('noticeInfo', () => {
   
   function markReads(){
     if(noticeInfo.value){
-      markRead(noticeInfo.value.id).then((res)=>{
-        console.log("markRead", res)
-      })
+      // markRead(noticeInfo.value.id).then((res)=>{
+        // console.log("markRead", res)
+      // })
     }
   }
 
   function markReadsAll(){
-    console.log("4545155")
-    markReadAll().then((res)=>{
-      console.log("markReadAll", res)
-    })
+    // console.log("4545155")
+    // markReadAll().then((res)=>{
+      // console.log("markReadAll", res)
+    // })
   }
 
   return {

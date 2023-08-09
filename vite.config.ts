@@ -12,12 +12,13 @@ export default defineConfig({
       // 字符串简写写法
       '/api': {
         // target: 'https://api.b2bdemo-accounting.com/api',
-        target: 'https://api.b2broker.com/api/',
+        target: 'http://localhost:3001',
         changeOrigin: true, //是否跨域
-        rewrite: path => path.replace(/^\/api/, '')
+        // rewrite: path => path.replace(/^\/api/, '')
       },
       "/adminapi": {
-        target: "http://adminapi.coinbyte.com.au:88/api/",
+        // target: "http://adminapi.coinbyte.com.au:88/api/",
+        target: "https://localhost:3001/api/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/adminapi/, ""),
       },

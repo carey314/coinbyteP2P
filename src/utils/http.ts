@@ -36,89 +36,106 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response: any) {
-    if (response.data && response.data.status === 401) {
-      const originalRequest = response.config;
-      if(token.value){
-        if (!isRefreshing) {
-          isRefreshing = true;
 
-          return toRefreshToken()
-            .then((res: any) => {
-              const resRefresh = res.data;
-              if (resRefresh.code === 200 || resRefresh.code === 202) {
-                const newToken = resRefresh.data.accessToken.token;
-                userInfoStore.changeToken(newToken);
-                userInfoStore.changeRefreshToken(
-                  resRefresh.data.refreshToken.token
-                );
+    console.log(response);
+    console.log(response.headers);
+    const token = response.headers["authorization"];
+    console.log(token);
+    userInfoStore.changeToken(token);
 
-                originalRequest.headers.Authorization = "Bearer " + newToken;
-                originalRequest.baseURL = "/api";
-                onRefreshed(newToken);
-                return axios(originalRequest);
-              } else {
-                if (userInfoStore.isLogin) {
-                  ElMessage({
-                    message: "Token expired, please log in again!",
-                    grouping: true,
-                    type: "error",
-                  });
-                  userInfoStore.clearToken();
-                }
-                return Promise.reject(new Error("Token refresh failed"));
-              }
-            })
-            .catch((err: any) => {
-              if (err.response) {
-                const error = err.response.data.error;
-                if (error.code === 0) {
-                  ElMessage.error(error.details[0].issue);
-                } else {
-                  if (userInfoStore.isLogin) {
-                    ElMessage({
-                      message: "Token expired, please log in again!",
-                      grouping: true,
-                      type: "error",
-                    });
-                    userInfoStore.clearToken();
-                  }
-                }
-                return Promise.reject(err);
-              }
-              if (userInfoStore.isLogin) {
-                ElMessage({
-                  message: "Token expired, please log in again!",
-                  grouping: true,
-                  type: "error",
-                });
-                userInfoStore.clearToken();
-              }
-              return Promise.reject(err);
-            })
-            .finally(() => {
-              isRefreshing = false;
-            });
-        } else {
-          return new Promise((resolve) => {
-            refreshSubscribers.push((token) => {
-              originalRequest.headers.Authorization = "Bearer " + token;
-              originalRequest.baseURL = "/api";
-              resolve(axios(originalRequest));
-            });
-          });
-        }
-      }
-    }
+    // if (userInfoStore.isLogin) {
+    //   ElMessage({
+    //     message: "Token expired, please log in again!",
+    //     grouping: true,
+    //     type: "error",
+    //   });
+    //   userInfoStore.clearToken();
+    // }
+
+    // if (response.data && response.data.status === 401) {
+    //   const originalRequest = response.config;
+    //   if(token.value){
+    //     if (!isRefreshing) {
+    //       isRefreshing = true;
+
+    //       return toRefreshToken()
+    //         .then((res: any) => {
+    //           const resRefresh = res.data;
+    //           if (resRefresh.code === 200 || resRefresh.code === 202) {
+    //             const newToken = resRefresh.data.accessToken.token;
+    //             userInfoStore.changeToken(newToken);
+    //             userInfoStore.changeRefreshToken(
+    //               resRefresh.data.refreshToken.token
+    //             );
+
+    //             originalRequest.headers.Authorization = "Bearer " + newToken;
+    //             originalRequest.baseURL = "/api";
+    //             onRefreshed(newToken);
+    //             return axios(originalRequest);
+    //           } else {
+    //             if (userInfoStore.isLogin) {
+    //               ElMessage({
+    //                 message: "Token expired, please log in again!",
+    //                 grouping: true,
+    //                 type: "error",
+    //               });
+    //               userInfoStore.clearToken();
+    //             }
+    //             return Promise.reject(new Error("Token refresh failed"));
+    //           }
+    //         })
+    //         .catch((err: any) => {
+    //           if (err.response) {
+    //             const error = err.response.data.error;
+    //             if (error.code === 0) {
+    //               ElMessage.error(error.details[0].issue);
+    //             } else {
+    //               if (userInfoStore.isLogin) {
+    //                 ElMessage({
+    //                   message: "Token expired, please log in again!",
+    //                   grouping: true,
+    //                   type: "error",
+    //                 });
+    //                 userInfoStore.clearToken();
+    //               }
+    //             }
+    //             return Promise.reject(err);
+    //           }
+    //           if (userInfoStore.isLogin) {
+    //             ElMessage({
+    //               message: "Token expired, please log in again!",
+    //               grouping: true,
+    //               type: "error",
+    //             });
+    //             userInfoStore.clearToken();
+    //           }
+    //           return Promise.reject(err);
+    //         })
+    //         .finally(() => {
+    //           isRefreshing = false;
+    //         });
+    //     } else {
+    //       return new Promise((resolve) => {
+    //         refreshSubscribers.push((token) => {
+    //           originalRequest.headers.Authorization = "Bearer " + token;
+    //           originalRequest.baseURL = "/api";
+    //           resolve(axios(originalRequest));
+    //         });
+    //       });
+    //     }
+    //   }
+    // }
     return response;
   },
   function (error) {
+    console.log("--- in error")
     let status = error.response.status;
     if (status === 401) {
       const originalRequest = error.config;
-      if(token.value){
+      if (token.value) {
         if (!isRefreshing) {
           isRefreshing = true;
-  
+
           return toRefreshToken()
             .then((res: any) => {
               const resRefresh = res.data;
@@ -128,7 +145,7 @@ instance.interceptors.response.use(
                 userInfoStore.changeRefreshToken(
                   resRefresh.data.refreshToken.token
                 );
-  
+
                 originalRequest.headers.Authorization = "Bearer " + newToken;
                 originalRequest.baseURL = "/api";
                 onRefreshed(newToken);
@@ -189,7 +206,6 @@ instance.interceptors.response.use(
           });
         }
       }
-      
     }
     return Promise.reject(error);
   }

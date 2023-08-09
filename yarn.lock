@@ -227,6 +227,11 @@
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
 
+"@sumsub/websdk@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@sumsub/websdk/-/websdk-2.0.1.tgz"
+  integrity sha512-uNwBKX97+dnmLQfi7DnaHVaqbSSgpwdBWyPjGEpPpBI2/jgE6qGTwki6b4qg4etno6yucjGlDqFL65SdcyFk8w==
+
 "@types/echarts@^4.9.16":
   version "4.9.16"
   resolved "https://registry.npmmirror.com/@types/echarts/-/echarts-4.9.16.tgz"

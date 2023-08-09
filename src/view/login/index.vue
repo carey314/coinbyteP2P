@@ -30,29 +30,28 @@
                   ></div>
 
                   <template #prepend>
+                    <div style="position: absolute;z-index: 888;left: 4px;">+</div>
                     <el-select
                       v-model="numberSelect"
                       placeholder="Select"
                       filterable
                       style="width: 130px"
                     >
-                      <el-option
-                        v-for="item in areas"
-                        :key="item.value"
-                        :label="item.value"
-                        :value="item.value"
-                        style="width: 353px"
+                      <el-option-group
+                        v-for="group in options"
+                        :key="group.label"
+                        :label="group.label"
                       >
-                        <span style="float: left">{{ item.label }}</span>
-                        <span
-                          style="
-                            float: right;
-                            color: var(--el-text-color-secondary);
-                            font-size: 13px;
-                          "
-                          >{{ item.value }}</span
+                        <el-option
+                          v-for="item in group.options"
+                          :key="item.value"
+                          :label="item.telephoneCode"
+                          :value="item.telephoneCode"
                         >
+                        <div><span style="">{{ item.nationalFlag }}</span>{{ item.label }} <span style="float: right;">+{{ item.telephoneCode }}</span></div>
+
                       </el-option>
+                      </el-option-group>
                     </el-select>
                   </template>
                   <!-- <el-divider direction="vertical" /> -->
@@ -282,9 +281,10 @@ import { useRouter } from "vue-router";
 import { useUserInfoStore } from "../../store/user";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
-import { getLoginUUID, toLogin as Tologin } from "../../api/login";
+import { toLogin as Tologin } from "../../api/login";
 import { Minus, Plus } from "@element-plus/icons-vue";
 import type { FormInstance, FormRules } from "element-plus";
+import { countryList } from "./countries";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
@@ -300,7 +300,7 @@ const rules = reactive<FormRules>({
 
 const userInfoStore = useUserInfoStore();
 const { token, username } = storeToRefs(userInfoStore);
-console.log(userInfoStore.isLogin);
+console.log("islogin", userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
@@ -310,11 +310,21 @@ const form = reactive({
   number: "",
 });
 const number = ref("");
-const numberSelect = ref("+61");
+const numberSelect = ref("81");
 const areas = [
   { label: "Australia", value: "+61" },
   { label: "United States", value: "+1" },
 ];
+
+const options = Object.entries(countryList).map(([key, values]) => ({
+  label: key,
+  options: values.map((item) => ({
+    ...item,
+    value: item.telephoneCode,
+    label: item.commonName,
+  })),
+}));
+console.log(options, 55555);
 const isShowPass = ref(false);
 const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
@@ -340,20 +350,10 @@ const activeLogin = ref("second");
 // const handleClick = (tab: TabsPaneContext, event: Event) => {
 //   console.log(tab, event)
 // }
-const uuid = ref("");
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
-  getLoginUUID()
-    .then((res: any) => {
-      if (res.data.code === 200 || res.data.code === 202) {
-        uuid.value = res.data.uuid;
-      }
-    })
-    .catch((err) => {
-      ElMessage.error("Unable to get uuid");
-    });
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -376,26 +376,34 @@ const toLogin = async (formEl: FormInstance | undefined) => {
 
   // 对JSON字符串进行base64编码
   var base64String = btoa(jsonStr);
-  if (!uuid.value) {
-    ElMessage.error("Unable to get uuid");
-    return;
+
+  let uploadMsg;
+  if (activeLogin.value === "first") {
+    uploadMsg = {
+      type: "number",
+      account: numberSelect.value + form.number,
+      pass_word: form.password,
+      device_fingerprint: base64String,
+      recaptchaResponse: "in quis cillum nisi",
+    };
+  } else if (activeLogin.value === "second") {
+    uploadMsg = {
+      type: "email",
+      account: form.username,
+      pass_word: form.password,
+      device_fingerprint: base64String,
+      recaptchaResponse: "in quis cillum nisi",
+    };
   }
-  const uploadMsg = {
-    uuid: uuid.value,
-    email: form.username,
-    number: form.number,
-    password: form.password,
-    device_fingerprint: base64String,
-    recaptchaResponse: "in quis cillum nisi",
-  };
 
   Tologin(uploadMsg)
     .then((res: any) => {
       const response = res.data;
-      if (response.code === 200 || response.code === 202) {
-        console.log("Bearer " + response.data.accessToken.token);
-        userInfoStore.changeToken(response.data.accessToken.token);
-        userInfoStore.changeRefreshToken(response.data.refreshToken.token);
+      console.log(response, 111111);
+      if (response.code === 1) {
+        // console.log("Bearer " + response.data.accessToken.token);
+        // userInfoStore.changeToken(response.data.accessToken.token);
+        // userInfoStore.changeRefreshToken(response.data.refreshToken.token);
         ElMessage.success("Login succeeded!");
         router.push("/");
       } else {
@@ -403,7 +411,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
       }
     })
     .catch((err: any) => {
-      console.log(1);
+      console.log(err);
       if (err.response) {
         const error = err.response.data.error;
         if (error.code === 0) {
@@ -437,18 +445,17 @@ $fontSizeMin: 12px;
   .el-input-group__prepend {
     box-shadow: none;
     background: none;
-    width: 78px;
+    width: 24%;
+    margin-left: 10px;
   }
   .el-form-item__content .el-input-group {
     border: 1px solid #dfdfe5;
     border-radius: 4px;
-    
   }
   .el-tabs__content {
-      margin-top: -37px;
-      height: 78px;
-    
-    }
+    margin-top: -37px;
+    height: 78px;
+  }
   // .center-box .login-box .login .login-referral[data-v-26188718] .el-input__wrapper{
   //   border: none;
   // }

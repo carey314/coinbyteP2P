@@ -1,7 +1,7 @@
 import http from '../utils/http';
 //Get client profile data
 function getProfile() {
-    return http.get("/v2/my/profile");
+    return http.get("/user");
 }
 // v1/me?with=
 function meWidth() {
@@ -47,38 +47,65 @@ function getClientTypeDetails (typeId : string) {
 
 //log out
 async function logOut () {
-    return http.post("/v2/my/signout");
+    return http.get("/logout");
 }
 //Get client permissions
 function getClientPermissions () {
     return http.get(`/v2/my/permissions`);
 }
 //Initialize the Sign Up Wizard
-interface InitializeSignUpWizard {
-    "url": string,
-    "utm" ? : {
-        "referral" ? : string,
-        "uri" ? : string
-    }
+
+function initializeSignUpWizard (data : any) {
+    return http.post(`/reg/email`,data);
 }
-function initializeSignUpWizard (data : InitializeSignUpWizard) {
-    return http.post("/v2/my/signup/wizard",data);
+
+function emailVefify (data : Verify) {
+    return http.post(`/reg/email_verify`,data);
 }
+interface Verify {
+    "code": string
+    "email": string
+}
+function phoneVefify (data : phoneVerify) {
+    return http.post(`/reg/phone_verify`,data);
+}
+interface phoneVerify {
+    "code": string
+    "phone": string
+    "token": string
+}
+function phoneSignup (data : Number) {
+    return http.post(`/reg/phone`,data);
+}
+interface Number {
+    "phone": string
+}
+
+
 ///api/v2/my/signup
 interface SignUp {
-    "uuid": string,
     "email"?: string,
-    "password"?: string,
-    "password_confirmation"?: string,
-    "device_fingerprint" ? : string,
-    "addresses" ? : {},
-    "info" ? : {},
-    "recaptchaResponse" ? : string,
-    "wizard_id"? : number
+    "phone"?: string,
+    "token"?: string,
+    "pass_word" ? : string,
 }
 function signUp (data : SignUp) {
-    return http.post("/v2/my/signup",data);
+    return http.post("/reg/signup",data);
 }
+
+//登陆
+function Login (data : any) {
+    return http.post("/api/login",data);
+}
+// 获取 sumsub KYC token
+function getKycToken (data : any) {
+    return http.get("/api/kyc/token",data);
+}
+// 获取用户信息
+function getUserInfo (data : any) {
+    return http.get("/api/user",data);
+}
+
 //choose person
 function choosePer (data : any,uuid : string) {
     return http.post("/v1/public/wizards/" + uuid,data);
@@ -96,5 +123,8 @@ export {
     getClientPermissions,
     initializeSignUpWizard,
     signUp,
-    choosePer
+    choosePer,
+    emailVefify,
+    phoneSignup,
+    phoneVefify
 }

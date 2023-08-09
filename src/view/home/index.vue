@@ -1,6 +1,6 @@
 <template>
   <div class="homeBox">
-    <Header />
+    <Header/>
     <div class="bannerContainer">
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
@@ -13,46 +13,46 @@
             </div>
             <div class="for-what">
               <div style="position: relative">
-                <img class="frame" :src="banner_frame" />
+                <img class="frame" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">For Buying</div>
                   <div class="content-way">When I buy</div>
-                  <GetButton class="start-btn" type="success" text="Start" />
+                  <GetButton class="start-btn" type="success" text="Start"/>
                 </div>
               </div>
               <div style="position: relative">
-                <img class="frame" :src="banner_frame" />
+                <img class="frame" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">For Selling</div>
                   <div class="content-way">When I sell</div>
-                  <GetButton class="start-btn" type="success" text="Start" />
+                  <GetButton class="start-btn" type="success" text="Start" @click="toSell()"/>
                 </div>
               </div>
             </div>
             <div class="banner-more">
               <div class="banner-more-img">
-                <img :src="registered_icon" alt="" />
+                <img :src="registered_icon" alt=""/>
               </div>
               <div>
                 <div class="banner-more-title">
                   {{ $t("messages.home.banner_registered") }}
                 </div>
                 <div
-                  class="banner-learn-more"
-                  @click="dialogTableVisible = true"
+                    class="banner-learn-more"
+                    @click="dialogTableVisible = true"
                 >
                   {{ $t("messages.home.banner_more") }}
                   <el-icon class="more-arrow">
-                    <Right />
+                    <Right/>
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog">
                   <el-row :gutter="20">
                     <el-col
-                      :md="12"
-                      :xs="24"
-                      v-for="(item, index) in gridData"
-                      :key="index"
+                        :md="12"
+                        :xs="24"
+                        v-for="(item, index) in gridData"
+                        :key="index"
                     >
                       <div class="alert-box">
                         <div class="alert-title">{{ item.title }}</div>
@@ -62,18 +62,18 @@
                           <a href="https://asic.gov.au/" target="_blank">
                             {{ item.address }}
                             <el-icon class="more-arrow">
-                              <Right />
+                              <Right/>
                             </el-icon>
                           </a>
                         </div>
                       </div>
                     </el-col>
                     <el-col
-                      :md="12"
-                      :xs="24"
-                      v-for="(item, index) in gridData1"
-                      :key="index"
-                      class="gap"
+                        :md="12"
+                        :xs="24"
+                        v-for="(item, index) in gridData1"
+                        :key="index"
+                        class="gap"
                     >
                       <div class="alert-box">
                         <div class="alert-title">{{ item.title }}</div>
@@ -85,7 +85,7 @@
                           <a href="https://www.austrac.gov.au/" target="_blank">
                             {{ item.address }}
                             <el-icon class="more-arrow">
-                              <Right />
+                              <Right/>
                             </el-icon>
                           </a>
                         </div>
@@ -125,7 +125,7 @@
             <el-steps align-center>
               <el-step title="Place order">
                 <template #icon>
-                  <img class="step-icon" :src="icon_01" />
+                  <img class="step-icon" :src="icon_01"/>
                 </template>
                 <template #description>
                   Find CoinbyteP2P's advertisement and place your order, the
@@ -134,7 +134,7 @@
               </el-step>
               <el-step title="Get Verified">
                 <template #icon>
-                  <img class="step-icon" :src="icon_02" />
+                  <img class="step-icon" :src="icon_02"/>
                 </template>
                 <template #description>
                   Complete our verification through our website
@@ -142,7 +142,7 @@
               </el-step>
               <el-step title="Make Payment">
                 <template #icon>
-                  <img class="step-icon" :src="icon_03" />
+                  <img class="step-icon" :src="icon_03"/>
                 </template>
                 <template #description>
                   Make the payment to CoinbyteP2P via your preferred payment
@@ -152,7 +152,7 @@
               </el-step>
               <el-step title="Get your Crypto">
                 <template #icon>
-                  <img class="step-icon" :src="icon_04" />
+                  <img class="step-icon" :src="icon_04"/>
                 </template>
                 <template #description>
                   Once we confirms receipt of the payment, the escrowed crypto
@@ -170,10 +170,12 @@
           </div>
           <div class="tabs-step">
             <el-steps align-center>
+
               <el-step title="Place order">
                 <template #icon>
-                  <img class="step-icon" :src="icon_01" />
+                  <img class="step-icon" :src="icon_01"/>
                 </template>
+
                 <template #description>
                   Find CoinbyteP2P's advertisement and place your order, the
                   crypto asset will be escrowed by the Exchange
@@ -181,7 +183,7 @@
               </el-step>
               <el-step title="Get Verified">
                 <template #icon>
-                  <img class="step-icon" :src="icon_02" />
+                  <img class="step-icon" :src="icon_02"/>
                 </template>
                 <template #description>
                   Complete our verification through our website
@@ -189,7 +191,7 @@
               </el-step>
               <el-step title="Make Payment">
                 <template #icon>
-                  <img class="step-icon" :src="icon_03" />
+                  <img class="step-icon" :src="icon_03"/>
                 </template>
                 <template #description>
                   Make the payment to CoinbyteP2P via your preferred payment
@@ -199,7 +201,7 @@
               </el-step>
               <el-step title="Get your Crypto">
                 <template #icon>
-                  <img class="step-icon" :src="icon_04" />
+                  <img class="step-icon" :src="icon_04"/>
                 </template>
                 <template #description>
                   Once we confirms receipt of the payment, the escrowed crypto
@@ -219,19 +221,20 @@
 
           <div class="choose-reason">
             <el-radio-group v-model="reasonTab" size="large" class="reason-box">
-              <el-radio-button label="Regulation" />
-              <el-radio-button label="Fiat markets" />
-              <el-radio-button label="Totally reliable" />
-              <el-radio-button label="Fast and easy" />
-              <el-radio-button label="Live chat" />
+              <el-radio-button label="Regulation"/>
+              <el-radio-button label="Fiat markets"/>
+              <el-radio-button label="Totally reliable"/>
+              <el-radio-button label="Fast and easy"/>
+              <el-radio-button label="Live chat"/>
             </el-radio-group>
           </div>
           <div v-if="reasonTab === 'Regulation'">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
-                  <img :src="image01" /></div
-              ></el-col>
+                  <img :src="image01"/></div
+                >
+              </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">Fiat markets</div>
@@ -240,7 +243,7 @@
                     cryptocurrencies with NZD.
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start" />
+                    <GetButton class="trade-btn" type="success" text="Start"/>
                   </div>
                 </div>
               </el-col>
@@ -250,8 +253,9 @@
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
-                  <img :src="image02" /></div
-              ></el-col>
+                  <img :src="image02"/></div
+                >
+              </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">Fiat markets</div>
@@ -260,7 +264,7 @@
                     cryptocurrencies with NZD.
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start" />
+                    <GetButton class="trade-btn" type="success" text="Start"/>
                   </div>
                 </div>
               </el-col>
@@ -270,8 +274,9 @@
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
-                  <img :src="image03" /></div
-              ></el-col>
+                  <img :src="image03"/></div
+                >
+              </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">Fiat markets</div>
@@ -280,7 +285,7 @@
                     cryptocurrencies with NZD.
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start" />
+                    <GetButton class="trade-btn" type="success" text="Start"/>
                   </div>
                 </div>
               </el-col>
@@ -290,8 +295,9 @@
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
-                  <img :src="image04" /></div
-              ></el-col>
+                  <img :src="image04"/></div
+                >
+              </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">Fiat markets</div>
@@ -300,7 +306,7 @@
                     cryptocurrencies with NZD.
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start" />
+                    <GetButton class="trade-btn" type="success" text="Start"/>
                   </div>
                 </div>
               </el-col>
@@ -310,8 +316,9 @@
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
-                  <img :src="image05" /></div
-              ></el-col>
+                  <img :src="image05"/></div
+                >
+              </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">Fiat markets</div>
@@ -320,7 +327,7 @@
                     cryptocurrencies with NZD.
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start" />
+                    <GetButton class="trade-btn" type="success" text="Start"/>
                   </div>
                 </div>
               </el-col>
@@ -334,14 +341,14 @@
           {{ $t("messages.home.seventh_explore") }}
         </div>
         <el-row
-          class="seventh-part-list"
-          type="flex"
-          justify="space-between"
-          :gutter="40"
+            class="seventh-part-list"
+            type="flex"
+            justify="space-between"
+            :gutter="40"
         >
           <el-col :span="7" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic01" alt="" />
+              <img :src="part07_pic01" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_how") }}
@@ -349,7 +356,7 @@
           </el-col>
           <el-col :span="7" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic02" alt="" />
+              <img :src="part07_pic02" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_start") }}
@@ -357,7 +364,7 @@
           </el-col>
           <el-col :span="7" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic03" alt="" />
+              <img :src="part07_pic03" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_earn") }}
@@ -374,14 +381,14 @@
           {{ $t("messages.home.seventh_explore") }}
         </div>
         <el-row
-          class="seventh-part-list"
-          type="flex"
-          justify="space-between"
-          :gutter="40"
+            class="seventh-part-list"
+            type="flex"
+            justify="space-between"
+            :gutter="40"
         >
           <el-col :span="24" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic01" alt="" />
+              <img :src="part07_pic01" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_how") }}
@@ -389,7 +396,7 @@
           </el-col>
           <el-col :span="24" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic02" alt="" />
+              <img :src="part07_pic02" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_start") }}
@@ -397,7 +404,7 @@
           </el-col>
           <el-col :span="24" class="listItem">
             <div class="seventh-part-img">
-              <img :src="part07_pic03" alt="" />
+              <img :src="part07_pic03" alt=""/>
             </div>
             <div class="item-title">
               {{ $t("messages.home.seventh_earn") }}
@@ -415,7 +422,7 @@
       <div class="footer-box max1290">
         <div class="footer-logo">
           <div
-            style="
+              style="
               font-size: 36px;
               color: #fff;
               line-height: 44px;
@@ -431,8 +438,8 @@
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
             <a href="/" style="color: #01c19a">{{
-              $t("messages.footer.more")
-            }}</a>
+                $t("messages.footer.more")
+              }}</a>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -461,16 +468,16 @@
             <li>{{ $t("messages.footer.about") }}</li>
             <li>
               <a
-                href="/"
-                style="color: rgb(144, 144, 144); text-decoration: none"
-                >{{ $t("messages.footer.about_us") }}</a
+                  href="/"
+                  style="color: rgb(144, 144, 144); text-decoration: none"
+              >{{ $t("messages.footer.about_us") }}</a
               >
             </li>
             <li>
               <a
-                href="/"
-                style="color: rgb(144, 144, 144); text-decoration: none"
-                >{{ $t("messages.footer.contact_us") }}</a
+                  href="/"
+                  style="color: rgb(144, 144, 144); text-decoration: none"
+              >{{ $t("messages.footer.contact_us") }}</a
               >
             </li>
           </ul>
@@ -491,8 +498,8 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.service") }}</li>
-            <li>{{ $t("messages.footer.service_instant") }}</li>
-            <li>{{ $t("messages.footer.Zealand") }}</li>
+            <li>🇦🇺{{ $t("messages.footer.service_instant") }}</li>
+            <li>🇳🇿{{ $t("messages.footer.Zealand") }}</li>
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
@@ -512,8 +519,8 @@
         </div>
 
         <div
-          class="icon-links"
-          style="
+            class="icon-links"
+            style="
             font-size: 14px;
             color: #808080;
             line-height: 19px;
@@ -521,14 +528,14 @@
             margin-top: 220px;
           "
         >
-          We are registered as a Digital Currency Exchange (DCE) with AUSTRAC:
-          DCE-12345678
+          <span>We are registered as a Digital Currency</span><br/> <span>Exchange (DCE) with AUSTRAC:</span><br/>
+          <span>DCE-12345678</span>
         </div>
       </div>
 
       <div
-        class="icon-links-lg max1290"
-        style="font-size: 14px; color: #808080; line-height: 19px"
+          class="icon-links-lg max1290"
+          style="font-size: 14px; color: #808080; line-height: 19px"
       >
         We are registered as a Digital Currency Exchange (DCE) with AUSTRAC:
         DCE-12345678
@@ -538,7 +545,7 @@
       <div class="footer-links" style="padding:20px">
         <div class="footer-logo">
           <div
-            style="
+              style="
               font-size: 36px;
               color: #fff;
               line-height: 44px;
@@ -554,8 +561,8 @@
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
             <a href="/" style="color: #01c19a">{{
-              $t("messages.footer.more")
-            }}</a>
+                $t("messages.footer.more")
+              }}</a>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -591,23 +598,23 @@
                 </template>
                 <div class="list-item">
                   <a
-                    href="/about"
-                    style="color: rgb(144, 144, 144); text-decoration: none"
-                    >{{ $t("messages.footer.about_us") }}</a
+                      href="/about"
+                      style="color: rgb(144, 144, 144); text-decoration: none"
+                  >{{ $t("messages.footer.about_us") }}</a
                   >
                 </div>
                 <div class="list-item">
                   <a
-                    href="/contact"
-                    style="color: rgb(144, 144, 144); text-decoration: none"
-                    >{{ $t("messages.footer.contact_us") }}</a
+                      href="/contact"
+                      style="color: rgb(144, 144, 144); text-decoration: none"
+                  >{{ $t("messages.footer.contact_us") }}</a
                   >
                 </div>
                 <div class="list-item">
                   <a
-                    href="/fees"
-                    style="color: rgb(144, 144, 144); text-decoration: none"
-                    >{{ $t("messages.footer.fees") }}</a
+                      href="/fees"
+                      style="color: rgb(144, 144, 144); text-decoration: none"
+                  >{{ $t("messages.footer.fees") }}</a
                   >
                 </div>
               </el-collapse-item>
@@ -655,32 +662,32 @@
             </el-collapse>
           </div>
         </div>
-        <div class="icon-links"  style="font-size: 14px; color: #808080; line-height: 19px">
+        <div class="icon-links-min" style="font-size: 14px; color: #808080; line-height: 19px">
           We are registered as a Digital Currency Exchange (DCE) with AUSTRAC:
           DCE-12345678
         </div>
       </div>
-     
+
     </footer>
 
-    <Footer v-if="windowWidth > 769" />
+    <Footer v-if="windowWidth > 769"/>
     <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, watch as vueWatch } from "vue";
+import {ref, reactive, onUnmounted, onMounted, watch as vueWatch} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
-import { getCoinMarketCap, getLastCoinMarketCap } from "../../api/market";
-import { queryCurrenciesType } from "../../api/currencies";
+import {getCoinMarketCap, getLastCoinMarketCap} from "../../api/market";
+import {queryCurrenciesType} from "../../api/currencies";
 //icon
-import { Right, CaretBottom, CaretTop } from "@element-plus/icons";
-import type { TabsPaneContext } from "element-plus";
+import {Right, CaretBottom, CaretTop} from "@element-plus/icons";
+import type {TabsPaneContext} from "element-plus";
 // img
 import registered_icon from "../../assets/home/registered_icon.png";
 import banner_frame from "../../assets/image/banner_frame.png";
@@ -728,24 +735,25 @@ import DOGE from "../../assets/home/dogecoin.png";
 import MATIC from "../../assets/home/polygon.png";
 import SOL from "../../assets/home/solana.png";
 
-import { storeToRefs } from "pinia";
-import { tradeStore } from "../../store/trade";
-import { getProfile } from "../../api/user";
-import { useUserInfoStore } from "../../store/user";
-import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
-import { watch } from "fs";
+import {storeToRefs} from "pinia";
+import {tradeStore} from "../../store/trade";
+import {getProfile} from "../../api/user";
+import {useUserInfoStore} from "../../store/user";
+import {useI18n} from "vue-i18n";
+import {useRouter} from "vue-router";
+import {watch} from "fs";
 
 const router = useRouter();
 
-const { t } = useI18n();
+const {t} = useI18n();
 const activeNamesFoot = ref([""]);
 const handleFootChange = (val: string[]) => {
   console.log(val);
 };
 
 const useTradeStore = tradeStore();
-const { currencySlug, currencyName, currencyIcon } = storeToRefs(useTradeStore);
+const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore);
+
 // 货币类型\
 interface Coin {
   id: number;
@@ -794,18 +802,18 @@ interface Coin {
 
 const coinMarketCapData = ref<any>([]);
 
-onMounted(async () => {
-  refreshData();
-  refreshData(2);
-  refreshData(3);
-  refreshData(4);
-  setInterval(() => {
-    refreshData();
-    refreshData(2);
-    refreshData(3);
-    refreshData(4);
-  }, 60000 * 5);
-});
+// onMounted(async () => {
+//   refreshData();
+//   refreshData(2);
+//   refreshData(3);
+//   refreshData(4);
+//   setInterval(() => {
+//     refreshData();
+//     refreshData(2);
+//     refreshData(3);
+//     refreshData(4);
+//   }, 60000 * 5);
+// });
 
 const coinSymbolToName: {
   [key: string]: string;
@@ -839,7 +847,7 @@ async function refreshData(typeId: number = 1) {
       typeId: typeId,
     });
     const symbols = coins.data.content.map(
-      (v: any) => v.alias && v.alias.toLowerCase()
+        (v: any) => v.alias && v.alias.toLowerCase()
     );
     const response = await getLastCoinMarketCap({
       symbols: symbols.join(","),
@@ -852,7 +860,7 @@ async function refreshData(typeId: number = 1) {
     // }
     coinMarketCapData.value[`tab-${typeId}`] = resJson;
     const symbolsSlug = coinMarketCapData.value[`tab-${typeId}`].map(
-      (v: any) => v.id
+        (v: any) => v.id
     );
     const chartRes = await getCoinMarketCap({
       symbols: symbolsSlug.join(","),
@@ -873,7 +881,6 @@ async function refreshData(typeId: number = 1) {
 }
 
 const activeName = ref("1");
-
 const tradeTab = ref<any>("first");
 const reasonTab = ref<any>("Regulation");
 
@@ -915,6 +922,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
+
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
@@ -1041,10 +1049,11 @@ const tableData = [
 ];
 const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
   let myChart = echarts.init(dom);
+
   function colorRgba(sHex: any, p: any) {
     // 十六进制颜色值的正则表达式
     var reg =
-      /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{4}|[0-9a-fA-f]{6}|[0-9a-fA-f]{8})$/;
+        /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{4}|[0-9a-fA-f]{6}|[0-9a-fA-f]{8})$/;
     /* 16进制颜色转为RGB格式 */
     var sColor = sHex.toLowerCase();
     if (sColor && reg.test(sColor)) {
@@ -1065,6 +1074,7 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
       return sColor;
     }
   }
+
   const options: echarts.EChartsOption = {
     grid: {
       left: "0",
@@ -1115,28 +1125,17 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
 };
 const echartDomRef = [];
 
-// const setEchartRef: any = (el: HTMLDivElement) => {
-//   // console.log(el);
-//   if (el) {
-//     echartDomRef.push(el);
-//     const data = tableData.find(
-//       (e) => e.id === Number(el.getAttribute("rowId"))
-//     )?.data;
-//     const type = tableData.find(
-//       (e) => e.id === Number(el.getAttribute("rowId"))
-//     )?.type;
-//     let color = type == "up" ? "#01C19A" : "#F15958";
-//     createChart(el, data as Array<any>, color);
-//   }
-// };
+const toSell = () => {
+  router.push('/user/bankaccount')
+}
 
 const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
   if (el) {
     echartDomRef.push(el);
     const foundData = coinMarketCapData.value[`tab-${typeId}`].find(
-      (e: any) => {
-        return e.id === el.getAttribute("rowId");
-      }
+        (e: any) => {
+          return e.id === el.getAttribute("rowId");
+        }
     );
     const data = foundData.data;
     const type = foundData.isUp ? "up" : "down";
@@ -1161,7 +1160,7 @@ const forthList = [
   {
     number: 2,
     message:
-      "Buy and sell BTC, ETH, XRP, OKB and other digital assets with ease",
+        "Buy and sell BTC, ETH, XRP, OKB and other digital assets with ease",
   },
   {
     number: 3,
@@ -1286,4 +1285,8 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "./index.scss";
+
+.icon-links {
+  text-align: right;
+}
 </style>

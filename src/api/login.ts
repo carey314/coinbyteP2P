@@ -1,10 +1,10 @@
 import http from '../utils/http';
 function getLoginUUID () {{
-    return http.get('/v2/my/signin/wizard');
+    return http.get('/health');
 }}
 
-function toLogin (uploadMsg : any) {
-    return http.post('/v2/my/signin',uploadMsg);
+function toLogin (data : any) {
+    return http.post('/login',data);
 }
 export {
     getLoginUUID,

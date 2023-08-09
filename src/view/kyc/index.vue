@@ -1,36 +1,82 @@
 <template>
   <div class="kyc-page">
-    <Header />
+    <Header/>
     <div>
-      <div>
-        <h1>aaaaa</h1>
-      </div>
+      <div id="sumsub-websdk-container"></div>
     </div>
-    <Footer v-if="windowWidth > 769" />
+    <Footer v-if="windowWidth > 769"/>
     <FooterMobile v-if="windowWidth <= 769">
     </FooterMobile>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import {ref, reactive, onMounted, onUnmounted} from "vue";
+import snsWebSdk from '@sumsub/websdk';
 
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { genKycToken } from "../../api/kyc";
+
+import {useI18n} from "vue-i18n";
+
+const {t} = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+  // 买 buy 卖 sell
+  genKycToken({type: "sell"}).then((res) => {
+    launchWebSdk(res.data.data.token)
+  })
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
+
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
+}
+
+function launchWebSdk(token: string) {
+  let snsWebSdkInstance = snsWebSdk.init(
+      token,
+      // token update callback, must return Promise
+      // Access token expired
+      // get a new one and pass it to the callback to re-initiate the WebSDK
+      () => getNewAccessToken()
+  )
+      .withConf({
+        lang: 'en', //language of WebSDK texts and comments (ISO 639-1 format)
+        email: "",
+        phone: "",
+        i18n: '', //JSON of custom SDK Translations
+        uiConf: {
+          customCss: "https://url.com/styles.css"
+          // URL to css file in case you need change it dynamically from the code
+          // the similar setting at Customizations tab will rewrite customCss
+          // you may also use to pass string with plain styles `customCssStr:`
+        },
+      })
+      .withOptions({addViewportTag: false, adaptIframeHeight: true})
+      // see below what kind of messages WebSDK generates
+      .on('idCheck.stepCompleted', (payload) => {
+        console.log('stepCompleted', payload)
+      })
+      .on('idCheck.onError', (error) => {
+        console.log('onError', error)
+      })
+      .build();
+
+  // you are ready to go:
+  // just launch the WebSDK by providing the container element for it
+  snsWebSdkInstance.launch('#sumsub-websdk-container')
+}
+
+function getNewAccessToken() {
+  return Promise.resolve("xxxx")// get a new token from your backend
 }
 
 </script>
@@ -46,14 +92,17 @@ $fontSizeMin: 12px;
   max-width: 1290px;
   margin: auto;
 }
+
 .kyc-page {
   position: relative;
+
   .top-part {
     background: #1d262f;
     width: 100%;
     height: 440px;
     position: relative;
     display: flex;
+
     .top-part-box {
       margin: auto;
       text-align: center;
@@ -63,6 +112,7 @@ $fontSizeMin: 12px;
           padding: 0 5%;
         }
       }
+
       .top-part-title {
         font-size: $fontSizeMax;
         color: #01c19a;
@@ -74,6 +124,7 @@ $fontSizeMin: 12px;
         //   }
         // }
       }
+
       .top-part-content {
         font-size: $fontSizeMed;
         color: #ffffff;
@@ -87,6 +138,7 @@ $fontSizeMin: 12px;
           }
         }
       }
+
       .top-part-msg {
         font-size: $fontSizeDef;
         color: #ffffff;
@@ -103,6 +155,7 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .center-part {
     background-color: #ffffff;
     margin-top: 110px;
@@ -114,6 +167,7 @@ $fontSizeMin: 12px;
     @media (max-width: 985px) {
       margin-top: 60px;
     }
+
     :deep(.el-row) {
       @media (max-width: 985px) {
         width: 100%;
@@ -121,6 +175,7 @@ $fontSizeMin: 12px;
         gap: 45px;
       }
     }
+
     .center-box {
       width: 100%;
       background-color: #ffffff;
@@ -136,6 +191,7 @@ $fontSizeMin: 12px;
         width: 320px;
         height: 340px;
       }
+
       .center-img {
         display: flex;
         margin: auto;
@@ -146,12 +202,14 @@ $fontSizeMin: 12px;
           width: 63px;
           height: auto;
         }
+
         img {
           width: 100%;
           height: 100%;
           object-fit: contain;
         }
       }
+
       .center-title {
         font-size: $fontSizeMed;
         color: #01c19a;
@@ -164,6 +222,7 @@ $fontSizeMin: 12px;
           }
         }
       }
+
       .center-tips {
         font-size: $fontSizeDef;
         color: #060606;
@@ -176,8 +235,10 @@ $fontSizeMin: 12px;
           }
         }
       }
+
       .rate {
         padding: 20px 0;
+
         .center-currency {
           font-size: 26px;
           color: #01c19a;
@@ -185,10 +246,12 @@ $fontSizeMin: 12px;
           padding-top: 40px;
           display: flex;
           padding-left: 18%;
+
           img {
             width: 100%;
             height: 100%;
           }
+
           @media (max-width: 1400px) {
             & {
               padding-left: 12%;
@@ -201,6 +264,7 @@ $fontSizeMin: 12px;
             }
           }
         }
+
         .center-number {
           margin-top: -60px;
           font-weight: bold;
@@ -227,6 +291,7 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .bottom-part {
     background-color: #f8f8f8;
   }
