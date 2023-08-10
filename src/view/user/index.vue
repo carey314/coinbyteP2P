@@ -17,7 +17,7 @@
             </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_orders')" name="second" :lazy="true">
-              <template #label>  
+              <template #label>
                 <div class="click-success" @click="changeTab('depositFiat')">
                   {{ t('messages.user.label_orders') }}
                 </div>

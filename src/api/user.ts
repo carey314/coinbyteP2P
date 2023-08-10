@@ -19,11 +19,11 @@ interface UpdateProfile {
     }
 }
 function updateProfile(data : UpdateProfile) {
-    return http.post("/v2/my/profile",data);
+    return http.post("/user",data);
 }
 //	Get client settings
 function getSettings() {
-    return http.get("/v2/my/settings");
+    return http.get("/user");
 }
 //Update client settings
 interface UpdateSettings {
@@ -34,7 +34,7 @@ interface UpdateSettings {
     }
 }
 function updateSettings(data : UpdateSettings) {
-    return http.post("/v2/my/settings",data);
+    return http.post("/user",data);
 }
 //Get a list of client types
 function getClientTypes() {  //404

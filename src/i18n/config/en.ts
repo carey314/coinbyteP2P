@@ -514,6 +514,7 @@ export default {
         "Verify your identity to increase withdrawal limits and gain access to more features",
       Verification_Verify: "Verify",
       Verification_Unverified: "Unverified",
+      Verification_verified: "Verified",
       overview_Bank: "Bank account",
       Bank_con:
         "Submit your bank account to get paid",

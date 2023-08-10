@@ -1,6 +1,6 @@
 <template>
   <div class="deposit-crypto">
-    <el-row :gutter="80">
+    <el-row>
       <el-col :span="15" :xs="24" class="left-box">
         <div class="left-header">
           <div class="header-title">Deposit Crypto</div>
@@ -533,10 +533,9 @@ $fontSizeMin: 12px;
 
 .left-box {
 
-  @media (max-width: 769px) {
-    & {
-      padding-left: 40px !important;
-    }
+  padding-right: 60px !important;
+  @media(max-width: 992px) {
+    padding-right: 0px !important;
   }
 
   .left-header {
@@ -578,23 +577,20 @@ $fontSizeMin: 12px;
     .center-step-box {
       margin-top: 23px;
 
-      :deep() {
-        .el-step__line {
-          border-left: 2px dashed var(--el-text-color-placeholder);
-          border-image: repeating-linear-gradient(
-              359deg,
-              var(--el-text-color-placeholder) 0,
-              var(--el-text-color-placeholder) 5px,
-              transparent 0,
-              transparent 10px
-            )
-            30 12;
-          background-color: transparent;
+      :deep(.el-step__line) {
+        border-left: 2px dashed var(--el-text-color-placeholder);
+        border-image: repeating-linear-gradient(
+                359deg,
+                var(--el-text-color-placeholder) 0,
+                var(--el-text-color-placeholder) 5px,
+                transparent 0,
+                transparent 10px
+        ) 30 12;
+        background-color: transparent;
+      }
 
-          .el-step__line-inner {
-            display: none;
-          }
-        }
+      :deep(.el-step__line-inner) {
+        display: none;
       }
 
       .continue-btn {
@@ -614,9 +610,9 @@ $fontSizeMin: 12px;
       .select {
         position: relative;
         margin-top: 24px;
-        @media (max-width: 769px) {
+        @media (max-width: 992px) {
           & {
-            margin-top: 0;
+            margin-top: 20px;
           }
         }
 

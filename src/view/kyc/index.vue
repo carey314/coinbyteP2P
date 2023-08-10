@@ -1,7 +1,7 @@
 <template>
   <div class="kyc-page">
     <Header/>
-    <div>
+    <div class="kyc-box">
       <div id="sumsub-websdk-container"></div>
     </div>
     <Footer v-if="windowWidth > 769"/>
@@ -18,19 +18,24 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 
-import { genKycToken } from "../../api/kyc";
-
+import {genKycToken} from "../../api/kyc";
+import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n();
-
+const route = useRoute();
+const router = useRouter();
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
   // 买 buy 卖 sell
-  genKycToken({type: "sell"}).then((res) => {
-    launchWebSdk(res.data.data.token)
-  })
+  const type = route.query.type as string;
+  console.log(type, '123810283012830')
+  genKycToken({type}).then((res) => {
+    console.log(res, 'token 1111111')
+    launchWebSdk(res.data.data.token);
+  });
+
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -87,7 +92,12 @@ $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMin: 12px;
-
+.kyc-box {
+  min-height: calc(100vh - 120px);
+  @media(max-width: 768px) {
+    min-height: calc(100vh - 10px);
+  }
+}
 .part {
   max-width: 1290px;
   margin: auto;

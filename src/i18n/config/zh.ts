@@ -487,6 +487,7 @@ export default {
       Verification_con: "验证您的身份以增加提款限额并获得更多功能的访问权限",
       Verification_Verify: "验证",
       Verification_Unverified: "未验证",
+      Verification_verified: "已验证",
       overview_Bank: "银行账户",
       Bank_con:
         "从100多家澳大利亚支持新支付平台(NPP)的银行中,通过PayID/Osko即时向您的Coinbyte账户存入澳大利亚元(AUD)",

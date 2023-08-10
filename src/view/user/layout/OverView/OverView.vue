@@ -8,12 +8,13 @@
           <div class="info-text">
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
-              {{ userInfo && userInfo.maskedEmail }}
+              {{ userInfo && userInfo.email }}
+
               <img :src="myprofile_edit" style="margin-left: 8px" />
             </div>
             <div class="info-count">
               <!-- UID:121233443434343 -->
-              {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.id }}
+              {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.ID }}
               <img :src="myprofile_uid_copy" style="margin-left: 8px" />
             </div>
           </div>
@@ -22,7 +23,7 @@
           <div class="info-image"><img :src="usercenter_email" /></div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
-            <div class="info-count">{{ userInfo && userInfo.maskedEmail }}</div>
+            <div class="info-count">{{ userInfo && userInfo.email }}</div>
           </div>
         </div>
         <div class="user-info clearfloat">
@@ -90,10 +91,14 @@
                 </router-link>
               </div>
               <div class="bottom-tip">
-                <div class="tip-icon">
+                <div class="tip-icon" v-if="userInfo.kyc_status === false">
                   <img :src="dropdown_usercenter_unverified" />
                 </div>
-                <div class="tip-text">{{ $t('messages.user.Verification_Unverified') }}</div>
+                <div v-else>
+                  <img :src="dropdown_usercenter_verified" />
+                </div>
+                <div class="tip-text" v-if="userInfo.kyc_status === false">{{ $t('messages.user.Verification_Unverified') }}</div>
+                <div class="tip-text" v-else>{{ $t('messages.user.Verification_verified') }}</div>
               </div>
             </div>
           </el-card>
@@ -158,7 +163,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import {ref, reactive, onMounted} from "vue";
 import { Right } from "@element-plus/icons-vue";
 
 import myprofile_user from "../../../../assets/wallet/myprofile_user.png";
@@ -175,10 +180,19 @@ import myprofile_edit from "../../../../assets/wallet/myprofile_edit.svg";
 import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg";
 
 import { useUserInfoStore } from "../../../../store/user";
+import { getProfile } from "../../../../api/user";
 import { storeToRefs } from "pinia";
 
 const userInfoStore = useUserInfoStore();
 const { userInfo } = storeToRefs(userInfoStore);
+onMounted(() => {
+  if (userInfoStore.isLogin) {
+    getProfile().then((res) => {
+      console.log(res.data.data,'1111111111111');
+      userInfoStore.updateUserInfo(res.data.data);
+    });
+  }
+});
 console.log(userInfo.value);
 </script>
 
@@ -243,7 +257,7 @@ console.log(userInfo.value);
           font-size: 12px;
           color: #878787;
           line-height: 14px;
-          margin-top: 2px;
+          margin-top: 3px;
           position: relative;
           span{
             font-size: 14px;

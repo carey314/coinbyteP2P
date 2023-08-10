@@ -17,7 +17,7 @@
                 <div class="content">
                   <div class="content-title">For Buying</div>
                   <div class="content-way">When I buy</div>
-                  <GetButton class="start-btn" type="success" text="Start"/>
+                  <GetButton class="start-btn" type="success" text="Start" @click="goToKyc('buy')"/>
                 </div>
               </div>
               <div style="position: relative">
@@ -25,7 +25,7 @@
                 <div class="content">
                   <div class="content-title">For Selling</div>
                   <div class="content-way">When I sell</div>
-                  <GetButton class="start-btn" type="success" text="Start" @click="toSell()"/>
+                  <GetButton class="start-btn" type="success" text="Start" @click="goToKyc('sell')" />
                 </div>
               </div>
             </div>
@@ -680,7 +680,6 @@ import {ref, reactive, onUnmounted, onMounted, watch as vueWatch} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
 import {getCoinMarketCap, getLastCoinMarketCap} from "../../api/market";
@@ -1125,8 +1124,13 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
 };
 const echartDomRef = [];
 
-const toSell = () => {
-  router.push('/user/bankaccount')
+const goToKyc = (type: string) => {
+  if(userInfoStore.isLogin){
+    console.log(userInfoStore.isLogin,'2131313122313是否登陆')
+    router.push({ name: 'kyc', query: { type } })
+  }else {
+    router.push('/login')
+  }
 }
 
 const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
