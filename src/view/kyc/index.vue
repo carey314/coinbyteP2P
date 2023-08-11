@@ -57,7 +57,7 @@ function launchWebSdk(token: string) {
         lang: 'en', //language of WebSDK texts and comments (ISO 639-1 format)
         email: "",
         phone: "",
-        i18n: '', //JSON of custom SDK Translations
+        // i18n: '', //JSON of custom SDK Translations
         uiConf: {
           customCss: "https://url.com/styles.css"
           // URL to css file in case you need change it dynamically from the code

@@ -139,12 +139,7 @@ const routes: Array<RouteRecordRaw> = [
           
         ],
       },
-      {
-        path: 'depositCrypto',
-        name: 'DepositCrypto',
-        meta: { tab: "first", isTransaction: true },
-        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
-      },
+
       {
         path: 'depositFiat',
         name: 'DepositFiat',
@@ -211,15 +206,7 @@ const routes: Array<RouteRecordRaw> = [
               ),
             meta: { tabs: "fourth" },
           },
-          {
-            path: "transaction/DepositCrypto",
-            name: "walletHistoryDepositCrypto",
-            component: () =>
-              import(
-                "../view/transaction/layout/OverView/DepositCrypto.vue"
-              ),
-            meta: { tabs: "first" },
-          },
+
           {
             path: "transaction/DepositFiat",
             name: "walletHistoryDepositFiat",
@@ -260,12 +247,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'transaction',
     component: () => import('../view/transaction/index.vue'),
     children: [
-      {
-        path: 'DepositCrypto',
-        name: 'transaction/DepositCrypto',
-        meta: { tab: "first" },
-        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
-      },
+
       {
         path: 'DepositFiat',
         name: 'transaction/DepositFiat',
@@ -296,12 +278,6 @@ const routes: Array<RouteRecordRaw> = [
     name: "user",
     component: () => import("../view/user/index.vue"),
     children: [
-      {
-        path: 'depositCrypto',
-        name: 'DepositCrypto',
-        meta: { tab: "second", isTransaction: true },
-        component: () => import('../view/transaction/layout/OverView/DepositCrypto.vue'),
-      },
       {
         path: 'depositFiat',
         name: 'DepositFiat',

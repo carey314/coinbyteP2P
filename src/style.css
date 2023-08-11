@@ -116,7 +116,7 @@ html {
  box-sizing: inherit;
 }
 body {
- line-height: 1;
+ line-height: 20px;
 }
 ol, ul {
  list-style: none;

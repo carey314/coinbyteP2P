@@ -99,7 +99,6 @@ import Trading from "./layout/Trading/Trading.vue";
 import History from "./layout/History/History.vue";
 import AccountStatement from "./layout/AccountStatement/AccountStatement.vue";
 
-import DepositCrypto from "../transaction/layout/OverView/DepositCrypto.vue";
 import DepositFiat from "../transaction/layout/OverView/DepositFiat.vue";
 import WithdrawCrypto from "../transaction/layout/OverView/WithdrawCrypto.vue";
 import WithdrawFiat from "../transaction/layout/OverView/WithdrawFiat.vue";
@@ -270,7 +269,7 @@ const changeTab = (path: string) => {
     height: 4px;
   }
   .el-tabs__nav-wrap::after {
-    height: 1px solid #EBEBEB ;
+    border: 1px solid #EBEBEB ;
   }
 
   .el-radio-button {

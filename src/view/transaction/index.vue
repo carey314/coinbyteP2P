@@ -65,7 +65,6 @@ import { windowWidth } from "../../components/WindowWidth";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
-import DepositCrypto from "./layout/OverView/DepositCrypto.vue";
 import DepositFiat from "./layout/OverView/DepositFiat.vue";
 import WithdrawCrypto from "./layout/OverView/WithdrawCrypto.vue";
 import WithdrawFiat from "./layout/OverView/WithdrawFiat.vue";

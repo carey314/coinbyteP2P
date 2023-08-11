@@ -4,23 +4,23 @@
       <div class="card-title overview-title">{{ $t('messages.user.overview_Profile') }}</div>
       <div class="card-user">
         <div class="user-info clearfloat">
-          <div class="info-image"><img :src="myprofile_user" /></div>
+          <div class="info-image"><img :src="myprofile_user"/></div>
           <div class="info-text">
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
               {{ userInfo && userInfo.email }}
 
-              <img :src="myprofile_edit" style="margin-left: 8px" />
+              <img :src="myprofile_edit" style="margin-left: 8px"/>
             </div>
             <div class="info-count">
               <!-- UID:121233443434343 -->
               {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.ID }}
-              <img :src="myprofile_uid_copy" style="margin-left: 8px" />
+              <img :src="myprofile_uid_copy" style="margin-left: 8px"/>
             </div>
           </div>
         </div>
         <div class="user-info clearfloat">
-          <div class="info-image"><img :src="usercenter_email" /></div>
+          <div class="info-image"><img :src="usercenter_email"/></div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
             <div class="info-count">{{ userInfo && userInfo.email }}</div>
@@ -28,13 +28,13 @@
         </div>
         <div class="user-info clearfloat">
           <div class="info-image">
-            <img :src="usercenter_security_mobile" style="width: 50px" />
+            <img :src="usercenter_security_mobile" style="width: 50px"/>
           </div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Phone') }}</div>
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon" /><span>Verify</span>
+              <img class="verify-img" :src="registered_icon"/><span>Verify</span>
             </div>
           </div>
         </div>
@@ -50,18 +50,20 @@
                 {{ $t('messages.user.Security_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_security" />
+                <img :src="usercenter_icon_security"/>
               </div>
             </div>
-            <el-divider style="margin-left: -30px; width: 1000px" />
+            <el-divider style="margin-left: -30px; width: 1000px"/>
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/user/security"
-                  style="color: #01c19a; text-decoration: none"
+                    to="/user/depositFiat"
+                    style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Security_Manage') }}</div>
-                  <el-icon><Right /></el-icon>
+                  <el-icon>
+                    <Right/>
+                  </el-icon>
                 </router-link>
               </div>
               <div class="bottom-tip">{{ $t('messages.user.Security_features') }}: 4</div>
@@ -76,28 +78,32 @@
                 {{ $t('messages.user.Verification_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_verification" />
+                <img :src="usercenter_icon_verification"/>
               </div>
             </div>
-            <el-divider style="margin-left: -30px; width: 1000px" />
+            <el-divider style="margin-left: -30px; width: 1000px"/>
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/user/verification"
-                  style="color: #01c19a; text-decoration: none"
+                    to="/user/verification"
+                    style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.Verification_Verify') }}</div>
-                  <el-icon><Right /></el-icon>
+                  <el-icon>
+                    <Right/>
+                  </el-icon>
                 </router-link>
               </div>
               <div class="bottom-tip">
-                <div class="tip-icon" v-if="userInfo.kyc_status === false">
-                  <img :src="dropdown_usercenter_unverified" />
+                <div class="tip-icon" v-if="userInfo!.kyc.status">
+                  <img :src="dropdown_usercenter_unverified"/>
                 </div>
                 <div v-else>
-                  <img :src="dropdown_usercenter_verified" />
+                  <img :src="dropdown_usercenter_verified"/>
                 </div>
-                <div class="tip-text" v-if="userInfo.kyc_status === false">{{ $t('messages.user.Verification_Unverified') }}</div>
+                <div class="tip-text" v-if="userInfo!.kyc.status === false">
+                  {{ $t('messages.user.Verification_Unverified') }}
+                </div>
                 <div class="tip-text" v-else>{{ $t('messages.user.Verification_verified') }}</div>
               </div>
             </div>
@@ -115,18 +121,20 @@
                 {{ $t('messages.user.Bank_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_bankaccount" />
+                <img :src="usercenter_icon_bankaccount"/>
               </div>
             </div>
-            <el-divider style="margin-left: -30px; width: 1000px" />
+            <el-divider style="margin-left: -30px; width: 1000px"/>
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/user/bankaccount"
-                  style="color: #01c19a; text-decoration: none"
+                    to="/user/bankaccount"
+                    style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.paid') }}</div>
-                  <el-icon><Right /></el-icon>
+                  <el-icon>
+                    <Right/>
+                  </el-icon>
                 </router-link>
               </div>
             </div>
@@ -140,18 +148,20 @@
                 {{ $t('messages.user.Preferences_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_preferences" />
+                <img :src="usercenter_icon_preferences"/>
               </div>
             </div>
-            <el-divider style="margin-left: -30px; width: 1000px" />
+            <el-divider style="margin-left: -30px; width: 1000px"/>
             <div class="card-bottom">
               <div class="bottom-link">
                 <router-link
-                  to="/user/accountstatement"
-                  style="color: #01c19a; text-decoration: none"
+                    to="/user/accountstatement"
+                    style="color: #01c19a; text-decoration: none"
                 >
                   <div class="link-text">{{ $t('messages.user.manage') }}</div>
-                  <el-icon><Right /></el-icon>
+                  <el-icon>
+                    <Right/>
+                  </el-icon>
                 </router-link>
               </div>
             </div>
@@ -164,7 +174,7 @@
 
 <script setup lang="ts">
 import {ref, reactive, onMounted} from "vue";
-import { Right } from "@element-plus/icons-vue";
+import {Right} from "@element-plus/icons-vue";
 
 import myprofile_user from "../../../../assets/wallet/myprofile_user.png";
 import registered_icon from "../../../../assets/image/registered_icon.png";
@@ -179,21 +189,21 @@ import usercenter_icon_preferences from "../../../../assets/home/usercenter_icon
 import myprofile_edit from "../../../../assets/wallet/myprofile_edit.svg";
 import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg";
 
-import { useUserInfoStore } from "../../../../store/user";
-import { getProfile } from "../../../../api/user";
-import { storeToRefs } from "pinia";
+import {useUserInfoStore} from "../../../../store/user";
+import {getProfile} from "../../../../api/user";
+import {storeToRefs} from "pinia";
 
 const userInfoStore = useUserInfoStore();
-const { userInfo } = storeToRefs(userInfoStore);
+
+const {userInfo} = storeToRefs(userInfoStore);
 onMounted(() => {
   if (userInfoStore.isLogin) {
     getProfile().then((res) => {
-      console.log(res.data.data,'1111111111111');
+      console.log(res.data.data, '1111111111111');
       userInfoStore.updateUserInfo(res.data.data);
     });
   }
 });
-console.log(userInfo.value);
 </script>
 
 <style scoped lang="scss">
@@ -202,11 +212,13 @@ console.log(userInfo.value);
   color: #000000;
   line-height: 32px;
 }
+
 .profile-title {
   font-size: 16px;
   color: #000000;
   line-height: 18px;
 }
+
 .content-text {
   font-size: 14px;
   color: #878787;
@@ -217,6 +229,7 @@ console.log(userInfo.value);
     width: 70%;
   }
 }
+
 :deep(.el-card__body) {
   padding: 30px;
   padding-bottom: 20px;
@@ -226,6 +239,7 @@ console.log(userInfo.value);
     padding: 20px;
   }
 }
+
 .box-card {
   .card-user {
     margin-top: 16px;
@@ -239,38 +253,45 @@ console.log(userInfo.value);
       @media (max-width: 992px) {
         margin-top: 16px;
       }
+
       .info-image {
         display: flex;
         float: left;
         width: 50px;
+
         img {
           width: 100%;
           height: 100%;
           object-fit: contain;
         }
       }
+
       .info-text {
         float: left;
         margin-left: 17px;
         margin-top: 8px;
+
         .info-count {
           font-size: 12px;
           color: #878787;
           line-height: 14px;
           margin-top: 3px;
           position: relative;
-          span{
+
+          span {
             font-size: 14px;
             color: #01C19A;
             position: absolute;
             top: 7px;
             left: 22px;
           }
-          .verify-img{
+
+          .verify-img {
             width: 16px;
             height: 18px;
             margin-top: 4px;
-            img{
+
+            img {
               width: 100%;
               height: 100%;
               object-fit: contain;
@@ -281,27 +302,34 @@ console.log(userInfo.value);
     }
   }
 }
+
 :deep(.el-divider--horizontal) {
   margin: 18px 0;
 }
+
 .card-part {
   margin-top: 22px;
+
   .xs {
     @media (max-width: 768px) {
       margin-top: 22px;
     }
   }
+
   .part-box-card {
     .card-box {
       padding-bottom: 10px;
+
       .card-text {
         margin-top: 6px;
       }
+
       .card-img {
         float: right;
         width: auto;
         height: 59px;
         margin-top: -70px;
+
         img {
           width: 100%;
           height: 100%;
@@ -314,6 +342,7 @@ console.log(userInfo.value);
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .bottom-link {
         .link-text {
           display: flex;
@@ -321,6 +350,7 @@ console.log(userInfo.value);
           margin-right: 5px;
         }
       }
+
       .bottom-tip {
         display: flex;
         // @media (max-width: 769px) {
@@ -330,6 +360,7 @@ console.log(userInfo.value);
         .tip-icon {
           margin-right: 8px;
         }
+
         .tip-text {
           margin-top: 2px;
         }

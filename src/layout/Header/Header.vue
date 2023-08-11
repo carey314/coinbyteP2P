@@ -12,7 +12,7 @@
         </li>
         <li>
           <!-- Latest Scams -->
-          <a href="/" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
+          <a href="/learnCenter" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
         </li>
         <li>
           <!-- about us -->
@@ -169,7 +169,7 @@
                           {{ userInfo && userInfo.maskedEmail }}
                         </div>
                         <div class="user-id">
-                          UID:{{ userInfo && userInfo.id }}
+                          UID:{{ userInfo && userInfo.ID }}
                         </div>
                       </div>
                     </div>

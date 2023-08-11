@@ -4,16 +4,6 @@
       <el-col :span="15" :xs="24" class="left-box">
         <div class="left-header">
           <div class="header-title">Deposit Fiat</div>
-          <router-link to="/user/depositCrypto" style="text-decoration: none">
-            <div class="header-toFiat">
-              <div class="toFiat">
-                Deposit Crypto
-                <el-icon>
-                  <Right/>
-                </el-icon>
-              </div>
-            </div>
-          </router-link>
         </div>
         <div class="left-center">
           <div class="center-step-box" style="height: 100%">
@@ -1323,7 +1313,6 @@ $fontSizeMin: 12px;
         font-size: 16px;
         color: #878787;
         letter-spacing: 0;
-        line-height: 18px;
 
         span {
           color: #01c19a;

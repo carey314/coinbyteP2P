@@ -309,7 +309,6 @@ footer {
 
   div.footer-box {
     box-sizing: border-box;
-    height: 370px;
     border-bottom: none;
     margin: 0 auto;
     display: flex;

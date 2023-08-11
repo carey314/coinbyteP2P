@@ -72,6 +72,9 @@ export default {
       support_announcement: "General enquiries",
       Media: "Media enquiries",
       support_connect: "Connect with Coinbyte",
+      registered: "We are registered as a Digital Currency \n" +
+          "Exchange (DCE) with AUSTRAC:\n" +
+          "DCE-12345678",
     },
     home: {
       first_chart: 'Chart',

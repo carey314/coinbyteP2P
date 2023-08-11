@@ -498,8 +498,8 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.service") }}</li>
-            <li>🇦🇺{{ $t("messages.footer.service_instant") }}</li>
-            <li>🇳🇿{{ $t("messages.footer.Zealand") }}</li>
+            <li>🇦🇺 {{ $t("messages.footer.service_instant") }}</li>
+            <li>🇳🇿 {{ $t("messages.footer.Zealand") }}</li>
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
