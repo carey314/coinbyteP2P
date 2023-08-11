@@ -682,8 +682,6 @@ import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
-import {getCoinMarketCap, getLastCoinMarketCap} from "../../api/market";
-import {queryCurrenciesType} from "../../api/currencies";
 //icon
 import {Right, CaretBottom, CaretTop} from "@element-plus/icons";
 import type {TabsPaneContext} from "element-plus";
@@ -801,19 +799,6 @@ interface Coin {
 
 const coinMarketCapData = ref<any>([]);
 
-// onMounted(async () => {
-//   refreshData();
-//   refreshData(2);
-//   refreshData(3);
-//   refreshData(4);
-//   setInterval(() => {
-//     refreshData();
-//     refreshData(2);
-//     refreshData(3);
-//     refreshData(4);
-//   }, 60000 * 5);
-// });
-
 const coinSymbolToName: {
   [key: string]: string;
 } = {
@@ -839,45 +824,6 @@ const coinSymbolToName: {
   FRONT: "frontier",
   // 添加更多的加密货币
 };
-
-async function refreshData(typeId: number = 1) {
-  try {
-    const coins: any = await queryCurrenciesType({
-      typeId: typeId,
-    });
-    const symbols = coins.data.content.map(
-        (v: any) => v.alias && v.alias.toLowerCase()
-    );
-    const response = await getLastCoinMarketCap({
-      symbols: symbols.join(","),
-    });
-    const resJson = JSON.parse(response.data);
-    // const arr = [];
-    // // object for getting
-    // for (let key in resJson.data) {
-    //   arr.push(resJson.data[key][0])
-    // }
-    coinMarketCapData.value[`tab-${typeId}`] = resJson;
-    const symbolsSlug = coinMarketCapData.value[`tab-${typeId}`].map(
-        (v: any) => v.id
-    );
-    const chartRes = await getCoinMarketCap({
-      symbols: symbolsSlug.join(","),
-      days: 1,
-      interval: 2,
-    });
-    coinMarketCapData.value[`tab-${typeId}`].forEach((v: any) => {
-      // getChart(v.id).then((res) => {
-      //   v.data = res;
-      // })
-      v.data = getChart(chartRes.data[v.id]);
-      v.isUp = v.data[0] < v.data[v.data.length - 1];
-    });
-    console.log(coinMarketCapData.value);
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 const activeName = ref("1");
 const tradeTab = ref<any>("first");

@@ -364,9 +364,6 @@
             <router-link to="/login" style="text-decoration: none; color: #fff;border: 1px solid #fafafa;border-radius: 5px;"><span>{{ $t("messages.header.login") }}</span></router-link>
           </div>
           <ul class="nav-list">
-            <!-- <li><a href="/allCrypto" class="no-underline">Buy Crypto</a></li>
-            <li><a href="/allCrypto" class="no-underline">Markets</a></li>
-            <li><a href="/trade" class="no-underline">Trade</a></li> -->
             <li><a href="/" class="no-underline">
               {{
             $t("messages.header.buy")
@@ -376,9 +373,6 @@
             <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
             <li><a href="/" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
           </ul>
-          <!-- <div class="download-app">
-            <a href="/download" class="no-underline">Download COINBYTEP2P App</a>
-          </div> -->
         </div>
       </div>
     </div>
@@ -427,18 +421,10 @@ const { t } = useI18n({});
 
 const isActive = ref(false);
 const currencies = [
-  // {
-  //   value: "USD",
-  //   label: "USD",
-  // },
   {
     value: "AUD",
     label: "AUD",
   },
-  // {
-  //   value: "NZD",
-  //   label: "NZD",
-  // },
 ];
 
 const noticeStore = noticeInfoStore()
@@ -447,16 +433,6 @@ const notices = ref<NoticeObject[]>([])
 onMounted(async ()=>{
   if (userInfoStore.isLogin) {
     console.log("----is login!!!!")
-    // const res = await getNotices().then((res:any) =>{
-    //   console.log(res)
-    //   if(res.status == 200){
-    //   noticesList.value = res.data.data
-    //   if (noticesList.value) {
-    //     notices.value = noticesList.value.slice(0, 5)
-    //   }
-    // }
-    // })
- 
   } else {
     
     notices.value = [
