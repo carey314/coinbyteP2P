@@ -166,10 +166,10 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ userInfo && userInfo.maskedEmail }}
+                          {{ userInfo.data.email }}
                         </div>
                         <div class="user-id">
-                          UID:{{ userInfo && userInfo.ID }}
+                          UID:{{  userInfo.data.ID }}
                         </div>
                       </div>
                     </div>
@@ -402,11 +402,13 @@ import dropdown_usercenter_verification from "../../assets/home/dropdown_usercen
 import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
 
-import type { UserInfo } from "../../models/user";
 
 import { logOut } from "../../api/user";
 
 import { useUserInfoStore } from "../../store/user";
+const userInfoStore = useUserInfoStore();
+const { userInfo } = storeToRefs(userInfoStore);
+
 import { noticeInfoStore } from "../../store/notice";
 import { storeToRefs } from "pinia";
 // i18n  全局变量locale
@@ -508,8 +510,6 @@ function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");
 }
 
-const userInfoStore = useUserInfoStore();
-const { userInfo } = storeToRefs(userInfoStore);
 
 const showname = ref<boolean>(false); //header是否登陆
 

@@ -169,7 +169,7 @@ const changeTab = (path: string) => {
     height: 4px;
   }
   .el-tabs__nav-wrap::after {
-    height: 1px solid #EBEBEB;
+    border: 1px solid #EBEBEB;
   }
 
   .el-radio-button {

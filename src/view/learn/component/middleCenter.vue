@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="center-box" v-if="windowWidth > 769">
-      <div class="center-part max1290" v-if="filterBlogs(0).length > 0">
+      <div class="center-part max1290" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
@@ -23,7 +23,7 @@
             </el-col>
         </el-row>
       </div>
-      <div class="center-part max1290" v-if="filterBlogs(1).length > 0">
+      <div class="center-part max1290" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
@@ -55,7 +55,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="center-part max1290" v-if="filterBlogs(2).length > 0">
+      <div class="center-part max1290" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
@@ -89,7 +89,7 @@
       </div>
     </div>
     <div class="center-box max1290" v-if="windowWidth <= 769">
-      <div class="center-part" v-if="filterBlogs(0).length > 0">
+      <div class="center-part" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
@@ -116,7 +116,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="center-part" v-if="filterBlogs(1).length > 0">
+      <div class="center-part" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
@@ -143,7 +143,7 @@
           </el-col>
         </el-row>
       </div>
-      <div class="center-part" v-if="filterBlogs(2).length > 0">
+      <div class="center-part" >
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
@@ -285,7 +285,7 @@ $fontSizeMin: 12px;
 .center-box {
   padding: 0 100px;
   width: auto;
-
+  min-height: calc(100vh - 400px);
   @media (max-width: 769px) {
     & {
       padding: 8px 20px;

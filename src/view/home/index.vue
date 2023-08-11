@@ -5,27 +5,28 @@
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
           <el-col :md="24" :sm="24" :xs="24" class="banner-left">
-            <div class="banner-title">Where Crypto meets CoinbyteP2P in NZ</div>
+            <div class="banner-title">{{ $t('messages.home.banner_title') }} NZ</div>
             <div class="banner-content">
-              Buy and sell Cryptocurrencies with a non-custodial exchange safely
-              and securely without hidden fees You choose where you keep your
-              Crypto safe.
+<!--              Buy and sell Cryptocurrencies with a non-custodial exchange safely-->
+<!--              and securely without hidden fees You choose where you keep your-->
+<!--              Crypto safe.-->
+              {{ $t('messages.home.banner_content') }}
             </div>
             <div class="for-what">
               <div style="position: relative">
                 <img class="frame" :src="banner_frame"/>
                 <div class="content">
-                  <div class="content-title">For Buying</div>
-                  <div class="content-way">When I buy</div>
-                  <GetButton class="start-btn" type="success" text="Start" @click="goToKyc('buy')"/>
+                  <div class="content-title">{{ $t('messages.home.for_buy') }}</div>
+                  <div class="content-way">{{ $t('messages.home.when_buy') }}</div>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')" @click="goToKyc('buy')"/>
                 </div>
               </div>
               <div style="position: relative">
                 <img class="frame" :src="banner_frame"/>
                 <div class="content">
-                  <div class="content-title">For Selling</div>
-                  <div class="content-way">When I sell</div>
-                  <GetButton class="start-btn" type="success" text="Start" @click="goToKyc('sell')" />
+                  <div class="content-title">{{ $t('messages.home.buy') }}</div>
+                  <div class="content-way">{{ $t('messages.home.sell') }}</div>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')" @click="goToKyc('sell')" />
                 </div>
               </div>
             </div>
@@ -112,51 +113,47 @@
     <div class="homeContainer">
       <div class="trade-way">
         <el-tabs v-model="tradeTab" class="trade-tabs">
-          <el-tab-pane label="Buy" name="first"></el-tab-pane>
-          <el-tab-pane label="Sell" name="second"></el-tab-pane>
+          <el-tab-pane :label="t('messages.home.buy')" name="first"></el-tab-pane>
+          <el-tab-pane :label="t('messages.home.sell')" name="second"></el-tab-pane>
         </el-tabs>
       </div>
       <div v-if="tradeTab === 'first'">
         <div class="tabs-content">
           <div class="tabs-content-title">
-            How to buy crypto through <span>CoinbyteP2P</span>
+            {{ $t("messages.home.buy_through") }} <span>CoinbyteP2P</span>
           </div>
           <div class="tabs-step">
             <el-steps align-center>
-              <el-step title="Place order">
+              <el-step :title="t('messages.home.step1_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_01"/>
                 </template>
                 <template #description>
-                  Find CoinbyteP2P's advertisement and place your order, the
-                  crypto asset will be escrowed by the Exchange
+                  {{ $t("messages.home.step1_cont") }}
                 </template>
               </el-step>
-              <el-step title="Get Verified">
+              <el-step :title="t('messages.home.step2_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_02"/>
                 </template>
                 <template #description>
-                  Complete our verification through our website
+                  {{ $t("messages.home.step2_cont") }}
                 </template>
               </el-step>
-              <el-step title="Make Payment">
+              <el-step :title="t('messages.home.step3_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_03"/>
                 </template>
                 <template #description>
-                  Make the payment to CoinbyteP2P via your preferred payment
-                  methods and click 'transferred, notify seller' on the
-                  Exchange.
+                  {{ $t("messages.home.step3_cont") }}
                 </template>
               </el-step>
-              <el-step title="Get your Crypto">
+              <el-step :title="t('messages.home.step4_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_04"/>
                 </template>
                 <template #description>
-                  Once we confirms receipt of the payment, the escrowed crypto
-                  will be released to you.
+                  {{ $t("messages.home.step4_cont") }}
                 </template>
               </el-step>
             </el-steps>
@@ -166,46 +163,42 @@
       <div v-if="tradeTab === 'second'">
         <div class="tabs-content">
           <div class="tabs-content-title">
-            How to sell crypto through <span>CoinbyteP2P</span>
+            {{ $t("messages.home.sell_through") }} <span>CoinbyteP2P</span>
           </div>
           <div class="tabs-step">
             <el-steps align-center>
 
-              <el-step title="Place order">
+              <el-step :title="t('messages.home.step1_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_01"/>
                 </template>
 
                 <template #description>
-                  Find CoinbyteP2P's advertisement and place your order, the
-                  crypto asset will be escrowed by the Exchange
+                  {{ $t("messages.home.step1_cont") }}
                 </template>
               </el-step>
-              <el-step title="Get Verified">
+              <el-step :title="t('messages.home.step2_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_02"/>
                 </template>
                 <template #description>
-                  Complete our verification through our website
+                  {{ $t("messages.home.step2_cont") }}
                 </template>
               </el-step>
-              <el-step title="Make Payment">
+              <el-step :title="t('messages.home.step3_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_03"/>
                 </template>
                 <template #description>
-                  Make the payment to CoinbyteP2P via your preferred payment
-                  methods and click 'transferred, notify seller' on the
-                  Exchange.
+                  {{ $t("messages.home.step3_cont") }}
                 </template>
               </el-step>
-              <el-step title="Get your Crypto">
+              <el-step :title="t('messages.home.step4_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_04"/>
                 </template>
                 <template #description>
-                  Once we confirms receipt of the payment, the escrowed crypto
-                  will be released to you.
+                  {{ $t("messages.home.step4_cont") }}
                 </template>
               </el-step>
             </el-steps>
@@ -215,20 +208,19 @@
 
       <div class="forth-part">
         <div class="forth-title max1290">
-          <div>Why Choose <span>CoinbyteP2P</span> ?</div>
-          <div class="tip">Exchange for Professional Trader</div>
+          <div> {{ $t("messages.home.fifth_why") }} <span>CoinbyteP2P</span> ?</div>
+          <div class="tip">{{ $t("messages.home.fifth_exchange") }}</div>
           <div></div>
-
           <div class="choose-reason">
             <el-radio-group v-model="reasonTab" size="large" class="reason-box">
-              <el-radio-button label="Regulation"/>
-              <el-radio-button label="Fiat markets"/>
-              <el-radio-button label="Totally reliable"/>
-              <el-radio-button label="Fast and easy"/>
-              <el-radio-button label="Live chat"/>
+              <el-radio-button :label="t('messages.home.fifth_regulation')"></el-radio-button>
+              <el-radio-button :label="t('messages.home.fifth_fiat')"></el-radio-button>
+              <el-radio-button :label="t('messages.home.fifth_Totally')"></el-radio-button>
+              <el-radio-button :label="t('messages.home.fifth_easy')"></el-radio-button>
+              <el-radio-button :label="t('messages.home.fifth_live')"></el-radio-button>
             </el-radio-group>
           </div>
-          <div v-if="reasonTab === 'Regulation'">
+          <div v-if="reasonTab === t('messages.home.fifth_regulation')">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
@@ -237,19 +229,18 @@
               </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
-                  <div class="tab-content-title">Fiat markets</div>
+                  <div class="tab-content-title">{{ $t("messages.home.fifth_regulation") }}</div>
                   <div class="tab-content-tip">
-                    CoinbyteP2P is offering the Crypto/NZ pairs. You can trade
-                    cryptocurrencies with NZD.
+                    {{ $t("messages.home.fifth_regulationC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start"/>
+                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === 'Fiat markets'">
+          <div v-if="reasonTab === t('messages.home.fifth_fiat')">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
@@ -258,19 +249,18 @@
               </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
-                  <div class="tab-content-title">Fiat markets</div>
+                  <div class="tab-content-title">{{ $t("messages.home.fifth_fiat") }}</div>
                   <div class="tab-content-tip">
-                    CoinbyteP2P is offering the Crypto/NZ pairs. You can trade
-                    cryptocurrencies with NZD.
+                    {{ $t("messages.home.fifth_fiatC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start"/>
+                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === 'Totally reliable'">
+          <div v-if="reasonTab === t('messages.home.fifth_Totally')">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
@@ -279,19 +269,18 @@
               </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
-                  <div class="tab-content-title">Fiat markets</div>
+                  <div class="tab-content-title">{{ $t("messages.home.fifth_Totally") }}</div>
                   <div class="tab-content-tip">
-                    CoinbyteP2P is offering the Crypto/NZ pairs. You can trade
-                    cryptocurrencies with NZD.
+                    {{ $t("messages.home.fifth_TotallC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start"/>
+                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === 'Fast and easy'">
+          <div v-if="reasonTab === t('messages.home.fifth_easy')">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
@@ -300,19 +289,18 @@
               </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
-                  <div class="tab-content-title">Fiat markets</div>
+                  <div class="tab-content-title">{{ $t("messages.home.fifth_easy") }}</div>
                   <div class="tab-content-tip">
-                    CoinbyteP2P is offering the Crypto/NZ pairs. You can trade
-                    cryptocurrencies with NZD.
+                    {{ $t("messages.home.fifth_easyC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start"/>
+                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === 'Live chat'">
+          <div v-if="reasonTab === t('messages.home.fifth_live')">
             <el-row class="tab-content-box">
               <el-col :span="12" :xs="24">
                 <div class="tab-img">
@@ -321,13 +309,12 @@
               </el-col>
               <el-col :span="12" :xs="24">
                 <div class="tab-content">
-                  <div class="tab-content-title">Fiat markets</div>
+                  <div class="tab-content-title">{{ $t("messages.home.fifth_live") }}</div>
                   <div class="tab-content-tip">
-                    CoinbyteP2P is offering the Crypto/NZ pairs. You can trade
-                    cryptocurrencies with NZD.
+                    {{ $t("messages.home.fifth_liveC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" text="Start"/>
+                    <GetButton class="trade-btn" type="success" :text="$t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -432,8 +419,8 @@
             {{ $t("messages.footer.start") }}
           </div>
           <div class="footer-trade">
-            <div class="buy">Buy</div>
-            <div class="sell">Sell</div>
+            <div class="buy">{{ $t("messages.footer.buy") }}</div>
+            <div class="sell">{{ $t("messages.footer.sell") }}</div>
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
@@ -528,8 +515,9 @@
             margin-top: 220px;
           "
         >
-          <span>We are registered as a Digital Currency</span><br/> <span>Exchange (DCE) with AUSTRAC:</span><br/>
-          <span>DCE-12345678</span>
+<!--          <span>We are registered as a Digital Currency</span><br/> <span>Exchange (DCE) with AUSTRAC:</span><br/>-->
+<!--          <span>DCE-12345678</span>-->
+          {{ $t("messages.footer.dce_num") }}
         </div>
       </div>
 
@@ -537,8 +525,7 @@
           class="icon-links-lg max1290"
           style="font-size: 14px; color: #808080; line-height: 19px"
       >
-        We are registered as a Digital Currency Exchange (DCE) with AUSTRAC:
-        DCE-12345678
+        {{ $t("messages.footer.dce_num") }}
       </div>
     </footer>
     <footer v-else>
@@ -663,8 +650,7 @@
           </div>
         </div>
         <div class="icon-links-min" style="font-size: 14px; color: #808080; line-height: 19px">
-          We are registered as a Digital Currency Exchange (DCE) with AUSTRAC:
-          DCE-12345678
+          {{ $t("messages.footer.dce_num") }}
         </div>
       </div>
 
@@ -827,7 +813,7 @@ const coinSymbolToName: {
 
 const activeName = ref("1");
 const tradeTab = ref<any>("first");
-const reasonTab = ref<any>("Regulation");
+const reasonTab = ref(t('messages.home.fifth_regulation'));
 
 // vueWatch(activeName, (value) => {
 //   refreshData(Number(value));

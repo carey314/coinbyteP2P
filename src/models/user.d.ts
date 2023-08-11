@@ -1,7 +1,6 @@
 export interface UserInfo {
     "ID": number,
     "email": string,
-    "kyc_status": boolean,
     "kyc": {
         "ID": number,
         "CreatedAt": Date,
@@ -10,7 +9,7 @@ export interface UserInfo {
         "user_id": number,
         "kyc_id": string,
         "level": string,
-        "status": boolean,
+        "status": string,
         "type": string,
         "external_user_id": string
     },
@@ -18,7 +17,6 @@ export interface UserInfo {
     "status": string,
     "nickname": string,
     "photo": null | string,
-    "maskedEmail": string,
     "clientUiConfig": {
         "showId": boolean,
         "allowChangeUserPic": boolean,
