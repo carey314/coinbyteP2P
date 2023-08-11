@@ -103,21 +103,7 @@
               @handler="toLogin"
             />
           </el-form-item>
-          <div class="login-with">
-            <el-divider>
-              <div class="or-with">{{ $t("messages.login.or") }}</div>
-            </el-divider>
-          </div>
-          <div class="login-other">
-            <div class="other-login">
-              <div class="other-sign-icon"><img :src="twitter" /></div>
-              <div class="other-sign-name">Twitter</div>
-            </div>
-            <div class="other-login">
-              <div class="other-login-icon"><img :src="login_google" /></div>
-              <div class="other-login-name">Google</div>
-            </div>
-          </div>
+
           <div class="login-signup">
             <div>
               {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
@@ -195,7 +181,7 @@
           <el-form-item class="login-password" prop="password">
             <el-input
               v-model="form.password"
-              :type="isShowPass ? 'text' : 'password'"
+              :type="isShowPass===true ? 'text' : 'password'"
               placeholder="Password"
             >
               <template #prefix>
@@ -230,21 +216,8 @@
               @handler="toLogin"
             />
           </el-form-item>
-          <div class="login-with">
-            <el-divider>
-              <div class="or-with">{{ $t("messages.login.or") }}</div>
-            </el-divider>
-          </div>
-          <div class="login-other">
-            <div class="other-login">
-              <div class="other-login-icon"><img :src="login_telegram" /></div>
-              <div class="other-login-name">Telegram</div>
-            </div>
-            <div class="other-login">
-              <div class="other-login-icon"><img :src="login_google" /></div>
-              <div class="other-login-name">Google</div>
-            </div>
-          </div>
+
+
           <div class="login-signup">
             <div>
               {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
@@ -270,19 +243,11 @@ import GetButton from "../../components/GetButton.vue";
 import login_password from "../../assets/home/login_password.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
-import login_telegram from "../../assets/home/login_telegram.svg";
-import login_google from "../../assets/home/login_google.svg";
-import login_download from "../../assets/home/login_download.svg";
-import login_qrcode from "../../assets/home/login_qrcode.png";
-import twitter from "../../assets/home/twitter.png";
-
-import http from "../../utils/http";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "../../store/user";
 import { storeToRefs } from "pinia";
 import { ElMessage } from "element-plus";
 import { toLogin as Tologin } from "../../api/login";
-import { Minus, Plus } from "@element-plus/icons-vue";
 import type { FormInstance, FormRules } from "element-plus";
 import { countryList } from "./countries";
 
@@ -363,7 +328,6 @@ function resetWidth() {
 }
 //async (formEl: FormInstance | undefined)
 const toLogin = async (formEl: FormInstance | undefined) => {
-  console.log(form);
   if (!formEl) return;
   const userAgent = navigator.userAgent;
   // 创建一个包含user_agent属性的JSON对象
