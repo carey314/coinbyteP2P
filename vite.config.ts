@@ -12,8 +12,8 @@ export default defineConfig({
       // 字符串简写写法
       '/api': {
         // target: 'https://api.b2bdemo-accounting.com/api',
-        target: 'http://localhost:3001',
-        changeOrigin: true, //是否跨域
+        target: 'https://coinbyte.exchange/',
+        changeOrigin: false, //是否跨域
         // rewrite: path => path.replace(/^\/api/, '')
       },
       "/adminapi": {
