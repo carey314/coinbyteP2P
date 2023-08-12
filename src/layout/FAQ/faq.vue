@@ -7,26 +7,29 @@
       <div class="eighth-part-collapse">
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item
-            :title="$t('messages.home.eighth_provide')"
-            name="1"
+              :title="$t('messages.home.eighth_provide')"
+              name="1"
           >
             <div class="collapse-content">
-              {{ $t('messages.home.eighth_provide') }}
+              {{ $t('messages.home.provide_product') }}
             </div>
           </el-collapse-item>
           <el-collapse-item :title="$t('messages.home.eighth_based')" name="2">
-            <div class="collapse-content">{{ $t('messages.home.eighth_based') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.base_content') }}</div>
           </el-collapse-item>
           <el-collapse-item :title="$t('messages.home.eighth_buy')" name="3">
-            <div class="collapse-content">{{ $t('messages.home.eighth_buy') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.buy_content1') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.buy_content2') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.buy_content3') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.buy_content4') }}</div>
           </el-collapse-item>
           <el-collapse-item
-          :title="$t('messages.home.eighth_account')"
-            name="4"
+              :title="$t('messages.home.eighth_account')"
+              name="4"
           >
-            <div class="collapse-content">
-              {{ $t('messages.home.eighth_account') }}
-            </div>
+            <div class="collapse-content">{{ $t('messages.home.account_content1') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.account_content2') }}</div>
+            <div class="collapse-content">{{ $t('messages.home.account_content3') }}</div>
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -42,13 +45,13 @@
                 {{ $t('messages.home.eighth_provide') }}
               </div>
             </template>
-            <div>{{ $t('messages.home.eighth_provide') }}</div>
+            <div>{{ $t('messages.home.provide_product') }}</div>
           </el-collapse-item>
           <el-collapse-item name="2">
             <template #title>
               <div class="el-collapse-item-title">{{ $t('messages.home.eighth_based') }}</div>
             </template>
-            <div>{{ $t('messages.home.eighth_based') }}</div>
+            <div>{{ $t('messages.home.base_content') }}</div>
           </el-collapse-item>
           <el-collapse-item name="3">
             <template #title>
@@ -56,7 +59,10 @@
                 {{ $t('messages.home.eighth_buy') }}
               </div>
             </template>
-            <div>{{ $t('messages.home.eighth_buy') }}</div>
+            <div>{{ $t('messages.home.buy_content1') }}</div>
+            <div>{{ $t('messages.home.buy_content2') }}</div>
+            <div>{{ $t('messages.home.buy_content3') }}</div>
+            <div>{{ $t('messages.home.buy_content4') }}</div>
           </el-collapse-item>
           <el-collapse-item name="4">
             <template #title>
@@ -65,8 +71,12 @@
               </div>
             </template>
             <div>
-              {{ $t('messages.home.eighth_account') }}
+              {{ $t('messages.home.account_content1') }}
             </div>
+            <div>{{ $t('messages.home.account_content2') }}</div>
+
+            <div>{{ $t('messages.home.account_content3') }}</div>
+
           </el-collapse-item>
         </el-collapse>
       </div>
@@ -75,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import {ref, reactive, onUnmounted, onMounted} from "vue";
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -84,9 +94,11 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
+
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
 const activeNames = ref([""]);
 const handleChange = (val: string[]) => {
   // console.log(val);
@@ -114,10 +126,12 @@ $fontSizeMin: 12px;
       font-size: 28px;
     }
   }
+
   span {
     color: $main-color;
   }
 }
+
 .second-level-title {
   font-size: $fontSizeDefPro;
   color: #060606;
@@ -131,6 +145,7 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .eighth-part {
   text-align: center;
   background-color: #fff;
@@ -143,6 +158,7 @@ $fontSizeMin: 12px;
       padding: 46px 30px;
     }
   }
+
   .eighth-part-collapse {
     padding-top: 33px;
     margin: auto;
@@ -188,6 +204,7 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .part08 {
   text-align: center;
   background-color: #fff;

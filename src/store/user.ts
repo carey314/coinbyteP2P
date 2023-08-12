@@ -20,7 +20,7 @@ export const useUserInfoStore = defineStore(
       refreshToken.value = newToken;
     };
 
-    const userInfo = ref<UserInfo | null>();
+    const userInfo = ref<any | null>();
     const isLogin = computed(() => {
       console.log("token in islogin", token.value);
       if (token.value) {

@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../view/home/index.scss">
 <template>
   <div class="header-box">
     <div class="header-logo">
@@ -22,7 +23,7 @@
         </li>
         <li>
           <!-- Support -->
-          <a href="/" style="color: #fff; text-decoration: none">{{
+          <a href="/contact" style="color: #fff; text-decoration: none">{{
             $t("messages.header.learn")
           }}</a>
         </li>
@@ -166,10 +167,10 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ userInfo.data.email }}
+                          {{ (userInfo && userInfo.data) ? userInfo.data.email : '' }}
                         </div>
                         <div class="user-id">
-                          UID:{{  userInfo.data.ID }}
+                          UID:{{ (userInfo && userInfo.data) ? userInfo.data.ID : '' }}
                         </div>
                       </div>
                     </div>
@@ -369,9 +370,9 @@
             $t("messages.header.buy")
           }}
             </a></li>
-            <li><a href="/" class="no-underline">{{ $t("messages.header.market") }}</a></li>
+            <li><a href="/learnCenter" class="no-underline">{{ $t("messages.header.market") }}</a></li>
             <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
-            <li><a href="/" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
+            <li><a href="/contact" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
           </ul>
         </div>
       </div>
@@ -383,6 +384,9 @@
 import { ref, computed, onUpdated, onMounted } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import { useRouter } from "vue-router";
+import { noticeInfoStore } from "../../store/notice";
+import { storeToRefs } from "pinia";
+
 import { CaretBottom } from "@element-plus/icons-vue";
 // img
 import logo from "../../assets/image/logo.svg";
@@ -406,11 +410,8 @@ import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercent
 import { logOut } from "../../api/user";
 
 import { useUserInfoStore } from "../../store/user";
-const userInfoStore = useUserInfoStore();
-const { userInfo } = storeToRefs(userInfoStore);
 
-import { noticeInfoStore } from "../../store/notice";
-import { storeToRefs } from "pinia";
+
 // i18n  全局变量locale
 import { getCurrentInstance } from "vue";
 import { useI18n } from "vue-i18n";
@@ -420,7 +421,8 @@ import { getNotices } from "../../api/notices";
 // t
 const i18n = useI18n();
 const { t } = useI18n({});
-
+const userInfoStore = useUserInfoStore();
+const { userInfo } = storeToRefs(userInfoStore);
 const isActive = ref(false);
 const currencies = [
   {

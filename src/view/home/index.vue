@@ -5,12 +5,14 @@
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
           <el-col :md="24" :sm="24" :xs="24" class="banner-left">
-            <div class="banner-title">{{ $t('messages.home.banner_title') }} NZ</div>
+            <div class="banner-title">{{ $t('messages.home.banner_title') }} <span v-if="$route.path.startsWith('/nz')">NZ</span><span
+                v-if="$route.path.startsWith('/au')">AU</span></div>
             <div class="banner-content">
-<!--              Buy and sell Cryptocurrencies with a non-custodial exchange safely-->
-<!--              and securely without hidden fees You choose where you keep your-->
-<!--              Crypto safe.-->
-              {{ $t('messages.home.banner_content') }}
+              <!--              Buy and sell Cryptocurrencies with a non-custodial exchange safely-->
+              <!--              and securely without hidden fees You choose where you keep your-->
+              <!--              Crypto safe.-->
+              {{ $t('messages.home.banner_content') }} <br/>
+              {{ $t('messages.home.banner_content2') }}
             </div>
             <div class="for-what">
               <div style="position: relative">
@@ -18,15 +20,17 @@
                 <div class="content">
                   <div class="content-title">{{ $t('messages.home.for_buy') }}</div>
                   <div class="content-way">{{ $t('messages.home.when_buy') }}</div>
-                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')" @click="goToKyc('buy')"/>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')"
+                             @click="goToKyc('buy')"/>
                 </div>
               </div>
               <div style="position: relative">
                 <img class="frame" :src="banner_frame"/>
                 <div class="content">
-                  <div class="content-title">{{ $t('messages.home.buy') }}</div>
-                  <div class="content-way">{{ $t('messages.home.sell') }}</div>
-                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')" @click="goToKyc('sell')" />
+                  <div class="content-title">{{ $t('messages.home.for_sell') }}</div>
+                  <div class="content-way">{{ $t('messages.home.when_sell') }}</div>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')"
+                             @click="goToKyc('sell')"/>
                 </div>
               </div>
             </div>
@@ -35,8 +39,11 @@
                 <img :src="registered_icon" alt=""/>
               </div>
               <div>
-                <div class="banner-more-title">
-                  {{ $t("messages.home.banner_registered") }}
+                <div class="banner-more-title" v-if="$route.path.startsWith('/au')">
+                  {{ $t("messages.home.au_reg") }}
+                </div>
+                <div class="banner-more-title" v-if="$route.path.startsWith('/nz')">
+                  {{ $t("messages.home.nz_reg") }}
                 </div>
                 <div
                     class="banner-learn-more"
@@ -48,59 +55,99 @@
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog">
-                  <el-row :gutter="20">
-                    <el-col
-                        :md="12"
-                        :xs="24"
-                        v-for="(item, index) in gridData"
-                        :key="index"
-                    >
-                      <div class="alert-box">
-                        <div class="alert-title">{{ item.title }}</div>
-                        <div class="alert-cont">{{ item.content1 }}</div>
-                        <div class="alert-cont">{{ item.content2 }}</div>
-                        <div class="alert-address">
-                          <a href="https://asic.gov.au/" target="_blank">
-                            {{ item.address }}
-                            <el-icon class="more-arrow">
-                              <Right/>
-                            </el-icon>
-                          </a>
+                  <div style="position: relative;">
+                    <img style="position: absolute;top: -131px;left: -60px;z-index: 0;width: 50%" :src="learn_dialog_back"/>
+                    <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in gridData"
+                          :key="index"
+                      >
+                        <div class="alert-box">
+                          <div class="alert-title">{{ item.title }}</div>
+                          <div class="alert-cont">{{ item.content1 }}</div>
+                          <div class="alert-cont">{{ item.content2 }}</div>
+                          <div class="alert-address">
+                            <a href="https://connectonline.asic.gov.au" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                    </el-col>
-                    <el-col
-                        :md="12"
-                        :xs="24"
-                        v-for="(item, index) in gridData1"
-                        :key="index"
-                        class="gap"
-                    >
-                      <div class="alert-box">
-                        <div class="alert-title">{{ item.title }}</div>
-                        <div class="alert-cont">{{ item.content1 }}</div>
-                        <div class="alert-cont">{{ item.content2 }}</div>
-                        <div class="alert-cont">{{ item.content3 }}</div>
-                        <div class="alert-cont">{{ item.content4 }}</div>
-                        <div class="alert-address">
-                          <a href="https://www.austrac.gov.au/" target="_blank">
-                            {{ item.address }}
-                            <el-icon class="more-arrow">
-                              <Right/>
-                            </el-icon>
-                          </a>
+                      </el-col>
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in gridData1"
+                          :key="index"
+                          class="gap"
+                      >
+                        <div class="alert-box">
+                          <div class="alert-title">{{ item.title }}</div>
+                          <div class="alert-cont">{{ item.content1 }}</div>
+                          <div class="alert-cont">{{ item.content2 }}</div>
+                          <div class="alert-cont">{{ item.content3 }}</div>
+                          <div class="alert-cont">{{ item.content4 }}</div>
+                          <div class="alert-address">
+                            <a href="https://online.austrac.gov.au/ao/public/rsregister.seam" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                    </el-col>
-                  </el-row>
-                  <div class="alert-box" style="margin-top: 50px">
-                    <div style="font-weight: bold">
-                      Ausun Overseas Pty Ltd Trading as Coinbyte
-                    </div>
-                    <div style="font-size: 12px">
-                      Suite 801/50 Clarence Street, Sydney NSW 2000 Australia
-                    </div>
+                      </el-col>
+                    </el-row>
+                    <el-row :gutter="20" v-if="$route.path.startsWith('/nz')">
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in nzData"
+                          :key="index"
+                      >
+                        <!--                      <img style="position: absolute;top: 0;left: 0;" :src="learn_dialog_back" />-->
+                        <div class="alert-box">
+                          <div class="alert-title">{{ item.title }}</div>
+                          <div class="alert-cont">{{ item.content1 }}</div>
+                          <div class="alert-cont">{{ item.content2 }}</div>
+                          <div class="alert-address">
+                            <a href="https://www.nzbn.govt.nz/" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
+                        </div>
+                      </el-col>
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in nzData1"
+                          :key="index"
+                          class="gap"
+                      >
+                        <div class="alert-box">
+                          <div class="alert-title">{{ item.title }}</div>
+                          <div class="alert-cont">{{ item.content1 }}</div>
+                          <div class="alert-cont">{{ item.content2 }}</div>
+                          <div class="alert-address">
+                            <a href="https://fsp-register.companiesoffice.govt.nz/" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
+                        </div>
+                      </el-col>
+                    </el-row>
                   </div>
+
                 </el-dialog>
               </div>
             </div>
@@ -325,7 +372,7 @@
 
       <div class="seventh-part max1290" v-if="windowWidth > 768">
         <div class="first-level-title">
-          {{ $t("messages.home.seventh_explore") }}
+          {{ $t("messages.home.seventh_explore") }}<span style="color: #01c19a">CoinByteP2P</span>
         </div>
         <el-row
             class="seventh-part-list"
@@ -427,6 +474,7 @@
             <a href="/" style="color: #01c19a">{{
                 $t("messages.footer.more")
               }}</a>
+            <div style="margin-top: 32px;margin-bottom: 20px">{{ $t("messages.footer.purchase") }}</div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -474,11 +522,7 @@
             <li>{{ $t("messages.footer.privacy") }}</li>
             <li>{{ $t("messages.footer.EOFY") }}</li>
             <li>{{ $t("messages.footer.FAQs") }}</li>
-            <li>{{ $t("messages.footer.Fees") }}</li>
-            <li>{{ $t("messages.footer.base") }}</li>
-            <li>{{ $t("messages.footer.News") }}</li>
-            <li>{{ $t("messages.footer.Protect") }}</li>
-            <li>{{ $t("messages.footer.Security") }}</li>
+
             <!-- <li @click="dialogTableVisible = true">
             {{ $t("messages.footer.kyc_aml") }}
           </li> -->
@@ -490,11 +534,15 @@
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
+            <li>{{ $t("messages.footer.LEGAL") }}</li>
+            <li>{{ $t("messages.footer.terms_conditions") }}</li>
+            <li>{{ $t("messages.footer.policy") }}</li>
+            <li>{{ $t("messages.footer.aml") }}</li>
+          </ul>
+          <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
             <li>{{ $t("messages.footer.us") }}</li>
             <li>{{ $t("messages.footer.support_center") }}</li>
-            <li>{{ $t("messages.footer.support_announcement") }}</li>
-            <li>{{ $t("messages.footer.Media") }}</li>
             <!-- <li>
             <a
               href="/contact"
@@ -505,28 +553,26 @@
           </ul>
         </div>
 
-        <div
-            class="icon-links"
-            style="
-            font-size: 14px;
-            color: #808080;
-            line-height: 19px;
-            width: 20%;
-            margin-top: 220px;
-          "
-        >
-<!--          <span>We are registered as a Digital Currency</span><br/> <span>Exchange (DCE) with AUSTRAC:</span><br/>-->
-<!--          <span>DCE-12345678</span>-->
-          {{ $t("messages.footer.dce_num") }}
-        </div>
+        <!--        <div-->
+        <!--            class="icon-links"-->
+        <!--            style="-->
+        <!--            font-size: 14px;-->
+        <!--            color: #808080;-->
+        <!--            line-height: 19px;-->
+        <!--            width: 20%;-->
+        <!--            margin-top: 220px;-->
+        <!--          "-->
+        <!--        >-->
+        <!--          {{ $t("messages.footer.dce_num") }}-->
+        <!--        </div>-->
       </div>
 
-      <div
-          class="icon-links-lg max1290"
-          style="font-size: 14px; color: #808080; line-height: 19px"
-      >
-        {{ $t("messages.footer.dce_num") }}
-      </div>
+      <!--      <div-->
+      <!--          class="icon-links-lg max1290"-->
+      <!--          style="font-size: 14px; color: #808080; line-height: 19px"-->
+      <!--      >-->
+      <!--        {{ $t("messages.footer.dce_num") }}-->
+      <!--      </div>-->
     </footer>
     <footer v-else>
       <div class="footer-links" style="padding:20px">
@@ -550,6 +596,7 @@
             <a href="/" style="color: #01c19a">{{
                 $t("messages.footer.more")
               }}</a>
+            <div style="margin-top: 32px;margin-bottom: 20px">{{ $t("messages.footer.purchase") }}</div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -614,8 +661,9 @@
                 <div class="list-item">{{ $t("messages.footer.terms") }}</div>
                 <div class="list-item">{{ $t("messages.footer.privacy") }}</div>
                 <div class="list-item" @click="dialogTableVisible = true">
-                  {{ $t("messages.footer.kyc_aml") }}
+                  {{ $t("messages.footer.EOFY") }}
                 </div>
+                <div class="list-item">{{ $t("messages.footer.FAQs") }}</div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template #title>
@@ -624,13 +672,29 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  {{ $t("messages.footer.service_instant") }}
+                  🇦🇺 {{ $t("messages.footer.service_instant") }}
                 </div>
-                <!-- <div class="list-item">
-                {{ $t("messages.footer.service_spot_trading") }}
-              </div> -->
+                <div class="list-item">
+                  🇳🇿 {{ $t("messages.footer.Zealand") }}
+                </div>
               </el-collapse-item>
               <el-collapse-item name="4">
+                <template #title>
+                  <div class="el-collapse-item-title">
+                    {{ $t("messages.footer.LEGAL") }}
+                  </div>
+                </template>
+                <div class="list-item">
+                  {{ $t("messages.footer.terms_conditions") }}
+                </div>
+                <div class="list-item">
+                  {{ $t("messages.footer.policy") }}
+                </div>
+                <div class="list-item">
+                  {{ $t("messages.footer.aml") }}
+                </div>
+              </el-collapse-item>
+              <el-collapse-item name="5">
                 <template #title>
                   <div class="el-collapse-item-title">
                     {{ $t("messages.footer.support") }}
@@ -639,19 +703,13 @@
                 <div class="list-item">
                   {{ $t("messages.footer.support_center") }}
                 </div>
-                <div class="list-item">
-                  {{ $t("messages.footer.support_announcement") }}
-                </div>
-                <div class="list-item">
-                  {{ $t("messages.footer.support_connect") }}
-                </div>
               </el-collapse-item>
             </el-collapse>
           </div>
         </div>
-        <div class="icon-links-min" style="font-size: 14px; color: #808080; line-height: 19px">
-          {{ $t("messages.footer.dce_num") }}
-        </div>
+        <!--        <div class="icon-links-min" style="font-size: 14px; color: #808080; line-height: 19px">-->
+        <!--          {{ $t("messages.footer.dce_num") }}-->
+        <!--        </div>-->
       </div>
 
     </footer>
@@ -717,6 +775,7 @@ import ADA from "../../assets/home/crypto_icon_ada.png";
 import DOGE from "../../assets/home/dogecoin.png";
 import MATIC from "../../assets/home/polygon.png";
 import SOL from "../../assets/home/solana.png";
+import learn_dialog_back from "../../assets/image/learn_dialog_back.svg";
 
 import {storeToRefs} from "pinia";
 import {tradeStore} from "../../store/trade";
@@ -863,11 +922,12 @@ const dialogTableVisible = ref(false);
 const gridData = [
   {
     title: "ASIC registered",
-    content1: "Australian Securities andInvestment Commission",
+    content1: "Australian Securities and Investment Commission",
     content2: "ACN 637345290",
     address: "ASIC website",
   },
 ];
+
 const gridData1 = [
   {
     title: "AUSTRAC registered",
@@ -876,6 +936,22 @@ const gridData1 = [
     content3: "Digital Currency Exchange DCE100662269-001",
     content4: "Remittance Service Provider IND100662269-001",
     address: "AUSTRAC website",
+  },
+];
+const nzData = [
+  {
+    title: "NZBN registered",
+    content1: "New Zealand Companies Office",
+    content2: "NZBN 9429049898163",
+    address: "NZBN Website",
+  },
+];
+const nzData1 = [
+  {
+    title: "FSP registered",
+    content1: "New Zealand Companies Office",
+    content2: "FSP 1004001",
+    address: "FSP Website",
   },
 ];
 const tableChart = <any>ref(null);
@@ -1057,10 +1133,10 @@ const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
 const echartDomRef = [];
 
 const goToKyc = (type: string) => {
-  if(userInfoStore.isLogin){
-    console.log(userInfoStore.isLogin,'2131313122313是否登陆')
-    router.push({ name: 'kyc', query: { type } })
-  }else {
+  if (userInfoStore.isLogin) {
+    console.log(userInfoStore.isLogin, '2131313122313是否登陆')
+    router.push({name: 'kyc', query: {type}})
+  } else {
     router.push('/login')
   }
 }
