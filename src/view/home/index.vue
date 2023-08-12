@@ -55,8 +55,9 @@
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog">
+                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;width: 50%;height: auto" :src="learn_dialog_back"/>
+
                   <div style="position: relative;">
-                    <img style="position: absolute;top: -131px;left: -60px;z-index: 0;width: 50%" :src="learn_dialog_back"/>
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
                       <el-col
                           :md="12"
@@ -775,7 +776,7 @@ import ADA from "../../assets/home/crypto_icon_ada.png";
 import DOGE from "../../assets/home/dogecoin.png";
 import MATIC from "../../assets/home/polygon.png";
 import SOL from "../../assets/home/solana.png";
-import learn_dialog_back from "../../assets/image/learn_dialog_back.svg";
+import learn_dialog_back from "../../assets/image/learn_dialog_back.png";
 
 import {storeToRefs} from "pinia";
 import {tradeStore} from "../../store/trade";
