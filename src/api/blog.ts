@@ -8,11 +8,11 @@ async function getBlogs(data?: GetBlogs){
     if(data) {
         configData = Object.assign(configData, data);
     }
-    return httpAdmin.get("/coin/blog", configData);
+    return httpAdmin.get("/articles", configData);
 }
 
 async function getBlog(id: string){
-    return httpAdmin.get("/coin/blog/" + id);
+    return httpAdmin.get("/article_detail?id=" + id);
 }
 
 export {

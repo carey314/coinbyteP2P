@@ -55,8 +55,7 @@
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog">
-                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;width: 50%;height: auto" :src="learn_dialog_back"/>
-
+                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;width: 50%;height: auto;max-height: 50%;" :src="learn_dialog_back"/>
                   <div style="position: relative;">
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
                       <el-col
@@ -148,7 +147,6 @@
                       </el-col>
                     </el-row>
                   </div>
-
                 </el-dialog>
               </div>
             </div>

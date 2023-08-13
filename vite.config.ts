@@ -13,15 +13,15 @@ export default defineConfig({
       '/api': {
         // target: 'https://coinbyte.exchange/',
         target: 'http://localhost',
-        changeOrigin: true, //是否跨域
-        // changeOrigin: false, //是否跨域
+        // changeOrigin: true, //是否跨域
+        changeOrigin: false, //是否跨域
         // rewrite: path => path.replace(/^\/api/, '')
       },
       "/adminapi": {
-        // target: "http://adminapi.coinbyte.com.au:88/api/",
-        target: "https://localhost:3001/api/",
+        target: "https://coinbyte.exchange/",
+        // target: "https://localhost:3001/api/",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/adminapi/, ""),
+        // rewrite: (path) => path.replace(/^\/adminapi/, ""),
       },
     },
   },

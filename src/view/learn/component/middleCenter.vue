@@ -15,7 +15,7 @@
             <a class="to-article"  :href="'/centerContent/' + item.id">
                 <div class="content clearfloat">
                   <div class="image">
-                    <img :src="item.icon" />
+                    <img :src="item.banner_url" />
                   </div>
                   <div class="message">{{ item.title || "----" }}</div>
                 </div>
@@ -47,7 +47,7 @@
             <a class="to-article"  :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title || "----" }}</div>
               </div>
@@ -78,7 +78,7 @@
             <a class="to-article" :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title || "----" }}</div>
               </div>
@@ -108,7 +108,7 @@
             <a class="to-article" :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title }}</div>
               </div>
@@ -135,7 +135,7 @@
             <a class="to-article" :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title }}</div>
               </div>
@@ -162,7 +162,7 @@
             <a class="to-article" :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title }}</div>
               </div>

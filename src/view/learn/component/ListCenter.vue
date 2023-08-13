@@ -7,7 +7,7 @@
             <router-link :to="'/centerContent/' + item.id" style="text-decoration: none">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title }}</div>
               </div>
@@ -123,7 +123,7 @@ import { number } from "echarts";
 const props = defineProps<
   {
     toGetBlogs: (getConfig: GetBlogs) => Promise<{
-      content: Blog[];
+      content: any[];
       totalElements: number;
     } | undefined>;
     index: number;
@@ -201,7 +201,7 @@ const thirdCenter = [
 ];
 
 const blogs = ref<{
-  content: Blog[];
+  content: any[];
   totalElements: number;
 }>();
 
@@ -217,7 +217,11 @@ const getBlogsValue = async (pageIndex: number) => {
       typeOne: pageIndex
     }
   );
-  blogs.value = res;
+  blogs.value = {
+    content: res.content,
+    totalElements: 1000
+  };
+  console.log(blogs.value)
 }
 
 const pageChange = (value: number) => {

@@ -40,7 +40,7 @@
                 </el-col>
             </el-row> -->
             <!-- <div style="display: flex; flex-wrap: wrap;">
-              
+
             </div> -->
           </div>
           </div>
@@ -62,7 +62,7 @@
                 </el-col>
             </el-row> -->
             <!-- <div style="display: flex; flex-wrap: wrap;">
-              
+
             </div> -->
           </div>
           </div>
@@ -83,7 +83,7 @@
                 </el-col>
             </el-row> -->
             <!-- <div style="display: flex; flex-wrap: wrap;">
-              
+
             </div> -->
           </div></div>
         </el-tab-pane>
@@ -103,7 +103,7 @@
                 </el-col>
             </el-row> -->
             <!-- <div style="display: flex; flex-wrap: wrap;">
-              
+
             </div> -->
           </div></div>
         </el-tab-pane>
@@ -179,7 +179,7 @@ const blogs = ref<Blog[]>([]);
 onMounted(async () => {
   try {
     const res: any = await getBlogs();
-    const data: Blog[] = res.data.content;
+    const data: Blog[] = res.data;
     blogs.value = data;
     console.log(blogs.value)
   } catch(e) {
@@ -188,7 +188,7 @@ onMounted(async () => {
 })
 
 const filterBlogs = (index: number) => {
-  return blogs.value.filter((v: Blog) => v.typeOne === index);
+  return blogs.value.filter((v: any) => v.type-1 === index);
 }
 
 const toGetBlogs = async (
@@ -196,8 +196,8 @@ const toGetBlogs = async (
 ) => {
   try {
     const res: any = await getBlogs(getConfig);
-    const content: Blog[] = res.data.content;
-    const totalElements: number = res.data.totalElements;
+    const content: any[] = res.data;
+    const totalElements: number = res.data.totalElements || 100;
     return {
       content,
       totalElements

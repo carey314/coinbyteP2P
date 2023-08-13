@@ -74,7 +74,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onUnmounted, onMounted } from "vue";
-
+import moment from 'moment'
 import { useRoute } from "vue-router";
 import { getBlog } from '../../../api/blog';
 import { Blog } from "../../../models/blog";
@@ -146,14 +146,21 @@ const blogInfo = ref<Blog>({
   top: 0,
   typeOne: 0,
   typeTwo: 0,
-  subDesc: ''
+  subDesc: '',
+  banner_url: ''
 });
 onMounted(async () => {
   try {
     if (route.params.id) {
       const res: any = await getBlog(route.params.id as string);
-      const resData: Blog = res.data;
-      blogInfo.value = resData;
+      const resData: any = res.data;
+      const obj = JSON.parse(resData)[0].fields;
+      blogInfo.value = {
+        ...obj,
+        createTime: moment(obj.publish_time).format('D-M-YYYY HH:mm:ss'),
+        blogTxt: obj.blog_txt,
+      };
+      console.log(blogInfo.value)
     }
   } catch (e) {
     ElMessage.error('Please try again later.');

@@ -13,6 +13,7 @@ banner: string | undefined;
     typeOne: number;
     typeTwo: number;
     subDesc: string;
+    banner_url: string;
 }
 
 
