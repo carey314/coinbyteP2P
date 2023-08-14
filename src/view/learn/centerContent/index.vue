@@ -134,11 +134,11 @@ const contentCard = ref([
 ]);
 
 const route = useRoute();
-const blogInfo = ref<Blog>({
+const blogInfo = ref<any>({
   author: '',
   createTime: '',
   blogTxt: '',
-  icon: '',
+  icon_url: '',
   banner: '',
   id: 0,
   status: 0,
@@ -146,8 +146,8 @@ const blogInfo = ref<Blog>({
   top: 0,
   typeOne: 0,
   typeTwo: 0,
-  subDesc: '',
-  banner_url: ''
+  sub_desc: '',
+  banner_url: '',
 });
 onMounted(async () => {
   try {
