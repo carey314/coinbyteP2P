@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="center-box" v-if="windowWidth > 769 && filterBlogsBottom(3).length > 0">
+    <div class="center-box" v-if="windowWidth > 769" >
       <div class="center-part max1290">
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t('messages.learnBottom.Blockchain') }}</span>{{ $t('messages.learnBottom.Glossary') }}</div>
@@ -15,11 +15,11 @@
             <a class="to-article"  :href="'/centerContent/' + item.id">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.banner" />
+                  <img :src="item.icon_url" />
                 </div>
                 <div class="text-content">
                   <div class="tip">{{ item.title }}</div>
-                  <div class="message">{{ item.subDesc }}</div>
+                  <div class="message">{{ item.sub_desc }}</div>
                   <!-- <div class="message" style="margin-top:0px">{{ item.subDesc }}</div> -->
                 </div>
               </div>
@@ -28,7 +28,7 @@
         </el-row>
       </div>
     </div>
-    <div class="center-box max1290" v-if="windowWidth <= 769 && filterBlogsBottom(3).length > 0">
+    <div class="center-box max1290" v-if="windowWidth <= 769 ">
       <!-- <el-card> -->
         <div class="center-part">
           <div class="title-box clearfloat">
@@ -53,7 +53,7 @@
                   </div>
                   <div class="text-content">
                     <div class="tip">{{ item.title }}</div>
-                    <div class="message">{{ item.subDesc }}</div>
+                    <div class="message">{{ item.sub_desc }}</div>
                     <!-- <div class="message" style="margin-top:0px">{{ item.messageAdd }}</div> -->
                   </div>
                 </div>

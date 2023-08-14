@@ -4,7 +4,7 @@ banner: string | undefined;
     author: string;
     createTime: string;
     blogTxt: string;
-    icon: string;
+    icon_url: string;
     banner: string;
     id: number;
     status: number;
@@ -14,6 +14,7 @@ banner: string | undefined;
     typeTwo: number;
     subDesc: string;
     banner_url: string;
+    sub_desc: string;
 }
 
 
