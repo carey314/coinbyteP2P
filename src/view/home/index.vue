@@ -220,7 +220,7 @@
                 </template>
 
                 <template #description>
-                  {{ $t("messages.home.step1_cont") }}
+                  {{ $t("messages.home.sell1_cont") }}
                 </template>
               </el-step>
               <el-step :title="t('messages.home.step2_title')">
@@ -228,23 +228,23 @@
                   <img class="step-icon" :src="icon_02"/>
                 </template>
                 <template #description>
-                  {{ $t("messages.home.step2_cont") }}
+                  {{ $t("messages.home.sell2_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step3_title')">
+              <el-step :title="t('messages.home.sell3_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_03"/>
                 </template>
                 <template #description>
-                  {{ $t("messages.home.step3_cont") }}
+                  {{ $t("messages.home.sell3_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step4_title')">
+              <el-step :title="t('messages.home.sell4_title')">
                 <template #icon>
                   <img class="step-icon" :src="icon_04"/>
                 </template>
                 <template #description>
-                  {{ $t("messages.home.step4_cont") }}
+                  {{ $t("messages.home.sell4_cont") }}
                 </template>
               </el-step>
             </el-steps>

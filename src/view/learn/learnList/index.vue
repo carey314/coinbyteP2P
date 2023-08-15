@@ -19,7 +19,6 @@
                 </el-col>
             </el-row> -->
             <!-- <div style="display: flex; flex-wrap: wrap;">
-              
             </div> -->
           </div>
         </el-tab-pane>

@@ -118,7 +118,6 @@ import learn_image18 from "../../../assets/home/learn_image18.png";
 import learn_image19 from "../../../assets/home/learn_image19.png";
 
 import { Blog, GetBlogs } from "../../../models/blog";
-import { number } from "echarts";
 
 const props = defineProps<
   {
