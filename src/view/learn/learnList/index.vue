@@ -3,109 +3,11 @@
     <Header />
     <div class="center-part" v-if="windowWidth > 1050">
       <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-        <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
-          <div class="min-height">
-            <ListCenter :index="0" :toGetBlogs="toGetBlogs"/>
-            <!-- <el-row :gutter="20">
-              <el-col :span="6" v-for="(item, index) in filterBlogs(0)" :key="index">
-                <a class="to-article"  :href="'/centerContent/' + item.id">
-                    <div class="content clearfloat">
-                      <div class="image">
-                        <img :src="item.icon" />
-                      </div>
-                      <div class="message">{{ item.subDesc || "----" }}</div>
-                    </div>
-                  </a>
-                </el-col>
-            </el-row> -->
-            <!-- <div style="display: flex; flex-wrap: wrap;">
-            </div> -->
-          </div>
+        <el-tab-pane v-for="item in tabs" :label="t(item.label)" :name="item.name">
         </el-tab-pane>
-        <el-tab-pane :label="t('messages.learnList.second_label')" name="second">
-          <div class="min-height">
-            <div class="min-height">
-              <ListCenter :index="1" :toGetBlogs="toGetBlogs"/>
-            <!-- <el-row :gutter="20">
-              <el-col :span="6" v-for="(item, index) in filterBlogs(1)" :key="index">
-                <a class="to-article"  :href="'/centerContent/' + item.id">
-                    <div class="content clearfloat">
-                      <div class="image">
-                        <img :src="item.icon" />
-                      </div>
-                      <div class="message">{{ item.subDesc || "----" }}</div>
-                    </div>
-                  </a>
-                </el-col>
-            </el-row> -->
-            <!-- <div style="display: flex; flex-wrap: wrap;">
-
-            </div> -->
-          </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane :label="t('messages.learnList.third_label')" name="third">
-          <div class="min-height">
-            <div class="min-height">
-              <ListCenter :index="2" :toGetBlogs="toGetBlogs"/>
-            <!-- <el-row :gutter="20">
-              <el-col :span="6" v-for="(item, index) in filterBlogs(2)" :key="index">
-                <a class="to-article"  :href="'/centerContent/' + item.id">
-                    <div class="content clearfloat">
-                      <div class="image">
-                        <img :src="item.icon" />
-                      </div>
-                      <div class="message">{{ item.subDesc || "----" }}</div>
-                    </div>
-                  </a>
-                </el-col>
-            </el-row> -->
-            <!-- <div style="display: flex; flex-wrap: wrap;">
-
-            </div> -->
-          </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane :label="t('messages.learnList.forth_label')" name="fourth">
-          <div class="min-height"><div class="min-height">
-            <ListCenter :index="3" :toGetBlogs="toGetBlogs"/>
-            <!-- <el-row :gutter="20">
-              <el-col :span="6" v-for="(item, index) in filterBlogs(3)" :key="index">
-                <a class="to-article"  :href="'/centerContent/' + item.id">
-                    <div class="content clearfloat">
-                      <div class="image">
-                        <img :src="item.icon" />
-                      </div>
-                      <div class="message">{{ item.subDesc || "----" }}</div>
-                    </div>
-                  </a>
-                </el-col>
-            </el-row> -->
-            <!-- <div style="display: flex; flex-wrap: wrap;">
-
-            </div> -->
-          </div></div>
-        </el-tab-pane>
-        <el-tab-pane :label="t('messages.learnList.fifth_label')" name="fifth">
-          <div class="min-height"><div class="min-height">
-            <ListCenter :index="4" :toGetBlogs="toGetBlogs"/>
-            <!-- <el-row :gutter="20">
-              <el-col :span="6" v-for="(item, index) in filterBlogs(4)" :key="index">
-                <a class="to-article"  :href="'/centerContent/' + item.id">
-                    <div class="content clearfloat">
-                      <div class="image">
-                        <img :src="item.icon" />
-                      </div>
-                      <div class="message">{{ item.subDesc || "----" }}</div>
-                    </div>
-                  </a>
-                </el-col>
-            </el-row> -->
-            <!-- <div style="display: flex; flex-wrap: wrap;">
-
-            </div> -->
-          </div></div>
-        </el-tab-pane>
+        <div class="min-height">
+          <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
+        </div>
       </el-tabs>
     </div>
     <div class="center-part" v-if="windowWidth <= 1050">
@@ -116,27 +18,15 @@
             class="demo-tabs"
             @tab-click="handleClick"
           >
-            <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
+            <!-- <el-tab-pane :label="t('messages.learnList.first_label')" name="first">
               <ListCenter :index="0" :toGetBlogs="toGetBlogs"/>
+            </el-tab-pane> -->
+            <el-tab-pane v-for="item in tabs" :label="t(item.label)" :name="item.name">
             </el-tab-pane>
-            <el-tab-pane :label="t('messages.learnList.second_label')" name="second">
-              <ListCenter :index="1" :toGetBlogs="toGetBlogs"/>
-            </el-tab-pane>
-            <el-tab-pane :label="t('messages.learnList.third_label')" name="third">
-              <ListCenter :index="2" :toGetBlogs="toGetBlogs"/>
-            </el-tab-pane>
-            <el-tab-pane :label="t('messages.learnList.forth_label')" name="fourth">
-              <ListCenter :index="3" :toGetBlogs="toGetBlogs"/>
-            </el-tab-pane>
-            <el-tab-pane :label="t('messages.learnList.fifth_label')" name="fifth">
-              <ListCenter :index="4" :toGetBlogs="toGetBlogs"/>
-            </el-tab-pane>
+            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
           </el-tabs>
         </div>
       </el-scrollbar>
-      <div class="min-height" v-if="activeName === 'first'">
-        <!-- <ListCenter /> -->
-      </div>
     </div>
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
@@ -144,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, nextTick } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
@@ -166,11 +56,21 @@ onUnmounted(() => {
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
-const activeName = ref("first");
+const activeName = ref(0);
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
+  nextTick(() => {
+    console.log(activeName.value)
+  })
 };
+
+const tabs = [
+  {label: 'messages.learnList.first_label', name: 0},
+  {label: 'messages.learnList.second_label', name:1},
+  {label: 'messages.learnList.third_label', name: 2},
+  {label: 'messages.learnList.forth_label', name: 3},
+  {label: 'messages.learnList.fifth_label', name: 4},
+]
 
 
 const blogs = ref<Blog[]>([]);

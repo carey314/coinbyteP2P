@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="center-box" v-if="windowWidth > 769">
+    <div class="center-box" v-if="windowWidth > 769"  v-loading="loading">
       <div class="center-part max1290">
         <el-row :gutter="20">
           <el-col :span="6" v-for="(item, index) in blogs?.content" :key="index">
@@ -95,7 +95,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, watch } from "vue";
 
 import learn_image01 from "../../../assets/home/learn_image01.png";
 import learn_image02 from "../../../assets/home/learn_image02.png";
@@ -203,28 +203,37 @@ const blogs = ref<{
   content: any[];
   totalElements: number;
 }>();
-
+const loading = ref(false);
 onMounted(() => {
   getBlogsValue(props.index);
 })
+watch(() => props.index, () => {
+  getBlogsValue(props.index);
+})
 
-const getBlogsValue = async (pageIndex: number) => {
-  const res: any = await props.toGetBlogs(
-    {
-      pageNumber: 1,
-      pageSize: 12,
-      typeOne: pageIndex
-    }
-  );
-  blogs.value = {
-    content: res.content,
-    totalElements: 1000
-  };
-  console.log(blogs.value)
+const getBlogsValue = async (typeIndex: number, pageIndex: number = 1) => {
+  try {
+    loading.value = true;
+    const res: any = await props.toGetBlogs(
+      {
+        pageNumber: pageIndex,
+        pageSize: 12,
+        typeOne: typeIndex
+      }
+    );
+    blogs.value = {
+      content: res.content,
+      totalElements: 1000
+    };
+    loading.value = false;
+  } catch(e) {
+    console.log(e);
+    loading.value = false;
+  }
 }
 
 const pageChange = (value: number) => {
-  getBlogsValue(value);
+  getBlogsValue(props.index, value);
 }
 
 </script>
@@ -249,7 +258,7 @@ $fontSizeMin: 12px;
 .center-box {
   // width: auto;
   margin-top: -15px;
-
+  min-height: 300px;
   @media (max-width: 769px) {
     & {
       padding: 0;
