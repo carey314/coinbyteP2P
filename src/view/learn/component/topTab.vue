@@ -13,7 +13,7 @@
           <el-tab-pane label="first" name="first">
             <el-row>
               <el-col :span="13">
-                <div class="title">Get your first Bitcoin in minutes</div>
+                <div class="title">Start Your First Buy in minutes</div>
                 <div
                   class="card clearfloat"
                   v-for="(item, index) in firstCard"
@@ -39,7 +39,7 @@
           <el-tab-pane label="second" name="second">
             <el-row>
               <el-col :span="13">
-                <div class="title">Kick-start Your Spot Trading</div>
+                <div class="title">Kick-start Your Selling Order</div>
 
                 <div
                   class="card clearfloat"
@@ -130,7 +130,7 @@
           <el-tab-pane label="first" name="first">
             <el-row>
               <el-col :span="24">
-                <div class="title">Get your first Bitcoin in minutes</div>
+                <div class="title">Start Your First Buy in minutes</div>
                 <div
                   class="card clearfloat"
                   v-for="(item, index) in firstCard"
@@ -157,7 +157,7 @@
           <el-tab-pane label="second" name="second">
             <el-row>
               <el-col :span="24">
-                <div class="title">Kick-start Your Spot Trading</div>
+                <div class="title">Kick-start Your Selling Order</div>
 
                 <div
                   class="card clearfloat"   
@@ -269,39 +269,39 @@ function resetWidth() {
 const firstCard = [
   {
     number: 1,
-    msg: "Get your COINBYTE account",
+    msg: "Place order",
     content:
-      "To get started, visit the COINBYTE website and register your own COINBYTE account.",
+      "Find CoinbyteP2P’s advertisement and place your order",
   },
   {
     number: 2,
-    msg: "Verify your identity",
-    content: "Upload your identity document for verification.",
+    msg: "Get Verified",
+    content: "Complete our verification through our website",
   },
   {
     number: 3,
-    msg: "Buy/Sell",
+    msg: "Make Payment",
     content:
-      'Head to "Buy Crypto" and buy Bitcoin with credit cards, Apple Pay, or bank transfer, etc.',
+      'Make the payment to CoinbyteP2P via your preferred payment methods',
   },
 ];
 const secondCard = [
   {
     number: 1,
-    msg: "Choose the pair",
+    msg: "Place order",
     content:
-      "Choose the pair you want to buy ( Spot trading refers to exchanging a digital asset with another digital asset )",
+      "Place order you want to buy ( Spot trading refers to exchanging a digital asset with another digital asset )",
   },
   {
     number: 2,
-    msg: "Look at the price",
+    msg: "Get Verified",
     content:
       "Look at the market price, choose the right price to place an order",
   },
   {
     number: 3,
-    msg: 'Fill in the order and click "Buy"',
-    content: "Fill in price and quantity, then wait for market clinch a deal.",
+    msg: 'Confirm the Payment',
+    content: "Confirm your bank account detail and the receipt of money",
   },
 ];
 const thirdCard = [

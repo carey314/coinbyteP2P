@@ -348,7 +348,7 @@
           </li>
           <li v-else>
             <!-- 用户认证页面   -->
-            <router-link to="/login" style="text-decoration: none"><button class="btn-signup">
+            <router-link to="/signup" style="text-decoration: none"><button class="btn-signup">
               {{ $t("messages.header.signup") }}
             </button></router-link>
           </li>

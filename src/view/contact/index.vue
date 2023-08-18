@@ -42,7 +42,7 @@
       </el-row>
     </div>
 
-    <div class="center-part part" style="padding-top:-20px">
+    <!-- <div class="center-part part" style="padding-top:-20px">
       <el-row>
         <el-col :span="12">
           <div class="part-box follow" style="border:none;">
@@ -69,7 +69,7 @@
           </div>
         </el-col>
       </el-row>
-    </div>
+    </div> -->
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
   </div>
@@ -167,6 +167,7 @@ function resetWidth() {
       color: #ffffff;
       margin-top: 30px;
       line-height: 19px;
+      white-space: pre-wrap;
     }
   }
   .left-box {

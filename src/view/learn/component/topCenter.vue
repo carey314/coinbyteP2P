@@ -289,14 +289,14 @@ const options = ref([
     value: "2",
     label: t('messages.learnTop.label_second'),
   },
-  {
-    value: "3",
-    label: t('messages.learnTop.label_third'),
-  },
-  {
-    value: "4",
-    label: t('messages.learnTop.label_forth'),
-  },
+  // {
+  //   value: "3",
+  //   label: t('messages.learnTop.label_third'),
+  // },
+  // {
+  //   value: "4",
+  //   label: t('messages.learnTop.label_forth'),
+  // },
 ]);
 
 const firstCard = [
@@ -315,6 +315,11 @@ const firstCard = [
     msg: t('messages.learnTop.card_firstMsg3'),
     content:t('messages.learnTop.card_firstContent3'),
   },
+  {
+    number: 4,
+    msg: t('messages.learnTop.card_firstMsg4'),
+    content:t('messages.learnTop.card_firstContent4'),
+  },
 ];
 const secondCard = [
   {
@@ -331,6 +336,11 @@ const secondCard = [
     number: 3,
     msg: t('messages.learnTop.card_secondMsg3'),
     content: t('messages.learnTop.card_secondContent3'),
+  },
+  {
+    number: 4,
+    msg: t('messages.learnTop.card_secondMsg4'),
+    content: t('messages.learnTop.card_secondContent4'),
   },
 ];
 const thirdCard = [
@@ -403,7 +413,8 @@ $fontSizeMin: 12px;
 :deep() {
   .el-radio-group {
     display: flex;
-    justify-content: space-between;
+    gap: 50px;
+    // justify-content: space-between;
   }
   .el-radio-button__inner {
     background: #313e4a;

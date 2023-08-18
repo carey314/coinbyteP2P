@@ -17,6 +17,7 @@
           <div class="info clearfloat">
             <div class="date">{{ blogInfo.createTime || '----' }} &nbsp;&nbsp; {{ blogInfo.author || '----' }}</div>
             <div class="icon">
+
               <img :src="downbar_icon03" alt="" />
               <img :src="paper_full" alt="" />
               <img :src="facebook_icon" alt="" />
@@ -278,7 +279,7 @@ $fontSizeMin: 12px;
     .content-box {
       margin-top: 45px;
       line-height: 22px;
-      font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
+      font-family: "HarmonyOS Sans", Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
     }
   }
 }
@@ -291,4 +292,5 @@ $fontSizeMin: 12px;
   @media (max-width: 1440px) {
     padding: 45px 30px 134px 30px;
   }
-}</style>
+}
+</style>

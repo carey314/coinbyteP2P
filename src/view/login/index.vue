@@ -275,7 +275,7 @@ const form = reactive({
   number: "",
 });
 const number = ref("");
-const numberSelect = ref("81");
+const numberSelect = ref("61");
 const areas = [
   { label: "Australia", value: "+61" },
   { label: "United States", value: "+1" },

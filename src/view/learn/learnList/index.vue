@@ -43,7 +43,9 @@ import ListCenter from "../component/ListCenter.vue";
 import { useI18n } from 'vue-i18n'
 import { Blog, GetBlogs } from "../../../models/blog";
 import { getBlogs } from "../../../api/blog";
-
+import {useRoute, useRouter} from 'vue-router';
+const route: any = useRoute();
+const router = useRouter();
 const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
@@ -57,10 +59,14 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 const activeName = ref(0);
-
+onMounted(() => {
+  if(route.query && !isNaN(route.query.type)) {
+    activeName.value = Number(route.query.type);
+  }
+})
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   nextTick(() => {
-    console.log(activeName.value)
+    router.push('/learnList?type=' + activeName.value);
   })
 };
 

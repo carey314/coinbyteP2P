@@ -274,6 +274,10 @@ export default {
       card_firstMsg3: "买入/卖出",
       card_firstContent3:
         "前往“购买加密货币”页面,使用信用卡、Apple Pay、银行转账等方式购买比特币。",
+      card_firstMsg4: "买入/卖出",
+      card_firstContent4:
+        "前往“购买加密货币”页面,使用信用卡、Apple Pay、银行转账等方式购买比特币。",
+      
       card_secondMsg1: "选择交易对",
       card_secondContent1:
         "选择您想要购买的交易对（现货交易指的是用一种数字资产交换另一种数字资产）。",
@@ -281,6 +285,8 @@ export default {
       card_secondContent2: "查看市场价格，选择合适的价格下单。",
       card_secondMsg3: "填写订单并点击“购买”",
       card_secondContent3: "填写价格和数量，然后等待市场成交。",
+      card_secondMsg4: "填写订单并点击“购买”",
+      card_secondContent4: "填写价格和数量，然后等待市场成交。",
       card_thirdMsg1: "选择开多头或空头仓位",
       card_thirdContent1: "OKX支持周期为周、双周和季度的合约。",
       card_thirdMsg2: "输入数量和价格",

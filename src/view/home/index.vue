@@ -465,15 +465,15 @@
             {{ $t("messages.footer.start") }}
           </div>
           <div class="footer-trade">
-            <div class="buy">{{ $t("messages.footer.buy") }}</div>
-            <div class="sell">{{ $t("messages.footer.sell") }}</div>
+            <div class="buy" @click="goToKyc('buy')">{{ $t("messages.footer.buy") }}</div>
+            <div class="sell" @click="goToKyc('sell')">{{ $t("messages.footer.sell") }}</div>
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/" style="color: #01c19a">{{
+            <a href="/" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
-            <div style="margin-top: 32px;margin-bottom: 20px">{{ $t("messages.footer.purchase") }}</div>
+            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{ $t("messages.footer.purchase") }}</div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -502,14 +502,16 @@
             <li>{{ $t("messages.footer.about") }}</li>
             <li>
               <a
-                  href="/"
+                  href="javascript:void(0)"
+                  @click="goToKyc('buy')"
                   style="color: rgb(144, 144, 144); text-decoration: none"
               >{{ $t("messages.footer.about_us") }}</a
               >
             </li>
             <li>
               <a
-                  href="/"
+                  href="javascript:void(0)"
+                  @click="goToKyc('sell')"
                   style="color: rgb(144, 144, 144); text-decoration: none"
               >{{ $t("messages.footer.contact_us") }}</a
               >
@@ -517,10 +519,10 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.legal") }}</li>
-            <li>{{ $t("messages.footer.terms") }}</li>
-            <li>{{ $t("messages.footer.privacy") }}</li>
-            <li>{{ $t("messages.footer.EOFY") }}</li>
-            <li>{{ $t("messages.footer.FAQs") }}</li>
+            <li><a href="/learnList?type=0" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></li>
+            <li><a href="/learnList?type=1" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></li>
+            <li><a href="/learnList?type=2" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
+            <li><a href="/learnList?type=3" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></li>
 
             <!-- <li @click="dialogTableVisible = true">
             {{ $t("messages.footer.kyc_aml") }}
@@ -587,15 +589,15 @@
             {{ $t("messages.footer.start") }}
           </div>
           <div class="footer-trade" style="justify-content: flex-start;">
-            <div class="buy">Buy</div>
-            <div class="sell">Sell</div>
+            <div class="buy" @click="goToKyc('buy')">Buy</div>
+            <div class="sell" @click="goToKyc('sell')">Sell</div>
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/" style="color: #01c19a">{{
+            <a href="/" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
-            <div style="margin-top: 32px;margin-bottom: 20px">{{ $t("messages.footer.purchase") }}</div>
+            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{ $t("messages.footer.purchase") }}</div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -631,14 +633,16 @@
                 </template>
                 <div class="list-item">
                   <a
-                      href="/about"
+                      href="javascript:void(0)"
+                      @click="goToKyc('buy')"
                       style="color: rgb(144, 144, 144); text-decoration: none"
                   >{{ $t("messages.footer.about_us") }}</a
                   >
                 </div>
                 <div class="list-item">
                   <a
-                      href="/contact"
+                      href="javascript:void(0)"
+                      @click="goToKyc('sell')"
                       style="color: rgb(144, 144, 144); text-decoration: none"
                   >{{ $t("messages.footer.contact_us") }}</a
                   >
@@ -657,12 +661,13 @@
                     {{ $t("messages.footer.legal") }}
                   </div>
                 </template>
-                <div class="list-item">{{ $t("messages.footer.terms") }}</div>
-                <div class="list-item">{{ $t("messages.footer.privacy") }}</div>
-                <div class="list-item" @click="dialogTableVisible = true">
+                <div class="list-item"><a href="/learnList?type=0" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></div>
+                <div class="list-item"><a href="/learnList?type=1" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></div>
+                <!-- <div class="list-item" @click="dialogTableVisible = true">
                   {{ $t("messages.footer.EOFY") }}
-                </div>
-                <div class="list-item">{{ $t("messages.footer.FAQs") }}</div>
+                </div> -->
+                <div class="list-item"><a href="/learnList?type=2" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></div>
+                <div class="list-item"><a href="/learnList?type=3" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template #title>
@@ -1136,7 +1141,7 @@ const goToKyc = (type: string) => {
     console.log(userInfoStore.isLogin, '2131313122313是否登陆')
     router.push({name: 'kyc', query: {type}})
   } else {
-    router.push('/login')
+    router.push('/signup')
   }
 }
 

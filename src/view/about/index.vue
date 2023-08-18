@@ -15,9 +15,9 @@
         <div class="top-part-content" style="margin-top: 55px">
           {{ $t("messages.about.about_exchange") }}
         </div>
-        <div class="top-part-content">
+        <!-- <div class="top-part-content">
           {{ $t("messages.about.about_exchange") }}
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -162,9 +162,9 @@
       </el-row>
     </div>
 
-    <div style="background: #f8f8f8">
+    <!-- <div style="background: #f8f8f8">
       <joinCrypto class="max-width: 1600px;" />
-    </div>
+    </div> -->
     <Footer v-if="windowWidth > 769" />
     <FooterMobile v-if="windowWidth <= 769" />
   </div>
@@ -305,7 +305,7 @@ const yc3 = () => {
     height: 100%;
     .part-box {
       height: 440px;
-      padding: 4% 8% 10% 8%;
+      padding: 4% 2% 10% 8%;
       border-top: 1px solid #2f3f4e;
       border-left: 0px;
       border-right: 0px;
@@ -381,6 +381,7 @@ const yc3 = () => {
     width: 80% !important;
     font-size: 27px !important;
     margin-top: 14px !important;
+    line-height: 1;
     // margin: 0 !important;
   }
 
