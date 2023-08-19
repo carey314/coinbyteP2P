@@ -332,7 +332,7 @@
                     {{ $t("messages.home.fifth_regulationC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -352,7 +352,7 @@
                     {{ $t("messages.home.fifth_fiatC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -372,7 +372,7 @@
                     {{ $t("messages.home.fifth_TotallC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -392,7 +392,7 @@
                     {{ $t("messages.home.fifth_easyC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -412,7 +412,7 @@
                     {{ $t("messages.home.fifth_liveC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" :text="$t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="$t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>

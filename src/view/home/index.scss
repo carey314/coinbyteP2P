@@ -1241,6 +1241,7 @@ footer {
       vertical-align: top;
       justify-content: space-around;
       padding: 0 5% 0 8%;
+      gap: 20px;
 
       @media (max-width: 985px) {
         & {
@@ -1253,6 +1254,7 @@ footer {
       ul.link-list {
         list-style: none;
         padding-top: 50px;
+        width: 100%;
         @media (max-width: 985px) {
           & {
             padding-top: 40px;
