@@ -14,7 +14,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/au',
     component: () => import('../view/home/index.vue')
   },
-  { 
+  {
     path: '/contact',
     name: 'contact',
     component: () => import('../view/contact/index.vue') 
@@ -29,8 +29,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'kyc',
     component: () => import('../view/kyc/index.vue') 
   },
-  { 
+  {
     path: '/about',
+    redirect: '/au/about'
+  },
+  {
+    path: '/nz/about',
+    component: () => import('../view/about/index.vue')
+  },
+  { 
+    path: '/au/about',
     name: 'about',
     component: () => import('../view/about/index.vue') 
   },

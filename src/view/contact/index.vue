@@ -102,6 +102,8 @@ function resetWidth() {
 .contact-page {
   background: #1d262f;
   position: relative;
+  min-height: calc(100vh - 0px);
+
   .top-part {
     width: 100%;
     height: 440px;
@@ -232,6 +234,7 @@ function resetWidth() {
 @media (min-width: 985px) and (max-width: 1400px) {
   .part {
     max-width: 940px;
+    min-height: calc(100vh - 620px);
   }
   .hand_left {
     width: 36%;

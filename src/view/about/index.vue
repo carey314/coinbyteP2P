@@ -108,7 +108,7 @@
           </div>
         </el-col>
         <el-col :span="12" @mouseover="yr3" @mouseleave="yc3" :style="active3">
-          <div class="part-box left-box" name="forth">
+          <div class="part-box left-box" name="forth" v-if="$route.path.startsWith('/au')">
             <div class="part-msg clearfloat">
               <div class="part-img">
                 <img :src="aboutus_icon04" />
@@ -117,7 +117,7 @@
                 {{ $t("messages.about.about_forthTitle") }}
               </div>
             </div>
-            <div class="part-content">
+            <div class="part-content" style="margin-top: 50px;" >
               {{ $t("messages.about.about_forthCentre") }}<br />
               <span>100662269</span>
             </div>
@@ -129,6 +129,25 @@
               {{ $t("messages.about.about_forthProvider") }}<br />
               <span>IND100662269-001</span>
             </div>
+          </div>
+          <div class="part-box left-box" name="forth" v-if="$route.path.startsWith('/nz')">
+            <div class="part-msg clearfloat">
+              <div class="part-img">
+                <img :src="aboutus_icon04" />
+              </div>
+              <div class="part-title">
+                {{ $t("messages.about.about_forthTitle") }}
+              </div>
+            </div>
+            <div class="part-content" style="margin-top: 50px;" >
+              NZBN<br />
+              <span>9429049898163</span>
+            </div>
+            <div class="part-content-forth">
+              FSP<br />
+              <span>1004001</span>
+            </div>
+
           </div>
         </el-col>
       </el-row>
@@ -237,6 +256,7 @@ const yc3 = () => {
 .about-page {
   background: #1d262f;
   position: relative;
+
   .top-part {
     width: 100%;
     height: 620px;

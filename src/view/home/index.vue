@@ -54,7 +54,7 @@
                     <Right/>
                   </el-icon>
                 </div>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog">
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/au')">
                   <img style="position: absolute;top: 0px;left: 0px;z-index: 0;width: 50%;height: auto;max-height: 50%;" :src="learn_dialog_back"/>
                   <div style="position: relative;">
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
@@ -137,6 +137,58 @@
                           <div class="alert-cont">{{ item.content2 }}</div>
                           <div class="alert-address">
                             <a href="https://fsp-register.companiesoffice.govt.nz/" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </div>
+                </el-dialog>
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/nz')">
+                  <div style="position: relative;">
+                    <el-row :gutter="40" v-if="$route.path.startsWith('/nz')" >
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in nzData"
+                          :key="index"
+                          style="border-right: 1px solid #eee"
+                      >
+                      <img class="nz-learn-img" :src="learn_more2" />
+                        <div class="alert-box">
+
+                          <div class="alert-cont" style="color: #0a0a0a">New Zealand Companies Office</div>
+                          <div class="alert-cont" style="color: #0a0a0a">NZBN 9429049898163</div>
+
+                          <div class="alert-address">
+                            <a href="https://www.nzbn.govt.nz/" style="color: #01c19a;text-decoration: underline;" target="_blank">
+                              {{ item.address }}
+                              <el-icon class="more-arrow">
+                                <Right/>
+                              </el-icon>
+                            </a>
+                          </div>
+                        </div>
+                      </el-col>
+                      <el-col
+                          :md="12"
+                          :xs="24"
+                          v-for="(item, index) in nzData1"
+                          :key="index"
+                          class="gap"
+                      >
+                        <img class="nz-learn-img" :src="learn_more3" />
+
+                        <div class="alert-box">
+<!--                          <div class="alert-title">{{ item.title }}</div>-->
+                          <div class="alert-cont" style="color: #0a0a0a">New Zealand Companies Office</div>
+                          <div class="alert-cont" style="color: #0a0a0a">FSP 1004001</div>
+                          <div class="alert-address">
+                            <a href="https://fsp-register.companiesoffice.govt.nz/" style="color: #01c19a;text-decoration: underline;" target="_blank">
                               {{ item.address }}
                               <el-icon class="more-arrow">
                                 <Right/>
@@ -780,6 +832,8 @@ import DOGE from "../../assets/home/dogecoin.png";
 import MATIC from "../../assets/home/polygon.png";
 import SOL from "../../assets/home/solana.png";
 import learn_dialog_back from "../../assets/image/learn_dialog_back.png";
+import learn_more2 from "../../assets/image/learn_more2.png";
+import learn_more3 from "../../assets/image/learn_more3.png";
 
 import {storeToRefs} from "pinia";
 import {tradeStore} from "../../store/trade";
@@ -1305,4 +1359,5 @@ onMounted(() => {
 .icon-links {
   text-align: right;
 }
+
 </style>
