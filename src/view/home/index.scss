@@ -8,6 +8,21 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 
+.nz-divider{
+  border-right: 1px solid #eee;
+
+  @media (max-width: 992px) {
+    border-right: none;
+  }
+}
+.gap{
+  padding-left: 60px !important;
+  @media (max-width: 992px) {
+    padding-left: 20px !important;
+    padding-top: 30px;
+    margin: auto;
+  }
+}
 :deep(.el-overlay-dialog) {
   display: flex;
   align-items: center;
@@ -27,9 +42,13 @@ $fontSizeMin: 12px;
 :deep(.el-dialog__header){
   padding: 0;
 }
+
 :deep(.alert-dialog) {
   padding: 40px 20px 50px 40px;
   line-height: 20px;
+  border-radius: 10px;
+  position: absolute;
+  z-index: 9;
   @media (max-width: 768px) {
     margin: 0 auto !important;
     width: 90% !important;
@@ -418,7 +437,7 @@ img {
   --el-button-hover-bg-color: #56be93;
 }
 .nz-learn-img{
-  width: 200px;
+  width: 140px;
   height: 50px;
   img{
     width: 100%;

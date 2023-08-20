@@ -148,15 +148,17 @@
                     </el-row>
                   </div>
                 </el-dialog>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/nz')">
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog" v-if="$route.path.startsWith('/nz')">
+                  <img style="position:absolute;bottom: 0;left: 0;z-index: 0" :src="learm_background" />
+
                   <div style="position: relative;">
-                    <el-row :gutter="40" v-if="$route.path.startsWith('/nz')" >
+                    <el-row :gutter="40" v-if="$route.path.startsWith('/nz')"  >
                       <el-col
                           :md="12"
                           :xs="24"
                           v-for="(item, index) in nzData"
                           :key="index"
-                          style="border-right: 1px solid #eee"
+                          class="nz-divider"
                       >
                       <img class="nz-learn-img" :src="learn_more2" />
                         <div class="alert-box">
@@ -834,6 +836,7 @@ import SOL from "../../assets/home/solana.png";
 import learn_dialog_back from "../../assets/image/learn_dialog_back.png";
 import learn_more2 from "../../assets/image/learn_more2.png";
 import learn_more3 from "../../assets/image/learn_more3.png";
+import learm_background from "../../assets/image/learm_background.png";
 
 import {storeToRefs} from "pinia";
 import {tradeStore} from "../../store/trade";
@@ -901,32 +904,6 @@ interface Coin {
 }
 
 const coinMarketCapData = ref<any>([]);
-
-const coinSymbolToName: {
-  [key: string]: string;
-} = {
-  BTC: "bitcoin",
-  ETH: "ethereum",
-  XRP: "ripple",
-  LTC: "litecoin",
-  DOT: "polkadot",
-  SOL: "solana",
-  DOGE: "dogecoin",
-  LINK: "chainlink",
-  USDC: "usdcoin",
-  BCH: "bitcoincash",
-  NEO: "neo",
-  USDT: "tether",
-  TRX: "tron",
-  EOS: "eos",
-  NANO: "nano",
-  MIOTA: "iota",
-  ENJ: "enjincoin",
-  CRV: "curvedaotoken",
-  VIOLET: "violetcoin",
-  FRONT: "frontier",
-  // 添加更多的加密货币
-};
 
 const activeName = ref("1");
 const tradeTab = ref<any>("first");
@@ -1022,96 +999,6 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
   // console.log(tab, event);
 };
 
-const tableData = [
-  {
-    id: 1,
-    img: BTC,
-    tag: "BTC",
-    asset: "Bitcoin",
-    price: "$22,678.00",
-    change: "-2.58%",
-    type: "up",
-    data: [30, 20, 30, 10, 50, 60],
-  },
-  {
-    id: 2,
-    img: ETH,
-    tag: "ETH",
-    asset: "Ethereum",
-    price: "$1,570",
-    change: "+0.25%",
-    type: "up",
-    data: [30, 20, 30, 10, 50, 60],
-  },
-  {
-    id: 3,
-    img: USDT,
-    tag: "USDT",
-    asset: "OKB",
-    price: "$15.44",
-    change: "+0.88%",
-    type: "up",
-    data: [30, 20, 30, 10, 50, 60],
-  },
-  {
-    id: 4,
-    img: BNB,
-    tag: "BNB",
-    asset: "OKC Token",
-    price: "$15.56",
-    change: "-0.02%",
-    type: "up",
-    data: [30, 20, 30, 10, 50, 60],
-  },
-  {
-    id: 5,
-    img: USDC,
-    tag: "USDC",
-    asset: "Litecoin",
-    price: "$56.57",
-    change: "-2.58%",
-    type: "down",
-    data: [20, 20, 60],
-  },
-  {
-    id: 6,
-    img: XRP,
-    tag: "XRP",
-    asset: "Polkadot",
-    price: "$7.40",
-    change: "-1.67%",
-    type: "down",
-    data: [10, 20, 30],
-  },
-  {
-    id: 7,
-    img: ADA,
-    tag: "ADA",
-    asset: "Cardano",
-    price: "$0.49",
-    change: "+0.20%",
-    type: "up",
-    data: [10, 0, 30, 0, 50, 10, 90],
-  },
-  {
-    id: 8,
-    img: DOGE,
-    tag: "DOGE",
-    asset: "Cardano",
-  },
-  {
-    id: 9,
-    img: MATIC,
-    tag: "MATIC",
-    asset: "Cardano",
-  },
-  {
-    id: 10,
-    img: SOL,
-    tag: "SOL",
-    asset: "Cardano",
-  },
-];
 const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
   let myChart = echarts.init(dom);
 
