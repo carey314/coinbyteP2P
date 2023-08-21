@@ -55,7 +55,7 @@
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/au')">
-                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;width: 50%;height: auto;max-height: 50%;" :src="learn_dialog_back"/>
+                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;border-radius: 10px 0 0 0;width: 50%;height: auto;max-height: 50%;" :src="learn_dialog_back"/>
                   <div style="position: relative;">
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
                       <el-col
@@ -129,7 +129,7 @@
                           :xs="24"
                           v-for="(item, index) in nzData1"
                           :key="index"
-                          class="gap"
+                          class="gap-nz"
                       >
                         <div class="alert-box">
                           <div class="alert-title">{{ item.title }}</div>
@@ -149,7 +149,7 @@
                   </div>
                 </el-dialog>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog" v-if="$route.path.startsWith('/nz')">
-                  <img style="position:absolute;bottom: 0;left: 0;z-index: 0" :src="learm_background" />
+                  <img style="position:absolute;bottom: 0;left: 0;z-index: -1" :src="learm_background" />
 
                   <div style="position: relative;">
                     <el-row :gutter="40" v-if="$route.path.startsWith('/nz')"  >

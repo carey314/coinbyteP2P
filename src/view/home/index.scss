@@ -15,14 +15,7 @@ $fontSizeMin: 12px;
     border-right: none;
   }
 }
-.gap{
-  padding-left: 60px !important;
-  @media (max-width: 992px) {
-    padding-left: 20px !important;
-    padding-top: 30px;
-    margin: auto;
-  }
-}
+
 :deep(.el-overlay-dialog) {
   display: flex;
   align-items: center;
