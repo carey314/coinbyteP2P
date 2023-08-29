@@ -55,7 +55,9 @@
                   </el-icon>
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/au')">
-                  <img style="position: absolute;top: 0px;left: 0px;z-index: 0;border-radius: 10px 0 0 0;width: 50%;height: auto;max-height: 50%;" :src="learn_dialog_back"/>
+                  <img
+                      style="position: absolute;top: 0px;left: 0px;z-index: 0;border-radius: 10px 0 0 0;width: 50%;height: auto;max-height: 50%;"
+                      :src="learn_dialog_back"/>
                   <div style="position: relative;">
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
                       <el-col
@@ -148,11 +150,12 @@
                     </el-row>
                   </div>
                 </el-dialog>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog" v-if="$route.path.startsWith('/nz')">
-                  <img style="position:absolute;bottom: 0;left: 0;z-index: -1" :src="learm_background" />
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog"
+                           v-if="$route.path.startsWith('/nz')">
+                  <img style="position:absolute;bottom: 0;left: 0;z-index: -1" :src="learm_background"/>
 
                   <div style="position: relative;">
-                    <el-row :gutter="40" v-if="$route.path.startsWith('/nz')"  >
+                    <el-row :gutter="40" v-if="$route.path.startsWith('/nz')">
                       <el-col
                           :md="12"
                           :xs="24"
@@ -160,14 +163,15 @@
                           :key="index"
                           class="nz-divider"
                       >
-                      <img class="nz-learn-img" :src="learn_more2" />
+                        <img class="nz-learn-img" :src="learn_more2"/>
                         <div class="alert-box">
 
                           <div class="alert-cont" style="color: #0a0a0a">New Zealand Companies Office</div>
                           <div class="alert-cont" style="color: #0a0a0a">NZBN 9429049898163</div>
 
                           <div class="alert-address">
-                            <a href="https://www.nzbn.govt.nz/" style="color: #01c19a;text-decoration: underline;" target="_blank">
+                            <a href="https://www.nzbn.govt.nz/" style="color: #01c19a;text-decoration: underline;"
+                               target="_blank">
                               {{ item.address }}
                               <el-icon class="more-arrow">
                                 <Right/>
@@ -183,14 +187,15 @@
                           :key="index"
                           class="gap"
                       >
-                        <img class="nz-learn-img" :src="learn_more3" />
+                        <img class="nz-learn-img" :src="learn_more3"/>
 
                         <div class="alert-box">
-<!--                          <div class="alert-title">{{ item.title }}</div>-->
+                          <!--                          <div class="alert-title">{{ item.title }}</div>-->
                           <div class="alert-cont" style="color: #0a0a0a">New Zealand Companies Office</div>
                           <div class="alert-cont" style="color: #0a0a0a">FSP 1004001</div>
                           <div class="alert-address">
-                            <a href="https://fsp-register.companiesoffice.govt.nz/" style="color: #01c19a;text-decoration: underline;" target="_blank">
+                            <a href="https://fsp-register.companiesoffice.govt.nz/"
+                               style="color: #01c19a;text-decoration: underline;" target="_blank">
                               {{ item.address }}
                               <el-icon class="more-arrow">
                                 <Right/>
@@ -334,7 +339,8 @@
                     {{ $t("messages.home.fifth_regulationC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                               :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -354,7 +360,8 @@
                     {{ $t("messages.home.fifth_fiatC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                               :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -374,7 +381,8 @@
                     {{ $t("messages.home.fifth_TotallC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                               :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -394,7 +402,8 @@
                     {{ $t("messages.home.fifth_easyC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                               :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -414,7 +423,8 @@
                     {{ $t("messages.home.fifth_liveC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')" :text="$t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                               :text="$t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -527,7 +537,10 @@
             <a href="/" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
-            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{ $t("messages.footer.purchase") }}</div>
+            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{
+                $t("messages.footer.purchase")
+              }}
+            </div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -573,10 +586,14 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.legal") }}</li>
-            <li><a href="/learnList?type=0" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></li>
-            <li><a href="/learnList?type=1" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></li>
-            <li><a href="/learnList?type=2" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
-            <li><a href="/learnList?type=3" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></li>
+            <li><a href="/learnList?type=0"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></li>
+            <li><a href="/learnList?type=1"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></li>
+            <li><a href="/learnList?type=2"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
+            <li><a href="/learnList?type=3"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></li>
 
             <!-- <li @click="dialogTableVisible = true">
             {{ $t("messages.footer.kyc_aml") }}
@@ -596,8 +613,17 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
-            <li>{{ $t("messages.footer.us") }}</li>
-            <li>{{ $t("messages.footer.support_center") }}</li>
+            <li>
+              <router-link to="/about" style="color: #909090;text-decoration: none ">{{
+                  $t("messages.footer.us")
+                }}
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/contact" style="color: #909090;text-decoration: none ">
+                {{ $t("messages.footer.support_center") }}
+              </router-link>
+            </li>
             <!-- <li>
             <a
               href="/contact"
@@ -651,7 +677,10 @@
             <a href="/" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
-            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{ $t("messages.footer.purchase") }}</div>
+            <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{
+                $t("messages.footer.purchase")
+              }}
+            </div>
           </div>
           <!-- <div class="lan-box">
           <div class="lan-icon">
@@ -715,13 +744,25 @@
                     {{ $t("messages.footer.legal") }}
                   </div>
                 </template>
-                <div class="list-item"><a href="/learnList?type=0" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></div>
-                <div class="list-item"><a href="/learnList?type=1" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></div>
+                <div class="list-item"><a href="/learnList?type=0"
+                                          style="color: rgb(144, 144, 144); text-decoration: none">{{
+                    $t("messages.footer.terms")
+                  }}</a></div>
+                <div class="list-item"><a href="/learnList?type=1"
+                                          style="color: rgb(144, 144, 144); text-decoration: none">{{
+                    $t("messages.footer.privacy")
+                  }}</a></div>
                 <!-- <div class="list-item" @click="dialogTableVisible = true">
                   {{ $t("messages.footer.EOFY") }}
                 </div> -->
-                <div class="list-item"><a href="/learnList?type=2" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></div>
-                <div class="list-item"><a href="/learnList?type=3" style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></div>
+                <div class="list-item"><a href="/learnList?type=2"
+                                          style="color: rgb(144, 144, 144); text-decoration: none">{{
+                    $t("messages.footer.EOFY")
+                  }}</a></div>
+                <div class="list-item"><a href="/learnList?type=3"
+                                          style="color: rgb(144, 144, 144); text-decoration: none">{{
+                    $t("messages.footer.FAQs")
+                  }}</a></div>
               </el-collapse-item>
               <el-collapse-item name="3">
                 <template #title>
