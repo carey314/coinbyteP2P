@@ -121,7 +121,7 @@ import { Blog, GetBlogs } from "../../../models/blog";
 
 const props = defineProps<
   {
-    toGetBlogs: (getConfig: GetBlogs) => Promise<{
+    toGetBlogs: (getConfig: any) => Promise<{
       content: any[];
       totalElements: number;
     } | undefined>;
@@ -216,9 +216,9 @@ const getBlogsValue = async (typeIndex: number, pageIndex: number = 1) => {
     loading.value = true;
     const res: any = await props.toGetBlogs(
       {
-        pageNumber: pageIndex,
-        pageSize: 12,
-        typeOne: typeIndex
+        page: pageIndex,
+        limit: 12,
+        type: typeIndex
       }
     );
     blogs.value = {

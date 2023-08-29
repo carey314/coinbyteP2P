@@ -152,7 +152,7 @@
               <span style="position: relative">
                 <el-input
                   v-model="passwordInput"
-                  placeholder="000 000"
+                  placeholder=""
                   type="password"
                 />
                 <span class="tip" v-if="passwordInput === ''">*</span>
