@@ -151,6 +151,7 @@ $colorinfo: #878787;
   .verify-btn {
     margin-top: 40px;
     width: 427px;
+    margin-bottom: 30px;
     @media (max-width: 768px) {
       width: 80%;
     }

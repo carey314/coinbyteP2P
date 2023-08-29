@@ -318,7 +318,7 @@ function updateCanContinue() {
 }
 let options2 = [
   { value: "optionA", label: "Australia" },
-  { value: "optionB", label: "America" },
+  { value: "optionB", label: "New Zealand" },
 ];
 let options3 = [
   { value: "optionA", label: "AUD" },

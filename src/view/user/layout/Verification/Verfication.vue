@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="verify-title">{{ $t("messages.user.verify_account") }}</div>
+
     <div class="verify-msg">
       {{ $t("messages.user.verify_tip") }}
     </div>

@@ -181,7 +181,9 @@ $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
-
+li {
+  list-style-type: disc;
+}
 .second-title {
   font-size: $fontSizeMedPro;
   color: #000;

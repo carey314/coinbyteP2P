@@ -117,6 +117,10 @@ const changeTab = (path: string) => {
 </script>
 
 <style scoped lang="scss">
+:deep(.el-tabs__item){
+  padding: 0px;
+  margin: 0 20px !important;
+}
 .center-part {
   max-width: 1290px;
   min-height: calc(100vh + -120px);
