@@ -39,13 +39,13 @@
           </el-col>
         </el-row>
       </div> -->
-      <el-row>
-        <el-col :span="24">
-          <div class="example-pagination-block" style="width: 100%;">
-            <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements" @current-change="pageChange"/>
-          </div>
-        </el-col>
-      </el-row>
+<!--      <el-row>-->
+<!--        <el-col :span="24">-->
+<!--          <div class="example-pagination-block" style="width: 100%;">-->
+<!--            <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements" @current-change="pageChange"/>-->
+<!--          </div>-->
+<!--        </el-col>-->
+<!--      </el-row>-->
     </div>
     <div class="center-box max1290" v-if="windowWidth <= 769">
       <div class="center-part">
@@ -90,6 +90,7 @@
 <!--      <div class="example-pagination-block">-->
 <!--        <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements"  @current-change="pageChange"/>-->
 <!--      </div>-->
+
     </div>
   </div>
 </template>

@@ -586,13 +586,13 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.legal") }}</li>
-            <li><a href="/learnList?type=0"
-                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></li>
             <li><a href="/learnList?type=1"
-                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></li>
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.terms") }}</a></li>
             <li><a href="/learnList?type=2"
-                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.privacy") }}</a></li>
             <li><a href="/learnList?type=3"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
+            <li><a href="/learnList?type=4"
                    style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></li>
 
             <!-- <li @click="dialogTableVisible = true">
@@ -744,22 +744,22 @@
                     {{ $t("messages.footer.legal") }}
                   </div>
                 </template>
-                <div class="list-item"><a href="/learnList?type=0"
+                <div class="list-item"><a href="/learnList?type=1"
                                           style="color: rgb(144, 144, 144); text-decoration: none">{{
                     $t("messages.footer.terms")
                   }}</a></div>
-                <div class="list-item"><a href="/learnList?type=1"
+                <div class="list-item"><a href="/learnList?type=2"
                                           style="color: rgb(144, 144, 144); text-decoration: none">{{
                     $t("messages.footer.privacy")
                   }}</a></div>
                 <!-- <div class="list-item" @click="dialogTableVisible = true">
                   {{ $t("messages.footer.EOFY") }}
                 </div> -->
-                <div class="list-item"><a href="/learnList?type=2"
+                <div class="list-item"><a href="/learnList?type=3"
                                           style="color: rgb(144, 144, 144); text-decoration: none">{{
                     $t("messages.footer.EOFY")
                   }}</a></div>
-                <div class="list-item"><a href="/learnList?type=3"
+                <div class="list-item"><a href="/learnList?type=4"
                                           style="color: rgb(144, 144, 144); text-decoration: none">{{
                     $t("messages.footer.FAQs")
                   }}</a></div>
