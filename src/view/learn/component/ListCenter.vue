@@ -87,9 +87,9 @@
         </el-row>
       </div> -->
 
-      <div class="example-pagination-block">
-        <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements"  @current-change="pageChange"/>
-      </div>
+<!--      <div class="example-pagination-block">-->
+<!--        <el-pagination background :pager-count="4" layout="prev, pager, next" :total="blogs?.totalElements"  @current-change="pageChange"/>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
@@ -101,14 +101,7 @@ import learn_image01 from "../../../assets/home/learn_image01.png";
 import learn_image02 from "../../../assets/home/learn_image02.png";
 import learn_image03 from "../../../assets/home/learn_image03.png";
 import learn_image04 from "../../../assets/home/learn_image04.png";
-import learn_image05 from "../../../assets/home/learn_image05.png";
-import learn_image06 from "../../../assets/home/learn_image06.png";
-import learn_image07 from "../../../assets/home/learn_image07.png";
 import learn_image08 from "../../../assets/home/learn_image08.png";
-import learn_image09 from "../../../assets/home/learn_image09.png";
-import learn_image10 from "../../../assets/home/learn_image10.png";
-import learn_image11 from "../../../assets/home/learn_image11.png";
-import learn_image12 from "../../../assets/home/learn_image12.png";
 import learn_image13 from "../../../assets/home/learn_image13.png";
 import learn_image14 from "../../../assets/home/learn_image14.png";
 import learn_image15 from "../../../assets/home/learn_image15.png";
@@ -223,7 +216,7 @@ const getBlogsValue = async (typeIndex: number, pageIndex: number = 1) => {
     );
     blogs.value = {
       content: res.content,
-      totalElements: 1000
+      totalElements: 1000,
     };
     loading.value = false;
   } catch(e) {
