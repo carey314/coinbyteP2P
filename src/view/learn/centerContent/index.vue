@@ -181,9 +181,7 @@ $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
-li {
-  list-style-type: disc;
-}
+
 .second-title {
   font-size: $fontSizeMedPro;
   color: #000;
@@ -282,6 +280,10 @@ li {
       margin-top: 45px;
       line-height: 22px;
       font-family: "HarmonyOS Sans", Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+
+    }
+    .content-box li {
+      list-style-type: disc;
     }
   }
 }
