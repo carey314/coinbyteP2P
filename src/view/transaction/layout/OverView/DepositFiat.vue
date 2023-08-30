@@ -21,6 +21,7 @@
                               <span style="font-size: 14px;color: #9B9B9B;">{{ selectCurrencyContent.description }}</span>
                             </div>
                           </div>
+<!--                          /au/user/depositFiat-->
                           <el-select v-model="form.selectedOption1"
                                      placeholder="Select currency"
                                      @change="selectCurrency">
@@ -40,6 +41,26 @@
                               </div>
                             </el-option>
                           </el-select>
+<!--                          <el-select v-model="form.selectedOption1"-->
+<!--                                     placeholder="Select currency"-->
+<!--                                     v-if="$route.path.startsWith('/nz')"-->
+<!--                                     @change="selectCurrency">-->
+<!--                            <el-option-->
+<!--                                :show-arrow="false"-->
+<!--                                v-for="item in options1.slice(1, 2)"-->
+<!--                                :key="item.value"-->
+<!--                                :label="item.label"-->
+<!--                                style="height: 47px;"-->
+<!--                                :value="item.value">-->
+<!--                              <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">-->
+<!--                                <img :src="item.icon"/>-->
+<!--                                <div style="display: flex; align-items: baseline; gap: 7px;">-->
+<!--                                  <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>-->
+<!--                                  <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </el-option>-->
+<!--                          </el-select>-->
                         </el-form-item>
                       </div>
                     </template>
@@ -835,6 +856,12 @@ $fontSizeMin: 12px;
       background-color: #F1F1F1;
       color: #CBCCCF;
     }
+    .el-step:last-of-type .el-step__description, .el-step:last-of-type .el-step__main{
+      width: 442px;
+    }
+    .el-input__inner{
+      color: #000 !important;
+    }
   }
 }
 
@@ -1183,7 +1210,7 @@ $fontSizeMin: 12px;
             justify-content: space-between;
             font-size: 14px;
             color: #878787;
-            padding-top: 18px;
+            padding-top: 48px;
             @media (max-width: 992px) {
               width: 100%;
             }
@@ -1354,7 +1381,7 @@ $fontSizeMin: 12px;
   color: #000000;
   line-height: 32px;
   font-weight: 500;
-  margin-top: 330px;
+  margin-top: 50px;
   @media (max-width: 992px) {
     & {
       margin-top: 30px;
@@ -1527,7 +1554,7 @@ $fontSizeMin: 12px;
 }
 
 .deposit-divider {
-  width: 90%;
+  //width: 90%;
   margin: 10px 0 20px;
   @media(max-width: 992px) {
     width: 100%;
@@ -1552,6 +1579,7 @@ $fontSizeMin: 12px;
     color: #F35854;
     white-space: pre-wrap;
     line-height: 18px;
+    margin-top: 15px;
   }
   .el-form-item.is-error .el-input__wrapper {
     border: 1px solid #F35854;

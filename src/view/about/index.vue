@@ -356,7 +356,7 @@ const yc3 = () => {
       }
       .part-title {
         float: left;
-        margin: 10px 0;
+        margin-top: 18px;
         margin-left: 15px;
         font-size: 40px;
         color: #01c19a;

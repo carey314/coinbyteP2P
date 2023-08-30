@@ -288,11 +288,28 @@ const routes: Array<RouteRecordRaw> = [
     name: "user",
     component: () => import("../view/user/index.vue"),
     children: [
+      // {
+      //   path: 'depositFiat',
+      //   name: 'DepositFiat',
+      //   meta: { tab: "second", isTransaction: true },
+      //   component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
+      // },
+
+      // {
+      //   path: '/user/au/depositFiat',
+      //   redirect: '/user/au/depositFiat'
+      // },
+      // {
+      //   path: '/nz/user/depositFiat',
+      //   name: 'DepositFiat',
+      //   meta: { tab: "second", isTransaction: true },
+      //   component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
+      // },
       {
-        path: 'depositFiat',
+        path: '/user/depositFiat',
         name: 'DepositFiat',
         meta: { tab: "second", isTransaction: true },
-        component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
+        component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
       },
       {
         path: "/user",

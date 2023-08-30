@@ -280,6 +280,10 @@ $fontSizeMin: 12px;
       margin-top: 45px;
       line-height: 22px;
       font-family: "HarmonyOS Sans", Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+
+    }
+    .content-box li {
+      list-style-type: disc;
     }
   }
 }

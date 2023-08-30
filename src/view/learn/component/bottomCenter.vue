@@ -5,7 +5,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t('messages.learnBottom.Blockchain') }}</span>{{ $t('messages.learnBottom.Glossary') }}</div>
           <div class="more">
-            <a href="/learnList" style="color: #878787; text-decoration: none"
+            <a href="/learnList?type=3" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnBottom.learn_more") }} &gt;</a
             >
           </div>
@@ -34,7 +34,7 @@
           <div class="title-box clearfloat">
             <div class="title"><span>{{ $t('messages.learnBottom.Blockchain') }}</span>{{ $t('messages.learnBottom.Glossary') }}</div>
             <div class="more">
-              <a href="/learnList" style="color: #878787; text-decoration: none"
+              <a href="/learnList?type=3" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
             </div>

@@ -71,11 +71,11 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
 };
 
 const tabs = [
-  {label: 'messages.learnList.first_label', name: 0},
-  {label: 'messages.learnList.second_label', name:1},
-  {label: 'messages.learnList.third_label', name: 2},
-  {label: 'messages.learnList.forth_label', name: 3},
-  {label: 'messages.learnList.fifth_label', name: 4},
+  {label: 'messages.learnList.first_label', name: 1},
+  {label: 'messages.learnList.second_label', name:2},
+  {label: 'messages.learnList.third_label', name: 3},
+  {label: 'messages.learnList.forth_label', name: 4},
+  // {label: 'messages.learnList.fifth_label', name: 5},
 ]
 
 

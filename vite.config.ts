@@ -11,10 +11,10 @@ export default defineConfig({
       //配置自定义代理规则
       // 字符串简写写法
       '/api': {
-        target: 'https://coinbyte.exchange/',
-        // target: 'http://localhost',
+        // target: 'https://coinbyte.exchange/',
+        target: 'http://localhost',
+        changeOrigin: false, //是否跨域
         // changeOrigin: true, //是否跨域
-        changeOrigin: true, //是否跨域
         // rewrite: path => path.replace(/^\/api/, '')
       },
       "/adminapi": {

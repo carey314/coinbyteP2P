@@ -12,7 +12,7 @@ async function getBlogs(data?: GetBlogs){
 }
 
 async function getBlog(id: string){
-    return httpAdmin.get("/article_detail?id=" + id);
+    return httpAdmin.get("/article_detail/?id=" + id);
 }
 
 export {
