@@ -3,7 +3,7 @@ import { GetBlogs } from '../models/blog';
 async function getBlogs(data?: any){
     let configData = {
         page: 1,
-        limit: 12
+        limit: 1000
     }
     if(data) {
         configData = Object.assign(configData, data);
