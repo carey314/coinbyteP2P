@@ -18,7 +18,7 @@ export default defineConfig({
         // rewrite: path => path.replace(/^\/api/, '')
       },
       "/adminapi": {
-        target: "https://coinbyte.exchange/",
+        target: "https://www.coinbyte.exchange/",
         // target: "https://localhost:3001/api/",
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/adminapi/, ""),

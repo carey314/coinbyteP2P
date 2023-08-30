@@ -5,7 +5,7 @@
       <div class="nav">
         <el-breadcrumb :separator-icon="ArrowRight">
           <el-breadcrumb-item :to="{ path: '/learnCenter' }">Learn</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/learnList' }">Explained</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/learnList' }">{{ typeName }}</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/centerContent' }">Article</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -106,6 +106,7 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 const activeName = ref("first");
+const typeName = ref("Articles");
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
@@ -145,6 +146,7 @@ const blogInfo = ref<any>({
   status: 0,
   title: '',
   top: 0,
+  type:1,
   typeOne: 0,
   typeTwo: 0,
   sub_desc: '',
@@ -161,6 +163,18 @@ onMounted(async () => {
         createTime: moment(obj.publish_time).format('D-M-YYYY HH:mm:ss'),
         blogTxt: obj.blog_txt,
       };
+      if (blogInfo.value.type == 1) {
+        typeName.value = 'Beginners Tutorial'
+      }
+      if (blogInfo.value.type == 2) {
+        typeName.value = 'Scams Warning'
+      }
+      if (blogInfo.value.type == 3) {
+        typeName.value = 'Industry Analysis'
+      }
+      if (blogInfo.value.type == 4) {
+        typeName.value = 'Blockchain Glossary'
+      }
       console.log(blogInfo.value)
     }
   } catch (e) {
