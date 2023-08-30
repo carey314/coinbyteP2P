@@ -1,6 +1,6 @@
 import {default as httpAdmin} from '../utils/httpAdminApi';
 import { GetBlogs } from '../models/blog';
-async function getBlogs(data?: GetBlogs){
+async function getBlogs(data?: any){
     let configData = {
         pageNumber: 1,
         pageSize: 1000

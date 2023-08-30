@@ -82,14 +82,14 @@ const tabs = [
 const blogs = ref<Blog[]>([]);
 
 onMounted(async () => {
-  try {
-    const res: any = await getBlogs();
-    const data: Blog[] = res.data;
-    blogs.value = data;
-    console.log(blogs.value)
-  } catch(e) {
-    console.log(e)
-  }
+  // try {
+  //   const res: any = await getBlogs();
+  //   const data: Blog[] = res.data;
+  //   blogs.value = data;
+  //   console.log(blogs.value)
+  // } catch(e) {
+  //   console.log(e)
+  // }
 })
 
 const filterBlogs = (index: number) => {

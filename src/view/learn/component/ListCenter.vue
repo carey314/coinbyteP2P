@@ -199,7 +199,7 @@ const blogs = ref<{
 }>();
 const loading = ref(false);
 onMounted(() => {
-  getBlogsValue(props.index);
+  getBlogsValue(props.index + 1);
 })
 watch(() => props.index, () => {
   getBlogsValue(props.index);
