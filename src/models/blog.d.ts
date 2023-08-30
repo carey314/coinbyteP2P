@@ -19,9 +19,9 @@ banner: string | undefined;
 
 
 interface GetBlogs {
-    pageNumber?: number;
-    pageSize?: number;
+    page?: number;
+    limit?: number;
     title?: string;
-    typeOne?: number;
+    type?: number;
     top?: number;
 }

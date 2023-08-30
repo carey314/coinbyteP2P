@@ -2,8 +2,8 @@ import {default as httpAdmin} from '../utils/httpAdminApi';
 import { GetBlogs } from '../models/blog';
 async function getBlogs(data?: GetBlogs){
     let configData = {
-        pageNumber: 1,
-        pageSize: 1000
+        page: 1,
+        limit: 12
     }
     if(data) {
         configData = Object.assign(configData, data);

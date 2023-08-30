@@ -376,9 +376,9 @@ const toLogin = async (formEl: FormInstance | undefined) => {
     })
     .catch((err: any) => {
       console.log(err);
-      if (err.response) {
+      if (err?.response) {
         const error = err.response.data.error;
-        if (error.code === 0) {
+        if (error?.code === 0) {
           ElMessage.error(error.details[0].issue);
         } else {
           ElMessage.error("Login failed. Please try again later");
