@@ -27,7 +27,7 @@
           </div>
           <div class="divide-line"></div>
         </div>
-        <div v-html="blogInfo.blogTxt || '----'" class="content-box"></div>
+        <div v-html="blogInfo.blogTxt || '----'" class="content-box blog"></div>
         <!-- <div class="content-box" v-for="(item, index) in contentCard" :key="index">
           <div class="second-title">
             {{ item.title }}
@@ -295,6 +295,14 @@ $fontSizeMin: 12px;
 
   @media (max-width: 1440px) {
     padding: 45px 30px 134px 30px;
+  }
+}
+.blog{
+  ul{
+    padding-left: 40px;
+  }
+  li{
+    list-style: disc;
   }
 }
 </style>
