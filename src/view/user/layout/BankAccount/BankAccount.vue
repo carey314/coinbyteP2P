@@ -16,155 +16,124 @@
         style="padding: 0 10px;"
         title="Inner Dialog"
         append-to-body
-        width="75%"
+        width="448px"
       >
         <template #header>
           <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
         </template>
 
         <div class="divider"></div>
-        <div class="receive" style="position: relative">
-          <div class="network">Bank Country</div>
-          <div
-            style="
-              position: absolute;
-              left: -15px;
-              top: 39px;
-              z-index: 9999;
-              color: #cd1e1e;
-            "
-          >
-            *
-          </div>
-
-          <el-select
-            class="select-second"
-            style="height: 48px"
-            v-model="selectedOption2"
-            placeholder="Select bank country"
-            @change="updateCanContinue"
-          >
-            <el-option
-              v-for="item in options2"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </div>
-        <div class="receive" style="position: relative">
-          <div class="network">Currency</div>
-          <div
-            style="
-              position: absolute;
-              left: -15px;
-              top: 38px;
-              z-index: 9999;
-              color: #cd1e1e;
-            "
-          >
-            *
-          </div>
-
-          <el-select
-            class="select-second"
-            style="height: 48px"
-            v-model="selectCurrency"
-            placeholder="Select Currency"
-            @change="updateCanContinue"
-          >
-            <el-option
-              v-for="item in options3"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-        </div>
-        <div class="identify-box">
-          <div class="func-text">Back Name</div>
-          <div class="container" style="position: relative">
-            <div
-              style="
-                position: absolute;
-                left: -15px;
-                top: 18px;
-                z-index: 9999;
-                color: #cd1e1e;
-              "
+        <el-form 
+          :model="bankForm" 
+          label-position="top"
+          ref="ruleBankFormRef"
+          :rules="rules"
+          style="margin-top: 10px;"
+        >
+          <el-form-item label="Bank Country" style="width: 100%;" prop="bank_country">
+            <template #label>
+              <div class="bank-form-label">Bank Country</div>
+            </template>
+            <el-select
+              class="select-second"
+              style="height: 48px; width: 100%;"
+              v-model="bankForm.bank_country"
+              placeholder="Select bank country"
+              @change="updateCanContinue"
             >
-              *
-            </div>
-            <input
+              <el-option
+                v-for="item in options2"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+            <!-- <div class="receive" style="position: relative">
+              <div
+                style="
+                  position: absolute;
+                  left: -15px;
+                  top: 39px;
+                  z-index: 9999;
+                  color: #cd1e1e;
+                "
+              >
+                *
+              </div>
+              
+            </div> -->
+          </el-form-item>
+          <el-form-item label="Currency" prop="currency">
+            <template #label>
+              <div class="bank-form-label">Currency</div>
+            </template>
+            <el-select
+              class="select-second"
+              style="height: 48px; width: 100%;"
+              v-model="bankForm.currency"
+              placeholder="Select Currency"
+              @change="updateCanContinue"
+            >
+              <el-option
+                v-for="item in options3"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="Back Name" prop="bank_name">
+            <template #label>
+              <div class="bank-form-label">Back Name</div>
+            </template>
+            <el-input
               class="container-input"
-              v-model="bankName"
+              v-model="bankForm.bank_name"
+              style="height: 48px; width: 100%;"
               type="text"
               placeholder="Please enter"
             />
-          </div>
-        </div>
-
-        <div class="identify-box">
-          <div class="func-text">Branch Code</div>
-          <div class="container" style="position: relative">
-            <div
-              style="
-                position: absolute;
-                left: -15px;
-                top: 18px;
-                z-index: 9999;
-                color: #cd1e1e;
-              "
-            >
-              *
-            </div>
-            <input
+          </el-form-item>
+          <el-form-item label="Branch Code" prop="branch_code">
+            <template #label>
+              <div class="bank-form-label">Branch Code</div>
+            </template>
+            <el-input
               class="container-input"
-              v-model="codeValue"
+              v-model="bankForm.branch_code"
               type="text"
               placeholder="Please enter"
             />
-          </div>
-        </div>
-
-        <div class="identify-box">
-          <div class="func-text">Account Number</div>
-          <div class="container" style="position: relative">
-            <div
-              style="
-                position: absolute;
-                left: -15px;
-                top: 18px;
-                z-index: 9999;
-                color: #cd1e1e;
-              "
-            >
-              *
-            </div>
-            <input
+          </el-form-item>
+          <el-form-item label="Account Number" prop="account_number">
+            <template #label>
+              <div class="bank-form-label">Account Number</div>
+            </template>
+            <el-input
               class="container-input"
-              v-model="accountNumber"
+              v-model="bankForm.account_number"
               type="text"
               placeholder="Please enter"
             />
-          </div>
-        </div>
-
-        <div class="identify-box">
-          <div class="func-text">Submit Bank Statement</div>
-          <div>
+          </el-form-item>
+          <el-form-item label="Submit Bank Statement" prop="bank_statement">
+            <template #label>
+              <div class="bank-form-label">Submit Bank Statement</div>
+            </template>
             <el-upload
               class="upload-demo"
               drag
               action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
               multiple
+
             >
               <img :src="upload" style="width: 18px; height: 18px" />
               <div class="el-upload__text">Upload</div>
             </el-upload>
-          </div>
-        </div>
+          </el-form-item>
+        </el-form>
 
+      
         <el-button
           v-if="showContinueBtn"
           class="save-btn"
@@ -297,7 +266,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, Ref } from "vue";
 
 import { Right } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
@@ -306,11 +275,43 @@ import usercenter_verification_person from "../../../../assets/home/usercenter_v
 import upload from "../../../../assets/image/upload.png";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { useI18n } from "vue-i18n";
+import { Bank } from "../../../../models/bank";
+import { ElMessage, FormInstance, FormRules } from "element-plus";
+import { addBank } from '../../../../api/bank';
 const { t } = useI18n();
 const addressVisible = ref(false);
 const selectedOption2 = ref("");
 const selectCurrency = ref("");
 const canContinue = ref(false);
+// form ref
+const ruleBankFormRef = ref<FormInstance>();
+// form data
+const bankForm = ref<Bank>({
+  bank_country: "",
+  currency: "",
+  bank_name: "",
+  branch_code: "",
+  account_number: "",
+  bank_statement: [],
+});
+// form rule
+const rules = reactive<FormRules>({
+  bank_country: [
+    { required: true, message: 'Please input bank country.', trigger: 'blur' },
+  ],
+  currency: [
+    { required: true, message: 'Please input currency.', trigger: 'blur' },
+  ],
+  bank_name: [
+    { required: true, message: 'Please input bank name.', trigger: 'blur' },
+  ],
+  branch_code: [
+    { required: true, message: 'Please input bank code.', trigger: 'blur' },
+  ],
+  account_number: [
+    { required: true, message: 'Please input baccount number.', trigger: 'blur' },
+  ],
+});
 
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
@@ -327,9 +328,13 @@ let options3 = [
 const innerVisible = ref(false);
 const withdrawStatus = ref(false);
 const showContinueBtn = ref(true);
-function handleSubmit() {
-  withdrawStatus.value = true;
-  innerVisible.value = false;
+async function handleSubmit() {
+  // withdrawStatus.value = true;
+  // innerVisible.value = false;
+  const res = addBank(bankForm.value);
+  console.log(res);
+  ElMessage.success("Submission successful.");
+  addressVisible.value = false;
 }
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -367,6 +372,7 @@ const bankDate = [
     operation: "Delete",
   },
 ];
+
 </script>
 
 <style scoped lang="scss">
@@ -446,8 +452,19 @@ $fontSizeMin: 12px;
     margin-top: 10px;
   }
 }
+:deep() {
+    .el-form-item.is-required {
+      position: relative;
+      .el-form-item__label {
+        &::before {
+          position: absolute;
+          top: 42px;
+          left: -13px;
+        }
+    }
+  }
+  }
 .inner-dialog {
-
 
   .divider {
     width: 100%;
@@ -455,6 +472,13 @@ $fontSizeMin: 12px;
     background-color: #ebebeb;
     margin-top: -20px;
   }
+  .bank-form-label {
+    font-size: 16px;
+    color: #000000;
+    line-height: 19px;
+    font-weight: 600;
+  }
+  
   .receive {
     margin-top: 21px;
     font-size: 14px;
@@ -492,7 +516,7 @@ $fontSizeMin: 12px;
       position: relative;
       .container-input {
         width: 100%;
-        height: 48px;
+        height: 48px !important;
         border-radius: 4px;
         border: 1px solid #dfdfe5;
         font-size: 14px;
@@ -555,8 +579,9 @@ $fontSizeMin: 12px;
     height: 48px;
   }
   .container-input {
-    padding-left: 8px;
+    // padding-left: 8px;
     color: #878787;
+    height: 48px;
   }
 }
 </style>
