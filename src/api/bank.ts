@@ -1,4 +1,4 @@
-import {default as httpAdmin} from '../utils/httpAdminApi';
+import http from '../utils/http';
 import { Bank } from '../models/bank';
 import { encrypt } from "../utils/aes";
 async function addBank(data: Bank){
@@ -14,7 +14,7 @@ async function addBank(data: Bank){
         currency: data.currency,
         info
     }
-    return httpAdmin.post("/bank_account", payload);
+    return http.post("/bank_account", payload);
 }
 
 export {
