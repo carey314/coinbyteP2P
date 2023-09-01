@@ -331,10 +331,14 @@ const showContinueBtn = ref(true);
 async function handleSubmit() {
   // withdrawStatus.value = true;
   // innerVisible.value = false;
-  const res = addBank(bankForm.value);
-  console.log(res);
-  ElMessage.success("Submission successful.");
-  addressVisible.value = false;
+  try {
+    const res = addBank(bankForm.value);
+    ElMessage.success("Submission successful.");
+    addressVisible.value = false;
+  } catch(e) {
+    console.log(e);
+    ElMessage.error("Please try again later.");
+  }
 }
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
