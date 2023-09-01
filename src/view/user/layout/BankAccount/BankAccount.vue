@@ -332,7 +332,7 @@ async function handleSubmit() {
   // withdrawStatus.value = true;
   // innerVisible.value = false;
   try {
-    const res = addBank(bankForm.value);
+    const res = await addBank(bankForm.value);
     ElMessage.success("Submission successful.");
     addressVisible.value = false;
   } catch(e) {
