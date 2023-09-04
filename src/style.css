@@ -133,7 +133,9 @@ table {
  border-collapse: collapse;
  border-spacing: 0;
 }
-
+strong {
+    font-weight: 600;
+}
 
 
 /* 清除浮动 */

@@ -311,5 +311,4 @@ $fontSizeMin: 12px;
     padding: 45px 30px 134px 30px;
   }
 }
-
 </style>

@@ -8,14 +8,13 @@
           <div class="info-text">
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
-              {{ (userInfo && userInfo.data) ? userInfo.data.email : '' }}
-
-              <img :src="myprofile_edit" style="margin-left: 8px"/>
+              {{ userInfo && userInfo.email }}
+              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer"/>
             </div>
             <div class="info-count">
               <!-- UID:121233443434343 -->
               {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.ID }}
-              <img :src="myprofile_uid_copy" style="margin-left: 8px"/>
+              <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer"/>
             </div>
           </div>
         </div>
@@ -23,7 +22,11 @@
           <div class="info-image"><img :src="usercenter_email"/></div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
-            <div class="info-count">{{ userInfo && userInfo.email }}</div>
+            <div class="info-count" style="color: #000">
+              {{
+                userInfo && userInfo.email.slice(0, 2) + "*".repeat(userInfo.email.indexOf("@") - 2) + userInfo.email.slice(userInfo.email.indexOf("@"))
+              }}
+            </div>
           </div>
         </div>
         <div class="user-info clearfloat">
