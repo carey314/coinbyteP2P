@@ -294,7 +294,7 @@ const isShowPass = ref(false);
 const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
 };
-const text = ref("Log in");
+const text = t('messages.login.login');;
 // 进度条
 const percentage = ref(25);
 const customColor = ref("#01c19a");

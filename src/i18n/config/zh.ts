@@ -333,6 +333,7 @@ export default {
       or: "或使用以下方式注册",
       no_have: "还没有账户？",
       sign: "注册",
+      login: "登陆",
       with_qr: "使用二维码登录",
       scan: "打开CoinByte应用并扫描此二维码",
       download: "下载应用",
