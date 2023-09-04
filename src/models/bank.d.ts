@@ -4,5 +4,5 @@ export interface Bank {
     bank_name: string;
     branch_code: string;
     account_number: string;
-    bank_statement: string[];
+    bank_statement: string;
 }

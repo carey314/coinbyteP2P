@@ -123,12 +123,18 @@
             <el-upload
               class="upload-demo"
               drag
-              action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-              multiple
-
+              action="/api/bank_statement"
+              @success="uploadSuccess"
+              @change="uploadChange"
+              :headers="{
+                'Authorization': 'Bearer ' + token
+              }"
+              :show-file-list="false"
+              v-loading="uploadLoading"
             >
-              <img :src="upload" style="width: 18px; height: 18px" />
-              <div class="el-upload__text">Upload</div>
+              <el-image v-if="bankForm.bank_statement" :src="bankForm.bank_statement" alt="" style="width: 100%; max-height: 200px; object-fit: contain; height: 100%;" />
+              <img v-if="!bankForm.bank_statement" :src="upload" style="width: 18px; height: 18px;" />
+              <div v-if="!bankForm.bank_statement" class="el-upload__text" >Upload</div>
             </el-upload>
           </el-form-item>
         </el-form>
@@ -137,7 +143,7 @@
         <el-button
           v-if="showContinueBtn"
           class="save-btn"
-          @click="handleSubmit"
+          @click="handleSubmit(ruleBankFormRef)"
         >
           Submit
         </el-button>
@@ -276,8 +282,15 @@ import upload from "../../../../assets/image/upload.png";
 import { UploadFilled } from "@element-plus/icons-vue";
 import { useI18n } from "vue-i18n";
 import { Bank } from "../../../../models/bank";
-import { ElMessage, FormInstance, FormRules } from "element-plus";
+import { ElMessage, FormInstance, FormRules, UploadFile, UploadFiles } from "element-plus";
 import { addBank } from '../../../../api/bank';
+
+import { useUserInfoStore } from "../../../../store/user";
+import { storeToRefs } from "pinia";
+
+const userInfoStore = useUserInfoStore();
+const { token, refreshToken } = storeToRefs(userInfoStore);
+
 const { t } = useI18n();
 const addressVisible = ref(false);
 const selectedOption2 = ref("");
@@ -292,7 +305,7 @@ const bankForm = ref<Bank>({
   bank_name: "",
   branch_code: "",
   account_number: "",
-  bank_statement: [],
+  bank_statement: "",
 });
 // form rule
 const rules = reactive<FormRules>({
@@ -318,23 +331,32 @@ function updateCanContinue() {
   canContinue.value = selectCurrency.value !== "";
 }
 let options2 = [
-  { value: "optionA", label: "Australia" },
-  { value: "optionB", label: "New Zealand" },
+  { value: "Australia", label: "Australia" },
+  { value: "New Zealand", label: "New Zealand" },
 ];
 let options3 = [
-  { value: "optionA", label: "AUD" },
-  { value: "optionB", label: "NZD" },
+  { value: "AUD", label: "AUD" },
+  { value: "NZD", label: "NZD" },
 ];
 const innerVisible = ref(false);
 const withdrawStatus = ref(false);
 const showContinueBtn = ref(true);
-async function handleSubmit() {
+async function handleSubmit(formEl: FormInstance | undefined) {
+  if (!formEl) return
+  const valid = await formEl.validate((valid, fields) => {
+    return valid;
+  })
+  if(!valid) return;
   // withdrawStatus.value = true;
   // innerVisible.value = false;
-  const res = addBank(bankForm.value);
-  console.log(res);
-  ElMessage.success("Submission successful.");
-  addressVisible.value = false;
+  try {
+    const res = await addBank(bankForm.value);
+    ElMessage.success("Submission successful.");
+    addressVisible.value = false;
+  } catch(e) {
+    console.log(e);
+    ElMessage.error("Please try again later.");
+  }
 }
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -372,6 +394,20 @@ const bankDate = [
     operation: "Delete",
   },
 ];
+const uploadSuccess = (res: any, file: UploadFile, files: UploadFiles) => {
+  console.log(res);
+  if(res.msg === 'success') {
+    bankForm.value.bank_statement = res.data.file_link;
+  }
+}
+const uploadLoading = ref(false);
+const uploadChange = (uploadFile: UploadFile) => {
+  if(uploadFile.status !== 'success') {
+    uploadLoading.value = true;
+  } else {
+    uploadLoading.value = false;
+  }
+}
 
 </script>
 
@@ -465,7 +501,7 @@ $fontSizeMin: 12px;
   }
   }
 .inner-dialog {
-
+  border-radius: 8px !important;
   .divider {
     width: 100%;
     height: 1px;
@@ -561,6 +597,15 @@ $fontSizeMin: 12px;
     font-size: 12px;
     color: #424242;
     line-height: 14px;
+  }
+  :deep() {
+    .el-upload-dragger {
+      padding: 0 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 124px;
+    }
   }
 }
 .save-btn {
