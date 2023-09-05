@@ -63,9 +63,9 @@
     </div>
     <div class="bottom-part">
       <div class="second-title">
-        {{ $t('messages.centerContent.recommend') }}
+        {{ typeName }}
       </div>
-      <CenterContent style="margin-top:-20px" />
+      <CenterContent :blogList="blogList" :typeName="typeName" style="margin-top:-20px" />
     </div>
 
     <Footer v-if="windowWidth > 769" />
@@ -77,7 +77,7 @@
 import { ref, reactive, onUnmounted, onMounted } from "vue";
 import moment from 'moment'
 import { useRoute } from "vue-router";
-import { getBlog } from '../../../api/blog';
+import {getBlog, getBlogs} from '../../../api/blog';
 import { Blog } from "../../../models/blog";
 
 import { ElMessage, type TabsPaneContext } from "element-plus";
@@ -107,6 +107,8 @@ function resetWidth() {
 }
 const activeName = ref("first");
 const typeName = ref("Articles");
+const type = ref("1");
+const blogList = ref([]);
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event);
@@ -163,6 +165,7 @@ onMounted(async () => {
         createTime: moment(obj.publish_time).format('D-M-YYYY HH:mm:ss'),
         blogTxt: obj.blog_txt,
       };
+      type.value = blogInfo.value.type
       if (blogInfo.value.type == 1) {
         typeName.value = 'Beginners Tutorial'
       }
@@ -175,7 +178,13 @@ onMounted(async () => {
       if (blogInfo.value.type == 4) {
         typeName.value = 'Blockchain Glossary'
       }
-      console.log(blogInfo.value)
+      getBlogs({
+        page:1,
+        limit:6,
+        type: blogInfo.value.type
+      }).then(res => {
+        blogList.value=res.data
+      })
     }
   } catch (e) {
     ElMessage.error('Please try again later.');
