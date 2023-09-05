@@ -416,7 +416,7 @@ $fontSizeMed: 26px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 
-:depp(){
+:deep(){
   .el-dialog{
     --el-dialog-width: 100% !important;
   }
