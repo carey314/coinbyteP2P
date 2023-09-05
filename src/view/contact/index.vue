@@ -70,8 +70,11 @@
         </el-col>
       </el-row>
     </div> -->
-    <Footer v-if="windowWidth > 769" />
-    <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
+    <div style="position: absolute;bottom: 0;width: 100%">
+      <Footer v-if="windowWidth > 769" />
+      <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
+    </div>
+
   </div>
 </template>
 
@@ -81,7 +84,6 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 //img
-import contact_img from "../../assets/home/contact.png";
 import contactus_icon01 from "../../assets/home/contactus_icon01.png";
 import contactus_icon02 from "../../assets/home/contactus_icon02.png";
 import contactus_icon03 from "../../assets/home/contactus_icon03.png";
@@ -157,7 +159,7 @@ function resetWidth() {
     border: 1px solid #2f3f4e;
     border-left: 0px;
     border-right: 0px;
-    
+
     position: relative;
     .part-title {
       font-size: 40px;

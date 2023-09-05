@@ -167,10 +167,10 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ (userInfo && userInfo.data) ? userInfo.data.email : '' }}
+                          {{ (userInfo && userInfo.data) ? userInfo.data.email : userInfo.email }}
                         </div>
                         <div class="user-id">
-                          UID:{{ (userInfo && userInfo.data) ? userInfo.data.ID : '' }}
+                          UID:{{ (userInfo && userInfo.data) ? userInfo.data.ID : userInfo.ID }}
                         </div>
                       </div>
                     </div>
@@ -274,12 +274,18 @@
             <img :src="top_notice" alt="" />
             <template #dropdown>
               <el-dropdown-menu class="notice-dropdown-menu">
-                <el-dropdown-item v-for="item in notices" @click="noticeDetail(item)" :key="item.id" class="notice-dropdown-item clearfloat">
+                <el-dropdown-item v-if="userInfoStore.isLogin" v-for="item in notices" @click="noticeDetail(item)" :key="item.id" class="notice-dropdown-item clearfloat">
+
                   <div class="notice-msg">
                     <div class="notice-tip"></div>
+
                     {{ item.title }}
                     <div class="notice-time">{{ item.createTime }}</div>
                   </div>
+                </el-dropdown-item>
+                <el-dropdown-item v-else>
+                  <div><router-link to="/login" style="text-decoration: none;font-size: 12px;
+    color: #000000;">请登陆后查看</router-link></div>
                 </el-dropdown-item>
 
                 <div class="">
@@ -441,7 +447,7 @@ const noticeStore = noticeInfoStore()
 const {noticesList} = storeToRefs(noticeStore)
 const notices = ref<NoticeObject[]>([])
 onMounted(async ()=>{
-  if (userInfoStore.isLogin) {
+  if (!userInfoStore.isLogin) {
     console.log("----is login!!!!")
   } else {
     
@@ -492,7 +498,7 @@ const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为
 const languageOptions = [
   {
     value: "en-US",
-    label: "English/USD",
+    label: "English",
   },
   {
     value: "zh-CN",
@@ -517,10 +523,7 @@ const changeLanguage = (selectedLanguage: string) => {
 function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");
 }
-
-
 const showname = ref<boolean>(false); //header是否登陆
-
 let deg = ref<number>(0);
 const navCurrency = ref();
 const navDownload = ref();
@@ -531,10 +534,8 @@ const navWallet = ref();
 const navOrder = ref();
 const navUser = ref();
 const verify = ref(false);
-
 const dropdownShow = ref<boolean>(false);
 const router = useRouter();
-
 const showClickMenu = (): void => {
   dropdownShow.value = true;
 };
@@ -695,7 +696,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 
 .notice-dropdown-menu {
   width: 368px;
-  padding: 20px 10px;
+  padding: 10px 10px 20px 10px;
 }
 
 .crypto-item-box {
@@ -1048,24 +1049,27 @@ $regular-font: HarmonyOS_Sans_Regular;
   margin-right: 15px;
   // padding: 21px 24px 21px 0px;
 }
-
+.notice-tip {
+  width: 8px;
+  height: 8px;
+  background: #01c19a;
+  border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  left: 0px;
+}
 .notice-msg {
   font-size: 12px;
   color: #000000;
   line-height: 14px;
   position: relative;
-  margin-left: 10px;
+  padding-left: 15px;
+  margin-left: 5px;
   padding-top: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
-  .notice-tip {
-    width: 8px;
-    height: 8px;
-    background: #01c19a;
-    border-radius: 50%;
-    position: absolute;
-    left: -15px;
-    top: 12px;
-  }
 
   .notice-time {
     color: #878787;

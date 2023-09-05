@@ -306,6 +306,12 @@ const routes: Array<RouteRecordRaw> = [
       //   component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
       // },
       {
+        path: '/',
+        name: 'user',
+        meta: { tab: "first", isTransaction: true },
+        component: () => import('../view/user/index.vue')
+      },
+      {
         path: '/user/depositFiat',
         name: 'DepositFiat',
         meta: { tab: "second", isTransaction: true },

@@ -12,9 +12,9 @@
               <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer"/>
             </div>
             <div class="info-count">
-              <!-- UID:121233443434343 -->
-              {{ $t('messages.user.overview_UID') }}:{{ userInfo && userInfo.ID }}
-              <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer"/>
+<!--              更改渲染的UID时, 需要修改复制功能的值 copyToClipboard-->
+              {{ $t('messages.user.overview_UID') }}: {{ userInfo && userInfo.ID }}
+              <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer" @click="copyToClipboard" />
             </div>
           </div>
         </div>
@@ -195,10 +195,18 @@ import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg
 import {useUserInfoStore} from "../../../../store/user";
 import {getProfile} from "../../../../api/user";
 import {storeToRefs} from "pinia";
-
+import { ElMessage } from 'element-plus';
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
-
+function copyToClipboard() {
+  const value = userInfo.value && userInfo.value.ID;
+  if (value) {
+    navigator.clipboard.writeText(value);
+    ElMessage.success('Copied to clipboard!');
+  } else {
+    ElMessage.error('Login failed. Please try again later!');
+  }
+}
 
 // console.log("--a-a-a-", userInfo.kyc.status)
 
@@ -363,14 +371,12 @@ onMounted(() => {
         // @media (max-width: 769px) {
         //   width: 123px;
         // }
-
         .tip-icon {
           margin-right: 8px;
         }
-
-        .tip-text {
-          margin-top: 2px;
-        }
+        //.tip-text {
+        //  margin-top: 2px;
+        //}
       }
     }
   }

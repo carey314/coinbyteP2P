@@ -566,7 +566,6 @@ New Zealand: Level 26, HSBC Tower, 188 Quay Street, Auckland 1010`,
             overview_Email: "Email",
             overview_UID: "UID",
             overview_Phone: "Phone",
-
             overview_Security: "Pay my orders",
             Security_con: "Get payment option and payment detail",
             Security_Manage: "Pay now",

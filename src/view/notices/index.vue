@@ -24,8 +24,10 @@
         </div>
       </div>
     </div>
-    <Footer v-if="windowWidth > 769" />
-    <FooterMobile v-if="windowWidth <= 769" />
+    <div style="position: absolute;bottom: 0;width: 100%">
+      <Footer v-if="windowWidth > 769" />
+      <FooterMobile v-if="windowWidth <= 769" />
+    </div>
   </div>
 </template>
 

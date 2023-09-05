@@ -63,7 +63,7 @@
               I received a single-use code on my email code ending.
               Here it is:
               <span style="position: relative">
-                <el-input v-model="emailCode" placeholder="000 000" />
+                <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput" />
                 <span class="tip" v-if="emailCode === ''">*</span>
               </span>
             </div>
@@ -71,7 +71,7 @@
             <el-button
               class="verify-btn"
               type="primary"
-              :disabled="emailCode === ''"
+              :disabled="emailCode.length < 6"
               @click="emailConfirmed()"
             >
               Continue
@@ -154,6 +154,7 @@
                   v-model="passwordInput"
                   placeholder=""
                   type="password"
+                  @input="validatePassword"
                 />
                 <span class="tip" v-if="passwordInput === ''">*</span>
               </span>
@@ -170,7 +171,7 @@
             <el-button
               class="verify-btn"
               type="primary"
-              :disabled="passwordInput === ''"
+              :disabled="passwordInput.length < 6"
               @click="successContinue"
             >
               Continue
@@ -236,8 +237,21 @@ const emailInput = ref("");
 const phoneInput = ref("");
 const smsCode = ref("");
 const emailCode = ref("");
+const validateInput = () => {
+  // 移除非数字字符
+  emailCode.value = emailCode.value.replace(/\D/g, '');
+  // 确保只有最多六个数字
+  if (emailCode.value.length > 6) {
+    emailCode.value = emailCode.value.slice(0, 6);
+  }
+};
 const passwordInput = ref("");
-
+const validatePassword = () => {
+  const password = passwordInput.value;
+  if (password.length < 6) {
+    // ElMessage({ message: "密码长度至少为六位", type: "error", });
+  }
+};
 const token1 = reactive({
   token: ''
 })
@@ -623,6 +637,8 @@ $fontSizeMin: 12px;
     font-size: 32px;
     line-height: 38px;
     text-align: center;
+    padding-bottom: 5px;
+
   }
   .el-button.is-disabled,
   .el-button.is-disabled:focus,

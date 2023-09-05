@@ -1120,7 +1120,7 @@ const echartDomRef = [];
 
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
-    console.log(userInfoStore.isLogin, '2131313122313是否登陆')
+    // console.log(userInfoStore.isLogin, '是否登陆')
     router.push({name: 'kyc', query: {type}})
   } else {
     router.push('/signup')

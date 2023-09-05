@@ -73,6 +73,16 @@ function launchWebSdk(token: string) {
       .on('idCheck.onError', (error) => {
         console.log('onError', error)
       })
+      .on('idCheck.applicantStatus', (res) => {
+        // console.log(res.reviewStatus)
+        if (res.reviewStatus === 'completed') {
+          if (route.query.type === 'sell') {
+            router.push('/user/bankaccount');
+          } else if (route.query.type === 'buy') {
+            router.push('/');
+          }
+        }
+      })
       .build();
 
   // you are ready to go:
@@ -98,6 +108,7 @@ $fontSizeMin: 12px;
     min-height: calc(100vh - 10px);
   }
 }
+
 .part {
   max-width: 1290px;
   margin: auto;
