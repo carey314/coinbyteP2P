@@ -82,9 +82,8 @@ import learn_image15 from "../../../assets/home/learn_image15.png";
 import { getBlogs } from "../../../api/blog";
 const props = defineProps<
     {
-      type: string;
-      index: number;
-      blogList: any[];
+      typeName: string;
+      blogList: any;
     }
 >();
 console.log(props.blogList)
