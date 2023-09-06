@@ -328,7 +328,7 @@
                         </div>
                       </div>
   
-                      <div class="info-title">Account Name:</div>
+                      <div class="info-title">BSB Number:</div>
                       <div class="info-email">
                         <div class="email-number">802919</div>
                         <div class="email-copy">
@@ -624,7 +624,7 @@ const rules = reactive<FormRules>({
 // 验证amount
 function validateCoinAmount(rule: any, value: any, callback: any) {
   if (Number(value) < 50 || Number(value) > 2000000) {
-    callback(new Error('The limit per transaction is between 50-2000000 AUD. Please adjust the amount.'));
+    callback(new Error('The limit per transaction is between 50-2000000 '+ form.value.selectedOption1 + '. Please adjust the amount.'));
   } else {
     callback()
   }
@@ -1579,7 +1579,7 @@ $fontSizeMin: 12px;
     color: #F35854;
     white-space: pre-wrap;
     line-height: 18px;
-    margin-top: 15px;
+    //margin-top: 15px;
   }
   .el-form-item.is-error .el-input__wrapper {
     border: 1px solid #F35854;

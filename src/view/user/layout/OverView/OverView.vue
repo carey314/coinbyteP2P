@@ -24,7 +24,7 @@
             <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
             <div class="info-count" style="color: #000">
               {{
-                userInfo && userInfo.email.slice(0, 2) + "*".repeat(userInfo.email.indexOf("@") - 2) + userInfo.email.slice(userInfo.email.indexOf("@"))
+                userInfo && userInfo.email?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2) + userInfo.email?.slice(userInfo.email?.indexOf("@"))
               }}
             </div>
           </div>

@@ -358,7 +358,7 @@ const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为
 const languageOptions = [
   {
     value: "en-US",
-    label: "English/USD",
+    label: "English",
   },
   {
     value: "zh-CN",

@@ -35,6 +35,7 @@
                         placeholder="Select"
                         filterable
                         style="width: 130px"
+                        @mousedown.stop
                     >
                       <el-option-group
                           v-for="group in options"
