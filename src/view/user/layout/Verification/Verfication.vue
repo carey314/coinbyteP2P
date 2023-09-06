@@ -63,6 +63,8 @@ import { ref, reactive } from "vue";
 import { Right } from "@element-plus/icons-vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
 import usercenter_verification_cor from "../../../../assets/home/usercenter_verification_cor.png";
+
+
 </script>
 
 <style scoped lang="scss">

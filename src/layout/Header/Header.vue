@@ -175,7 +175,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="verify">
+                  <el-dropdown-item class="verify-box" v-if="userInfo?.kyc?.status !== ''">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified" />

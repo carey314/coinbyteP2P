@@ -97,14 +97,15 @@
                   </el-icon>
                 </router-link>
               </div>
+
               <div class="bottom-tip">
-                <div class="tip-icon" v-if="userInfo?.data?.kyc?.status !== 'GREEN'">
+                <div class="tip-icon" v-if="userInfo?.kyc?.status !== 'GREEN'">
                   <img :src="dropdown_usercenter_unverified"/>
                 </div>
                 <div v-else>
                   <img :src="dropdown_usercenter_verified"/>
                 </div>
-                <div class="tip-text" v-if="userInfo?.data?.kyc?.status !== 'GREEN'">
+                <div class="tip-text" v-if="userInfo?.kyc?.status !== 'GREEN'">
                   {{ $t('messages.user.Verification_Unverified') }}
                 </div>
                 <div class="tip-text" v-else>{{ $t('messages.user.Verification_verified') }}</div>
@@ -374,9 +375,9 @@ onMounted(() => {
         .tip-icon {
           margin-right: 8px;
         }
-        //.tip-text {
-        //  margin-top: 2px;
-        //}
+        .tip-text {
+          margin-left: 5px;
+        }
       }
     }
   }

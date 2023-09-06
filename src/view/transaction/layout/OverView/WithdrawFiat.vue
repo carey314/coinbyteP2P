@@ -29,18 +29,20 @@
                       <div class="sell-title">Features and limits</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" style="color: #01c19a"
-                            ><Select
-                          /></el-icon>
+                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                            <CloseBold  v-else/>
+                          </el-icon>
                           <div class="whether">Sell my crypto</div>
                         </div>
                         <div class="verified-info">Unlimited</div>
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" style="color: #f35854"
-                            ><CloseBold
-                          /></el-icon>
+                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                            <CloseBold  v-else/>
+                          </el-icon>
                           <div class="whether">Buy crypto</div>
                         </div>
                         <div class="verified-info">50K USD Daily</div>
@@ -68,8 +70,16 @@
                           <span>Proof of address</span>
                         </div>
                       </div>
-                      <el-button class="continue-btn" type="primary">
-                        Verify
+<!--                      <el-button class="continue-btn" type="primary" @click="goToKyc('buy')">-->
+<!--                        Verify-->
+<!--                      </el-button>-->
+                      <el-button
+                          class="continue-btn"
+                          type="primary"
+                          @click="goToKyc('buy')"
+                          :disabled="userInfo?.kyc?.status === 'GREEN'"
+                      >
+                        {{ userInfo?.kyc?.status === 'GREEN' ? 'Verified' : 'Verify' }}
                       </el-button>
                     </div>
                   </template>
@@ -85,18 +95,20 @@
                       <div class="sell-title">Features and limits</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" style="color: #01c19a"
-                            ><Select
-                          /></el-icon>
+                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                            <CloseBold  v-else/>
+                          </el-icon>
                           <div class="whether">Sell my crypto</div>
                         </div>
                         <div class="verified-info">Unlimited</div>
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" style="color: #01c19a"
-                            ><Select
-                          /></el-icon>
+                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                            <CloseBold  v-else/>
+                          </el-icon>
                           <div class="whether">Buy crypto</div>
                         </div>
                         <div class="verified-info">1M USD Daily</div>
@@ -128,13 +140,14 @@
                           <span>Video verification</span>
                         </div>
                       </div>
+
                       <el-button
-                        class="verify-btn"
-                        type="primary"
-                        :disabled="!canContinue"
-                        @click="handleContinue"
+                          class="verify-btn"
+                          type="primary"
+                          @click="goToKyc('sell')"
+                          :disabled="userInfo?.kyc?.status === 'GREEN'"
                       >
-                        Verify
+                        {{ userInfo?.kyc?.status === 'GREEN' ? 'Verified' : 'Verify' }}
                       </el-button>
                     </div>
                   </template>
@@ -245,6 +258,23 @@ import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import Table from "../component/Table.vue";
 import { useI18n } from "vue-i18n";
 import { ElMessageBox } from "element-plus";
+import {useUserInfoStore} from "../../../../store/user";
+import {getProfile} from "../../../../api/user";
+import {storeToRefs} from "pinia";
+import { ElMessage } from 'element-plus';
+import {useRouter} from "vue-router";
+const router = useRouter();
+
+const userInfoStore = useUserInfoStore();
+const {userInfo} = storeToRefs(userInfoStore);
+const goToKyc = (type: string) => {
+  if (userInfoStore.isLogin) {
+    // console.log(userInfoStore.isLogin, '是否登陆')
+    router.push({name: 'kyc', query: {type}})
+  } else {
+    router.push('/signup')
+  }
+}
 const inputValue = ref("");
 const buttonText = "按钮文字";
 function handleClick() {
@@ -293,7 +323,15 @@ function handleContinue() {
     continueVisible.value = true;
   }
 }
-
+onMounted(() => {
+  if (userInfoStore.isLogin) {
+    getProfile().then((res) => {
+      console.log("user info here -----!!!----", res.data.data);
+      userInfoStore.updateUserInfo(res.data.data);
+      console.log("--a--a-111", userInfo.value)
+    });
+  }
+});
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== null;
 }
