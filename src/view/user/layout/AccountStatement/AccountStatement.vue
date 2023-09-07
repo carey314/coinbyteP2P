@@ -1,4 +1,3 @@
-<script src="../../../../api/login.ts"></script>
 <template>
   <div>
     <div class="security-features">

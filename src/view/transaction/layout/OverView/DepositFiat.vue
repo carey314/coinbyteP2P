@@ -1001,12 +1001,9 @@ $fontSizeMin: 12px;
 
       .divider {
         height: 1px;
-        width: 104%;
-        margin-left: -12px;
+        width: 100%;
         background-color: #ebebeb;
         margin-top: 11px;
-        position: absolute;
-        left: 0;
       }
 
       .info-con {
