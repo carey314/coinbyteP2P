@@ -12,7 +12,32 @@
               {{
                 userInfo && userInfo.email?.slice(0, 2) + "***" + userInfo.email?.slice(userInfo.email?.indexOf("@"))
               }}
-              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click="changeEmailDialog = true"/>
+              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click=openPasswordDialog />
+              <el-dialog
+                  class="inner-dialog"
+                  v-model="passwordDialog"
+                  style="padding: 0 10px;"
+                  title="Inner Dialog"
+                  append-to-body
+                  width="448px"
+              >
+                <template #header>
+                  <div style="font-weight: 600; font-size: 22px">Enter Password</div>
+                </template>
+                <div class="divider"></div>
+                <el-form
+                    ref="passwordForm"
+                    :model="passwordFormData"
+                    :rules="passwordFormRules"
+                    label-width="140px"
+                    style="margin-top: 15px"
+                >
+                  <el-form-item label="Password" prop="password">
+                    <el-input type="password" v-model="passwordFormData.password" />
+                  </el-form-item>
+                </el-form>
+                <el-button type="primary" @click="submitPasswordForm">Submit Password</el-button>
+              </el-dialog>
               <el-dialog
                   class="inner-dialog"
                   v-model="changeEmailDialog"
@@ -269,7 +294,37 @@ onMounted(() => {
     });
   }
 });
+// 密码验证
+const passwordDialog = ref(false);
+const passwordFormData = reactive({
+  password: "",     // 密码
+});
+const passwordFormRules = {
+  password: [
+    {required: true, message: "Please enter password", trigger: "blur"}
+  ]
+};
+
+async function submitPasswordForm() {
+  const valid = await refs.passwordForm.validate();
+  if (!valid) return;
+  // 调用 API 校验密码
+  const res = await verifyPassword(passwordFormData.password);
+  if (res.success) {
+    passwordDialog.value = false; // 关闭密码对话框
+    openEmailDialog(); // 打开更改邮箱的对话框
+  } else {
+    ElMessage.error('Incorrect password. Please try again!');
+  }
+}
+
+function openPasswordDialog() {
+  passwordFormData.password = ""; // 清空密码
+  passwordDialog.value = true; // 打开对话框
+}
+// 邮箱
 const changeEmailDialog = ref(false);
+
 const sendingCode = ref(false);
 
 const emailFormData = reactive({
