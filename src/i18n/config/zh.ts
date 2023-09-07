@@ -309,8 +309,8 @@ export default {
       Tutorial: "教程",
       Trading: "交易",
       Ideas: "思路",
-      Industry: "行业",
-      Analysis: "分析",
+      Industry: "安全",
+      Analysis: "提示",
     },
     learnBottom: {
       learn_more: "了解更多",
@@ -320,7 +320,7 @@ export default {
     learnList: {
       first_label: "初学者教程",
       second_label: "交易思路",
-      third_label: "行业分析",
+      third_label: "安全提示",
       forth_label: "区块链词汇表",
       fifth_label: "公司更新",
     },

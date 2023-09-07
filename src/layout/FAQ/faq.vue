@@ -27,7 +27,8 @@
               :title="$t('messages.home.eighth_account')"
               name="4"
           >
-            <div class="collapse-content">{{ $t('messages.home.account_content1') }}</div>
+            <div class="collapse-content" v-if="$route.path.startsWith('/au')">{{ $t('messages.home.account_content1au') }}</div>
+            <div class="collapse-content" v-if="$route.path.startsWith('/nz')">{{ $t('messages.home.account_content1nz') }}</div>
             <div class="collapse-content">{{ $t('messages.home.account_content2') }}</div>
             <div class="collapse-content">{{ $t('messages.home.account_content3') }}</div>
           </el-collapse-item>
@@ -70,9 +71,8 @@
                 {{ $t('messages.home.eighth_account') }}
               </div>
             </template>
-            <div>
-              {{ $t('messages.home.account_content1') }}
-            </div>
+            <div v-if="$route.path.startsWith('/au')">{{ $t('messages.home.account_content1au') }}</div>
+            <div v-if="$route.path.startsWith('/nz')">{{ $t('messages.home.account_content1nz') }}</div>
             <div>{{ $t('messages.home.account_content2') }}</div>
 
             <div>{{ $t('messages.home.account_content3') }}</div>

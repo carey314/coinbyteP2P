@@ -173,7 +173,7 @@ onMounted(async () => {
         typeName.value = 'Scams Warning'
       }
       if (blogInfo.value.type == 3) {
-        typeName.value = 'Industry Analysis'
+        typeName.value = 'Security Tips'
       }
       if (blogInfo.value.type == 4) {
         typeName.value = 'Blockchain Glossary'
