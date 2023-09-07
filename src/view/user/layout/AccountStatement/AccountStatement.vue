@@ -3,7 +3,7 @@
     <div class="security-features">
       <div class="security-features-head">
         <div class="head-img">
-          <img :src="usercenter_security_pending_security" />
+          <img :src="usercenter_security_pending_security"/>
         </div>
         <div class="head-info">
           <div class="head-info-title">
@@ -16,12 +16,12 @@
       </div>
       <div class="security-features-content">
         <div
-          class="content-item"
-          v-for="(item, index) in securityDate"
-          :key="index"
+            class="content-item"
+            v-for="(item, index) in securityDate"
+            :key="index"
         >
           <div class="content-item-box">
-            <div class="content-item-icon"><img :src="item.icon" /></div>
+            <div class="content-item-icon"><img :src="item.icon"/></div>
             <div class="content-item-text">
               <div class="content-item-text-title">{{ item.title }}</div>
               <div class="content-item-text-msg">{{ item.msg }}</div>
@@ -30,15 +30,25 @@
 
           <div class="content-item-btn" v-if="index == 3">
             <router-link to="/user/verification" style="text-decoration: none"
-              ><el-button link>{{
-                $t("messages.user.turn_link")
-              }}</el-button></router-link
+            >
+              <el-button link>{{
+                  $t("messages.user.turn_link")
+                }}
+              </el-button>
+            </router-link
             >
           </div>
-          <div class="content-item-btn" v-else>
-            <router-link to="/user/verification"
-              ><GetButton class="func-btn" :text="t('messages.user.set_btn')"
-            /></router-link>
+          <div class="content-item-btn" v-if="index == 0">
+              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
+              />
+          </div>
+          <div class="content-item-btn" v-if="index == 1">
+              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
+              />
+          </div>
+          <div class="content-item-btn" v-if="index == 2">
+              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
+              />
           </div>
         </div>
       </div>
@@ -47,7 +57,7 @@
     <div>
       <div class="prefer-box">
         <div class="prefer-img">
-          <img :src="world" class="world-img" />
+          <img :src="world" class="world-img"/>
         </div>
         <div class="prefer-info">
           <div class="prefer-title">{{ $t("messages.user.prefer_title") }}</div>
@@ -58,37 +68,37 @@
       <div class="prefpreferer-body" v-if="windowWidth > 820">
         <div class="prefer-item">
           <div class="prefer-item-title">
-            <img class="prefer-icon" :src="language" />
+            <img class="prefer-icon" :src="language"/>
             {{ $t("messages.user.prefer_lan") }}
           </div>
 
           <div
-            @mouseover="languageShow"
-            @mouseleave="languageHide"
-            class="right-dropdown-box"
+              @mouseover="languageShow"
+              @mouseleave="languageHide"
+              class="right-dropdown-box"
           >
             <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
               <div class="language-dropdown-trigger">
                 <span style="padding-right: 2px; color: #000">{{
-                  currentLanguage
-                }}</span>
+                    currentLanguage
+                  }}</span>
                 <el-icon>
-                  <ArrowDown />
+                  <ArrowDown/>
                 </el-icon>
               </div>
               <template #dropdown>
                 <el-dropdown-menu
-                  class="language-dropdown-menu"
-                  style="width: 340px"
+                    class="language-dropdown-menu"
+                    style="width: 340px"
                 >
                   <el-dropdown-item
-                    v-for="option in languageOptions"
-                    :key="option.value"
-                    @click="changeLanguage(option.label)"
+                      v-for="option in languageOptions"
+                      :key="option.value"
+                      @click="changeLanguage(option.label)"
                   >
                     <div
-                      class="alert-cont"
-                      :class="{
+                        class="alert-cont"
+                        :class="{
                         selected: currentLanguage === option.label,
                       }"
                     >
@@ -103,34 +113,34 @@
 
         <div class="prefer-item">
           <div class="prefer-item-title">
-            <img class="prefer-icon" :src="currency" />
+            <img class="prefer-icon" :src="currency"/>
             {{ $t("messages.user.prefer_currency") }}
           </div>
 
           <div
-            @mouseover="cryptoShow"
-            @mouseleave="cryptoHide"
-            class="right-dropdown-box"
+              @mouseover="cryptoShow"
+              @mouseleave="cryptoHide"
+              class="right-dropdown-box"
           >
             <el-dropdown class="currency-dropdown align-icon" ref="navCurrency">
               <div class="currency-dropdown-trigger">
                 <span style="padding-right: 10px; color: #000">{{
-                  currencies[selectedIndex].label
-                }}</span>
+                    currencies[selectedIndex].label
+                  }}</span>
                 <el-icon>
-                  <ArrowDown />
+                  <ArrowDown/>
                 </el-icon>
               </div>
               <template #dropdown>
                 <el-dropdown-menu
-                  class="currency-dropdown-menu"
-                  style="width: 200px"
+                    class="currency-dropdown-menu"
+                    style="width: 200px"
                 >
                   <el-dropdown-item
-                    v-for="(currency, index) in currencies"
-                    :key="currency.value"
-                    :class="{ highlight: index === selectedIndex }"
-                    @click="handleItemClick(index)"
+                      v-for="(currency, index) in currencies"
+                      :key="currency.value"
+                      :class="{ highlight: index === selectedIndex }"
+                      @click="handleItemClick(index)"
                   >
                     <div class="alert-cont">{{ currency.label }}</div>
                   </el-dropdown-item>
@@ -143,38 +153,38 @@
       <div class="prefer-mobile" v-else>
         <div class="prefer-item">
           <div class="prefer-item-title">
-            <img class="prefer-icon" :src="language" />
+            <img class="prefer-icon" :src="language"/>
 
             {{ $t("messages.user.prefer_lan") }}
           </div>
 
           <div
-            @mouseover="languageShow"
-            @mouseleave="languageHide"
-            class="right-dropdown-box"
+              @mouseover="languageShow"
+              @mouseleave="languageHide"
+              class="right-dropdown-box"
           >
             <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
               <div class="language-dropdown-trigger">
                 <span style="padding-right: 2px; color: #000">{{
-                  currentLanguage
-                }}</span>
+                    currentLanguage
+                  }}</span>
                 <el-icon>
-                  <ArrowDown />
+                  <ArrowDown/>
                 </el-icon>
               </div>
               <template #dropdown>
                 <el-dropdown-menu
-                  class="language-dropdown-menu"
-                  style="width: 340px"
+                    class="language-dropdown-menu"
+                    style="width: 340px"
                 >
                   <el-dropdown-item
-                    v-for="option in languageOptions"
-                    :key="option.value"
-                    @click="changeLanguage(option.label)"
+                      v-for="option in languageOptions"
+                      :key="option.value"
+                      @click="changeLanguage(option.label)"
                   >
                     <div
-                      class="alert-cont"
-                      :class="{
+                        class="alert-cont"
+                        :class="{
                         selected: currentLanguage === option.label,
                       }"
                     >
@@ -189,34 +199,34 @@
 
         <div class="prefer-item">
           <div class="prefer-item-title">
-            <img class="prefer-icon" :src="currency" />
+            <img class="prefer-icon" :src="currency"/>
             {{ $t("messages.user.prefer_currency") }}
           </div>
 
           <div
-            @mouseover="cryptoShow"
-            @mouseleave="cryptoHide"
-            class="right-dropdown-box"
+              @mouseover="cryptoShow"
+              @mouseleave="cryptoHide"
+              class="right-dropdown-box"
           >
             <el-dropdown class="currency-dropdown align-icon" ref="navCurrency">
               <div class="currency-dropdown-trigger">
                 <span style="padding-right: 10px; color: #000">{{
-                  currencies[selectedIndex].label
-                }}</span>
+                    currencies[selectedIndex].label
+                  }}</span>
                 <el-icon>
-                  <ArrowDown />
+                  <ArrowDown/>
                 </el-icon>
               </div>
               <template #dropdown>
                 <el-dropdown-menu
-                  class="currency-dropdown-menu"
-                  style="width: 200px"
+                    class="currency-dropdown-menu"
+                    style="width: 200px"
                 >
                   <el-dropdown-item
-                    v-for="(currency, index) in currencies"
-                    :key="currency.value"
-                    :class="{ highlight: index === selectedIndex }"
-                    @click="handleItemClick(index)"
+                      v-for="(currency, index) in currencies"
+                      :key="currency.value"
+                      :class="{ highlight: index === selectedIndex }"
+                      @click="handleItemClick(index)"
                   >
                     <div class="alert-cont">{{ currency.label }}</div>
                   </el-dropdown-item>
@@ -231,7 +241,7 @@
     <div class="login-history" v-if="windowWidth > 820">
       <div class="login-history-head">
         <div class="head-img">
-          <img :src="usercenter_security_login_history" />
+          <img :src="usercenter_security_login_history"/>
         </div>
         <div class="head-info">
           <div class="head-info-title">
@@ -280,7 +290,7 @@
         <template #header>
           <div class="login-history-head">
             <div class="head-img">
-              <img :src="usercenter_security_login_history" />
+              <img :src="usercenter_security_login_history"/>
             </div>
             <div class="head-info">
               <div class="head-info-title">
@@ -293,9 +303,9 @@
           </div>
         </template>
         <div
-          class="history-item"
-          v-for="(item, index) in tableData"
-          :key="index"
+            class="history-item"
+            v-for="(item, index) in tableData"
+            :key="index"
         >
           <div class="history-date flex">
             <span>{{ $t("messages.user.label_time") }}:</span> <div>{{ format(item.CreatedAt) }}</div>
@@ -324,14 +334,14 @@ import {
   watch,
   getCurrentInstance,
 } from "vue";
-import { Right, ArrowDown, ArrowUp } from "@element-plus/icons-vue";
+import {Right, ArrowDown, ArrowUp} from "@element-plus/icons-vue";
 import Table from "../../component/Table.vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
 import usercenter_verification_cor from "../../../../assets/home/usercenter_verification_cor.png";
-import { saveStoredLanguage } from "../../../../languageStorage";
-import { useUserInfoStore } from "../../../../store/user";
-import { storeToRefs } from "pinia";
-import { useRoute, useRouter } from "vue-router";
+import {saveStoredLanguage} from "../../../../languageStorage";
+import {useUserInfoStore} from "../../../../store/user";
+import {storeToRefs} from "pinia";
+import {useRoute, useRouter} from "vue-router";
 import usercenter_security_pending_security from "../../../../assets/home/usercenter_security_pending_security.svg";
 import usercenter_security_login_history from "../../../../assets/home/usercenter_security_login_history.svg";
 import usercenter_security_login from "../../../../assets/home/usercenter_security_login.svg";
@@ -371,6 +381,7 @@ const selectedIndex = ref(0);
 function handleItemClick(index: number): void {
   selectedIndex.value = index; // 更新 selectedIndex 的值
 }
+
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为存储的语言设置
 const languageOptions = [
@@ -387,10 +398,12 @@ const languageOptions = [
     label: "繁體中文",
   },
 ];
+
 // 保存当前语言,高亮显示
 function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");
 }
+
 const changeLanguage = (selectedLanguage: string) => {
   const storedLanguage = getStoredLanguage();
   if (selectedLanguage !== storedLanguage) {
@@ -427,6 +440,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
+
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
@@ -503,27 +517,33 @@ $fontSizeMin: 12px;
 
 .security-features {
   border-radius: 5px;
+
   .security-features-head {
     display: flex;
     background: #fffaf6;
     padding: 29px 31px 33px 31px;
     border: 1px solid #ebebeb;
+
     .head-img {
       width: 39px;
       height: 49px;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
+
     .head-info {
       margin-left: 20px;
+
       .head-info-title {
         font-size: $fontSizeMed;
         color: #000000;
         line-height: 32px;
       }
+
       .head-info-message {
         margin-top: 6px;
         font-size: 14px;
@@ -532,6 +552,7 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .security-features-content {
     .content-item {
       display: flex;
@@ -539,15 +560,19 @@ $fontSizeMin: 12px;
       padding: 20px 32px 18px 32px;
       border: 1px solid #ebebeb;
       border-top: none;
+
       .content-item-box {
         display: flex;
+
         .content-item-text {
           margin-left: 13px;
+
           .content-item-text-title {
             font-size: $fontSizeMinPro;
             color: #000000;
             line-height: 17px;
           }
+
           .content-item-text-msg {
             margin-top: 6px;
             font-size: $fontSizeMin;
@@ -556,9 +581,11 @@ $fontSizeMin: 12px;
           }
         }
       }
+
       .content-item-btn {
         display: flex;
         align-items: center;
+
         :deep() {
           .button {
             width: 57px !important;
@@ -567,6 +594,7 @@ $fontSizeMin: 12px;
             font-weight: 400 !important;
             padding: 0;
           }
+
           .el-button > span {
             height: 34px;
             color: #01c19a;
@@ -576,28 +604,34 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .login-history {
   .login-history-head {
     display: flex;
     margin-top: 30px;
     padding: 29px 31px 33px 31px;
     border: 1px solid #ebebeb;
+
     .head-img {
       width: 39px;
       height: 49px;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
+
     .head-info {
       margin-left: 20px;
+
       .head-info-title {
         font-size: $fontSizeMed;
         color: #000000;
         line-height: 32px;
       }
+
       .head-info-message {
         margin-top: 6px;
         font-size: 14px;
@@ -606,9 +640,11 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .login-history-table {
     border: 1px solid #ebebeb;
     border-top: none;
+
     :deep() {
       .el-table .cell {
         width: 100%;
@@ -617,43 +653,52 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 :deep() {
   .el-table__header {
     width: 100% !important;
   }
+
   .el-table__body,
   .el-table__footer,
   .el-table__header {
     width: 100% !important;
   }
-  .el-table__inner-wrapper {
-    // padding-left: 31px;
-  }
+
+
+
   .el-card__body {
     padding: 5px 30px 0 30px !important;
   }
 }
+
 .min-login-history {
   margin-top: 30px;
+
   .login-history-head {
     display: flex;
     padding: 11px 11px 15px 11px;
+
     .head-img {
       width: 39px;
       height: 49px;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
+
     .head-info {
       margin-left: 20px;
+
       .head-info-title {
         font-size: $fontSizeMed;
         color: #000000;
         line-height: 32px;
       }
+
       .head-info-message {
         margin-top: 6px;
         font-size: 14px;
@@ -662,20 +707,24 @@ $fontSizeMin: 12px;
       }
     }
   }
+
   .history-item {
     font-size: $fontSizeMinPro;
     color: #000000;
     line-height: 20px;
     text-align: left;
+
     span {
       font-size: $fontSizeMinPro;
       color: #878787;
     }
-    .flex{
+
+    .flex {
       display: flex;
       justify-content: space-between;
     }
   }
+
   :deep() {
     .el-divider--horizontal {
       margin: 5px 0;
@@ -697,23 +746,28 @@ $fontSizeMin: 12px;
   margin-top: 33px;
   padding: 30px 0 33px 24px;
 }
+
 .prefer-img {
   width: 56px;
   height: 50px;
+
   img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 }
+
 .prefer-info {
   margin-left: 16px;
 }
+
 .prefer-title {
   font-size: 26px;
   color: #000000;
   line-height: 32px;
 }
+
 .prefer-tip {
   font-size: 14px;
   color: #878787;
@@ -731,12 +785,14 @@ $fontSizeMin: 12px;
       height: 64px;
     }
   }
+
   .right-dropdown-box {
     position: absolute;
     right: 20px;
     top: 30px;
     cursor: pointer;
   }
+
   .prefer-item-title {
     position: absolute;
     left: 20px;
@@ -746,9 +802,11 @@ $fontSizeMin: 12px;
     display: flex;
     align-items: center;
     gap: 13px;
+
     .prefer-icon {
       width: 40px;
       height: 40px;
+
       img {
         width: 100%;
         height: 100%;
@@ -757,17 +815,21 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .language-dropdown-trigger {
   display: flex;
   align-items: center;
   cursor: pointer;
 }
+
 .language-dropdown-trigger span {
   margin-right: 5px;
 }
+
 .language-dropdown-trigger i {
   transition: transform 0.3s ease;
 }
+
 .language-dropdown-trigger .el-icon-arrow-up {
   transform: rotate(180deg);
 }

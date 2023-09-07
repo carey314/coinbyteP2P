@@ -111,6 +111,9 @@ function choosePer (data : any,uuid : string) {
     return http.post("/v1/public/wizards/" + uuid,data);
 }
 
+function verifyPassword (pass: string) {
+    return http.post('', {pass});
+}
 
 export {
     getProfile,
@@ -126,5 +129,6 @@ export {
     choosePer,
     emailVefify,
     phoneSignup,
-    phoneVefify
+    phoneVefify,
+    verifyPassword
 }
