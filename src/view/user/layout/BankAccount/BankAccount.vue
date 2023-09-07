@@ -13,10 +13,9 @@
       <el-dialog
           class="inner-dialog"
           v-model="addressVisible"
-          style="padding: 0 10px;"
+          style="padding: 0 10px; max-width: 448px; width: 100%;"
           title="Inner Dialog"
           append-to-body
-          width="448px"
       >
         <template #header>
           <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
@@ -82,9 +81,9 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="Back Name" prop="bank_name">
+          <el-form-item label="Bank Name" prop="bank_name">
             <template #label>
-              <div class="bank-form-label">Back Name</div>
+              <div class="bank-form-label">Bank Name</div>
             </template>
             <el-input
                 class="container-input"
@@ -132,9 +131,10 @@
                 :show-file-list="false"
                 v-loading="uploadLoading"
             >
-              <el-image v-if="bankForm.bank_statement" :src="bankForm.bank_statement" alt=""
+              <el-image v-if="bankForm.bank_statement" :src="bankForm.bank_statement" alt="" class="upload-image"
                         style="width: 100%; max-height: 200px; object-fit: contain; height: 100%;"/>
               <img v-if="!bankForm.bank_statement" :src="upload" style="width: 18px; height: 18px;"/>
+              <el-button v-if="bankForm.bank_statement" style="position: absolute; right: 10px; top: 10px;" :icon="Close" circle @click="(event: Event) => {event.stopPropagation(); deleteStatement()}" />
               <div v-if="!bankForm.bank_statement" class="el-upload__text">Upload</div>
             </el-upload>
           </el-form-item>
@@ -150,96 +150,104 @@
         </el-button>
       </el-dialog>
     </div>
-    <div class="table-body" v-if="windowWidth > 820">
-      <Table :sourceData="bankDate">
-        <template v-slot:columns>
-          <el-table-column
-              :label="t('messages.user.label_Country')"
-              width="200"
-          >
-            <template #default="scope">
-              <div class="table-crypto">
-                <div>
-                  {{ scope.row.country }}
+    <template v-if="windowWidth > 820">
+      <div class="table-body">
+        <Table :sourceData="bankDate" v-loading="bankTableLoading">
+          <template v-slot:columns>
+            <el-table-column
+                :label="t('messages.user.label_Country')"
+                width="200"
+            >
+              <template #default="scope">
+                <div class="table-crypto">
+                  <div>
+                    {{ scope.row.bank_country }}
+                  </div>
                 </div>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Currency"
-              :label="t('messages.user.label_Currency')"
-              width="200"
-          >
-            <template #default="scope">
-              <div>
-                {{ scope.row.currency }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Bank Name"
-              :label="t('messages.user.label_Name')"
-              width="200"
-          >
-            <template #default="scope">
-              <div>
-                {{ scope.row.bank }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Branch Code"
-              :label="t('messages.user.label_Branch')"
-              width="200"
-          >
-            <template #default="scope">
-              <div>
-                {{ scope.row.code }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Account Number"
-              :label="t('messages.user.label_Number')"
-              width="200"
-          >
-            <template #default="scope">
-              <div>
-                {{ scope.row.number }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Account Status"
-              :label="t('messages.user.label_Status')"
-              width="200"
-          >
-            <template #default="scope">
-              <div class="status">
-                {{ scope.row.status }}
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column
-              prop="Operation"
-              :label="t('messages.user.label_Operation')"
-              width="100"
-              fixed="right"
-          >
-            <template #default="scope">
-              <div class="operation">
-                {{ scope.row.operation }}
-              </div>
-            </template>
-          </el-table-column>
-        </template>
-      </Table>
-    </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Currency"
+                :label="t('messages.user.label_Currency')"
+                width="200"
+            >
+              <template #default="scope">
+                <div>
+                  {{ scope.row.currency }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Bank Name"
+                :label="t('messages.user.label_Name')"
+                width="200"
+            >
+              <template #default="scope">
+                <div>
+                  {{ scope.row.bank_name }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Branch Code"
+                :label="t('messages.user.label_Branch')"
+                width="200"
+            >
+              <template #default="scope">
+                <div>
+                  {{ scope.row.branch_code }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Account Number"
+                :label="t('messages.user.label_Number')"
+                width="200"
+            >
+              <template #default="scope">
+                <div>
+                  {{ scope.row.account_number }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Account Status"
+                :label="t('messages.user.label_Status')"
+                width="200"
+            >
+              <template #default="scope">
+                <div class="status">
+                  <!-- {{ scope.row.status }} -->
+                  <!-- 目前写死 -->
+                  Verified
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column
+                prop="Operation"
+                :label="t('messages.user.label_Operation')"
+                width="100"
+                fixed="right"
+            >
+              <template #default="scope">
+                <div class="operation" @click="handleToDelBank(scope.row.ID)">
+                  <!-- {{ scope.row.operation }} -->
+                  Delete
+                </div>
+              </template>
+            </el-table-column>
+          </template>
+        </Table>
+      </div>
+      <div style="display: flex; justify-content: flex-end;height: 70px;">
+        <el-pagination layout="prev, pager, next" hide-on-single-page :page-count="Math.ceil(pageTotal / pageData.page_size)" @current-change="currentChange"/>
+      </div>
+    </template>
     <div class="bank-account" v-else>
       <el-card v-for="(item, index) in bankDate" :key="index">
         <div>
           <span>{{ t("messages.user.label_Country") }}: </span
-          >{{ item.country }}
+          >{{ item.bank_country }}
         </div>
         <el-divider/>
         <div>
@@ -249,23 +257,28 @@
         <el-divider/>
 
         <div>
-          <span>{{ t("messages.user.label_Name") }}: </span>{{ item.bank }}
+          <span>{{ t("messages.user.label_Name") }}: </span>{{ item.bank_name }}
         </div>
         <el-divider/>
         <div>
-          <span>{{ t("messages.user.label_Branch") }}: </span>{{ item.code }}
+          <span>{{ t("messages.user.label_Branch") }}: </span>{{ item.branch_code }}
         </div>
         <el-divider/>
         <div>
-          <span>{{ t("messages.user.label_Number") }}: </span>{{ item.number }}
+          <span>{{ t("messages.user.label_Number") }}: </span>{{ item.account_number }}
         </div>
         <el-divider/>
         <div>
-          <span>{{ t("messages.user.label_Status") }}: </span>{{ item.status }}
+          <span>{{ t("messages.user.label_Status") }}: </span>
+          <!-- {{ item.status }} -->
+          <!-- 目前写死 -->
+          Verified
         </div>
         <div>
           <span>{{ t("messages.user.label_Operation") }}: </span
-          >{{ item.operation }}
+          >
+          <!-- {{ item.operation }} -->
+          Delete
         </div>
       </el-card>
     </div>
@@ -275,19 +288,20 @@
 <script setup lang="ts">
 import {ref, reactive, onUnmounted, onMounted, Ref} from "vue";
 
-import {Right} from "@element-plus/icons-vue";
+import {Right, Close} from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 import Table from "../../component/Table.vue";
 import usercenter_verification_person from "../../../../assets/home/usercenter_verification_person.png";
 import upload from "../../../../assets/image/upload.png";
 import {UploadFilled} from "@element-plus/icons-vue";
 import {useI18n} from "vue-i18n";
-import {Bank} from "../../../../models/bank";
+import {Bank, BankRes} from "../../../../models/bank";
 import {ElMessage, FormInstance, FormRules, UploadFile, UploadFiles} from "element-plus";
-import {addBank} from '../../../../api/bank';
+import {addBank, getBankList, delBank} from '../../../../api/bank';
 
 import {useUserInfoStore} from "../../../../store/user";
 import {storeToRefs} from "pinia";
+
 
 const userInfoStore = useUserInfoStore();
 const {token, refreshToken} = storeToRefs(userInfoStore);
@@ -343,7 +357,9 @@ let options3 = [
 const innerVisible = ref(false);
 const withdrawStatus = ref(false);
 const showContinueBtn = ref(true);
-
+const deleteStatement = () => {
+  bankForm.value.bank_statement = '';
+}
 async function handleSubmit(formEl: FormInstance | undefined) {
   if (!formEl) return
   const valid = await formEl.validate((valid, fields) => {
@@ -356,6 +372,16 @@ async function handleSubmit(formEl: FormInstance | undefined) {
     const res = await addBank(bankForm.value);
     ElMessage.success("Submission successful.");
     addressVisible.value = false;
+    pageTotal.value = 0;
+    toRefresh(1);
+    bankForm.value = {
+      bank_country: "",
+      currency: "",
+      bank_name: "",
+      branch_code: "",
+      account_number: "",
+      bank_statement: "",
+    };
   } catch (e) {
     console.log(e);
     ElMessage.error("Please try again later.");
@@ -380,30 +406,11 @@ const bankName = ref("");
 const codeValue = ref("");
 const accountNumber = ref("");
 
-const bankDate = [
-  {
-    country: "Australia",
-    currency: "AUD",
-    bank: "Others",
-    code: "802-090",
-    number: "423*212",
-    status: "Verified",
-    operation: "Delete",
-  },
-  {
-    country: "Australia",
-    currency: "AUD",
-    bank: "Others",
-    code: "802-090",
-    number: "423*212",
-    status: "Verified",
-    operation: "Delete",
-  },
-];
 const uploadSuccess = (res: any, file: UploadFile, files: UploadFiles) => {
-  console.log(res);
   if (res.msg === 'success') {
     bankForm.value.bank_statement = res.data.file_link;
+  } else {
+    ElMessage.error(res.msg);
   }
 }
 const uploadLoading = ref(false);
@@ -414,6 +421,80 @@ const uploadChange = (uploadFile: UploadFile) => {
     uploadLoading.value = false;
   }
 }
+// 获取 bank 列表
+const bankTableLoading = ref(false);
+onMounted(() => {
+  toGetBankList(1);
+})
+
+const bankDate = ref<BankRes[]>([
+  // {
+  //   country: "Australia",
+  //   currency: "AUD",
+  //   bank: "Others",
+  //   code: "802-090",
+  //   number: "423*212",
+  //   status: "Verified",
+  //   operation: "Delete",
+  // },
+  // {
+  //   country: "Australia",
+  //   currency: "AUD",
+  //   bank: "Others",
+  //   code: "802-090",
+  //   number: "423*212",
+  //   status: "Verified",
+  //   operation: "Delete",
+  // },
+]);
+const pageTotal = ref(0);
+const pageData = ref({
+  page: 1,
+  page_size: 10
+})
+
+const toGetBankList = async (page: number) => {
+  bankTableLoading.value = true;
+  try {
+    const res = await getBankList({
+      page,
+      page_size: 10
+    });
+    bankTableLoading.value = false;
+    if(res.data.code === 1) {
+      bankDate.value = res.data.data.Data;
+      pageTotal.value = res.data.data.Count;
+      return res.data.data.Count;
+    }
+  } catch (e) {
+    bankTableLoading.value = false;
+    ElMessage.error("Data loading failed");
+  }
+}
+
+const currentChange = (page: number) => {
+  console.log('current change', page);
+  toGetBankList(page);
+  pageData.value.page = page;
+}
+
+const toRefresh = async (page: number = 1) => {
+  // pageTotal.value = 0;
+  await toGetBankList(page);
+  
+}
+
+const handleToDelBank = async (id: number) => {
+  try {
+    await delBank(id);
+    ElMessage.success("Delete successful.");
+    pageTotal.value -= 1;
+    toRefresh(pageData.value.page);
+  } catch(e) {
+    ElMessage.error("Please try again later.");
+  }
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -527,6 +608,8 @@ $fontSizeMin: 12px;
     height: 1px;
     background-color: #ebebeb;
     margin-top: -20px;
+    position: absolute;
+    left: 0;
   }
 
   .bank-form-label {
@@ -665,4 +748,11 @@ $fontSizeMin: 12px;
     height: 48px;
   }
 }
+
+.upload-image :deep(img) {
+  max-height: 150px;
+  object-fit: contain;
+  width: 100%;
+}
+
 </style>

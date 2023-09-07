@@ -131,12 +131,14 @@
   
                         <div class="step-input">
                           <el-form-item prop="coinAmount">
-                            <el-input
-                                class="input"
+                            <el-input-number
+                                :controls="false"
+                                class="input coin-amount"
                                 v-model="form.coinAmount"
                                 type="number"
                                 placeholder="Please enter the amount"
                                 @change="updateCanContinue"
+                                :precision="2" :step="0.1"
                             />
                           </el-form-item>
                           <div class="label">
@@ -163,7 +165,7 @@
                               style="padding-bottom: 15px"
                           >
                             <div class="title">Transaction Fee:</div>
-                            <div class="require"><span v-if="form.coinAmount">{{ form.coinAmount }}</span>
+                            <div class="require"><span v-if="form.coinAmount">{{ formatNumber(form.coinAmount) }}</span>
                               <span v-else>0.00</span> {{ form.selectedOption1 }}
                             </div>
                           </div>
@@ -171,7 +173,7 @@
                             <el-divider class="deposit-divider"></el-divider>
                             <div class="receive">You Receive:</div>
                             <div class="receive-count">
-                              <span v-if="form.coinAmount">{{ form.coinAmount }}</span>
+                              <span v-if="form.coinAmount">{{ formatNumber(form.coinAmount) }}</span>
                               <span v-else>0.00</span> {{ form.selectedOption1 }}
                             </div>
                           </div>
@@ -288,8 +290,8 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
-                        <div class="count">{{form.selectedOption1}}</div>
-                        <div class="count">{{ form.coinAmount }}</div>
+                        <!-- <div class="count">{{form.selectedOption1}}</div> -->
+                        <div class="count">{{ formatNumber(form.coinAmount || 0) }}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>
@@ -316,7 +318,7 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
-                        <div class="count">{{form.selectedOption1}}</div>
+                        <!-- <div class="count">{{form.selectedOption1}}</div> -->
                         <div class="count">{{ form.coinAmount }}</div>
                       </div>
                       <div class="divider"></div>
@@ -460,7 +462,7 @@
       <div class="recent-deposit clearfloat" v-loading="tableDataLoading">
         <div class="table-name">Recent Deposits</div>
         <div class="not-arrive">Hasn't arrived?</div>
-        <Table :sourceData="tableData">
+        <Table :sourceData="tableData" class="deposit-table">
           <template v-slot:columns>
             <el-table-column
                 prop="CreatedAt"
@@ -480,7 +482,13 @@
                 prop="amount"
                 :label="t('messages.wallet.fiat_Amount')"
                 width="240"
-            />
+            >
+              <template #default="scope">
+                <div>
+                  {{ formatNumber(scope.row.amount) }}
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column
                 :label="t('messages.wallet.fiat_Status')"
                 width="230"
@@ -514,12 +522,12 @@
                     <p>{{ scope.row.pay_method }}</p>
                   </div>
                   <div class="info">
-                    <p>indicated Amount:</p>
-                    <p>{{ scope.row.amount }}</p>
+                    <p>Indicated Amount:</p>
+                    <p>{{ formatNumber(scope.row.amount) }}</p>
                   </div>
                   <div class="info">
                     <p>Fee:</p>
-                    <p>{{ scope.row.fee }}</p>
+                    <p>{{ formatNumber(scope.row.amount) }}</p>
                   </div>
                   <div class="info">
                     <p>Order ID:</p>
@@ -549,7 +557,7 @@
           </template>
         </Table>
         <div style="display: flex; justify-content: flex-end;height: 70px;">
-          <el-pagination layout="prev, pager, next" :total="50"/>
+          <el-pagination layout="prev, pager, next" :total="pageTotal" @current-change="currentChange"/>
         </div>
       </div>
     </div>
@@ -591,6 +599,7 @@ import { addTransaction, getTransactionList } from '../../../../api/transactions
 import dayjs from "dayjs";
 import {useUserInfoStore} from "../../../../store/user";
 import {storeToRefs} from "pinia";
+import { formatNumber } from "../../../../utils/formatNumber";
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
 
@@ -722,23 +731,42 @@ async function handleSubmit() {
     const submitResult = await submitTransaction(form.value);
     if(submitResult.data.msg === 'success') {
       depositStatus.value = true;
-      tableDataLoading.value = true;
-      getTransactionList().then((res: any) => {
-        // console.log(res.data);
-        if(res.data.data && res.data.data.length) {
-          console.log(res.data.data.slice(0, 10));
-          tableData.value = res.data.data.slice(0, 10);
-        }
-        tableDataLoading.value = false;
-      }).catch(() => {
-        ElMessage.error("Data loading failed");
-        tableDataLoading.value = false;
-      });
       activeStep.value = 4;
+      toGetTransactionList(1);
     }
   } catch(e) {
     ElMessage.error('Please try again later.');
   }
+}
+const pageTotal = ref(0);
+const pageData = ref({
+  page: 1,
+  page_size: 10
+})
+const toGetTransactionList = (page: number) => {
+  tableDataLoading.value = true;
+  getTransactionList({
+    page: page,
+    page_size: pageData.value.page_size
+  }).then((res: any) => {
+    // console.log(res.data);
+    if(res.data.data && res.data.data.Data) {
+      if(!pageTotal.value) {
+        pageTotal.value = res.data.data.Count;
+      }
+      tableData.value = res.data.data.Data;
+    }
+    tableDataLoading.value = false;
+  }).catch(() => {
+    ElMessage.error("Data loading failed");
+    tableDataLoading.value = false;
+  });
+}
+
+const currentChange = (page: number) => {
+  console.log('current change');
+  toGetTransactionList(page);
+  pageData.value.page = page;
 }
 // ----------------------------------------------------------------
 
@@ -1511,7 +1539,11 @@ $fontSizeMin: 12px;
     }
   }
 }
-
+.coin-amount :deep() {
+    input {
+      text-align: left !important;
+    }
+  }
 .step-input {
   .input {
     width: 442px;
@@ -1625,5 +1657,17 @@ $fontSizeMin: 12px;
 }
 .isRotate {
   transform: rotate(180deg);
+}
+
+.deposit-table :deep(.info) {
+  display: flex;
+  gap: 10px;
+  p:nth-child(1) {
+    width: 120px;
+    color: #9b9b9b;
+  }
+  p:nth-child(2) {
+    width: 180px;
+  }
 }
 </style>

@@ -245,17 +245,29 @@
       <div class="login-history-table">
         <el-table :data="tableData">
           <el-table-column
-            prop="date"
+            prop="CreatedAt"
             :label="t('messages.user.label_time')"
             width="450"
-          />
+          >
+            <template #default="scope">
+              <div>
+                {{ format(scope.row.CreatedAt) }}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column
             prop="name"
             :label="t('messages.user.label_location')"
             width="148"
-          />
+          >
+          <template #default>
+            <div>
+              {{ 'AU' }}
+            </div>
+          </template>
+          </el-table-column>
           <el-table-column
-            prop="address"
+            prop="country"
             :label="t('messages.user.label_ip')"
             width="190"
             align="right"
@@ -286,14 +298,15 @@
           :key="index"
         >
           <div class="history-date flex">
-            <span>{{ $t("messages.user.label_time") }}:</span> <div>{{ item.date }}</div>
+            <span>{{ $t("messages.user.label_time") }}:</span> <div>{{ format(item.CreatedAt) }}</div>
           </div>
           <div class="history-name flex">
             <span>{{ $t("messages.user.label_location") }}:</span>
-            <div>{{ item.name }}</div>
+            <!-- <div>{{ item.name }}</div> -->
+            <div>AU</div>
           </div>
           <div class="history-address flex">
-            <span>{{ $t("messages.user.label_ip") }}:</span> <div>{{ item.address }}</div>
+            <span>{{ $t("messages.user.label_ip") }}:</span> <div>{{ item.country }}</div>
           </div>
           <el-divider style="margin-left: -30px; width: 200%"></el-divider>
         </div>
@@ -330,6 +343,11 @@ import currency from "../../../../assets/image/currency.svg";
 import world from "../../../../assets/image/world.png";
 import GetButton from "../../../../components/GetButton.vue";
 import { useI18n } from "vue-i18n";
+import { getLoginHistory } from "../../../../api/login";
+import { LoginHistory } from '../../../../models/user';
+import dayjs from 'dayjs';
+import { formatNumber } from "../../../../utils/formatNumber";
+
 const { t } = useI18n();
 
 const isActive = ref(false);
@@ -436,33 +454,46 @@ const securityDate = reactive([
     msg: t("messages.user.factor_msg"),
   },
 ]);
-const tableData = [
-  {
-    date: "Sep 12, 2022, 15:31:42",
-    name: "AU",
-    address: "136.175.177.145",
-  },
-  {
-    date: "Sep 12, 2022, 15:31:42",
-    name: "AU",
-    address: "136.175.177.145",
-  },
-  {
-    date: "Sep 12, 2022, 15:31:42",
-    name: "AU",
-    address: "136.175.177.145",
-  },
-  {
-    date: "Sep 12, 2022, 15:31:42",
-    name: "AU",
-    address: "136.175.177.145",
-  },
-  {
-    date: "Sep 12, 2022, 15:31:42",
-    name: "AU",
-    address: "136.175.177.145",
-  },
-];
+const tableData = ref<LoginHistory[]>([
+  // {
+  //   date: "Sep 12, 2022, 15:31:42",
+  //   name: "AU",
+  //   address: "136.175.177.145",
+  // },
+  // {
+  //   date: "Sep 12, 2022, 15:31:42",
+  //   name: "AU",
+  //   address: "136.175.177.145",
+  // },
+  // {
+  //   date: "Sep 12, 2022, 15:31:42",
+  //   name: "AU",
+  //   address: "136.175.177.145",
+  // },
+  // {
+  //   date: "Sep 12, 2022, 15:31:42",
+  //   name: "AU",
+  //   address: "136.175.177.145",
+  // },
+  // {
+  //   date: "Sep 12, 2022, 15:31:42",
+  //   name: "AU",
+  //   address: "136.175.177.145",
+  // },
+]);
+const toGetLoginHistory = () => {
+  getLoginHistory({page: 1, page_size: 10}).then(res => {
+    console.log(res);
+    tableData.value = res.data.data.Data;
+  })
+}
+onMounted(() => {
+  toGetLoginHistory();
+})
+
+const format = (date: Date) => {
+  return dayjs(date).format("MMM DD, YYYY, HH:mm:ss");
+}
 </script>
 
 <style scoped lang="scss">

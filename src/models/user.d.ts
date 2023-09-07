@@ -76,3 +76,12 @@ export interface UserInfo {
         "maxLiveTradingAccounts": null | string
     }
 }
+
+export interface LoginHistory {
+    "ID": number,
+    "CreatedAt": Date;
+    "UpdatedAt": Date;
+    "DeletedAt": null | Date;
+    "user_id": number;
+    "country": string;
+}

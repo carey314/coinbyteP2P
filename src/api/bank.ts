@@ -1,6 +1,7 @@
 import http from '../utils/http';
 import { Bank } from '../models/bank';
-import { encrypt } from "../utils/aes";
+import { encrypt, decrypt } from "../utils/aes";
+import { PageSearchData } from '../models/searchData';
 async function addBank(data: Bank){
     const bankTxt = JSON.stringify({
         bank_name: data.bank_name,
@@ -17,10 +18,26 @@ async function addBank(data: Bank){
     return http.post("/bank_account", payload);
 }
 
-// async function uploadBankStatement(params: File) {
-    
-// }
+async function getBankList(params: PageSearchData) {
+    return http.post('/bank_account_list', params).then(res => {
+        if(res.data && res.data.data.Data) {
+            res.data.data.Data = res.data.data.Data.map((v: any) => ({
+                ...v,
+                ...(JSON.parse(decrypt(v.info)))
+            }))
+        }
+        return res;
+    });
+}
+
+async function delBank(id: number) {
+    return http.post('/bank_account_del', {
+        id
+    });
+}
 
 export {
-    addBank
+    addBank,
+    getBankList,
+    delBank
 }

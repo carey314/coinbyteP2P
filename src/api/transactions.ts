@@ -1,5 +1,5 @@
 import http from '../utils/http';
-
+import { PageSearchData } from '../models/searchData';
 //Get a list of transactions
 function getTransactions () {
     return http.get("/v2/my/transactions");
@@ -21,11 +21,8 @@ interface Transaction {
 function addTransaction(data: Transaction) {
     return http.post("/transaction", data);
 }
-interface TransactionList {
-    page: number;
-    page_size: number;
-}
-function getTransactionList(searchData: TransactionList = {
+
+function getTransactionList(searchData: PageSearchData = {
     page: 0,
     page_size: 10
 }) {
