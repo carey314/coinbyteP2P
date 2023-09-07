@@ -21,9 +21,15 @@ interface Transaction {
 function addTransaction(data: Transaction) {
     return http.post("/transaction", data);
 }
-
-function getTransactionList() {
-    return http.get("/transaction_list");
+interface TransactionList {
+    page: number;
+    page_size: number;
+}
+function getTransactionList(searchData: TransactionList = {
+    page: 0,
+    page_size: 10
+}) {
+    return http.post("/transaction_list", searchData);
 }
 
 export {
