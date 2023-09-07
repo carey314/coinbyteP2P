@@ -9,7 +9,8 @@
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
               {{ userInfo && userInfo.email }}
-              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer"/>
+              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click="changeEmailDialog = true" />
+
             </div>
             <div class="info-count">
 <!--              更改渲染的UID时, 需要修改复制功能的值 copyToClipboard-->
@@ -220,6 +221,8 @@ onMounted(() => {
     });
   }
 });
+const changeEmailDialog = ref(false);
+
 </script>
 
 <style scoped lang="scss">

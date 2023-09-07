@@ -288,6 +288,7 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
+                        <div class="count">{{form.selectedOption1}}</div>
                         <div class="count">{{ form.coinAmount }}</div>
                       </div>
                       <div class="divider"></div>
@@ -315,6 +316,7 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
+                        <div class="count">{{form.selectedOption1}}</div>
                         <div class="count">{{ form.coinAmount }}</div>
                       </div>
                       <div class="divider"></div>
