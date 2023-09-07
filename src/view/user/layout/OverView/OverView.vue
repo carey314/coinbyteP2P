@@ -8,14 +8,60 @@
           <div class="info-text">
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
-              {{ userInfo && userInfo.email }}
-              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click="changeEmailDialog = true" />
+<!--              {{ userInfo && userInfo.email }}-->
+              {{
+                userInfo && userInfo.email?.slice(0, 2) + "***" + userInfo.email?.slice(userInfo.email?.indexOf("@"))
+              }}
+              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click="changeEmailDialog = true"/>
+              <el-dialog
+                  class="inner-dialog"
+                  v-model="changeEmailDialog"
+                  style="padding: 0 10px;"
+                  title="Inner Dialog"
+                  append-to-body
+                  width="448px"
+              >
+                <template #header>
+                  <div style="font-weight: 600; font-size: 22px">Change Email</div>
+                </template>
+                <div class="divider"></div>
+                <el-form
+                    ref="emailForm"
+                    :model="emailFormData"
+                    :rules="emailFormRules"
+                    label-width="140px"
+                    @submit.native.prevent="submitEmailForm"
+                    style="margin-top: 15px"
+                >
+                  <el-form-item label="Current Email">
+                    <!-- 使用 userInfo.email 来填充当前邮箱 -->
+                    <el-input v-model="userInfo.email" disabled/>
+                  </el-form-item>
+                  <el-form-item label="New Email" prop="newEmail">
+                    <el-input v-model="emailFormData.newEmail"/>
+                  </el-form-item>
+                  <el-form-item label="Verification Code" prop="verificationCode">
+                    <el-input v-model="emailFormData.verificationCode"/>
+
+                  </el-form-item>
+                  <el-form-item style="margin-left: 0 !important;">
+                    <el-button
+                        class="send-code-btn"
+                        type="primary"
+                        @click="sendVerificationCode"
+                        :disabled="emailFormData.newEmail === ''"
+                    >
+                      {{ sendingCode ? 'Sending...' : 'Send Code' }}
+                    </el-button>
+                  </el-form-item>
+                </el-form>
+              </el-dialog>
 
             </div>
             <div class="info-count">
-<!--              更改渲染的UID时, 需要修改复制功能的值 copyToClipboard-->
+              <!--              更改渲染的UID时, 需要修改复制功能的值 copyToClipboard-->
               {{ $t('messages.user.overview_UID') }}: {{ userInfo && userInfo.ID }}
-              <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer" @click="copyToClipboard" />
+              <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer" @click="copyToClipboard"/>
             </div>
           </div>
         </div>
@@ -197,9 +243,11 @@ import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg
 import {useUserInfoStore} from "../../../../store/user";
 import {getProfile} from "../../../../api/user";
 import {storeToRefs} from "pinia";
-import { ElMessage } from 'element-plus';
+import {ElMessage} from 'element-plus';
+
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
+
 function copyToClipboard() {
   const value = userInfo.value && userInfo.value.ID;
   if (value) {
@@ -222,10 +270,104 @@ onMounted(() => {
   }
 });
 const changeEmailDialog = ref(false);
+const sendingCode = ref(false);
 
+const emailFormData = reactive({
+  newEmail: "",     // 新邮箱
+  verificationCode: "" // 验证码
+});
+
+const emailFormRules = {
+  newEmail: [
+    {required: true, message: "Please enter new email", trigger: "blur"},
+    {type: "email", message: "Invalid email format", trigger: "blur"}
+  ],
+  verificationCode: [
+    {required: true, message: "Please enter verification code", trigger: "blur"}
+  ]
+};
+
+async function submitEmailForm() {
+  const valid = await this.$refs.emailForm.validate();
+  if (!valid) return;
+  // 调用 API 更新邮箱
+  const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
+  if (res.success) {
+    ElMessage.success('Email updated successfully!');
+    userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
+    changeEmailDialog.value = false; // 关闭对话框
+  } else {
+    ElMessage.error('Failed to update email. Please try again later!');
+  }
+}
+
+async function sendVerificationCode() {
+  if (!emailFormData.newEmail) {
+    ElMessage.error('Please enter new email first!');
+    return;
+  }
+  sendingCode.value = true;
+  // 调用 API 发送验证码
+  const res = await sendCode(emailFormData.newEmail);
+  sendingCode.value = false;
+  if (res.success) {
+    ElMessage.success('Verification code sent!');
+  } else {
+    ElMessage.error('Failed to send verification code. Please try again later!');
+  }
+}
+
+function openEmailDialog() {
+  emailFormData.newEmail = ""; // 清空新邮箱
+  emailFormData.verificationCode = ""; // 清空验证码
+  changeEmailDialog.value = true; // 打开对话框
+}
 </script>
 
 <style scoped lang="scss">
+:deep(.el-form-item__label) {
+  justify-content: start;
+  width: 100% !important;
+}
+:deep(.el-button.is-disabled, .el-button.is-disabled:focus, .el-button.is-disabled:hover) {
+  background-color: #f1f1f1;
+  border-color: #f1f1f1;
+  width: 100%;
+}
+:deep(.el-button--primary){
+  height: 48px;
+  margin-top: 10px;
+}
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ebebeb;
+  margin-top: -20px;
+}
+:deep(.el-form-item) {
+  display: block;
+}
+:deep(.el-form-item__content) {
+  margin-left: 0 !important;
+}
+:deep(.el-button--primary) {
+  width: 100%;
+}
+.inner-dialog {
+  :deep(.el-divider--horizontal) {
+    margin: 0 !important;
+  }
+}
+:deep(.el-input){
+  height: 48px;
+}
+:deep(.el-form-item__label) {
+  font-size: 16px;
+  color: #000000;
+  line-height: 19px;
+  font-weight: 600;
+}
+
 .overview-title {
   font-size: 26px;
   color: #000000;
@@ -378,6 +520,7 @@ const changeEmailDialog = ref(false);
         .tip-icon {
           margin-right: 8px;
         }
+
         .tip-text {
           margin-left: 5px;
         }

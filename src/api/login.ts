@@ -6,6 +6,7 @@ function getLoginUUID () {{
 function toLogin (data : any) {
     return http.post('/login',data);
 }
+
 export {
     getLoginUUID,
     toLogin

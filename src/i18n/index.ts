@@ -9,15 +9,15 @@ import { getStoredLanguage, saveStoredLanguage } from "../languageStorage";
 // const { c } = storeToRefs(userInfoStore);
 const messages = {
     简体中文: zhLocale,
-    'English/USD': enLocale,
+    'English': enLocale,
 }
 
-const defaultLocale = "English/USD";
+const defaultLocale = "English";
 const storedLocale = getStoredLanguage() || defaultLocale;
 
 const i18n = createI18n({
     globalInjection: true, //全局生效$t
-    fallbackLocale: 'English/USD',
+    fallbackLocale: 'English',
     locale: storedLocale,
     legacy: false, // 解决legacy mode 报错
     messages

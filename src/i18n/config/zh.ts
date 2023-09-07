@@ -579,7 +579,7 @@ export default {
       continue: "继续",
       bank_account: "银行账户",
       bank_msg:
-        "通过PayID / Osko,从澳大利亚100多家NPP银行立即向您的Coinbyte账户存入澳元",
+        "提交您的银行账户以收到付款",
       add_bank: "+ 添加银行账户",
       label_Country: "银行国家",
       label_Currency: "货币",
