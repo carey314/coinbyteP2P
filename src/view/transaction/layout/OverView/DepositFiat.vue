@@ -71,11 +71,11 @@
                         <div v-if="activeStep >= 2" class="payment-box">
                           <div class="payment-way">
                             <img class="payment-pay no-select" :src="payment_payid"
-                                 :class="{ 'selected': form.selectedPayment === 'pay_id' }" @click="selectPayment('pay_id')"/>
+                                 :class="{ 'selected': form.selectedPayment === 'PayID' }" @click="selectPayment('PayID')"/>
                           </div>
                           <div class="payment-way">
                             <img class="payment-bank no-select" :src="payment_bank"
-                                 :class="{ 'selected': form.selectedPayment === 'bank' }" @click="selectPayment('bank')"/>
+                                 :class="{ 'selected': form.selectedPayment === 'Bank Transfer' }" @click="selectPayment('Bank Transfer')"/>
                           </div>
                         </div>
                       </el-form-item>
@@ -286,15 +286,16 @@
                       <div class="info-price">
                         <div class="coin">
                           <div><img :src="coin_aud"/></div>
-                          <div class="coin-name">AUD</div>
+                          <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
                         <div class="count">{{form.selectedOption1}}</div>
+                        <div class="count">{{ form.coinAmount }}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>
                       <div class="info-email">
-                        <div class="email-number">user2022@au.coinbyte.com</div>
-                        <div class="email-copy">
+                        <div class="email-number">{{ userInfo?.zepto_account?.email || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.email || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -313,16 +314,17 @@
                       <div class="info-price">
                         <div class="coin">
                           <div><img :src="coin_aud"/></div>
-                          <div class="coin-name">AUD</div>
+                          <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
                         <div class="count">{{form.selectedOption1}}</div>
+                        <div class="count">{{ form.coinAmount }}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>
                       <div class="info-title">Account Name:</div>
                       <div class="info-email">
-                        <div class="email-number">BITU</div>
-                        <div class="email-copy">
+                        <div class="email-number">{{ userInfo?.zepto_account?.name || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.name || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -330,8 +332,8 @@
   
                       <div class="info-title">BSB Number:</div>
                       <div class="info-email">
-                        <div class="email-number">802919</div>
-                        <div class="email-copy">
+                        <div class="email-number">{{ userInfo?.zepto_account?.bank_account_id || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_account_id || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -339,8 +341,8 @@
   
                       <div class="info-title">Account Number:</div>
                       <div class="info-email">
-                        <div class="email-number">7560035</div>
-                        <div class="email-copy">
+                        <div class="email-number">{{ userInfo?.zepto_account?.account_number || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.account_number || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -349,7 +351,7 @@
                       <div class="info-title">Reference (Optional):</div>
                       <div class="info-email">
                         <div class="email-number">Purchase</div>
-                        <div class="email-copy">
+                        <div class="email-copy" @click="textToCopy('Purchase')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -455,18 +457,22 @@
         class="deposit-details clearfloat"
         v-if="activeStep >= 4"
     >
-      <div class="recent-deposit clearfloat">
+      <div class="recent-deposit clearfloat" v-loading="tableDataLoading">
         <div class="table-name">Recent Deposits</div>
         <div class="not-arrive">Hasn't arrived?</div>
         <Table :sourceData="tableData">
           <template v-slot:columns>
             <el-table-column
-                prop="time"
+                prop="CreatedAt"
                 :label="t('messages.wallet.fiat_Time')"
                 width="210"
-            />
+            >
+            <template #default="scope">
+              {{ formatDate(scope.row.CreatedAt) }}
+            </template>
+          </el-table-column>
             <el-table-column
-                prop="coin"
+                prop="currency"
                 :label="t('messages.wallet.fiat_Coin')"
                 width="210"
             />
@@ -481,30 +487,35 @@
             >
               <template #default="scope">
                 <div
+                    style="color: #01c19a"
+                >
+                  Successful
+                </div>
+                <!-- <div
                     v-if="scope.row.status === 'Successful'"
                     style="color: #01c19a"
                 >
                   Successful
                 </div>
-                <div v-else-if="scope.row.status === 'Faild'">Faild</div>
+                <div v-else-if="scope.row.status === 'Faild'">Faild</div> -->
               </template>
             </el-table-column>
             <el-table-column :label="t('messages.wallet.fiat_Information')">
               <template #default="scope">
-                <template v-if="!isFoldArr.includes(scope.row.key)">
+                <template v-if="!isFoldArr.includes(scope.row.ID)">
                   <div class="info">
                     <p>Payment Method:</p>
-                    <p>{{ scope.row.payment_method }}</p>
+                    <p>{{ scope.row.pay_method }}</p>
                   </div>
                 </template>
                 <template v-else>
                   <div class="info">
                     <p>Payment Method:</p>
-                    <p>{{ scope.row.payment_method }}</p>
+                    <p>{{ scope.row.pay_method }}</p>
                   </div>
                   <div class="info">
                     <p>indicated Amount:</p>
-                    <p>{{ scope.row.indicated_amount }}</p>
+                    <p>{{ scope.row.amount }}</p>
                   </div>
                   <div class="info">
                     <p>Fee:</p>
@@ -512,7 +523,7 @@
                   </div>
                   <div class="info">
                     <p>Order ID:</p>
-                    <p>{{ scope.row.order_ID }}</p>
+                    <p>{{ scope.row.ID }}</p>
                   </div>
                 </template>
               </template>
@@ -523,9 +534,10 @@
                     type="text"
                     :class="{
                     icon_button: true,
-                    isRotate: isFoldArr.includes(scope.row.key),
+                    isRotate: isFoldArr.includes(scope.row.ID),
                   }"
-                    @click="getKey(scope.row.key)"
+                    @click="getKey(scope.row.ID)"
+                    style="transition: all .4s;"
                 >
                   <el-icon style="color: #9b9b9b">
                     <CaretBottom/>
@@ -536,6 +548,9 @@
             </el-table-column>
           </template>
         </Table>
+        <div style="display: flex; justify-content: flex-end;height: 70px;">
+          <el-pagination layout="prev, pager, next" :total="50"/>
+        </div>
       </div>
     </div>
   </div>
@@ -573,7 +588,11 @@ import coin_nzd from "../../../../assets/image/coin_nzd.svg";
 import {getDepositTransactions} from "../../../../api/deposit";
 import { number } from "echarts";
 import { addTransaction, getTransactionList } from '../../../../api/transactions';
-
+import dayjs from "dayjs";
+import {useUserInfoStore} from "../../../../store/user";
+import {storeToRefs} from "pinia";
+const userInfoStore = useUserInfoStore();
+const {userInfo} = storeToRefs(userInfoStore);
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
@@ -647,15 +666,76 @@ async function  submitTransaction(data: Form) {
   }
   return await addTransaction(addData);
 }
+
+const tableData = ref([
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   icon: "crypto_icon_usdt",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "1",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "2",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "3",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+]);
+const tableDataLoading = ref(false);
+const formatDate = (date: Date) => {
+  return dayjs(date).format('YYYY-MM-DD HH:mm');
+}
 // 处理提交后结果
 async function handleSubmit() {
   try {
     const submitResult = await submitTransaction(form.value);
     if(submitResult.data.msg === 'success') {
       depositStatus.value = true;
+      tableDataLoading.value = true;
+      getTransactionList().then((res: any) => {
+        // console.log(res.data);
+        if(res.data.data && res.data.data.length) {
+          console.log(res.data.data.slice(0, 10));
+          tableData.value = res.data.data.slice(0, 10);
+        }
+        tableDataLoading.value = false;
+      }).catch(() => {
+        ElMessage.error("Data loading failed");
+        tableDataLoading.value = false;
+      });
+      activeStep.value = 4;
     }
-    const transactionList = await getTransactionList();
-    console.log(transactionList);
   } catch(e) {
     ElMessage.error('Please try again later.');
   }
@@ -713,7 +793,6 @@ async function handleContinue(ruleFormRef: FormInstance | undefined){
   if(!await validForm(ruleFormRef)) {
     return;
   }
-  activeStep.value = 4
   showContinueBtn.value = true; // 隐藏继续按钮
   dialogContinue.value = true;
 }
@@ -748,51 +827,6 @@ const requireList = [
     info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.<br/>Subsequent transfers are instant.",
   },
 ];
-const tableData = ref([
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    icon: "crypto_icon_usdt",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "1",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "2",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-  {
-    time: "2023-04-20 20:22",
-    coin: "USDT",
-    amount: "33399.567 USDT",
-    status: "Successful",
-    payment_method: "PayID/Osko",
-    indicated_amount: "3800.00",
-    TxID: "TXRLV…aAjr7",
-    order_ID: "PAC23212232112121211",
-    key: "3",
-    network: "Tron(TRC20)",
-    address: "Cf9044…104a5f",
-    wallet: "Trading Wallet",
-  },
-]);
 const isFoldArr = ref<string[]>([]);
 const getKey = (key: string) => {
   let index = isFoldArr.value.indexOf(key);
@@ -803,6 +837,10 @@ const getKey = (key: string) => {
   }
 };
 
+const textToCopy = (contentToCopy: string | number) => {
+  navigator.clipboard.writeText(`${contentToCopy}`);
+  ElMessage.success('Copied to clipboard!');
+}
 
 </script>
 
@@ -1584,5 +1622,8 @@ $fontSizeMin: 12px;
   .el-form-item.is-error .el-input__wrapper {
     border: 1px solid #F35854;
   }
+}
+.isRotate {
+  transform: rotate(180deg);
 }
 </style>
