@@ -38,49 +38,49 @@
                 </el-form>
                 <el-button type="primary" @click="submitPasswordForm(passwordForm)">Submit Password</el-button>
               </el-dialog>
-              <el-dialog
-                  class="inner-dialog"
-                  v-model="changeEmailDialog"
-                  style="padding: 0 10px;"
-                  title="Inner Dialog"
-                  append-to-body
-                  width="448px"
-              >
-                <template #header>
-                  <div style="font-weight: 600; font-size: 22px">Change Email</div>
-                </template>
-                <div class="divider"></div>
-                <el-form
-                    ref="emailForm"
-                    :model="emailFormData"
-                    :rules="emailFormRules"
-                    label-width="140px"
-                    @submit.native.prevent="submitEmailForm"
-                    style="margin-top: 15px"
-                >
-                  <el-form-item label="Current Email">
-                    <!-- 使用 userInfo.email 来填充当前邮箱 -->
-                    <el-input v-model="userInfo.email" disabled/>
-                  </el-form-item>
-                  <el-form-item label="New Email" prop="newEmail">
-                    <el-input v-model="emailFormData.newEmail"/>
-                  </el-form-item>
-                  <el-form-item label="Verification Code" prop="verificationCode">
-                    <el-input v-model="emailFormData.verificationCode"/>
+<!--              <el-dialog-->
+<!--                  class="inner-dialog"-->
+<!--                  v-model="changeEmailDialog"-->
+<!--                  style="padding: 0 10px;"-->
+<!--                  title="Inner Dialog"-->
+<!--                  append-to-body-->
+<!--                  width="448px"-->
+<!--              >-->
+<!--                <template #header>-->
+<!--                  <div style="font-weight: 600; font-size: 22px">Change Email</div>-->
+<!--                </template>-->
+<!--                <div class="divider"></div>-->
+<!--                <el-form-->
+<!--                    ref="emailForm"-->
+<!--                    :model="emailFormData"-->
+<!--                    :rules="emailFormRules"-->
+<!--                    label-width="140px"-->
+<!--                    @submit.native.prevent="submitEmailForm"-->
+<!--                    style="margin-top: 15px"-->
+<!--                >-->
+<!--                  <el-form-item label="Current Email">-->
+<!--                    &lt;!&ndash; 使用 userInfo.email 来填充当前邮箱 &ndash;&gt;-->
+<!--                    <el-input v-model="userInfo.email" disabled/>-->
+<!--                  </el-form-item>-->
+<!--                  <el-form-item label="New Email" prop="newEmail">-->
+<!--                    <el-input v-model="emailFormData.newEmail"/>-->
+<!--                  </el-form-item>-->
+<!--                  <el-form-item label="Verification Code" prop="verificationCode">-->
+<!--                    <el-input v-model="emailFormData.verificationCode"/>-->
 
-                  </el-form-item>
-                  <el-form-item style="margin-left: 0 !important;">
-                    <el-button
-                        class="send-code-btn"
-                        type="primary"
-                        @click="sendVerificationCode"
-                        :disabled="emailFormData.newEmail === ''"
-                    >
-                      {{ sendingCode ? 'Sending...' : 'Send Code' }}
-                    </el-button>
-                  </el-form-item>
-                </el-form>
-              </el-dialog>
+<!--                  </el-form-item>-->
+<!--                  <el-form-item style="margin-left: 0 !important;">-->
+<!--                    <el-button-->
+<!--                        class="send-code-btn"-->
+<!--                        type="primary"-->
+<!--                        @click="sendVerificationCode"-->
+<!--                        :disabled="emailFormData.newEmail === ''"-->
+<!--                    >-->
+<!--                      {{ sendingCode ? 'Sending...' : 'Send Code' }}-->
+<!--                    </el-button>-->
+<!--                  </el-form-item>-->
+<!--                </el-form>-->
+<!--              </el-dialog>-->
 
             </div>
             <div class="info-count">
@@ -308,17 +308,17 @@ const passwordFormRules = {
 const passwordForm = ref<FormInstance>();
 
 async function submitPasswordForm(formEl: FormInstance | undefined) {
-  if (!formEl) return;
-  const valid = await formEl.validate((valid) => valid);
-  if (!valid) return;
-  // 调用 API 校验密码
-  const res = await verifyPassword(passwordFormData.password);
-  if (res.data.success) {
-    passwordDialog.value = false; // 关闭密码对话框
-    openEmailDialog(); // 打开更改邮箱的对话框
-  } else {
-    ElMessage.error('Incorrect password. Please try again!');
-  }
+  // if (!formEl) return;
+  // const valid = await formEl.validate((valid) => valid);
+  // if (!valid) return;
+  // // 调用 API 校验密码
+  // const res = await verifyPassword(passwordFormData.password);
+  // if (res.data.success) {
+  //   passwordDialog.value = false; // 关闭密码对话框
+  //   openEmailDialog(); // 打开更改邮箱的对话框
+  // } else {
+  //   ElMessage.error('Incorrect password. Please try again!');
+  // }
 }
 
 function openPasswordDialog() {
@@ -345,41 +345,41 @@ const emailFormRules = {
   ]
 };
 
-async function submitEmailForm() {
-  const valid = await this.$refs.emailForm.validate();
-  if (!valid) return;
-  // 调用 API 更新邮箱
-  const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
-  if (res.success) {
-    ElMessage.success('Email updated successfully!');
-    userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
-    changeEmailDialog.value = false; // 关闭对话框
-  } else {
-    ElMessage.error('Failed to update email. Please try again later!');
-  }
-}
-
-async function sendVerificationCode() {
-  if (!emailFormData.newEmail) {
-    ElMessage.error('Please enter new email first!');
-    return;
-  }
-  sendingCode.value = true;
-  // 调用 API 发送验证码
-  const res = await sendCode(emailFormData.newEmail);
-  sendingCode.value = false;
-  if (res.success) {
-    ElMessage.success('Verification code sent!');
-  } else {
-    ElMessage.error('Failed to send verification code. Please try again later!');
-  }
-}
-
-function openEmailDialog() {
-  emailFormData.newEmail = ""; // 清空新邮箱
-  emailFormData.verificationCode = ""; // 清空验证码
-  changeEmailDialog.value = true; // 打开对话框
-}
+// async function submitEmailForm() {
+//   const valid = await this.$refs.emailForm.validate();
+//   if (!valid) return;
+//   // 调用 API 更新邮箱
+//   const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
+//   if (res.success) {
+//     ElMessage.success('Email updated successfully!');
+//     userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
+//     changeEmailDialog.value = false; // 关闭对话框
+//   } else {
+//     ElMessage.error('Failed to update email. Please try again later!');
+//   }
+// }
+//
+// async function sendVerificationCode() {
+//   if (!emailFormData.newEmail) {
+//     ElMessage.error('Please enter new email first!');
+//     return;
+//   }
+//   sendingCode.value = true;
+//   // 调用 API 发送验证码
+//   const res = await sendCode(emailFormData.newEmail);
+//   sendingCode.value = false;
+//   if (res.success) {
+//     ElMessage.success('Verification code sent!');
+//   } else {
+//     ElMessage.error('Failed to send verification code. Please try again later!');
+//   }
+// }
+//
+// function openEmailDialog() {
+//   emailFormData.newEmail = ""; // 清空新邮箱
+//   emailFormData.verificationCode = ""; // 清空验证码
+//   changeEmailDialog.value = true; // 打开对话框
+// }
 </script>
 
 <style scoped lang="scss">
