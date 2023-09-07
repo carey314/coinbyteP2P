@@ -288,7 +288,7 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">AUD</div>
                         </div>
-                        <div class="count">1,000.00</div>
+                        <div class="count">{{form.selectedOption1}}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>
@@ -315,7 +315,7 @@
                           <div><img :src="coin_aud"/></div>
                           <div class="coin-name">AUD</div>
                         </div>
-                        <div class="count">1,000.00</div>
+                        <div class="count">{{form.selectedOption1}}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>

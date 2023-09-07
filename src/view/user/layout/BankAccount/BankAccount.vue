@@ -17,7 +17,6 @@
           title="Inner Dialog"
           append-to-body
           width="448px"
-          :close-on-click-modal="false"
       >
         <template #header>
           <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
@@ -638,6 +637,8 @@ $fontSizeMin: 12px;
       align-items: center;
       justify-content: center;
       min-height: 124px;
+      flex-direction: column;
+      gap: 7px;
   }
 }
 
