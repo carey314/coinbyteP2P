@@ -167,10 +167,10 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ (userInfo && userInfo.data) ? userInfo.data.email : userInfo.email }}
+                          {{ (userInfo && userInfo.data) ? userInfo.data?.email : userInfo?.email }}
                         </div>
                         <div class="user-id">
-                          UID:{{ (userInfo && userInfo.data) ? userInfo.data.ID : userInfo.ID }}
+                          UID:{{ (userInfo && userInfo.data) ? userInfo.data?.ID : userInfo?.ID }}
                         </div>
                       </div>
                     </div>

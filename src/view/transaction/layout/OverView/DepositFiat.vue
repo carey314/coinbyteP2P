@@ -334,8 +334,8 @@
   
                       <div class="info-title">BSB Number:</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.bank_account_id || '----' }}</div>
-                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_account_id || '----')">
+                        <div class="email-number">{{ userInfo?.zepto_account?.bank_branch_code || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_branch_code || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -343,8 +343,8 @@
   
                       <div class="info-title">Account Number:</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.account_number || '----' }}</div>
-                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.account_number || '----')">
+                        <div class="email-number">{{ userInfo?.zepto_account?.bank_account_number || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -352,8 +352,8 @@
   
                       <div class="info-title">Reference (Optional):</div>
                       <div class="info-email">
-                        <div class="email-number">Purchase</div>
-                        <div class="email-copy" @click="textToCopy('Purchase')">
+                        <div class="email-number">{{ userInfo?.zepto_account?.ref || '----' }}</div>
+                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.ref || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -1282,7 +1282,7 @@ $fontSizeMin: 12px;
             justify-content: space-between;
             font-size: 14px;
             color: #878787;
-            padding-top: 40px;
+            padding-top: 10px;
             @media (max-width: 992px) {
               width: 100%;
             }
@@ -1654,6 +1654,7 @@ $fontSizeMin: 12px;
 }
 :deep() {
   .el-form-item__error {
+    position: static !important;
     width: 90%;
     font-size: 16px;
     color: #F35854;
