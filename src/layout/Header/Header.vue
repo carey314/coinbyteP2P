@@ -167,10 +167,10 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ (userInfo && userInfo.data) ? userInfo.data.email : userInfo.email }}
+                          {{ (userInfo && userInfo.data) ? userInfo.data?.email : userInfo?.email }}
                         </div>
                         <div class="user-id">
-                          UID:{{ (userInfo && userInfo.data) ? userInfo.data.ID : userInfo.ID }}
+                          UID:{{ (userInfo && userInfo.data) ? userInfo.data?.ID : userInfo?.ID }}
                         </div>
                       </div>
                     </div>
@@ -494,7 +494,7 @@ function handleItemClick(index: number): void {
   selectedIndex.value = index; // 更新 selectedIndex 的值
 }
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
-const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为存储的语言设置
+const currentLanguage = ref(getStoredLanguage() || "English"); // 将初始值设置为存储的语言设置
 const languageOptions = [
   {
     value: "en-US",

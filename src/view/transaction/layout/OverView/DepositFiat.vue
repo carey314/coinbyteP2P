@@ -1621,6 +1621,7 @@ $fontSizeMin: 12px;
     width: 100%;
     overflow-wrap: break-word;
     word-break: keep-all;
+    overflow-wrap: break-word;
   }
 }
 

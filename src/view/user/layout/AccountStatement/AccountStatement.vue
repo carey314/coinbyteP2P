@@ -383,7 +383,7 @@ function handleItemClick(index: number): void {
 }
 
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
-const currentLanguage = ref(getStoredLanguage() || ""); // 将初始值设置为存储的语言设置
+const currentLanguage = ref(getStoredLanguage() || "English"); // 将初始值设置为存储的语言设置
 const languageOptions = [
   {
     value: "en-US",
@@ -398,7 +398,6 @@ const languageOptions = [
     label: "繁體中文",
   },
 ];
-
 // 保存当前语言,高亮显示
 function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");

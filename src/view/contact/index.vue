@@ -236,7 +236,7 @@ function resetWidth() {
 @media (min-width: 985px) and (max-width: 1400px) {
   .part {
     max-width: 940px;
-    min-height: calc(100vh - 620px);
+    min-height: calc(100vh - 450px) !important;
   }
   .hand_left {
     width: 36%;

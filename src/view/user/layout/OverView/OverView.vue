@@ -576,7 +576,7 @@ const emailFormRules = {
         //   width: 123px;
         // }
         .tip-icon {
-          margin-right: 8px;
+          //margin-right: 8px;
         }
 
         .tip-text {

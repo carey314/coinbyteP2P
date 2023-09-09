@@ -81,7 +81,7 @@
               <template v-else #suffix>
                 <img
                     :src="login_eye_view"
-                    style="width: 22px; height: 20px"
+                    style="width: 22px; height: 17px"
                     @click="showPassWord"
                 />
               </template>
@@ -98,11 +98,13 @@
                 >
               </div>
             </div>
-            <GetButton
-                :text="text"
-                style="margin-top: 31px"
-                @handler="toLogin"
-            />
+<!--            <GetButton-->
+<!--                :text="text"-->
+<!--                style="margin-top: 31px"-->
+<!--                :disabled="isButtonDisabled"-->
+<!--                @handler="toLogin"-->
+<!--            />-->
+            <el-button @click="toLogin" :disabled="isButtonDisabled" class="login-btn" type="info">Log in</el-button>
           </el-form-item>
 
           <div class="login-signup">
@@ -194,7 +196,7 @@
               <template v-else #suffix>
                 <img
                     :src="login_eye_view"
-                    style="width: 22px; height: 20px"
+                    style="width: 22px; height: 17px"
                     @click="showPassWord"
                 />
               </template>
@@ -211,12 +213,8 @@
                 >
               </div>
             </div>
-            <GetButton
-                :text="text"
-                style="margin-top: 31px"
-                @handler="toLogin"
-                :disabled="isButtonDisabled"
-            />
+            <el-button @click="toLogin" :disabled="isButtonDisabled" class="login-btn">Log in</el-button>
+
           </el-form-item>
 
 
@@ -311,7 +309,6 @@ const showPassWord = () => {
   isShowPass.value = !isShowPass.value;
 };
 const text = t('messages.login.login');
-;
 // 进度条
 const percentage = ref(25);
 const customColor = ref("#01c19a");
@@ -500,7 +497,7 @@ $fontSizeMin: 12px;
     .login {
       background: #fff;
       box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
-      border-radius: 8px 0 0 8px;
+      border-radius: 8px;
       padding: 37px 43px 38px 43px;
 
       @media (max-width: 769px) {
@@ -794,10 +791,10 @@ $fontSizeMin: 12px;
   align-items: center;
   border-bottom: 1px solid #2e3945;
   @media (max-width: 768px) {
-    min-height: calc(100vh - 115px);
+    min-height: calc(100vh - 90px);
   }
   @media (max-width: 768px) {
-    margin-top: 30px;
+    //margin-top: 30px;
     display: block !important;
     border-bottom: none;
     box-shadow: none;
@@ -815,7 +812,7 @@ $fontSizeMin: 12px;
     .login {
       background: #fff;
       box-shadow: 0 0 15px 0 rgba(95, 95, 95, 0.19);
-      border-radius: 8px 0 0 8px;
+      border-radius: 8px;
       padding: 37px 43px 38px 43px;
 
       @media (max-width: 769px) {
@@ -1198,5 +1195,19 @@ $fontSizeMin: 12px;
 
 .other-sign-name {
   margin-left: 3px;
+}
+.login-btn{
+  height: 50px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  padding: 1rem 1.7rem;
+  background-color: $main-color;
+  border-color: $main-color;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 30px;
+  width:100%;
 }
 </style>

@@ -323,12 +323,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("../view/user/layout/OverView/OverView.vue"),
         meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
       },
-      {
-        path: "/user/security",
-        name: "security",
-        component: () => import("../view/user/layout/Security/Security.vue"),
-        meta: { tab: 'second' }
-      },
+      // {
+      //   path: "/user/security",
+      //   name: "security",
+      //   component: () => import("../view/user/layout/Security/Security.vue"),
+      //   meta: { tab: 'second' }
+      // },
       {
         path: "/user/verification",
         name: "verification",
