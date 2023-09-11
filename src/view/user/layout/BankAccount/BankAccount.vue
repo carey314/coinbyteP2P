@@ -110,6 +110,7 @@
               <div class="bank-form-label">Account Number</div>
             </template>
             <el-input
+                :disabled="!bankForm.bank_country"
                 class="container-input"
                 v-model="bankForm.account_number"
                 type="text"
@@ -340,6 +341,10 @@ const handleClose = () => {
 }
 const submitLoading = ref(false);
 // form rule
+const accountNumberFormat: {[key: string]: any} = {
+  'Australia': /^\d{9}$/,
+  'New Zealand': /^\d{15}$/
+}
 const rules = reactive<FormRules>({
   bank_country: [
     {required: true, message: 'Please input bank country.', trigger: 'blur'},
@@ -352,11 +357,21 @@ const rules = reactive<FormRules>({
   ],
   branch_code: [
     {required: true, message: 'Please input branch code.', trigger: 'blur'},
+    {pattern: /^[A-Za-z]{4}$/, message: 'Please enter the correct branch code format.', trigger: 'blur'},
   ],
   account_number: [
     {required: true, message: 'Please input account number.', trigger: 'blur'},
+    {validator: validateAccountNumber, trigger: 'blur'},
   ],
 });
+function validateAccountNumber(rule: any, value: any, callback: any) {
+  if(!accountNumberFormat[bankForm.value.bank_country]) return;
+  if (!accountNumberFormat[bankForm.value.bank_country].test(value)) {
+    callback(new Error('Please enter the correct account number format.'));
+  } else {
+    callback();
+  }
+}
 
 function updateCanContinue() {
   canContinue.value = selectedOption2.value !== "";
@@ -378,6 +393,8 @@ const deleteStatement = () => {
   bankForm.value.bank_statement = '';
 }
 async function handleSubmit(formEl: FormInstance | undefined) {
+  console.log(accountNumberFormat[bankForm.value.bank_country]);
+  console.log(rules);
   if (!formEl) return
   const valid = await formEl.validate((valid, fields) => {
     return valid;
@@ -393,14 +410,6 @@ async function handleSubmit(formEl: FormInstance | undefined) {
     addressVisible.value = false;
     pageTotal.value = 0;
     toRefresh(1);
-    bankForm.value = {
-      bank_country: "",
-      currency: "",
-      bank_name: "",
-      branch_code: "",
-      account_number: "",
-      bank_statement: "",
-    };
   } catch (e) {
     console.log(e);
     ElMessage.error("Please try again later.");

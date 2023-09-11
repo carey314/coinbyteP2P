@@ -211,7 +211,7 @@
                           <div class="list-info" v-html="item.info"></div>
                         </div>
                         <template #footer>
-                          <el-button @click="handleSubmit" class="know-btn"
+                          <el-button @click="handleSubmit" class="know-btn" :loading="submitDepositLoading" :disabled="submitDepositLoading"
                           >I Agree
                           </el-button
                           >
@@ -233,7 +233,7 @@
                               Please use the PayID detail below to make the
                               transfer and
                               <span
-                                >Select the email option, and NOT organisation
+                                >Select the email option, and NOT organization
                                 ID</span
                               >
                               when depositing from online banking or mobile app.
@@ -280,14 +280,14 @@
                       Please use your unique PayID detail below to make the
                       transfer and
                       <span
-                      >select the email option, and NOT organisation ID</span
+                      >select the email option, and NOT organization ID</span
                       >
                       when transferring from online banking or mobile app.
                     </div>
                     <div class="info">
                       <div class="info-price">
                         <div class="coin">
-                          <div><img :src="coin_aud"/></div>
+                          <div v-if="selectCurrencyContent"><img :src="selectCurrencyContent.icon"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
                         <!-- <div class="count">{{form.selectedOption1}}</div> -->
@@ -315,11 +315,11 @@
                     <div class="info">
                       <div class="info-price">
                         <div class="coin">
-                          <div><img :src="coin_aud"/></div>
+                          <div v-if="selectCurrencyContent"><img :src="selectCurrencyContent.icon"/></div>
                           <div class="coin-name">{{ form.selectedOption1 }}</div>
                         </div>
                         <!-- <div class="count">{{form.selectedOption1}}</div> -->
-                        <div class="count">{{ form.coinAmount }}</div>
+                        <div class="count">{{ formatNumber(form.coinAmount || 0) }}</div>
                       </div>
                       <div class="divider"></div>
                       <div class="info-con">PayID Information</div>
@@ -581,7 +581,7 @@ import {useWindowSize} from "../../../../hooks/useWindowSize";
 import login_qrcode from "../../../../assets/home/download_qrcode.png";
 import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
 import Table from "../component/Table.vue";
-import {useI18n} from "vue-i18n";
+import {NumberFormat, useI18n} from "vue-i18n";
 import {ElMessage, ElMessageBox, FormInstance, FormRules,} from "element-plus";
 import requireOne from "../../../../assets/deposit/icon01.png";
 import requireTwo from "../../../../assets/deposit/icon02.png";
@@ -730,9 +730,12 @@ const formatDate = (date: Date) => {
   return dayjs(date).format('YYYY-MM-DD HH:mm');
 }
 // 处理提交后结果
+const submitDepositLoading = ref(false);
 async function handleSubmit() {
   try {
+    submitDepositLoading.value = true;
     const submitResult = await submitTransaction(form.value);
+    submitDepositLoading.value = false;
     if(submitResult.data.msg === 'success') {
       depositStatus.value = true;
       activeStep.value = 4;
@@ -740,6 +743,7 @@ async function handleSubmit() {
     }
   } catch(e) {
     ElMessage.error('Please try again later.');
+    submitDepositLoading.value = false;
   }
 }
 const pageTotal = ref(0);
@@ -870,7 +874,8 @@ const getKey = (key: string) => {
 };
 
 const textToCopy = (contentToCopy: string | number) => {
-  navigator.clipboard.writeText(`${contentToCopy}`);
+  console.log(navigator);
+  navigator.clipboard?.writeText(`${contentToCopy}`);
   ElMessage.success('Copied to clipboard!');
 }
 
