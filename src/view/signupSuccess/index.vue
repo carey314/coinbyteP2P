@@ -4,7 +4,7 @@
     <div class="signup-success">
       <div class="created-title">{{ t("messages.created.title") }}</div>
       <div class="continue">{{ t("messages.created.continue") }}</div>
-      <div style="margin-top: 51px">
+      <div style="margin-top: 51px; padding-bottom: 31px;">
         <img class="display-img" :src="verification_icon" />
       </div>
       <div class="account-created">
@@ -152,6 +152,7 @@ $colorinfo: #878787;
     margin-top: 40px;
     width: 427px;
     margin-bottom: 30px;
+    box-shadow: 4px 4px 10px 0 rgba(146,146,146,0.50);
     @media (max-width: 768px) {
       width: 80%;
     }

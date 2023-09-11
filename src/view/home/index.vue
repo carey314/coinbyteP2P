@@ -327,12 +327,12 @@
           </div>
           <div v-if="reasonTab === t('messages.home.fifth_regulation')">
             <el-row class="tab-content-box">
-              <el-col :span="12" :xs="24">
+              <el-col :span="11" :xs="24">
                 <div class="tab-img">
                   <img :src="image01"/></div
                 >
               </el-col>
-              <el-col :span="12" :xs="24">
+              <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_regulation") }}</div>
                   <div class="tab-content-tip">
@@ -348,12 +348,12 @@
           </div>
           <div v-if="reasonTab === t('messages.home.fifth_fiat')">
             <el-row class="tab-content-box">
-              <el-col :span="12" :xs="24">
+              <el-col :span="11" :xs="24">
                 <div class="tab-img">
                   <img :src="image02"/></div
                 >
               </el-col>
-              <el-col :span="12" :xs="24">
+              <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_fiat") }}</div>
                   <div class="tab-content-tip">
@@ -369,12 +369,12 @@
           </div>
           <div v-if="reasonTab === t('messages.home.fifth_Totally')">
             <el-row class="tab-content-box">
-              <el-col :span="12" :xs="24">
+              <el-col :span="11" :xs="24">
                 <div class="tab-img">
                   <img :src="image03"/></div
                 >
               </el-col>
-              <el-col :span="12" :xs="24">
+              <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_Totally") }}</div>
                   <div class="tab-content-tip">
@@ -390,12 +390,12 @@
           </div>
           <div v-if="reasonTab === t('messages.home.fifth_easy')">
             <el-row class="tab-content-box">
-              <el-col :span="12" :xs="24">
+              <el-col :span="11" :xs="24">
                 <div class="tab-img">
                   <img :src="image04"/></div
                 >
               </el-col>
-              <el-col :span="12" :xs="24">
+              <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_easy") }}</div>
                   <div class="tab-content-tip">
@@ -411,12 +411,12 @@
           </div>
           <div v-if="reasonTab === t('messages.home.fifth_live')">
             <el-row class="tab-content-box">
-              <el-col :span="12" :xs="24">
+              <el-col :span="11" :xs="24">
                 <div class="tab-img">
                   <img :src="image05"/></div
                 >
               </el-col>
-              <el-col :span="12" :xs="24">
+              <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_live") }}</div>
                   <div class="tab-content-tip">
@@ -1297,4 +1297,26 @@ onMounted(() => {
   text-align: right;
 }
 
+.tab-img {
+  margin: auto;
+  @media (min-width: 768px) {
+    transform: translateX(10px);
+  }
+}
+.tab-content {
+  margin-left: 22px;
+}
+.reason-box {
+  :deep(.el-radio-button) {
+    display: block;
+    height: 100%;
+    .el-radio-button__inner {
+      height: 100% !important;
+    }
+  }
+}
+
+.item-title {
+  font-size: 22px;
+}
 </style>
