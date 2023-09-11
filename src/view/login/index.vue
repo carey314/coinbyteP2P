@@ -5,6 +5,7 @@
     <div class="center-box" v-if="windowWidth > 769">
       <div class="login-box">
         <el-form
+            ref="ruleFormRef"
             :model="form"
             :rules="rules"
             class="login"
@@ -12,9 +13,9 @@
         >
           <div class="login-title">{{ $t("messages.login.welcome") }}</div>
 
-          <el-tabs v-model="activeLogin" class="login-tabs">
+          <el-tabs v-model="activeLogin" class="login-tabs" @tab-change="() => clearValidate(ruleFormRef)">
             <el-tab-pane label="Phone" name="first" class="first-pan">
-              <el-form-item class="login-referral" prop="username">
+              <el-form-item class="login-referral" prop="number">
                 <el-input
                     v-model="form.number"
                     placeholder="Phone"
@@ -60,7 +61,7 @@
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="Email" name="second">
-              <el-form-item class="login-referral" prop="number">
+              <el-form-item class="login-referral" prop="username">
                 <el-input v-model="form.username" placeholder="Email"/>
               </el-form-item>
             </el-tab-pane>
@@ -104,7 +105,7 @@
 <!--                :disabled="isButtonDisabled"-->
 <!--                @handler="toLogin"-->
 <!--            />-->
-            <el-button @click="toLogin" :disabled="isButtonDisabled" class="login-btn" type="info">Log in</el-button>
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">Log in</el-button>
           </el-form-item>
 
           <div class="login-signup">
@@ -121,15 +122,16 @@
     <div class="center-box-mobile" v-if="windowWidth <= 769">
       <div class="login-box">
         <el-form
+            ref="ruleFormRef"
             :model="form"
             :rules="rules"
             class="login"
             @submit.native.prevent
         >
           <div class="login-title">{{ $t("messages.login.welcome") }}</div>
-          <el-tabs v-model="activeLogin" class="login-tabs">
+          <el-tabs v-model="activeLogin" class="login-tabs" @tab-change="() => clearValidate(ruleFormRef)">
             <el-tab-pane label="Phone" name="first" class="first-pan">
-              <el-form-item class="login-referral" prop="username">
+              <el-form-item class="login-referral phone-input" prop="number">
                 <el-input
                     v-model="form.number"
                     placeholder="Phone"
@@ -175,7 +177,7 @@
               </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="Email" name="second">
-              <el-form-item class="login-referral" prop="number">
+              <el-form-item class="login-referral" prop="username">
                 <el-input v-model="form.username" placeholder="Email"/>
               </el-form-item>
             </el-tab-pane>
@@ -213,7 +215,7 @@
                 >
               </div>
             </div>
-            <el-button @click="toLogin" :disabled="isButtonDisabled" class="login-btn">Log in</el-button>
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">Log in</el-button>
 
           </el-form-item>
 
@@ -235,7 +237,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onUnmounted, onMounted} from "vue";
+import {ref, reactive, onUnmounted, onMounted, computed, nextTick} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -254,15 +256,32 @@ import {countryList} from "./countries";
 import {useI18n} from "vue-i18n";
 
 const {t} = useI18n();
-const rules = reactive<FormRules>({
-  username: [
-    {required: true, message: "Please input your username!", trigger: "blur"},
-  ],
-  password: [{required: true, message: "Please input your password!"}],
-  number: [
-    {required: true, message: "Please input your number!", trigger: "blur"},
-  ],
-});
+const ruleFormRef = ref<FormInstance>();
+// const rules = reactive<FormRules>({
+//   username: [
+//     {required: true, message: "Please input your username!", trigger: "blur"},
+//   ],
+//   password: [{required: true, message: "Please input your password!"}],
+//   number: [
+//     {required: true, message: "Please input your number!", trigger: "blur"},
+//   ],
+// });
+const rules = computed(() => {
+  let rRules: FormRules = {
+    password: [{required: true, message: "Please input your password!"}],
+  };
+  if(activeLogin.value === 'first') {
+    rRules.number = [
+      {required: true, message: "Please input your phone number!", trigger: "blur"},
+    ];
+  } else if(activeLogin.value === 'second') {
+    rRules.username = [
+      {required: true, message: "Please input your email!", trigger: "blur"},
+      {type: 'email', message: "Please enter a valid email format!", trigger: "blur"}
+    ];
+  }
+  return rRules;
+})
 
 const userInfoStore = useUserInfoStore();
 const {token, username} = storeToRefs(userInfoStore);
@@ -346,6 +365,9 @@ const isButtonDisabled = ref(false);
 //async (formEl: FormInstance | undefined)
 const toLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl || isButtonDisabled.value) return;
+  const res = await formEl.validate(valid => valid);
+  console.log(res);
+  if(!res) return;
   isButtonDisabled.value = true;
   const userAgent = navigator.userAgent;
   // 创建一个包含user_agent属性的JSON对象
@@ -362,8 +384,8 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   let uploadMsg;
   if (activeLogin.value === "first") {
     uploadMsg = {
-      type: "number",
-      account: numberSelect.value + form.number,
+      type: "phone",
+      account: '+' + numberSelect.value + form.number,
       pass_word: form.password,
       device_fingerprint: base64String,
       recaptchaResponse: "in quis cillum nisi",
@@ -381,7 +403,6 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   Tologin(uploadMsg)
       .then((res: any) => {
             const response = res.data;
-            console.log(response, 111111);
             if (response.code === 1) {
               // console.log("Bearer " + response.data.accessToken.token);
               // userInfoStore.changeToken(response.data.accessToken.token);
@@ -389,7 +410,14 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               ElMessage.success("Login succeeded!");
               router.push("/");
             } else {
-              ElMessage.error("Login failed. Please try again later!");
+              console.log(response);
+              if(response.code === 9001) {
+                ElMessage.error("User not exist!");
+              } else if(response.code === 9002) {
+                ElMessage.error("Wrong pass word!");
+              } else {
+                ElMessage.error("Login failed. Please try again later!");
+              }
             }
             isButtonDisabled.value = false;
           }
@@ -410,6 +438,14 @@ const toLogin = async (formEl: FormInstance | undefined) => {
         isButtonDisabled.value = false;
       });
 };
+
+const clearValidate = (formEl: FormInstance | undefined) => {
+  if(!formEl) return;
+  setTimeout(() => formEl.clearValidate(['number', 'username', 'password']), 0);
+  form.number = "";
+  form.username = "";
+  form.password = "";
+}
 </script>
 
 <style scoped lang="scss">
@@ -447,7 +483,10 @@ $fontSizeMin: 12px;
 
   .el-tabs__content {
     margin-top: -37px;
+    overflow: visible !important;
     height: 78px;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
   }
 
   // .center-box .login-box .login .login-referral[data-v-26188718] .el-input__wrapper{
@@ -818,6 +857,11 @@ $fontSizeMin: 12px;
       @media (max-width: 769px) {
         border-radius: 0px;
         padding: 37px 13px 38px 13px;
+        .phone-input :deep() {
+          .el-input__wrapper {
+            border: none !important;
+          }
+        }
       }
 
       :deep() {

@@ -16,6 +16,7 @@
           style="padding: 0 10px; max-width: 448px; width: 100%;"
           title="Inner Dialog"
           append-to-body
+          @closed="handleClose"
       >
         <template #header>
           <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
@@ -145,6 +146,8 @@
             v-if="showContinueBtn"
             class="save-btn"
             @click="handleSubmit(ruleBankFormRef)"
+            :loading="submitLoading"
+            :disabled="submitLoading"
         >
           Submit
         </el-button>
@@ -322,6 +325,20 @@ const bankForm = ref<Bank>({
   account_number: "",
   bank_statement: "",
 });
+const handleClose = () => {
+  bankForm.value = {
+    bank_country: "",
+    currency: "",
+    bank_name: "",
+    branch_code: "",
+    account_number: "",
+    bank_statement: "",
+  };
+  if(ruleBankFormRef.value) {
+    ruleBankFormRef.value.clearValidate();
+  }
+}
+const submitLoading = ref(false);
 // form rule
 const rules = reactive<FormRules>({
   bank_country: [
@@ -369,7 +386,9 @@ async function handleSubmit(formEl: FormInstance | undefined) {
   // withdrawStatus.value = true;
   // innerVisible.value = false;
   try {
+    submitLoading.value = true;
     const res = await addBank(bankForm.value);
+    submitLoading.value = false;
     ElMessage.success("Submission successful.");
     addressVisible.value = false;
     pageTotal.value = 0;
@@ -385,6 +404,7 @@ async function handleSubmit(formEl: FormInstance | undefined) {
   } catch (e) {
     console.log(e);
     ElMessage.error("Please try again later.");
+    submitLoading.value = false;
   }
 }
 
