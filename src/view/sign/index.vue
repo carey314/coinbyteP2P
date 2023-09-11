@@ -43,8 +43,8 @@
             <div class="create-number">
               We're sent an activation link to your email
               <span style="text-decoration: underline" class="email-input"
-              >&nbsp;&nbsp;{{ emailInput }}&nbsp;&nbsp;</span
-              >
+              >&nbsp;&nbsp;{{ emailInput }}&nbsp;&nbsp;</span>
+              <br>
               Please check your inbox to continue.
             </div>
 
@@ -61,13 +61,22 @@
           <div v-if="percentage === 40">
             <div class="create-number">
               I received a single-use code on my email code ending.
+              <br>
               Here it is:
               <span style="position: relative">
                 <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput"/>
                 <span class="tip" v-if="emailCode === ''">*</span>
               </span>
             </div>
-
+            <div class="remind-box" v-if="!isValidPhone">
+              <div class="remind-title">
+                <img :src="icon_info"/> <span>Reminder</span>
+              </div>
+              <div class="remind-tip">* Fill out the empty field.</div>
+              <div class="remind-tip">
+                * Please enter the correct phone number
+              </div>
+            </div>
             <el-button
                 class="verify-btn"
                 type="primary"
@@ -586,6 +595,7 @@ $fontSizeMin: 12px;
     color: #060606;
     line-height: 38px;
     margin-top: 65px;
+    border: 1px solid transparent;
     @media (max-width: 768px) {
       font-size: 26px;
       display: block;
@@ -658,7 +668,7 @@ $fontSizeMin: 12px;
   }
 
   .el-input {
-    width: 40%;
+    width: 339px; //mark ref
     @media (max-width: 768px) {
       width: 95%;
     }
