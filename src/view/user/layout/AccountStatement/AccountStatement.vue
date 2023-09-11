@@ -39,16 +39,25 @@
             >
           </div>
           <div class="content-item-btn" v-if="index == 0">
-              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
-              />
+<!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
+            <div class="info-count">
+              <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+            </div>
           </div>
           <div class="content-item-btn" v-if="index == 1">
-              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
-              />
+<!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
+            <div class="info-count">
+              <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+            </div>
           </div>
           <div class="content-item-btn" v-if="index == 2">
-              <GetButton class="func-btn" :text="t('messages.user.set_btn')"
-              />
+<!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
+            <div class="info-count">
+              <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+            </div>
           </div>
         </div>
       </div>
@@ -111,44 +120,44 @@
           </div>
         </div>
 
-        <div class="prefer-item">
-          <div class="prefer-item-title">
-            <img class="prefer-icon" :src="currency"/>
-            {{ $t("messages.user.prefer_currency") }}
-          </div>
+<!--        <div class="prefer-item">-->
+<!--          <div class="prefer-item-title">-->
+<!--            <img class="prefer-icon" :src="currency"/>-->
+<!--            {{ $t("messages.user.prefer_currency") }}-->
+<!--          </div>-->
 
-          <div
-              @mouseover="cryptoShow"
-              @mouseleave="cryptoHide"
-              class="right-dropdown-box"
-          >
-            <el-dropdown class="currency-dropdown align-icon" ref="navCurrency">
-              <div class="currency-dropdown-trigger">
-                <span style="padding-right: 10px; color: #000">{{
-                    currencies[selectedIndex].label
-                  }}</span>
-                <el-icon>
-                  <ArrowDown/>
-                </el-icon>
-              </div>
-              <template #dropdown>
-                <el-dropdown-menu
-                    class="currency-dropdown-menu"
-                    style="width: 200px"
-                >
-                  <el-dropdown-item
-                      v-for="(currency, index) in currencies"
-                      :key="currency.value"
-                      :class="{ highlight: index === selectedIndex }"
-                      @click="handleItemClick(index)"
-                  >
-                    <div class="alert-cont">{{ currency.label }}</div>
-                  </el-dropdown-item>
-                </el-dropdown-menu>
-              </template>
-            </el-dropdown>
-          </div>
-        </div>
+<!--          <div-->
+<!--              @mouseover="cryptoShow"-->
+<!--              @mouseleave="cryptoHide"-->
+<!--              class="right-dropdown-box"-->
+<!--          >-->
+<!--            <el-dropdown class="currency-dropdown align-icon" ref="navCurrency">-->
+<!--              <div class="currency-dropdown-trigger">-->
+<!--                <span style="padding-right: 10px; color: #000">{{-->
+<!--                    currencies[selectedIndex].label-->
+<!--                  }}</span>-->
+<!--                <el-icon>-->
+<!--                  <ArrowDown/>-->
+<!--                </el-icon>-->
+<!--              </div>-->
+<!--              <template #dropdown>-->
+<!--                <el-dropdown-menu-->
+<!--                    class="currency-dropdown-menu"-->
+<!--                    style="width: 200px"-->
+<!--                >-->
+<!--                  <el-dropdown-item-->
+<!--                      v-for="(currency, index) in currencies"-->
+<!--                      :key="currency.value"-->
+<!--                      :class="{ highlight: index === selectedIndex }"-->
+<!--                      @click="handleItemClick(index)"-->
+<!--                  >-->
+<!--                    <div class="alert-cont">{{ currency.label }}</div>-->
+<!--                  </el-dropdown-item>-->
+<!--                </el-dropdown-menu>-->
+<!--              </template>-->
+<!--            </el-dropdown>-->
+<!--          </div>-->
+<!--        </div>-->
       </div>
       <div class="prefer-mobile" v-else>
         <div class="prefer-item">
@@ -348,6 +357,7 @@ import usercenter_security_login from "../../../../assets/home/usercenter_securi
 import usercenter_security_mobile from "../../../../assets/home/usercenter_security_mobile.svg";
 import usercenter_security_email from "../../../../assets/home/usercenter_security_email.svg";
 import usercenter_security_2factor from "../../../../assets/home/usercenter_security_2factor.svg";
+import registered_icon from "../../../../assets/image/registered_icon.png";
 import language from "../../../../assets/image/language.svg";
 import currency from "../../../../assets/image/currency.svg";
 import world from "../../../../assets/image/world.png";
@@ -461,11 +471,11 @@ const securityDate = reactive([
     title: t("messages.user.email_title"),
     msg: t("messages.user.email_msg"),
   },
-  {
-    icon: usercenter_security_2factor,
-    title: t("messages.user.factor_title"),
-    msg: t("messages.user.factor_msg"),
-  },
+  // {
+  //   icon: usercenter_security_2factor,
+  //   title: t("messages.user.factor_title"),
+  //   msg: t("messages.user.factor_msg"),
+  // },
 ]);
 const tableData = ref<LoginHistory[]>([
   // {
@@ -584,7 +594,10 @@ $fontSizeMin: 12px;
       .content-item-btn {
         display: flex;
         align-items: center;
-
+        .info-count{
+          display: flex;
+          align-items: center;
+        }
         :deep() {
           .button {
             width: 57px !important;
@@ -603,7 +616,16 @@ $fontSizeMin: 12px;
     }
   }
 }
-
+.verify-img {
+  width: 16px;
+  height: 18px;
+  margin-top: 4px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
 .login-history {
   .login-history-head {
     display: flex;
