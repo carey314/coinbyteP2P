@@ -79,7 +79,7 @@ function launchWebSdk(token: string) {
           if (route.query.type === 'sell') {
             router.push('/user/bankaccount');
           } else if (route.query.type === 'buy') {
-            router.push('/');
+            router.push('/user/depositFiat');
           }
         }
       })

@@ -111,11 +111,14 @@ function choosePer (data : any,uuid : string) {
     return http.post("/v1/public/wizards/" + uuid,data);
 }
 
-function verifyPassword (pass: string) {
-    return http.post('verifyPassword', {pass});
+// 验证密码接口
+function verifyPassword(pass: string) {
+    return http.post('email_change', { pass }); // 使用 email_change 接口
 }
-function updateEmail(data) {
-    return http.post('email_change_verify', {});
+
+// 更新邮箱接口
+function updateEmail(data: { code: string, token: string }) {
+    return http.post('email_change_verify', data); // 使用 email_change_verify 接口
 }
 export {
     getProfile,
@@ -132,5 +135,6 @@ export {
     emailVefify,
     phoneSignup,
     phoneVefify,
-    verifyPassword
+    verifyPassword,
+    updateEmail
 }

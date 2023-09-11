@@ -266,7 +266,7 @@ import myprofile_edit from "../../../../assets/wallet/myprofile_edit.svg";
 import myprofile_uid_copy from "../../../../assets/wallet/myprofile_uid_copy.svg";
 
 import {useUserInfoStore} from "../../../../store/user";
-import {getProfile, verifyPassword} from "../../../../api/user";
+import {getProfile, verifyPassword, updateEmail} from "../../../../api/user";
 import {storeToRefs} from "pinia";
 import {ElMessage, FormInstance} from 'element-plus';
 
@@ -314,8 +314,8 @@ async function submitPasswordForm(formEl: FormInstance | undefined) {
   // 调用 API 校验密码
   const res = await verifyPassword(passwordFormData.password);
   if (res.data.success) {
-    passwordDialog.value = false; // 关闭密码对话框
-    openEmailDialog(); // 打开更改邮箱的对话框
+    passwordDialog.value = false;
+    openEmailDialog();
   } else {
     ElMessage.error('Incorrect password. Please try again!');
   }
@@ -345,41 +345,41 @@ const emailFormRules = {
   ]
 };
 
-// async function submitEmailForm() {
-//   const valid = await this.$refs.emailForm.validate();
-//   if (!valid) return;
-//   // 调用 API 更新邮箱
-//   const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
-//   if (res.success) {
-//     ElMessage.success('Email updated successfully!');
-//     userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
-//     changeEmailDialog.value = false; // 关闭对话框
-//   } else {
-//     ElMessage.error('Failed to update email. Please try again later!');
-//   }
-// }
-//
-// async function sendVerificationCode() {
-//   if (!emailFormData.newEmail) {
-//     ElMessage.error('Please enter new email first!');
-//     return;
-//   }
-//   sendingCode.value = true;
-//   // 调用 API 发送验证码
-//   const res = await sendCode(emailFormData.newEmail);
-//   sendingCode.value = false;
-//   if (res.success) {
-//     ElMessage.success('Verification code sent!');
-//   } else {
-//     ElMessage.error('Failed to send verification code. Please try again later!');
-//   }
-// }
-//
-// function openEmailDialog() {
-//   emailFormData.newEmail = ""; // 清空新邮箱
-//   emailFormData.verificationCode = ""; // 清空验证码
-//   changeEmailDialog.value = true; // 打开对话框
-// }
+async function submitEmailForm() {
+  const valid = await this.$refs.emailForm.validate();
+  if (!valid) return;
+  // 调用 API 更新邮箱
+  const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
+  if (res.success) {
+    ElMessage.success('Email updated successfully!');
+    userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
+    changeEmailDialog.value = false; // 关闭对话框
+  } else {
+    ElMessage.error('Failed to update email. Please try again later!');
+  }
+}
+
+async function sendVerificationCode() {
+  if (!emailFormData.newEmail) {
+    ElMessage.error('Please enter new email first!');
+    return;
+  }
+  sendingCode.value = true;
+  // 调用 API 发送验证码
+  const res = await sendCode(emailFormData.newEmail);
+  sendingCode.value = false;
+  if (res.success) {
+    ElMessage.success('Verification code sent!');
+  } else {
+    ElMessage.error('Failed to send verification code. Please try again later!');
+  }
+}
+
+function openEmailDialog() {
+  emailFormData.newEmail = ""; // 清空新邮箱
+  emailFormData.verificationCode = ""; // 清空验证码
+  changeEmailDialog.value = true; // 打开对话框
+}
 </script>
 
 <style scoped lang="scss">

@@ -240,7 +240,7 @@ export default {
                 " Trust & Transparency are at the heart of everything we do. From the beginning, we made user protection and transparency our top priority. We implement highly sophisticated multi-layered security for users funds and data.",
             about_thirdTitle: "Working with regulators",
             about_thirdContent:
-                "COINBYTEP2P is committed to meeting the highest standdards for regulatory compliance to maintain our responsibility to our users.",
+                "COINBYTEP2P is committed to meeting the highest standards for regulatory compliance to maintain our responsibility to our users.",
             about_forthTitle: "COINBYTEP2P's registered",
             about_forthCentre: "Australia Transaction Reports & Analysis Centre",
             about_forthExchange: "Digital Currency Exchange",

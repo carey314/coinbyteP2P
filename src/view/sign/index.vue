@@ -161,11 +161,11 @@
             </div>
             <div class="remind-box" v-if="passwordInput === ''">
               <div class="remind-title">
-                <img :src="icon_info" /> <span>Reminder</span>
+                <img :src="icon_info" /> <span style="font-weight: 500">Reminder</span>
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
               <div class="remind-tip">
-                * Please enter the correct phone number
+                * 8-32 characters long (includ at leate 1 lowercase character, 1 uppercase character, 1 number, 1 symbol)
               </div>
             </div>
             <el-button
@@ -260,10 +260,12 @@ const token2 = reactive({
 })
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
+const CHINESE_REGEX = /[\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]/;
 // const PHONE_REGEX = /^\+\d{2} \d{3} \d{3} \d{3}$/;
 const PHONE_REGEX = /^\+(?:[0-9] ?){6,14}[0-9]$/;
 const isValidEmail = computed(() => {
-  return EMAIL_REGEX.test(emailInput.value);
+  const email = emailInput.value;
+  return !CHINESE_REGEX.test(email) && EMAIL_REGEX.test(email);
 });
 const isValidPhone = computed(() => {
   return PHONE_REGEX.test(phoneInput.value);
@@ -273,25 +275,34 @@ const toConfirmEmail = () => {
   percentage.value += 20;
 }
 
+const registeredEmails = [];
+
 const increase = () => {
   if (isValidEmail.value) {
-    initializeSignUpWizard({
-      email: emailInput.value,  // 这是用户输入的email
-    }).then((res: any) => {
-      console.log(res)
-      if(res.data && (res.status === 200 || res.status === 202)) {
-        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
-        if (res.data.code === 9001) {
-          ElMessage({ message: "E-mail has been registered", type: "error", });
-        } else {
-          percentage.value += 20;
-        }
-      } else {
-        ElMessage({ message: "Please try again later.", type: "error", });
-      }
-    }).catch((err) => {
-      ElMessage({ message: "Please try again later.", type: "error", });
-    });
+    const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
+
+    if (registeredEmails.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
+      ElMessage({ message: "Email has already been registered", type: "error" });
+    } else {
+      initializeSignUpWizard({
+        email: email, // 使用小写形式的邮箱
+      })
+          .then((res: any) => {
+            if (res.data && (res.status === 200 || res.status === 202)) {
+              if (res.data.code === 9001) {
+                ElMessage({ message: "E-mail has been registered", type: "error" });
+              } else {
+                percentage.value += 20;
+                registeredEmails.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
+              }
+            } else {
+              ElMessage({ message: "Please try again later.", type: "error" });
+            }
+          })
+          .catch((err) => {
+            ElMessage({ message: "Please try again later.", type: "error" });
+          });
+    }
   }
 };
 const toCofirmPhone = () => {
@@ -299,24 +310,34 @@ const toCofirmPhone = () => {
     percentage.value += 20;
   }
 }
+const registeredPhoneNumbers = [];
+
 const phoneNumberInput = () => {
   if (isValidPhone.value) {
-    phoneSignup({
-      phone: phoneInput.value,  // 这是用户输入的email
-    }).then((res: any) => {
-      if(res.data && (res.status === 200 || res.status === 202)) {
-        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
-        if (res.data.code === 9001) {
-          ElMessage({ message: "E-mail has been registered", type: "error", });
-        } else {
-          percentage.value += 20;
-        }
-      } else {
-        ElMessage({ message: "Please try again later.", type: "error", });
-      }
-    }).catch((err) => {
-      ElMessage({ message: "Please try again later.", type: "error", });
-    });
+    const phoneNumber = phoneInput.value; // 获取用户输入的手机号码
+
+    if (registeredPhoneNumbers.some((registeredNumber) => registeredNumber === phoneNumber)) {
+      ElMessage({ message: "Phone number has already been registered", type: "error" });
+    } else {
+      phoneSignup({
+        phone: phoneNumber, // 使用用户输入的手机号码
+      })
+          .then((res: any) => {
+            if (res.data && (res.status === 200 || res.status === 202)) {
+              if (res.data.code === 9002) {
+                ElMessage({ message: "Phone number has been registered", type: "error" });
+              } else {
+                percentage.value += 20;
+                registeredPhoneNumbers.push(phoneNumber); // 如果成功注册，将手机号码添加到已注册手机号码数组中
+              }
+            } else {
+              ElMessage({ message: "Please try again later.", type: "error" });
+            }
+          })
+          .catch((err) => {
+            ElMessage({ message: "Please try again later.", type: "error" });
+          });
+    }
   }
 };
 const emailConfirmed = () => {
@@ -391,7 +412,7 @@ const successContinue = () => {
   }).catch((err) => {
     ElMessage({ message: "Please try again later.", type: "error", });
   });
-  
+
   router.push("/signupSuccess");
 };
 
@@ -637,6 +658,7 @@ $fontSizeMin: 12px;
     font-size: 32px;
     line-height: 38px;
     text-align: center;
+    height: 35px;
     padding-bottom: 5px;
 
   }

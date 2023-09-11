@@ -334,10 +334,10 @@ const rules = reactive<FormRules>({
     {required: true, message: 'Please input bank name.', trigger: 'blur'},
   ],
   branch_code: [
-    {required: true, message: 'Please input bank code.', trigger: 'blur'},
+    {required: true, message: 'Please input branch code.', trigger: 'blur'},
   ],
   account_number: [
-    {required: true, message: 'Please input baccount number.', trigger: 'blur'},
+    {required: true, message: 'Please input account number.', trigger: 'blur'},
   ],
 });
 
