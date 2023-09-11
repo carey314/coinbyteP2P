@@ -75,7 +75,7 @@
                         @click="submitEmailForm"
                         :disabled="emailFormData.verificationCode === ''"
                     >
-                      {{ sendingCode ? 'Sending...' : 'Submit Code' }}
+                      Change email
                     </el-button>
                   </el-form-item>
                 </el-form>

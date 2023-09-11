@@ -286,7 +286,8 @@ const toConfirmEmail = () => {
   percentage.value += 20;
 }
 
-const registeredEmails = [];
+const registeredEmails = ref<string[]>([]);
+
 const increase = () => {
   if (isValidEmail.value) {
     const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
@@ -296,6 +297,36 @@ const increase = () => {
     } else {
       initializeSignUpWizard({
         email: email, // 使用小写形式的邮箱
+        const registeredEmails = ref<string[]>([]);
+
+        const increase = () => {
+          if (isValidEmail.value) {
+            const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
+
+            if (registeredEmails.value.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
+              ElMessage({message: "Email has already been registered", type: "error"});
+            } else {
+              initializeSignUpWizard({
+                email: email, // 使用小写形式的邮箱
+              })
+                  .then((res: any) => {
+                    if (res.data && (res.status === 200 || res.status === 202)) {
+                      if (res.data.code === 9001) {
+                        ElMessage({message: "Email has been registered", type: "error"});
+                      } else {
+                        percentage.value += 20;
+                        registeredEmails.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
+                      }
+                    } else {
+                      ElMessage({message: "Please try again later.", type: "error"});
+                    }
+                  })
+                  .catch((err) => {
+                    ElMessage({message: "Please try again later.", type: "error"});
+                  });
+            }
+          }
+        };
       })
           .then((res: any) => {
             if (res.data && (res.status === 200 || res.status === 202)) {
@@ -320,12 +351,12 @@ const toCofirmPhone = () => {
     percentage.value += 20;
   }
 }
-const registeredPhoneNumbers = [];
+const registeredPhoneNumbers = ref<string[]>([]);
 const phoneNumberInput = () => {
   if (isValidPhone.value) {
     const phoneNumber = phoneInput.value; // 获取用户输入的手机号码
 
-    if (registeredPhoneNumbers.some((registeredNumber) => registeredNumber === phoneNumber)) {
+    if (registeredPhoneNumbers.value.some((registeredNumber) => registeredNumber === phoneNumber)) {
       ElMessage({message: "Phone number has already been registered", type: "error"});
     } else {
       phoneSignup({
