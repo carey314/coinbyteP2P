@@ -339,8 +339,8 @@
                     {{ $t("messages.home.fifth_regulationC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
-                               :text="t('messages.home.start_btn')"/>
+                    <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
+                               :text="t('messages.home.start_btn')" />
                   </div>
                 </div>
               </el-col>
@@ -885,7 +885,10 @@ import {getProfile} from "../../api/user";
 import {useUserInfoStore} from "../../store/user";
 import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
+
 import {watch} from "fs";
+const userInfoStore = useUserInfoStore();
+const {userInfo} = storeToRefs(userInfoStore);
 
 const router = useRouter();
 
@@ -1126,6 +1129,13 @@ const goToKyc = (type: string) => {
     router.push('/signup')
   }
 }
+const goKyc = (type: string) => {
+  if (userInfoStore.isLogin) {
+    router.push({ name: 'kyc', query: { type, return: '/home' } });
+  } else {
+    router.push('/signup');
+  }
+}
 
 const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
   if (el) {
@@ -1269,7 +1279,6 @@ const minCardList2 = [
 ];
 
 //Get client profile data
-const userInfoStore = useUserInfoStore();
 
 onMounted(() => {
   if (userInfoStore.isLogin) {

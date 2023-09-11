@@ -105,7 +105,7 @@
 <!--                :disabled="isButtonDisabled"-->
 <!--                @handler="toLogin"-->
 <!--            />-->
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">Log in</el-button>
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">{{ $t("messages.login.login") }}</el-button>
           </el-form-item>
 
           <div class="login-signup">
@@ -215,7 +215,7 @@
                 >
               </div>
             </div>
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">Log in</el-button>
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">{{ $t("messages.login.login") }}</el-button>
 
           </el-form-item>
 

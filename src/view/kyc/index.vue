@@ -83,6 +83,11 @@ function launchWebSdk(token: string) {
           }
         }
       })
+      .on('idCheck.applicantStatus', (res) => {
+        if (res.reviewStatus === 'completed') {
+          router.push('/');
+        }
+      })
       .build();
 
   // you are ready to go:
