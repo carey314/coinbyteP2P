@@ -292,41 +292,11 @@ const increase = () => {
   if (isValidEmail.value) {
     const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
 
-    if (registeredEmails.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
+    if (registeredEmails.value.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
       ElMessage({message: "Email has already been registered", type: "error"});
     } else {
       initializeSignUpWizard({
         email: email, // 使用小写形式的邮箱
-        const registeredEmails = ref<string[]>([]);
-
-        const increase = () => {
-          if (isValidEmail.value) {
-            const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
-
-            if (registeredEmails.value.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
-              ElMessage({message: "Email has already been registered", type: "error"});
-            } else {
-              initializeSignUpWizard({
-                email: email, // 使用小写形式的邮箱
-              })
-                  .then((res: any) => {
-                    if (res.data && (res.status === 200 || res.status === 202)) {
-                      if (res.data.code === 9001) {
-                        ElMessage({message: "Email has been registered", type: "error"});
-                      } else {
-                        percentage.value += 20;
-                        registeredEmails.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
-                      }
-                    } else {
-                      ElMessage({message: "Please try again later.", type: "error"});
-                    }
-                  })
-                  .catch((err) => {
-                    ElMessage({message: "Please try again later.", type: "error"});
-                  });
-            }
-          }
-        };
       })
           .then((res: any) => {
             if (res.data && (res.status === 200 || res.status === 202)) {
@@ -334,7 +304,7 @@ const increase = () => {
                 ElMessage({message: "Email has been registered", type: "error"});
               } else {
                 percentage.value += 20;
-                registeredEmails.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
+                registeredEmails.value.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
               }
             } else {
               ElMessage({message: "Please try again later.", type: "error"});
@@ -368,7 +338,7 @@ const phoneNumberInput = () => {
                 ElMessage({message: "Phone number has been registered", type: "error"});
               } else {
                 percentage.value += 20;
-                registeredPhoneNumbers.push(phoneNumber); // 如果成功注册，将手机号码添加到已注册手机号码数组中
+                registeredPhoneNumbers.value.push(phoneNumber); // 如果成功注册，将手机号码添加到已注册手机号码数组中
               }
             } else {
               ElMessage({message: "Please try again later.", type: "error"});
