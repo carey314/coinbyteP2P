@@ -112,8 +112,8 @@ function choosePer (data : any,uuid : string) {
 }
 
 // 验证密码接口
-function verifyPassword(pass: string) {
-    return http.post('email_change', { pass }); // 使用 email_change 接口
+function verifyPassword(pass_word: string,new_email: string) {
+    return http.post('email_change', { pass_word, new_email }); // 使用 email_change 接口
 }
 
 // 更新邮箱接口

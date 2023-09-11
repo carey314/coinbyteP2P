@@ -1,10 +1,10 @@
 <template>
   <div>
-    <Header />
+    <Header/>
     <el-progress
-      :percentage="percentage"
-      :color="customColor"
-      show-text="none"
+        :percentage="percentage"
+        :color="customColor"
+        show-text="none"
     />
     <div class="sign-box">
       <el-row>
@@ -15,7 +15,7 @@
             <div class="create-number">
               My email address is
               <span style="position: relative">
-                <el-input v-model="emailInput" placeholder="email address" />
+                <el-input v-model="emailInput" placeholder="email address"/>
                 <span class="tip" v-if="emailInput === ''">*</span>
               </span>
               . I can confirm it and I'm allowed to use it.
@@ -26,15 +26,15 @@
             </div>
             <div class="remind-box" v-if="!isValidEmail">
               <div class="remind-title">
-                <img :src="icon_info" /> <span>Reminder</span>
+                <img :src="icon_info"/> <span>Reminder</span>
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
             </div>
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="!isValidEmail || emailInput === ''"
-              @click="toConfirmEmail()"
+                class="verify-btn"
+                type="primary"
+                :disabled="!isValidEmail || emailInput === ''"
+                @click="toConfirmEmail()"
             >
               Continue
             </el-button>
@@ -43,16 +43,16 @@
             <div class="create-number">
               We're sent an activation link to your email
               <span style="text-decoration: underline" class="email-input"
-                >&nbsp;&nbsp;{{ emailInput }}&nbsp;&nbsp;</span
+              >&nbsp;&nbsp;{{ emailInput }}&nbsp;&nbsp;</span
               >
               Please check your inbox to continue.
             </div>
 
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="!isValidEmail || emailInput === ''"
-              @click="increase()"
+                class="verify-btn"
+                type="primary"
+                :disabled="!isValidEmail || emailInput === ''"
+                @click="increase()"
             >
               Continue
             </el-button>
@@ -63,16 +63,16 @@
               I received a single-use code on my email code ending.
               Here it is:
               <span style="position: relative">
-                <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput" />
+                <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput"/>
                 <span class="tip" v-if="emailCode === ''">*</span>
               </span>
             </div>
 
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="emailCode.length < 6"
-              @click="emailConfirmed()"
+                class="verify-btn"
+                type="primary"
+                :disabled="emailCode.length < 6"
+                @click="emailConfirmed()"
             >
               Continue
             </el-button>
@@ -83,14 +83,14 @@
             <div class="create-number">
               My phone number is
               <span style="position: relative">
-                <el-input v-model="phoneInput" placeholder="+00 000 000 000" />
+                <el-input v-model="phoneInput" placeholder="+00 000 000 000"/>
                 <span class="tip" v-if="phoneInput === ''">*</span>
               </span>
               . I'll use it whenever I log in to COINBYTEP2P.
             </div>
             <div class="remind-box" v-if="!isValidPhone">
               <div class="remind-title">
-                <img :src="icon_info" /> <span>Reminder</span>
+                <img :src="icon_info"/> <span>Reminder</span>
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
               <div class="remind-tip">
@@ -98,10 +98,10 @@
               </div>
             </div>
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="!isValidPhone || phoneInput === ''"
-              @click="toCofirmPhone()"
+                class="verify-btn"
+                type="primary"
+                :disabled="!isValidPhone || phoneInput === ''"
+                @click="toCofirmPhone()"
             >
               Continue
             </el-button>
@@ -111,16 +111,16 @@
             <div class="create-number">
               My phone number is
               <span style="text-decoration: underline"
-                >&nbsp;&nbsp;{{ phoneInput }}&nbsp;&nbsp;</span
+              >&nbsp;&nbsp;{{ phoneInput }}&nbsp;&nbsp;</span
               >.
               I'll use it whenever I log in to COINBYTEP2P.
             </div>
 
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="!isValidPhone || phoneInput === ''"
-              @click="phoneNumberInput()"
+                class="verify-btn"
+                type="primary"
+                :disabled="!isValidPhone || phoneInput === ''"
+                @click="phoneNumberInput()"
             >
               Continue
             </el-button>
@@ -131,16 +131,16 @@
               I received a single-use code on my phone number ending with *86.
               Here it is:
               <span style="position: relative">
-                <el-input v-model="smsCode" placeholder="000 000" />
+                <el-input v-model="smsCode" placeholder="000 000"/>
                 <span class="tip" v-if="smsCode === ''">*</span>
               </span>
             </div>
 
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="!isValidPhone || smsCode === ''"
-              @click="phoneConfirmed()"
+                class="verify-btn"
+                type="primary"
+                :disabled="!isValidPhone || smsCode === ''"
+                @click="phoneConfirmed()"
             >
               Continue
             </el-button>
@@ -151,28 +151,29 @@
               Here is my personal passcode
               <span style="position: relative">
                 <el-input
-                  v-model="passwordInput"
-                  placeholder=""
-                  type="password"
-                  @input="validatePassword"
+                    v-model="passwordInput"
+                    placeholder=""
+                    type="password"
+                    @input="validatePassword"
                 />
                 <span class="tip" v-if="passwordInput === ''">*</span>
               </span>
             </div>
             <div class="remind-box" v-if="passwordInput === ''">
               <div class="remind-title">
-                <img :src="icon_info" /> <span style="font-weight: 500">Reminder</span>
+                <img :src="icon_info"/> <span style="font-weight: 500">Reminder</span>
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
               <div class="remind-tip">
-                * 8-32 characters long (includ at leate 1 lowercase character, 1 uppercase character, 1 number, 1 symbol)
+                * 8-32 characters long (includ at leate 1 lowercase character, 1 uppercase character, 1 number, 1
+                symbol)
               </div>
             </div>
             <el-button
-              class="verify-btn"
-              type="primary"
-              :disabled="passwordInput.length < 6"
-              @click="successContinue"
+                class="verify-btn"
+                type="primary"
+                :disabled="passwordInput.length < 6"
+                @click="successContinue"
             >
               Continue
             </el-button>
@@ -180,8 +181,8 @@
         </el-col>
       </el-row>
     </div>
-    <Footer v-if="windowWidth > 769" />
-    <FooterMobile v-if="windowWidth <= 769" />
+    <Footer v-if="windowWidth > 769"/>
+    <FooterMobile v-if="windowWidth <= 769"/>
   </div>
 </template>
 
@@ -207,14 +208,15 @@ import twitter from "../../assets/home/twitter.png";
 import login_google from "../../assets/home/login_google.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
 
-import { initializeSignUpWizard, signUp, choosePer, emailVefify,phoneSignup,phoneVefify } from "../../api/user";
+import {initializeSignUpWizard, signUp, choosePer, emailVefify, phoneSignup, phoneVefify} from "../../api/user";
 
-import { useFingerprintStore } from "../../store/fingerprint";
-import { ElMessage } from "element-plus";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
+import {useFingerprintStore} from "../../store/fingerprint";
+import {ElMessage} from "element-plus";
+import {useRouter} from "vue-router";
+import {useI18n} from "vue-i18n";
+
 const router = useRouter();
-const { t } = useI18n();
+const {t} = useI18n();
 
 
 const fingerprintStore = useFingerprintStore();
@@ -223,13 +225,13 @@ const activeSign = ref("1");
 const number = ref("");
 const numberSelect = ref("+61");
 const areas = [
-  { label: "Australia", value: "+61" },
-  { label: "United States", value: "+1" },
+  {label: "Australia", value: "+61"},
+  {label: "United States", value: "+1"},
 ];
 const filterMethod = (query: string, option: any) => {
   return (
-    option.label.toLowerCase().indexOf(query.toLowerCase()) >= 0 ||
-    option.value.toLowerCase().indexOf(query.toLowerCase()) >= 0
+      option.label.toLowerCase().indexOf(query.toLowerCase()) >= 0 ||
+      option.value.toLowerCase().indexOf(query.toLowerCase()) >= 0
   );
 };
 const canContinue = ref(false);
@@ -276,13 +278,12 @@ const toConfirmEmail = () => {
 }
 
 const registeredEmails = [];
-
 const increase = () => {
   if (isValidEmail.value) {
     const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
 
     if (registeredEmails.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
-      ElMessage({ message: "Email has already been registered", type: "error" });
+      ElMessage({message: "Email has already been registered", type: "error"});
     } else {
       initializeSignUpWizard({
         email: email, // 使用小写形式的邮箱
@@ -290,34 +291,33 @@ const increase = () => {
           .then((res: any) => {
             if (res.data && (res.status === 200 || res.status === 202)) {
               if (res.data.code === 9001) {
-                ElMessage({ message: "E-mail has been registered", type: "error" });
+                ElMessage({message: "Email has been registered", type: "error"});
               } else {
                 percentage.value += 20;
                 registeredEmails.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
               }
             } else {
-              ElMessage({ message: "Please try again later.", type: "error" });
+              ElMessage({message: "Please try again later.", type: "error"});
             }
           })
           .catch((err) => {
-            ElMessage({ message: "Please try again later.", type: "error" });
+            ElMessage({message: "Please try again later.", type: "error"});
           });
     }
   }
 };
 const toCofirmPhone = () => {
-  if(isValidPhone){
+  if (isValidPhone) {
     percentage.value += 20;
   }
 }
 const registeredPhoneNumbers = [];
-
 const phoneNumberInput = () => {
   if (isValidPhone.value) {
     const phoneNumber = phoneInput.value; // 获取用户输入的手机号码
 
     if (registeredPhoneNumbers.some((registeredNumber) => registeredNumber === phoneNumber)) {
-      ElMessage({ message: "Phone number has already been registered", type: "error" });
+      ElMessage({message: "Phone number has already been registered", type: "error"});
     } else {
       phoneSignup({
         phone: phoneNumber, // 使用用户输入的手机号码
@@ -325,62 +325,62 @@ const phoneNumberInput = () => {
           .then((res: any) => {
             if (res.data && (res.status === 200 || res.status === 202)) {
               if (res.data.code === 9002) {
-                ElMessage({ message: "Phone number has been registered", type: "error" });
+                ElMessage({message: "Phone number has been registered", type: "error"});
               } else {
                 percentage.value += 20;
                 registeredPhoneNumbers.push(phoneNumber); // 如果成功注册，将手机号码添加到已注册手机号码数组中
               }
             } else {
-              ElMessage({ message: "Please try again later.", type: "error" });
+              ElMessage({message: "Please try again later.", type: "error"});
             }
           })
           .catch((err) => {
-            ElMessage({ message: "Please try again later.", type: "error" });
+            ElMessage({message: "Please try again later.", type: "error"});
           });
     }
   }
 };
 const emailConfirmed = () => {
   emailVefify({
-      code: emailCode.value,
-      email: emailInput.value  // 这是用户输入的email
-    }).then((res: any) => {
-      if(res.data && (res.status === 200 || res.status === 202)) {
-        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
-        if (res.data.code === 1) {
-          token1.token = res.data.data.token;
-          percentage.value += 20;
-        } else {
-          ElMessage({ message: "E-mail code not correct", type: "error", });
-        }
+    code: emailCode.value,
+    email: emailInput.value  // 这是用户输入的email
+  }).then((res: any) => {
+    if (res.data && (res.status === 200 || res.status === 202)) {
+      // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+      if (res.data.code === 1) {
+        token1.token = res.data.data.token;
+        percentage.value += 20;
       } else {
-        ElMessage({ message: "Please try again later.", type: "error", });
+        ElMessage({message: "Email code not correct", type: "error",});
       }
-    }).catch((err) => {
-      ElMessage({ message: "Please try again later.", type: "error", });
-    });
+    } else {
+      ElMessage({message: "Please try again later.", type: "error",});
+    }
+  }).catch((err) => {
+    ElMessage({message: "Please try again later.", type: "error",});
+  });
 }
 
 const phoneConfirmed = () => {
   phoneVefify({
-      code: smsCode.value,
-      phone: phoneInput.value,  // 这是用户输入的phone
-      token: token1.token
-    }).then((res: any) => {
-      if(res.data && (res.status === 200 || res.status === 202)) {
-        // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
-        if (res.data.code === 1) {
-          token2.token = res.data.data.token;
-          percentage.value += 20;
-        } else {
-          ElMessage({ message: "phone code not correct", type: "error", });
-        }
+    code: smsCode.value,
+    phone: phoneInput.value,  // 这是用户输入的phone
+    token: token1.token
+  }).then((res: any) => {
+    if (res.data && (res.status === 200 || res.status === 202)) {
+      // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
+      if (res.data.code === 1) {
+        token2.token = res.data.data.token;
+        percentage.value += 20;
       } else {
-        ElMessage({ message: "Please try again later.", type: "error", });
+        ElMessage({message: "phone code not correct", type: "error",});
       }
-    }).catch((err) => {
-      ElMessage({ message: "Please try again later.", type: "error", });
-    });
+    } else {
+      ElMessage({message: "Please try again later.", type: "error",});
+    }
+  }).catch((err) => {
+    ElMessage({message: "Please try again later.", type: "error",});
+  });
 }
 const phoneContinue = () => {
   if (isValidPhone.value) {
@@ -399,18 +399,18 @@ const successContinue = () => {
     token: token2.token,
     pass_word: passwordInput.value,
   }).then((res: any) => {
-    if(res.data && (res.status === 200 || res.status === 202)) {
+    if (res.data && (res.status === 200 || res.status === 202)) {
       // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
       if (res.data.code === 9001) {
-        ElMessage({ message: "Count has been registered", type: "error", });
+        ElMessage({message: "Count has been registered", type: "error",});
       } else {
         percentage.value += 20;
       }
     } else {
-      ElMessage({ message: "Please try again later.", type: "error", });
+      ElMessage({message: "Please try again later.", type: "error",});
     }
   }).catch((err) => {
-    ElMessage({ message: "Please try again later.", type: "error", });
+    ElMessage({message: "Please try again later.", type: "error",});
   });
 
   router.push("/signupSuccess");
@@ -518,9 +518,11 @@ onMounted(() => {
   //     });
   //   });
 });
+
 function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
+
 const options = ref([
   {
     value: "1",
@@ -570,6 +572,7 @@ $fontSizeMin: 12px;
     padding: 0 20px;
     min-height: calc(100vh - 92px);
   }
+
   .create-title {
     margin-top: 56px;
     font-size: 36px;
@@ -577,6 +580,7 @@ $fontSizeMin: 12px;
     line-height: 44px;
     font-weight: 600;
   }
+
   .create-number {
     font-size: 32px;
     color: #060606;
@@ -585,11 +589,13 @@ $fontSizeMin: 12px;
     @media (max-width: 768px) {
       font-size: 26px;
       display: block;
-  }
-  .email-input{
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
+    }
+
+    .email-input {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
     .tip {
       color: #f15958;
       position: absolute;
@@ -597,31 +603,37 @@ $fontSizeMin: 12px;
       font-size: 14px;
     }
   }
+
   .create-rule {
     margin-top: 45px;
     font-size: 24px;
     color: #010000;
     line-height: 29px;
+
     a {
       color: #01c19a;
       text-decoration: underline;
       cursor: pointer;
     }
   }
+
   .remind-box {
     margin-top: 47px;
     font-size: 18px;
     color: #060606;
     line-height: 23px;
+
     .remind-title {
       span {
         margin-left: 9px;
       }
     }
+
     .remind-tip {
       margin-top: 18px;
     }
   }
+
   .verify-btn {
     font-size: 20px;
     border-radius: 8px;
@@ -635,24 +647,29 @@ $fontSizeMin: 12px;
   .el-select-dropdown {
     min-width: 358px !important;
   }
+
   .el-progress__text {
     display: none;
   }
+
   .el-progress-bar__outer {
     background-color: #fff !important;
     border-radius: 0;
   }
+
   .el-input {
     width: 40%;
     @media (max-width: 768px) {
       width: 95%;
+    }
   }
-  }
+
   .el-input__wrapper {
     border-radius: 0;
     box-shadow: none;
     border-bottom: 1px solid #060606;
   }
+
   .el-input__inner {
     color: #000;
     font-size: 32px;
@@ -662,6 +679,7 @@ $fontSizeMin: 12px;
     padding-bottom: 5px;
 
   }
+
   .el-button.is-disabled,
   .el-button.is-disabled:focus,
   .el-button.is-disabled:hover {

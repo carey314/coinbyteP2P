@@ -17,7 +17,7 @@
                   class="inner-dialog"
                   v-model="passwordDialog"
                   style="padding: 0 10px;"
-                  title="Inner Dialog"
+                  title="Enter Password"
                   append-to-body
                   width="448px"
               >
@@ -35,52 +35,51 @@
                   <el-form-item label="Password" prop="password">
                     <el-input type="password" v-model="passwordFormData.password" />
                   </el-form-item>
+                  <el-form-item label="New Email" prop="newEmail">
+                    <el-input v-model="passwordFormData.newEmail"/>
+                  </el-form-item>
                 </el-form>
                 <el-button type="primary" @click="submitPasswordForm(passwordForm)">Submit Password</el-button>
               </el-dialog>
-<!--              <el-dialog-->
-<!--                  class="inner-dialog"-->
-<!--                  v-model="changeEmailDialog"-->
-<!--                  style="padding: 0 10px;"-->
-<!--                  title="Inner Dialog"-->
-<!--                  append-to-body-->
-<!--                  width="448px"-->
-<!--              >-->
-<!--                <template #header>-->
-<!--                  <div style="font-weight: 600; font-size: 22px">Change Email</div>-->
-<!--                </template>-->
-<!--                <div class="divider"></div>-->
-<!--                <el-form-->
-<!--                    ref="emailForm"-->
-<!--                    :model="emailFormData"-->
-<!--                    :rules="emailFormRules"-->
-<!--                    label-width="140px"-->
-<!--                    @submit.native.prevent="submitEmailForm"-->
-<!--                    style="margin-top: 15px"-->
-<!--                >-->
-<!--                  <el-form-item label="Current Email">-->
-<!--                    &lt;!&ndash; 使用 userInfo.email 来填充当前邮箱 &ndash;&gt;-->
-<!--                    <el-input v-model="userInfo.email" disabled/>-->
-<!--                  </el-form-item>-->
-<!--                  <el-form-item label="New Email" prop="newEmail">-->
-<!--                    <el-input v-model="emailFormData.newEmail"/>-->
-<!--                  </el-form-item>-->
-<!--                  <el-form-item label="Verification Code" prop="verificationCode">-->
-<!--                    <el-input v-model="emailFormData.verificationCode"/>-->
-
-<!--                  </el-form-item>-->
-<!--                  <el-form-item style="margin-left: 0 !important;">-->
-<!--                    <el-button-->
-<!--                        class="send-code-btn"-->
-<!--                        type="primary"-->
-<!--                        @click="sendVerificationCode"-->
-<!--                        :disabled="emailFormData.newEmail === ''"-->
-<!--                    >-->
-<!--                      {{ sendingCode ? 'Sending...' : 'Send Code' }}-->
-<!--                    </el-button>-->
-<!--                  </el-form-item>-->
-<!--                </el-form>-->
-<!--              </el-dialog>-->
+              <el-dialog
+                  class="inner-dialog"
+                  v-model="openEmailDialog"
+                  style="padding: 0 10px;"
+                  title="Change Email"
+                  append-to-body
+                  width="448px"
+              >
+                <template #header>
+                  <div style="font-weight: 600; font-size: 22px">Change Email</div>
+                </template>
+                <div class="divider"></div>
+                <el-form
+                    ref="emailForm"
+                    :model="emailFormData"
+                    :rules="emailFormRules"
+                    label-width="140px"
+                    @submit.native.prevent="submitEmailForm"
+                    style="margin-top: 15px"
+                >
+                  <el-form-item label="Current Email">
+                    <!-- 使用 userInfo.email 来填充当前邮箱 -->
+                    <el-input v-model="userInfo.email" disabled/>
+                  </el-form-item>
+                  <el-form-item label="Verification Code" prop="verificationCode">
+                    <el-input v-model="emailFormData.verificationCode"/>
+                  </el-form-item>
+                  <el-form-item style="margin-left: 0 !important;">
+                    <el-button
+                        class="send-code-btn"
+                        type="primary"
+                        @click="submitEmailForm"
+                        :disabled="emailFormData.verificationCode === ''"
+                    >
+                      {{ sendingCode ? 'Sending...' : 'Submit Code' }}
+                    </el-button>
+                  </el-form-item>
+                </el-form>
+              </el-dialog>
 
             </div>
             <div class="info-count">
@@ -282,103 +281,94 @@ function copyToClipboard() {
     ElMessage.error('Login failed. Please try again later!');
   }
 }
-
-// console.log("--a-a-a-", userInfo.kyc.status)
-
 onMounted(() => {
   if (userInfoStore.isLogin) {
     getProfile().then((res) => {
-      console.log("user info here -----!!!----", res.data.data);
       userInfoStore.updateUserInfo(res.data.data);
-      console.log("--a--a-111", userInfo.value)
     });
   }
 });
+function openPasswordDialog() {
+  passwordFormData.password = ""; // 清空密码
+  passwordDialog.value = true; // 打开对话框
+}
 // 密码验证
 const passwordDialog = ref(false);
+const openEmailDialog = ref(false);
 const passwordFormData = reactive({
-  password: "",     // 密码
+  password: "",
+  newEmail: "", // 新邮箱地址
+  token: "", // 保存返回的 token
 });
 const passwordFormRules = {
   password: [
-    {required: true, message: "Please enter password", trigger: "blur"}
+    { required: true, message: "Please enter password", trigger: "blur" }
+  ],
+  newEmail: [
+    { type: "email", message: "Invalid email format", trigger: "blur" }
   ]
 };
 
 const passwordForm = ref<FormInstance>();
 
+// function openEmailDialog() {
+//   // emailFormData.newEmail = ""; // 清空新邮箱
+//   // emailFormData.verificationCode = ""; // 清空验证码
+//   changeEmailDialog.value = true; // 打开对话框
+// }
 async function submitPasswordForm(formEl: FormInstance | undefined) {
   if (!formEl) return;
   const valid = await formEl.validate((valid) => valid);
   if (!valid) return;
   // 调用 API 校验密码
-  const res = await verifyPassword(passwordFormData.password);
-  if (res.data.success) {
+  const res = await verifyPassword(passwordFormData.password, passwordFormData.newEmail);
+  if (res.data.msg === 'success') {
+    passwordFormData.token = res.data.data.token; // 保存返回的 token
     passwordDialog.value = false;
-    openEmailDialog();
+    openEmailDialog.value = true;
   } else {
     ElMessage.error('Incorrect password. Please try again!');
   }
 }
 
-function openPasswordDialog() {
-  passwordFormData.password = ""; // 清空密码
-  passwordDialog.value = true; // 打开对话框
-}
 // 邮箱
-const changeEmailDialog = ref(false);
-
-const sendingCode = ref(false);
-
+const emailForm = ref<FormInstance | null>(null);
 const emailFormData = reactive({
-  newEmail: "",     // 新邮箱
-  verificationCode: "" // 验证码
+  verificationCode: ""
 });
-
 const emailFormRules = {
-  newEmail: [
-    {required: true, message: "Please enter new email", trigger: "blur"},
-    {type: "email", message: "Invalid email format", trigger: "blur"}
-  ],
   verificationCode: [
-    {required: true, message: "Please enter verification code", trigger: "blur"}
+    { required: true, message: "Please enter verification code", trigger: "blur" }
   ]
 };
+const changeEmailDialog = ref(false);
 
 async function submitEmailForm() {
-  const valid = await this.$refs.emailForm.validate();
+  const valid = await emailForm.value?.validate();
   if (!valid) return;
-  // 调用 API 更新邮箱
-  const res = await updateEmail(emailFormData.newEmail, emailFormData.verificationCode);
-  if (res.success) {
-    ElMessage.success('Email updated successfully!');
-    userInfo.email = emailFormData.newEmail; // 更新 userInfo 中的邮箱地址
-    changeEmailDialog.value = false; // 关闭对话框
+
+  // 调用 API 更新邮箱，使用您的实际接口
+  const res = await updateEmail({
+    code: emailFormData.verificationCode,
+    token: passwordFormData.token // 使用保存的 token
+  });
+  if (res.status === 200) {
+    switch (res.data.code) {
+      case 9001:
+        ElMessage.error('verify code not right!');
+        break
+      case 1:
+        ElMessage.success('Email updated successfully!');
+        userInfo.value.email = passwordFormData.newEmail; // 更新邮箱
+        openEmailDialog.value = false;
+        break
+      default:
+        ElMessage.error('Failed to update email. Please try again later!');
+        break
+    }
   } else {
     ElMessage.error('Failed to update email. Please try again later!');
   }
-}
-
-async function sendVerificationCode() {
-  if (!emailFormData.newEmail) {
-    ElMessage.error('Please enter new email first!');
-    return;
-  }
-  sendingCode.value = true;
-  // 调用 API 发送验证码
-  const res = await sendCode(emailFormData.newEmail);
-  sendingCode.value = false;
-  if (res.success) {
-    ElMessage.success('Verification code sent!');
-  } else {
-    ElMessage.error('Failed to send verification code. Please try again later!');
-  }
-}
-
-function openEmailDialog() {
-  emailFormData.newEmail = ""; // 清空新邮箱
-  emailFormData.verificationCode = ""; // 清空验证码
-  changeEmailDialog.value = true; // 打开对话框
 }
 </script>
 
