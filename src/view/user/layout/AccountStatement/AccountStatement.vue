@@ -265,17 +265,17 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="name"
-            :label="t('messages.user.label_location')"
-            width="148"
-          >
-          <template #default>
-            <div>
-              {{ 'AU' }}
-            </div>
-          </template>
-          </el-table-column>
+<!--          <el-table-column-->
+<!--              prop="name"-->
+<!--              :label="t('messages.user.label_location')"-->
+<!--              width="148"-->
+<!--          >-->
+<!--            <template #default>-->
+<!--              <div>-->
+<!--                {{ 'AU' }}-->
+<!--              </div>-->
+<!--            </template>-->
+<!--          </el-table-column>-->
           <el-table-column
             prop="country"
             :label="t('messages.user.label_ip')"
@@ -310,11 +310,11 @@
           <div class="history-date flex">
             <span>{{ $t("messages.user.label_time") }}:</span> <div>{{ format(item.CreatedAt) }}</div>
           </div>
-          <div class="history-name flex">
-            <span>{{ $t("messages.user.label_location") }}:</span>
-            <!-- <div>{{ item.name }}</div> -->
-            <div>AU</div>
-          </div>
+<!--          <div class="history-name flex">-->
+<!--            <span>{{ $t("messages.user.label_location") }}:</span>-->
+<!--            &lt;!&ndash; <div>{{ item.name }}</div> &ndash;&gt;-->
+<!--            <div>AU</div>-->
+<!--          </div>-->
           <div class="history-address flex">
             <span>{{ $t("messages.user.label_ip") }}:</span> <div>{{ item.country }}</div>
           </div>

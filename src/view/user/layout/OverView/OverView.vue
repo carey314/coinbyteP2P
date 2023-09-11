@@ -308,17 +308,17 @@ const passwordFormRules = {
 const passwordForm = ref<FormInstance>();
 
 async function submitPasswordForm(formEl: FormInstance | undefined) {
-  // if (!formEl) return;
-  // const valid = await formEl.validate((valid) => valid);
-  // if (!valid) return;
-  // // 调用 API 校验密码
-  // const res = await verifyPassword(passwordFormData.password);
-  // if (res.data.success) {
-  //   passwordDialog.value = false; // 关闭密码对话框
-  //   openEmailDialog(); // 打开更改邮箱的对话框
-  // } else {
-  //   ElMessage.error('Incorrect password. Please try again!');
-  // }
+  if (!formEl) return;
+  const valid = await formEl.validate((valid) => valid);
+  if (!valid) return;
+  // 调用 API 校验密码
+  const res = await verifyPassword(passwordFormData.password);
+  if (res.data.success) {
+    passwordDialog.value = false; // 关闭密码对话框
+    openEmailDialog(); // 打开更改邮箱的对话框
+  } else {
+    ElMessage.error('Incorrect password. Please try again!');
+  }
 }
 
 function openPasswordDialog() {

@@ -112,9 +112,11 @@ function choosePer (data : any,uuid : string) {
 }
 
 function verifyPassword (pass: string) {
-    return http.post('', {pass});
+    return http.post('verifyPassword', {pass});
 }
-
+function updateEmail(data) {
+    return http.post('email_change_verify', {});
+}
 export {
     getProfile,
     meWidth,
