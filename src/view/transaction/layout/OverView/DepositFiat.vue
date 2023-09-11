@@ -308,7 +308,7 @@
                   <div v-else>
                     <div class="tip">
                       Please use your unique Direct Credit detail below to make
-                      the transfer and select select
+                      the transfer and select
                       <span>'Pay Anyone'</span> when transferring from online
                       banking or mobile app.
                     </div>
@@ -1181,7 +1181,7 @@ $fontSizeMin: 12px;
           cursor: pointer;
           float: right;;
           margin-top: -45px;
-          margin-right: 10%;
+          // margin-right: 10%;
           font-size: 14px;
           color: #878787;
           @media(max-width: 992px) {
