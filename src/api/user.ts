@@ -120,6 +120,19 @@ function verifyPassword(pass_word: string,new_email: string) {
 function updateEmail(data: { code: string, token: string }) {
     return http.post('email_change_verify', data); // 使用 email_change_verify 接口
 }
+function forgetPassword(email: string) {
+    return http.post('forget_pass', email); // 使用 email_change_verify 接口
+}
+function verifyForgetPassword(token: string, newPassword: string, code: string) {
+    const data = {
+        token: token,
+        new_pass: newPassword,
+        code: code
+    };
+
+    return http.post('forget_pass_verify', data);
+}
+
 export {
     getProfile,
     meWidth,
@@ -136,5 +149,7 @@ export {
     phoneSignup,
     phoneVefify,
     verifyPassword,
-    updateEmail
+    updateEmail,
+    forgetPassword,
+    verifyForgetPassword
 }

@@ -2,14 +2,14 @@
 <template>
   <div class="header-box">
     <div class="header-logo">
-      <a href="/"><img class="logo" :src="logo" alt="logo" /></a>
+      <a href="/"><img class="logo" :src="logo" alt="logo"/></a>
     </div>
     <div class="header-menu">
       <ul class="menu">
         <li class="crypto-dropdown-box">
           <a href="/" style="color: #fff; text-decoration: none">{{
-            $t("messages.header.buy")
-          }}</a>
+              $t("messages.header.buy")
+            }}</a>
         </li>
         <li>
           <!-- Latest Scams -->
@@ -18,14 +18,14 @@
         <li>
           <!-- about us -->
           <a href="/about" style="color: #fff; text-decoration: none">{{
-            $t("messages.header.trade")
-          }}</a>
+              $t("messages.header.trade")
+            }}</a>
         </li>
         <li>
           <!-- Support -->
           <a href="/contact" style="color: #fff; text-decoration: none">{{
-            $t("messages.header.learn")
-          }}</a>
+              $t("messages.header.learn")
+            }}</a>
         </li>
       </ul>
     </div>
@@ -156,14 +156,14 @@
           <li @mouseover="userShow" @mouseleave="userHide" class="right-dropdown-box">
             <el-dropdown class="user-dropdown align-icon" ref="navUser">
               <router-link to="/user">
-                <img :src="top_bar_usercenter" alt="" />
+                <img :src="top_bar_usercenter" alt=""/>
               </router-link>
               <template #dropdown>
                 <el-dropdown-menu class="user-dropdown-menu">
                   <el-dropdown-item class="user-dropdown-info">
                     <div class="user-head-box">
                       <div class="user-head">
-                        <img :src="top_bar_usercenter" />
+                        <img :src="top_bar_usercenter"/>
                       </div>
                       <div class="head-text">
                         <div class="user-name">
@@ -178,7 +178,7 @@
                   <el-dropdown-item class="verify-box" v-if="userInfo?.kyc?.status !== ''">
                     <div class="user-verify">
                       <div class="verify-status">
-                        <img :src="dropdown_usercenter_verified" />
+                        <img :src="dropdown_usercenter_verified"/>
                       </div>
                       <div class="verify-text">
                         {{ $t("messages.header.verify_certified") }}
@@ -188,7 +188,7 @@
                   <el-dropdown-item class="verify-box" v-else>
                     <div class="user-verify">
                       <div class="verify-status">
-                        <img :src="dropdown_usercenter_unverified" />
+                        <img :src="dropdown_usercenter_unverified"/>
                       </div>
                       <div class="verify-text">
                         <router-link :to="{ name: 'verification' }" style="
@@ -200,12 +200,12 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px" />
+                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px"/>
                   <el-dropdown-item class="user-dropdown-item">
                     <router-link to="/user" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
-                          <img :src="dropdown_usercenter_overview" />
+                          <img :src="dropdown_usercenter_overview"/>
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_overview") }}
@@ -217,7 +217,7 @@
                     <router-link to="/user/depositFiat" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
-                          <img :src="dropdown_usercenter_security" />
+                          <img :src="dropdown_usercenter_security"/>
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_security") }}
@@ -229,7 +229,7 @@
                     <router-link to="/user/verification" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
-                          <img :src="dropdown_usercenter_verification" />
+                          <img :src="dropdown_usercenter_verification"/>
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_verification") }}
@@ -241,7 +241,7 @@
                     <router-link to="/user/bankaccount" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
-                          <img :src="dropdown_usercenter_bankaccount" />
+                          <img :src="dropdown_usercenter_bankaccount"/>
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_bank") }}
@@ -253,7 +253,7 @@
                     <router-link to="/user/accountstatement" style="text-decoration: none;">
                       <div class="user-box">
                         <div class="user-icon">
-                          <img :src="dropdown_usercenter_preferences" />
+                          <img :src="dropdown_usercenter_preferences"/>
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_preferences") }}
@@ -261,7 +261,7 @@
                       </div>
                     </router-link>
                   </el-dropdown-item>
-                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px" />
+                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px"/>
                   <div class="logout" @click="handleToLogOut">
                     {{ $t("messages.header.logout") }}
                   </div>
@@ -270,117 +270,117 @@
             </el-dropdown>
           </li>
           <li @mouseover="noticeShow" @mouseleave="noticeHide" class="right-dropdown-box">
-          <el-dropdown class="notice-dropdown align-icon" ref="navNotice">
-            <img :src="top_notice" alt="" />
-            <template #dropdown>
-              <el-dropdown-menu class="notice-dropdown-menu">
-                <el-dropdown-item v-if="userInfoStore.isLogin" v-for="item in notices" @click="noticeDetail(item)" :key="item.id" class="notice-dropdown-item clearfloat">
+            <el-dropdown class="notice-dropdown align-icon" ref="navNotice">
+              <img :src="top_notice" alt=""/>
+              <template #dropdown>
+                <el-dropdown-menu class="notice-dropdown-menu">
+                  <el-dropdown-item v-if="userInfoStore.isLogin" v-for="item in notices" @click="noticeDetail(item)"
+                                    :key="item.id" class="notice-dropdown-item clearfloat">
 
-                  <div class="notice-msg">
-                    <div class="notice-tip"></div>
+                    <div class="notice-msg">
+                      <div class="notice-tip"></div>
 
-                    {{ item.title }}
-                    <div class="notice-time">{{ item.createTime }}</div>
+                      {{ item.title }}
+                      <div class="notice-time">{{ item.createTime }}</div>
+                    </div>
+                  </el-dropdown-item>
+                  <el-dropdown-item v-else>
+                    <div>
+                      <router-link to="/login" style="text-decoration: none;font-size: 12px;
+    color: #000000;">请登陆后查看
+                      </router-link>
+                    </div>
+                  </el-dropdown-item>
+
+                  <div class="">
+                    <el-divider style="width: 100%"/>
+
+                    <div class="notice-view-more" @click="moreNotices">
+                      {{ $t("messages.header.notice_more") }}
+                    </div>
                   </div>
-                </el-dropdown-item>
-                <el-dropdown-item v-else>
-                  <div><router-link to="/login" style="text-decoration: none;font-size: 12px;
-    color: #000000;">请登陆后查看</router-link></div>
-                </el-dropdown-item>
-
-                <div class="">
-                  <el-divider style="width: 100%" />
-
-                  <div class="notice-view-more" @click="moreNotices">
-                    {{ $t("messages.header.notice_more") }}
-                  </div>
-                </div>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </li>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </li>
 
           <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
-          <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
-            <img :src="top_en" alt="" />
+            <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
+              <img :src="top_en" alt=""/>
 
-            <template #dropdown>
-              <el-dropdown-menu class="language-dropdown-menu" style="width: 340px">
-                <el-row>
-                  <el-col :span="12">
-                    <div class="alert-box">
-                      <div class="alert-title">
-                        {{ $t("messages.header.language") }}
-                      </div>
-                      <el-divider style="margin: 12px 0" />
-                      <el-dropdown-item v-for="option in languageOptions" :key="option.value">
-                        <div class="alert-cont" :class="{
+              <template #dropdown>
+                <el-dropdown-menu class="language-dropdown-menu" style="width: 140px">
+
+                  <div class="alert-box" style="text-align: center">
+                    <div class="alert-title">
+                      {{ $t("messages.header.language") }}
+                    </div>
+                    <el-divider style="margin: 12px 0"/>
+                    <el-dropdown-item v-for="option in languageOptions" :key="option.value">
+                      <div class="alert-cont" :class="{
                           selected: currentLanguage === option.label,
                         }" @click.native="changeLanguage(option.label)">
-                          {{ option.label }}
-                        </div>
-                      </el-dropdown-item>
-                    </div>
-                  </el-col>
-                  <el-col :span="12">
-                    <div class="alert-box">
-                      <div class="alert-title">
-                        {{ $t("messages.header.local_currency") }}
+                        {{ option.label }}
                       </div>
-                      <el-divider style="margin: 12px 0" />
-                      <el-dropdown-item v-for="(item, index) in currencies" :key="item.value"
-                        :class="{ highlight: index === selectedIndex }" @click="handleItemClick(index)">
-                        <div class="alert-cont">{{ item.label }}</div>
-                      </el-dropdown-item>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
-        </li>
+                    </el-dropdown-item>
+                  </div>
+
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </li>
         </template>
         <template v-else>
           <li>
             <router-link to="/login" style="text-decoration: none"><span class="login-span">{{
-              $t("messages.header.login")
-            }}</span></router-link>
+                $t("messages.header.login")
+              }}</span></router-link>
           </li>
           <li v-if="userInfoStore.isLogin">
             <!-- 用户认证页面   -->
-            <router-link to="/user/verification" style="text-decoration: none"><button class="btn-signup">
-              {{ $t("messages.header.signup") }}
-            </button></router-link>
+            <router-link to="/user/verification" style="text-decoration: none">
+              <button class="btn-signup">
+                {{ $t("messages.header.signup") }}
+              </button>
+            </router-link>
           </li>
           <li v-else>
             <!-- 用户认证页面   -->
-            <router-link to="/signup" style="text-decoration: none"><button class="btn-signup">
-              {{ $t("messages.header.signup") }}
-            </button></router-link>
+            <router-link to="/signup" style="text-decoration: none">
+              <button class="btn-signup">
+                {{ $t("messages.header.signup") }}
+              </button>
+            </router-link>
           </li>
         </template>
       </ul>
       <span class="el-dropdown-link">
-        <img :src="menu_icon" alt="" @click="showClickMenu" />
+        <img :src="menu_icon" alt="" @click="showClickMenu"/>
       </span>
       <div class="menu-dropdown" v-show="dropdownShow">
-        <img :src="close_icon" alt="" class="close-icon" @click="closeDropdownMenu" />
+        <img :src="close_icon" alt="" class="close-icon" @click="closeDropdownMenu"/>
         <div class="menu-dropdown-page">
           <div class="button-group" v-if="userInfoStore.isLogin">
-            <router-link to="/user" style="text-decoration: none; color: #fff"><el-button
-                class="sign-button">User</el-button></router-link>
+            <router-link to="/user" style="text-decoration: none; color: #fff">
+              <el-button
+                  class="sign-button">User
+              </el-button>
+            </router-link>
             <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>
           </div>
           <div class="button-group" v-else>
             <!-- <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign
                 up</el-button></router-link> -->
-            <router-link to="/login" style="text-decoration: none; color: #fff;border: 1px solid #fafafa;border-radius: 5px;"><span>{{ $t("messages.header.login") }}</span></router-link>
+            <router-link to="/login"
+                         style="text-decoration: none; color: #fff;border: 1px solid #fafafa;border-radius: 5px;"><span>{{
+                $t("messages.header.login")
+              }}</span></router-link>
           </div>
           <ul class="nav-list">
             <li><a href="/" class="no-underline">
               {{
-            $t("messages.header.buy")
-          }}
+                $t("messages.header.buy")
+              }}
             </a></li>
             <li><a href="/learnCenter" class="no-underline">{{ $t("messages.header.market") }}</a></li>
             <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
@@ -393,13 +393,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onUpdated, onMounted } from "vue";
-import type { TabsPaneContext } from "element-plus";
-import { useRouter } from "vue-router";
-import { noticeInfoStore } from "../../store/notice";
-import { storeToRefs } from "pinia";
+import {ref, computed, onUpdated, onMounted} from "vue";
+import type {TabsPaneContext} from "element-plus";
+import {useRouter} from "vue-router";
+import {noticeInfoStore} from "../../store/notice";
+import {storeToRefs} from "pinia";
 
-import { CaretBottom } from "@element-plus/icons-vue";
+import {CaretBottom} from "@element-plus/icons-vue";
 // img
 import logo from "../../assets/image/logo.svg";
 import top_down from "../../assets/home/top_down.svg";
@@ -419,22 +419,22 @@ import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercent
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
 
 
-import { logOut } from "../../api/user";
+import {logOut} from "../../api/user";
 
-import { useUserInfoStore } from "../../store/user";
+import {useUserInfoStore} from "../../store/user";
 
 
 // i18n  全局变量locale
-import { getCurrentInstance } from "vue";
-import { useI18n } from "vue-i18n";
-import { saveStoredLanguage } from "../../languageStorage";
-import { NoticeObject } from "../../models/notice";
-import { getNotices } from "../../api/notices";
+import {getCurrentInstance} from "vue";
+import {useI18n} from "vue-i18n";
+import {saveStoredLanguage} from "../../languageStorage";
+import {NoticeObject} from "../../models/notice";
+import {getNotices} from "../../api/notices";
 // t
 const i18n = useI18n();
-const { t } = useI18n({});
+const {t} = useI18n({});
 const userInfoStore = useUserInfoStore();
-const { userInfo } = storeToRefs(userInfoStore);
+const {userInfo} = storeToRefs(userInfoStore);
 const isActive = ref(false);
 const currencies = [
   {
@@ -446,11 +446,11 @@ const currencies = [
 const noticeStore = noticeInfoStore()
 const {noticesList} = storeToRefs(noticeStore)
 const notices = ref<NoticeObject[]>([])
-onMounted(async ()=>{
+onMounted(async () => {
   if (!userInfoStore.isLogin) {
     console.log("----is login!!!!")
   } else {
-    
+
     notices.value = [
       {
         id: "1",
@@ -474,7 +474,7 @@ onMounted(async ()=>{
       }
     ] as NoticeObject[]
     noticesList.value = notices.value
-    
+
   }
 })
 
@@ -484,7 +484,7 @@ const noticeDetail = (notice: NoticeObject) => {
   router.push({name: "noticeContent"})
 }
 
-const moreNotices = ()=>{
+const moreNotices = () => {
   router.push({name: "noticesList"})
 }
 
@@ -493,6 +493,7 @@ const selectedIndex = ref(0);
 function handleItemClick(index: number): void {
   selectedIndex.value = index; // 更新 selectedIndex 的值
 }
+
 const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
 const currentLanguage = ref(getStoredLanguage() || "English"); // 将初始值设置为存储的语言设置
 const languageOptions = [
@@ -519,10 +520,12 @@ const changeLanguage = (selectedLanguage: string) => {
     location.reload();
   }
 };
+
 // 保存当前语言,高亮显示
 function getStoredLanguage(): string | null {
   return localStorage.getItem("selectedLanguage");
 }
+
 const showname = ref<boolean>(false); //header是否登陆
 let deg = ref<number>(0);
 const navCurrency = ref();
@@ -731,7 +734,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   margin-left: auto;
   padding-right: 20px;
 
-  @media (max-width:930px) and (min-width: 910px) {
+  @media (max-width: 930px) and (min-width: 910px) {
     // padding-right: 20px;
   }
 
@@ -1049,6 +1052,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   margin-right: 15px;
   // padding: 21px 24px 21px 0px;
 }
+
 .notice-tip {
   width: 8px;
   height: 8px;
@@ -1058,6 +1062,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   top: 12px;
   left: 0px;
 }
+
 .notice-msg {
   font-size: 12px;
   color: #000000;
@@ -1106,8 +1111,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 
 :deep(.alert-box) {
   .alert-title {
-    padding-left: 25px;
-    padding-top: 18px;
+    padding-top: 10px;
     font-size: 14px;
     color: #000000;
     line-height: 16px;
@@ -1115,11 +1119,10 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   .alert-cont {
-    padding-left: 10px;
-    margin-bottom: 15px;
     font-size: 14px;
     color: #000000;
     line-height: 16px;
+    margin: 3px auto;
   }
 }
 
