@@ -429,8 +429,8 @@
           </div>
           <div class="tips-faq">
             <div class="faq-title">
-              <img style="width: 14px; height: auto" :src="notice"/>
-              How it works
+              <img style="width: 20px; height: auto" :src="how"/>
+              <span style="margin-left: 5px">How it works</span>
             </div>
             <el-divider/>
             <div class="faq-content content">
@@ -594,6 +594,7 @@ import payment_payid from "../../../../assets/image/payment_payid.png";
 import payment_bank from "../../../../assets/image/payment_bank.png";
 import appeal from "../../../../assets/image/appeal.svg";
 import notice from "../../../../assets/image/notice.svg";
+import how from "../../../../assets/deposit/how.svg";
 import copy from "../../../../assets/image/copy.svg";
 import coin_aud from "../../../../assets/image/coin_aud.svg";
 import coin_nzd from "../../../../assets/image/coin_nzd.svg";

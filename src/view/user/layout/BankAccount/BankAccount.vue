@@ -756,6 +756,7 @@ $fontSizeMin: 12px;
 
 .save-btn {
   width: 100%;
+  font-size: 16px;
   height: 60px;
   background-color: #01c19a;
   border-radius: 8px;
