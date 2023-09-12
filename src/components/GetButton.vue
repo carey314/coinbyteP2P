@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="addClick">{{ text }}</button>
+  <button class="button" type="button" @click="addClick">{{ text }}</button>
 </template>
 
 <script lang="ts" setup>
@@ -34,5 +34,9 @@ $main-color: #01c19a;
   font-size: 16px;
   font-weight: 600;
   border: none;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
 }
 </style>

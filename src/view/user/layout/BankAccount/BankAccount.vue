@@ -5,11 +5,20 @@
       {{ $t("messages.user.bank_msg") }}
     </div>
     <div class="bank-account-add">
-      <GetButton
-          class="func-btn"
-          :text="t('messages.user.add_bank')"
-          @click="addressVisible = true"
-      />
+      <el-tooltip
+        class="box-item"
+        effect="dark"
+        content="Please complete the verification process before proceeding."
+        :disabled="userInfo?.kyc?.status === 'GREEN'"
+        placement="top"
+      >
+        <GetButton
+            class="func-btn"
+            :text="t('messages.user.add_bank')"
+            @click="addressVisible = true"
+            :disabled="userInfo?.kyc?.status !== 'GREEN'"
+        />
+      </el-tooltip>
       <el-dialog
           class="inner-dialog"
           v-model="addressVisible"
@@ -154,9 +163,9 @@
         </el-button>
       </el-dialog>
     </div>
-    <template v-if="windowWidth > 820">
-      <div class="table-body">
-        <Table :sourceData="bankDate" v-loading="bankTableLoading">
+    <template v-if="windowWidth > 820 && (userInfo?.kyc?.status === 'GREEN')">
+      <div class="table-body" v-loading="bankTableLoading" v-if="bankDate.length > 0">
+        <Table :sourceData="bankDate" >
           <template v-slot:columns>
             <el-table-column
                 :label="t('messages.user.label_Country')"
@@ -243,49 +252,58 @@
           </template>
         </Table>
       </div>
+      <div v-else v-loading="bankTableLoading" style="height: 200px;" >
+        <NoBankAccount/>
+      </div>
       <div style="display: flex; justify-content: flex-end;height: 70px;">
         <el-pagination layout="prev, pager, next" hide-on-single-page :page-count="Math.ceil(pageTotal / pageData.page_size)" @current-change="currentChange"/>
       </div>
     </template>
-    <div class="bank-account" v-else>
-      <el-card v-for="(item, index) in bankDate" :key="index">
-        <div>
-          <span>{{ t("messages.user.label_Country") }}: </span
-          >{{ item.bank_country }}
-        </div>
-        <el-divider/>
-        <div>
-          <span>{{ t("messages.user.label_Currency") }}: </span
-          >{{ item.currency }}
-        </div>
-        <el-divider/>
+    <div class="bank-account" v-else-if="windowWidth <= 820 && (userInfo?.kyc?.status === 'GREEN')">
+      <div v-loading="bankTableLoading" style="min-height: 200px;">
+        <el-card v-for="(item, index) in bankDate" :key="index">
+          <div>
+            <span>{{ t("messages.user.label_Country") }}: </span
+            >{{ item.bank_country }}
+          </div>
+          <el-divider/>
+          <div>
+            <span>{{ t("messages.user.label_Currency") }}: </span
+            >{{ item.currency }}
+          </div>
+          <el-divider/>
 
-        <div>
-          <span>{{ t("messages.user.label_Name") }}: </span>{{ item.bank_name }}
+          <div>
+            <span>{{ t("messages.user.label_Name") }}: </span>{{ item.bank_name }}
+          </div>
+          <el-divider/>
+          <div>
+            <span>{{ t("messages.user.label_Branch") }}: </span>{{ item.branch_code }}
+          </div>
+          <el-divider/>
+          <div>
+            <span>{{ t("messages.user.label_Number") }}: </span>{{ item.account_number }}
+          </div>
+          <el-divider/>
+          <div>
+            <span>{{ t("messages.user.label_Status") }}: </span>
+            <!-- {{ item.status }} -->
+            <!-- 目前写死 -->
+            Verified
+          </div>
+          <div>
+            <span>{{ t("messages.user.label_Operation") }}: </span
+            >
+            <!-- {{ item.operation }} -->
+            <el-button @click="handleToDelBank(item.ID)">Delete</el-button>
+          </div>
+        </el-card>
+        <div v-if="bankDate.length <= 0" v-loading="bankTableLoading" style="height: 200px;" >
+          <NoBankAccount/>
         </div>
-        <el-divider/>
-        <div>
-          <span>{{ t("messages.user.label_Branch") }}: </span>{{ item.branch_code }}
-        </div>
-        <el-divider/>
-        <div>
-          <span>{{ t("messages.user.label_Number") }}: </span>{{ item.account_number }}
-        </div>
-        <el-divider/>
-        <div>
-          <span>{{ t("messages.user.label_Status") }}: </span>
-          <!-- {{ item.status }} -->
-          <!-- 目前写死 -->
-          Verified
-        </div>
-        <div>
-          <span>{{ t("messages.user.label_Operation") }}: </span
-          >
-          <!-- {{ item.operation }} -->
-          Delete
-        </div>
-      </el-card>
+      </div>
     </div>
+    <NoBankAccount v-else />
   </div>
 </template>
 
@@ -305,10 +323,11 @@ import {addBank, getBankList, delBank} from '../../../../api/bank';
 
 import {useUserInfoStore} from "../../../../store/user";
 import {storeToRefs} from "pinia";
-
+import NoContent from '../../../../assets/image/编组 7.png';
+import NoBankAccount from '../components/NoBankAccount.vue';
 
 const userInfoStore = useUserInfoStore();
-const {token, refreshToken} = storeToRefs(userInfoStore);
+const {token, refreshToken, userInfo} = storeToRefs(userInfoStore);
 
 const {t} = useI18n();
 const addressVisible = ref(false);

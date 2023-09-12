@@ -22,25 +22,34 @@
                             </div>
                           </div>
 <!--                          /au/user/depositFiat-->
-                          <el-select v-model="form.selectedOption1"
-                                     placeholder="Select currency"
-                                     @change="selectCurrency">
-                            <el-option
-                                :show-arrow="false"
-                                v-for="item in options1"
-                                :key="item.value"
-                                :label="item.label"
-                                style="height: 47px;"
-                                :value="item.value">
-                              <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
-                                <img :src="item.icon"/>
-                                <div style="display: flex; align-items: baseline; gap: 7px;">
-                                  <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>
-                                  <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>
-                                </div>
-                              </div>
-                            </el-option>
-                          </el-select>
+                          <el-tooltip
+                                  class="box-item"
+                                  effect="dark"
+                                  content="Please complete the verification process before proceeding."
+                                  :disabled="userInfo?.kyc?.status === 'GREEN'"
+                                  placement="top"
+                                >
+                                <el-select v-model="form.selectedOption1"
+                                           placeholder="Select currency"
+                                           :disabled="userInfo?.kyc?.status !== 'GREEN'"
+                                           @change="selectCurrency">
+                                  <el-option
+                                      :show-arrow="false"
+                                      v-for="item in options1"
+                                      :key="item.value"
+                                      :label="item.label"
+                                      style="height: 47px;"
+                                      :value="item.value">
+                                    <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
+                                      <img :src="item.icon"/>
+                                      <div style="display: flex; align-items: baseline; gap: 7px;">
+                                        <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>
+                                        <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>
+                                      </div>
+                                    </div>
+                                  </el-option>
+                                </el-select>
+                          </el-tooltip>
 <!--                          <el-select v-model="form.selectedOption1"-->
 <!--                                     placeholder="Select currency"-->
 <!--                                     v-if="$route.path.startsWith('/nz')"-->
@@ -67,8 +76,8 @@
                   </el-step>
                   <el-step title="Select Payment method" style="min-height: 100px;">
                     <template #description>
-                      <el-form-item prop="selectedPayment">
-                        <div v-if="activeStep >= 2" class="payment-box">
+                      <el-form-item v-if="activeStep >= 2" prop="selectedPayment">
+                        <div v-if="form.selectedOption1 === 'AUD'" class="payment-box">
                           <div class="payment-way">
                             <img class="payment-pay no-select" :src="payment_payid"
                                  :class="{ 'selected': form.selectedPayment === 'PayID' }" @click="selectPayment('PayID')"/>
@@ -76,6 +85,12 @@
                           <div class="payment-way">
                             <img class="payment-bank no-select" :src="payment_bank"
                                  :class="{ 'selected': form.selectedPayment === 'Bank Transfer' }" @click="selectPayment('Bank Transfer')"/>
+                          </div>
+                        </div>
+                        <div class="payment-box" v-else-if="form.selectedOption1 === 'NZD'">
+                          <div class="payment-way">
+                            <img class="payment-poli no-select" :src="payment_poli"
+                                 :class="{ 'selected': form.selectedPayment === 'Poli' }" @click="selectPayment('Poli', true)"/>
                           </div>
                         </div>
                       </el-form-item>
@@ -592,6 +607,7 @@ import trans_01 from "../../../../assets/image/trans_01.svg";
 import trans_02 from "../../../../assets/image/trans_02.svg";
 import payment_payid from "../../../../assets/image/payment_payid.png";
 import payment_bank from "../../../../assets/image/payment_bank.png";
+import payment_poli from '../../../../assets/image/nz_pay.png';
 import appeal from "../../../../assets/image/appeal.svg";
 import notice from "../../../../assets/image/notice.svg";
 import copy from "../../../../assets/image/copy.svg";
@@ -798,6 +814,7 @@ const showContinueBtn = ref(true);
 
 // step1
 function selectCurrency() {
+  if(userInfo.value?.kyc?.status !== 'GREEN') return;
   activeStep.value = 2;
   // if (activeStep.value === 1 && selectedOption1.value !== "") {
   // } else if (activeStep.value === 2 && canContinue.value) {
@@ -814,7 +831,8 @@ function selectCurrency() {
 }
 
 // step2
-function selectPayment(payment: string) {
+function selectPayment(payment: string, disabled: boolean = false) {
+  if(disabled) return;
   activeStep.value = 3
   if (form.value.selectedPayment === payment) {
     form.value.selectedPayment = ""; // 若已选中，则取消选择
@@ -932,7 +950,8 @@ $fontSizeMin: 12px;
       color: #CBCCCF;
     }
     .el-step:last-of-type .el-step__description, .el-step:last-of-type .el-step__main{
-      width: 442px;
+      width: 100%;
+      max-width: 442px;
     }
     .el-input__inner{
       color: #000 !important;
@@ -1146,6 +1165,12 @@ $fontSizeMin: 12px;
             padding: 11px 21px;
           }
 
+          .payment-poli {
+            padding: 5px;
+            object-fit: contain;
+            cursor: not-allowed;
+            opacity: .5;
+          }
           .no-select {
             margin-top: 16px;
             width: 153px;

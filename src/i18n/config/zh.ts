@@ -362,7 +362,7 @@ export default {
       password: "忘记密码",
       withdrawal:
         "如果您在更改登录密码后使用新设备登录,则提现功能将被暂停24小时。",
-      equipment: "电话号码/电子邮件",
+      equipment: "电子邮件",
       code: "输入验证码",
       input_password: "密码",
       verify_btn: "获取验证码",

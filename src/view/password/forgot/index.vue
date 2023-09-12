@@ -7,29 +7,40 @@
         <div class="password-message">
           {{ $t('messages.forgot_password.withdrawal') }}
         </div>
-        <div class="password-count">
-          <el-input
-            v-model="password"
-            type="password"
-            :placeholder="t('messages.forgot_password.equipment')"
-          />
-        </div>
-        <div class="password-verify">
-          <div class="verify-input">
-            <el-input v-model="code" :placeholder="t('messages.forgot_password.code')" />
+        <el-form
+          :model="updatePassForm"
+          ref="updatePassFormRef"
+          :rules="updatePassFormRules"
+        >
+          <el-form-item style="width: 100%;" prop="email">
+            <div class="password-count" style="width: 100%;">
+              <el-input
+                v-model="updatePassForm.email"
+                :placeholder="t('messages.forgot_password.equipment')"
+              />
+            </div>
+          </el-form-item>
+          <div class="password-verify">
+            <el-form-item prop="code">
+              <div class="verify-input">
+                <el-input v-model="code" :placeholder="t('messages.forgot_password.code')" />
+              </div>
+            </el-form-item>
+            <el-form-item style="margin-bottom: 5px;">
+              <div class="verify-btn">
+                <GetButton :text="t('messages.forgot_password.verify_btn')" v-loading="getCodeDisabled" :disabled="count !== 0" @click="getCode(updatePassFormRef)"/>
+                <div class="password-sms" v-if="count !== 0">{{ $t('messages.forgot_password.resend') }} ({{ count }})</div>
+              </div>
+            </el-form-item>
           </div>
-          <div class="verify-btn">
-            <GetButton :text="t('messages.forgot_password.verify_btn')" />
+  
+  
+          <div class="password-continue">
+            <GetButton :text="t('messages.forgot_password.continue')" @click="verifyCode(updatePassFormRef)"/>
+            <!-- <router-link to="update">
+            </router-link> -->
           </div>
-        </div>
-
-        <div class="password-sms">{{ $t('messages.forgot_password.resend') }} (58)</div>
-
-        <div class="password-continue">
-          <router-link to="update">
-            <GetButton :text="t('messages.forgot_password.continue')" />
-          </router-link>
-        </div>
+        </el-form>
         <div class="return-login">
           <a href="/login" style="color: #01c19a; text-decoration: none"
             > {{ $t('messages.forgot_password.return_login') }}</a
@@ -49,6 +60,9 @@ import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import GetButton from "../../../components/GetButton.vue";
 import {forgetPassword, verifyForgetPassword} from "../../../api/user";
+import { ElMessage, FormInstance, FormRules } from "element-plus";
+
+import {forgotPassGetCode, forgotPassValidCode} from '../../../api/login';
 
 import { useI18n } from 'vue-i18n'
 const {t} = useI18n()
@@ -57,7 +71,58 @@ const password = ref("");
 const code = ref("");
 const text = ref("Get Verification Code");
 const textContinue = ref("Continue");
-
+const updatePassFormRef = ref<FormInstance>();
+const updatePassForm = ref({
+  email: '',
+  code: null
+})
+const count = ref(0);
+const timer = ref(null);
+const getCodeDisabled = ref(false);
+const getCode = async (formEl: FormInstance | undefined) => {
+  if(!formEl) return;
+  const res = await formEl.validateField(['email'], valid => valid);
+  if(!res) return;
+  getCodeDisabled.value = true;
+  try {
+    const getCodeRes = await toGetCode();
+    getCodeDisabled.value = false;
+    if(getCodeRes.data.code !== 1) {
+      if(getCodeRes.data.code === 9001) {
+        ElMessage.error("User not exist.");
+      } else {
+        ElMessage.error("Please try again later.");
+      }
+      return;
+    }
+    count.value = 60;
+    timer.value = setInterval(() => {
+      count.value -= 1;
+      if(count.value <= 0) {
+        clearInterval(timer.value);
+      }
+    }, 1000);
+  } catch (e) {
+    getCodeDisabled.value = false;
+    ElMessage.error("Please try again later.");
+  }
+}
+const toGetCode = async () => {
+  return await forgotPassGetCode(updatePassForm.value.email);
+}
+const verifyCode = async (formEl: FormInstance | undefined) => {
+  if(!formEl) return;
+  const res = await formEl.validate(valid => valid);
+}
+const updatePassFormRules = reactive<FormRules>({
+  email: [
+    { required: true, message: 'Please input email.', trigger: 'blur' },
+    { type: 'email', message: 'Please enter a valid email format.', trigger: 'blur' },
+  ],
+  code: [
+    { required: true, message: 'Please input code.', trigger: 'blur' },
+  ]
+});
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -168,9 +233,13 @@ $lineH: 16px;
       margin-top: 20px;
       display: flex;
       justify-content: space-between;
+      align-items: flex-start;
 
       .verify-btn {
         margin-left: 13px;
+        display: flex;
+        align-items: flex-end;
+        flex-direction: column;
         :deep(.button) {
           padding: 0 10px !important;
           font-size: 14px !important;
@@ -195,16 +264,17 @@ $lineH: 16px;
       }
     }
     .password-sms {
-      margin-top: 10px;
+      margin-top: 5px;
       font-size: 14px;
       color: #f15958;
       float: right;
       height: 35px;
     }
     .password-continue {
+      margin-top: 5px;
       :deep(.button) {
-        color: #bdbdbd;
-        background-color: #f7f7f7;
+        // color: #bdbdbd;
+        // background-color: #f7f7f7;
         width: 100%;
         height: 100%;
         font-size: 20px;
