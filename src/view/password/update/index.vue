@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="password-continue">
-          <GetButton @click="updatePass(formRef)" :text="t('messages.forgot_password.update')" />
+          <GetButton @click="updatePass(formRef)" :disabled="updatePassDisabled" :text="t('messages.forgot_password.update')" />
           <!-- <router-link to="updated">
           </router-link> -->
         </div>
@@ -91,10 +91,20 @@ import login_eye_off from "../../../assets/home/login_eye_off.svg";
 import login_updated from "../../../assets/home/login_updated.svg";
 import { useI18n } from "vue-i18n";
 import login_eye_view from "../../../assets/wallet/overview_eye.png";
-import { FormInstance, FormRules } from "element-plus";
-import { useRouter } from "vue-router";
+import { ElMessage, FormInstance, FormRules } from "element-plus";
+import { useRouter, useRoute } from "vue-router";
+
+import { forgotPassUpdatePass } from '../../../api/login';
 
 const router = useRouter();
+const route = useRoute();
+const updateToken = ref();
+onMounted(() => {
+  // console.log(route.query);
+  if(route.query.token) {
+    updateToken.value = route.query.token;
+  }
+})
 
 const {t} = useI18n()
 const password = ref("");
@@ -179,12 +189,25 @@ function validatePass(rule: any, value: any, callback: any) {
     callback()
   }
 }
-
+const updatePassDisabled = ref(false);
 const updatePass = async (formEl: FormInstance | undefined) => {
   if(!formEl) return;
   const valid = await formEl.validate(valid => valid);
   if(!valid) return;
-  router.push('/updated');
+  updatePassDisabled.value = true;
+  try {
+    updatePassDisabled.value = false;
+    const updateRes = await forgotPassUpdatePass(updateToken.value, form.value.password);
+    if(updateRes.data.code !== 1) {
+      ElMessage.error('Please try again later.');
+      return;
+    }
+    router.push('/updated');
+
+  }catch(e) {
+    updatePassDisabled.value = false;
+    ElMessage.error('Please try again later.');
+  }
 }
 
 </script>

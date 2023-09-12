@@ -21,10 +21,15 @@ function forgotPassValidCode(token: string, code: any) {
     return http.post('/forget_pass_verify', { token, code });
 }
 
+function forgotPassUpdatePass(token: string, new_pass: string) {
+    return http.post('/forget_pass_change', { token, new_pass });
+}
+
 export {
     getLoginUUID,
     toLogin,
     getLoginHistory,
     forgotPassGetCode,
-    forgotPassValidCode
+    forgotPassValidCode,
+    forgotPassUpdatePass
 }

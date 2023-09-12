@@ -133,7 +133,7 @@ const verifyCode = async (formEl: FormInstance | undefined) => {
       ElMessage.error("Please try again later.");
       return;
     }
-    router.push('/update');
+    router.push({ path: '/update', query: {token: continueRes.data.data.token} });
     continueLoading.value = false;
     
   } catch(e) {
@@ -279,6 +279,7 @@ $lineH: 16px;
           padding: 0 10px !important;
           font-size: 14px !important;
           font-weight: 400;
+          white-space: nowrap;
         }
       }
       :deep() {

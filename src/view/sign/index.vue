@@ -11,7 +11,7 @@
         <el-col :span="24" :xs="24">
           <div class="sign-title">
             <div class="create-title">Account Creation</div>
-            <div class="previous-btn" @click="decreasePercentage">
+            <div class="previous-btn" @click="decreasePercentage" v-if="percentage !== 0">
               <el-icon>
                 <Back/>
               </el-icon>
@@ -57,7 +57,7 @@
             <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="!isValidEmail || emailInput === ''"
+                :disabled="(!isValidEmail || emailInput === '') || initializeSignUpWizardDisabled"
                 @click="increase()"
             >
               Continue
@@ -86,7 +86,7 @@
             <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="emailCode.length < 6"
+                :disabled="emailCode.length < 6 || emailConfirmedDisabled"
                 @click="emailConfirmed()"
             >
               Continue
@@ -134,7 +134,7 @@
             <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="!isValidPhone || phoneInput === ''"
+                :disabled="(!isValidPhone || phoneInput === '') || phoneNumberInputDisabled"
                 @click="phoneNumberInput()"
             >
               Continue
@@ -163,7 +163,7 @@
                 class="verify-btn"
                 style="margin-top: 100px !important;"
                 type="primary"
-                :disabled="smsCode.length < 6"
+                :disabled="smsCode.length < 6 || phoneConfirmedDisabled"
                 @click="phoneConfirmed()"
             >
               Continue
@@ -307,7 +307,7 @@ const isValidPhone = computed(() => {
   return PHONE_REGEX.test(phoneInput.value);
 });
 const toConfirmEmail = () => {
-  percentage.value += 15;
+  percentage.value = 15;
 }
 
 const registeredEmails = ref<string[]>([]);
@@ -319,8 +319,8 @@ const resetEmailRegistration = () => {
     registeredEmails.value.splice(index, 1);
   }
 };
+const initializeSignUpWizardDisabled = ref(false);
 const increase = () => {
-  console.log(123);
   if (isValidEmail.value) {
     const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
 
@@ -330,15 +330,17 @@ const increase = () => {
       registeredEmails.value.push(email); // 将邮箱添加到已注册邮箱数组中
       console.log('aaaaa');
     } else {
+      initializeSignUpWizardDisabled.value = true;
       initializeSignUpWizard({
         email: email, // 使用小写形式的邮箱
       })
           .then((res: any) => {
+            initializeSignUpWizardDisabled.value = false;
             if (res.data && (res.status === 200 || res.status === 202)) {
               if (res.data.code === 9001) {
                 ElMessage({message: "Email has been registered", type: "error"});
               } else {
-                percentage.value += 15;
+                percentage.value = 30;
                 registeredEmails.value.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
               }
             } else {
@@ -346,25 +348,27 @@ const increase = () => {
             }
           })
           .catch((err) => {
+            initializeSignUpWizardDisabled.value = false;
             ElMessage({message: "Please try again later.", type: "error"});
           });
     }
   }
 };
-
+const emailConfirmedDisabled = ref(false);
 const emailConfirmed = () => {
   resetEmailRegistration(); // 在返回上一步时重置未完成手机验证的邮箱
   isEmailVerified.value = false; // 在返回上一步时将邮箱验证状态重置为未完成
-
+  emailConfirmedDisabled.value = true;
   emailVefify({
     code: emailCode.value,
     email: emailInput.value // 这是用户输入的email
   }).then((res: any) => {
+    emailConfirmedDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
       // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
       if (res.data.code === 1) {
         token1.token = res.data.data.token;
-        percentage.value += 15;
+        percentage.value = 45;
         isEmailVerified.value = true; // 邮箱验证完成，将标志位设置为true
       } else {
         ElMessage({message: "Email code not correct", type: "error"});
@@ -373,6 +377,7 @@ const emailConfirmed = () => {
       ElMessage({message: "Please try again later.", type: "error"});
     }
   }).catch((err) => {
+    emailConfirmedDisabled.value = false;
     ElMessage({message: "Please try again later.", type: "error"});
   });
 };
@@ -388,20 +393,22 @@ const resetPhoneRegistration = () => {
     registeredPhoneNumbers.value.splice(index, 1);
   }
 };
-
+const phoneNumberInputDisabled = ref(false);
 const phoneNumberInput = () => {
   if (isValidPhone.value) {
     const phoneNumber = phoneInput.value;
 
     if (isPhoneVerified.value) {
-      percentage.value += 15;
+      percentage.value = 75;
       registeredPhoneNumbers.value.push(phoneNumber);
     } else {
       phoneNumberEntered.value = true; // 标记手机号已输入但未验证
+      phoneNumberInputDisabled.value = true;
       phoneSignup({
         phone: phoneNumber,
       })
           .then((res: any) => {
+            phoneNumberInputDisabled.value = false;
             if (res.data && (res.status === 200 || res.status === 202)) {
               if (res.data.code === 9002) {
                 ElMessage({ message: "Phone number has been registered", type: "error" });
@@ -414,6 +421,7 @@ const phoneNumberInput = () => {
             }
           })
           .catch((err) => {
+            phoneNumberInputDisabled.value = false;
             ElMessage({ message: "Please try again later.", type: "error" });
           });
     }
@@ -427,27 +435,28 @@ const toConfirmPhone = () => {
     if (!isPhoneVerified.value && registeredPhoneNumbers.value.includes(phoneNumber)) {
       ElMessage({ message: "Phone number has already been registered", type: "error" });
     } else {
-      percentage.value += 15;
+      percentage.value = 60;
     }
   }
 };
-
+const phoneConfirmedDisabled = ref(false);
 const phoneConfirmed = () => {
   if (!phoneNumberEntered.value) {
     // 如果手机号没有输入，不允许进入下一步
     ElMessage({ message: "Please enter a phone number first.", type: "error" });
     return;
   }
-
+  phoneConfirmedDisabled.value = true;
   phoneVefify({
     code: smsCode.value,
     phone: phoneInput.value,
     token: token1.token,
   }).then((res: any) => {
+    phoneConfirmedDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
       if (res.data.code === 1) {
         token2.token = res.data.data.token;
-        percentage.value += 15;
+        percentage.value = 90;
         isPhoneVerified.value = true;
       } else {
         ElMessage({ message: "Phone code not correct", type: "error" });
@@ -456,6 +465,7 @@ const phoneConfirmed = () => {
       ElMessage({ message: "Please try again later.", type: "error" });
     }
   }).catch((err) => {
+    phoneConfirmedDisabled.value = false;
     ElMessage({ message: "Please try again later.", type: "error" });
   });
 };
@@ -468,25 +478,28 @@ const phoneContinue = () => {
     }
   }
 };
+const successContinueDisabled = ref(false);
 const successContinue = () => {
-
+  successContinueDisabled.value = true;
   signUp({
     email: emailInput.value,
     phone: phoneInput.value,  // 这是用户输入的email
     token: token2.token,
     pass_word: passwordInput.value,
   }).then((res: any) => {
+    successContinueDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
       // 如果成功，你的服务器应该已经发送了验证邮件到用户的邮箱
       if (res.data.code === 9001) {
         ElMessage({message: "Count has been registered", type: "error",});
       } else {
-        percentage.value += 15;
+        percentage.value = 105;
       }
     } else {
       ElMessage({message: "Please try again later.", type: "error",});
     }
   }).catch((err) => {
+    successContinueDisabled.value = false;
     ElMessage({message: "Please try again later.", type: "error",});
   });
 
