@@ -390,7 +390,7 @@ New Zealand: Level 26, HSBC Tower, 188 Quay Street, Auckland 1010`,
             password: "Forgot password",
             withdrawal:
                 "The withdrawal function will be suspended for 24 hours if you log in with new devices after you have changed the login password.",
-            equipment: "Phone / Email",
+            equipment: "Email",
             code: "Enter code",
             input_password: "Password",
             verify_btn: "Get Verification Code",

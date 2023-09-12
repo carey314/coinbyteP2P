@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../view/home/index.scss">
+<!-- <link rel="stylesheet" href="../../view/home/index.scss"> -->
 <template>
   <div class="header-box">
     <div class="header-logo">
@@ -175,7 +175,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="userInfo?.kyc?.status !== ''">
+                  <el-dropdown-item class="verify-box" v-if="userInfo?.kyc?.status === 'GREEN'">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified"/>
@@ -425,7 +425,7 @@ import {useUserInfoStore} from "../../store/user";
 
 
 // i18n  全局变量locale
-import {getCurrentInstance} from "vue";
+import {getCurrentInstance, watch} from "vue";
 import {useI18n} from "vue-i18n";
 import {saveStoredLanguage} from "../../languageStorage";
 import {NoticeObject} from "../../models/notice";

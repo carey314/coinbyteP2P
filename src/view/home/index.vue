@@ -1285,7 +1285,7 @@ onMounted(() => {
   if (userInfoStore.isLogin) {
     getProfile().then((res) => {
       console.log(res.data);
-      userInfoStore.updateUserInfo(res.data);
+      userInfoStore.updateUserInfo(res.data.data);
     });
   }
 });
