@@ -18,58 +18,61 @@
                             <img :src="selectCurrencyContent.icon"/>
                             <div style="display: flex; align-items: baseline; gap: 7px;">
                               <span style="font-size: 16px;color: #020202;">{{ selectCurrencyContent.label }}</span>
-                              <span style="font-size: 14px;color: #9B9B9B;">{{ selectCurrencyContent.description }}</span>
+                              <span style="font-size: 14px;color: #9B9B9B;">{{
+                                  selectCurrencyContent.description
+                                }}</span>
                             </div>
                           </div>
-<!--                          /au/user/depositFiat-->
+                          <!--                          /au/user/depositFiat-->
                           <el-tooltip
-                                  class="box-item"
-                                  effect="dark"
-                                  content="Please complete the verification process before proceeding."
-                                  :disabled="userInfo?.kyc?.status === 'GREEN'"
-                                  placement="top"
-                                >
-                                <el-select v-model="form.selectedOption1"
-                                           placeholder="Select currency"
-                                           :disabled="userInfo?.kyc?.status !== 'GREEN'"
-                                           @change="selectCurrency">
-                                  <el-option
-                                      :show-arrow="false"
-                                      v-for="item in options1"
-                                      :key="item.value"
-                                      :label="item.label"
-                                      style="height: 47px;"
-                                      :value="item.value">
-                                    <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
-                                      <img :src="item.icon"/>
-                                      <div style="display: flex; align-items: baseline; gap: 7px;">
-                                        <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>
-                                        <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>
-                                      </div>
-                                    </div>
-                                  </el-option>
-                                </el-select>
+                              class="box-item"
+                              effect="dark"
+                              content="Please complete the verification process before proceeding."
+                              :disabled="userInfo?.kyc?.status === 'GREEN'"
+                              placement="top"
+                          >
+                            <el-select v-model="form.selectedOption1"
+                                       placeholder="Select currency"
+                                       :disabled="userInfo?.kyc?.status !== 'GREEN'"
+                                       @change="selectCurrency">
+                              <el-option
+                                  :show-arrow="false"
+                                  v-for="item in options1"
+                                  :key="item.value"
+                                  :label="item.label"
+                                  style="height: 47px;"
+                                  :value="item.value">
+                                <div
+                                    style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
+                                  <img :src="item.icon"/>
+                                  <div style="display: flex; align-items: baseline; gap: 7px;">
+                                    <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>
+                                    <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>
+                                  </div>
+                                </div>
+                              </el-option>
+                            </el-select>
                           </el-tooltip>
-<!--                          <el-select v-model="form.selectedOption1"-->
-<!--                                     placeholder="Select currency"-->
-<!--                                     v-if="$route.path.startsWith('/nz')"-->
-<!--                                     @change="selectCurrency">-->
-<!--                            <el-option-->
-<!--                                :show-arrow="false"-->
-<!--                                v-for="item in options1.slice(1, 2)"-->
-<!--                                :key="item.value"-->
-<!--                                :label="item.label"-->
-<!--                                style="height: 47px;"-->
-<!--                                :value="item.value">-->
-<!--                              <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">-->
-<!--                                <img :src="item.icon"/>-->
-<!--                                <div style="display: flex; align-items: baseline; gap: 7px;">-->
-<!--                                  <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>-->
-<!--                                  <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </el-option>-->
-<!--                          </el-select>-->
+                          <!--                          <el-select v-model="form.selectedOption1"-->
+                          <!--                                     placeholder="Select currency"-->
+                          <!--                                     v-if="$route.path.startsWith('/nz')"-->
+                          <!--                                     @change="selectCurrency">-->
+                          <!--                            <el-option-->
+                          <!--                                :show-arrow="false"-->
+                          <!--                                v-for="item in options1.slice(1, 2)"-->
+                          <!--                                :key="item.value"-->
+                          <!--                                :label="item.label"-->
+                          <!--                                style="height: 47px;"-->
+                          <!--                                :value="item.value">-->
+                          <!--                              <div style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">-->
+                          <!--                                <img :src="item.icon"/>-->
+                          <!--                                <div style="display: flex; align-items: baseline; gap: 7px;">-->
+                          <!--                                  <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>-->
+                          <!--                                  <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>-->
+                          <!--                                </div>-->
+                          <!--                              </div>-->
+                          <!--                            </el-option>-->
+                          <!--                          </el-select>-->
                         </el-form-item>
                       </div>
                     </template>
@@ -80,17 +83,20 @@
                         <div v-if="form.selectedOption1 === 'AUD'" class="payment-box">
                           <div class="payment-way">
                             <img class="payment-pay no-select" :src="payment_payid"
-                                 :class="{ 'selected': form.selectedPayment === 'PayID' }" @click="selectPayment('PayID')"/>
+                                 :class="{ 'selected': form.selectedPayment === 'PayID' }"
+                                 @click="selectPayment('PayID')"/>
                           </div>
                           <div class="payment-way">
                             <img class="payment-bank no-select" :src="payment_bank"
-                                 :class="{ 'selected': form.selectedPayment === 'Bank Transfer' }" @click="selectPayment('Bank Transfer')"/>
+                                 :class="{ 'selected': form.selectedPayment === 'Bank Transfer' }"
+                                 @click="selectPayment('Bank Transfer')"/>
                           </div>
                         </div>
                         <div class="payment-box" v-else-if="form.selectedOption1 === 'NZD'">
                           <div class="payment-way">
                             <img class="payment-poli no-select" :src="payment_poli"
-                                 :class="{ 'selected': form.selectedPayment === 'Poli' }" @click="selectPayment('Poli', true)"/>
+                                 :class="{ 'selected': form.selectedPayment === 'Poli' }"
+                                 @click="selectPayment('Poli', true)"/>
                           </div>
                         </div>
                       </el-form-item>
@@ -125,7 +131,7 @@
                           </template>
                           <div class="divider"></div>
                           <div class="suggest">Suggested Amount</div>
-  
+
                           <div class="count-range">A$50-2,000,000</div>
                           <div class="limit requirements">
                             <div class="limit-icon">
@@ -143,7 +149,7 @@
                             <div class="limit-sign">/A$2M</div>
                           </div>
                         </el-dialog>
-  
+
                         <div class="step-input">
                           <el-form-item prop="coinAmount">
                             <el-input-number
@@ -226,7 +232,8 @@
                           <div class="list-info" v-html="item.info"></div>
                         </div>
                         <template #footer>
-                          <el-button @click="handleSubmit" class="know-btn" :loading="submitDepositLoading" :disabled="submitDepositLoading"
+                          <el-button @click="handleSubmit" class="know-btn" :loading="submitDepositLoading"
+                                     :disabled="submitDepositLoading"
                           >I Agree
                           </el-button
                           >
@@ -345,25 +352,27 @@
                           Copy
                         </div>
                       </div>
-  
+
                       <div class="info-title">BSB Number:</div>
                       <div class="info-email">
                         <div class="email-number">{{ userInfo?.zepto_account?.bank_branch_code || '----' }}</div>
-                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_branch_code || '----')">
+                        <div class="email-copy"
+                             @click="textToCopy(userInfo?.zepto_account?.bank_branch_code || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
                       </div>
-  
+
                       <div class="info-title">Account Number:</div>
                       <div class="info-email">
                         <div class="email-number">{{ userInfo?.zepto_account?.bank_account_number || '----' }}</div>
-                        <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
+                        <div class="email-copy"
+                             @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
                           <img :src="copy"/>
                           Copy
                         </div>
                       </div>
-  
+
                       <div class="info-title">Reference (Optional):</div>
                       <div class="info-email">
                         <div class="email-number">{{ userInfo?.zepto_account?.ref || '----' }}</div>
@@ -469,112 +478,112 @@
         </div>
       </el-col>
     </el-row>
-<!--    <div-->
-<!--        class="deposit-details clearfloat"-->
-<!--        v-if="activeStep >= 4"-->
-<!--    >-->
-<!--      <div class="recent-deposit clearfloat" v-loading="tableDataLoading">-->
-<!--        <div class="table-name">Recent Deposits</div>-->
-<!--        <div class="not-arrive">Hasn't arrived?</div>-->
-<!--        <Table :sourceData="tableData" class="deposit-table">-->
-<!--          <template v-slot:columns>-->
-<!--            <el-table-column-->
-<!--                prop="CreatedAt"-->
-<!--                :label="t('messages.wallet.fiat_Time')"-->
-<!--                width="210"-->
-<!--            >-->
-<!--            <template #default="scope">-->
-<!--              {{ formatDate(scope.row.CreatedAt) }}-->
-<!--            </template>-->
-<!--          </el-table-column>-->
-<!--            <el-table-column-->
-<!--                prop="currency"-->
-<!--                :label="t('messages.wallet.fiat_Coin')"-->
-<!--                width="210"-->
-<!--            />-->
-<!--            <el-table-column-->
-<!--                prop="amount"-->
-<!--                :label="t('messages.wallet.fiat_Amount')"-->
-<!--                width="240"-->
-<!--            >-->
-<!--              <template #default="scope">-->
-<!--                <div>-->
-<!--                  {{ formatNumber(scope.row.amount) }}-->
-<!--                </div>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column-->
-<!--                :label="t('messages.wallet.fiat_Status')"-->
-<!--                width="230"-->
-<!--            >-->
-<!--              <template #default="scope">-->
-<!--                <div-->
-<!--                    style="color: #01c19a"-->
-<!--                >-->
-<!--                  Successful-->
-<!--                </div>-->
-<!--                &lt;!&ndash; <div-->
-<!--                    v-if="scope.row.status === 'Successful'"-->
-<!--                    style="color: #01c19a"-->
-<!--                >-->
-<!--                  Successful-->
-<!--                </div>-->
-<!--                <div v-else-if="scope.row.status === 'Faild'">Faild</div> &ndash;&gt;-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column :label="t('messages.wallet.fiat_Information')">-->
-<!--              <template #default="scope">-->
-<!--                <template v-if="!isFoldArr.includes(scope.row.ID)">-->
-<!--                  <div class="info">-->
-<!--                    <p>Payment Method:</p>-->
-<!--                    <p>{{ scope.row.pay_method }}</p>-->
-<!--                  </div>-->
-<!--                </template>-->
-<!--                <template v-else>-->
-<!--                  <div class="info">-->
-<!--                    <p>Payment Method:</p>-->
-<!--                    <p>{{ scope.row.pay_method }}</p>-->
-<!--                  </div>-->
-<!--                  <div class="info">-->
-<!--                    <p>Indicated Amount:</p>-->
-<!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
-<!--                  </div>-->
-<!--                  <div class="info">-->
-<!--                    <p>Fee:</p>-->
-<!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
-<!--                  </div>-->
-<!--                  <div class="info">-->
-<!--                    <p>Order ID:</p>-->
-<!--                    <p>{{ scope.row.ID }}</p>-->
-<!--                  </div>-->
-<!--                </template>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--            <el-table-column label="">-->
-<!--              <template #default="scope">-->
-<!--                <el-button-->
-<!--                    type="text"-->
-<!--                    :class="{-->
-<!--                    icon_button: true,-->
-<!--                    isRotate: isFoldArr.includes(scope.row.ID),-->
-<!--                  }"-->
-<!--                    @click="getKey(scope.row.ID)"-->
-<!--                    style="transition: all .4s;"-->
-<!--                >-->
-<!--                  <el-icon style="color: #9b9b9b">-->
-<!--                    <CaretBottom/>-->
-<!--                  </el-icon-->
-<!--                  >-->
-<!--                </el-button>-->
-<!--              </template>-->
-<!--            </el-table-column>-->
-<!--          </template>-->
-<!--        </Table>-->
-<!--        <div style="display: flex; justify-content: flex-end;height: 70px;">-->
-<!--          <el-pagination layout="prev, pager, next" :total="pageTotal" @current-change="currentChange"/>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    <div-->
+    <!--        class="deposit-details clearfloat"-->
+    <!--        v-if="activeStep >= 4"-->
+    <!--    >-->
+    <!--      <div class="recent-deposit clearfloat" v-loading="tableDataLoading">-->
+    <!--        <div class="table-name">Recent Deposits</div>-->
+    <!--        <div class="not-arrive">Hasn't arrived?</div>-->
+    <!--        <Table :sourceData="tableData" class="deposit-table">-->
+    <!--          <template v-slot:columns>-->
+    <!--            <el-table-column-->
+    <!--                prop="CreatedAt"-->
+    <!--                :label="t('messages.wallet.fiat_Time')"-->
+    <!--                width="210"-->
+    <!--            >-->
+    <!--            <template #default="scope">-->
+    <!--              {{ formatDate(scope.row.CreatedAt) }}-->
+    <!--            </template>-->
+    <!--          </el-table-column>-->
+    <!--            <el-table-column-->
+    <!--                prop="currency"-->
+    <!--                :label="t('messages.wallet.fiat_Coin')"-->
+    <!--                width="210"-->
+    <!--            />-->
+    <!--            <el-table-column-->
+    <!--                prop="amount"-->
+    <!--                :label="t('messages.wallet.fiat_Amount')"-->
+    <!--                width="240"-->
+    <!--            >-->
+    <!--              <template #default="scope">-->
+    <!--                <div>-->
+    <!--                  {{ formatNumber(scope.row.amount) }}-->
+    <!--                </div>-->
+    <!--              </template>-->
+    <!--            </el-table-column>-->
+    <!--            <el-table-column-->
+    <!--                :label="t('messages.wallet.fiat_Status')"-->
+    <!--                width="230"-->
+    <!--            >-->
+    <!--              <template #default="scope">-->
+    <!--                <div-->
+    <!--                    style="color: #01c19a"-->
+    <!--                >-->
+    <!--                  Successful-->
+    <!--                </div>-->
+    <!--                &lt;!&ndash; <div-->
+    <!--                    v-if="scope.row.status === 'Successful'"-->
+    <!--                    style="color: #01c19a"-->
+    <!--                >-->
+    <!--                  Successful-->
+    <!--                </div>-->
+    <!--                <div v-else-if="scope.row.status === 'Faild'">Faild</div> &ndash;&gt;-->
+    <!--              </template>-->
+    <!--            </el-table-column>-->
+    <!--            <el-table-column :label="t('messages.wallet.fiat_Information')">-->
+    <!--              <template #default="scope">-->
+    <!--                <template v-if="!isFoldArr.includes(scope.row.ID)">-->
+    <!--                  <div class="info">-->
+    <!--                    <p>Payment Method:</p>-->
+    <!--                    <p>{{ scope.row.pay_method }}</p>-->
+    <!--                  </div>-->
+    <!--                </template>-->
+    <!--                <template v-else>-->
+    <!--                  <div class="info">-->
+    <!--                    <p>Payment Method:</p>-->
+    <!--                    <p>{{ scope.row.pay_method }}</p>-->
+    <!--                  </div>-->
+    <!--                  <div class="info">-->
+    <!--                    <p>Indicated Amount:</p>-->
+    <!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
+    <!--                  </div>-->
+    <!--                  <div class="info">-->
+    <!--                    <p>Fee:</p>-->
+    <!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
+    <!--                  </div>-->
+    <!--                  <div class="info">-->
+    <!--                    <p>Order ID:</p>-->
+    <!--                    <p>{{ scope.row.ID }}</p>-->
+    <!--                  </div>-->
+    <!--                </template>-->
+    <!--              </template>-->
+    <!--            </el-table-column>-->
+    <!--            <el-table-column label="">-->
+    <!--              <template #default="scope">-->
+    <!--                <el-button-->
+    <!--                    type="text"-->
+    <!--                    :class="{-->
+    <!--                    icon_button: true,-->
+    <!--                    isRotate: isFoldArr.includes(scope.row.ID),-->
+    <!--                  }"-->
+    <!--                    @click="getKey(scope.row.ID)"-->
+    <!--                    style="transition: all .4s;"-->
+    <!--                >-->
+    <!--                  <el-icon style="color: #9b9b9b">-->
+    <!--                    <CaretBottom/>-->
+    <!--                  </el-icon-->
+    <!--                  >-->
+    <!--                </el-button>-->
+    <!--              </template>-->
+    <!--            </el-table-column>-->
+    <!--          </template>-->
+    <!--        </Table>-->
+    <!--        <div style="display: flex; justify-content: flex-end;height: 70px;">-->
+    <!--          <el-pagination layout="prev, pager, next" :total="pageTotal" @current-change="currentChange"/>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
   </div>
 </template>
 
@@ -614,14 +623,15 @@ import copy from "../../../../assets/image/copy.svg";
 import coin_aud from "../../../../assets/image/coin_aud.svg";
 import coin_nzd from "../../../../assets/image/coin_nzd.svg";
 import {getDepositTransactions} from "../../../../api/deposit";
-import { number } from "echarts";
-import { addTransaction, getTransactionList } from '../../../../api/transactions';
+import {number} from "echarts";
+import {addTransaction, getTransactionList} from '../../../../api/transactions';
 import dayjs from "dayjs";
 import {useUserInfoStore} from "../../../../store/user";
 import {storeToRefs} from "pinia";
-import { formatNumber } from "../../../../utils/formatNumber";
+import {formatNumber} from "../../../../utils/formatNumber";
 import * as userAPI from "../../../../api/user";
-import { useRoute, useRouter } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+
 const router = useRouter();
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
@@ -650,11 +660,13 @@ const selectedPayment = ref<string | null>(null);
 
 // Form 表单 2023-08-17
 const ruleFormRef = ref<FormInstance>();
+
 interface Form {
   selectedOption1: string;
   selectedPayment: string;
   coinAmount: number | null;
 }
+
 const form = ref<Form>({
   selectedOption1: "",
   selectedPayment: "",
@@ -677,18 +689,20 @@ const rules = reactive<FormRules>({
 // 验证amount
 function validateCoinAmount(rule: any, value: any, callback: any) {
   if (Number(value) < 50 || Number(value) > 2000000) {
-    callback(new Error('The limit per transaction is between 50-2000000 '+ form.value.selectedOption1 + '. Please adjust the amount.'));
+    callback(new Error('The limit per transaction is between 50-2000000 ' + form.value.selectedOption1 + '. Please adjust the amount.'));
   } else {
     callback()
   }
 }
+
 // 验证表单
 async function validForm(formEl: FormInstance | undefined) {
   if (!formEl) return false;
   return await formEl.validate((valid) => valid);
 }
+
 // 提交交易
-async function  submitTransaction(data: Form) {
+async function submitTransaction(data: Form) {
   const addData = {
     // country 未知
     country: "au",
@@ -752,21 +766,23 @@ const formatDate = (date: Date) => {
 }
 // 处理提交后结果
 const submitDepositLoading = ref(false);
+
 async function handleSubmit() {
   try {
     submitDepositLoading.value = true;
     const submitResult = await submitTransaction(form.value);
     submitDepositLoading.value = false;
-    if(submitResult.data.msg === 'success') {
+    if (submitResult.data.msg === 'success') {
       depositStatus.value = true;
       activeStep.value = 4;
       toGetTransactionList(1);
     }
-  } catch(e) {
+  } catch (e) {
     ElMessage.error('Please try again later.');
     submitDepositLoading.value = false;
   }
 }
+
 const pageTotal = ref(0);
 const pageData = ref({
   page: 1,
@@ -779,8 +795,8 @@ const toGetTransactionList = (page: number) => {
     page_size: pageData.value.page_size
   }).then((res: any) => {
     // console.log(res.data);
-    if(res.data.data && res.data.data.Data) {
-      if(!pageTotal.value) {
+    if (res.data.data && res.data.data.Data) {
+      if (!pageTotal.value) {
         pageTotal.value = res.data.data.Count;
       }
       tableData.value = res.data.data.Data;
@@ -819,7 +835,7 @@ const showContinueBtn = ref(true);
 
 // step1
 function selectCurrency() {
-  if(userInfo.value?.kyc?.status !== 'GREEN') return;
+  if (userInfo.value?.kyc?.status !== 'GREEN') return;
   activeStep.value = 2;
   // if (activeStep.value === 1 && selectedOption1.value !== "") {
   // } else if (activeStep.value === 2 && canContinue.value) {
@@ -837,7 +853,7 @@ function selectCurrency() {
 
 // step2
 function selectPayment(payment: string, disabled: boolean = false) {
-  if(disabled) return;
+  if (disabled) return;
   activeStep.value = 3
   if (form.value.selectedPayment === payment) {
     form.value.selectedPayment = ""; // 若已选中，则取消选择
@@ -847,9 +863,9 @@ function selectPayment(payment: string, disabled: boolean = false) {
 }
 
 // step3
-async function handleContinue(ruleFormRef: FormInstance | undefined){
+async function handleContinue(ruleFormRef: FormInstance | undefined) {
   console.log(await validForm(ruleFormRef));
-  if(!await validForm(ruleFormRef)) {
+  if (!await validForm(ruleFormRef)) {
     return;
   }
   try {
@@ -858,7 +874,6 @@ async function handleContinue(ruleFormRef: FormInstance | undefined){
   } catch (error) {
     console.error(error);
   }
-  useUserInfoStore()
   showContinueBtn.value = true; // 隐藏继续按钮
   dialogContinue.value = true;
 }
@@ -952,20 +967,24 @@ $fontSizeMin: 12px;
     .el-dialog__body {
       padding: 0;
     }
-    .el-step__head.is-finish .is-text{
+
+    .el-step__head.is-finish .is-text {
       background-color: #01c19a;
       color: #FFF;
     }
-    .el-step__head.is-process .is-text,.el-step__head.is-wait .is-text{
+
+    .el-step__head.is-process .is-text, .el-step__head.is-wait .is-text {
       border: none;
       background-color: #F1F1F1;
       color: #CBCCCF;
     }
-    .el-step:last-of-type .el-step__description, .el-step:last-of-type .el-step__main{
+
+    .el-step:last-of-type .el-step__description, .el-step:last-of-type .el-step__main {
       width: 100%;
       max-width: 442px;
     }
-    .el-input__inner{
+
+    .el-input__inner {
       color: #000 !important;
     }
   }
@@ -1147,6 +1166,7 @@ $fontSizeMin: 12px;
         .payment-way {
           cursor: pointer;
           height: 70px;
+
           .pay {
             padding: 9px 30px;
           }
@@ -1183,6 +1203,7 @@ $fontSizeMin: 12px;
             cursor: not-allowed;
             opacity: .5;
           }
+
           .no-select {
             margin-top: 16px;
             width: 153px;
@@ -1587,11 +1608,13 @@ $fontSizeMin: 12px;
     }
   }
 }
+
 .coin-amount :deep() {
-    input {
-      text-align: left !important;
-    }
+  input {
+    text-align: left !important;
   }
+}
+
 .step-input {
   .input {
     width: 442px;
@@ -1683,6 +1706,7 @@ $fontSizeMin: 12px;
     width: 100%;
   }
 }
+
 .custome-select-content {
   position: absolute;
   top: 1px;
@@ -1695,6 +1719,7 @@ $fontSizeMin: 12px;
   gap: 12px;
   pointer-events: none;
 }
+
 :deep() {
   .el-form-item__error {
     position: static !important;
@@ -1705,10 +1730,12 @@ $fontSizeMin: 12px;
     line-height: 18px;
     margin-top: 15px;
   }
+
   .el-form-item.is-error .el-input__wrapper {
     border: 1px solid #F35854;
   }
 }
+
 .isRotate {
   transform: rotate(180deg);
 }
@@ -1716,10 +1743,12 @@ $fontSizeMin: 12px;
 .deposit-table :deep(.info) {
   display: flex;
   gap: 10px;
+
   p:nth-child(1) {
     width: 120px;
     color: #9b9b9b;
   }
+
   p:nth-child(2) {
     width: 180px;
   }
