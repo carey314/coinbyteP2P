@@ -102,7 +102,7 @@ time, mark, audio, video {
  border: 0;
  font-size: 16px;
  font-family: HarmonyOS Sans,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
- /*font: inherit;*/
+ font: inherit;
  vertical-align: baseline;
 }
 article, aside, details, figcaption, figure,

@@ -48,6 +48,7 @@ import Header from "../../../layout/Header/Header.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import GetButton from "../../../components/GetButton.vue";
+import {forgetPassword, verifyForgetPassword} from "../../../api/user";
 
 import { useI18n } from 'vue-i18n'
 const {t} = useI18n()

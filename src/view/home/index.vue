@@ -5,8 +5,9 @@
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
           <el-col :md="24" :sm="24" :xs="24" class="banner-left">
-            <div class="banner-title">{{ $t('messages.home.banner_title') }} <span v-if="$route.path.startsWith('/nz')">NZ</span><span
-                v-if="$route.path.startsWith('/au')">AU</span></div>
+            <div class="banner-title">{{ $t('messages.home.banner_title') }}
+              <span v-if="$route.path.startsWith('/nz')">NZ</span>
+              <span v-if="$route.path.startsWith('/au')">AU</span></div>
             <div class="banner-content">
               <!--              Buy and sell Cryptocurrencies with a non-custodial exchange safely-->
               <!--              and securely without hidden fees You choose where you keep your-->
