@@ -5,41 +5,67 @@
       <div class="password">
         <div class="password-title">{{ $t('messages.forgot_password.update') }}</div>
         <div class="sign-password">
-          <el-input v-model="password" type="password" :placeholder="t('messages.forgot_password.input_password')">
-            <template #prefix>
-              <img :src="login_password" />
-            </template>
-            <template #suffix>
-              <img :src="login_eye_off" />
-            </template>
-          </el-input>
+          <el-form :model="form" ref="formRef" :rules="rules">
+            <el-form-item prop="password">
+              <el-input v-model="form.password" :type="isShowPass ? 'text' : 'password'" :placeholder="t('messages.forgot_password.input_password')">
+                <template #prefix>
+                  <img :src="login_password" />
+                </template>
+                <template v-if="!isShowPass" #suffix>
+                  <img :src="login_eye_off" @click="showPassWord" />
+                </template>
+                <template v-else #suffix>
+                  <img
+                    :src="login_eye_view"
+                    style="width: 22px; height: 20px"
+                    @click="showPassWord"
+                  />
+                </template>
+              </el-input>
+            </el-form-item>
+          </el-form>
           <div class="password-condition">
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{
+                  'satisfy-frame': true,
+                  dot: passwordConditions.length,
+                }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.characters') }}</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{
+                  'satisfy-frame': true,
+                  dot: passwordConditions.lowercase,
+                }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.lowercase') }}</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{
+                  'satisfy-frame': true,
+                  dot: passwordConditions.uppercase,
+                }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.uppercase') }}</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{
+                  'satisfy-frame': true,
+                  dot: passwordConditions.number,
+                }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.number') }}</div>
             </div>
             <div class="condition clearfloat">
-              <div class="satisfy-frame"></div>
+              <div :class="{
+                  'satisfy-frame': true,
+                  dot: passwordConditions.symbol,
+                }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.symbol') }}</div>
             </div>
           </div>
         </div>
         <div class="password-continue">
-          <router-link to="updated">
-            <GetButton :text="t('messages.forgot_password.update')" />
-          </router-link>
+          <GetButton @click="updatePass(formRef)" :text="t('messages.forgot_password.update')" />
+          <!-- <router-link to="updated">
+          </router-link> -->
         </div>
         <div class="return-login">
           <a href="/login" style="color: #01c19a; text-decoration: none"
@@ -54,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, watchEffect } from "vue";
 import Header from "../../../layout/Header/Header.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
@@ -64,8 +90,24 @@ import login_password from "../../../assets/home/login_password.svg";
 import login_eye_off from "../../../assets/home/login_eye_off.svg";
 import login_updated from "../../../assets/home/login_updated.svg";
 import { useI18n } from "vue-i18n";
+import login_eye_view from "../../../assets/wallet/overview_eye.png";
+import { FormInstance, FormRules } from "element-plus";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
 const {t} = useI18n()
 const password = ref("");
+const formRef = ref<FormInstance>();
+const form = ref({
+  password: ""
+});
+const rules = reactive<FormRules>({
+  password: [
+    {required: true, message: "Please enter the new password."},
+    {validator: validatePass, trigger: "blur"},
+  ]
+});
 const text = ref("Get Verification Code");
 const textContinue = ref("Update password");
 
@@ -89,6 +131,62 @@ const options = ref([
     label: "Email",
   },
 ]);
+const isShowPass = ref(false);
+const showPassWord = () => {
+  isShowPass.value = !isShowPass.value;
+};
+const passwordConditions = reactive({
+  length: false,
+  lowercase: false,
+  uppercase: false,
+  number: false,
+  symbol: false
+});
+watchEffect(() => {
+  passwordConditions.length = !!form.value.password.match(/^.{8,32}$/);
+  passwordConditions.lowercase = !!form.value.password.match(/^(?=.*[a-z]).*$/);
+  passwordConditions.uppercase = !!form.value.password.match(/^(?=.*[A-Z]).*$/);
+  passwordConditions.number = !!form.value.password.match(/^(?=.*\d).*$/);
+  passwordConditions.symbol = !!form.value.password.match(/^(?=.*[@$!%*?&]).*$/);
+});
+const passRule = ref([
+  {
+    rule: /^.{8,32}$/,
+    message: "Password length 8 to 32.",
+  },
+  {
+    rule: /^(?=.*[a-z]).*$/,
+    message: "Password must have at least one lowercase character.",
+  },
+  {
+    rule: /^(?=.*[A-Z]).*$/,
+    message: "Password must have at least one uppercase character.",
+  },
+  {
+    rule: /^(?=.*\d).*$/,
+    message: "Password must be at least one number.",
+  },
+  {
+    rule : /^(?=.*[@$!%*?&]).*$/,
+    message : "Password has at least one symbol."
+  },
+]);
+function validatePass(rule: any, value: any, callback: any) {
+  let correctPass = passRule.value.find((v) => !value.match(v.rule));
+  if (correctPass) {
+    callback(new Error(correctPass.message));
+  } else {
+    callback()
+  }
+}
+
+const updatePass = async (formEl: FormInstance | undefined) => {
+  if(!formEl) return;
+  const valid = await formEl.validate(valid => valid);
+  if(!valid) return;
+  router.push('/updated');
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -143,6 +241,9 @@ $lineH: 16px;
         margin-top: 15px;
         .condition {
           margin-top: 9px;
+          .dot {
+            background-color: #01c19a;
+          }
           .satisfy-frame {
             float: left;
             width: 12px;
@@ -189,8 +290,8 @@ $lineH: 16px;
     .password-continue {
       margin-top: 35px;
       :deep(.button) {
-        color: #bdbdbd;
-        background-color: #f7f7f7;
+        // color: #bdbdbd;
+        // background-color: #f7f7f7;
         width: 100%;
         height: 100%;
         font-size: 20px;

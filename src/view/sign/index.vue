@@ -320,15 +320,15 @@ const resetEmailRegistration = () => {
   }
 };
 const increase = () => {
+  console.log(123);
   if (isValidEmail.value) {
     const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
 
-    if (isEmailVerified) {
+    if (isEmailVerified.value) {
       // 如果邮箱已完成手机验证，则无需再次验证
       percentage.value += 15;
       registeredEmails.value.push(email); // 将邮箱添加到已注册邮箱数组中
-    } else if (registeredEmails.value.some((registeredEmail) => registeredEmail.toLowerCase() === email)) {
-      ElMessage({message: "Email has already been registered", type: "error"});
+      console.log('aaaaa');
     } else {
       initializeSignUpWizard({
         email: email, // 使用小写形式的邮箱
@@ -396,8 +396,6 @@ const phoneNumberInput = () => {
     if (isPhoneVerified.value) {
       percentage.value += 15;
       registeredPhoneNumbers.value.push(phoneNumber);
-    } else if (registeredPhoneNumbers.value.includes(phoneNumber)) {
-      ElMessage({ message: "Phone number has already been registered", type: "error" });
     } else {
       phoneNumberEntered.value = true; // 标记手机号已输入但未验证
       phoneSignup({

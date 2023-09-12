@@ -16,6 +16,7 @@
             <div class="password-count" style="width: 100%;">
               <el-input
                 v-model="updatePassForm.email"
+                @change="clearToken"
                 :placeholder="t('messages.forgot_password.equipment')"
               />
             </div>
@@ -23,7 +24,7 @@
           <div class="password-verify">
             <el-form-item prop="code">
               <div class="verify-input">
-                <el-input v-model="code" :placeholder="t('messages.forgot_password.code')" />
+                <el-input v-model="updatePassForm.code" :placeholder="t('messages.forgot_password.code')" />
               </div>
             </el-form-item>
             <el-form-item style="margin-bottom: 5px;">
@@ -36,7 +37,7 @@
   
   
           <div class="password-continue">
-            <GetButton :text="t('messages.forgot_password.continue')" @click="verifyCode(updatePassFormRef)"/>
+            <GetButton v-loading="continueLoading" :disabled="continueLoading" :text="t('messages.forgot_password.continue')" @click="verifyCode(updatePassFormRef)"/>
             <!-- <router-link to="update">
             </router-link> -->
           </div>
@@ -54,17 +55,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted } from "vue";
+import { ref, reactive, onUnmounted, onMounted, Ref } from "vue";
 import Header from "../../../layout/Header/Header.vue";
 import FooterMobile from "../../../layout/Footer/FooterMobile.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
 import GetButton from "../../../components/GetButton.vue";
 import {forgetPassword, verifyForgetPassword} from "../../../api/user";
 import { ElMessage, FormInstance, FormRules } from "element-plus";
+import { useRouter } from "vue-router";
 
 import {forgotPassGetCode, forgotPassValidCode} from '../../../api/login';
 
 import { useI18n } from 'vue-i18n'
+
+const router = useRouter();
+
 const {t} = useI18n()
 
 const password = ref("");
@@ -74,11 +79,13 @@ const textContinue = ref("Continue");
 const updatePassFormRef = ref<FormInstance>();
 const updatePassForm = ref({
   email: '',
-  code: null
+  code: null,
+  token: ''
 })
 const count = ref(0);
-const timer = ref(null);
+const timer = ref<NodeJS.Timer | null>(null);
 const getCodeDisabled = ref(false);
+const continueLoading = ref(false);
 const getCode = async (formEl: FormInstance | undefined) => {
   if(!formEl) return;
   const res = await formEl.validateField(['email'], valid => valid);
@@ -95,11 +102,12 @@ const getCode = async (formEl: FormInstance | undefined) => {
       }
       return;
     }
+    updatePassForm.value.token = getCodeRes.data.data.token;
     count.value = 60;
     timer.value = setInterval(() => {
       count.value -= 1;
       if(count.value <= 0) {
-        clearInterval(timer.value);
+        timer.value = null;
       }
     }, 1000);
   } catch (e) {
@@ -113,6 +121,29 @@ const toGetCode = async () => {
 const verifyCode = async (formEl: FormInstance | undefined) => {
   if(!formEl) return;
   const res = await formEl.validate(valid => valid);
+  if(!res) return;
+  if(!updatePassForm.value.token) {
+    ElMessage.error("Please get the verification code first.");
+    return;
+  }
+  continueLoading.value = true;
+  try {
+    const continueRes = await toContinue();
+    if(continueRes.data.code !== 1) {
+      ElMessage.error("Please try again later.");
+      return;
+    }
+    router.push('/update');
+    continueLoading.value = false;
+    
+  } catch(e) {
+    continueLoading.value = false;
+    ElMessage.error("Please try again later.");
+  }
+  
+}
+const toContinue = async () => {
+  return await forgotPassValidCode(updatePassForm.value.token, updatePassForm.value.code);
 }
 const updatePassFormRules = reactive<FormRules>({
   email: [
@@ -123,6 +154,10 @@ const updatePassFormRules = reactive<FormRules>({
     { required: true, message: 'Please input code.', trigger: 'blur' },
   ]
 });
+const clearToken = () => {
+  updatePassForm.value.token = '';
+  updatePassForm.value.code = null;
+}
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
@@ -184,7 +219,7 @@ $lineH: 16px;
     }
     :deep(.el-input__inner) {
       font-size: $fontSizeMinPro;
-      color: #c4c9d0;
+      // color: #c4c9d0;
       line-height: $lineH;
     }
     .password-title {
