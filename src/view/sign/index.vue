@@ -183,7 +183,7 @@
                 <span class="tip" v-if="passwordInput === ''">*</span>
               </span>
             </div>
-            <div class="remind-box" v-if="passwordInput === ''">
+            <div class="remind-box" v-if="passwordInput === '' || !isPasswordValid">
               <div class="remind-title">
                 <img :src="icon_info"/> <span style="font-weight: 500">Reminder</span>
               </div>
@@ -196,7 +196,7 @@
             <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="passwordInput.length < 6"
+                :disabled="passwordInput.length < 8 || !isPasswordValid"
                 @click="successContinue"
             >
               Continue
@@ -273,12 +273,21 @@ const validateInput = () => {
   }
 };
 const passwordInput = ref("");
-const validatePassword = () => {
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
+
+const isPasswordValid = computed(() => {
   const password = passwordInput.value;
-  if (password.length < 6) {
-    // ElMessage({ message: "密码长度至少为六位", type: "error", });
+  return password.length >= 8 && password.length <= 32 && passwordRegex.test(password);
+});
+
+const validatePassword = () => {
+  if (!isPasswordValid.value) {
+    // ElMessage.error(
+    //     "Password must be 8-32 characters long and include at least 1 lowercase character, 1 uppercase character, 1 number, and 1 symbol."
+    // );
   }
 };
+
 const token1 = reactive({
   token: ''
 })

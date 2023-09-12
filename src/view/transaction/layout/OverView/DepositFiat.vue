@@ -290,7 +290,7 @@
                   <div class="title">
                     Transfer Money to Proceed With the Order
                   </div>
-                  <div v-if="previousStatus === false">
+                  <div v-if="form.selectedPayment === 'PayID'">
                     <div class="tip">
                       Please use your unique PayID detail below to make the
                       transfer and
@@ -337,7 +337,6 @@
                         <div class="count">{{ formatNumber(form.coinAmount || 0) }}</div>
                       </div>
                       <div class="divider"></div>
-                      <div class="info-con">PayID Information</div>
                       <div class="info-title">Account Name:</div>
                       <div class="info-email">
                         <div class="email-number">{{ userInfo?.zepto_account?.name || '----' }}</div>
@@ -470,112 +469,112 @@
         </div>
       </el-col>
     </el-row>
-    <div
-        class="deposit-details clearfloat"
-        v-if="activeStep >= 4"
-    >
-      <div class="recent-deposit clearfloat" v-loading="tableDataLoading">
-        <div class="table-name">Recent Deposits</div>
-        <div class="not-arrive">Hasn't arrived?</div>
-        <Table :sourceData="tableData" class="deposit-table">
-          <template v-slot:columns>
-            <el-table-column
-                prop="CreatedAt"
-                :label="t('messages.wallet.fiat_Time')"
-                width="210"
-            >
-            <template #default="scope">
-              {{ formatDate(scope.row.CreatedAt) }}
-            </template>
-          </el-table-column>
-            <el-table-column
-                prop="currency"
-                :label="t('messages.wallet.fiat_Coin')"
-                width="210"
-            />
-            <el-table-column
-                prop="amount"
-                :label="t('messages.wallet.fiat_Amount')"
-                width="240"
-            >
-              <template #default="scope">
-                <div>
-                  {{ formatNumber(scope.row.amount) }}
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column
-                :label="t('messages.wallet.fiat_Status')"
-                width="230"
-            >
-              <template #default="scope">
-                <div
-                    style="color: #01c19a"
-                >
-                  Successful
-                </div>
-                <!-- <div
-                    v-if="scope.row.status === 'Successful'"
-                    style="color: #01c19a"
-                >
-                  Successful
-                </div>
-                <div v-else-if="scope.row.status === 'Faild'">Faild</div> -->
-              </template>
-            </el-table-column>
-            <el-table-column :label="t('messages.wallet.fiat_Information')">
-              <template #default="scope">
-                <template v-if="!isFoldArr.includes(scope.row.ID)">
-                  <div class="info">
-                    <p>Payment Method:</p>
-                    <p>{{ scope.row.pay_method }}</p>
-                  </div>
-                </template>
-                <template v-else>
-                  <div class="info">
-                    <p>Payment Method:</p>
-                    <p>{{ scope.row.pay_method }}</p>
-                  </div>
-                  <div class="info">
-                    <p>Indicated Amount:</p>
-                    <p>{{ formatNumber(scope.row.amount) }}</p>
-                  </div>
-                  <div class="info">
-                    <p>Fee:</p>
-                    <p>{{ formatNumber(scope.row.amount) }}</p>
-                  </div>
-                  <div class="info">
-                    <p>Order ID:</p>
-                    <p>{{ scope.row.ID }}</p>
-                  </div>
-                </template>
-              </template>
-            </el-table-column>
-            <el-table-column label="">
-              <template #default="scope">
-                <el-button
-                    type="text"
-                    :class="{
-                    icon_button: true,
-                    isRotate: isFoldArr.includes(scope.row.ID),
-                  }"
-                    @click="getKey(scope.row.ID)"
-                    style="transition: all .4s;"
-                >
-                  <el-icon style="color: #9b9b9b">
-                    <CaretBottom/>
-                  </el-icon
-                  >
-                </el-button>
-              </template>
-            </el-table-column>
-          </template>
-        </Table>
-        <div style="display: flex; justify-content: flex-end;height: 70px;">
-          <el-pagination layout="prev, pager, next" :total="pageTotal" @current-change="currentChange"/>
-        </div>
-      </div>
-    </div>
+<!--    <div-->
+<!--        class="deposit-details clearfloat"-->
+<!--        v-if="activeStep >= 4"-->
+<!--    >-->
+<!--      <div class="recent-deposit clearfloat" v-loading="tableDataLoading">-->
+<!--        <div class="table-name">Recent Deposits</div>-->
+<!--        <div class="not-arrive">Hasn't arrived?</div>-->
+<!--        <Table :sourceData="tableData" class="deposit-table">-->
+<!--          <template v-slot:columns>-->
+<!--            <el-table-column-->
+<!--                prop="CreatedAt"-->
+<!--                :label="t('messages.wallet.fiat_Time')"-->
+<!--                width="210"-->
+<!--            >-->
+<!--            <template #default="scope">-->
+<!--              {{ formatDate(scope.row.CreatedAt) }}-->
+<!--            </template>-->
+<!--          </el-table-column>-->
+<!--            <el-table-column-->
+<!--                prop="currency"-->
+<!--                :label="t('messages.wallet.fiat_Coin')"-->
+<!--                width="210"-->
+<!--            />-->
+<!--            <el-table-column-->
+<!--                prop="amount"-->
+<!--                :label="t('messages.wallet.fiat_Amount')"-->
+<!--                width="240"-->
+<!--            >-->
+<!--              <template #default="scope">-->
+<!--                <div>-->
+<!--                  {{ formatNumber(scope.row.amount) }}-->
+<!--                </div>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column-->
+<!--                :label="t('messages.wallet.fiat_Status')"-->
+<!--                width="230"-->
+<!--            >-->
+<!--              <template #default="scope">-->
+<!--                <div-->
+<!--                    style="color: #01c19a"-->
+<!--                >-->
+<!--                  Successful-->
+<!--                </div>-->
+<!--                &lt;!&ndash; <div-->
+<!--                    v-if="scope.row.status === 'Successful'"-->
+<!--                    style="color: #01c19a"-->
+<!--                >-->
+<!--                  Successful-->
+<!--                </div>-->
+<!--                <div v-else-if="scope.row.status === 'Faild'">Faild</div> &ndash;&gt;-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column :label="t('messages.wallet.fiat_Information')">-->
+<!--              <template #default="scope">-->
+<!--                <template v-if="!isFoldArr.includes(scope.row.ID)">-->
+<!--                  <div class="info">-->
+<!--                    <p>Payment Method:</p>-->
+<!--                    <p>{{ scope.row.pay_method }}</p>-->
+<!--                  </div>-->
+<!--                </template>-->
+<!--                <template v-else>-->
+<!--                  <div class="info">-->
+<!--                    <p>Payment Method:</p>-->
+<!--                    <p>{{ scope.row.pay_method }}</p>-->
+<!--                  </div>-->
+<!--                  <div class="info">-->
+<!--                    <p>Indicated Amount:</p>-->
+<!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
+<!--                  </div>-->
+<!--                  <div class="info">-->
+<!--                    <p>Fee:</p>-->
+<!--                    <p>{{ formatNumber(scope.row.amount) }}</p>-->
+<!--                  </div>-->
+<!--                  <div class="info">-->
+<!--                    <p>Order ID:</p>-->
+<!--                    <p>{{ scope.row.ID }}</p>-->
+<!--                  </div>-->
+<!--                </template>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--            <el-table-column label="">-->
+<!--              <template #default="scope">-->
+<!--                <el-button-->
+<!--                    type="text"-->
+<!--                    :class="{-->
+<!--                    icon_button: true,-->
+<!--                    isRotate: isFoldArr.includes(scope.row.ID),-->
+<!--                  }"-->
+<!--                    @click="getKey(scope.row.ID)"-->
+<!--                    style="transition: all .4s;"-->
+<!--                >-->
+<!--                  <el-icon style="color: #9b9b9b">-->
+<!--                    <CaretBottom/>-->
+<!--                  </el-icon-->
+<!--                  >-->
+<!--                </el-button>-->
+<!--              </template>-->
+<!--            </el-table-column>-->
+<!--          </template>-->
+<!--        </Table>-->
+<!--        <div style="display: flex; justify-content: flex-end;height: 70px;">-->
+<!--          <el-pagination layout="prev, pager, next" :total="pageTotal" @current-change="currentChange"/>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 
@@ -621,6 +620,9 @@ import dayjs from "dayjs";
 import {useUserInfoStore} from "../../../../store/user";
 import {storeToRefs} from "pinia";
 import { formatNumber } from "../../../../utils/formatNumber";
+import * as userAPI from "../../../../api/user";
+import { useRoute, useRouter } from "vue-router";
+const router = useRouter();
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
 
@@ -631,7 +633,9 @@ const depositStatus = ref(false);
 const previousStatus = ref(false);
 
 function clickPrevious() {
-  previousStatus.value = !previousStatus.value;
+  location.reload();
+  router.push('/user/depositFiat');
+
 }
 
 const {t} = useI18n();
@@ -848,6 +852,13 @@ async function handleContinue(ruleFormRef: FormInstance | undefined){
   if(!await validForm(ruleFormRef)) {
     return;
   }
+  try {
+    const profile = await userAPI.getProfile();
+    // 在这里可以继续调用其他 userAPI 中的函数
+  } catch (error) {
+    console.error(error);
+  }
+  useUserInfoStore()
   showContinueBtn.value = true; // 隐藏继续按钮
   dialogContinue.value = true;
 }
@@ -961,7 +972,7 @@ $fontSizeMin: 12px;
 }
 
 .left-box {
-  padding-right: 60px !important;
+  padding-right: 28% !important;
   @media(max-width: 992px) {
     padding-right: 20px !important;
   }
