@@ -91,10 +91,10 @@ import { getTransactions } from "../../api/transactions";
 import type { TabsPaneContext } from "element-plus";
 
 import { useRoute, useRouter } from "vue-router";
-const router = useRouter();
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+const router = useRouter();
 
 const activeName = ref<any>("first");
 const route = useRoute();
