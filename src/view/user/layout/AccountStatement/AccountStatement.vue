@@ -42,21 +42,21 @@
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verify</span>
             </div>
           </div>
           <div class="content-item-btn" v-if="index == 1">
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verify</span>
             </div>
           </div>
           <div class="content-item-btn" v-if="index == 2">
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px">Verify</span>
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verify</span>
             </div>
           </div>
         </div>
@@ -98,7 +98,7 @@
               <template #dropdown>
                 <el-dropdown-menu
                     class="language-dropdown-menu"
-                    style="width: 340px"
+                    style="width: 200px;"
                 >
                   <el-dropdown-item
                       v-for="option in languageOptions"
