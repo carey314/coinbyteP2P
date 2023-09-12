@@ -422,9 +422,9 @@ const toLogin = async (formEl: FormInstance | undefined) => {
             isButtonDisabled.value = false;
           }
       )
-
       .catch((err: any) => {
         console.log(err);
+        isButtonDisabled.value = false;
         if (err?.response) {
           const error = err.response.data.error;
           if (error?.code === 0) {
@@ -435,7 +435,6 @@ const toLogin = async (formEl: FormInstance | undefined) => {
           return;
         }
         ElMessage.error("Login failed. Please try again later");
-        isButtonDisabled.value = false;
       });
 };
 
