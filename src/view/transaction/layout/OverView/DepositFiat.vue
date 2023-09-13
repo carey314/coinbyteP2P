@@ -1,6 +1,6 @@
 <template>
   <div class="deposit-crypto">
-    <el-row>
+    <el-row >
       <el-col :span="15" :xs="24" class="left-box">
         <div class="left-header">
           <div class="header-title">{{ $t('messages.pay_order.deposit_fiat') }}</div>
@@ -392,7 +392,7 @@
           </el-form>
         </div>
       </el-col>
-      <el-col :span="9" :xs="24" class="right-box">
+      <el-col :span="9" :xs="24" class="right-box" style="margin-top: 10px">
         <div class="tips" v-if="depositStatus === false">
           <div class="tips-question">
             <div class="question-title">
@@ -436,7 +436,7 @@
             </div>
           </div>
         </div>
-        <div class="tips" v-else>
+        <div class="tips"  v-else>
           <div class="success-right">
             <div class="tips-question">
               <div class="question-title">
@@ -1028,8 +1028,10 @@ $fontSizeMin: 12px;
 
   .left-center {
     .success-box {
-      width: 100%;
-
+      width: 438px;
+      @media(max-width: 992px) {
+        width: 100%;
+      }
       .title {
         font-size: 20px;
         color: #000000;
@@ -1237,7 +1239,7 @@ $fontSizeMin: 12px;
           width: 442px;
           height: 48px;
           @media (max-width: 992px) {
-            width: 100%;
+            width: 320px !important;
           }
         }
 
@@ -1403,7 +1405,7 @@ $fontSizeMin: 12px;
         .continue-btn {
           width: 442px;
           height: 60px;
-          margin-top: 10px;
+          margin-top: 28px;
           font-size: 20px;
           @media (max-width: 992px) {
             width: 100%;
