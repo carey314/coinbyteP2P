@@ -190,8 +190,7 @@
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
               <div class="remind-tip">
-                * 8-32 characters long (includ at leate 1 lowercase character, 1 uppercase character, 1 number, 1
-                symbol)
+                * 8-32 characters long (includ at leate 1 lowercase character, 1 uppercase character, 1 number)
               </div>
             </div>
             <el-button
@@ -279,7 +278,8 @@ const validateInput = () => {
   }
 };
 const passwordInput = ref("");
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/;
+// const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/; //至少一个符号
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
 
 const isPasswordValid = computed(() => {
   const password = passwordInput.value;
