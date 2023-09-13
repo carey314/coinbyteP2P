@@ -103,7 +103,7 @@ const getCode = async (formEl: FormInstance | undefined) => {
       return;
     }
     updatePassForm.value.token = getCodeRes.data.data.token;
-    count.value = 5;
+    count.value = 60;
     let timer = setInterval(() => {
       console.log(count.value);
       count.value -= 1;
@@ -152,7 +152,7 @@ const updatePassFormRules = reactive<FormRules>({
     { type: 'email', message: 'Please enter a valid email format.', trigger: 'blur' },
   ],
   code: [
-    { required: true, message: 'Please input code.', trigger: 'blur' },
+    { required: true, message: 'Please input verification code.', trigger: 'blur' },
   ]
 });
 const clearToken = () => {

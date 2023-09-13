@@ -393,7 +393,7 @@ export default {
             withdrawal:
                 "The withdrawal function will be suspended for 24 hours if you log in with new devices after you have changed the login password.",
             equipment: "Email",
-            code: "Enter code",
+            code: "Enter verification code",
             input_password: "Password",
             verify_btn: "Get Verification Code",
             resend: "Resend code",
