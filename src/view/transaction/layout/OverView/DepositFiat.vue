@@ -637,7 +637,7 @@ import {useRoute, useRouter} from "vue-router";
 
 const router = useRouter();
 const userInfoStore = useUserInfoStore();
-const {userInfo, validKycBuy} = storeToRefs(userInfoStore);
+const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);

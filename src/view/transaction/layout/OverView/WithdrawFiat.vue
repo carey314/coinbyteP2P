@@ -29,8 +29,8 @@
                       <div class="sell-title">Features and limits</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
-                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="(validKycSell || validKycBuy)"/>
                             <CloseBold  v-else/>
                           </el-icon>
                           <div class="whether">Sell my crypto</div>
@@ -39,8 +39,8 @@
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
-                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="(validKycSell || validKycBuy)"/>
                             <CloseBold  v-else/>
                           </el-icon>
                           <div class="whether">Buy crypto</div>
@@ -76,10 +76,10 @@
                       <el-button
                           class="continue-btn"
                           type="primary"
-                          @click="goToKyc('buy')"
-                          :disabled="userInfo?.kyc?.status === 'GREEN'"
+                          @click="goToKyc('sell')"
+                          :disabled="(validKycSell || validKycBuy)"
                       >
-                        {{ userInfo?.kyc?.status === 'GREEN' ? 'Verified' : 'Verify' }}
+                        {{ (validKycSell || validKycBuy) ? 'Verified' : 'Verify' }}
                       </el-button>
                     </div>
                   </template>
@@ -95,8 +95,8 @@
                       <div class="sell-title">Features and limits</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
-                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                          <el-icon class="icon" :style="{ color: validKycBuy ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
                           <div class="whether">Sell my crypto</div>
@@ -105,8 +105,8 @@
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: userInfo?.kyc?.status === 'GREEN' ? '#01c19a' : '#f35854' }">
-                            <Select  v-if="userInfo?.kyc?.status === 'GREEN'"/>
+                          <el-icon class="icon" :style="{ color: validKycBuy ? '#01c19a' : '#f35854' }">
+                            <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
                           <div class="whether">Buy crypto</div>
@@ -144,10 +144,10 @@
                       <el-button
                           class="verify-btn"
                           type="primary"
-                          @click="goToKyc('sell')"
-                          :disabled="userInfo?.kyc?.status === 'GREEN'"
+                          @click="goToKyc('buy')"
+                          :disabled="validKycBuy"
                       >
-                        {{ userInfo?.kyc?.status === 'GREEN' ? 'Verified' : 'Verify' }}
+                        {{ validKycBuy ? 'Verified' : 'Verify' }}
                       </el-button>
                     </div>
                   </template>
@@ -267,7 +267,7 @@ import {useRouter} from "vue-router";
 const router = useRouter();
 
 const userInfoStore = useUserInfoStore();
-const {userInfo} = storeToRefs(userInfoStore);
+const {userInfo,validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
     // console.log(userInfoStore.isLogin, '是否登陆')
