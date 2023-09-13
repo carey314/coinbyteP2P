@@ -14,10 +14,23 @@ const routes: Array<RouteRecordRaw> = [
     path: '/au',
     component: () => import('../view/home/index.vue')
   },
+  // {
+  //   path: '/contact',
+  //   name: 'contact',
+  //   component: () => import('../view/contact/index.vue')
+  // },
   {
     path: '/contact',
+    redirect: '/au/contact'
+  },
+  {
+    path: '/nz/contact',
+    component: () => import('../view/contact/index.vue')
+  },
+  {
+    path: '/au/contact',
     name: 'contact',
-    component: () => import('../view/contact/index.vue') 
+    component: () => import('../view/contact/index.vue')
   },
   { 
     path: '/fees',
@@ -332,7 +345,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: "/user/verification",
         name: "verification",
-        component: () => import("../view/user/layout/Verification/Verfication.vue"),
+        component: () => import("../view/transaction/layout/OverView/WithdrawFiat.vue"),
         meta: { tab: 'third' }
       },
       {

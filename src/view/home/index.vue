@@ -1124,19 +1124,36 @@ const echartDomRef = [];
 
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
-    // console.log(userInfoStore.isLogin, '是否登陆')
-    router.push({name: 'kyc', query: {type}})
-  } else {
-    router.push('/signup')
-  }
-}
-const goKyc = (type: string) => {
-  if (userInfoStore.isLogin) {
-    router.push({ name: 'kyc', query: { type, return: '/home' } });
+    if (userInfo.value.kyc.status === 'GREEN') {
+      if (type === 'buy') {
+        router.push('/user/depositFiat');
+      } else if (type === 'sell') {
+        router.push('/user/bankaccount');
+      } else {
+        router.push('/user');
+      }
+    } else {
+      router.push({name: 'kyc', query: {type}});
+    }
   } else {
     router.push('/signup');
   }
-}
+};
+const goKyc = (type: string) => {
+  if (userInfoStore.isLogin) {
+    if (userInfo.value.kyc.status === 'GREEN') {
+      if (type === 'buy') {
+        router.push('/user/depositFiat');
+      } else {
+        router.push('/home');
+      }
+    } else {
+      router.push({ name: 'kyc', query: { type, return: '/home' } });
+    }
+  } else {
+    router.push('/signup');
+  }
+};
 
 const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
   if (el) {

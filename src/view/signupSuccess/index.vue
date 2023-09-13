@@ -122,7 +122,7 @@ $fontSizeMin: 12px;
 $colorWigth: #000000;
 $colorinfo: #878787;
 .signup-success {
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 215px);
   text-align: center;
   @media (max-width: 768px) {
     min-height: calc(100vh - 135px);
@@ -151,7 +151,7 @@ $colorinfo: #878787;
   .verify-btn {
     margin-top: 40px;
     width: 427px;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
     box-shadow: 4px 4px 10px 0 rgba(146,146,146,0.50);
     @media (max-width: 768px) {
       width: 80%;

@@ -56,6 +56,7 @@
 
             <el-button
                 class="verify-btn"
+                style="margin-top: 203px !important;"
                 type="primary"
                 :disabled="(!isValidEmail || emailInput === '') || initializeSignUpWizardDisabled"
                 @click="increase()"

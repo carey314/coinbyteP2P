@@ -28,7 +28,7 @@
         </div>
       </el-scrollbar>
     </div>
-    <div style="position: absolute;bottom: 0;width: 100%">
+    <div >
       <Footer v-if="windowWidth > 769" />
       <FooterMobile v-if="windowWidth <= 769" />
     </div>
@@ -128,6 +128,8 @@ const toGetBlogs = async (
   margin: auto;
   padding: 45px 0 135px 0;
   position: relative;
+  min-height: calc(100vh - 165px);
+
   @media (max-width: 1440px) {
     & {
       padding: 25px 30px 135px 30px;
