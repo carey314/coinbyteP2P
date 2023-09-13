@@ -88,6 +88,7 @@ interface SignUp {
     "phone"?: string,
     "token"?: string,
     "pass_word" ? : string,
+    "type": string
 }
 function signUp (data : SignUp) {
     return http.post("/reg/signup",data);

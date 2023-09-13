@@ -175,12 +175,16 @@
             <div class="create-number">
               Here is my personal passcode
               <span style="position: relative">
-                <el-input
-                    v-model="passwordInput"
-                    placeholder=""
-                    type="password"
-                    @input="validatePassword"
-                />
+                <el-form style="display: inline-block;" :model="passwordForm" ref="passwordFormRef" :rules="passwordFormRules">
+                  <el-form-item prop="password">
+                    <el-input
+                        v-model="passwordForm.password"
+                        placeholder=""
+                        type="password"
+                        @input="validatePassword"
+                    />
+                  </el-form-item>
+                </el-form>
                 <span class="tip" v-if="passwordInput === ''">*</span>
               </span>
             </div>
@@ -196,8 +200,8 @@
             <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="passwordInput.length < 8 || !isPasswordValid"
-                @click="successContinue"
+                :disabled="passwordForm.password.length < 8 || !isPasswordValid"
+                @click="successContinue(passwordFormRef)"
             >
               Continue
             </el-button>
@@ -236,7 +240,7 @@ import {Back} from "@element-plus/icons";
 import {initializeSignUpWizard, signUp, choosePer, emailVefify, phoneSignup, phoneVefify} from "../../api/user";
 
 import {useFingerprintStore} from "../../store/fingerprint";
-import {ElMessage} from "element-plus";
+import {ElMessage, FormInstance, FormRules} from "element-plus";
 import {useRouter, useRoute} from "vue-router";
 import {useI18n} from "vue-i18n";
 
@@ -290,10 +294,11 @@ const validateInput = () => {
 };
 const passwordInput = ref("");
 // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/; //至少一个符号
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
+// const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,32}$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()\-_=+{}[\]|;:'",.<>/?]{8,32}$/;
 
 const isPasswordValid = computed(() => {
-  const password = passwordInput.value;
+  const password = passwordForm.value.password;
   return password.length >= 8 && password.length <= 32 && passwordRegex.test(password);
 });
 
@@ -467,7 +472,7 @@ const phoneConfirmed = () => {
   phoneVefify({
     code: smsCode.value,
     phone: phoneInput.value,
-    token: token1.token,
+    token: token1.token
   }).then((res: any) => {
     phoneConfirmedDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
@@ -495,14 +500,38 @@ const phoneContinue = () => {
     }
   }
 };
+
+// :model="passwordForm" ref="passwordFormRef" :rules="passwordFormRules
+const passwordForm = ref({
+  password: ''
+});
+const passwordFormRef = ref<FormInstance>();
+const passwordFormRules = ref<FormRules>({
+  password: [
+    { validator: passValid, trigger: 'change' }
+  ]
+})
+function passValid(rule: any, value: any, callback: any) {
+  console.log(value);
+  let correctPass = passRule.value.find((v) => !value.match(v.rule));
+  if (correctPass) {
+    callback(new Error(correctPass.message));
+  } else {
+    callback()
+  }
+}
 const successContinueDisabled = ref(false);
-const successContinue = () => {
+const successContinue = async (formEl: FormInstance | undefined) => {
+  if(!formEl) return;
+  const valid = await formEl.validate(valid => valid);
+  if(!valid) return;
   successContinueDisabled.value = true;
   signUp({
     email: emailInput.value,
     phone: phoneInput.value,  // 这是用户输入的email
     token: token2.token,
-    pass_word: passwordInput.value,
+    pass_word: passwordForm.value.password,
+    type: type.value
   }).then((res: any) => {
     successContinueDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
@@ -646,23 +675,23 @@ const options = ref([
     label: t("messages.sign.email"),
   },
 ]);
-const handleToSignUp = () => {
-  let correctPass = passRule.value.find((v) => !password.value.match(v.rule));
-  if (correctPass) {
-    ElMessage({
-      message: correctPass.message,
-      type: "error",
-    });
-    return;
-  }
-  signUp({
-    // wizard_id: 13,
-    // uuid: regUUID.value,
-    email: email.value,
-  }).then((res: any) => {
-    console.log(res.data);
-  });
-};
+// const handleToSignUp = () => {
+//   let correctPass = passRule.value.find((v) => !password.value.match(v.rule));
+//   if (correctPass) {
+//     ElMessage({
+//       message: correctPass.message,
+//       type: "error",
+//     });
+//     return;
+//   }
+//   signUp({
+//     // wizard_id: 13,
+//     // uuid: regUUID.value,
+//     email: email.value,
+//   }).then((res: any) => {
+//     console.log(res.data);
+//   });
+// };
 </script>
 
 <style scoped lang="scss">
@@ -810,6 +839,10 @@ $fontSizeMin: 12px;
     background-color: #f7f7f7;
     color: #bdbdbd;
     border-color: #f7f7f7;
+  }
+
+  .el-form-item.is-error .el-input__wrapper {
+    box-shadow: none;
   }
 }
 </style>

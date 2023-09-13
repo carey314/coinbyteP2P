@@ -872,7 +872,7 @@ import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
 
 const userInfoStore = useUserInfoStore();
-const {userInfo} = storeToRefs(userInfoStore);
+const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
 const router = useRouter();
 
@@ -1107,31 +1107,65 @@ const echartDomRef = [];
 
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
-    if (userInfo.value.kyc.status === 'GREEN') {
-      if (type === 'buy') {
+    // if (userInfo.value.kyc.status === 'GREEN') {
+    //   if (type === 'buy') {
+    //     router.push('/user/depositFiat');
+    //   } else if (type === 'sell') {
+    //     router.push('/user/bankaccount');
+    //   } else {
+    //     router.push('/user');
+    //   }
+    // } else {
+    //   router.push({name: 'kyc', query: {type}});
+    // }
+    if(type === 'buy') {
+      if(validKycBuy.value) {
         router.push('/user/depositFiat');
-      } else if (type === 'sell') {
+      } else {
+        router.push({name: 'kyc', query: {type}});
+      }
+    } else if(type === 'sell') {
+      if(validKycBuy.value || validKycSell.value) {
         router.push('/user/bankaccount');
       } else {
-        router.push('/user');
+        router.push({name: 'kyc', query: {type}});
       }
     } else {
-      router.push({name: 'kyc', query: {type}});
+      router.push('/signup?type=buy');
     }
   } else {
     router.push('/signup?type=' + type);
   }
 };
 const goKyc = (type: string) => {
+  // if (userInfoStore.isLogin) {
+  //   if (userInfo.value.kyc.status === 'GREEN') {
+  //     if (type === 'buy') {
+  //       router.push('/user/depositFiat');
+  //     } else {
+  //       router.push('/home');
+  //     }
+  //   } else {
+  //     router.push({ name: 'kyc', query: { type, return: '/home' } });
+  //   }
+  // } else {
+  //   router.push('/signup?type=' + type);
+  // }
   if (userInfoStore.isLogin) {
-    if (userInfo.value.kyc.status === 'GREEN') {
-      if (type === 'buy') {
+    if(type === 'buy') {
+      if(validKycBuy.value) {
         router.push('/user/depositFiat');
       } else {
-        router.push('/home');
+        router.push({ name: 'kyc', query: { type, return: '/home' } });
+      }
+    } else if(type === 'sell') {
+      if(validKycBuy.value || validKycSell.value) {
+        router.push('/user/bankaccount');
+      } else {
+        router.push({ name: 'kyc', query: { type, return: '/home' } });
       }
     } else {
-      router.push({ name: 'kyc', query: { type, return: '/home' } });
+      router.push('/home');
     }
   } else {
     router.push('/signup?type=' + type);

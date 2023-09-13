@@ -47,6 +47,38 @@ export const useUserInfoStore = defineStore(
     // const cc = (value : string) => {
     //   c.value = value;
     // }
+
+    const validKycBuy = computed(() => {
+      if (userInfo.value?.kyc && userInfo.value?.kyc?.length > 0) {
+        const kycs = userInfo.value.kyc;
+        const sellItem = kycs.find((v: any) => v.type === 'buy');
+        if(!sellItem) return false;
+        const status = sellItem.status;
+        if (status === 'GREEN') {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    })
+
+    const validKycSell = computed(() => {
+      if (userInfo.value?.kyc && userInfo.value?.kyc?.length > 0) {
+        const kycs = userInfo.value.kyc;
+        const sellItem = kycs.find((v: any) => v.type === 'sell');
+        if(!sellItem) return false;
+        const status = sellItem.status;
+        if (status === 'GREEN') {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
     return {
       token,
       username,
@@ -59,6 +91,8 @@ export const useUserInfoStore = defineStore(
       updateUserInfo,
       clearUserInfo,
       tokenExpired,
+      validKycBuy,
+      validKycSell
     };
   },
   {

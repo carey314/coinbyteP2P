@@ -53,13 +53,13 @@
                 }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.number') }}</div>
             </div>
-            <div class="condition clearfloat">
+            <!-- <div class="condition clearfloat">
               <div :class="{
                   'satisfy-frame': true,
                   dot: passwordConditions.symbol,
                 }"></div>
               <div class="satisfy">{{ $t('messages.forgot_password.symbol') }}</div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="password-continue">
@@ -176,10 +176,10 @@ const passRule = ref([
     rule: /^(?=.*\d).*$/,
     message: "Password must be at least one number.",
   },
-  {
-    rule : /^(?=.*[@$!%*?&]).*$/,
-    message : "Password has at least one symbol."
-  },
+  // {
+  //   rule : /^(?=.*[@$!%*?&]).*$/,
+  //   message : "Password has at least one symbol."
+  // },
 ]);
 function validatePass(rule: any, value: any, callback: any) {
   let correctPass = passRule.value.find((v) => !value.match(v.rule));

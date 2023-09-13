@@ -284,7 +284,7 @@ const rules = computed(() => {
 })
 
 const userInfoStore = useUserInfoStore();
-const {token, username} = storeToRefs(userInfoStore);
+const {token, username, userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 console.log("islogin", userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
@@ -408,6 +408,11 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               // userInfoStore.changeToken(response.data.accessToken.token);
               // userInfoStore.changeRefreshToken(response.data.refreshToken.token);
               ElMessage.success("Login succeeded!");
+              userInfoStore.updateUserInfo(response.data);
+              if(!(validKycBuy.value || validKycSell.value)) {
+                router.push("/kyc?type=" + (response.data.kyc_type || 'buy'));
+                return;
+              }
               router.push("/");
             } else {
               console.log(response);

@@ -28,12 +28,12 @@
                               class="box-item"
                               effect="dark"
                               content="Please complete the verification process before proceeding."
-                              :disabled="userInfo?.kyc?.status === 'GREEN'"
+                              :disabled="validKycBuy"
                               placement="top"
                           >
                             <el-select v-model="form.selectedOption1"
-                                       :placeholder="t('messages.pay_order.select')"
-                                       :disabled="userInfo?.kyc?.status !== 'GREEN'"
+                                       placeholder="Select currency"
+                                       :disabled="!validKycBuy"
                                        @change="selectCurrency">
                               <el-option
                                   :show-arrow="false"
@@ -634,9 +634,10 @@ import {formatNumber} from "../../../../utils/formatNumber";
 import * as userAPI from "../../../../api/user";
 import {useRoute, useRouter} from "vue-router";
 
+
 const router = useRouter();
 const userInfoStore = useUserInfoStore();
-const {userInfo} = storeToRefs(userInfoStore);
+const {userInfo, validKycBuy} = storeToRefs(userInfoStore);
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
@@ -837,7 +838,7 @@ const showContinueBtn = ref(true);
 
 // step1
 function selectCurrency() {
-  if (userInfo.value?.kyc?.status !== 'GREEN') return;
+  if (!validKycBuy.value) return;
   activeStep.value = 2;
   // if (activeStep.value === 1 && selectedOption1.value !== "") {
   // } else if (activeStep.value === 2 && canContinue.value) {

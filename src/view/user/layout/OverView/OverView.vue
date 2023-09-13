@@ -170,13 +170,13 @@
               </div>
 
               <div class="bottom-tip">
-                <div class="tip-icon" v-if="userInfo?.kyc?.status !== 'GREEN'">
+                <div class="tip-icon" v-if="!validKycBuy">
                   <img :src="dropdown_usercenter_unverified"/>
                 </div>
                 <div v-else>
                   <img :src="dropdown_usercenter_verified"/>
                 </div>
-                <div class="tip-text" v-if="userInfo?.kyc?.status !== 'GREEN'">
+                <div class="tip-text" v-if="!validKycBuy">
                   {{ $t('messages.user.Verification_Unverified') }}
                 </div>
                 <div class="tip-text" v-else>{{ $t('messages.user.Verification_verified') }}</div>
@@ -270,7 +270,7 @@ import {storeToRefs} from "pinia";
 import {ElMessage, FormInstance} from 'element-plus';
 
 const userInfoStore = useUserInfoStore();
-const {userInfo} = storeToRefs(userInfoStore);
+const {userInfo, validKycBuy} = storeToRefs(userInfoStore);
 
 function copyToClipboard() {
   const value = userInfo.value && userInfo.value.ID;
@@ -567,9 +567,9 @@ async function submitEmailForm() {
         // @media (max-width: 769px) {
         //   width: 123px;
         // }
-        .tip-icon {
-          //margin-right: 8px;
-        }
+        // .tip-icon {
+        //   //margin-right: 8px;
+        // }
 
         .tip-text {
           margin-left: 5px;

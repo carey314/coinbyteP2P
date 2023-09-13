@@ -129,13 +129,17 @@ const verifyCode = async (formEl: FormInstance | undefined) => {
   }
   continueLoading.value = true;
   try {
+    continueLoading.value = false;
     const continueRes = await toContinue();
     if(continueRes.data.code !== 1) {
-      ElMessage.error("Please try again later.");
+      if(continueRes.data.code === 9001) {
+        ElMessage.error('Incorrect verification code.');
+      } else {
+        ElMessage.error('Please try again later.');
+      }
       return;
     }
     router.push({ path: '/update', query: {token: continueRes.data.data.token} });
-    continueLoading.value = false;
     
   } catch(e) {
     continueLoading.value = false;
