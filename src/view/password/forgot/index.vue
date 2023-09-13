@@ -103,7 +103,7 @@ const getCode = async (formEl: FormInstance | undefined) => {
       return;
     }
     updatePassForm.value.token = getCodeRes.data.data.token;
-    count.value = 5;
+    count.value = 60;
     let timer = setInterval(() => {
       console.log(count.value);
       count.value -= 1;

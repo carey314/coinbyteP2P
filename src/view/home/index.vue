@@ -1119,7 +1119,7 @@ const goToKyc = (type: string) => {
       router.push({name: 'kyc', query: {type}});
     }
   } else {
-    router.push('/signup');
+    router.push('/signup?type=' + type);
   }
 };
 const goKyc = (type: string) => {
@@ -1134,7 +1134,7 @@ const goKyc = (type: string) => {
       router.push({ name: 'kyc', query: { type, return: '/home' } });
     }
   } else {
-    router.push('/signup');
+    router.push('/signup?type=' + type);
   }
 };
 
