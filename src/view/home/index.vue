@@ -820,14 +820,14 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onUnmounted, onMounted, watch as vueWatch} from "vue";
+import {ref, onUnmounted, onMounted} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
 //icon
-import {Right, CaretBottom, CaretTop} from "@element-plus/icons";
+import {Right} from "@element-plus/icons";
 import type {TabsPaneContext} from "element-plus";
 // img
 import registered_icon from "../../assets/home/registered_icon.png";
@@ -844,11 +844,6 @@ import image05 from "../../assets/image/image05.svg";
 import part07_pic01 from "../../assets/home/part07_pic01.png";
 import part07_pic02 from "../../assets/home/part07_pic02.png";
 import part07_pic03 from "../../assets/home/part07_pic03.png";
-import home_25 from "../../assets/home/编组 25.png";
-import part04 from "../../assets/home/part04.png";
-import pc from "../../assets/home/pc.png";
-import part05_b1 from "../../assets/home/part05_b1.png";
-import part05_b2 from "../../assets/home/part05_b2.png";
 import part05_icon01 from "../../assets/home/part05_icon01.png";
 import part05_icon02 from "../../assets/home/part05_icon02.png";
 import part05_icon03 from "../../assets/home/part05_icon03.png";
@@ -856,7 +851,6 @@ import part05_icon04 from "../../assets/home/part05_icon04.png";
 import part05_icon05 from "../../assets/home/part05_icon05.png";
 import part05_icon06 from "../../assets/home/part05_icon06.png";
 import part05_icon07 from "../../assets/home/part05_icon07.png";
-import part06_icon01 from "../../assets/home/part06_icon01.png";
 import part06_icon02 from "../../assets/home/part06_icon02.png";
 import part06_icon03 from "../../assets/home/part06_icon03.png";
 import part06_icon04 from "../../assets/home/part06_icon04.png";
@@ -864,17 +858,6 @@ import part06_icon05 from "../../assets/home/part06_icon05.png";
 import part06_icon06 from "../../assets/home/part06_icon06.png";
 
 import * as echarts from "echarts";
-
-import BTC from "../../assets/home/part01_BTC.png";
-import ETH from "../../assets/home/part01_ETH.png";
-import USDT from "../../assets/home/crypto_icon_usdt.png";
-import USDC from "../../assets/home/crypto_icon_usdc.png";
-import BNB from "../../assets/home/BNB.png";
-import XRP from "../../assets/home/xrp.png";
-import ADA from "../../assets/home/crypto_icon_ada.png";
-import DOGE from "../../assets/home/dogecoin.png";
-import MATIC from "../../assets/home/polygon.png";
-import SOL from "../../assets/home/solana.png";
 import learn_dialog_back from "../../assets/image/learn_dialog_back.png";
 import learn_more2 from "../../assets/image/learn_more2.png";
 import learn_more3 from "../../assets/image/learn_more3.png";
@@ -887,7 +870,6 @@ import {useUserInfoStore} from "../../store/user";
 import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
 
-import {watch} from "fs";
 const userInfoStore = useUserInfoStore();
 const {userInfo} = storeToRefs(userInfoStore);
 
