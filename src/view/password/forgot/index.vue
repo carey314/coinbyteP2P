@@ -29,8 +29,8 @@
             </el-form-item>
             <el-form-item style="margin-bottom: 5px;">
               <div class="verify-btn">
-                <GetButton :text="t('messages.forgot_password.verify_btn')" v-loading="getCodeDisabled" :disabled="count !== 0" @click="getCode(updatePassFormRef)"/>
-                <div class="password-sms" v-if="count !== 0">{{ $t('messages.forgot_password.resend') }} ({{ count }})</div>
+                <GetButton :text="t('messages.forgot_password.verify_btn')" v-loading="getCodeDisabled" :disabled="count > 0" @click="getCode(updatePassFormRef)"/>
+                <div class="password-sms" v-if="count > 0">{{ $t('messages.forgot_password.resend') }} ({{ count }})</div>
               </div>
             </el-form-item>
           </div>
@@ -83,7 +83,7 @@ const updatePassForm = ref({
   token: ''
 })
 const count = ref(0);
-const timer = ref<NodeJS.Timer | null>(null);
+// const timer = ref<NodeJS.Timer | null>(null);
 const getCodeDisabled = ref(false);
 const continueLoading = ref(false);
 const getCode = async (formEl: FormInstance | undefined) => {
@@ -103,11 +103,12 @@ const getCode = async (formEl: FormInstance | undefined) => {
       return;
     }
     updatePassForm.value.token = getCodeRes.data.data.token;
-    count.value = 60;
-    timer.value = setInterval(() => {
+    count.value = 5;
+    let timer = setInterval(() => {
+      console.log(count.value);
       count.value -= 1;
       if(count.value <= 0) {
-        timer.value = null;
+        clearInterval(timer);
       }
     }, 1000);
   } catch (e) {

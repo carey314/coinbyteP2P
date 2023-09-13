@@ -376,7 +376,7 @@ const rules = reactive<FormRules>({
   ],
   branch_code: [
     {required: true, message: 'Please input branch code.', trigger: 'blur'},
-    {pattern: /^[A-Za-z]{4}$/, message: 'Please enter the correct branch code format.', trigger: 'blur'},
+    {pattern: /^\d{6}$|^[A-Z]{1}\d{2}$/, message: 'Please enter the correct branch code format.', trigger: 'blur'},
   ],
   account_number: [
     {required: true, message: 'Please input account number.', trigger: 'blur'},

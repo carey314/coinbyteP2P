@@ -144,7 +144,7 @@
 
           <div v-if="percentage === 75">
             <div class="create-number" style="line-height: 48px;">
-              I received a single-use code on my phone number ending with *86.<br />
+              I received a single-use code on my phone number ending with *{{ phoneInput.slice(-2) }}.<br />
               Here it is:
               <span style="position: relative">
                 <el-input v-model="smsCode" placeholder="000 000" :maxlength="6" @input="validateInput" />
@@ -240,6 +240,11 @@ import {useFingerprintStore} from "../../store/fingerprint";
 import {ElMessage} from "element-plus";
 import {useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
+
+import {useUserInfoStore} from "../../store/user";
+import {storeToRefs} from "pinia";
+
+const userInfoStore = useUserInfoStore();
 
 const router = useRouter();
 const {t} = useI18n();
@@ -460,7 +465,7 @@ const phoneConfirmed = () => {
         percentage.value = 90;
         isPhoneVerified.value = true;
       } else {
-        ElMessage({ message: "Phone code not correct", type: "error" });
+        ElMessage({ message: "The phone verification code is incorrect.", type: "error" });
       }
     } else {
       ElMessage({ message: "Please try again later.", type: "error" });
@@ -494,8 +499,10 @@ const successContinue = () => {
       if (res.data.code === 9001) {
         ElMessage({message: "Count has been registered", type: "error",});
       } else {
+        userInfoStore.updateUserInfo(res.data.data);
         percentage.value = 105;
       }
+      
     } else {
       ElMessage({message: "Please try again later.", type: "error",});
     }
