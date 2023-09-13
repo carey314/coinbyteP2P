@@ -96,7 +96,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, watch } from "vue";
+import { ref, reactive, onUnmounted, onMounted, watch, nextTick } from "vue";
 
 import learn_image01 from "../../../assets/home/learn_image01.png";
 import learn_image02 from "../../../assets/home/learn_image02.png";
@@ -199,9 +199,15 @@ const blogs = ref<{
 }>();
 const loading = ref(false);
 onMounted(() => {
-  getBlogsValue(props.index + 1);
+  nextTick(() => {
+    console.log(props.index);
+    if(props.index === 0) {
+      getBlogsValue(1);
+    }
+  })
 })
 watch(() => props.index, () => {
+  console.log(props.index, 'watch');
   getBlogsValue(props.index);
 })
 
