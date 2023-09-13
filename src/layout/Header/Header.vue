@@ -175,7 +175,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-dropdown-item class="verify-box" v-if="userInfo?.kyc?.status === 'GREEN'">
+                  <el-dropdown-item class="verify-box" v-if="validKycBuy">
                     <div class="user-verify">
                       <div class="verify-status">
                         <img :src="dropdown_usercenter_verified"/>
@@ -440,7 +440,6 @@ import {logOut} from "../../api/user";
 
 import {useUserInfoStore} from "../../store/user";
 
-
 // i18n  全局变量locale
 import {getCurrentInstance, watch} from "vue";
 import {useI18n} from "vue-i18n";
@@ -451,7 +450,7 @@ import {getNotices} from "../../api/notices";
 const i18n = useI18n();
 const {t} = useI18n({});
 const userInfoStore = useUserInfoStore();
-const {userInfo} = storeToRefs(userInfoStore);
+const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 const isActive = ref(false);
 const currencies = [
   {

@@ -9,14 +9,14 @@
         class="box-item"
         effect="dark"
         content="Please complete the verification process before proceeding."
-        :disabled="userInfo?.kyc?.status === 'GREEN'"
+        :disabled="validKycBuy || validKycSell"
         placement="top"
       >
         <GetButton
             class="func-btn"
             :text="t('messages.user.add_bank')"
             @click="addressVisible = true"
-            :disabled="userInfo?.kyc?.status !== 'GREEN'"
+            :disabled="!(validKycBuy || validKycSell)"
         />
       </el-tooltip>
       <el-dialog
@@ -163,7 +163,7 @@
         </el-button>
       </el-dialog>
     </div>
-    <template v-if="windowWidth > 820 && (userInfo?.kyc?.status === 'GREEN')">
+    <template v-if="windowWidth > 820 && (validKycBuy)">
       <div class="table-body" v-loading="bankTableLoading" v-if="bankDate.length > 0">
         <Table :sourceData="bankDate" >
           <template v-slot:columns>
@@ -259,7 +259,7 @@
         <el-pagination layout="prev, pager, next" hide-on-single-page :page-count="Math.ceil(pageTotal / pageData.page_size)" @current-change="currentChange"/>
       </div>
     </template>
-    <div class="bank-account" v-else-if="windowWidth <= 820 && (userInfo?.kyc?.status === 'GREEN')">
+    <div class="bank-account" v-else-if="windowWidth <= 820 && (validKycBuy)">
       <div v-loading="bankTableLoading" style="min-height: 200px;">
         <el-card v-for="(item, index) in bankDate" :key="index">
           <div>
@@ -327,7 +327,7 @@ import NoContent from '../../../../assets/image/编组 7.png';
 import NoBankAccount from '../components/NoBankAccount.vue';
 
 const userInfoStore = useUserInfoStore();
-const {token, refreshToken, userInfo} = storeToRefs(userInfoStore);
+const {token, refreshToken, userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
 const {t} = useI18n();
 const addressVisible = ref(false);
@@ -472,6 +472,7 @@ const uploadChange = (uploadFile: UploadFile) => {
 // 获取 bank 列表
 const bankTableLoading = ref(false);
 onMounted(() => {
+  if(!(validKycBuy.value || validKycSell.value)) return;
   toGetBankList(1);
 })
 
