@@ -28,7 +28,7 @@
           @closed="handleClose"
       >
         <template #header>
-          <div style="font-weight: 600; font-size: 22px">Add Bank Account</div>
+          <div style="font-weight: 600; font-size: 22px">{{ $t('messages.user_verify.add_bank') }}</div>
         </template>
 
         <div class="divider"></div>
@@ -41,7 +41,7 @@
         >
           <el-form-item label="Bank Country" style="width: 100%;" prop="bank_country">
             <template #label>
-              <div class="bank-form-label">Bank Country</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.bank_contry') }}</div>
             </template>
             <el-select
                 class="select-second"
@@ -74,7 +74,7 @@
           </el-form-item>
           <el-form-item label="Currency" prop="currency">
             <template #label>
-              <div class="bank-form-label">Currency</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.currency') }}</div>
             </template>
             <el-select
                 class="select-second"
@@ -93,7 +93,7 @@
           </el-form-item>
           <el-form-item label="Bank Name" prop="bank_name">
             <template #label>
-              <div class="bank-form-label">Bank Name</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.bank_name') }}</div>
             </template>
             <el-input
                 class="container-input"
@@ -105,7 +105,7 @@
           </el-form-item>
           <el-form-item label="Branch Code" prop="branch_code">
             <template #label>
-              <div class="bank-form-label">Branch Code</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.bank_branch') }}</div>
             </template>
             <el-input
                 class="container-input"
@@ -116,7 +116,7 @@
           </el-form-item>
           <el-form-item label="Account Number" prop="account_number">
             <template #label>
-              <div class="bank-form-label">Account Number</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.account_num') }}</div>
             </template>
             <el-input
                 :disabled="!bankForm.bank_country"
@@ -128,7 +128,7 @@
           </el-form-item>
           <el-form-item label="Submit Bank Statement" prop="bank_statement">
             <template #label>
-              <div class="bank-form-label">Submit Bank Statement</div>
+              <div class="bank-form-label">{{ $t('messages.user_verify.submit_statement') }}</div>
             </template>
             <el-upload
                 class="upload-demo"
@@ -159,7 +159,7 @@
             :loading="submitLoading"
             :disabled="submitLoading"
         >
-          Submit
+          {{ $t('messages.user_verify.submit_btn') }}
         </el-button>
       </el-dialog>
     </div>
