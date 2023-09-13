@@ -125,7 +125,7 @@ const changeTab = (path: string) => {
   max-width: 1290px;
   min-height: calc(100vh + -120px);
   margin: auto;
-  padding: 21px 0 110px 0;
+  padding: 21px 0 70px 0;
   position: relative;
   @media (max-width: 1400px) {
     // padding: 21px 20px 135px 20px;

@@ -540,6 +540,7 @@ $fontSizeMin: 12px;
             )
             30 12;
           background-color: transparent;
+          bottom: -27px;
           .el-step__line-inner {
             display: none;
           }
