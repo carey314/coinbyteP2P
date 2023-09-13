@@ -252,10 +252,12 @@ export default {
             contact_firstTitle: "Live chat",
             contact_firstContent: "Our customer support is ready to help you 24/7",
             contact_secondTitle: "Company address",
-            contact_secondContent:
-                `Australia: 47 Allingham Street, Condell Park NSW 2200
-                
-New Zealand: Level 26, HSBC Tower, 188 Quay Street, Auckland 1010`,
+//             contact_secondContent:
+//                 `Australia: 47 Allingham Street, Condell Park NSW 2200
+//
+// New Zealand: Level 26, HSBC Tower, 188 Quay Street, Auckland 1010`,
+            contact_auContent:'47 Allingham Street, Condell Park NSW 2200',
+            contact_nzContent:'Level 26, HSBC Tower, 188 Quay Street, Auckland 1010',
             contact_thirdTitle: "Follow us on social media",
         },
         fees: {

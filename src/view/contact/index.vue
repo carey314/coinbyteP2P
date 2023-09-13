@@ -31,8 +31,11 @@
         <el-col :span="12">
           <div class="part-box">
             <div class="part-title">{{ $t('messages.contact.contact_secondTitle') }}</div>
-            <div class="part-content">
-              {{ $t('messages.contact.contact_secondContent') }}
+            <div class="part-content" v-if="$route.path.startsWith('/au')">
+              {{ $t('messages.contact.contact_auContent') }}
+            </div>
+            <div class="part-content" v-if="$route.path.startsWith('/nz')">
+              {{ $t('messages.contact.contact_nzContent') }}
             </div>
             <div class="part-img">
               <img :src="contactus_icon02" />

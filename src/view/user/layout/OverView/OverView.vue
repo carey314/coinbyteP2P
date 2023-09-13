@@ -557,6 +557,8 @@ async function submitEmailForm() {
           display: flex;
           float: left;
           margin-right: 5px;
+          font-size: 14px;
+          margin-top: -3px;
         }
       }
 

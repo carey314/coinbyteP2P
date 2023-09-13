@@ -256,6 +256,8 @@ const yc3 = () => {
 .about-page {
   background: #1d262f;
   position: relative;
+  overflow: hidden;
+  min-height: calc(100vh - 0px);
 
   .top-part {
     width: 100%;

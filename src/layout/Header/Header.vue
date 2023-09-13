@@ -344,13 +344,30 @@
               </button>
             </router-link>
           </li>
-          <li v-else>
-            <!-- 用户认证页面   -->
-            <router-link to="/signup" style="text-decoration: none">
-              <button class="btn-signup">
-                {{ $t("messages.header.signup") }}
-              </button>
-            </router-link>
+          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
+            <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
+              <img :src="top_en" alt=""/>
+
+              <template #dropdown>
+                <el-dropdown-menu class="language-dropdown-menu" style="width: 140px">
+
+                  <div class="alert-box" style="text-align: center">
+                    <div class="alert-title">
+                      {{ $t("messages.header.language") }}
+                    </div>
+                    <el-divider style="margin: 12px 0"/>
+                    <el-dropdown-item v-for="option in languageOptions" :key="option.value">
+                      <div class="alert-cont" :class="{
+                          selected: currentLanguage === option.label,
+                        }" @click.native="changeLanguage(option.label)">
+                        {{ option.label }}
+                      </div>
+                    </el-dropdown-item>
+                  </div>
+
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </li>
         </template>
       </ul>
