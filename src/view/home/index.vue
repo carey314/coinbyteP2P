@@ -826,6 +826,7 @@ import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import faq from "../../layout/FAQ/faq.vue";
 import GetButton from "../../components/GetButton.vue";
+
 //icon
 import {Right} from "@element-plus/icons";
 import type {TabsPaneContext} from "element-plus";
