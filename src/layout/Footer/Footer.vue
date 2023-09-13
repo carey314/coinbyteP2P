@@ -6,10 +6,10 @@
         <div>
           <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P.COM</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
-            <span class="final-span">Terms  & conditions</span>
-            <span class="final-span">Privacy collection notice</span>
-            <span class="final-span">Privacy policy</span>
-            <span class="final-span">Anti money laundering( AML) policy</span>
+            <span class="final-span">{{ $t('messages.footer.terms_conditions') }}</span>
+            <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span>
+            <span class="final-span">{{ $t('messages.footer.policy') }}</span>
+            <span class="final-span">{{ $t('messages.footer.anti_aml') }}</span>
           </div>
         </div>
       </div>
@@ -206,6 +206,8 @@ import { defineComponent, getCurrentInstance, ref, watch } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
 import logo from "../../assets/image/logo.svg";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const showWin = ref(false);
 const dialogTableVisible = ref(false);

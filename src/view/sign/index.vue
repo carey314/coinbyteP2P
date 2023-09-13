@@ -79,9 +79,9 @@
               <div class="remind-title">
                 <img :src="icon_info"/> <span>Reminder</span>
               </div>
-              <div class="remind-tip">* Fill out the empty field.</div>
+<!--              <div class="remind-tip">* Fill out the empty field.</div>-->
               <div class="remind-tip">
-                * Please enter the correct phone number
+                * Please enter the correct email code
               </div>
             </div>
             <el-button
@@ -791,7 +791,7 @@ $fontSizeMin: 12px;
     font-size: 20px;
     border-radius: 8px;
     padding: 16px 131px;
-    margin-top: 64px;
+    margin-top: 100px;
     height: 60px;
   }
 }

@@ -3,7 +3,7 @@
     <el-row >
       <el-col :span="15" :xs="24" class="left-box">
         <div class="left-header">
-          <div class="header-title">Account Verification</div>
+          <div class="header-title">{{ $t('messages.user_verify.account') }}</div>
           <!-- <router-link
               to="/wallet/WithdrawCrypto"
               style="text-decoration: none"
@@ -22,7 +22,7 @@
           <div class="center-step-box">
             <div v-if="withdrawStatus === false">
               <el-steps :active="activeStep" direction="vertical" align-center>
-                <el-step title="I am selling my crypto" class="select">
+                <el-step :title="t('messages.user_verify.sell')" class="select">
                   <template #description>
                     <!-- v-if="activeStep >= 1" -->
                     <div class="sell-box">
@@ -85,7 +85,7 @@
                   </template>
                 </el-step>
                 <el-step
-                  title="I am buying crypto"
+                    :title="t('messages.user_verify.buy')"
                   class="clearfloat"
                   style="margin-top: 25px"
                 >
@@ -192,7 +192,7 @@
       <el-col :span="9" :xs="24" class="right-box">
         <div class="tips">
           <div class="tips-faq">
-            <div class="faq-title">FAQ</div>
+            <div class="faq-title">{{ $t('messages.user_verify.faq') }}</div>
             <div class="faq-content content">
               <el-collapse v-model="faqActiveName" accordion>
                 <el-collapse-item
@@ -225,9 +225,10 @@
                   color: #7b8293;
                   margin-top: 10px;
                   cursor: pointer;
+                  margin-right: 20px;
                 "
               >
-                View more &gt;
+                {{ $t('messages.user_verify.more') }} &gt;
               </div>
             </div>
           </div>
@@ -419,7 +420,7 @@ $fontSizeMin: 12px;
       --el-button-hover-bg-color: #01c19a;
     }
     .el-step.is-vertical .el-step__title {
-      font-size: 20px;
+      font-size: 26px;
     }
     .el-step__title.is-finish {
       color: #000;
@@ -445,10 +446,10 @@ $fontSizeMin: 12px;
     display: flex;
     justify-content: space-between;
     .header-title {
-      font-size: $fontSizeMed;
-      color: #000;
       line-height: 32px;
-      font-weight: 500;
+      font-weight: bold;
+      font-size: 36px;
+      color: #060606;
     }
     .header-toFiat {
       // width: 128px;
@@ -479,6 +480,7 @@ $fontSizeMin: 12px;
     .sell-verified {
       display: flex;
       justify-content: space-between;
+      font-size: 16px;
       margin-top: 23px;
       .verified-name {
         display: flex;
@@ -487,12 +489,10 @@ $fontSizeMin: 12px;
         }
         .whether {
           margin-left: 10px;
-          font-size: 16px;
           color: #878787;
         }
         .verified-info {
           line-height: 40px;
-          font-size: 16px;
         }
       }
     }
@@ -527,7 +527,7 @@ $fontSizeMin: 12px;
   }
   .left-center {
     .center-step-box {
-      margin-top: 23px;
+      margin-top: 37px;
       :deep() {
         .el-step__line {
           border-left: 2px dashed var(--el-text-color-placeholder);
@@ -872,10 +872,14 @@ $fontSizeMin: 12px;
   }
 }
 .right-box {
+  margin-top: 75px;
   @media (max-width: 768px) {
     & {
       margin-top: 60px;
     }
+  }
+  :deep(.el-collapse-item__header){
+    font-size: 16px;
   }
   .tips {
     .tips-faq {
@@ -898,9 +902,13 @@ $fontSizeMin: 12px;
         margin-top: 17px;
         span {
           color: #01c19a;
+          font-size: 16px;
+
         }
         .faq-text {
           color: #878787;
+          font-size: 16px;
+
         }
       }
     }

@@ -1,16 +1,16 @@
 <template>
   <div class="deposit-crypto">
-    <el-row>
+    <el-row >
       <el-col :span="15" :xs="24" class="left-box">
         <div class="left-header">
-          <div class="header-title">Deposit Fiat</div>
+          <div class="header-title">{{ $t('messages.pay_order.deposit_fiat') }}</div>
         </div>
         <div class="left-center">
           <el-form :model="form" ref="ruleFormRef" :rules="rules">
             <div class="center-step-box" style="height: 100%">
               <div v-if="depositStatus === false">
                 <el-steps :active="activeStep" direction="vertical" align-center>
-                  <el-step title="Select currency">
+                  <el-step :title="t('messages.pay_order.select')">
                     <template #description>
                       <div v-if="activeStep >= 1" class="select">
                         <el-form-item style="position: relative;" prop="selectedOption1">
@@ -77,7 +77,7 @@
                       </div>
                     </template>
                   </el-step>
-                  <el-step title="Select Payment method" style="min-height: 100px;">
+                  <el-step :title="t('messages.pay_order.select_payment')" style="min-height: 100px;">
                     <template #description>
                       <el-form-item v-if="activeStep >= 2" prop="selectedPayment">
                         <div v-if="form.selectedOption1 === 'AUD'" class="payment-box">
@@ -102,7 +102,7 @@
                       </el-form-item>
                     </template>
                   </el-step>
-                  <el-step title="Enter Amount">
+                  <el-step :title="t('messages.pay_order.enter_amount')">
                     <template #description>
                       <div
                           v-if="activeStep >= 3"
@@ -116,7 +116,7 @@
                           <el-icon>
                             <Warning/>
                           </el-icon>
-                          Transaction requirements
+                          {{ $t('messages.pay_order.require') }}
                         </div>
                         <el-dialog
                             v-model="dialogVisible"
@@ -126,7 +126,7 @@
                         >
                           <template #header>
                             <div class="dialog-header">
-                              Transaction requirements
+                              {{ $t('messages.pay_order.require') }}
                             </div>
                           </template>
                           <div class="divider"></div>
@@ -185,9 +185,11 @@
                               class="fait-rule-item"
                               style="padding-bottom: 15px"
                           >
-                            <div class="title">Transaction Fee:</div>
-                            <div class="require"><span v-if="form.coinAmount">{{ formatNumber(form.coinAmount) }}</span>
-                              <span v-else>0.00</span> {{ form.selectedOption1 }}
+                            <div class="title">{{ $t('messages.pay_order.fee') }}:</div>
+                            <div class="require">
+<!--                              <span v-if="form.coinAmount">{{ formatNumber(form.coinAmount) }}</span>-->
+                              <span>0.00</span>
+                              {{ form.selectedOption1 }}
                             </div>
                           </div>
                           <div class="receive-box" v-show="activeStep === 2 || 3">
@@ -217,7 +219,7 @@
                       >
                         <template #header>
                           <div class="dialog-header-require">
-                            Transaction requirements
+                            {{ $t('messages.pay_order.require') }}
                           </div>
                         </template>
                         <div class="divider-require"></div>
@@ -390,7 +392,7 @@
           </el-form>
         </div>
       </el-col>
-      <el-col :span="9" :xs="24" class="right-box">
+      <el-col :span="9" :xs="24" class="right-box" style="margin-top: 10px">
         <div class="tips" v-if="depositStatus === false">
           <div class="tips-question">
             <div class="question-title">
@@ -434,7 +436,7 @@
             </div>
           </div>
         </div>
-        <div class="tips" v-else>
+        <div class="tips"  v-else>
           <div class="success-right">
             <div class="tips-question">
               <div class="question-title">
@@ -992,7 +994,6 @@ $fontSizeMin: 12px;
 }
 
 .left-box {
-  padding-right: 28% !important;
   @media(max-width: 992px) {
     padding-right: 20px !important;
   }
@@ -1028,8 +1029,10 @@ $fontSizeMin: 12px;
 
   .left-center {
     .success-box {
-      width: 100%;
-
+      width: 438px;
+      @media(max-width: 992px) {
+        width: 100%;
+      }
       .title {
         font-size: 20px;
         color: #000000;
@@ -1237,7 +1240,7 @@ $fontSizeMin: 12px;
           width: 442px;
           height: 48px;
           @media (max-width: 992px) {
-            width: 100%;
+            width: 320px !important;
           }
         }
 
@@ -1341,7 +1344,7 @@ $fontSizeMin: 12px;
           margin-top: 20px;
 
           .fait-rule-item {
-            width: 442px;
+            width: 432px;
             display: flex;
             justify-content: space-between;
             font-size: 14px;
@@ -1403,7 +1406,7 @@ $fontSizeMin: 12px;
         .continue-btn {
           width: 442px;
           height: 60px;
-          margin-top: 10px;
+          margin-top: 28px;
           font-size: 20px;
           @media (max-width: 992px) {
             width: 100%;
