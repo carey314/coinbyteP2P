@@ -361,7 +361,7 @@
                     {{ $t("messages.home.fifth_fiatC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                    <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
                                :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
@@ -382,7 +382,7 @@
                     {{ $t("messages.home.fifth_TotallC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                    <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
                                :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
@@ -403,7 +403,7 @@
                     {{ $t("messages.home.fifth_easyC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                    <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
                                :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
@@ -424,7 +424,7 @@
                     {{ $t("messages.home.fifth_liveC") }}
                   </div>
                   <div class="tab-content-btn">
-                    <GetButton class="trade-btn" type="success" @click="goToKyc('buy')"
+                    <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
                                :text="$t('messages.home.start_btn')"/>
                   </div>
                 </div>
@@ -1156,13 +1156,13 @@ const goKyc = (type: string) => {
       if(validKycBuy.value) {
         router.push('/user/depositFiat');
       } else {
-        router.push({ name: 'kyc', query: { type, return: '/home' } });
+        router.push({ name: 'kyc', query: { type } });
       }
     } else if(type === 'sell') {
       if(validKycBuy.value || validKycSell.value) {
         router.push('/user/bankaccount');
       } else {
-        router.push({ name: 'kyc', query: { type, return: '/home' } });
+        router.push({ name: 'kyc', query: { type } });
       }
     } else {
       router.push('/home');

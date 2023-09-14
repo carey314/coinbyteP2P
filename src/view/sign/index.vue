@@ -22,7 +22,7 @@
               My email address is
               <span style="position: relative">
                 <el-input v-model="emailInput" placeholder="email address"/>
-                <span class="tip" v-if="emailInput === ''">*</span>
+                <span class="tip" >*</span>
               </span>
               . I can confirm it and I'm allowed to use it.
             </div>
@@ -72,7 +72,7 @@
               Here it is:
               <span style="position: relative">
                 <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput"/>
-                <span class="tip" v-if="emailCode === ''">*</span>
+                <span class="tip">*</span>
               </span>
             </div>
             <div class="remind-box" v-if="!isValidPhone">
@@ -94,13 +94,12 @@
             </el-button>
           </div>
 
-
           <div v-if="percentage === 40">
             <div class="create-number">
               My phone number is
               <span style="position: relative">
                 <el-input v-model="phoneInput" placeholder="+00 000 000 000"/>
-                <span class="tip" v-if="phoneInput === ''">*</span>
+                <span class="tip" >*</span>
               </span>
               . I'll use it whenever I log in to COINBYTEP2P.
             </div>
@@ -148,10 +147,10 @@
               Here it is:
               <span style="position: relative">
                 <el-input v-model="smsCode" placeholder="000 000" :maxlength="6" @input="validateInput" />
-                <span class="tip" v-if="smsCode === ''">*</span>
+                <span class="tip">*</span>
               </span>
             </div>
-            <div class="remind-box" v-if="!smsCode">
+            <div class="remind-box" >
               <div class="remind-title" >
                 <img :src="icon_info"/> <span>Reminder</span>
               </div>
@@ -162,7 +161,7 @@
             </div>
             <el-button
                 class="verify-btn"
-                style="margin-top: 100px !important;"
+                style="margin-top: 60px !important;"
                 type="primary"
                 :disabled="smsCode.length < 6 || phoneConfirmedDisabled"
                 @click="phoneConfirmed()"
@@ -263,8 +262,6 @@ onMounted(() => {
 })
 
 const {t} = useI18n();
-
-
 const fingerprintStore = useFingerprintStore();
 
 const activeSign = ref("1");
@@ -795,6 +792,7 @@ $fontSizeMin: 12px;
     padding: 16px 131px;
     margin-top: 100px;
     height: 60px;
+    margin-bottom: 100px;
   }
 }
 

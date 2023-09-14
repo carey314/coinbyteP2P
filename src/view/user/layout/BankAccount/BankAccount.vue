@@ -226,7 +226,7 @@
             <el-table-column
                 prop="Account Status"
                 :label="t('messages.user.label_Status')"
-                width="200"
+                width="199"
             >
               <template #default="scope">
                 <div class="status">

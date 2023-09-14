@@ -74,7 +74,7 @@ function launchWebSdk(token: string) {
         console.log('onError', error)
       })
       .on('idCheck.applicantStatus', (res) => {
-        // console.log(res.reviewStatus)
+        console.log(res.reviewStatus,'000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
         if (res.reviewStatus === 'completed') {
           if (route.query.type === 'sell') {
             router.push('/user/bankaccount');
