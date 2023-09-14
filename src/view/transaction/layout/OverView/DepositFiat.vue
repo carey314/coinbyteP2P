@@ -1013,6 +1013,7 @@ $fontSizeMin: 12px;
 
     .el-input__inner {
       color: #000 !important;
+      font-family: Helvetica;
     }
   }
 }

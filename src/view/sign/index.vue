@@ -179,7 +179,7 @@
                   <el-form-item prop="password">
                     <el-input
                         v-model="passwordForm.password"
-                        placeholder=""
+                        placeholder="00000000"
                         type="password"
                         @input="validatePassword"
                     />
@@ -199,6 +199,7 @@
             </div>
             <el-button
                 class="verify-btn"
+                style="margin-top: 52px !important;"
                 type="primary"
                 :disabled="passwordForm.password.length < 8 || !isPasswordValid"
                 @click="successContinue(passwordFormRef)"
@@ -772,7 +773,7 @@ $fontSizeMin: 12px;
   }
 
   .remind-box {
-    margin-top: 47px;
+    margin-top: 80px;
     font-size: 18px;
     color: #060606;
     line-height: 23px;
@@ -831,7 +832,7 @@ $fontSizeMin: 12px;
     text-align: center;
     height: 35px;
     padding-bottom: 5px;
-
+    font-family: Helvetica;
   }
 
   .el-button.is-disabled,

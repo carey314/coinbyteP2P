@@ -308,7 +308,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onUnmounted, onMounted, watch} from "vue";
+import {ref, reactive, onUnmounted, onMounted} from "vue";
 
 import {Right, Close} from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
@@ -790,6 +790,7 @@ $fontSizeMin: 12px;
 :deep() {
   .el-select .el-input__inner {
     height: 48px;
+    font-family: Helvetica;
   }
 
   .container-input {
