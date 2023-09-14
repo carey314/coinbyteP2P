@@ -163,7 +163,7 @@
         </el-button>
       </el-dialog>
     </div>
-    <template v-if="windowWidth > 820 && (validKycBuy)">
+    <template v-if="windowWidth > 820 && (validKycBuy || validKycSell)">
       <div class="table-body" v-loading="bankTableLoading" v-if="bankDate.length > 0">
         <Table :sourceData="bankDate" >
           <template v-slot:columns>
@@ -259,7 +259,7 @@
         <el-pagination layout="prev, pager, next" hide-on-single-page :page-count="Math.ceil(pageTotal / pageData.page_size)" @current-change="currentChange"/>
       </div>
     </template>
-    <div class="bank-account" v-else-if="windowWidth <= 820 && (validKycBuy)">
+    <div class="bank-account" v-else-if="windowWidth <= 820 && (validKycBuy || validKycSell)">
       <div v-loading="bankTableLoading" style="min-height: 200px;">
         <el-card v-for="(item, index) in bankDate" :key="index">
           <div>
