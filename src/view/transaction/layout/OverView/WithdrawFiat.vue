@@ -79,7 +79,7 @@
                           @click="goToKyc('sell')"
                           :disabled="(validKycSell || validKycBuy)"
                       >
-                        {{ (validKycSell || validKycBuy) ? 'Verified' : 'Verify' }}
+                        {{ (validKycSell || validKycBuy) ? $t('messages.user.Verification_verified') : $t('messages.user.Verification_Verify') }}
                       </el-button>
                     </div>
                   </template>
@@ -147,7 +147,7 @@
                           @click="goToKyc('buy')"
                           :disabled="validKycBuy"
                       >
-                        {{ validKycBuy ? 'Verified' : 'Verify' }}
+                        {{ validKycBuy ?  $t('messages.user.Verification_verified') : $t('messages.user.Verification_Verify') }}
                       </el-button>
                     </div>
                   </template>
@@ -194,7 +194,7 @@
           <div class="tips-faq">
             <div class="faq-title">{{ $t('messages.user_verify.faq') }}</div>
             <div class="faq-content content">
-              <el-collapse v-model="faqActiveName" accordion>
+              <el-collapse v-model="faqActiveName" >
                 <el-collapse-item
                   title="Why do I need to verify my identity?"
                   name="1"
@@ -210,10 +210,10 @@
                   name="2"
                   style="border-bottom: 0 !important;"
                 >
-                  <div class="faq-text" style="text-decoration: underline">
+                  <div class="faq-text" style="text-decoration: underline;cursor: pointer">
                     How to verify your account with a new device?
                   </div>
-                  <div class="faq-text" style="text-decoration: underline">
+                  <div class="faq-text" style="text-decoration: underline;cursor: pointer">
                     How do I check my identity verification information?
                   </div>
                 </el-collapse-item>
@@ -428,7 +428,7 @@ $fontSizeMin: 12px;
     }
     .el-step__title.is-process {
       font-weight: 500;
-      color: #9b9b9b;
+      color: #000;
     }
     .el-dialog__body {
       padding: 0;
@@ -436,10 +436,10 @@ $fontSizeMin: 12px;
   }
 }
 .left-box {
-  padding-right: 60px !important;
-  @media (max-width: 768px) {
+  padding-right: 160px !important;
+  @media (max-width: 991px) {
     & {
-      padding-right: 20px !important;
+      padding-right: 30px !important;
     }
   }
   .left-header {
@@ -880,7 +880,9 @@ $fontSizeMin: 12px;
     }
   }
   :deep(.el-collapse-item__header){
-    font-size: 16px;
+    font-size: 20px;
+    color: #000;
+    line-height: 25px;
   }
   .tips {
     .tips-faq {
@@ -909,7 +911,8 @@ $fontSizeMin: 12px;
         .faq-text {
           color: #878787;
           font-size: 16px;
-
+          padding-right: 60px;
+          margin-top: 10px;
         }
       }
     }

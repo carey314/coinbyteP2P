@@ -402,10 +402,35 @@
           </div>
           <div class="tips-faq">
             <div class="faq-title">
-              <img style="width: 14px; height: auto" :src="notice"/>
-              Notice
+<!--              <img style="width: 14px; height: auto" :src="notice"/>-->
+<!--              Notice-->
+              {{ $t('messages.user_verify.faq') }}
             </div>
             <el-divider/>
+<!--            <el-collapse v-model="faqActiveName" style="margin-top: 17px">-->
+<!--              <el-collapse-item-->
+<!--                  title="Why do I need to verify my identity?"-->
+<!--                  name="1"-->
+<!--              >-->
+<!--                <div class="faq-text">-->
+<!--                  We use identity verification in order to comply with local-->
+<!--                  laws and regulations. This process helps us prevent-->
+<!--                  fraudulent accounts and activity on our platform.-->
+<!--                </div>-->
+<!--              </el-collapse-item>-->
+<!--              <el-collapse-item-->
+<!--                  title="Identity verification troubleshooting"-->
+<!--                  name="2"-->
+<!--                  style="border-bottom: 0 !important;"-->
+<!--              >-->
+<!--                <div class="faq-text" style="text-decoration: underline;cursor: pointer">-->
+<!--                  How to verify your account with a new device?-->
+<!--                </div>-->
+<!--                <div class="faq-text" style="text-decoration: underline;cursor: pointer">-->
+<!--                  How do I check my identity verification information?-->
+<!--                </div>-->
+<!--              </el-collapse-item>-->
+<!--            </el-collapse>-->
             <div class="faq-content content">
               <div>
                 To cover processing costs, a AU$3 processing fee will be charged
@@ -625,7 +650,6 @@ import copy from "../../../../assets/image/copy.svg";
 import coin_aud from "../../../../assets/image/coin_aud.svg";
 import coin_nzd from "../../../../assets/image/coin_nzd.svg";
 import {getDepositTransactions} from "../../../../api/deposit";
-import {number} from "echarts";
 import {addTransaction, getTransactionList} from '../../../../api/transactions';
 import dayjs from "dayjs";
 import {useUserInfoStore} from "../../../../store/user";
@@ -642,6 +666,7 @@ const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
 const depositStatus = ref(false);
+const faqActiveName = ref("1");
 
 const previousStatus = ref(false);
 
@@ -938,7 +963,6 @@ $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 .deposit-crypto {
   margin-top: 20px;
-
   :deep() {
     .el-button.is-disabled,
     .el-button.is-disabled:focus,
@@ -1131,7 +1155,7 @@ $fontSizeMin: 12px;
         border-radius: 2px;
         margin-top: 24px;
         width: 96px;
-        padding: 10px 20px;
+        padding: 11px 20px;
         font-size: 14px;
         color: #000000;
         line-height: 17px;
@@ -1756,5 +1780,16 @@ $fontSizeMin: 12px;
   p:nth-child(2) {
     width: 180px;
   }
+}
+:deep(.el-collapse-item__header){
+  font-size: 20px;
+  color: #000;
+  line-height: 25px;
+}
+.faq-text {
+  color: #878787;
+  font-size: 16px;
+  padding-right: 60px;
+  margin-top: 10px;
 }
 </style>

@@ -543,6 +543,7 @@ const successContinue = async (formEl: FormInstance | undefined) => {
         percentage.value = 100;
         ElMessage({message: "Registration successful.", type: "success",});
         router.push("/kyc?type=" + type.value);
+        console.log(type.value,'999999999999999999999999999999999')
       }
     } else {
       ElMessage({message: "Please try again later.", type: "error",});

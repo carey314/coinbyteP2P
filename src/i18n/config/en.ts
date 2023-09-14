@@ -206,7 +206,7 @@ export default {
             sixth_btn: "Get trading in minutes",
             seventh_explore: "Explore endless possibilities with ",
             seventh_coin: " Coinbyte",
-            seventh_how: "How to buy and sell cryptocurrency on CoinbyteP2P",
+            seventh_how: "How to buy and sell crypto currency on CoinbyteP2P",
             seventh_start: "Start trading cryptocurrency on CoinbyteP2P",
             seventh_earn:
                 "CoinbyteP2P Earn: Use your crypto assets to earn passive income on CoinbyteP2P",

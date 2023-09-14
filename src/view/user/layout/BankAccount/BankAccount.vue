@@ -308,7 +308,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onUnmounted, onMounted, Ref} from "vue";
+import {ref, reactive, onUnmounted, onMounted, watch} from "vue";
 
 import {Right, Close} from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
@@ -776,7 +776,7 @@ $fontSizeMin: 12px;
 
 .save-btn {
   width: 100%;
-  font-size: 16px;
+  font-size: 20px;
   height: 60px;
   background-color: #01c19a;
   border-radius: 8px;

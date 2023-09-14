@@ -564,6 +564,7 @@ async function submitEmailForm() {
 
       .bottom-tip {
         display: flex;
+        font-size: 14px;
         // @media (max-width: 769px) {
         //   width: 123px;
         // }

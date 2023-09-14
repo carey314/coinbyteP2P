@@ -40,7 +40,7 @@ export default {
       help_telegram: "Telegram",
       language: "语言",
       local_currency: "本地货币",
-      login: "登陆",
+      login: "登录",
       signup: "立即开始",
     },
     footer: {
@@ -345,7 +345,7 @@ export default {
       or: "或使用以下方式注册",
       no_have: "还没有账户？",
       sign: "注册",
-      login: "登陆",
+      login: "登录",
       with_qr: "使用二维码登录",
       scan: "打开CoinByte应用并扫描此二维码",
       download: "下载应用",
@@ -367,7 +367,7 @@ export default {
       policies: "政策",
       sign: "注册",
       to_login: "已有账户",
-      login: "登陆",
+      login: "登录",
       or: "或使用以下方式注册",
     },
     forgot_password: {
@@ -562,7 +562,7 @@ export default {
       Verification_verified: "已验证",
       overview_Bank: "银行账户",
       Bank_con:
-        "从100多家澳大利亚支持新支付平台(NPP)的银行中,通过PayID/Osko即时向您的Coinbyte账户存入澳大利亚元(AUD)",
+        "从100多家澳大利亚支持新支付平台(NPP)的银行中,通过PayID/Osko即时向您的CoinbyteP2P账户存入澳大利亚元(AUD)",
       overview_Preferences: "偏好",
       Preferences_con: "选择您的首选语言、货币和界面设置",
       security_title: "待定的安全功能",

@@ -670,6 +670,7 @@ $fontSizeMin: 12px;
       .el-table .cell {
         width: 100%;
         padding: 1px 42px;
+        font-size: 12px;
       }
     }
   }
