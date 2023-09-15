@@ -6,7 +6,7 @@
           :xs="24"
       >
         <div class="choose-part">
-          <img :src="icon_buying" />
+          <img :src="icon_buying"/>
           <div class="part-for">For Buying</div>
           <div class="part-when">When I buy</div>
           <GetButton @click="toSign('buy')" class="to-sign" :text="$t('messages.home.start_btn')"/>
@@ -19,7 +19,7 @@
           class="sell-part"
       >
         <div class="choose-part">
-          <img :src="icon_selling" />
+          <img :src="icon_selling"/>
           <div class="part-for">For Selling</div>
           <div class="part-when">When I sell</div>
           <GetButton @click="toSign('sell')" class="to-sign" :text="$t('messages.home.start_btn')"/>
@@ -35,11 +35,10 @@ import icon_buying from "../assets/image/icon_buying.svg";
 import icon_selling from "../assets/image/icon_selling.svg";
 import GetButton from "../components/GetButton.vue";
 import {useRouter} from "vue-router";
+
 const router = useRouter();
 
-const dialogTableVisible = reactive(false);
-
-defineProps<{ text: any }>();
+const dialogTableVisible = ref(false);
 
 const emits = defineEmits(['increase']);
 
@@ -47,15 +46,8 @@ onMounted(() => {
   console.log("Button component mounted.");
 });
 const toSign = (type: string) => {
-  // router.push({
-  //   name: 'signup',
-  //   query: {
-  //     type: type
-  //   }
-  // })
   router.replace(`/signup?type=${type}`);
-  emits('increase', false)
-  // router.go(0)
+  emits('increase', false);
 };
 </script>
 
@@ -68,14 +60,16 @@ const toSign = (type: string) => {
   position: absolute;
   left: 50%;
   @media (max-width: 991px) {
-    display:none;
+    display: none;
   }
 }
-.sell-part{
+
+.sell-part {
   @media (max-width: 991px) {
     margin-top: 20px;
   }
 }
+
 .sign-choose {
   position: relative;
 

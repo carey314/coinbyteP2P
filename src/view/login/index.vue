@@ -117,7 +117,7 @@
               <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
                 {{ $t("messages.login.sign") }}
               </span>
-              <SignChoose v-model="dialogTableVisible"> </SignChoose>
+              <SignChoose v-model="dialogTableVisible"></SignChoose>
             </div>
           </div>
         </el-form>
@@ -232,7 +232,7 @@
               <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
                 {{ $t("messages.login.sign") }}
               </span>
-              <SignChoose v-model="dialogTableVisible"> </SignChoose>
+              <SignChoose v-model="dialogTableVisible"></SignChoose>
 
             </div>
           </div>

@@ -680,7 +680,12 @@ $fontSizeMin: 12px;
   .el-table__header {
     width: 100% !important;
   }
-
+  .el-table th.el-table__cell{
+    color: #878787 !important;
+  }
+  .el-table__row{
+    color: #000;
+  }
   .el-table__body,
   .el-table__footer,
   .el-table__header {

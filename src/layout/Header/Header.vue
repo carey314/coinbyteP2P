@@ -368,7 +368,7 @@
               <button class="btn-signup" @click="dialogTableVisible = true">
                 {{ $t("messages.header.signup") }}
               </button>
-              <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"> </SignChoose>
+              <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"></SignChoose>
 <!--            </router-link>-->
           </li>
         </template>
