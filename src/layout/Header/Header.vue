@@ -336,14 +336,7 @@
                 $t("messages.header.login")
               }}</span></router-link>
           </li>
-          <li v-if="userInfoStore.isLogin">
-            <!-- 用户认证页面   -->
-            <router-link to="/user/verification" style="text-decoration: none">
-              <button class="btn-signup">
-                {{ $t("messages.header.signup") }}
-              </button>
-            </router-link>
-          </li>
+
           <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
             <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
               <img :src="top_en" alt=""/>
@@ -368,6 +361,15 @@
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
+          </li>
+          <li v-if="!userInfoStore.isLogin">
+            <!-- 用户认证页面   -->
+<!--            <router-link to="/signup" style="text-decoration: none">-->
+              <button class="btn-signup" @click="dialogTableVisible = true">
+                {{ $t("messages.header.signup") }}
+              </button>
+              <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"> </SignChoose>
+<!--            </router-link>-->
           </li>
         </template>
       </ul>
@@ -415,15 +417,10 @@ import type {TabsPaneContext} from "element-plus";
 import {useRouter} from "vue-router";
 import {noticeInfoStore} from "../../store/notice";
 import {storeToRefs} from "pinia";
-
-import {CaretBottom} from "@element-plus/icons-vue";
 // img
 import logo from "../../assets/image/logo.svg";
-import top_down from "../../assets/home/top_down.svg";
 import top_notice from "../../assets/home/top_notice.svg";
-import top_bangzhu from "../../assets/home/top_bangzhu.svg";
 import top_en from "../../assets/home/top_en.svg";
-import down_arrow from "../../assets/home/down_arrow.png";
 import menu_icon from "../../assets/home/menu_icon.png";
 import close_icon from "../../assets/home/close_icon.png";
 import top_bar_usercenter from "../../assets/wallet/top_bar_usercenter.svg";
@@ -435,9 +432,10 @@ import dropdown_usercenter_verification from "../../assets/home/dropdown_usercen
 import dropdown_usercenter_bankaccount from "../../assets/home/dropdown_usercenter_bankaccount.svg";
 import dropdown_usercenter_preferences from "../../assets/home/dropdown_usercenter_preferences.svg";
 
+import GetButton from "../../components/GetButton.vue";
+import SignChoose from "../../components/SignChoose.vue";
 
 import {logOut} from "../../api/user";
-
 import {useUserInfoStore} from "../../store/user";
 
 // i18n  全局变量locale
@@ -458,10 +456,17 @@ const currencies = [
     label: "AUD",
   },
 ];
+const dialogTableVisible = ref(false);
 
 const noticeStore = noticeInfoStore()
 const {noticesList} = storeToRefs(noticeStore)
 const notices = ref<NoticeObject[]>([])
+
+const handleIncrease = (val: any) => {
+  console.log("xxxx", val)
+  dialogTableVisible.value = val
+}
+
 onMounted(async () => {
   if (!userInfoStore.isLogin) {
     console.log("----is login!!!!")
@@ -1242,5 +1247,22 @@ $regular-font: HarmonyOS_Sans_Regular;
 
 .highlight .alert-cont {
   color: #01c19a;
+}
+:deep(){
+  .sign-choose .choose-part .part-for[data-v-dd4dbe76]{
+    margin-top: -10px;
+  }
+  .sign-choose .choose-part .part-when[data-v-dd4dbe76]{
+    margin-top: -10px;
+  }
+  .sign-choose .choose-part .to-sign[data-v-dd4dbe76]{
+    margin-top: -10px;
+  }
+  .el-dialog__body{
+    text-align: center;
+  }
+  .el-dialog__headerbtn{
+    z-index: 999;
+  }
 }
 </style>

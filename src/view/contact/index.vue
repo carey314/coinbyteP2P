@@ -154,7 +154,7 @@ function resetWidth() {
   }
 .top-center{
   padding-top: 46px;
-
+  padding-bottom: 104px;
 }
   .part-box {
     height: 340px;

@@ -117,35 +117,7 @@
               <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
                 {{ $t("messages.login.sign") }}
               </span>
-              <el-dialog v-model="dialogTableVisible" class="sign-choose">
-
-                <el-row :gutter="20">
-                  <el-col
-                      :md="12"
-                      :xs="24"
-                  >
-                    <div class="choose-part">
-                      <img :src="icon_buying" />
-                      <div class="part-for">For Buying</div>
-                      <div class="part-when">When I buy</div>
-                      <GetButton @click="toSign('buy')" class="to-sign" :text="$t('messages.home.start_btn')"/>
-                    </div>
-                  </el-col>
-                  <div class="login-divider"></div>
-                  <el-col
-                      :md="12"
-                      :xs="24"
-                      class="sell-part"
-                  >
-                    <div class="choose-part">
-                      <img :src="icon_buying" />
-                      <div class="part-for">For Selling</div>
-                      <div class="part-when">When I sell</div>
-                      <GetButton @click="toSign('sell')" class="to-sign" :text="$t('messages.home.start_btn')"/>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-dialog>
+              <SignChoose v-model="dialogTableVisible"> </SignChoose>
             </div>
           </div>
         </el-form>
@@ -260,35 +232,8 @@
               <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
                 {{ $t("messages.login.sign") }}
               </span>
-              <el-dialog v-model="dialogTableVisible" class="sign-choose">
+              <SignChoose v-model="dialogTableVisible"> </SignChoose>
 
-                <el-row :gutter="20">
-                  <el-col
-                      :md="12"
-                      :xs="24"
-                  >
-                    <div class="choose-part">
-                      <img :src="icon_buying" />
-                      <div class="part-for">For Buying</div>
-                      <div class="part-when">When I buy</div>
-                      <GetButton @click="toSign('buy')" class="to-sign" :text="$t('messages.home.start_btn')"/>
-                    </div>
-                  </el-col>
-                  <div class="login-divider"></div>
-                  <el-col
-                      :md="12"
-                      :xs="24"
-                      class="sell-part"
-                  >
-                    <div class="choose-part">
-                      <img :src="icon_selling" />
-                      <div class="part-for">For Selling</div>
-                      <div class="part-when">When I sell</div>
-                      <GetButton @click="toSign('sell')" class="to-sign" :text="$t('messages.home.start_btn')"/>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-dialog>
             </div>
           </div>
         </el-form>
@@ -305,9 +250,8 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
+import SignChoose from "../../components/SignChoose.vue";
 import login_password from "../../assets/home/login_password.svg";
-import icon_buying from "../../assets/image/icon_buying.svg";
-import icon_selling from "../../assets/image/icon_selling.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
 import {useRouter} from "vue-router";
@@ -481,7 +425,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
                 router.push("/kyc?type=" + (response.data.kyc_type || 'buy'));
                 return;
               }
-              router.push("/");
+              router.replace("/");
             } else {
               console.log(response);
               if (response.code === 9001) {
@@ -518,9 +462,7 @@ const clearValidate = (formEl: FormInstance | undefined) => {
   form.username = "";
   form.password = "";
 }
-const toSign = (type: string) => {
-  router.push(`/signup?type=${type}`);
-};
+
 </script>
 
 <style scoped lang="scss">
@@ -582,49 +524,6 @@ $fontSizeMin: 12px;
     background-color: #fff !important;
     border-radius: 0;
   }
-}
-
-.login-divider {
-  width: 1px;
-  height: 100%;
-  background: #eee;
-  position: absolute;
-  left: 50%;
-  @media (max-width: 991px) {
-    display:none;
-  }
-}
-.sell-part{
-  @media (max-width: 991px) {
-    margin-top: 20px;
-  }
-}
-.sign-choose {
-  position: relative;
-
-  .choose-part {
-    .part-for {
-      color: #000;
-      font-size: 24px;
-      margin-top: 30px;
-      font-weight: 500;
-    }
-
-    .part-when {
-      font-size: 16px;
-      color: #878787;
-      margin-top: 30px;
-    }
-
-    .to-sign {
-      margin-top: 30px;
-    }
-  }
-}
-
-.to-sign {
-  width: 50%;
-  font-weight: 500;
 }
 
 .login-page {

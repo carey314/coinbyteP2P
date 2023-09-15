@@ -71,7 +71,7 @@
               <br>
               Here it is:
               <span style="position: relative">
-                <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput"/>
+                <el-input v-model="emailCode" placeholder="000 000" :maxlength="6" @input="validateInput" style="width: 180px !important;" />
                 <span class="tip">*</span>
               </span>
             </div>
@@ -146,7 +146,7 @@
               I received a single-use code on my phone number ending with *{{ phoneInput.slice(-2) }}.<br />
               Here it is:
               <span style="position: relative">
-                <el-input v-model="smsCode" placeholder="000 000" :maxlength="6" @input="validateInput" />
+                <el-input v-model="smsCode" placeholder="000 000" :maxlength="6" @input="validateInput" style="width: 180px !important;" />
                 <span class="tip">*</span>
               </span>
             </div>
@@ -221,7 +221,7 @@ import {
   onUnmounted,
   onMounted,
   watchEffect,
-  computed,
+  computed, watch,
 } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -282,6 +282,17 @@ const emailInput = ref("");
 const phoneInput = ref("");
 const smsCode = ref("");
 const emailCode = ref("");
+
+watch(() => router.currentRoute.value.query, (newV, oldV) => {
+  // console.log(newV, oldV)
+  type.value = route.query.type;
+  emailInput.value = "";
+  emailCode.value = "";
+  phoneInput.value = "";
+  smsCode.value = "";
+  passwordForm.value.password = "";
+  percentage.value = 0;
+})
 const validateInput = () => {
   // 移除非数字字符
   emailCode.value = emailCode.value.replace(/\D/g, '');
@@ -318,7 +329,7 @@ const token2 = reactive({
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 const CHINESE_REGEX = /[\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]/;
 // const PHONE_REGEX = /^\+\d{2} \d{3} \d{3} \d{3}$/;
-const PHONE_REGEX = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+const PHONE_REGEX = /^\+(?:[0-9] ?){6,11}[0-9]$/;
 const isValidEmail = computed(() => {
   const email = emailInput.value;
   return !CHINESE_REGEX.test(email) && EMAIL_REGEX.test(email);
@@ -811,7 +822,7 @@ $fontSizeMin: 12px;
   }
 
   .el-input {
-    width: 339px; //mark ref
+    width: 300px; //mark ref
     @media (max-width: 768px) {
       width: 95%;
     }
@@ -830,7 +841,7 @@ $fontSizeMin: 12px;
     text-align: center;
     height: 35px;
     padding-bottom: 5px;
-    font-family: Helvetica;
+    font-family: Helvetica-Neue;
   }
 
   .el-button.is-disabled,

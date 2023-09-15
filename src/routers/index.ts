@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 // import Home from '../view/home.vue';
-
+// import { useAuthStore } from '../store/user.ts'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -372,4 +372,16 @@ const router = createRouter({
   history: createWebHistory(),
   routes
 })
+
+// const authStore = useAuthStore();
+//
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = authStore.isLogin; // 根据您的存储模块获取登录状态
+//
+//   if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+//     next('/login');
+//   } else {
+//     next();
+//   }
+// });
 export default router;

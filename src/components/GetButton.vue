@@ -32,7 +32,7 @@ $main-color: #01c19a;
   border-color: $main-color;
   border-radius: 4px;
   font-size: 16px;
-  font-family: Helvetica;
+  font-family: Helvetica-Neue;
   font-weight: 600;
   border: none;
   &:disabled {

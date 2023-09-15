@@ -790,7 +790,7 @@ $fontSizeMin: 12px;
 :deep() {
   .el-select .el-input__inner {
     height: 48px;
-    font-family: Helvetica;
+    font-family: Helvetica-Neue;
   }
 
   .container-input {
