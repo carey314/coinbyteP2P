@@ -383,7 +383,7 @@
                   class="sign-button">User
               </el-button>
             </router-link>
-            <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>
+<!--            <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>-->
           </div>
           <div class="button-group" v-else>
             <!-- <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign

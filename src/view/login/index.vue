@@ -99,21 +99,53 @@
                 >
               </div>
             </div>
-<!--            <GetButton-->
-<!--                :text="text"-->
-<!--                style="margin-top: 31px"-->
-<!--                :disabled="isButtonDisabled"-->
-<!--                @handler="toLogin"-->
-<!--            />-->
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">{{ $t("messages.login.login") }}</el-button>
+            <!--            <GetButton-->
+            <!--                :text="text"-->
+            <!--                style="margin-top: 31px"-->
+            <!--                :disabled="isButtonDisabled"-->
+            <!--                @handler="toLogin"-->
+            <!--            />-->
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">
+              {{ $t("messages.login.login") }}
+            </el-button>
           </el-form-item>
 
           <div class="login-signup">
             <div>
               {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
-              <a href="/signup" style="color: #01c19a; text-decoration: none">{{
-                  $t("messages.login.sign")
-                }}</a>
+
+              <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
+                {{ $t("messages.login.sign") }}
+              </span>
+              <el-dialog v-model="dialogTableVisible" class="sign-choose">
+
+                <el-row :gutter="20">
+                  <el-col
+                      :md="12"
+                      :xs="24"
+                  >
+                    <div class="choose-part">
+                      <img :src="icon_buying" />
+                      <div class="part-for">For Buying</div>
+                      <div class="part-when">When I buy</div>
+                      <GetButton @click="toSign('buy')" class="to-sign" :text="$t('messages.home.start_btn')"/>
+                    </div>
+                  </el-col>
+                  <div class="login-divider"></div>
+                  <el-col
+                      :md="12"
+                      :xs="24"
+                      class="sell-part"
+                  >
+                    <div class="choose-part">
+                      <img :src="icon_buying" />
+                      <div class="part-for">For Selling</div>
+                      <div class="part-when">When I sell</div>
+                      <GetButton @click="toSign('sell')" class="to-sign" :text="$t('messages.home.start_btn')"/>
+                    </div>
+                  </el-col>
+                </el-row>
+              </el-dialog>
             </div>
           </div>
         </el-form>
@@ -186,7 +218,7 @@
           <el-form-item class="login-password" prop="password">
             <el-input
                 v-model="form.password"
-                :type="isShowPass===true ? 'text' : 'password'"
+                :type="(isShowPass === true) ? 'text' : 'password'"
                 placeholder="Password"
             >
               <template #prefix>
@@ -215,7 +247,9 @@
                 >
               </div>
             </div>
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">{{ $t("messages.login.login") }}</el-button>
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">
+              {{ $t("messages.login.login") }}
+            </el-button>
 
           </el-form-item>
 
@@ -223,9 +257,38 @@
           <div class="login-signup">
             <div>
               {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
-              <a href="signup" style="color: #01c19a; text-decoration: none">{{
-                  $t("messages.login.sign")
-                }}</a>
+              <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
+                {{ $t("messages.login.sign") }}
+              </span>
+              <el-dialog v-model="dialogTableVisible" class="sign-choose">
+
+                <el-row :gutter="20">
+                  <el-col
+                      :md="12"
+                      :xs="24"
+                  >
+                    <div class="choose-part">
+                      <img :src="icon_buying" />
+                      <div class="part-for">For Buying</div>
+                      <div class="part-when">When I buy</div>
+                      <GetButton @click="toSign('buy')" class="to-sign" :text="$t('messages.home.start_btn')"/>
+                    </div>
+                  </el-col>
+                  <div class="login-divider"></div>
+                  <el-col
+                      :md="12"
+                      :xs="24"
+                      class="sell-part"
+                  >
+                    <div class="choose-part">
+                      <img :src="icon_selling" />
+                      <div class="part-for">For Selling</div>
+                      <div class="part-when">When I sell</div>
+                      <GetButton @click="toSign('sell')" class="to-sign" :text="$t('messages.home.start_btn')"/>
+                    </div>
+                  </el-col>
+                </el-row>
+              </el-dialog>
             </div>
           </div>
         </el-form>
@@ -243,6 +306,8 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
 import login_password from "../../assets/home/login_password.svg";
+import icon_buying from "../../assets/image/icon_buying.svg";
+import icon_selling from "../../assets/image/icon_selling.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
 import {useRouter} from "vue-router";
@@ -254,9 +319,12 @@ import type {FormInstance, FormRules} from "element-plus";
 import {countryList} from "./countries";
 
 import {useI18n} from "vue-i18n";
+import {Right} from "@element-plus/icons";
 
 const {t} = useI18n();
 const ruleFormRef = ref<FormInstance>();
+const dialogTableVisible = ref(false);
+
 // const rules = reactive<FormRules>({
 //   username: [
 //     {required: true, message: "Please input your username!", trigger: "blur"},
@@ -270,11 +338,11 @@ const rules = computed(() => {
   let rRules: FormRules = {
     password: [{required: true, message: "Please input your password!"}],
   };
-  if(activeLogin.value === 'first') {
+  if (activeLogin.value === 'first') {
     rRules.number = [
       {required: true, message: "Please input your phone number!", trigger: "blur"},
     ];
-  } else if(activeLogin.value === 'second') {
+  } else if (activeLogin.value === 'second') {
     rRules.username = [
       {required: true, message: "Please input your email!", trigger: "blur"},
       {type: 'email', message: "Please enter a valid email format!", trigger: "blur"}
@@ -367,7 +435,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl || isButtonDisabled.value) return;
   const res = await formEl.validate(valid => valid);
   console.log(res);
-  if(!res) return;
+  if (!res) return;
   isButtonDisabled.value = true;
   const userAgent = navigator.userAgent;
   // 创建一个包含user_agent属性的JSON对象
@@ -409,16 +477,16 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               // userInfoStore.changeRefreshToken(response.data.refreshToken.token);
               ElMessage.success("Login succeeded!");
               userInfoStore.updateUserInfo(response.data);
-              if(!(validKycBuy.value || validKycSell.value)) {
+              if (!(validKycBuy.value || validKycSell.value)) {
                 router.push("/kyc?type=" + (response.data.kyc_type || 'buy'));
                 return;
               }
               router.push("/");
             } else {
               console.log(response);
-              if(response.code === 9001) {
+              if (response.code === 9001) {
                 ElMessage.error("User not exist!");
-              } else if(response.code === 9002) {
+              } else if (response.code === 9002) {
                 ElMessage.error("Wrong pass word!");
               } else {
                 ElMessage.error("Login failed. Please try again later!");
@@ -444,12 +512,15 @@ const toLogin = async (formEl: FormInstance | undefined) => {
 };
 
 const clearValidate = (formEl: FormInstance | undefined) => {
-  if(!formEl) return;
+  if (!formEl) return;
   setTimeout(() => formEl.clearValidate(['number', 'username', 'password']), 0);
   form.number = "";
   form.username = "";
   form.password = "";
 }
+const toSign = (type: string) => {
+  router.push(`/signup?type=${type}`);
+};
 </script>
 
 <style scoped lang="scss">
@@ -464,6 +535,13 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 :deep() {
+  .el-dialog{
+    --el-dialog-width: 50%;
+    border-radius: 8px;
+    @media (max-width: 991px) {
+      --el-dialog-width: 80%;
+    }
+  }
   .el-tabs__nav-wrap::after {
     height: 0;
   }
@@ -504,6 +582,49 @@ $fontSizeMin: 12px;
     background-color: #fff !important;
     border-radius: 0;
   }
+}
+
+.login-divider {
+  width: 1px;
+  height: 100%;
+  background: #eee;
+  position: absolute;
+  left: 50%;
+  @media (max-width: 991px) {
+    display:none;
+  }
+}
+.sell-part{
+  @media (max-width: 991px) {
+    margin-top: 20px;
+  }
+}
+.sign-choose {
+  position: relative;
+
+  .choose-part {
+    .part-for {
+      color: #000;
+      font-size: 24px;
+      margin-top: 30px;
+      font-weight: 500;
+    }
+
+    .part-when {
+      font-size: 16px;
+      color: #878787;
+      margin-top: 30px;
+    }
+
+    .to-sign {
+      margin-top: 30px;
+    }
+  }
+}
+
+.to-sign {
+  width: 50%;
+  font-weight: 500;
 }
 
 .login-page {
@@ -1244,7 +1365,8 @@ $fontSizeMin: 12px;
 .other-sign-name {
   margin-left: 3px;
 }
-.login-btn{
+
+.login-btn {
   height: 50px;
   box-sizing: border-box;
   color: #fff;
@@ -1256,6 +1378,6 @@ $fontSizeMin: 12px;
   font-size: 16px;
   font-weight: 600;
   margin-top: 30px;
-  width:100%;
+  width: 100%;
 }
 </style>
