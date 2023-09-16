@@ -208,7 +208,8 @@
             >
               <template #default="scope">
                 <div>
-                  {{ scope.row.branch_code }}
+<!--                  {{ scope.row.branch_code }}-->
+                  {{ scope.row.branch_code.slice(0, 3) + '-' + scope.row.branch_code.slice(3) }}
                 </div>
               </template>
             </el-table-column>
@@ -219,7 +220,8 @@
             >
               <template #default="scope">
                 <div>
-                  {{ scope.row.account_number }}
+<!--                  {{ scope.row.account_number }}-->
+                  {{ scope.row.account_number.slice(0, 3) + '*' + scope.row.account_number.slice(-3) }}
                 </div>
               </template>
             </el-table-column>

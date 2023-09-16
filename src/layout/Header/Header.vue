@@ -364,12 +364,12 @@
           </li>
           <li v-if="!userInfoStore.isLogin">
             <!-- 用户认证页面   -->
-<!--            <router-link to="/signup" style="text-decoration: none">-->
-              <button class="btn-signup" @click="dialogTableVisible = true">
-                {{ $t("messages.header.signup") }}
-              </button>
-              <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"></SignChoose>
-<!--            </router-link>-->
+            <!--            <router-link to="/signup" style="text-decoration: none">-->
+            <button class="btn-signup" @click="dialogTableVisible = true">
+              {{ $t("messages.header.signup") }}
+            </button>
+            <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"></SignChoose>
+            <!--            </router-link>-->
           </li>
         </template>
       </ul>
@@ -385,7 +385,7 @@
                   class="sign-button">User
               </el-button>
             </router-link>
-<!--            <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>-->
+            <!--            <router-link to="/wallet" style="text-decoration: none; color: #fff"><span>Wallet</span></router-link>-->
           </div>
           <div class="button-group" v-else>
             <!-- <router-link to="/signup" style="text-decoration: none"><el-button class="sign-button">Sign
@@ -1248,20 +1248,25 @@ $regular-font: HarmonyOS_Sans_Regular;
 .highlight .alert-cont {
   color: #01c19a;
 }
-:deep(){
-  .sign-choose .choose-part .part-for[data-v-dd4dbe76]{
+
+:deep() {
+  .sign-choose .choose-part .part-for[data-v-dd4dbe76] {
     margin-top: -10px;
   }
-  .sign-choose .choose-part .part-when[data-v-dd4dbe76]{
+
+  .sign-choose .choose-part .part-when[data-v-dd4dbe76] {
     margin-top: -10px;
   }
-  .sign-choose .choose-part .to-sign[data-v-dd4dbe76]{
+
+  .sign-choose .choose-part .to-sign[data-v-dd4dbe76] {
     margin-top: -10px;
   }
-  .el-dialog__body{
+
+  .el-dialog__body {
     text-align: center;
   }
-  .el-dialog__headerbtn{
+
+  .el-dialog__headerbtn {
     z-index: 999;
   }
 }
