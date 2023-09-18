@@ -1258,14 +1258,14 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 
 :deep(.sign-choose .choose-part .part-for[data-v-dd4dbe76]) {
-  margin-top: -10px;
+  margin-top: -10px !important;
 }
 
 :deep(.sign-choose .choose-part .part-when[data-v-dd4dbe76]) {
-  margin-top: -10px;
+  margin-top: -10px !important;
 }
 
 :deep(.sign-choose .choose-part .to-sign[data-v-dd4dbe76]) {
-  margin-top: -10px;
+  margin-top: -10px !important;
 }
 </style>
