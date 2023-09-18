@@ -1249,25 +1249,23 @@ $regular-font: HarmonyOS_Sans_Regular;
   color: #01c19a;
 }
 
-:deep() {
-  .sign-choose .choose-part .part-for[data-v-dd4dbe76] {
-    margin-top: -10px;
-  }
+:deep(.el-dialog__body) {
+  text-align: center;
+}
 
-  .sign-choose .choose-part .part-when[data-v-dd4dbe76] {
-    margin-top: -10px;
-  }
+:deep( .el-dialog__headerbtn) {
+  z-index: 999;
+}
 
-  .sign-choose .choose-part .to-sign[data-v-dd4dbe76] {
-    margin-top: -10px;
-  }
+:deep(.sign-choose .choose-part .part-for[data-v-dd4dbe76]) {
+  margin-top: -10px;
+}
 
-  .el-dialog__body {
-    text-align: center;
-  }
+:deep(.sign-choose .choose-part .part-when[data-v-dd4dbe76]) {
+  margin-top: -10px;
+}
 
-  .el-dialog__headerbtn {
-    z-index: 999;
-  }
+:deep(.sign-choose .choose-part .to-sign[data-v-dd4dbe76]) {
+  margin-top: -10px;
 }
 </style>

@@ -67,7 +67,7 @@
 
           <div v-if="percentage === 20">
             <div class="create-number" style="line-height: 48px;">
-              I received a single-use code on my email code ending.
+              I received a single-use code on my email code.
               <br>
               Here it is:
               <span style="position: relative">
@@ -150,7 +150,7 @@
                 <span class="tip">*</span>
               </span>
             </div>
-            <div class="remind-box" >
+            <div class="remind-box" v-if="smsCode.length !== 6">
               <div class="remind-title" >
                 <img :src="icon_info"/> <span>Reminder</span>
               </div>
