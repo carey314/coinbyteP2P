@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogTableVisible" :destroy-on-close="true" class="sign-choose">
+  <el-dialog v-model="dialogTableVisible" :destroy-on-close="true" class="sign-choose" :class="{fromSign: fromSign}">
     <el-row :gutter="20">
       <el-col
           :md="12"
@@ -41,6 +41,13 @@ const router = useRouter();
 const dialogTableVisible = ref(false);
 
 const emits = defineEmits(['increase']);
+const props = defineProps({
+  // 在这里定义 props
+  fromSign: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 onMounted(() => {
   console.log("Button component mounted.");

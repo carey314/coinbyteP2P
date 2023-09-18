@@ -368,7 +368,7 @@
             <button class="btn-signup" @click="dialogTableVisible = true">
               {{ $t("messages.header.signup") }}
             </button>
-            <SignChoose v-model="dialogTableVisible" @increase="handleIncrease"></SignChoose>
+            <SignChoose v-model="dialogTableVisible" :fromSign="true" @increase="handleIncrease"></SignChoose>
             <!--            </router-link>-->
           </li>
         </template>
@@ -1256,16 +1256,8 @@ $regular-font: HarmonyOS_Sans_Regular;
 :deep( .el-dialog__headerbtn) {
   z-index: 999;
 }
-
-:deep(.sign-choose .choose-part .part-for[data-v-dd4dbe76]) {
-  margin-top: -10px !important;
-}
-
-:deep(.sign-choose .choose-part .part-when[data-v-dd4dbe76]) {
-  margin-top: -10px !important;
-}
-
-:deep(.sign-choose .choose-part .to-sign[data-v-dd4dbe76]) {
-  margin-top: -10px !important;
+:deep(.header-right .right-menu[data-v-f634b21b] .el-icon){
+  width: 16px;
+  height: 16px;
 }
 </style>

@@ -97,70 +97,102 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
- margin: 0;
- padding: 0;
- border: 0;
- font-size: 16px;
- font: inherit;
- /*font-family: HarmonyOS Sans,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;*/
- font-family: Helvetica-Neue;
- vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+    font: inherit;
+    /*font-family: HarmonyOS Sans,Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;*/
+    font-family: Helvetica-Neue;
+    vertical-align: baseline;
 }
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
- display: block;
+    display: block;
 }
+
 html {
- box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 *, *:before, *:after {
- box-sizing: inherit;
+    box-sizing: inherit;
 }
+
 body {
- line-height: 20px;
+    line-height: 20px;
 }
+
 ol, ul {
- list-style: none;
+    list-style: none;
 }
+
 blockquote, q {
- quotes: none;
+    quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
- content: '';
- content: none;
+    content: '';
+    content: none;
 }
+
 table {
- border-collapse: collapse;
- border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
+
 strong {
     font-weight: 600;
 }
 
 
 /* 清除浮动 */
-.clearfloat:after{
-  display:block;
-  clear:both;
-  content:"";
-  visibility:hidden; height:0;
+.clearfloat:after {
+    display: block;
+    clear: both;
+    content: "";
+    visibility: hidden;
+    height: 0;
 }
-.clearfloat{zoom:1}
+
+.clearfloat {
+    zoom: 1
+}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 input[type=number] {
-  -moz-appearance: textfield;
+    -moz-appearance: textfield;
 }
-.blog ul{
-   padding-left: 40px;
+
+.blog ul {
+    padding-left: 40px;
 
 }
-.blog li{
-   list-style: disc;
+
+.blog li {
+    list-style: disc;
+}
+
+.fromSign {
+    .part-for {
+        margin-top: -10px !important;
+    }
+
+    .part-when {
+        margin-top: -10px !important;
+    }
+
+    .to-sign {
+        margin-top: -10px !important;
+    }
+
+    border-radius: 8px !important;
+
 }

@@ -75,7 +75,7 @@
                 <span class="tip">*</span>
               </span>
             </div>
-            <div class="remind-box" v-if="!isValidPhone">
+            <div class="remind-box" v-if="emailCode.length < 6">
               <div class="remind-title">
                 <img :src="icon_info"/> <span>Reminder</span>
               </div>
@@ -187,7 +187,7 @@
                 <span class="tip" v-if="passwordInput === ''">*</span>
               </span>
             </div>
-            <div class="remind-box" v-if="passwordInput === '' || !isPasswordValid">
+            <div class="remind-box" v-if="!isPasswordValid">
               <div class="remind-title">
                 <img :src="icon_info"/> <span style="font-weight: 500">Reminder</span>
               </div>
