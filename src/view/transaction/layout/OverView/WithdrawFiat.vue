@@ -883,6 +883,7 @@ $fontSizeMin: 12px;
     font-size: 20px;
     color: #000;
     line-height: 25px;
+    margin-top: 12px;
   }
   .tips {
     .tips-faq {

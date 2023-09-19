@@ -30,9 +30,7 @@ onMounted(() => {
   window.addEventListener("resize", resetWidth);
   // 买 buy 卖 sell
   const type = route.query.type as string;
-  console.log(type, '123810283012830')
   genKycToken({type}).then((res) => {
-    console.log(res, 'token 1111111')
     launchWebSdk(res.data.data.token);
   });
 
@@ -74,7 +72,6 @@ function launchWebSdk(token: string) {
         console.log('onError', error)
       })
       .on('idCheck.applicantStatus', (res) => {
-        console.log(res.reviewStatus,'000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')
         if (res.reviewStatus === 'completed') {
           if (route.query.type === 'sell') {
             router.push('/user/bankaccount');

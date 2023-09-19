@@ -8,7 +8,7 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 
-.nz-divider{
+.nz-divider {
   border-right: 1px solid #eee;
 
   @media (max-width: 992px) {
@@ -32,7 +32,8 @@ $fontSizeMin: 12px;
     overflow-x: hidden;
   }
 }
-:deep(.el-dialog__header){
+
+:deep(.el-dialog__header) {
   padding: 0;
 }
 
@@ -56,6 +57,7 @@ $fontSizeMin: 12px;
 
   .alert-box {
     word-break: break-word;
+
     .alert-title {
       color: #060606;
       font-size: 22px;
@@ -344,6 +346,7 @@ img {
             gap: 5px;
           }
         }
+
         .frame {
           width: 381px;
           @media (max-width: 992px) {
@@ -429,15 +432,18 @@ img {
   color: #fff !important;
   --el-button-hover-bg-color: #56be93;
 }
-.nz-learn-img{
+
+.nz-learn-img {
   width: 140px;
   height: 50px;
-  img{
+
+  img {
     width: 100%;
     height: 100%;
     object-fit: contain;
   }
 }
+
 .homeContainer {
   width: 100%;
   height: 100%;
@@ -703,6 +709,7 @@ img {
 
         .tab-content {
           text-align: left;
+          margin-top: 20px;
 
           .tab-content-title {
             font-size: 28px;
@@ -736,7 +743,7 @@ img {
     .trade-btn {
       width: 125px;
       height: 48px;
-      margin-top: 30px;
+      margin-top: 70px;
       @media (max-width: 985px) {
         & {
           width: 40%;
@@ -1295,6 +1302,7 @@ footer {
 
           &:hover {
             color: #fafafa;
+
             a {
               color: #ffffff !important;
             }

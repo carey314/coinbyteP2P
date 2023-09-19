@@ -48,10 +48,6 @@ const props = defineProps({
     default: false,
   },
 });
-
-onMounted(() => {
-  console.log("Button component mounted.");
-});
 const toSign = (type: string) => {
   router.replace(`/signup?type=${type}`);
   emits('increase', false);

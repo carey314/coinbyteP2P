@@ -469,9 +469,8 @@ const handleIncrease = (val: any) => {
 
 onMounted(async () => {
   if (!userInfoStore.isLogin) {
-    console.log("----is login!!!!")
-  } else {
 
+  } else {
     notices.value = [
       {
         id: "1",

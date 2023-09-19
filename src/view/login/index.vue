@@ -297,7 +297,7 @@ const rules = computed(() => {
 
 const userInfoStore = useUserInfoStore();
 const {token, username, userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
-console.log("islogin", userInfoStore.isLogin);
+// console.log("islogin", userInfoStore.isLogin);
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
@@ -334,7 +334,6 @@ const options = Object.entries(countryList).map(([key, values]) => ({
     label: item.commonName,
   })),
 }));
-console.log(options, 55555);
 const isShowPass = ref(false);
 const showPassWord = () => {
   isShowPass.value = !isShowPass.value;

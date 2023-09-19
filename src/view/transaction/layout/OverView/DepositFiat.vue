@@ -1369,7 +1369,7 @@ $fontSizeMin: 12px;
           margin-top: 20px;
 
           .fait-rule-item {
-            width: 432px;
+            //width: 432px;
             display: flex;
             justify-content: space-between;
             font-size: 14px;
@@ -1429,7 +1429,8 @@ $fontSizeMin: 12px;
         }
 
         .continue-btn {
-          width: 442px;
+          //width: 442px;
+          width: 100%;
           height: 60px;
           margin-top: 28px;
           font-size: 20px;
