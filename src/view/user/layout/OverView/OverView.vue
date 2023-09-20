@@ -323,12 +323,15 @@ async function submitPasswordForm(formEl: FormInstance | undefined) {
   // 调用 API 校验密码
   const res = await verifyPassword(passwordFormData.password, passwordFormData.newEmail);
   if (res.data.msg === 'success') {
+    console.log(res.data,'=======')
     passwordFormData.token = res.data.data.token; // 保存返回的 token
     passwordDialog.value = false;
     openEmailDialog.value = true;
-  } else {
-    ElMessage.error('Incorrect password. Please try again!');
-  }
+  } else if(res.data.msg === 'email in use'){
+      ElMessage.error('Error: Email in use!');
+    } else {
+      ElMessage.error('Incorrect password. Please try again!');
+    }
 }
 
 // 邮箱
