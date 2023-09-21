@@ -455,7 +455,7 @@ const phoneNumberInput = () => {
           phoneNumberInputDisabled.value = false;
           ElMessage({ message: "Please try again later.", type: "error" });
         });
-    
+
   }
 };
 
@@ -549,10 +549,9 @@ const successContinue = async (formEl: FormInstance | undefined) => {
         ElMessage({message: "Count has been registered", type: "error",});
       } else {
         userInfoStore.updateUserInfo(res.data.data);
+        router.replace("/kyc?type=" + type.value);
         percentage.value = 100;
         ElMessage({message: "Registration successful.", type: "success",});
-        router.push("/kyc?type=" + type.value);
-        console.log(type.value,'999999999999999999999999999999999')
       }
     } else {
       ElMessage({message: "Please try again later.", type: "error",});
