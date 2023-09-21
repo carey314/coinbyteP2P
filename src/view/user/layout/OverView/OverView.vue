@@ -302,7 +302,18 @@ const passwordFormData = reactive({
 });
 const passwordFormRules = {
   password: [
-    { required: true, message: "Please enter password", trigger: "blur" }
+    { required: true, message: "Please enter password", trigger: "blur" },
+    {
+      min: 8,
+      max: 32,
+      message: "Password must be between 8 and 32 characters",
+      trigger: "blur",
+    },
+    {
+      pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+      message: "At least one lowercase letter, one uppercase letter, and one number",
+      trigger: "blur",
+    },
   ],
   newEmail: [
     { type: "email", message: "Invalid email format", trigger: "blur" }
@@ -329,7 +340,11 @@ async function submitPasswordForm(formEl: FormInstance | undefined) {
     openEmailDialog.value = true;
   } else if(res.data.msg === 'email in use'){
       ElMessage.error('Error: Email in use!');
-    } else {
+    }
+  else if(res.data.msg === 'wrong pass word'){
+    ElMessage.error('Error: Wrong password!');
+  }
+  else {
       ElMessage.error('Incorrect password. Please try again!');
     }
 }
