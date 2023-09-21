@@ -549,7 +549,8 @@ const successContinue = async (formEl: FormInstance | undefined) => {
         ElMessage({message: "Count has been registered", type: "error",});
       } else {
         userInfoStore.updateUserInfo(res.data.data);
-        router.replace("/kyc?type=" + type.value);
+        const routeType = type.value || "buy";
+        router.push("/kyc?type=" + routeType);
         percentage.value = 100;
         ElMessage({message: "Registration successful.", type: "success",});
       }

@@ -200,7 +200,7 @@
                       </div>
                     </div>
                   </el-dropdown-item>
-                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px"/>
+                  <el-divider style="margin: 10px;margin-left: 0px"/>
                   <el-dropdown-item class="user-dropdown-item">
                     <router-link to="/user" style="text-decoration: none;">
                       <div class="user-box">
@@ -261,7 +261,7 @@
                       </div>
                     </router-link>
                   </el-dropdown-item>
-                  <el-divider style="margin: 10px; width: 266px; margin-left: -20px"/>
+                  <el-divider style="margin: 10px;margin-left: 0px"/>
                   <div class="logout" @click="handleToLogOut">
                     {{ $t("messages.header.logout") }}
                   </div>
@@ -1156,7 +1156,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 .user-dropdown-menu {
   text-align: center;
   // margin-left: 10%;
-  width: 246px;
+  //width: 246px;
 
   .user-dropdown-info {
     .user-head-box {
@@ -1195,7 +1195,7 @@ $regular-font: HarmonyOS_Sans_Regular;
     .user-verify {
       border: 1px solid #dfdfe5;
       border-radius: 3px;
-      width: 198px;
+      width: 100%;
       height: 36px;
       display: flex;
       justify-content: center;
@@ -1231,8 +1231,8 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   .logout {
-    width: 246px;
-    padding: 10px 0;
+    //width: 246px;
+    padding: 0 0 10px 0;
     font-size: 12px;
     color: #000000;
     line-height: 15px;
