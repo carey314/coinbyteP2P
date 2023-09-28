@@ -6,11 +6,11 @@
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
- 
+
  onMounted(() => {
    document.body.style.setProperty('--el-color-primary', '#01c19a');
  })
- 
+
 </script>
 
 <style scoped lang="scss">
