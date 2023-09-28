@@ -10,7 +10,7 @@
       <el-row>
         <el-col :span="24" :xs="24">
           <div class="sign-title">
-            <div class="create-title">Account Creation</div>
+            <!-- <div class="create-title">Account Creation</div> -->
             <div class="previous-btn" @click="decreasePercentage" v-if="percentage !== 0">
               <el-icon>
                 <Back/>
@@ -67,7 +67,7 @@
 
           <div v-if="percentage === 20">
             <div class="create-number" style="line-height: 48px;">
-              I received a single-use code on my email code.
+              I received a single-use code on my email.
               <br>
               Here it is:
               <span style="position: relative">
@@ -96,9 +96,9 @@
 
           <div v-if="percentage === 40">
             <div class="create-number">
-              My phone number is
+              My mobile number is
               <span style="position: relative">
-                <el-input v-model="phoneInput" placeholder="+00 000 000 000"/>
+                <el-input v-model="phoneInput" placeholder="+00 000 000 000" @blur="phoneBlur"/>
                 <span class="tip" >*</span>
               </span>
               . I'll use it whenever I log in to COINBYTEP2P.
@@ -156,7 +156,7 @@
               </div>
               <div class="remind-tip">* Fill out the empty field.</div>
               <div class="remind-tip">
-                * Please enter the correct single-use code
+                * Please enter + Country Code and mobile Number
               </div>
             </div>
             <el-button
@@ -702,6 +702,11 @@ const options = ref([
 //     console.log(res.data);
 //   });
 // };
+const phoneBlur= () => {
+  if(!phoneInput.value.startsWith('+')) {
+    phoneInput.value = '+' + phoneInput.value;
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -831,9 +836,23 @@ $fontSizeMin: 12px;
   .el-input__wrapper {
     border-radius: 0;
     box-shadow: none;
-    border-bottom: 1px solid #060606;
+    // border-bottom: 1px solid #060606;
+    position: relative;
   }
 
+  .el-input__wrapper::before {
+      content: '';
+      position: absolute;
+      top: 34px;
+      width: 100%;
+      height: 5px;
+
+      background:
+          linear-gradient(150deg, transparent, transparent 45%, #000000, transparent 55%, transparent 100%),
+          linear-gradient(30deg, transparent, transparent 45%, #000000, transparent 55%, transparent 100%);
+      background-size: 10px 10px;
+      background-repeat: repeat-x, repeat-x;
+  }
   .el-input__inner {
     color: #000;
     font-size: 32px;
@@ -843,7 +862,6 @@ $fontSizeMin: 12px;
     padding-bottom: 5px;
     font-family: Helvetica-Neue;
   }
-
   .el-button.is-disabled,
   .el-button.is-disabled:focus,
   .el-button.is-disabled:hover {

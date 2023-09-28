@@ -602,8 +602,8 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.service") }}</li>
-            <li>🇦🇺 {{ $t("messages.footer.service_instant") }}</li>
-            <li>🇳🇿 {{ $t("messages.footer.Zealand") }}</li>
+            <li><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</li>
+            <li><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</li>
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
@@ -772,10 +772,10 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  🇦🇺 {{ $t("messages.footer.service_instant") }}
+                  <span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}
                 </div>
                 <div class="list-item">
-                  🇳🇿 {{ $t("messages.footer.Zealand") }}
+                  <span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}
                 </div>
               </el-collapse-item>
               <el-collapse-item name="4">
@@ -1327,6 +1327,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 @import "./index.scss";
+@import url('../login/statics/css/flag-icons.min.css');
 
 .icon-links {
   text-align: right;

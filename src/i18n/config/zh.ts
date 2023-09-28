@@ -558,7 +558,7 @@ export default {
       overview_Verification: "验证",
       Verification_con: "验证您的身份以增加提款限额并获得更多功能的访问权限",
       Verification_Verify: "验证",
-      Verification_Unverified: "未验证",
+      Verification_Unverified: "验证正在进行中",
       Verification_verified: "已验证",
       overview_Bank: "银行账户",
       Bank_con:

@@ -564,7 +564,7 @@ export default {
             label_orders: "Pay my orders",
             label_Security: "Security",
             label_Verification: "Verification",
-            label_Bank: "Get my order paid",
+            label_Bank: "Bank account",
             label_Preferences: "Security and Preference",
             table: "No records found",
             overview_Profile: "My Profile",
@@ -579,9 +579,9 @@ export default {
             Security_features: "Manage security features",
             overview_Verification: "Verification",
             Verification_con:
-                "Get Verified to increase withdrawal limits and gain access to more features",
+                "Get verified to gain access to buy and sell",
             Verification_Verify: "Verify",
-            Verification_Unverified: "Unverified",
+            Verification_Unverified: "Verification in Progress",
             Verification_verified: "Verified",
             overview_Bank: "Bank account",
             Bank_con:

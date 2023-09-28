@@ -49,7 +49,7 @@
                             :label="item.telephoneCode"
                             :value="item.telephoneCode"
                         >
-                          <div><span style="">{{ item.nationalFlag }}</span>{{ item.label }} <span
+                          <div><span class="flag-icon" :class="'flag-icon-' + item.id.toLowerCase()"></span>&nbsp;&nbsp;{{ item.label }} <span
                               style="float: right;">+{{ item.telephoneCode }}</span></div>
 
                         </el-option>
@@ -265,6 +265,7 @@ import {countryList} from "./countries";
 import {useI18n} from "vue-i18n";
 import {Right} from "@element-plus/icons";
 
+
 const {t} = useI18n();
 const ruleFormRef = ref<FormInstance>();
 const dialogTableVisible = ref(false);
@@ -465,6 +466,7 @@ const clearValidate = (formEl: FormInstance | undefined) => {
 </script>
 
 <style scoped lang="scss">
+@import url('./statics/css/flag-icons.min.css');
 $headerBackGround: #1d262f;
 $bg-color: #fff;
 $main-color: #01c19a;
@@ -1278,4 +1280,6 @@ $fontSizeMin: 12px;
   margin-top: 30px;
   width: 100%;
 }
+
+
 </style>

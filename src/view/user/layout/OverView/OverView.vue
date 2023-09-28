@@ -9,10 +9,10 @@
             <div class="info-name profile-title">
               <!-- Aar***@hotmail.com -->
 <!--              {{ userInfo && userInfo.email }}-->
-              {{
+              <!-- {{
                 userInfo && userInfo.email?.slice(0, 2) + "***" + userInfo.email?.slice(userInfo.email?.indexOf("@"))
-              }}
-              <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click=openPasswordDialog />
+              }} -->
+              <!-- <img :src="myprofile_edit" style="margin-left: 8px;cursor: pointer" @click=openPasswordDialog /> -->
               <el-dialog
                   class="inner-dialog"
                   v-model="passwordDialog"
@@ -94,9 +94,15 @@
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Email') }}</div>
             <div class="info-count" style="color: #000">
-              {{
-                userInfo && userInfo.email?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2) + userInfo.email?.slice(userInfo.email?.indexOf("@"))
-              }}
+              <div style="display: flex; gap: 5px; align-items: center;">
+                {{
+                  userInfo && userInfo.email?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2) + userInfo.email?.slice(userInfo.email?.indexOf("@"))
+                }}
+              <div class="info-count">
+                <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+                <img class="verify-img" :src="registered_icon"/>
+              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -106,9 +112,12 @@
           </div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Phone') }}</div>
-            <div class="info-count">
-              <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span>Verify</span>
+            <div style="display: flex; gap: 5px; align-items: center;">
+              {{ userInfo && userInfo.phone?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2)}}
+              <div class="info-count">
+                <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
+                <img class="verify-img" :src="registered_icon"/>
+              </div>
             </div>
           </div>
         </div>
@@ -124,7 +133,8 @@
                 {{ $t('messages.user.Security_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_security"/>
+                <!-- <img :src="usercenter_icon_security"/> -->
+                <img :src="usercenter_icon_bankaccount"/>
               </div>
             </div>
             <el-divider style="margin-left: -30px; width: 1000px"/>
@@ -140,7 +150,7 @@
                   </el-icon>
                 </router-link>
               </div>
-              <div class="bottom-tip">{{ $t('messages.user.Security_features') }}: 4</div>
+              <!-- <div class="bottom-tip">{{ $t('messages.user.Security_features') }}: 4</div> -->
             </div>
           </el-card>
         </el-col>
@@ -196,7 +206,8 @@
                 {{ $t('messages.user.Bank_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_bankaccount"/>
+                <!-- <img :src="usercenter_icon_bankaccount"/> -->
+                <img :src="usercenter_icon_preferences"/>
               </div>
             </div>
             <el-divider style="margin-left: -30px; width: 1000px"/>
@@ -223,7 +234,7 @@
                 {{ $t('messages.user.Preferences_con') }}
               </div>
               <div class="card-img">
-                <img :src="usercenter_icon_preferences"/>
+                <img :src="usercenter_icon_security"/>
               </div>
             </div>
             <el-divider style="margin-left: -30px; width: 1000px"/>

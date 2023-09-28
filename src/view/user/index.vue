@@ -24,6 +24,13 @@
               </template>
             </el-tab-pane>
 
+            <el-tab-pane :label="t('messages.user.label_Bank')" name="fourth" :lazy="true">
+              <template #label>  
+                <div class="click-success" @click="changeTab('bankaccount')">
+                  {{ t('messages.user.label_Bank') }}
+                </div>
+              </template>
+            </el-tab-pane>
             <el-tab-pane :label="t('messages.user.label_Verification')" name="third" :lazy="true">
               <template #label>  
                 <div class="click-success" @click="changeTab('verification')">
@@ -32,13 +39,6 @@
               </template>
             </el-tab-pane>
 
-            <el-tab-pane :label="t('messages.user.label_Bank')" name="fourth" :lazy="true">
-              <template #label>  
-                <div class="click-success" @click="changeTab('bankaccount')">
-                  {{ t('messages.user.label_Bank') }}
-                </div>
-              </template>
-            </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_Preferences')" name="fifth" :lazy="true">
               <template #label>  
