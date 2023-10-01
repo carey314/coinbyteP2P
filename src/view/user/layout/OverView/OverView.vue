@@ -384,7 +384,7 @@ async function submitEmailForm() {
   if (res.status === 200) {
     switch (res.data.code) {
       case 9001:
-        ElMessage.error('verify code not right!');
+        ElMessage.error('Verify code not right!');
         break
       case 1:
         ElMessage.success('Email updated successfully!');

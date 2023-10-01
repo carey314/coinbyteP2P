@@ -60,11 +60,11 @@
                 </el-input>
               </el-form-item>
             </el-tab-pane>
-            <el-tab-pane label="Email" name="second">
-              <el-form-item class="login-referral" prop="username">
-                <el-input v-model="form.username" placeholder="Email"/>
-              </el-form-item>
-            </el-tab-pane>
+<!--            <el-tab-pane label="Email" name="second">-->
+<!--              <el-form-item class="login-referral" prop="username">-->
+<!--                <el-input v-model="form.username" placeholder="Email"/>-->
+<!--              </el-form-item>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
 
           <el-form-item class="login-password" prop="password">
@@ -180,11 +180,11 @@
                 </el-input>
               </el-form-item>
             </el-tab-pane>
-            <el-tab-pane label="Email" name="second">
-              <el-form-item class="login-referral" prop="username">
-                <el-input v-model="form.username" placeholder="Email"/>
-              </el-form-item>
-            </el-tab-pane>
+<!--            <el-tab-pane label="Email" name="second">-->
+<!--              <el-form-item class="login-referral" prop="username">-->
+<!--                <el-input v-model="form.username" placeholder="Email"/>-->
+<!--              </el-form-item>-->
+<!--            </el-tab-pane>-->
           </el-tabs>
 
           <el-form-item class="login-password" prop="password">
@@ -356,7 +356,7 @@ const decrease = () => {
   }
 };
 
-const activeLogin = ref("second");
+const activeLogin = ref("first");
 // const handleClick = (tab: TabsPaneContext, event: Event) => {
 //   console.log(tab, event)
 // }
@@ -431,7 +431,7 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               if (response.code === 9001) {
                 ElMessage.error("User not exist!");
               } else if (response.code === 9002) {
-                ElMessage.error("Wrong pass word!");
+                ElMessage.error("Wrong password!");
               } else {
                 ElMessage.error("Login failed. Please try again later!");
               }
