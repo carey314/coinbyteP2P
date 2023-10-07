@@ -424,7 +424,6 @@ $fontSizeMin: 12px;
     }
     .el-step__title.is-finish {
       color: #000;
-      font-weight: 500;
     }
     .el-step__title.is-process {
       font-weight: 500;

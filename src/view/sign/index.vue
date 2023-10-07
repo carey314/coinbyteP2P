@@ -92,6 +92,14 @@
             >
               Continue
             </el-button>
+            <el-button
+                class="resend-btn"
+                type="text"
+                :disabled="countdown > 0"
+                @click="resendEmailVerification()"
+            >
+              {{ countdown > 0 ? `Resend in ${countdown}s` : 'Resend Email Verification' }}
+            </el-button>
           </div>
 
           <div v-if="percentage === 40">
@@ -167,6 +175,14 @@
                 @click="phoneConfirmed()"
             >
               Continue
+            </el-button>
+            <el-button
+                class="resend-btn"
+                type="text"
+                :disabled="countdown > 0"
+                @click="resendSMSVerification()"
+            >
+              {{ countdown > 0 ? `Resend in ${countdown}s` : 'Resend SMS Verification' }}
             </el-button>
           </div>
 
@@ -252,15 +268,128 @@ const userInfoStore = useUserInfoStore();
 const router = useRouter();
 
 const route = useRoute();
+const count = ref(0);
 
 const type: any = ref('');
+const countdown = ref(0);
 onMounted(() => {
   console.log(route.query);
   if(route.query.type) {
     type.value = route.query.type;
+  };
+  if (percentage.value === 20) {
+    // 如果在第一个步骤，则初始化邮箱验证码的倒计时
+    startEmailCountdown(); // 启动邮箱验证码的倒计时
+  } else if (percentage.value === 60) {
+    // 如果在第二个步骤，则初始化手机验证码的倒计时
+    startSMSCountdown(); // 启动手机验证码的倒计时
   }
 })
 
+// 启动邮箱验证码的倒计时
+const startEmailCountdown = () => {
+  if (countdown.value === 0) {
+    countdown.value = 60; // 设置倒计时初始值为 60 秒
+    const countdownInterval = setInterval(() => {
+      countdown.value--;
+      if (countdown.value === 0) {
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+  }
+};
+
+const startSMSCountdown = () => {
+  if (countdown.value === 0) {
+    countdown.value = 60; // 设置倒计时初始值为 60 秒
+    const countdownInterval = setInterval(() => {
+      countdown.value--;
+      if (countdown.value === 0) {
+        clearInterval(countdownInterval);
+      }
+    }, 1000);
+  }
+};
+const resendEmailVerification = () => {
+  if (isValidEmail.value) {
+    const email = emailInput.value.toLowerCase(); // 将输入的邮箱转换为小写形式
+
+    // if (isEmailVerified.value) {
+    //   // 如果邮箱已完成手机验证，则无需再次验证
+    //   percentage.value = 20;
+    //   registeredEmails.value.push(email); // 将邮箱添加到已注册邮箱数组中
+    //   console.log('aaaaa');
+    // } else {
+    initializeSignUpWizardDisabled.value = true;
+    initializeSignUpWizard({
+      email: email, // 使用小写形式的邮箱
+    })
+        .then((res: any) => {
+          initializeSignUpWizardDisabled.value = false;
+          if (res.data && (res.status === 200 || res.status === 202)) {
+            if (res.data.code === 9001) {
+              ElMessage({message: "Email has been registered", type: "error"});
+            } else {
+              percentage.value = 20;
+              registeredEmails.value.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
+              startEmailCountdown(); // 启动邮箱验证码的倒计时
+            }
+          } else {
+            ElMessage({message: "Please try again later.", type: "error"});
+          }
+        })
+        .catch((err) => {
+          initializeSignUpWizardDisabled.value = false;
+          ElMessage({message: "Please try again later.", type: "error"});
+        });
+  }
+};
+const resendSMSVerification = () => {
+  if (isValidPhone.value) {
+    const phoneNumber = phoneInput.value;
+
+    // 在这里处理重新发送手机验证码的逻辑，发送请求重新发送手机验证码的 API 请求
+    // 以下是示例代码，请根据你的实际情况进行修改
+    phoneSignup({
+      phone: phoneNumber,
+    })
+        // .then((res) => {
+        //   if (res.data && (res.status === 200 || res.status === 202)) {
+        //     if (res.data.code === 9002) {
+        //       ElMessage({ message: "Phone number has been registered", type: "error" });
+        //     } else {
+        //       // 请求成功，可以在这里调用 startSMSCountdown 方法来重新启动倒计时
+        //       startSMSCountdown(); // 启动手机验证码的倒计时
+        //       ElMessage({ message: "SMS verification code has been sent.", type: "success" });
+        //     }
+        //   } else {
+        //     ElMessage({ message: "Please try again later.", type: "error" });
+        //   }
+        // })
+        // .catch((err) => {
+        //   ElMessage({ message: "Please try again later.", type: "error" });
+        // });
+
+  .then((res: any) => {
+      phoneNumberInputDisabled.value = false;
+      if (res.data && (res.status === 200 || res.status === 202)) {
+        if (res.data.code === 9002) {
+          ElMessage({ message: "Phone number has been registered", type: "error" });
+        } else {
+          startSMSCountdown(); // 启动手机验证码的倒计时
+          ElMessage({ message: "SMS verification code has been sent.", type: "success" });
+
+        }
+      } else {
+        ElMessage({ message: "Please try again later.", type: "error" });
+      }
+    })
+        .catch((err) => {
+          phoneNumberInputDisabled.value = false;
+          ElMessage({ message: "Please try again later.", type: "error" });
+        });
+  }
+};
 const {t} = useI18n();
 const fingerprintStore = useFingerprintStore();
 
