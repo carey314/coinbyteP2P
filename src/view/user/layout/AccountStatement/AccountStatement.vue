@@ -42,21 +42,24 @@
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verified</span>
+              <img class="verify-img" :src="registered_icon"/>
+              <span style="margin-left: 5px;margin-top: 6px;font-size: 14px">
+                {{$t("messages.user.verified") }}
+              </span>
             </div>
           </div>
           <div class="content-item-btn" v-if="index == 1">
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verified</span>
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px"> {{$t("messages.user.verified") }}</span>
             </div>
           </div>
           <div class="content-item-btn" v-if="index == 2">
 <!--              <GetButton class="func-btn" :text="t('messages.user.set_btn')"/>-->
             <div class="info-count">
               <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
-              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px">Verified</span>
+              <img class="verify-img" :src="registered_icon"/><span style="margin-left: 5px;margin-top: 6px;font-size: 14px"> {{$t("messages.user.verified") }}</span>
             </div>
           </div>
         </div>

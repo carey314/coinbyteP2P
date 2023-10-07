@@ -376,6 +376,7 @@ export default {
             continue_login: "Continue to login",
         },
         user: {
+            verified:"Verified",
             label_overview: "Overview",
             label_orders: "Pay my orders",
             label_Security: "Security",

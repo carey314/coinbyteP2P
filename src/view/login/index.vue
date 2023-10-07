@@ -348,6 +348,7 @@ const getVerificationCode = async () => {
     } else {
       ElMessage.error(response.data.msg);
       getCodeLoading.value = false;
+      getCodeDisabled.value = false;
     }
   } catch (error) {
     ElMessage.error("Failed to get verification code.");
@@ -453,8 +454,12 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               if (response.code === 9001) {
                 ElMessage.error("User not exist!");
               } else if (response.code === 9002) {
-                ElMessage.error("Wrong password!");
-              } else {
+                ElMessage.error("The verification code is incorrect. Please check and try again.");
+              } else if (response.code === 9003) {
+                ElMessage.error("The verification code is incorrect. Please check and try again.");
+              } else if (response.code === 9004) {
+                ElMessage.error("The verification code has expired. Please request a new one.");
+              }else {
                 ElMessage.error("Login failed. Please try again later!");
               }
             }

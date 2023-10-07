@@ -98,7 +98,7 @@
             <div class="create-number">
               My mobile number is
               <span style="position: relative">
-                <el-input v-model="phoneInput" placeholder="+00 000 000 000" @blur="phoneBlur"/>
+                <el-input v-model="phoneInput" placeholder="+00 000 000 000" @input="phoneBlur"/>
                 <span class="tip" >*</span>
               </span>
               . I'll use it whenever I log in to COINBYTEP2P.
@@ -398,8 +398,12 @@ const emailConfirmed = () => {
         token1.token = res.data.data.token;
         percentage.value = 40;
         isEmailVerified.value = true; // 邮箱验证完成，将标志位设置为true
-      } else {
-        ElMessage({message: "Email code not correct", type: "error"});
+      } else if (res.data.code === 9003) {
+        ElMessage.error("The verification code is incorrect. Please check and try again.");
+      } else if (res.data.code === 9004) {
+        ElMessage.error("The verification code has expired. Please request a new one.");
+      }else {
+        ElMessage({message: "The verification code is incorrect. Please check and try again.", type: "error"});
       }
     } else {
       ElMessage({message: "Please try again later.", type: "error"});
@@ -703,10 +707,21 @@ const options = ref([
 //     console.log(res.data);
 //   });
 // };
-const phoneBlur= () => {
-  if(!phoneInput.value.startsWith('+')) {
-    phoneInput.value = '+' + phoneInput.value;
+const phoneBlur = () => {
+  let input = phoneInput.value.replace(/[^\d+]/g, '');
+
+  // 格式化手机号，添加空格
+  let formatted = '';
+  let chunkSize = 3; // 每隔三个数字添加一个空格
+
+  for (let i = 0; i < input.length; i++) {
+    if (i > 0 && i % chunkSize === 0) {
+      formatted += ' '; // 添加空格
+    }
+    formatted += input[i];
   }
+
+  phoneInput.value = formatted;
 }
 </script>
 

@@ -266,7 +266,7 @@
                                 >Click Here</span
                               >
                             </div>
-  
+
                             <div class="detail-card">
                               <div class="card-item">
                                 <div class="item-title">
@@ -1031,7 +1031,7 @@ $fontSizeMin: 12px;
       font-size: $fontSizeMed;
       color: #000;
       line-height: 32px;
-      font-weight: bold;
+      //font-weight: bold;
     }
 
     .header-toFiat {

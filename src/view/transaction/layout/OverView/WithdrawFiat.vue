@@ -420,7 +420,7 @@ $fontSizeMin: 12px;
       --el-button-hover-bg-color: #01c19a;
     }
     .el-step.is-vertical .el-step__title {
-      font-size: 26px;
+      font-size: 20px;
     }
     .el-step__title.is-finish {
       color: #000;
@@ -447,8 +447,8 @@ $fontSizeMin: 12px;
     justify-content: space-between;
     .header-title {
       line-height: 32px;
-      font-weight: bold;
-      font-size: 36px;
+      //font-weight: bold;
+      font-size: 26px;
       color: #060606;
     }
     .header-toFiat {

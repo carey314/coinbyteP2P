@@ -363,6 +363,7 @@ export default {
       continue_login: "继续登录",
     },
     user: {
+      verified:"已验证",
       label_overview: "概述",
       label_orders: "支付我的订单",
       label_Security: "安全",
