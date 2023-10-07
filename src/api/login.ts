@@ -6,7 +6,7 @@ function getLoginUUID () {{
 }}
 
 function toLogin (data : any) {
-    return http.post('/login',data);
+    return http.post('/sign_in_verify',data);
 }
 
 function getLoginHistory(search: PageSearchData) {
@@ -20,6 +20,9 @@ function forgotPassGetCode(email: string) {
 function forgotPassValidCode(token: string, code: any) {
     return http.post('/forget_pass_verify', { token, code });
 }
+function getVerificationCodeApi(phone: string) {
+    return http.post('/sign_in', { phone });
+}
 
 function forgotPassUpdatePass(token: string, new_pass: string) {
     return http.post('/forget_pass_change', { token, new_pass });
@@ -31,5 +34,6 @@ export {
     getLoginHistory,
     forgotPassGetCode,
     forgotPassValidCode,
-    forgotPassUpdatePass
+    forgotPassUpdatePass,
+    getVerificationCodeApi
 }

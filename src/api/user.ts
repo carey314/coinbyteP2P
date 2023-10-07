@@ -70,6 +70,7 @@ function phoneVefify (data : phoneVerify) {
     return http.post(`/reg/phone_verify`,data);
 }
 interface phoneVerify {
+    "type": string
     "code": string
     "phone": string
     "token": string

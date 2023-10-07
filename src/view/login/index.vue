@@ -49,8 +49,10 @@
                             :label="item.telephoneCode"
                             :value="item.telephoneCode"
                         >
-                          <div><span class="flag-icon" :class="'flag-icon-' + item.id.toLowerCase()"></span>&nbsp;&nbsp;{{ item.label }} <span
-                              style="float: right;">+{{ item.telephoneCode }}</span></div>
+                          <div><span class="flag-icon" :class="'flag-icon-' + item.id.toLowerCase()"></span>&nbsp;&nbsp;{{
+                              item.label
+                            }} <span
+                                style="float: right;">+{{ item.telephoneCode }}</span></div>
 
                         </el-option>
                       </el-option-group>
@@ -60,34 +62,28 @@
                 </el-input>
               </el-form-item>
             </el-tab-pane>
-<!--            <el-tab-pane label="Email" name="second">-->
-<!--              <el-form-item class="login-referral" prop="username">-->
-<!--                <el-input v-model="form.username" placeholder="Email"/>-->
-<!--              </el-form-item>-->
-<!--            </el-tab-pane>-->
+            <!--            <el-tab-pane label="Email" name="second">-->
+            <!--              <el-form-item class="login-referral" prop="username">-->
+            <!--                <el-input v-model="form.username" placeholder="Email"/>-->
+            <!--              </el-form-item>-->
+            <!--            </el-tab-pane>-->
           </el-tabs>
 
-          <el-form-item class="login-password" prop="password">
+
+          <el-form-item>
             <el-input
-                v-model="form.password"
-                :type="isShowPass ? 'text' : 'password'"
-                placeholder="Password"
+                v-model="form.code"
+                placeholder="Verification Code"
+            ></el-input>
+            <el-button
+                v-loading="getCodeLoading"
+                :disabled="getCodeDisabled"
+                @click="getVerificationCode"
             >
-              <template #prefix>
-                <img :src="login_password"/>
-              </template>
-              <template v-if="!isShowPass" #suffix>
-                <img :src="login_eye_off" @click="showPassWord"/>
-              </template>
-              <template v-else #suffix>
-                <img
-                    :src="login_eye_view"
-                    style="width: 22px; height: 17px"
-                    @click="showPassWord"
-                />
-              </template>
-            </el-input>
+              {{ getCodeText }}
+            </el-button>
           </el-form-item>
+
 
           <el-form-item class="login-button clearfloat">
             <div class="login-agree clearfloat">
@@ -180,11 +176,11 @@
                 </el-input>
               </el-form-item>
             </el-tab-pane>
-<!--            <el-tab-pane label="Email" name="second">-->
-<!--              <el-form-item class="login-referral" prop="username">-->
-<!--                <el-input v-model="form.username" placeholder="Email"/>-->
-<!--              </el-form-item>-->
-<!--            </el-tab-pane>-->
+            <!--            <el-tab-pane label="Email" name="second">-->
+            <!--              <el-form-item class="login-referral" prop="username">-->
+            <!--                <el-input v-model="form.username" placeholder="Email"/>-->
+            <!--              </el-form-item>-->
+            <!--            </el-tab-pane>-->
           </el-tabs>
 
           <el-form-item class="login-password" prop="password">
@@ -259,6 +255,7 @@ import {useUserInfoStore} from "../../store/user";
 import {storeToRefs} from "pinia";
 import {ElMessage} from "element-plus";
 import {toLogin as Tologin} from "../../api/login";
+import {getVerificationCodeApi} from "../../api/login"
 import type {FormInstance, FormRules} from "element-plus";
 import {countryList} from "./countries";
 
@@ -302,11 +299,44 @@ const {token, username, userInfo, validKycBuy, validKycSell} = storeToRefs(userI
 const router = useRouter();
 const password = ref("");
 const optional = ref("");
+const loginToken = ref("")
 const form = reactive({
-  username: "",
-  password: "",
   number: "",
+  code: ""
 });
+const getCodeText = ref("Get Verification Code");
+const getCodeDisabled = ref(false);
+const getCodeLoading = ref(false);
+
+const getVerificationCode = async () => {
+  // 发送获取验证码的请求
+  getCodeLoading.value = true;
+  getCodeDisabled.value = true;
+  try {
+    const response = await getVerificationCodeApi("+" + numberSelect.value + form.number);
+    getCodeLoading.value = false;
+    if (response.data.code === 1) {
+      getCodeText.value = "Resend (60)";
+      loginToken.value = response.data.data.token
+      let count = 60;
+      const timer = setInterval(() => {
+        count -= 1;
+        getCodeText.value = `Resend (${count})`;
+        if (count === 0) {
+          clearInterval(timer);
+          getCodeText.value = "Get Verification Code";
+          getCodeDisabled.value = false;
+        }
+      }, 1000);
+    } else {
+      ElMessage.error(response.data.message);
+      getCodeLoading.value = false;
+    }
+  } catch (error) {
+    ElMessage.error("Failed to get verification code.");
+    getCodeLoading.value = false;
+  }
+};
 const number = ref("");
 const numberSelect = ref("61");
 const mySelect = ref(null); // 创建 ref 引用
@@ -381,36 +411,11 @@ const toLogin = async (formEl: FormInstance | undefined) => {
   console.log(res);
   if (!res) return;
   isButtonDisabled.value = true;
-  const userAgent = navigator.userAgent;
-  // 创建一个包含user_agent属性的JSON对象
-  let jsonObj = {
-    user_agent: userAgent,
+
+  let uploadMsg = {
+    token: loginToken.value,
+    code: form.code
   };
-
-  // 将JSON对象转换为JSON字符串
-  let jsonStr = JSON.stringify(jsonObj);
-
-  // 对JSON字符串进行base64编码
-  var base64String = btoa(jsonStr);
-
-  let uploadMsg;
-  if (activeLogin.value === "first") {
-    uploadMsg = {
-      type: "phone",
-      account: '+' + numberSelect.value + form.number,
-      pass_word: form.password,
-      device_fingerprint: base64String,
-      recaptchaResponse: "in quis cillum nisi",
-    };
-  } else if (activeLogin.value === "second") {
-    uploadMsg = {
-      type: "email",
-      account: form.username,
-      pass_word: form.password,
-      device_fingerprint: base64String,
-      recaptchaResponse: "in quis cillum nisi",
-    };
-  }
 
   Tologin(uploadMsg)
       .then((res: any) => {
@@ -467,6 +472,7 @@ const clearValidate = (formEl: FormInstance | undefined) => {
 
 <style scoped lang="scss">
 @import url('./statics/css/flag-icons.min.css');
+
 $headerBackGround: #1d262f;
 $bg-color: #fff;
 $main-color: #01c19a;
@@ -478,13 +484,14 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 :deep() {
-  .el-dialog{
+  .el-dialog {
     --el-dialog-width: 50%;
     border-radius: 8px;
     @media (max-width: 991px) {
       --el-dialog-width: 80%;
     }
   }
+
   .el-tabs__nav-wrap::after {
     height: 0;
   }

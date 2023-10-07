@@ -322,9 +322,7 @@ const validatePassword = () => {
 const token1 = reactive({
   token: ''
 })
-const token2 = reactive({
-  token: ''
-})
+
 
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 const CHINESE_REGEX = /[\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]/;
@@ -479,6 +477,7 @@ const phoneConfirmed = () => {
   }
   phoneConfirmedDisabled.value = true;
   phoneVefify({
+    type: type.value,
     code: smsCode.value,
     phone: phoneInput.value,
     token: token1.token
@@ -486,9 +485,11 @@ const phoneConfirmed = () => {
     phoneConfirmedDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
       if (res.data.code === 1) {
-        token2.token = res.data.data.token;
-        percentage.value = 80;
-        isPhoneVerified.value = true;
+        userInfoStore.updateUserInfo(res.data.data);
+        const routeType = type.value || "buy";
+        router.push("/kyc?type=" + routeType);
+        percentage.value = 100;
+
       } else {
         ElMessage({ message: "The phone verification code is incorrect.", type: "error" });
       }
@@ -538,7 +539,6 @@ const successContinue = async (formEl: FormInstance | undefined) => {
   signUp({
     email: emailInput.value,
     phone: phoneInput.value,  // 这是用户输入的email
-    token: token2.token,
     pass_word: passwordForm.value.password,
     type: type.value
   }).then((res: any) => {
