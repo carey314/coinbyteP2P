@@ -480,6 +480,7 @@ const phoneConfirmed = () => {
     type: type.value,
     code: smsCode.value,
     phone: phoneInput.value,
+    email: emailInput.value,
     token: token1.token
   }).then((res: any) => {
     phoneConfirmedDisabled.value = false;
@@ -489,7 +490,7 @@ const phoneConfirmed = () => {
         const routeType = type.value || "buy";
         router.push("/kyc?type=" + routeType);
         percentage.value = 100;
-
+        ElMessage({message: "Congratulations on successfully registering", type: "success"});
       } else {
         ElMessage({ message: "The phone verification code is incorrect.", type: "error" });
       }

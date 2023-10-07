@@ -73,6 +73,7 @@ interface phoneVerify {
     "type": string
     "code": string
     "phone": string
+    "email": string
     "token": string
 }
 function phoneSignup (data : Number) {

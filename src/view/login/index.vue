@@ -71,36 +71,38 @@
 
 
           <el-form-item>
-            <el-input
-                v-model="form.code"
-                placeholder="Verification Code"
-            ></el-input>
-            <el-button
-                v-loading="getCodeLoading"
-                :disabled="getCodeDisabled"
-                @click="getVerificationCode"
-            >
-              {{ getCodeText }}
-            </el-button>
+            <div class="password-verify">
+              <div class="verify-input">
+                <el-input
+                  v-model="form.code"
+                  placeholder="Verification Code"
+                ></el-input>
+              </div>
+              <div class="verify-btn">
+                <el-button
+                    style="height: 48px;width: 100%;"
+                    v-loading="getCodeLoading"
+                    :disabled="getCodeDisabled"
+                    @click="getVerificationCode"
+                >
+                  {{ getCodeText }}
+                </el-button>
+              </div>
+            </div>
           </el-form-item>
 
 
           <el-form-item class="login-button clearfloat">
-            <div class="login-agree clearfloat">
-              <div class="agreement">
-                <a
-                    href="/password"
-                    style="color: #01c19a; text-decoration: none"
-                >{{ $t("messages.login.forgot_password") }}</a
-                >
-              </div>
-            </div>
-            <!--            <GetButton-->
-            <!--                :text="text"-->
-            <!--                style="margin-top: 31px"-->
-            <!--                :disabled="isButtonDisabled"-->
-            <!--                @handler="toLogin"-->
-            <!--            />-->
+<!--            <div class="login-agree clearfloat">-->
+<!--              <div class="agreement">-->
+<!--                <a-->
+<!--                    href="/password"-->
+<!--                    style="color: #01c19a; text-decoration: none"-->
+<!--                >{{ $t("messages.login.forgot_password") }}</a-->
+<!--                >-->
+<!--              </div>-->
+<!--            </div>-->
+
             <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">
               {{ $t("messages.login.login") }}
             </el-button>
@@ -131,7 +133,7 @@
           <div class="login-title">{{ $t("messages.login.welcome") }}</div>
           <el-tabs v-model="activeLogin" class="login-tabs" @tab-change="() => clearValidate(ruleFormRef)">
             <el-tab-pane label="Phone" name="first" class="first-pan">
-              <el-form-item class="login-referral phone-input" prop="number">
+              <el-form-item class="login-referral" prop="number">
                 <el-input
                     v-model="form.number"
                     placeholder="Phone"
@@ -145,31 +147,33 @@
                       z-index: 999;
                     "
                   ></div>
-
                   <template #prepend>
+                    <div style="position: absolute;z-index: 888;left: 4px;">+</div>
                     <el-select
                         v-model="numberSelect"
                         placeholder="Select"
                         filterable
                         style="width: 130px"
+                        @mousedown.stop
                     >
-                      <el-option
-                          v-for="item in areas"
-                          :key="item.value"
-                          :label="item.value"
-                          :value="item.value"
-                          style="width: 353px"
+                      <el-option-group
+                          v-for="group in options"
+                          :key="group.label"
+                          :label="group.label"
                       >
-                        <span style="float: left">{{ item.label }}</span>
-                        <span
-                            style="
-                            float: right;
-                            color: var(--el-text-color-secondary);
-                            font-size: 13px;
-                          "
-                        >{{ item.value }}</span
+                        <el-option
+                            v-for="item in group.options"
+                            :key="item.value"
+                            :label="item.telephoneCode"
+                            :value="item.telephoneCode"
                         >
-                      </el-option>
+                          <div><span class="flag-icon" :class="'flag-icon-' + item.id.toLowerCase()"></span>&nbsp;&nbsp;{{
+                              item.label
+                            }} <span
+                                style="float: right;">+{{ item.telephoneCode }}</span></div>
+
+                        </el-option>
+                      </el-option-group>
                     </el-select>
                   </template>
                   <!-- <el-divider direction="vertical" /> -->
@@ -183,51 +187,49 @@
             <!--            </el-tab-pane>-->
           </el-tabs>
 
-<!--          <el-form-item class="login-password" prop="password">-->
-<!--            <el-input-->
-<!--                v-model="form.password"-->
-<!--                :type="(isShowPass === true) ? 'text' : 'password'"-->
-<!--                placeholder="Password"-->
-<!--            >-->
-<!--              <template #prefix>-->
-<!--                <img :src="login_password"/>-->
-<!--              </template>-->
-<!--              <template v-if="!isShowPass" #suffix>-->
-<!--                <img :src="login_eye_off" @click="showPassWord"/>-->
-<!--              </template>-->
-<!--              <template v-else #suffix>-->
-<!--                <img-->
-<!--                    :src="login_eye_view"-->
-<!--                    style="width: 22px; height: 17px"-->
-<!--                    @click="showPassWord"-->
-<!--                />-->
-<!--              </template>-->
-<!--            </el-input>-->
-<!--          </el-form-item>-->
+          <!--          <el-form-item class="login-password" prop="password">-->
+          <!--            <el-input-->
+          <!--                v-model="form.password"-->
+          <!--                :type="(isShowPass === true) ? 'text' : 'password'"-->
+          <!--                placeholder="Password"-->
+          <!--            >-->
+          <!--              <template #prefix>-->
+          <!--                <img :src="login_password"/>-->
+          <!--              </template>-->
+          <!--              <template v-if="!isShowPass" #suffix>-->
+          <!--                <img :src="login_eye_off" @click="showPassWord"/>-->
+          <!--              </template>-->
+          <!--              <template v-else #suffix>-->
+          <!--                <img-->
+          <!--                    :src="login_eye_view"-->
+          <!--                    style="width: 22px; height: 17px"-->
+          <!--                    @click="showPassWord"-->
+          <!--                />-->
+          <!--              </template>-->
+          <!--            </el-input>-->
+          <!--          </el-form-item>-->
           <el-form-item>
-            <el-input
-                v-model="form.code"
-                placeholder="Verification Code"
-            ></el-input>
-            <el-button
-                v-loading="getCodeLoading"
-                :disabled="getCodeDisabled"
-                @click="getVerificationCode"
-            >
-              {{ getCodeText }}
-            </el-button>
+            <div class="password-verify">
+              <div class="verify-input">
+                <el-input
+                    v-model="form.code"
+                    placeholder="Verification Code"
+                ></el-input>
+              </div>
+              <div class="verify-btn">
+                <el-button
+                    style="height: 48px;width: 100%;"
+                    v-loading="getCodeLoading"
+                    :disabled="getCodeDisabled"
+                    @click="getVerificationCode"
+                >
+                  {{ getCodeText }}
+                </el-button>
+              </div>
+            </div>
           </el-form-item>
 
           <el-form-item class="login-button clearfloat">
-            <div class="login-agree clearfloat">
-              <div class="agreement">
-                <a
-                    href="/password"
-                    style="color: #01c19a; text-decoration: none"
-                >{{ $t("messages.login.forgot_password") }}</a
-                >
-              </div>
-            </div>
             <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">
               {{ $t("messages.login.login") }}
             </el-button>
@@ -323,8 +325,10 @@ const getCodeLoading = ref(false);
 
 const getVerificationCode = async () => {
   // 发送获取验证码的请求
-  getCodeLoading.value = true;
-  getCodeDisabled.value = true;
+  if(form.number !== ''){
+    getCodeLoading.value = true;
+    getCodeDisabled.value = true;
+  }
   try {
     const response = await getVerificationCodeApi("+" + numberSelect.value + form.number);
     getCodeLoading.value = false;
@@ -342,7 +346,7 @@ const getVerificationCode = async () => {
         }
       }, 1000);
     } else {
-      ElMessage.error(response.data.message);
+      ElMessage.error(response.data.msg);
       getCodeLoading.value = false;
     }
   } catch (error) {
@@ -1092,7 +1096,7 @@ $fontSizeMin: 12px;
         :deep() {
           .el-input__wrapper {
             background: #fff;
-            border: 1px solid #dfdfe5;
+            //border: 1px solid #dfdfe5;
             height: 48px;
             border-radius: 4px;
             --el-input-focus-border-color: none;
@@ -1300,5 +1304,41 @@ $fontSizeMin: 12px;
   width: 100%;
 }
 
+.password-verify {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .verify-btn {
+    margin-left: 13px;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    flex:1;
+    :deep(.button) {
+      padding: 0 10px !important;
+      font-size: 14px !important;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+  }
+  :deep() {
+    .btn {
+      font-size: 14px;
+      color: #ffffff;
+    }
+    .el-input__wrapper {
+      // background: #fff;
+      border: 1px solid #dfdfe5;
+      height: 48px;
+      border-radius: 4px;
+      --el-input-focus-border-color: none;
+      --el-input-hover-border-color: none;
+      box-shadow: none;
+      padding-left: 15px;
+    }
+  }
+}
 
 </style>
