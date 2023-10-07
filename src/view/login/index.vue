@@ -183,26 +183,39 @@
             <!--            </el-tab-pane>-->
           </el-tabs>
 
-          <el-form-item class="login-password" prop="password">
+<!--          <el-form-item class="login-password" prop="password">-->
+<!--            <el-input-->
+<!--                v-model="form.password"-->
+<!--                :type="(isShowPass === true) ? 'text' : 'password'"-->
+<!--                placeholder="Password"-->
+<!--            >-->
+<!--              <template #prefix>-->
+<!--                <img :src="login_password"/>-->
+<!--              </template>-->
+<!--              <template v-if="!isShowPass" #suffix>-->
+<!--                <img :src="login_eye_off" @click="showPassWord"/>-->
+<!--              </template>-->
+<!--              <template v-else #suffix>-->
+<!--                <img-->
+<!--                    :src="login_eye_view"-->
+<!--                    style="width: 22px; height: 17px"-->
+<!--                    @click="showPassWord"-->
+<!--                />-->
+<!--              </template>-->
+<!--            </el-input>-->
+<!--          </el-form-item>-->
+          <el-form-item>
             <el-input
-                v-model="form.password"
-                :type="(isShowPass === true) ? 'text' : 'password'"
-                placeholder="Password"
+                v-model="form.code"
+                placeholder="Verification Code"
+            ></el-input>
+            <el-button
+                v-loading="getCodeLoading"
+                :disabled="getCodeDisabled"
+                @click="getVerificationCode"
             >
-              <template #prefix>
-                <img :src="login_password"/>
-              </template>
-              <template v-if="!isShowPass" #suffix>
-                <img :src="login_eye_off" @click="showPassWord"/>
-              </template>
-              <template v-else #suffix>
-                <img
-                    :src="login_eye_view"
-                    style="width: 22px; height: 17px"
-                    @click="showPassWord"
-                />
-              </template>
-            </el-input>
+              {{ getCodeText }}
+            </el-button>
           </el-form-item>
 
           <el-form-item class="login-button clearfloat">
@@ -464,8 +477,7 @@ const clearValidate = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   setTimeout(() => formEl.clearValidate(['number', 'username', 'password']), 0);
   form.number = "";
-  form.username = "";
-  form.password = "";
+  form.code = "";
 }
 
 </script>
