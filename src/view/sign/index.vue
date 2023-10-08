@@ -288,11 +288,12 @@ onMounted(() => {
 
 // 启动邮箱验证码的倒计时
 const startEmailCountdown = () => {
-  if (countdown.value === 0) {
+  if (countdown.value <= 0) {
     countdown.value = 60; // 设置倒计时初始值为 60 秒
     const countdownInterval = setInterval(() => {
+      console.log(123123);
       countdown.value--;
-      if (countdown.value === 0) {
+      if (countdown.value <= 0) {
         clearInterval(countdownInterval);
       }
     }, 1000);
@@ -300,11 +301,12 @@ const startEmailCountdown = () => {
 };
 
 const startSMSCountdown = () => {
-  if (countdown.value === 0) {
+  if (countdown.value <= 0) {
     countdown.value = 60; // 设置倒计时初始值为 60 秒
     const countdownInterval = setInterval(() => {
+      console.log(456456);
       countdown.value--;
-      if (countdown.value === 0) {
+      if (countdown.value <= 0) {
         clearInterval(countdownInterval);
       }
     }, 1000);
@@ -527,6 +529,7 @@ const emailConfirmed = () => {
         token1.token = res.data.data.token;
         percentage.value = 40;
         isEmailVerified.value = true; // 邮箱验证完成，将标志位设置为true
+        countdown.value = 0;
       } else if (res.data.code === 9003) {
         ElMessage.error("The verification code is incorrect. Please check and try again.");
       } else if (res.data.code === 9004) {
@@ -759,6 +762,7 @@ const customColor = ref("#01c19a");
 function decreasePercentage() {
   if (percentage.value >= 15) {
     percentage.value -= 20;
+    countdown.value = 0;
   }
 }
 
