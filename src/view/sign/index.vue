@@ -843,6 +843,11 @@ const options = ref([
 const phoneBlur = () => {
   let input = phoneInput.value.replace(/[^\d+]/g, '');
 
+  // 如果用户输入不以+号开头，则在前面添加+号
+  if (!input.startsWith('+')) {
+    input = '+' + input;
+  }
+
   // 格式化手机号，添加空格
   let formatted = '';
   let chunkSize = 3; // 每隔三个数字添加一个空格
