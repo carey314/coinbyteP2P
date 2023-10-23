@@ -3,6 +3,7 @@ import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 import {useUserInfoStore} from "../store/user";
 import {storeToRefs} from "pinia";
 import {ElMessage} from "element-plus";
+import router from "../routers";
 
 const userInfoStore = useUserInfoStore();
 const {token, refreshToken} = storeToRefs(userInfoStore);
@@ -151,12 +152,13 @@ instance.interceptors.response.use(
                                 return axios(originalRequest);
                             } else {
                                 if (userInfoStore.isLogin) {
-                                    ElMessage({
-                                        message: "Token expired, please log in again!",
-                                        grouping: true,
-                                        type: "error",
-                                    });
+                                    // ElMessage({
+                                    //     message: "Token expired, please log in again!",
+                                    //     grouping: true,
+                                    //     type: "error",
+                                    // });
                                     userInfoStore.clearToken();
+                                    router.push('/login');
                                 }
                                 return Promise.reject(new Error("Token refresh failed"));
                             }

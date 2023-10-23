@@ -140,11 +140,10 @@
               </div>
             </div>
             <div class="part-content" style="margin-top: 50px;" >
-              NZBN<br />
-              <span>9429049898163</span>
+              <span>{{ $t("messages.about.about_nz_title") }}</span>
             </div>
             <div class="part-content-forth">
-              FSP<br />
+              FSP
               <span>1004001</span>
             </div>
 
@@ -154,6 +153,21 @@
     </div>
     <div class="center-part part" v-if="windowWidth <= 769">
       <el-row>
+        <el-col :span="24" @mouseover="yr3" @mouseleave="yc3" :style="active3">
+          <div class="part-box" name="third">
+            <div class="part-msg clearfloat">
+              <div class="part-img">
+                <img :src="aboutus_icon03" />
+              </div>
+              <div class="part-title">
+                {{ $t("messages.about.about_thirdTitle") }}
+              </div>
+            </div>
+            <div class="part-content">
+              {{ $t("messages.about.about_thirdContent") }}
+            </div>
+          </div>
+        </el-col>
         <el-col :span="24" @mouseover="yr2" @mouseleave="yc2" :style="active2">
           <div class="part-box" name="third">
             <div class="part-msg clearfloat">
@@ -348,8 +362,8 @@ const yc3 = () => {
       }
       .part-img {
         width: 53px;
-        display: flex;
-        float: left;
+        //display: flex;
+        //float: left;
         img {
           width: 100%;
           height: 100%;
@@ -357,9 +371,10 @@ const yc3 = () => {
         }
       }
       .part-title {
-        float: left;
-        margin-top: 18px;
-        margin-left: 15px;
+        //float: left;
+        //margin-top: 18px;
+        //margin-left: 15px;
+
         font-size: 40px;
         color: #01c19a;
         font-weight: 600;
@@ -377,7 +392,15 @@ const yc3 = () => {
         margin-top: 15px;
       }
       .part-msg {
-        margin-top: 60px;
+        //margin-top: 60px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 4px;
+        margin-top: 30px;
+        @media (max-width: 985px) {
+          justify-content: center;
+        }
       }
     }
     .left-box {
@@ -402,7 +425,7 @@ const yc3 = () => {
   .part-title {
     width: 80% !important;
     font-size: 27px !important;
-    margin-top: 14px !important;
+    //margin-top: 14px !important;
     line-height: 1;
     // margin: 0 !important;
   }
@@ -426,7 +449,7 @@ const yc3 = () => {
     height: 580px !important;
   }
   .part-msg {
-    margin-top: 160px !important;
+    margin-top: 130px !important;
   }
   .part-content {
     margin-top: 70px !important;
@@ -450,7 +473,7 @@ const yc3 = () => {
     text-align: center;
   }
   .part-title {
-    padding-top: 5px !important;
+    //padding-top: 5px !important;
     font-size: 20px !important;
     float: none !important;
     margin: 0 !important;
@@ -476,9 +499,9 @@ const yc3 = () => {
 
   .part-img {
     width: 30px !important;
-    position: absolute;
-    left: 45%;
-    top: 12%;
+    //position: absolute;
+    //left: 45%;
+    //top: 12%;
   }
   .part-content {
     // float: left;

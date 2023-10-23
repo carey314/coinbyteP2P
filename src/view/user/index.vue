@@ -9,7 +9,7 @@
             class="demo-tabs"
           >
             <el-tab-pane :label="t('messages.user.label_overview')" name="first" :lazy="true">
-              <template #label>  
+              <template #label>
                 <div class="click-success" @click="changeTab('')">
                   {{ t('messages.user.label_overview') }}
                 </div>
@@ -25,14 +25,14 @@
             </el-tab-pane>
 
             <el-tab-pane :label="t('messages.user.label_Bank')" name="fourth" :lazy="true">
-              <template #label>  
+              <template #label>
                 <div class="click-success" @click="changeTab('bankaccount')">
                   {{ t('messages.user.label_Bank') }}
                 </div>
               </template>
             </el-tab-pane>
             <el-tab-pane :label="t('messages.user.label_Verification')" name="third" :lazy="true">
-              <template #label>  
+              <template #label>
                 <div class="click-success" @click="changeTab('verification')">
                   {{ t('messages.user.label_Verification') }}
                 </div>
@@ -41,7 +41,7 @@
 
 
             <el-tab-pane :label="t('messages.user.label_Preferences')" name="fifth" :lazy="true">
-              <template #label>  
+              <template #label>
                 <div class="click-success" @click="changeTab('accountstatement')">
                   {{ t('messages.user.label_Preferences') }}
                 </div>
@@ -170,10 +170,11 @@ const changeTab = (path: string) => {
   }
   .el-tabs__active-bar {
     background-color: #01c19a;
-    height: 4px;
+    height: 2px;
   }
   .el-tabs__nav-wrap::after {
-    border: 1px solid #EBEBEB;
+    border: 1px solid #EBEBEB !important;
+    bottom: -1px;
   }
 
   .el-radio-button {

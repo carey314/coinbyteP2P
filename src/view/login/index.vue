@@ -14,11 +14,11 @@
           <div class="login-title">{{ $t("messages.login.welcome") }}</div>
 
           <el-tabs v-model="activeLogin" class="login-tabs" @tab-change="() => clearValidate(ruleFormRef)">
-            <el-tab-pane label="Phone" name="first" class="first-pan">
+            <el-tab-pane :label="t('messages.login.phone')" name="first" class="first-pan">
               <el-form-item class="login-referral" prop="number">
                 <el-input
                     v-model="form.number"
-                    placeholder="Phone"
+                    :placeholder="t('messages.login.phone')"
                     class="input-with-select"
                 >
                   <div
@@ -75,7 +75,7 @@
               <div class="verify-input">
                 <el-input
                   v-model="form.code"
-                  placeholder="Verification Code"
+                  :placeholder="t('messages.login.ver_code')"
                 ></el-input>
               </div>
               <div class="verify-btn">
@@ -84,6 +84,7 @@
                     v-loading="getCodeLoading"
                     :disabled="getCodeDisabled"
                     @click="getVerificationCode"
+                    type="info"
                 >
                   {{ getCodeText }}
                 </el-button>
@@ -218,7 +219,7 @@
               </div>
               <div class="verify-btn">
                 <el-button
-                    style="height: 48px;width: 100%;"
+                    style="height: 48px;width: 100%;background: #01c19a;color: #fff;"
                     v-loading="getCodeLoading"
                     :disabled="getCodeDisabled"
                     @click="getVerificationCode"
@@ -230,7 +231,7 @@
           </el-form-item>
 
           <el-form-item class="login-button clearfloat">
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn">
+            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">
               {{ $t("messages.login.login") }}
             </el-button>
 
@@ -256,7 +257,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, reactive, onUnmounted, onMounted, computed, nextTick} from "vue";
+import {ref, reactive, onUnmounted, onMounted, computed, watch} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -319,40 +320,69 @@ const form = reactive({
   number: "",
   code: ""
 });
-const getCodeText = ref("Get Verification Code");
+const getCodeText = ref(t('messages.login.send'));
 const getCodeDisabled = ref(false);
 const getCodeLoading = ref(false);
 
+const isButtonDisabled = ref(true); // 默认禁用按钮
+
+// 监视 form.code 的变化
+const isCountingDown = ref(false); // 是否处于倒计时状态
+
+watch(() => form.code, (newCode) => {
+  if (!isCountingDown.value && newCode === "") {
+    isButtonDisabled.value = true; // 如果不处于倒计时状态且输入框为空，禁用登录按钮
+  } else {
+    isButtonDisabled.value = !isCountingDown.value; // 否则根据倒计时状态来决定是否禁用登录按钮
+  }
+});
+
+watch(getCodeText, (newText) => {
+  if (newText !== t('messages.login.send')) {
+    isCountingDown.value = true; // 发送按钮进入倒计时状态
+  } else {
+    isCountingDown.value = false; // 发送按钮不处于倒计时状态
+    if (form.code === "") {
+      isButtonDisabled.value = true; // 发送按钮不是倒计时状态且输入框为空，禁用登录按钮
+    }
+  }
+});
 const getVerificationCode = async () => {
   // 发送获取验证码的请求
-  if(form.number !== ''){
+  if (form.number !== '') {
     getCodeLoading.value = true;
     getCodeDisabled.value = true;
+    isButtonDisabled.value = true; // 禁用登录按钮
   }
   try {
     const response = await getVerificationCodeApi("+" + numberSelect.value + form.number);
     getCodeLoading.value = false;
     if (response.data.code === 1) {
-      getCodeText.value = "Resend (60)";
-      loginToken.value = response.data.data.token
+      getCodeText.value = t('messages.login.resend') + (60);
+      loginToken.value = response.data.data.token;
       let count = 60;
       const timer = setInterval(() => {
         count -= 1;
-        getCodeText.value = `Resend (${count})`;
+        getCodeText.value = t('messages.login.resend') + `(${count})`;
         if (count === 0) {
           clearInterval(timer);
-          getCodeText.value = "Get Verification Code";
+          getCodeText.value = t('messages.login.send');
           getCodeDisabled.value = false;
+          if (form.code === '' && !isCountingDown.value) {
+            isButtonDisabled.value = true; // 倒计时结束后，如果验证码为空且发送按钮不是倒计时状态，禁用登录按钮
+          }
         }
       }, 1000);
     } else {
       ElMessage.error(response.data.msg);
       getCodeLoading.value = false;
       getCodeDisabled.value = false;
+      isButtonDisabled.value = false; // 发送失败时，启用登录按钮
     }
   } catch (error) {
     ElMessage.error("Failed to get verification code.");
     getCodeLoading.value = false;
+    isButtonDisabled.value = false; // 发送失败时，启用登录按钮
   }
 };
 const number = ref("");
@@ -421,14 +451,14 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 
-const isButtonDisabled = ref(false);
 //async (formEl: FormInstance | undefined)
 const toLogin = async (formEl: FormInstance | undefined) => {
+  console.log('----------');
   if (!formEl || isButtonDisabled.value) return;
   const res = await formEl.validate(valid => valid);
   console.log(res);
   if (!res) return;
-  isButtonDisabled.value = true;
+  // isButtonDisabled.value = true;
 
   let uploadMsg = {
     token: loginToken.value,
@@ -443,6 +473,8 @@ const toLogin = async (formEl: FormInstance | undefined) => {
               // userInfoStore.changeToken(response.data.accessToken.token);
               // userInfoStore.changeRefreshToken(response.data.refreshToken.token);
               ElMessage.success("Login succeeded!");
+              console.log(response,66);
+
               userInfoStore.updateUserInfo(response.data);
               if (!(validKycBuy.value || validKycSell.value)) {
                 router.push("/kyc?type=" + (response.data.kyc_type || 'buy'));
@@ -488,7 +520,6 @@ const clearValidate = (formEl: FormInstance | undefined) => {
   form.number = "";
   form.code = "";
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -1300,8 +1331,8 @@ $fontSizeMin: 12px;
   color: #fff;
   cursor: pointer;
   padding: 1rem 1.7rem;
-  background-color: $main-color;
-  border-color: $main-color;
+  //background-color: $main-color;
+  //border-color: $main-color;
   border-radius: 4px;
   font-size: 16px;
   font-weight: 600;
@@ -1345,5 +1376,12 @@ $fontSizeMin: 12px;
     }
   }
 }
-
+:deep(.el-button--info){
+  --el-button-bg-color: rgb(1, 193, 154);
+  --el-button-border-color: rgb(1, 193, 154);
+  --el-button-hover-bg-color: rgb(1, 193, 154);
+  --el-button-hover-border-color: rgb(1, 193, 154);
+  --el-button-active-bg-color: rgb(1, 193, 154);
+  --el-button-active-border-color: rgb(1, 193, 154);
+}
 </style>

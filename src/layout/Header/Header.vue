@@ -167,7 +167,9 @@
                       </div>
                       <div class="head-text">
                         <div class="user-name">
-                          {{ (userInfo && userInfo.data) ? userInfo.data?.email : userInfo?.email }}
+<!--                          {{ (userInfo && userInfo.data) ? userInfo.data?.email : userInfo?.email }}-->
+                          {{ userInfo && userInfo.phone?.slice(0, 3) + "*".repeat(userInfo.phone?.length - 6) + userInfo.phone?.slice(-3) }}
+
                         </div>
                         <div class="user-id">
                           UID:{{ (userInfo && userInfo.data) ? userInfo.data?.ID : userInfo?.ID }}
@@ -191,7 +193,13 @@
                         <img :src="dropdown_usercenter_unverified"/>
                       </div>
                       <div class="verify-text">
-                        <router-link :to="{ name: 'verification' }" style="
+                        <router-link :to="{ name: 'verificationAu' }" v-if="$route.path.startsWith('/au')" style="
+                            color: rgb(239, 129, 51);
+                            text-decoration: none;
+                          ">
+                          {{ $t("messages.header.verify_unverified") }}
+                        </router-link>
+                        <router-link :to="{ name: 'verificationNz' }" v-if="$route.path.startsWith('/nz')" style="
                             color: rgb(239, 129, 51);
                             text-decoration: none;
                           ">
@@ -213,6 +221,7 @@
                       </div>
                     </router-link>
                   </el-dropdown-item>
+
                   <el-dropdown-item class="user-dropdown-item">
                     <router-link to="/user/depositFiat" style="text-decoration: none;">
                       <div class="user-box">
@@ -225,18 +234,7 @@
                       </div>
                     </router-link>
                   </el-dropdown-item>
-                  <el-dropdown-item class="user-dropdown-item">
-                    <router-link to="/user/verification" style="text-decoration: none;">
-                      <div class="user-box">
-                        <div class="user-icon">
-                          <img :src="dropdown_usercenter_verification"/>
-                        </div>
-                        <div class="user-title">
-                          {{ $t("messages.header.verify_verification") }}
-                        </div>
-                      </div>
-                    </router-link>
-                  </el-dropdown-item>
+
                   <el-dropdown-item class="user-dropdown-item">
                     <router-link to="/user/bankaccount" style="text-decoration: none;">
                       <div class="user-box">
@@ -245,6 +243,18 @@
                         </div>
                         <div class="user-title">
                           {{ $t("messages.header.verify_bank") }}
+                        </div>
+                      </div>
+                    </router-link>
+                  </el-dropdown-item>
+                  <el-dropdown-item class="user-dropdown-item">
+                    <router-link to="/user/verification" style="text-decoration: none;">
+                      <div class="user-box">
+                        <div class="user-icon">
+                          <img :src="dropdown_usercenter_verification"/>
+                        </div>
+                        <div class="user-title">
+                          {{ $t("messages.header.verify_verification") }}
                         </div>
                       </div>
                     </router-link>
@@ -720,7 +730,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 
 .notice-dropdown-menu {
   width: 368px;
-  padding: 10px 10px 20px 10px;
+  padding: 10px 00px 20px 0px;
 }
 
 .crypto-item-box {
@@ -928,7 +938,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 
     @media (max-width: 1070px) {
       & {
-        display: none;
+        //display: none;
       }
     }
   }
@@ -1085,7 +1095,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 
 .notice-msg {
-  font-size: 12px;
+  font-size: 14px;
   color: #000000;
   line-height: 14px;
   position: relative;
@@ -1156,7 +1166,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 .user-dropdown-menu {
   text-align: center;
   // margin-left: 10%;
-  //width: 246px;
+  width: 220px;
 
   .user-dropdown-info {
     .user-head-box {
@@ -1215,10 +1225,11 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   .user-dropdown-item {
+
     .user-box {
       display: flex;
       padding: 5px 0;
-      margin-left: 26px;
+      margin-left: 5px;
 
       .user-title {
         font-size: 14px;

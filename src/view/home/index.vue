@@ -57,8 +57,8 @@
                 </div>
                 <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/au')">
                   <img
-                      style="position: absolute;top: 0px;left: 0px;z-index: 0;border-radius: 10px 0 0 0;width: 50%;height: auto;max-height: 50%;"
-                      :src="learn_dialog_back"/>
+                      style="position:absolute;bottom: 0;left: 0;z-index: -1"
+                      :src="learm_background"/>
                   <div style="position: relative;">
                     <el-row :gutter="20" v-if="$route.path.startsWith('/au')">
                       <el-col
@@ -350,9 +350,12 @@
           <div v-if="reasonTab === t('messages.home.fifth_fiat')">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
-                <div class="tab-img">
-                  <img :src="image02"/></div
-                >
+                <div class="tab-img" v-if="$route.path.startsWith('/au')" >
+                  <img  :src="image02_au"/>
+                </div>
+                <div class="tab-img" v-if="$route.path.startsWith('/nz')" >
+                  <img  :src="image02"/>
+                </div>
               </el-col>
               <el-col :span="10" :xs="24">
                 <div class="tab-content">
@@ -371,9 +374,12 @@
           <div v-if="reasonTab === t('messages.home.fifth_Totally')">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
-                <div class="tab-img">
-                  <img :src="image03"/></div
-                >
+                <div class="tab-img" v-if="$route.path.startsWith('/au')">
+                  <img :src="image03_au"/>
+                </div>
+                <div class="tab-img" v-if="$route.path.startsWith('/nz')">
+                  <img :src="image03"/>
+                </div>
               </el-col>
               <el-col :span="10" :xs="24">
                 <div class="tab-content">
@@ -602,8 +608,8 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.service") }}</li>
-            <li><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</li>
-            <li><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</li>
+            <li><a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</a></li>
+            <li><a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</a></li>
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
@@ -635,26 +641,32 @@
           </ul>
         </div>
 
-        <!--        <div-->
-        <!--            class="icon-links"-->
-        <!--            style="-->
-        <!--            font-size: 14px;-->
-        <!--            color: #808080;-->
-        <!--            line-height: 19px;-->
-        <!--            width: 20%;-->
-        <!--            margin-top: 220px;-->
-        <!--          "-->
-        <!--        >-->
-        <!--          {{ $t("messages.footer.dce_num") }}-->
-        <!--        </div>-->
+                <div
+                    class="icon-links"
+                    style="
+                    font-size: 14px;
+                    color: #808080;
+                    line-height: 19px;
+                    width: 8%;
+                  "
+                >
+                  <img src="../../assets/icons/icon_twitter.svg" alt="" />
+                  <img src="../../assets/icons/icon_telegram.svg" alt="" />
+                  <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
+
+                </div>
       </div>
 
-      <!--      <div-->
-      <!--          class="icon-links-lg max1290"-->
-      <!--          style="font-size: 14px; color: #808080; line-height: 19px"-->
-      <!--      >-->
-      <!--        {{ $t("messages.footer.dce_num") }}-->
-      <!--      </div>-->
+            <div
+                class="icon-links-lg max1290"
+                style="font-size: 14px; color: #808080; line-height: 19px"
+            >
+<!--              {{ $t("messages.footer.dce_num") }}-->
+              <img src="../../assets/icons/icon_twitter.svg" alt="" />
+              <img src="../../assets/icons/icon_telegram.svg" alt="" />
+              <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
+
+            </div>
     </footer>
     <footer v-else>
       <div class="footer-links" style="padding:20px">
@@ -731,13 +743,13 @@
                   >{{ $t("messages.footer.contact_us") }}</a
                   >
                 </div>
-                <div class="list-item">
-                  <a
-                      href="/fees"
-                      style="color: rgb(144, 144, 144); text-decoration: none"
-                  >{{ $t("messages.footer.fees") }}</a
-                  >
-                </div>
+<!--                <div class="list-item">-->
+<!--                  <a-->
+<!--                      href="/fees"-->
+<!--                      style="color: rgb(144, 144, 144); text-decoration: none"-->
+<!--                  >{{ $t("messages.footer.fees") }}</a-->
+<!--                  >-->
+<!--                </div>-->
               </el-collapse-item>
               <el-collapse-item name="2">
                 <template #title>
@@ -772,10 +784,10 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  <span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}
+                  <a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</a>
                 </div>
                 <div class="list-item">
-                  <span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}
+                  <a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</a>
                 </div>
               </el-collapse-item>
               <el-collapse-item name="4">
@@ -801,7 +813,7 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  {{ $t("messages.footer.support_center") }}
+                  <a href="/au/contact" style="color: #909090;text-decoration: none"> {{ $t("messages.footer.support_center") }}</a>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -839,6 +851,8 @@ import icon_03 from "../../assets/image/icon_03.png";
 import icon_04 from "../../assets/image/icon_04.png";
 import image01 from "../../assets/image/image01.svg";
 import image02 from "../../assets/image/image02.svg";
+import image02_au from "../../assets/icons/image01_aud.svg";
+import image03_au from "../../assets/icons/image02_aud.svg";
 import image03 from "../../assets/image/image03.svg";
 import image04 from "../../assets/image/image04.png";
 import image05 from "../../assets/image/image05.svg";
@@ -1330,7 +1344,7 @@ onMounted(() => {
 @import url('../login/statics/css/flag-icons.min.css');
 
 .icon-links {
-  text-align: right;
+  text-align: center;
 }
 
 .tab-img {

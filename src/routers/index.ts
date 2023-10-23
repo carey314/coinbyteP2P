@@ -299,64 +299,85 @@ const routes: Array<RouteRecordRaw> = [
         name: "user",
         component: () => import("../view/user/index.vue"),
         children: [
-            // {
-            //   path: 'depositFiat',
-            //   name: 'DepositFiat',
-            //   meta: { tab: "second", isTransaction: true },
-            //   component: () => import('../view/transaction/layout/OverView/DepositFiat.vue'),
-            // },
-
-            // {
-            //   path: '/user/au/depositFiat',
-            //   redirect: '/user/au/depositFiat'
-            // },
-            // {
-            //   path: '/nz/user/depositFiat',
-            //   name: 'DepositFiat',
-            //   meta: { tab: "second", isTransaction: true },
-            //   component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
-            // },
             {
-                path: '/',
-                name: 'user',
-                meta: {tab: "first", isTransaction: true},
-                component: () => import('../view/user/index.vue')
+                path: '/user',
+                redirect: '/au/user' // 添加重定向路由，将 /user 重定向到 /au/user
+            },
+            {
+                path: '/au/user',
+                name: 'overviewAu',
+                component: () => import("../view/user/layout/OverView/OverView.vue"),
+                meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
+            },
+            {
+                path: '/nz/user',
+                name: 'overviewNz',
+                component: () => import("../view/user/layout/OverView/OverView.vue"),
+                meta: { tab: 'first' } // 设置meta信息，用于在mounted钩子函数中设置activeName
             },
             {
                 path: '/user/depositFiat',
-                name: 'DepositFiat',
-                meta: {tab: "second", isTransaction: true},
+                redirect: '/au/user/depositFiat' // 添加重定向路由，将 /user 重定向到 /au/user
+            },
+            {
+                path: '/au/user/depositFiat',
+                name: 'depositFiatAu',
+                meta: { tab: "second", isTransaction: true },
                 component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
             },
             {
-                path: "/user",
-                name: "overview",
-                component: () => import("../view/user/layout/OverView/OverView.vue"),
-                meta: {tab: 'first'} // 设置meta信息，用于在mounted钩子函数中设置activeName
+                path: '/nz/user/depositFiat',
+                name: 'depositFiatNz',
+                meta: { tab: "second", isTransaction: true },
+                component: () => import('../view/transaction/layout/OverView/DepositFiat.vue')
             },
-            // {
-            //   path: "/user/security",
-            //   name: "security",
-            //   component: () => import("../view/user/layout/Security/Security.vue"),
-            //   meta: { tab: 'second' }
-            // },
             {
-                path: "/user/verification",
-                name: "verification",
+                path: '/user/verification',
+                redirect: '/au/user/verification'
+            },
+            {
+                path: '/au/user/verification',
+                name: 'verificationAu',
                 component: () => import("../view/transaction/layout/OverView/WithdrawFiat.vue"),
-                meta: {tab: 'third'}
+                meta: { tab: 'third' }
             },
             {
-                path: "/user/bankaccount",
-                name: "bankaccount",
-                component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
-                meta: {tab: 'fourth'},
+                path: '/nz/user/verification',
+                name: 'verificationNz',
+                component: () => import("../view/transaction/layout/OverView/WithdrawFiat.vue"),
+                meta: { tab: 'third' }
             },
             {
-                path: "/user/accountstatement",
-                name: "accountstatement",
+                path: '/user/bankaccount',
+                redirect: '/au/user/bankaccount'
+            },
+            {
+                path: '/au/user/bankaccount',
+                name: 'bankaccountAu',
                 component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
-                meta: {tab: 'fifth'}
+                meta: { tab: 'fourth' },
+            },
+            {
+                path: '/nz/user/bankaccount',
+                name: 'bankaccountNz',
+                component: () => import("../view/user/layout/BankAccount/BankAccount.vue"),
+                meta: { tab: 'fourth' },
+            },
+            {
+                path: '/user/accountstatement',
+                redirect: '/au/user/accountstatement'
+            },
+            {
+                path: '/au/user/accountstatement',
+                name: 'accountstatementAu',
+                component: () => import("../view/user/layout/AccountStatement/AccountStatement.vue"),
+                meta: { tab: 'fifth' }
+            },
+            {
+                path: '/nz/user/accountstatement',
+                name: 'accountstatementNz',
+                component: () => import("../view/user/layout/AccountStatement/AccountStatement.vue"),
+                meta: { tab: 'fifth' }
             },
         ],
     },

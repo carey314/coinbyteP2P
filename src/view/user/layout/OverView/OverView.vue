@@ -82,7 +82,7 @@
               </el-dialog>
 
             </div>
-            <div class="info-count">
+            <div class="info-name">
               <!--              更改渲染的UID时, 需要修改复制功能的值 copyToClipboard-->
               {{ $t('messages.user.overview_UID') }}: {{ userInfo && userInfo.ID }}
               <img :src="myprofile_uid_copy" style="margin-left: 8px;cursor: pointer" @click="copyToClipboard"/>
@@ -96,7 +96,7 @@
             <div class="info-count" style="color: #000">
               <div style="display: flex; gap: 5px; align-items: center;">
                 {{
-                  userInfo && userInfo.email?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2) + userInfo.email?.slice(userInfo.email?.indexOf("@"))
+                  userInfo && userInfo.email?.slice(0, 2) +  "***"  + userInfo.email?.slice(userInfo.email?.indexOf("@"))
                 }}
               <div class="info-count">
                 <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
@@ -112,8 +112,8 @@
           </div>
           <div class="info-text">
             <div class="info-name profile-title">{{ $t('messages.user.overview_Phone') }}</div>
-            <div style="display: flex; gap: 5px; align-items: center;">
-              {{ userInfo && userInfo.phone?.slice(0, 2) + "*".repeat(userInfo.email?.indexOf("@") - 2)}}
+            <div class="info-count" style="display: flex; gap: 5px; align-items: center;">
+              {{ userInfo && userInfo.phone?.slice(0, 3) + "*".repeat(userInfo.phone?.length - 6) + userInfo.phone?.slice(-3) }}
               <div class="info-count">
                 <!-- {{ userInfo && userInfo.phone.maskedPhone }} -->
                 <img class="verify-img" :src="registered_icon"/>
@@ -157,6 +157,39 @@
         <el-col :span="12" :xs="24" class="xs">
           <el-card class="part-box-card">
             <div class="card-box">
+              <div class="card-title overview-title">{{ $t('messages.user.overview_Bank') }}</div>
+              <div class="card-text content-text">
+                {{ $t('messages.user.Bank_con') }}
+              </div>
+              <div class="card-img">
+                <!-- <img :src="usercenter_icon_bankaccount"/> -->
+                <img :src="usercenter_icon_preferences"/>
+              </div>
+            </div>
+            <el-divider style="margin-left: -30px; width: 1000px"/>
+            <div class="card-bottom">
+              <div class="bottom-link">
+                <router-link
+                    to="/user/bankaccount"
+                    style="color: #01c19a; text-decoration: none"
+                >
+                  <div class="link-text">{{ $t('messages.user.paid') }}</div>
+                  <el-icon>
+                    <Right/>
+                  </el-icon>
+                </router-link>
+              </div>
+            </div>
+          </el-card>
+        </el-col>
+
+      </el-row>
+    </div>
+    <div class="card-part">
+      <el-row :gutter="20">
+        <el-col :span="12" :xs="24" >
+          <el-card class="part-box-card">
+            <div class="card-box">
               <div class="card-title overview-title">{{ $t('messages.user.overview_Verification') }}</div>
               <div class="card-text content-text">
                 {{ $t('messages.user.Verification_con') }}
@@ -190,38 +223,6 @@
                   {{ $t('messages.user.Verification_Unverified') }}
                 </div>
                 <div class="tip-text" v-else>{{ $t('messages.user.Verification_verified') }}</div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="card-part">
-      <el-row :gutter="20">
-        <el-col :span="12" :xs="24">
-          <el-card class="part-box-card">
-            <div class="card-box">
-              <div class="card-title overview-title">{{ $t('messages.user.overview_Bank') }}</div>
-              <div class="card-text content-text">
-                {{ $t('messages.user.Bank_con') }}
-              </div>
-              <div class="card-img">
-                <!-- <img :src="usercenter_icon_bankaccount"/> -->
-                <img :src="usercenter_icon_preferences"/>
-              </div>
-            </div>
-            <el-divider style="margin-left: -30px; width: 1000px"/>
-            <div class="card-bottom">
-              <div class="bottom-link">
-                <router-link
-                    to="/user/bankaccount"
-                    style="color: #01c19a; text-decoration: none"
-                >
-                  <div class="link-text">{{ $t('messages.user.paid') }}</div>
-                  <el-icon>
-                    <Right/>
-                  </el-icon>
-                </router-link>
               </div>
             </div>
           </el-card>
@@ -511,7 +512,7 @@ async function submitEmailForm() {
 
         .info-count {
           font-size: 12px;
-          color: #878787;
+          color: #878787 !important;
           line-height: 14px;
           margin-top: 3px;
           position: relative;

@@ -4,7 +4,7 @@
       <div class="footer-bottom max1290" style="height: 104px;display: flex;justify-content: space-between;">
         <div style="display: flex;align-items: center;"><img :src="logo" /></div>
         <div>
-          <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P.COM</span></div>
+          <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
             <span class="final-span">{{ $t('messages.footer.terms_conditions') }}</span>
             <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <!-- <div
-      
+
       class="message-win-box"
     > -->
     <el-dialog
@@ -402,7 +402,7 @@ footer {
     }
     .footer-logo {
       display: inline-block;
-      width: 34%;
+      width: 36%;
       padding-top: 40px;
       @media (max-width: 985px) {
         & {

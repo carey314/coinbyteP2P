@@ -45,22 +45,17 @@
       </el-row>
     </div>
 
-    <!-- <div class="center-part part" style="padding-top:-20px">
+    <div class="center-part part" style="padding-top:-20px;margin-bottom: 45px;">
       <el-row>
         <el-col :span="12">
           <div class="part-box follow" style="border:none;">
-            <div class="part-title">{{ $t('messages.contact.contact_thirdTitle') }}</div>
+            <div class="part-title fix-line-height">{{ $t('messages.contact.contact_thirdTitle') }}</div>
             <div class="bottom-part-icon">
-              <img src="../../assets/home/downbar_icon01.svg" alt="" />
-              <img src="../../assets/home/downbar_icon02.svg" alt="" />
-              <img src="../../assets/home/downbar_icon03.svg" alt="" />
-              <img src="../../assets/home/downbar_icon04.svg" alt="" />
-              <img src="../../assets/home/downbar_icon05.svg" alt="" />
-              <img src="../../assets/home/downbar_icon06.svg" alt="" />
-              <img src="../../assets/home/downbar_icon07.svg" alt="" />
-              <img src="../../assets/home/downbar_icon08.svg" alt="" />
-              <img src="../../assets/home/downbar_icon09.svg" alt="" />
+              <img src="../../assets/icons/icon_twitter.svg" alt="" />
+              <img src="../../assets/icons/icon_telegram.svg" alt="" />
+              <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
               <img src="../../assets/home/downbar_icon10.png" alt="" />
+
             </div>
           </div>
         </el-col>
@@ -72,7 +67,7 @@
           </div>
         </el-col>
       </el-row>
-    </div> -->
+    </div>
     <div style="position: absolute;bottom: 0;width: 100%">
       <Footer v-if="windowWidth > 769" />
       <FooterMobile v-if="windowWidth <= 769"></FooterMobile>
@@ -107,7 +102,11 @@ function resetWidth() {
 .contact-page {
   background: #1d262f;
   position: relative;
-  min-height: calc(100vh - 0px);
+  overflow: hidden;
+  min-height: calc(100vh + 180px);
+  @media (max-width: 768px) {
+    min-height: calc(100vh + 70px);
+  }
 
   .top-part {
     width: 100%;
@@ -152,10 +151,10 @@ function resetWidth() {
       }
     }
   }
-.top-center{
-  padding-top: 46px;
-  padding-bottom: 103px;
-}
+  .top-center{
+    padding-top: 46px;
+
+  }
   .part-box {
     height: 340px;
     padding: 14% 8% 10% 8%;
@@ -174,22 +173,21 @@ function resetWidth() {
       color: #ffffff;
       margin-top: 30px;
       line-height: 19px;
-      white-space: pre-wrap;
     }
   }
   .left-box {
     border-right: 1px solid #2f3f4e;
   }
   .bottom-part-icon {
-      width: 100%;
-      margin-top: 20px;
-      img {
-        cursor: pointer;
-        width: 1rem;
-        margin: 8px 12px 0 0;
-        height: 1rem;
-      }
+    width: 100%;
+    margin-top: 20px;
+    img {
+      cursor: pointer;
+      width: 1rem;
+      margin: 8px 12px 0 0;
+      height: 1rem;
     }
+  }
   .bottom-part {
     padding: 7% 4% 5% 3%;
     border-left: 0px;
@@ -239,7 +237,6 @@ function resetWidth() {
 @media (min-width: 985px) and (max-width: 1400px) {
   .part {
     max-width: 940px;
-    min-height: calc(100vh - 450px) !important;
   }
   .hand_left {
     width: 36%;
@@ -269,7 +266,7 @@ function resetWidth() {
     }
   }
   .bottom-part-title {
-     line-height: 50px;
+    line-height: 50px;
   }
   .part-img {
     right: 10px !important;
@@ -277,6 +274,13 @@ function resetWidth() {
   }
   .part {
     max-width: none;
+  }
+}
+.fix-line-height{
+  display: initial;
+  line-height: 42px;
+  @media (max-width: 985px) {
+    line-height: 36px;
   }
 }
 </style>

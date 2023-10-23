@@ -41,7 +41,25 @@
                                   :key="item.value"
                                   :label="item.label"
                                   style="height: 47px;"
-                                  :value="item.value">
+                                  :value="item.value"
+                                  v-if="$route.path.startsWith('/au')">
+                                <div
+                                    style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
+                                  <img :src="item.icon"/>
+                                  <div style="display: flex; align-items: baseline; gap: 7px;">
+                                    <span style="font-size: 16px;color: #020202;">{{ item.label }}</span>
+                                    <span style="font-size: 14px;color: #9B9B9B;">{{ item.description }}</span>
+                                  </div>
+                                </div>
+                              </el-option>
+                              <el-option
+                                  :show-arrow="false"
+                                  v-for="item in optionsNZ"
+                                  :key="item.value"
+                                  :label="item.label"
+                                  style="height: 47px;"
+                                  :value="item.value"
+                                  v-if="$route.path.startsWith('/nz')">
                                 <div
                                     style="display: flex; align-items: center; gap: 12.4px;position:relative; height: 47px;">
                                   <img :src="item.icon"/>
@@ -158,7 +176,7 @@
                                 v-model="form.coinAmount"
                                 type="number"
                                 placeholder="Please enter the amount"
-                                @change="updateCanContinue"
+                                @input="updateCanContinue"
                                 :precision="2" :step="0.1"
                             />
                           </el-form-item>
@@ -194,7 +212,7 @@
                           </div>
                           <div class="receive-box" v-show="activeStep === 2 || 3">
                             <el-divider class="deposit-divider"></el-divider>
-                            <div class="receive">You Receive:</div>
+                            <div class="receive">{{ $t('messages.pay_order.receive') }}:</div>
                             <div class="receive-count">
                               <span v-if="form.coinAmount">{{ formatNumber(form.coinAmount) }}</span>
                               <span v-else>0.00</span> {{ form.selectedOption1 }}
@@ -208,7 +226,7 @@
                             :disabled="!canContinue"
                             @click="handleContinue(ruleFormRef)"
                         >
-                          Continue
+                          {{ $t('messages.deposit_Fiat.continue_btn') }}
                         </el-button>
                       </div>
                       <el-dialog
@@ -236,77 +254,27 @@
                         <template #footer>
                           <el-button @click="handleSubmit" class="know-btn" :loading="submitDepositLoading"
                                      :disabled="submitDepositLoading"
-                          >I Agree
+                          > {{ $t('messages.deposit_Fiat.agree_btn') }}
                           </el-button
                           >
                         </template>
                       </el-dialog>
                     </template>
                   </el-step>
-                  <!-- <el-step
-                      v-if="showStepThree"
-                      title="Transfer Money to Proceed With the Order"
-                    >
-                      <template #description>
-                        <div
-                          v-if="activeStep === 3 && showStepThree"
-                          class="deposit-details clearfloat"
-                        >
-                          <div class="detail-box clearfloat">
-                            <div class="detail-box-tips">
-                              Please use the PayID detail below to make the
-                              transfer and
-                              <span
-                                >Select the email option, and NOT organization
-                                ID</span
-                              >
-                              when depositing from online banking or mobile app.
-                              How to deposit AUD via PayID/Osko?
-                              <span style="text-decoration: underline"
-                                >Click Here</span
-                              >
-                            </div>
-
-                            <div class="detail-card">
-                              <div class="card-item">
-                                <div class="item-title">
-                                  <div class="item-title-img">
-                                    <img :src="crypto_icon_usdt" />
-                                  </div>
-                                  <span>AUD</span>
-                                </div>
-                                <div class="item-count">10,000.00</div>
-                              </div>
-                              <div class="card-divider"></div>
-                              <div class="card-info">
-                                <div class="title">PayID Information</div>
-                              </div>
-                              <div class="indo-detail">
-                                <div class="title">user2022@au.CoinbyteP2P.com</div>
-                                <div class="copy">
-                                  <el-icon><CopyDocument /></el-icon> Copy
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </template>
-                    </el-step> -->
                 </el-steps>
               </div>
               <div v-else>
                 <div class="success-box">
                   <div class="title">
-                    Transfer Money to Proceed With the Order
+                    {{ $t('messages.deposit_Fiat.transfer_order') }}
                   </div>
                   <div v-if="form.selectedPayment === 'PayID'">
                     <div class="tip">
-                      Please use your unique PayID detail below to make the
-                      transfer and
+                      {{ $t('messages.deposit_Fiat.transfer_tip1') }}
                       <span
-                      >select the email option, and NOT organization ID</span
+                      > {{ $t('messages.deposit_Fiat.transfer_tip2') }}</span
                       >
-                      when transferring from online banking or mobile app.
+                      {{ $t('messages.deposit_Fiat.transfer_tip3') }}
                     </div>
                     <div class="info">
                       <div class="info-price">
@@ -327,7 +295,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="previous" @click="clickPrevious">previous</div>
+                    <div class="previous" @click="clickPrevious"> {{ $t('messages.deposit_Fiat.previous_btn') }}</div>
                   </div>
                   <div v-else>
                     <div class="tip">
@@ -394,112 +362,116 @@
       </el-col>
       <el-col :span="9" :xs="24" class="right-box" style="margin-top: 10px">
         <div class="tips" v-if="depositStatus === false">
-          <div class="tips-question">
-            <div class="question-title">
-              <img :src="appeal"/>
+          <a href="https://www.coinbyte.exchange/" style="text-decoration: none">
+            <div class="tips-question" style="cursor: pointer">
+              <div class="question-title">
+                <img :src="appeal"/>
+              </div>
+              <div class="question-content content">{{ $t('messages.pay_order.appeal') }}</div>
             </div>
-            <div class="question-content content">Appeal</div>
-          </div>
+          </a>
           <div class="tips-faq">
             <div class="faq-title">
 <!--              <img style="width: 14px; height: auto" :src="notice"/>-->
 <!--              Notice-->
-              {{ $t('messages.user_verify.faq') }}
+              {{ $t('messages.pay_order.note') }}
             </div>
             <el-divider/>
-<!--            <el-collapse v-model="faqActiveName" style="margin-top: 17px">-->
-<!--              <el-collapse-item-->
-<!--                  title="Why do I need to verify my identity?"-->
-<!--                  name="1"-->
-<!--              >-->
-<!--                <div class="faq-text">-->
-<!--                  We use identity verification in order to comply with local-->
-<!--                  laws and regulations. This process helps us prevent-->
-<!--                  fraudulent accounts and activity on our platform.-->
-<!--                </div>-->
-<!--              </el-collapse-item>-->
-<!--              <el-collapse-item-->
-<!--                  title="Identity verification troubleshooting"-->
-<!--                  name="2"-->
-<!--                  style="border-bottom: 0 !important;"-->
-<!--              >-->
-<!--                <div class="faq-text" style="text-decoration: underline;cursor: pointer">-->
-<!--                  How to verify your account with a new device?-->
-<!--                </div>-->
-<!--                <div class="faq-text" style="text-decoration: underline;cursor: pointer">-->
-<!--                  How do I check my identity verification information?-->
-<!--                </div>-->
-<!--              </el-collapse-item>-->
-<!--            </el-collapse>-->
             <div class="faq-content content">
               <div>
-                To cover processing costs, a AU$3 processing fee will be charged
-                to refund deposits received from thirdparty bank accounts.
+                {{ $t('messages.pay_order.first_note') }}
+
               </div>
               <br/>
               <div>
-                Deposits will only be refunded if the deposit is greater than
-                AU$10.
+                {{ $t('messages.pay_order.second_note') }}
+
               </div>
               <br/>
               <div>
-                Your PayID is generated by CoinbyteP2P australia and is solely for
-                accepting AUD deposits into your exchange wallet.
-              </div>
-              <br/>
-              <div>
-                This service is supported by CoinByteP2P, in accordance to
-                CoinByteP2P's
+                {{ $t('messages.pay_order.third_note') }}
+
                 <span style="cursor: pointer; color: #01c19a !important"
-                >Terms of Use</span
+                >  {{ $t('messages.pay_order.term') }}</span
                 >
-                and
+                {{ $t('messages.pay_order.and') }}
                 <span style="cursor: pointer; color: #01c19a !important"
-                >Privacy Policy</span
-                >.
+                > {{ $t('messages.pay_order.privacy') }}</span
+                >
               </div>
             </div>
           </div>
         </div>
         <div class="tips"  v-else>
           <div class="success-right">
-            <div class="tips-question">
-              <div class="question-title">
-                <img :src="appeal"/>
+            <a href="https://www.coinbyte.exchange/" style="text-decoration: none">
+              <div class="tips-question">
+                <div class="question-title">
+                  <img :src="appeal"/>
+                </div>
+                <div class="question-content content">{{ $t('messages.pay_order.appeal') }}</div>
               </div>
-              <div class="question-content content">Appeal</div>
-            </div>
-
-            <div class="tips-question">
+            </a>
+            <div class="tips-question" @click="openRequireDialog">
               <div class="question-title">
                 <img :src="notice" style="width: 13px; height: auto"/>
               </div>
-              <div class="question-content content">View Important Notes</div>
+              <div class="question-content content">{{ $t('messages.deposit_Fiat.view_notes') }}</div>
             </div>
+            <el-dialog
+                v-model="dialogNoteContinue"
+                class="dialog-box"
+                width="412px"
+                style="padding: 0 22px 36px 22px"
+            >
+              <template #header>
+                <div class="dialog-header-require">
+                  {{ $t('messages.pay_order.require') }}
+                </div>
+              </template>
+              <div class="divider-require"></div>
+              <div
+                  class="require-list"
+                  v-for="(item, index) in requireList"
+                  :key="index"
+              >
+                <div class="list-img">
+                  <img class="image" :src="item.img"/>
+                </div>
+                <div class="list-info" v-html="item.info"></div>
+              </div>
+              <template #footer>
+                <el-button @click="dialogNoteContinue = false" class="know-btn" :loading="submitDepositLoading"
+                           :disabled="submitDepositLoading"
+                > {{ $t('messages.deposit_Fiat.agree_btn') }}
+                </el-button
+                >
+              </template>
+            </el-dialog>
           </div>
           <div class="tips-faq">
             <div class="faq-title">
               <img style="width: 20px; height: auto" :src="how"/>
-              <span style="margin-left: 5px">How it works</span>
+              <span style="margin-left: 5px">{{ $t('messages.deposit_Fiat.how') }}</span>
             </div>
             <el-divider/>
             <div class="faq-content content">
-              <div class="work-title">Transfer Money</div>
+              <div class="work-title">{{ $t('messages.deposit_Fiat.how_transfer') }}</div>
               <div class="work-content">
-                Transfer your money to CoinbyteP2P account
+                {{ $t('messages.deposit_Fiat.how_to') }}
               </div>
               <br/>
-              <div class="work-title">Order Processed</div>
+              <div class="work-title">{{ $t('messages.deposit_Fiat.order') }}</div>
 
               <div class="work-content">
-                The time it takes for this to happen will depend on your bank
+                {{ $t('messages.deposit_Fiat.order_time') }}
               </div>
-              <div class="view">View History &gt;</div>
+              <div class="view"> {{ $t('messages.deposit_Fiat.view_history') }} &gt;</div>
               <br/>
-              <div class="work-title">Funds Arrived</div>
+              <div class="work-title">{{ $t('messages.deposit_Fiat.fund_arrived') }}</div>
 
-              <div class="work-content">Receive your deposit amount</div>
-              <div class="view">View Wallet &gt;</div>
+              <div class="work-content">{{ $t('messages.deposit_Fiat.fund_release') }}</div>
+              <div class="view">{{ $t('messages.deposit_Fiat.view_wallet') }} &gt;</div>
             </div>
           </div>
         </div>
@@ -665,6 +637,9 @@ const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
 const dialogVisible = ref(false);
 const dialogContinue = ref(false);
+const dialogNoteContinue = ref(false);
+
+
 const depositStatus = ref(false);
 const faqActiveName = ref("1");
 
@@ -713,7 +688,9 @@ const rules = reactive<FormRules>({
     {validator: validateCoinAmount, trigger: 'blur'}
   ],
 })
-
+const openRequireDialog = () => {
+  dialogNoteContinue.value = true;
+}
 // 验证amount
 function validateCoinAmount(rule: any, value: any, callback: any) {
   if (Number(value) < 50 || Number(value) > 2000000) {
@@ -845,11 +822,14 @@ const currentChange = (page: number) => {
 
 let options1 = [
   {value: "AUD", label: "AUD", icon: coin_aud, description: "Australian Dollar"},
-  {value: "NZD", label: "NZD", icon: coin_nzd, description: "New Zealand Dollar"},
 ];
+let optionsNZ = [
+  {value: "NZD", label: "NZD", icon: coin_nzd, description: "New Zealand Dollar"},
+]
 // select content
 const selectCurrencyContent = computed(() => {
   return options1.find(v => v.value === form.value.selectedOption1);
+  return optionsNZ.find(v => v.value === form.value.selectedOption1);
 })
 let options2 = [
   {value: "optionA", label: "Polygon"},
@@ -917,23 +897,23 @@ function closeDialog() {
 const requireList = [
   {
     img: requireOne,
-    info: "In line with AML/CTF laws, deposits are only accepted from the bank account that is in the same name as the account you have verified on CoinbyteP2P.",
+    info: t('messages.deposit_Fiat.trans_1')
   },
   {
     img: requireTwo,
-    info: "To cover processing costs, a AU$3 processing fee will be charged to refund desposits received from third-party bank accounts <br/>Deposits will only be refunded if the deposit is greater than AU$10",
+    info: t('messages.deposit_Fiat.trans_2')
   },
   {
     img: requireThree,
-    info: "This service is supported by CoinByteP2P, in accordance to CoinByteP2P's <span style='color: #01c19a;cursor:pointer;'>Terms of Use</span> and <span style='color: #01c19a;cursor:pointer;'>Privacy Policy</span>.",
+    info: `${t('messages.deposit_Fiat.trans_3')} <span style='color: #01c19a;cursor:pointer;'>${t('messages.deposit_Fiat.term')}</span> ${t('messages.deposit_Fiat.and')} <span style='color: #01c19a;cursor:pointer;'>${t('messages.deposit_Fiat.privacy')}</span>。`,
   },
   {
     img: requireFour,
-    info: "Failed deposits will be returned to the source account within 2 business days",
+    info: t('messages.deposit_Fiat.trans_4')
   },
   {
     img: requireFive,
-    info: "You First PayID transfer may take 24 hours to clear subject to your bank's policy.<br/>Subsequent transfers are instant.",
+    info: t('messages.deposit_Fiat.trans_5')
   },
 ];
 const isFoldArr = ref<string[]>([]);
@@ -1578,6 +1558,7 @@ $fontSizeMin: 12px;
     }
 
     .tips-question {
+      cursor: pointer;
       .question-title {
         float: left;
       }
@@ -1715,7 +1696,8 @@ $fontSizeMin: 12px;
     margin-left: 17px;
     width: 100%;
     overflow-wrap: break-word;
-    word-break: keep-all;
+    //word-break: keep-all;
+    word-break: break-word;
     overflow-wrap: break-word;
   }
 }

@@ -459,11 +459,11 @@ function resetWidth() {
 
 const set = ref("Set");
 const securityDate = reactive([
-  {
-    icon: usercenter_security_login,
-    title: t("messages.user.login_password"),
-    msg: t("messages.user.login_msg"),
-  },
+  // {
+  //   icon: usercenter_security_login,
+  //   title: t("messages.user.login_password"),
+  //   msg: t("messages.user.login_msg"),
+  // },
   {
     icon: usercenter_security_mobile,
     title: t("messages.user.mobile_title"),

@@ -21,32 +21,36 @@
         <div class="left-center">
           <div class="center-step-box">
             <div v-if="withdrawStatus === false">
-              <el-steps :active="activeStep" direction="vertical" align-center>
+              <el-steps :active="activeStep" direction="vertical">
                 <el-step :title="t('messages.user_verify.sell')" class="select">
+                  <template #icon>
+                    <el-icon v-if="!(validKycSell || validKycBuy)" size="20"><CircleClose /></el-icon>
+                    <el-icon v-else size="20"><CircleCheckFilled /></el-icon>
+                  </template>
                   <template #description>
                     <!-- v-if="activeStep >= 1" -->
                     <div class="sell-box">
-                      <div class="sell-title">Features and limits</div>
+                      <div class="sell-title">{{ $t('messages.user_verify.sell_title') }}</div>
                       <div class="sell-verified">
                         <div class="verified-name">
                           <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">
                             <Select  v-if="(validKycSell || validKycBuy)"/>
                             <CloseBold  v-else/>
                           </el-icon>
-                          <div class="whether">Sell my crypto</div>
+                          <div class="whether">{{ $t('messages.user_verify.sell_sell') }}</div>
                         </div>
-                        <div class="verified-info">Unlimited</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
                       </div>
-                      <div class="sell-verified">
-                        <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">
-                            <Select  v-if="(validKycSell || validKycBuy)"/>
-                            <CloseBold  v-else/>
-                          </el-icon>
-                          <div class="whether">Buy crypto</div>
-                        </div>
-                        <div class="verified-info">50K USD Daily</div>
-                      </div>
+<!--                      <div class="sell-verified">-->
+<!--                        <div class="verified-name">-->
+<!--                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">-->
+<!--                            <Select  v-if="(validKycSell || validKycBuy)"/>-->
+<!--                            <CloseBold  v-else/>-->
+<!--                          </el-icon>-->
+<!--                          <div class="whether">Buy crypto</div>-->
+<!--                        </div>-->
+<!--                        <div class="verified-info">50K USD Daily</div>-->
+<!--                      </div>-->
                       <div
                         style="
                           height: 2px;
@@ -55,19 +59,19 @@
                           margin-top: 24px !important;
                         "
                       ></div>
-                      <div class="sell-requirement">Requirements</div>
+                      <div class="sell-requirement">{{ $t('messages.user_verify.sell_require') }}</div>
                       <div class="require-box">
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Government-issued ID</span>
+                          <span>{{ $t('messages.user_verify.sell_id') }}</span>
                         </div>
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Facial recognition</span>
+                          <span>{{ $t('messages.user_verify.sell_broof') }}</span>
                         </div>
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Proof of address</span>
+                          <span>{{ $t('messages.user_verify.sell_video') }}</span>
                         </div>
                       </div>
 <!--                      <el-button class="continue-btn" type="primary" @click="goToKyc('buy')">-->
@@ -89,19 +93,23 @@
                   class="clearfloat"
                   style="margin-top: 25px"
                 >
+                  <template #icon>
+                    <el-icon v-if="!(validKycSell || validKycBuy)" size="20"><CircleClose /></el-icon>
+                    <el-icon v-else size="20"><CircleCheckFilled /></el-icon>
+                  </template>
                   <template #description>
                     <!-- v-if="activeStep === 2 || activeStep === 3" -->
                     <div class="sell-box clearfloat">
-                      <div class="sell-title">Features and limits</div>
+                      <div class="sell-title">{{ $t('messages.user_verify.sell_title') }}</div>
                       <div class="sell-verified">
                         <div class="verified-name">
                           <el-icon class="icon" :style="{ color: validKycBuy ? '#01c19a' : '#f35854' }">
                             <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
-                          <div class="whether">Sell my crypto</div>
+                          <div class="whether">{{ $t('messages.user_verify.sell_sell') }}</div>
                         </div>
-                        <div class="verified-info">Unlimited</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
@@ -109,9 +117,9 @@
                             <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
-                          <div class="whether">Buy crypto</div>
+                          <div class="whether">{{ $t('messages.user_verify.buy_buy') }}</div>
                         </div>
-                        <div class="verified-info">1M USD Daily</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
                       </div>
                       <div
                         style="
@@ -121,24 +129,24 @@
                           margin-top: 24px !important;
                         "
                       ></div>
-                      <div class="sell-requirement">Requirements</div>
+                      <div class="sell-requirement">{{ $t('messages.user_verify.sell_require') }}</div>
                       <div class="require-box">
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Government-issued ID</span>
+                          <span>{{ $t('messages.user_verify.sell_id') }}</span>
                         </div>
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Facial recognition</span>
+                          <span>{{ $t('messages.user_verify.sell_broof') }}</span>
                         </div>
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>Proof of address</span>
+                          <span>{{ $t('messages.user_verify.sell_video') }}</span>
                         </div>
-                        <div class="require-item">
-                          <div class="pointer"></div>
-                          <span>Video verification</span>
-                        </div>
+<!--                        <div class="require-item">-->
+<!--                          <div class="pointer"></div>-->
+<!--                          <span>Video verification</span>-->
+<!--                        </div>-->
                       </div>
 
                       <el-button
@@ -196,25 +204,26 @@
             <div class="faq-content content">
               <el-collapse v-model="faqActiveName" >
                 <el-collapse-item
-                  title="Why do I need to verify my identity?"
+                  :title="t('messages.user_verify.faq_title1')"
                   name="1"
                 >
                   <div class="faq-text">
-                    We use identity verification in order to comply with local
-                    laws and regulations. This process helps us prevent
-                    fraudulent accounts and activity on our platform.
+                    {{ $t('messages.user_verify.faq_content') }}
                   </div>
                 </el-collapse-item>
                 <el-collapse-item
-                  title="Identity verification troubleshooting"
+                    :title="t('messages.user_verify.faq_title2')"
                   name="2"
                   style="border-bottom: 0 !important;"
                 >
                   <div class="faq-text" style="text-decoration: underline;cursor: pointer">
-                    How to verify your account with a new device?
+                    {{ $t('messages.user_verify.faq_how1') }}
                   </div>
                   <div class="faq-text" style="text-decoration: underline;cursor: pointer">
-                    How do I check my identity verification information?
+                    {{ $t('messages.user_verify.faq_how2') }}
+                  </div>
+                  <div class="faq-text" style="text-decoration: underline;cursor: pointer">
+                    {{ $t('messages.user_verify.faq_how3') }}
                   </div>
                 </el-collapse-item>
               </el-collapse>
@@ -248,9 +257,9 @@ import {
   Upload,
   Opportunity,
   Warning,
-  Switch,
-  Clock,
-  CaretBottom,
+  CircleClose,
+  CircleCheck,
+  CircleCheckFilled,
 } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
 import { useWindowSize } from "../../../../hooks/useWindowSize";
@@ -273,7 +282,8 @@ const goToKyc = (type: string) => {
     // console.log(userInfoStore.isLogin, '是否登陆')
     router.push({name: 'kyc', query: {type}})
   } else {
-    router.push('/signup')
+    router.push(`/signup?type=${type}`)
+    // ('/signup')
   }
 }
 const inputValue = ref("");
@@ -291,7 +301,7 @@ const { t } = useI18n();
 const noFound = ref(false);
 
 const windowWidth = useWindowSize().width;
-const activeStep = ref(1);
+const activeStep = ref(2);
 const selectedOption1 = ref("");
 const selectedOption2 = ref("");
 const canContinue = ref(false);
@@ -1033,5 +1043,11 @@ $fontSizeMin: 12px;
       }
     }
   }
+}
+:deep(.el-step.is-vertical .el-step__icon.is-icon){
+  color: #000 !important;
+}
+:deep(.el-step__line){
+  border-left: none !important;
 }
 </style>

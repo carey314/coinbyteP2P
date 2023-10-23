@@ -49,6 +49,15 @@ function getClientTypeDetails (typeId : string) {
 async function logOut () {
     return http.get("/logout");
 }
+export async function handleLogout() {
+    try {
+        await logOut();
+        // 其他登出成功后的处理
+    } catch (error) {
+        // 处理登出失败的情况
+        console.log('Logout failed:', error);
+    }
+}
 //Get client permissions
 function getClientPermissions () {
     return http.get(`/v2/my/permissions`);
@@ -154,5 +163,5 @@ export {
     verifyPassword,
     updateEmail,
     forgetPassword,
-    verifyForgetPassword
+    verifyForgetPassword,
 }
