@@ -720,16 +720,51 @@ async function submitTransaction(data: Form) {
   return await addTransaction(addData);
 }
 
-const sendEmail = () => {
-  const recipient = 'support@coinbyte.exchange'; // 收件人邮箱地址
-  const subject = '邮件主题'; // 邮件主题
-  const body = '邮件内容'; // 邮件内容
-
-  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-  window.location.href = mailtoLink;
-};
-
+const tableData = ref([
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   icon: "crypto_icon_usdt",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "1",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "2",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+  // {
+  //   time: "2023-04-20 20:22",
+  //   coin: "USDT",
+  //   amount: "33399.567 USDT",
+  //   status: "Successful",
+  //   payment_method: "PayID/Osko",
+  //   indicated_amount: "3800.00",
+  //   TxID: "TXRLV…aAjr7",
+  //   order_ID: "PAC23212232112121211",
+  //   key: "3",
+  //   network: "Tron(TRC20)",
+  //   address: "Cf9044…104a5f",
+  //   wallet: "Trading Wallet",
+  // },
+]);
 const tableDataLoading = ref(false);
 const formatDate = (date: Date) => {
   return dayjs(date).format('YYYY-MM-DD HH:mm');
@@ -896,7 +931,15 @@ const textToCopy = (contentToCopy: string | number) => {
   navigator.clipboard?.writeText(`${contentToCopy}`);
   ElMessage.success('Copied to clipboard!');
 }
+const sendEmail = () => {
+  const recipient = 'support@coinbyte.exchange'; // 收件人邮箱地址
+  const subject = '邮件主题'; // 邮件主题
+  const body = '邮件内容'; // 邮件内容
 
+  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailtoLink;
+};
 </script>
 
 <style scoped lang="scss">
