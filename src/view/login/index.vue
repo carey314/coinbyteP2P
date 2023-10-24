@@ -332,8 +332,10 @@ const isCountingDown = ref(false); // 是否处于倒计时状态
 watch(() => form.code, (newCode) => {
   if (!isCountingDown.value && newCode === "") {
     isButtonDisabled.value = true; // 如果不处于倒计时状态且输入框为空，禁用登录按钮
-  } else {
-    isButtonDisabled.value = !isCountingDown.value; // 否则根据倒计时状态来决定是否禁用登录按钮
+  } else if( form.code === ""){
+    isButtonDisabled.value = true;
+  } else{
+    isButtonDisabled.value = !isCountingDown.value;
   }
 });
 
