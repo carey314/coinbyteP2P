@@ -55,7 +55,7 @@
                     <Right/>
                   </el-icon>
                 </div>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog" v-if="$route.path.startsWith('/au')">
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog" v-if="$route.path.startsWith('/au')">
                   <img
                       style="position:absolute;bottom: 0;left: 0;z-index: -1"
                       :src="learm_background"/>
@@ -67,6 +67,8 @@
                           v-for="(item, index) in gridData"
                           :key="index"
                       >
+                        <img class="au-learn-img" :src="asic"/>
+
                         <div class="alert-box">
                           <div class="alert-title">{{ item.title }}</div>
                           <div class="alert-cont">{{ item.content1 }}</div>
@@ -88,6 +90,8 @@
                           :key="index"
                           class="gap"
                       >
+                        <img class="au-learn-img" :src="austrac"/>
+
                         <div class="alert-box">
                           <div class="alert-title">{{ item.title }}</div>
                           <div class="alert-cont">{{ item.content1 }}</div>
@@ -151,7 +155,7 @@
                     </el-row>
                   </div>
                 </el-dialog>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog"
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog"
                            v-if="$route.path.startsWith('/nz')">
                   <img style="position:absolute;bottom: 0;left: 0;z-index: -1" :src="learm_background"/>
 
@@ -398,9 +402,14 @@
           <div v-if="reasonTab === t('messages.home.fifth_easy')">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
-                <div class="tab-img">
-                  <img :src="image04"/></div
-                >
+                <div class="tab-img" v-if="$route.path.startsWith('/au')">
+                  <img :src="image04"/>
+                </div>
+                <div class="tab-img" v-if="$route.path.startsWith('/nz')">
+                  <img :src="icon_card"/>
+                </div>
+
+
               </el-col>
               <el-col :span="10" :xs="24">
                 <div class="tab-content">
@@ -873,10 +882,12 @@ import part06_icon05 from "../../assets/home/part06_icon05.png";
 import part06_icon06 from "../../assets/home/part06_icon06.png";
 
 import * as echarts from "echarts";
-import learn_dialog_back from "../../assets/image/learn_dialog_back.png";
+import asic from "../../assets/icons/asic.png";
+import austrac from "../../assets/icons/austrac.png";
 import learn_more2 from "../../assets/image/learn_more2.png";
 import learn_more3 from "../../assets/image/learn_more3.png";
 import learm_background from "../../assets/image/learm_background.png";
+import icon_card from "../../assets/icons/icon_card.svg";
 
 import {storeToRefs} from "pinia";
 import {tradeStore} from "../../store/trade";

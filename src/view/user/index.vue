@@ -170,7 +170,7 @@ const changeTab = (path: string) => {
   }
   .el-tabs__active-bar {
     background-color: #01c19a;
-    height: 2px;
+    height: 3px;
   }
   .el-tabs__nav-wrap::after {
     border: 1px solid #EBEBEB !important;

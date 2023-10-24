@@ -88,7 +88,9 @@ $fontSizeMin: 12px;
     }
   }
 }
-
+:deep(.custom-dialog){
+  padding: 10px 20px 20px 40px !important;
+}
 .more-arrow {
   vertical-align: middle;
   margin-left: 2px;
@@ -437,7 +439,15 @@ img {
   color: #fff !important;
   --el-button-hover-bg-color: #56be93;
 }
-
+.au-learn-img{
+  width: 160px;
+  height: 100px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
 .nz-learn-img {
   width: 140px;
   height: 50px;

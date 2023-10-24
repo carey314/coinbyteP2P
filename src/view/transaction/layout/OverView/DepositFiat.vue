@@ -362,14 +362,14 @@
       </el-col>
       <el-col :span="9" :xs="24" class="right-box" style="margin-top: 10px">
         <div class="tips" v-if="depositStatus === false">
-          <a href="https://www.coinbyte.exchange/" style="text-decoration: none">
+          <div @click="sendEmail">
             <div class="tips-question" style="cursor: pointer">
               <div class="question-title">
                 <img :src="appeal"/>
               </div>
               <div class="question-content content">{{ $t('messages.pay_order.appeal') }}</div>
             </div>
-          </a>
+          </div>
           <div class="tips-faq">
             <div class="faq-title">
 <!--              <img style="width: 14px; height: auto" :src="notice"/>-->
@@ -404,14 +404,14 @@
         </div>
         <div class="tips"  v-else>
           <div class="success-right">
-            <a href="https://www.coinbyte.exchange/" style="text-decoration: none">
+            <div @click="sendEmail">
               <div class="tips-question">
                 <div class="question-title">
                   <img :src="appeal"/>
                 </div>
                 <div class="question-content content">{{ $t('messages.pay_order.appeal') }}</div>
               </div>
-            </a>
+            </div>
             <div class="tips-question" @click="openRequireDialog">
               <div class="question-title">
                 <img :src="notice" style="width: 13px; height: auto"/>
@@ -720,51 +720,16 @@ async function submitTransaction(data: Form) {
   return await addTransaction(addData);
 }
 
-const tableData = ref([
-  // {
-  //   time: "2023-04-20 20:22",
-  //   coin: "USDT",
-  //   icon: "crypto_icon_usdt",
-  //   amount: "33399.567 USDT",
-  //   status: "Successful",
-  //   payment_method: "PayID/Osko",
-  //   indicated_amount: "3800.00",
-  //   TxID: "TXRLV…aAjr7",
-  //   order_ID: "PAC23212232112121211",
-  //   key: "1",
-  //   network: "Tron(TRC20)",
-  //   address: "Cf9044…104a5f",
-  //   wallet: "Trading Wallet",
-  // },
-  // {
-  //   time: "2023-04-20 20:22",
-  //   coin: "USDT",
-  //   amount: "33399.567 USDT",
-  //   status: "Successful",
-  //   payment_method: "PayID/Osko",
-  //   indicated_amount: "3800.00",
-  //   TxID: "TXRLV…aAjr7",
-  //   order_ID: "PAC23212232112121211",
-  //   key: "2",
-  //   network: "Tron(TRC20)",
-  //   address: "Cf9044…104a5f",
-  //   wallet: "Trading Wallet",
-  // },
-  // {
-  //   time: "2023-04-20 20:22",
-  //   coin: "USDT",
-  //   amount: "33399.567 USDT",
-  //   status: "Successful",
-  //   payment_method: "PayID/Osko",
-  //   indicated_amount: "3800.00",
-  //   TxID: "TXRLV…aAjr7",
-  //   order_ID: "PAC23212232112121211",
-  //   key: "3",
-  //   network: "Tron(TRC20)",
-  //   address: "Cf9044…104a5f",
-  //   wallet: "Trading Wallet",
-  // },
-]);
+const sendEmail = () => {
+  const recipient = 'support@coinbyte.exchange'; // 收件人邮箱地址
+  const subject = '邮件主题'; // 邮件主题
+  const body = '邮件内容'; // 邮件内容
+
+  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  window.location.href = mailtoLink;
+};
+
 const tableDataLoading = ref(false);
 const formatDate = (date: Date) => {
   return dayjs(date).format('YYYY-MM-DD HH:mm');
