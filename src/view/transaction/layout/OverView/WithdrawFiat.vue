@@ -94,7 +94,7 @@
                   style="margin-top: 25px"
                 >
                   <template #icon>
-                    <el-icon v-if="!(validKycSell || validKycBuy)" size="20"><CircleClose /></el-icon>
+                    <el-icon v-if="!validKycBuy || validKycSell" size="20"><CircleClose /></el-icon>
                     <el-icon v-else size="20"><CircleCheckFilled /></el-icon>
                   </template>
                   <template #description>

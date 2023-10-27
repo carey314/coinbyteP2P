@@ -7,6 +7,12 @@ function genKycToken(data: any) {
     }
 }
 
+function resetKyc(data: any) {
+    {
+        return http.post('/kyc/reset', data);
+    }
+}
 export {
-    genKycToken
+    genKycToken,
+    resetKyc
 }

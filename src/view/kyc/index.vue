@@ -3,10 +3,12 @@
     <Header/>
     <div class="kyc-box">
       <div id="sumsub-websdk-container"></div>
+      <div v-show="reviewAnswer === 'RED'" class="recertification-btn" @click="resetBtn">Recertification</div>
+
     </div>
+
     <Footer v-if="windowWidth > 769"/>
-    <FooterMobile v-if="windowWidth <= 769">
-    </FooterMobile>
+    <FooterMobile v-if="windowWidth <= 769" />
   </div>
 </template>
 
@@ -18,7 +20,7 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 
-import {genKycToken} from "../../api/kyc";
+import {genKycToken,resetKyc} from "../../api/kyc";
 import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 
@@ -26,6 +28,8 @@ const {t} = useI18n();
 const route = useRoute();
 const router = useRouter();
 const windowWidth = ref(window.document.body.offsetWidth);
+
+const reviewAnswer = ref()
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
   // 买 buy 卖 sell
@@ -66,18 +70,31 @@ function launchWebSdk(token: string) {
       .withOptions({addViewportTag: false, adaptIframeHeight: true})
       // see below what kind of messages WebSDK generates
       .on('idCheck.stepCompleted', (payload) => {
-        console.log('stepCompleted', payload)
+        console.log('stepCompleted------idCheck.stepCompleted', payload)
       })
       .on('idCheck.onError', (error) => {
-        console.log('onError', error)
+        console.log('onError*******idCheck.onError', error)
       })
       .on('idCheck.applicantStatus', (res) => {
+        console.log(res,'*******')
         if (res.reviewStatus === 'completed') {
-          if (route.query.type === 'sell') {
-            router.push('/user/bankaccount');
-          } else if (route.query.type === 'buy') {
-            router.push('/user/depositFiat');
+          reviewAnswer.value = res.reviewResult.reviewAnswer;
+          // RED
+          if (reviewAnswer.value === 'RED') {
+            console.log('sell-redred')
+          } else {
+            // GREEN
+            if (route.query.type === 'sell') {
+              setTimeout(() => {
+                router.push('/user/bankaccount');
+              }, 3000); // 三秒延时
+            } else if (route.query.type === 'buy') {
+              setTimeout(() => {
+                router.push('/user/depositFiat');
+              }, 3000); // 三秒延时
+            }
           }
+
         }
       })
       .build();
@@ -86,7 +103,15 @@ function launchWebSdk(token: string) {
   // just launch the WebSDK by providing the container element for it
   snsWebSdkInstance.launch('#sumsub-websdk-container')
 }
-
+function resetBtn() {
+  resetKyc({"type": route.query.type as string}).then((
+      res
+  ) => {
+    genKycToken({type: route.query.type as string}).then((res) => {
+      launchWebSdk(res.data.data.token);
+    });
+  })
+}
 function getNewAccessToken() {
   return Promise.resolve("xxxx")// get a new token from your backend
 }
@@ -100,10 +125,24 @@ $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
 $fontSizeMin: 12px;
 .kyc-box {
+  position: relative;
   min-height: calc(100vh - 120px);
   @media(max-width: 768px) {
     min-height: calc(100vh - 10px);
   }
+}
+.recertification-btn{
+  //position: absolute;
+  //right: 50px;
+  //top: 20%;
+  width: 15%;
+  margin: auto;
+  border-radius: 10px;
+  border: 1px solid rgb(142,146,155);
+  color: rgb(142,146,155);
+  padding: 5px 10px;
+  cursor: pointer;
+  text-align: center
 }
 
 .part {
