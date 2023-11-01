@@ -75,7 +75,7 @@ function launchWebSdk(token: string) {
       .on('idCheck.onError', (error) => {
         console.log('onError*******idCheck.onError', error)
       })
-      .on('idCheck.applicantStatus', (res) => {
+      .on('idCheck.applicantStatus', (res:any) => {
         console.log(res,'*******')
         if (res.reviewStatus === 'completed') {
           reviewAnswer.value = res.reviewResult.reviewAnswer;
