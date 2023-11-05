@@ -5,7 +5,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
-            <a href="/learnList?type=1" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=1" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
@@ -27,7 +27,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
-            <a href="/learnList?type=2" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=2" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
@@ -59,7 +59,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
-            <a href="/learnList?type=3" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=3" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
@@ -93,7 +93,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Beginners") }}</span>{{ $t("messages.learnMiddle.Tutorial") }}</div>
           <div class="more">
-            <a href="/learnList?type=1" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=1" style="color: #878787; text-decoration: none"
             >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
           >
           </div>
@@ -120,7 +120,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Trading") }}</span>{{ $t("messages.learnMiddle.Ideas") }}</div>
           <div class="more">
-            <a href="/learnList?type=2" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=2" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>
@@ -147,7 +147,7 @@
         <div class="title-box clearfloat">
           <div class="title"><span>{{ $t("messages.learnMiddle.Industry") }}</span>{{ $t("messages.learnMiddle.Analysis") }}</div>
           <div class="more">
-            <a href="/learnList?type=3" style="color: #878787; text-decoration: none"
+            <a href="/au/learnList?type=3" style="color: #878787; text-decoration: none"
               >{{ $t("messages.learnMiddle.learn_more") }} &gt;</a
             >
           </div>

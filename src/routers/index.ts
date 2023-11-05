@@ -69,16 +69,42 @@ const routes: Array<RouteRecordRaw> = [
         name: 'spot',
         component: () => import('../view/market/spot/index.vue')
     },
+    // {
+    //     path: '/learnCenter',
+    //     name: 'learnCenter',
+    //     component: () => import('../view/learn/index.vue')
+    // },
     {
         path: '/learnCenter',
-        name: 'learnCenter',
+        redirect: '/au/learnCenter'
+    },
+    {
+        path: '/nz/learnCenter',
         component: () => import('../view/learn/index.vue')
     },
     {
+        path: '/au/learnCenter',
+        component: () => import('../view/learn/index.vue')
+    },
+
+    {
         path: '/learnList',
-        name: 'learnList',
+        redirect: '/au/learnList'
+    },
+    {
+        path: '/nz/learnList',
         component: () => import('../view/learn/learnList/index.vue')
     },
+    {
+        path: '/au/learnList',
+        component: () => import('../view/learn/learnList/index.vue')
+    },
+
+    // {
+    //     path: '/au/learnList',
+    //     name: 'learnList',
+    //     component: () => import('../view/learn/learnList/index.vue')
+    // },
     {
         path: '/centerContent/:id?',
         name: 'centerContent',

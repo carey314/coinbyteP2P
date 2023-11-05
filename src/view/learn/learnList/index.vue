@@ -68,7 +68,7 @@ onMounted(() => {
 })
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   nextTick(() => {
-    router.push('/learnList?type=' + activeName.value);
+    router.push('/au/learnList?type=' + activeName.value);
   })
 };
 

@@ -7,13 +7,18 @@
     <div class="header-menu">
       <ul class="menu">
         <li class="crypto-dropdown-box">
-          <a href="/" style="color: #fff; text-decoration: none">{{
+          <a href="/" v-if="$route.path.startsWith('/au')" style="color: #fff; text-decoration: none">{{
+              $t("messages.header.buy")
+            }}</a>
+          <a href="/nz" v-if="$route.path.startsWith('/nz')" style="color: #fff; text-decoration: none">{{
               $t("messages.header.buy")
             }}</a>
         </li>
         <li>
           <!-- Latest Scams -->
-          <a href="/learnCenter" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
+          <a href="/au/learnCenter" v-if="$route.path.startsWith('/au')" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
+          <a href="/nz/learnCenter" v-if="$route.path.startsWith('/nz')" style="color: #fff; text-decoration: none">{{ $t("messages.header.market") }}</a>
+
         </li>
         <li>
           <!-- about us -->
@@ -412,12 +417,22 @@
               }}</span></router-link>
           </div>
           <ul class="nav-list">
-            <li><a href="/" class="no-underline">
+            <li>
+              <a href="/" v-if="$route.path.startsWith('/au')" class="no-underline">
+                {{
+                  $t("messages.header.buy")
+                }}
+              </a>
+              <a href="/nz" v-if="$route.path.startsWith('/nz')" class="no-underline">
               {{
                 $t("messages.header.buy")
               }}
-            </a></li>
-            <li><a href="/learnCenter" class="no-underline">{{ $t("messages.header.market") }}</a></li>
+            </a>
+            </li>
+            <li>
+              <a href="/au/learnCenter" v-if="$route.path.startsWith('/au')" class="no-underline">{{ $t("messages.header.market") }}</a>
+              <a href="/nz/learnCenter" v-if="$route.path.startsWith('/nz')" class="no-underline">{{ $t("messages.header.market") }}</a>
+            </li>
             <li>
               <a href="/au/about" v-if="$route.path.startsWith('/au')" class="no-underline">{{ $t("messages.header.trade") }}</a>
               <a href="/nz/about" v-if="$route.path.startsWith('/nz')" class="no-underline">{{ $t("messages.header.trade") }}</a>

@@ -4,9 +4,9 @@
     <div class="main-part">
       <div class="nav">
         <el-breadcrumb :separator-icon="ArrowRight">
-          <el-breadcrumb-item :to="{ path: '/learnCenter' }">Learn</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/learnList`,  query: { type: type } }">{{ typeName }}</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/centerContent' }">Article</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/au/learnCenter' }">Learn</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: `/au/learnList`,  query: { type: type } }">{{ typeName }}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/au/centerContent' }">Article</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="part-container">
