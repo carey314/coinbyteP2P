@@ -32,6 +32,7 @@
                   <template #prepend>
                     <div style="position: absolute;z-index: 888;left: 4px;">+</div>
                     <el-select
+                        class="country-select"
                         v-model="numberSelect"
                         placeholder="Select"
                         filterable
@@ -587,7 +588,11 @@ $fontSizeMin: 12px;
     border-radius: 0;
   }
 }
-
+.country-select{
+  :deep(.el-select-dropdown__empty){
+      padding: 15px 80px !important;
+  }
+}
 .login-page {
   background: #1d262f;
   @media (max-width: 768px) {
@@ -1386,4 +1391,5 @@ $fontSizeMin: 12px;
   --el-button-active-bg-color: rgb(1, 193, 154);
   --el-button-active-border-color: rgb(1, 193, 154);
 }
+
 </style>

@@ -630,13 +630,20 @@
           <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
             <li>
-              <router-link to="/about" style="color: #909090;text-decoration: none ">{{
+              <router-link v-if="$route.path.startsWith('/au')" to="/au/about" style="color: #909090;text-decoration: none ">{{
+                  $t("messages.footer.us")
+                }}
+              </router-link>
+              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/about" style="color: #909090;text-decoration: none ">{{
                   $t("messages.footer.us")
                 }}
               </router-link>
             </li>
             <li>
-              <router-link to="/contact" style="color: #909090;text-decoration: none ">
+              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/contact" style="color: #909090;text-decoration: none ">
+                {{ $t("messages.footer.support_center") }}
+              </router-link>
+              <router-link v-if="$route.path.startsWith('/au')" to="/au/contact" style="color: #909090;text-decoration: none ">
                 {{ $t("messages.footer.support_center") }}
               </router-link>
             </li>

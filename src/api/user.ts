@@ -164,4 +164,5 @@ export {
     updateEmail,
     forgetPassword,
     verifyForgetPassword,
+    getUserInfo
 }

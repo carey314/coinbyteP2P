@@ -4,7 +4,6 @@
     <div class="kyc-box">
       <div id="sumsub-websdk-container"></div>
       <div v-show="reviewAnswer === 'RED'" class="recertification-btn" @click="resetBtn">Recertification</div>
-
     </div>
 
     <Footer v-if="windowWidth > 769"/>
@@ -21,6 +20,7 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 
 import {genKycToken,resetKyc} from "../../api/kyc";
+import { getUserInfo } from "../../api/user";
 import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 
@@ -80,20 +80,22 @@ function launchWebSdk(token: string) {
         if (res.reviewStatus === 'completed') {
           reviewAnswer.value = res.reviewResult.reviewAnswer;
           // RED
-          if (reviewAnswer.value === 'RED') {
-            console.log('sell-redred')
-          } else {
-            // GREEN
-            if (route.query.type === 'sell') {
-              setTimeout(() => {
-                router.push('/user/bankaccount');
-              }, 3000); // 三秒延时
-            } else if (route.query.type === 'buy') {
-              setTimeout(() => {
-                router.push('/user/depositFiat');
-              }, 3000); // 三秒延时
-            }
-          }
+
+
+          // if (reviewAnswer.value === 'RED') {
+          //   console.log('sell-redred')
+          // } else {
+          //   // GREEN
+          //   if (route.query.type === 'sell') {
+          //     setTimeout(() => {
+          //       router.push('/user/bankaccount');
+          //     }, 3000); // 三秒延时
+          //   } else if (route.query.type === 'buy') {
+          //     setTimeout(() => {
+          //       router.push('/user/depositFiat');
+          //     }, 3000); // 三秒延时
+          //   }
+          // }
 
         }
       })
@@ -102,6 +104,26 @@ function launchWebSdk(token: string) {
   // you are ready to go:
   // just launch the WebSDK by providing the container element for it
   snsWebSdkInstance.launch('#sumsub-websdk-container')
+}
+let time:any = null;
+function componentDidMount() {
+  time = setInterval(() => {
+    getUserInfo({}).then((res) => {
+      console.log(res,'-------123')
+      if (res.data.kyc_status === 'GREEN') {
+        clearInterval(time)
+          if (route.query.type === 'sell') {
+            setTimeout(() => {
+              router.push('/user/bankaccount');
+            }, 3000); // 三秒延时
+          } else if (route.query.type === 'buy') {
+            setTimeout(() => {
+              router.push('/user/depositFiat');
+            }, 3000); // 三秒延时
+          }
+      }
+    })
+  }, 5000)
 }
 function resetBtn() {
   resetKyc({"type": route.query.type as string}).then((

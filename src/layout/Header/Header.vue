@@ -17,13 +17,19 @@
         </li>
         <li>
           <!-- about us -->
-          <a href="/about" style="color: #fff; text-decoration: none">{{
+          <a href="/au/about" v-if="$route.path.startsWith('/au')" style="color: #fff; text-decoration: none">{{
+              $t("messages.header.trade")
+            }}</a>
+          <a href="/nz/about" v-if="$route.path.startsWith('/nz')" style="color: #fff; text-decoration: none">{{
               $t("messages.header.trade")
             }}</a>
         </li>
         <li>
           <!-- Support -->
-          <a href="/contact" style="color: #fff; text-decoration: none">{{
+          <a href="/au/contact" v-if="$route.path.startsWith('/au')" style="color: #fff; text-decoration: none">{{
+              $t("messages.header.learn")
+            }}</a>
+          <a href="/nz/contact" v-if="$route.path.startsWith('/nz')" style="color: #fff; text-decoration: none">{{
               $t("messages.header.learn")
             }}</a>
         </li>
@@ -412,8 +418,14 @@
               }}
             </a></li>
             <li><a href="/learnCenter" class="no-underline">{{ $t("messages.header.market") }}</a></li>
-            <li><a href="/about" class="no-underline">{{ $t("messages.header.trade") }}</a></li>
-            <li><a href="/contact" class="no-underline">{{ $t("messages.header.learn") }}</a></li>
+            <li>
+              <a href="/au/about" v-if="$route.path.startsWith('/au')" class="no-underline">{{ $t("messages.header.trade") }}</a>
+              <a href="/nz/about" v-if="$route.path.startsWith('/nz')" class="no-underline">{{ $t("messages.header.trade") }}</a>
+            </li>
+            <li>
+              <a href="/au/contact" v-if="$route.path.startsWith('/au')" class="no-underline">{{ $t("messages.header.learn") }}</a>
+              <a href="/nz/contact" v-if="$route.path.startsWith('/nz')" class="no-underline">{{ $t("messages.header.learn") }}</a>
+            </li>
           </ul>
         </div>
       </div>
