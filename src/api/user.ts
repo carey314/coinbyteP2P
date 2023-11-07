@@ -115,7 +115,7 @@ function getKycToken (data : any) {
 }
 // 获取用户信息
 function getUserInfo (data : any) {
-    return http.get("/api/user",data);
+    return http.get("/user",data);
 }
 
 //choose person

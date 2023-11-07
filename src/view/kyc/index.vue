@@ -5,7 +5,6 @@
       <div id="sumsub-websdk-container"></div>
       <div v-show="reviewAnswer === 'RED'" class="recertification-btn" @click="resetBtn">Recertification</div>
     </div>
-
     <Footer v-if="windowWidth > 769"/>
     <FooterMobile v-if="windowWidth <= 769" />
   </div>
@@ -37,7 +36,7 @@ onMounted(() => {
   genKycToken({type}).then((res) => {
     launchWebSdk(res.data.data.token);
   });
-
+  componentDidMount()
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -50,9 +49,6 @@ function resetWidth() {
 function launchWebSdk(token: string) {
   let snsWebSdkInstance = snsWebSdk.init(
       token,
-      // token update callback, must return Promise
-      // Access token expired
-      // get a new one and pass it to the callback to re-initiate the WebSDK
       () => getNewAccessToken()
   )
       .withConf({
@@ -62,9 +58,6 @@ function launchWebSdk(token: string) {
         // i18n: '', //JSON of custom SDK Translations
         uiConf: {
           customCss: "https://url.com/styles.css"
-          // URL to css file in case you need change it dynamically from the code
-          // the similar setting at Customizations tab will rewrite customCss
-          // you may also use to pass string with plain styles `customCssStr:`
         },
       })
       .withOptions({addViewportTag: false, adaptIframeHeight: true})
@@ -79,48 +72,24 @@ function launchWebSdk(token: string) {
         console.log(res,'*******')
         if (res.reviewStatus === 'completed') {
           reviewAnswer.value = res.reviewResult.reviewAnswer;
-          // RED
-
-
-          // if (reviewAnswer.value === 'RED') {
-          //   console.log('sell-redred')
-          // } else {
-          //   // GREEN
-          //   if (route.query.type === 'sell') {
-          //     setTimeout(() => {
-          //       router.push('/user/bankaccount');
-          //     }, 3000); // 三秒延时
-          //   } else if (route.query.type === 'buy') {
-          //     setTimeout(() => {
-          //       router.push('/user/depositFiat');
-          //     }, 3000); // 三秒延时
-          //   }
-          // }
-
         }
       })
       .build();
 
-  // you are ready to go:
-  // just launch the WebSDK by providing the container element for it
   snsWebSdkInstance.launch('#sumsub-websdk-container')
 }
 let time:any = null;
 function componentDidMount() {
   time = setInterval(() => {
     getUserInfo({}).then((res) => {
-      console.log(res,'-------123')
-      if (res.data.kyc_status === 'GREEN') {
-        clearInterval(time)
-          if (route.query.type === 'sell') {
-            setTimeout(() => {
-              router.push('/user/bankaccount');
-            }, 3000); // 三秒延时
-          } else if (route.query.type === 'buy') {
-            setTimeout(() => {
-              router.push('/user/depositFiat');
-            }, 3000); // 三秒延时
-          }
+      const kycData = res.data.data.kyc;
+      const filteredData = kycData.filter((kyc:any) => kyc.type === 'buy' && kyc.status === 'GREEN');
+      if(route.query.type === 'buy' && filteredData.length > 0) {
+        router.push('/user/depositFiat');
+      }
+      const filteredSell = kycData.filter((kyc:any) => kyc.type === 'sell' && kyc.status === 'GREEN');
+      if(route.query.type === 'sell' && filteredSell.length > 0) {
+        router.push('/user/bankaccount');
       }
     })
   }, 5000)

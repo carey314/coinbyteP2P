@@ -204,18 +204,18 @@
                         <img :src="dropdown_usercenter_unverified"/>
                       </div>
                       <div class="verify-text">
-                        <router-link :to="{ name: 'verificationAu' }" v-if="$route.path.startsWith('/au')" style="
+                        <router-link :to="{ name: 'verificationAu' }"  style="
                             color: rgb(239, 129, 51);
                             text-decoration: none;
                           ">
                           {{ $t("messages.header.verify_unverified") }}
                         </router-link>
-                        <router-link :to="{ name: 'verificationNz' }" v-if="$route.path.startsWith('/nz')" style="
-                            color: rgb(239, 129, 51);
-                            text-decoration: none;
-                          ">
-                          {{ $t("messages.header.verify_unverified") }}
-                        </router-link>
+<!--                        <router-link :to="{ name: 'verificationNz' }" v-if="$route.path.startsWith('/nz')" style="-->
+<!--                            color: rgb(239, 129, 51);-->
+<!--                            text-decoration: none;-->
+<!--                          ">-->
+<!--                          {{ $t("messages.header.verify_unverified") }}-->
+<!--                        </router-link>-->
                       </div>
                     </div>
                   </el-dropdown-item>
