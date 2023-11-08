@@ -55,7 +55,8 @@
                     <Right/>
                   </el-icon>
                 </div>
-                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog" v-if="$route.path.startsWith('/au')">
+                <el-dialog v-model="dialogTableVisible" class="alert-dialog custom-dialog"
+                           v-if="$route.path.startsWith('/au')">
                   <img
                       style="position:absolute;bottom: 0;left: 0;z-index: -1"
                       :src="learm_background"/>
@@ -345,7 +346,7 @@
                   </div>
                   <div class="tab-content-btn">
                     <GetButton class="trade-btn" type="success" @click="goKyc('buy')"
-                               :text="t('messages.home.start_btn')" />
+                               :text="t('messages.home.start_btn')"/>
                   </div>
                 </div>
               </el-col>
@@ -354,11 +355,11 @@
           <div v-if="reasonTab === t('messages.home.fifth_fiat')">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
-                <div class="tab-img" v-if="$route.path.startsWith('/au')" >
-                  <img  :src="image02_au"/>
+                <div class="tab-img" v-if="$route.path.startsWith('/au')">
+                  <img :src="image02_au"/>
                 </div>
-                <div class="tab-img" v-if="$route.path.startsWith('/nz')" >
-                  <img  :src="image02"/>
+                <div class="tab-img" v-if="$route.path.startsWith('/nz')">
+                  <img :src="image02"/>
                 </div>
               </el-col>
               <el-col :span="10" :xs="24">
@@ -617,8 +618,12 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.service") }}</li>
-            <li><a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</a></li>
-            <li><a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</a></li>
+            <li><a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon"
+                                                                                 :class="'flag-icon-au'"></span>
+              {{ $t("messages.footer.service_instant") }}</a></li>
+            <li><a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon"
+                                                                                 :class="'flag-icon-nz'"></span>
+              {{ $t("messages.footer.Zealand") }}</a></li>
             <!-- <li>{{ $t("messages.footer.service_spot_trading") }}</li> -->
           </ul>
           <ul class="link-list">
@@ -630,20 +635,24 @@
           <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
             <li>
-              <router-link v-if="$route.path.startsWith('/au')" to="/au/about" style="color: #909090;text-decoration: none ">{{
+              <router-link v-if="$route.path.startsWith('/au')" to="/au/about"
+                           style="color: #909090;text-decoration: none ">{{
                   $t("messages.footer.us")
                 }}
               </router-link>
-              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/about" style="color: #909090;text-decoration: none ">{{
+              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/about"
+                           style="color: #909090;text-decoration: none ">{{
                   $t("messages.footer.us")
                 }}
               </router-link>
             </li>
             <li>
-              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/contact" style="color: #909090;text-decoration: none ">
+              <router-link v-if="$route.path.startsWith('/nz')" to="/nz/contact"
+                           style="color: #909090;text-decoration: none ">
                 {{ $t("messages.footer.support_center") }}
               </router-link>
-              <router-link v-if="$route.path.startsWith('/au')" to="/au/contact" style="color: #909090;text-decoration: none ">
+              <router-link v-if="$route.path.startsWith('/au')" to="/au/contact"
+                           style="color: #909090;text-decoration: none ">
                 {{ $t("messages.footer.support_center") }}
               </router-link>
             </li>
@@ -656,33 +665,31 @@
           </li> -->
           </ul>
         </div>
-
-                <div
-                    class="icon-links"
-                    style="
+        <div
+            class="icon-links"
+            style="
                     font-size: 14px;
                     color: #808080;
                     line-height: 19px;
                     width: 8%;
                   "
-                >
-                  <img src="../../assets/icons/icon_twitter.svg" alt="" />
-                  <img src="../../assets/icons/icon_telegram.svg" alt="" />
-                  <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
-
-                </div>
+        >
+          <img src="../../assets/icons/icon_twitter.svg" alt=""/>
+          <img src="../../assets/icons/icon_telegram.svg" alt=""/>
+          <img src="../../assets/icons/icon_whatsapp.svg" alt=""/>
+        </div>
       </div>
 
-            <div
-                class="icon-links-lg max1290"
-                style="font-size: 14px; color: #808080; line-height: 19px"
-            >
-<!--              {{ $t("messages.footer.dce_num") }}-->
-              <img src="../../assets/icons/icon_twitter.svg" alt="" />
-              <img src="../../assets/icons/icon_telegram.svg" alt="" />
-              <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
+      <div
+          class="icon-links-lg max1290"
+          style="font-size: 14px; color: #808080; line-height: 19px"
+      >
+        <!--              {{ $t("messages.footer.dce_num") }}-->
+        <img src="../../assets/icons/icon_twitter.svg" alt=""/>
+        <img src="../../assets/icons/icon_telegram.svg" alt=""/>
+        <img src="../../assets/icons/icon_whatsapp.svg" alt=""/>
 
-            </div>
+      </div>
     </footer>
     <footer v-else>
       <div class="footer-links" style="padding:20px">
@@ -759,13 +766,13 @@
                   >{{ $t("messages.footer.contact_us") }}</a
                   >
                 </div>
-<!--                <div class="list-item">-->
-<!--                  <a-->
-<!--                      href="/fees"-->
-<!--                      style="color: rgb(144, 144, 144); text-decoration: none"-->
-<!--                  >{{ $t("messages.footer.fees") }}</a-->
-<!--                  >-->
-<!--                </div>-->
+                <!--                <div class="list-item">-->
+                <!--                  <a-->
+                <!--                      href="/fees"-->
+                <!--                      style="color: rgb(144, 144, 144); text-decoration: none"-->
+                <!--                  >{{ $t("messages.footer.fees") }}</a-->
+                <!--                  >-->
+                <!--                </div>-->
               </el-collapse-item>
               <el-collapse-item name="2">
                 <template #title>
@@ -800,10 +807,14 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  <a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-au'"></span> {{ $t("messages.footer.service_instant") }}</a>
+                  <a href="/au" style="color: #909090;text-decoration: none"><span class="flag-icon"
+                                                                                   :class="'flag-icon-au'"></span>
+                    {{ $t("messages.footer.service_instant") }}</a>
                 </div>
                 <div class="list-item">
-                  <a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon" :class="'flag-icon-nz'"></span> {{ $t("messages.footer.Zealand") }}</a>
+                  <a href="/nz" style="color: #909090;text-decoration: none"><span class="flag-icon"
+                                                                                   :class="'flag-icon-nz'"></span>
+                    {{ $t("messages.footer.Zealand") }}</a>
                 </div>
               </el-collapse-item>
               <el-collapse-item name="4">
@@ -829,7 +840,8 @@
                   </div>
                 </template>
                 <div class="list-item">
-                  <a href="/au/contact" style="color: #909090;text-decoration: none"> {{ $t("messages.footer.support_center") }}</a>
+                  <a href="/au/contact" style="color: #909090;text-decoration: none">
+                    {{ $t("messages.footer.support_center") }}</a>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -1150,14 +1162,14 @@ const goToKyc = (type: string) => {
     // } else {
     //   router.push({name: 'kyc', query: {type}});
     // }
-    if(type === 'buy') {
-      if(validKycBuy.value) {
+    if (type === 'buy') {
+      if (validKycBuy.value) {
         router.push('/user/depositFiat');
       } else {
         router.push({name: 'kyc', query: {type}});
       }
-    } else if(type === 'sell') {
-      if(validKycBuy.value || validKycSell.value) {
+    } else if (type === 'sell') {
+      if (validKycBuy.value || validKycSell.value) {
         router.push('/user/bankaccount');
       } else {
         router.push({name: 'kyc', query: {type}});
@@ -1184,17 +1196,17 @@ const goKyc = (type: string) => {
   //   router.push('/signup?type=' + type);
   // }
   if (userInfoStore.isLogin) {
-    if(type === 'buy') {
-      if(validKycBuy.value) {
+    if (type === 'buy') {
+      if (validKycBuy.value) {
         router.push('/user/depositFiat');
       } else {
-        router.push({ name: 'kyc', query: { type } });
+        router.push({name: 'kyc', query: {type}});
       }
-    } else if(type === 'sell') {
-      if(validKycBuy.value || validKycSell.value) {
+    } else if (type === 'sell') {
+      if (validKycBuy.value || validKycSell.value) {
         router.push('/user/bankaccount');
       } else {
-        router.push({ name: 'kyc', query: { type } });
+        router.push({name: 'kyc', query: {type}});
       }
     } else {
       router.push('/home');
@@ -1371,13 +1383,16 @@ onMounted(() => {
     transform: translateX(10px);
   }
 }
+
 .tab-content {
   margin-left: 22px;
 }
+
 .reason-box {
   :deep(.el-radio-button) {
     display: block;
     height: 100%;
+
     .el-radio-button__inner {
       height: 100% !important;
     }
