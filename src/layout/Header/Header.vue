@@ -1297,4 +1297,12 @@ $regular-font: HarmonyOS_Sans_Regular;
   width: 16px;
   height: 16px;
 }
+.right-dropdown-box{
+  @media (max-width: 768px) {
+    & {
+      display: none;
+    }
+  }
+
+}
 </style>

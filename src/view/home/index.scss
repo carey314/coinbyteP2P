@@ -2,6 +2,7 @@ $headerBackGround: #161719;
 $bg-color: #fff;
 $main-color: #01c19a;
 $fontSizeMax: 42px;
+$fontPhone: 32px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
 $fontSizeDef: 16px;
@@ -308,6 +309,11 @@ img {
           font-size: 42px !important;
           margin-bottom: 32px !important;
           line-height: 60px !important;
+          @media (max-width: 992px) {
+            & {
+              font-size: $fontPhone !important;
+            }
+          }
         }
         .banner-btn {
           width: 200px !important;
@@ -345,18 +351,27 @@ img {
       .for-what {
         display: flex;
         justify-content: center;
-        height: 232px;
+        //height: 232px;
         margin-top: 25px;
         gap: 95px;
         @media (max-width: 769px) {
           & {
-            gap: 5px;
+            gap: 25px;
+            display: block;
+          }
+          .gap-bottom{
+            margin-top: 10px;
           }
         }
 
         .frame {
           width: 381px;
-          @media (max-width: 992px) {
+          @media (max-width: 996px) {
+            & {
+              width: 300px;
+            }
+          }
+          @media (max-width: 769px) {
             & {
               width: 100%;
             }
@@ -381,11 +396,21 @@ img {
             line-height: 51px;
             font-size: 38px;
             font-weight: 500;
+            @media (max-width: 992px) {
+              & {
+                font-size: $fontSizeMed;
+              }
+            }
           }
 
           .content-way {
             font-size: 20px;
             line-height: 30px;
+            @media (max-width: 992px) {
+              & {
+                font-size: $fontSizeDefPro;
+              }
+            }
           }
 
           .start-btn {
@@ -544,7 +569,11 @@ img {
       line-height: 44px;
       font-weight: bold;
       margin-top: 100px;
-
+      @media (max-width: 992px) {
+        & {
+          font-size: $fontPhone !important;
+        }
+      }
       span {
         color: #01c19a;
       }
@@ -553,7 +582,27 @@ img {
         margin-top: 45px;
       }
     }
-
+    .custom-step{
+      text-align: center;
+      padding: 0px 20px;
+      .step{
+        margin-top: 20px;
+      }
+      .step-title{
+        font-size: 20px;
+        color: #000 !important;
+        margin-top: 10px;
+        text-align: center;
+        font-weight: 500;
+      }
+      .step-description{
+        font-size: 16px;
+        color: #878787;
+        text-align: left;
+        //line-height: 26px;
+        margin-top: 8px;
+      }
+    }
     .tabs-step {
       margin-top: 125px;
       margin-bottom: 210px;
@@ -661,10 +710,10 @@ img {
           border-radius: 8px;
           height: 54px;
           margin-top: 40px;
-          @media (max-width: 912px) {
-            border: none;
-            margin-top: 20px;
-          }
+          //@media (max-width: 912px) {
+          //  border: none;
+          //  margin-top: 20px;
+          //}
         }
 
         :deep() {
@@ -694,10 +743,9 @@ img {
           .el-radio-button {
 
             @media (max-width: 912px) {
-              border: 1px solid #FFFFFF;
-
+              //border: 1px solid #FFFFFF;
               border-radius: 4px;
-              margin: 2px;
+              //margin: 2px;
             }
           }
         }
@@ -705,6 +753,9 @@ img {
 
       .tab-content-box {
         margin-top: 105px;
+        @media (max-width: 768px) {
+          margin-top: 30px;
+        }
 
         .tab-img {
           width: 338px;
@@ -765,6 +816,7 @@ img {
           padding: 8px 16px;
           font-size: 14px;
           height: 40px;
+          margin-top: 30px;
         }
       }
     }

@@ -26,7 +26,7 @@
                 </div>
               </div>
               <div style="position: relative">
-                <img class="frame" :src="banner_frame"/>
+                <img class="frame gap-bottom" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">{{ $t('messages.home.for_sell') }}</div>
                   <div class="content-way">{{ $t('messages.home.when_sell') }}</div>
@@ -233,7 +233,7 @@
           <div class="tabs-content-title">
             {{ $t("messages.home.buy_through") }} <span>CoinbyteP2P</span>
           </div>
-          <div class="tabs-step">
+          <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
               <el-step :title="t('messages.home.step1_title')">
                 <template #icon>
@@ -269,6 +269,32 @@
               </el-step>
             </el-steps>
           </div>
+          <div v-else>
+            <div class="tabs-step">
+              <div class="custom-step">
+                <div class="step">
+                  <img class="step-icon" :src="icon_01"/>
+                  <div class="step-title">{{ $t("messages.home.step1_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.step1_cont") }}</div>
+                </div>
+                <div class="step">
+                  <img class="step-icon" :src="icon_02"/>
+                  <div class="step-title">{{ $t("messages.home.step2_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.step2_cont") }}</div>
+                </div>
+                <div class="step">
+                  <img class="step-icon" :src="icon_03"/>
+                  <div class="step-title">{{ $t("messages.home.step3_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.step3_cont") }}</div>
+                </div>
+                <div class="step">
+                  <img class="step-icon" :src="icon_04"/>
+                  <div class="step-title">{{ $t("messages.home.step4_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.step4_cont") }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div v-if="tradeTab === 'second'">
@@ -276,7 +302,7 @@
           <div class="tabs-content-title">
             {{ $t("messages.home.sell_through") }} <span>CoinbyteP2P</span>
           </div>
-          <div class="tabs-step">
+          <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
 
               <el-step :title="t('messages.home.step1_title')">
@@ -314,6 +340,38 @@
               </el-step>
             </el-steps>
           </div>
+          <div v-else>
+            <div class="tabs-step">
+              <div class="custom-step">
+                <div class="step">
+                  <img class="step-icon" :src="icon_01" />
+                  <div class="step-title">{{ $t("messages.home.step1_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.sell1_cont") }}</div>
+                </div>
+              </div>
+              <div class="custom-step">
+                <div class="step">
+                  <img class="step-icon" :src="icon_02" />
+                  <div class="step-title">{{ $t("messages.home.step2_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.sell2_cont") }}</div>
+                </div>
+              </div>
+              <div class="custom-step">
+                <div class="step">
+                  <img class="step-icon" :src="icon_03" />
+                  <div class="step-title">{{ $t("messages.home.sell3_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.sell3_cont") }}</div>
+                </div>
+              </div>
+              <div class="custom-step">
+                <div class="step">
+                  <img class="step-icon" :src="icon_04" />
+                  <div class="step-title">{{ $t("messages.home.sell4_title") }}</div>
+                  <div class="step-description">{{ $t("messages.home.sell4_cont") }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -321,16 +379,19 @@
         <div class="forth-title max1290">
           <div> {{ $t("messages.home.fifth_why") }} <span>CoinbyteP2P</span> ?</div>
           <div class="tip">{{ $t("messages.home.fifth_exchange") }}</div>
-          <div></div>
-          <div class="choose-reason">
-            <el-radio-group v-model="reasonTab" size="large" class="reason-box">
-              <el-radio-button :label="t('messages.home.fifth_regulation')"></el-radio-button>
-              <el-radio-button :label="t('messages.home.fifth_fiat')"></el-radio-button>
-              <el-radio-button :label="t('messages.home.fifth_Totally')"></el-radio-button>
-              <el-radio-button :label="t('messages.home.fifth_easy')"></el-radio-button>
-              <el-radio-button :label="t('messages.home.fifth_live')"></el-radio-button>
-            </el-radio-group>
-          </div>
+
+          <el-scrollbar height="100px" ref="scrollContainer">
+            <div class="choose-reason" ref="reasonContainer">
+              <el-radio-group v-model="reasonTab" size="large" class="reason-box" ref="radioGroup">
+                <el-radio-button :label="t('messages.home.fifth_regulation')" @click="scrollToCenter(0)"></el-radio-button>
+                <el-radio-button :label="t('messages.home.fifth_fiat')" @click="scrollToCenter(1)"></el-radio-button>
+                <el-radio-button :label="t('messages.home.fifth_Totally')" @click="scrollToCenter(2)"></el-radio-button>
+                <el-radio-button :label="t('messages.home.fifth_easy')" @click="scrollToCenter(3)"></el-radio-button>
+                <el-radio-button :label="t('messages.home.fifth_live')" @click="scrollToCenter(4)"></el-radio-button>
+              </el-radio-group>
+            </div>
+          </el-scrollbar>
+
           <div v-if="reasonTab === t('messages.home.fifth_regulation')">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
@@ -918,6 +979,30 @@ import {useRouter} from "vue-router";
 const userInfoStore = useUserInfoStore();
 const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
+
+
+const scrollContainer = ref<HTMLElement | null>(null);
+const reasonContainer = ref<HTMLElement | null>(null);
+const radioGroup = ref<HTMLElement | null>(null);
+
+const scrollToCenter = (index: number) => {
+  const group = radioGroup.value;
+  if (!group) return;
+
+  const buttons = group.getElementsByClassName('el-radio-button');
+  if (!buttons.length || index < 0 || index >= buttons.length) return;
+
+  const containerWidth = group.offsetWidth;
+  const button = buttons[index] as HTMLElement;
+  const buttonWidth = button.offsetWidth;
+  const buttonLeft = button.offsetLeft;
+
+  const scrollDistance = buttonLeft + buttonWidth / 2 - containerWidth / 2;
+
+  scrollContainer.value?.scrollTo({ left: scrollDistance, behavior: 'smooth' });
+
+};
+
 const router = useRouter();
 
 const {t} = useI18n();
@@ -1390,7 +1475,7 @@ onMounted(() => {
 
 .reason-box {
   :deep(.el-radio-button) {
-    display: block;
+    //display: block;
     height: 100%;
 
     .el-radio-button__inner {
@@ -1401,5 +1486,16 @@ onMounted(() => {
 
 .item-title {
   font-size: 22px;
+}
+
+:deep() {
+
+  .el-scrollbar__bar.is-horizontal > div {
+    height: 0;
+  }
+
+  .el-radio-group {
+    flex-wrap: initial !important;
+  }
 }
 </style>
