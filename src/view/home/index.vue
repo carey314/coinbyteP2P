@@ -997,10 +997,10 @@ const scrollToCenter = (index: number) => {
   const buttonWidth = button.offsetWidth;
   const buttonLeft = button.offsetLeft;
 
+  // 计算滚动距离，使按钮滚动到居中位置
   const scrollDistance = buttonLeft + buttonWidth / 2 - containerWidth / 2;
 
   scrollContainer.value?.scrollTo({ left: scrollDistance, behavior: 'smooth' });
-
 };
 
 const router = useRouter();
