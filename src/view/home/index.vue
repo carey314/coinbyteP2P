@@ -547,7 +547,7 @@
           </el-col>
         </el-row>
         <div class="view-more">
-          <span>{{ $t("messages.home.seventh_more") }} &gt;</span>
+          <span>{{ $t("messages.home.seventh_more") }}</span>
         </div>
       </div>
 
@@ -587,7 +587,7 @@
           </el-col>
         </el-row>
         <div class="view-more" style="margin-top: 0px">
-          <span>{{ $t("messages.home.seventh_more") }} &gt;</span>
+          <span>{{ $t("messages.home.seventh_more") }} </span>
         </div>
       </div>
       <!-- //eighth-part -->

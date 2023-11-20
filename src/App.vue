@@ -20,7 +20,7 @@ import { onMounted } from 'vue'
   // @import './assets/font/HarmonyOS_Sans_Medium.woff2';
   // @import './assets/font/HarmonyOS_Sans_Regular.woff2';
   #app {
-    font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;;
+    font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
     // font-weight: 400;
   }
   .coin-byte{

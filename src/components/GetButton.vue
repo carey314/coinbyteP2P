@@ -32,7 +32,7 @@ $main-color: #01c19a;
   border-color: $main-color;
   border-radius: 4px;
   font-size: 20px;
-  font-family: Helvetica-Neue;
+  font-family: "HarmonyOS Sans",Helvetica,PingFang SC,Hiragino Sans GB,Microsoft YaHei,SimSun,sans-serif;
   font-weight: 600;
   border: none;
   &:disabled {
