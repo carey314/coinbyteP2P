@@ -479,7 +479,7 @@ const yc3 = () => {
     margin: 0 !important;
   }
   .top-part {
-    height: 500px !important;
+    height: 450px !important;
   }
   .top-part-box {
     padding: 0 2%;
@@ -525,7 +525,7 @@ const yc3 = () => {
   }
   .back-right {
     width: 120px !important;
-    top: 140px !important;
+    //top: 140px !important;
   }
 }
 </style>

@@ -130,11 +130,25 @@ const routes: Array<RouteRecordRaw> = [
         name: 'signupsuccess',
         component: () => import('../view/signupSuccess/index.vue')
     },
+    // {
+    //     path: '/login',
+    //     name: 'login',
+    //     component: () => import('../view/login/index.vue'),
+    //     meta: {requiresAuth: false}
+    // },
     {
         path: '/login',
+        redirect: '/au/login'
+    },
+    {
         name: 'login',
-        component: () => import('../view/login/index.vue'),
-        meta: {requiresAuth: false}
+        path: '/nz/login',
+        component: () => import('../view/login/index.vue')
+    },
+    {
+        name: 'login',
+        path: '/au/login',
+        component: () => import('../view/login/index.vue')
     },
     {
         path: '/download',

@@ -968,6 +968,11 @@ $regular-font: HarmonyOS_Sans_Regular;
         //display: none;
       }
     }
+    @media (max-width: 768px) {
+      & {
+        margin: -8px 8px;
+      }
+    }
   }
 }
 

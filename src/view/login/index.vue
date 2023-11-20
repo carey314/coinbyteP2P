@@ -633,6 +633,7 @@ $fontSizeMin: 12px;
       @media (max-width: 769px) {
         border-radius: 0px;
         padding: 37px 13px 38px 13px;
+        box-shadow: none;
       }
 
       :deep() {
@@ -937,6 +938,7 @@ $fontSizeMin: 12px;
     @media (max-width: 769px) {
       padding: 0;
       margin: auto;
+      max-width: 100% !important;
     }
 
     .login {
@@ -946,6 +948,7 @@ $fontSizeMin: 12px;
       padding: 37px 43px 38px 43px;
 
       @media (max-width: 769px) {
+        box-shadow: none !important;
         border-radius: 0px;
         padding: 37px 13px 38px 13px;
         .phone-input :deep() {
