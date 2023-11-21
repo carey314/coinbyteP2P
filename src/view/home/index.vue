@@ -380,9 +380,9 @@
           <div> {{ $t("messages.home.fifth_why") }} <span>CoinbyteP2P</span> ?</div>
           <div class="tip">{{ $t("messages.home.fifth_exchange") }}</div>
 
-          <el-scrollbar height="100px" ref="scrollContainer">
-            <div class="choose-reason" ref="reasonContainer">
-              <el-radio-group v-model="reasonTab" size="large" class="reason-box" ref="radioGroup">
+          <el-scrollbar height="100px" :ref="scrollContainer">
+            <div class="choose-reason" :ref="reasonContainer">
+              <el-radio-group v-model="reasonTab" size="large" class="reason-box" :ref="radioGroup"  :style="{ transform: `translateX(${buttonOffset}px)` }">
                 <el-radio-button :label="t('messages.home.fifth_regulation')" @click="scrollToCenter(0)"></el-radio-button>
                 <el-radio-button :label="t('messages.home.fifth_fiat')" @click="scrollToCenter(1)"></el-radio-button>
                 <el-radio-button :label="t('messages.home.fifth_Totally')" @click="scrollToCenter(2)"></el-radio-button>
@@ -391,8 +391,11 @@
               </el-radio-group>
             </div>
           </el-scrollbar>
-
-          <div v-if="reasonTab === t('messages.home.fifth_regulation')">
+        <div  class="tab-content-wrapper"
+              @touchstart="handleTouchStart"
+              @touchmove="handleTouchMove"
+              @touchend="handleTouchEnd">
+          <div v-if="reasonTab === t('messages.home.fifth_regulation')" >
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24">
                 <div class="tab-img">
@@ -508,6 +511,8 @@
               </el-col>
             </el-row>
           </div>
+        </div>
+
         </div>
       </div>
 
@@ -969,7 +974,85 @@ import {useRouter} from "vue-router";
 const userInfoStore = useUserInfoStore();
 const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
+const touchStartX = ref(0);
+const buttonOffset = ref(0);
+function handleTouchStart(event) {
+  touchStartX.value = event.touches[0].clientX;
+}
 
+function handleTouchMove(event) {
+  const touchEndX = event.touches[0].clientX;
+  const deltaX = touchStartX.value - touchEndX;
+
+  // 设置滑动阈值，根据需要调整
+  const threshold = 50;
+
+  if (Math.abs(deltaX) > threshold) {
+    const direction = deltaX > 0 ? 1 : -1;
+    changeReasonTab(direction);
+
+    // 根据滑动方向调整按钮位置的偏移值
+    buttonOffset.value = calculateButtonOffset(direction);
+  }
+}
+
+function calculateButtonOffset(direction) {
+  // 根据方向和需要的偏移量计算新的偏移值
+  // 例如，每次滑动移动一个按钮的宽度
+  const buttonWidth = radioGroup.value
+      ? radioGroup.value.offsetWidth / radioButtons.length
+      : 0;
+  const offsetDelta = buttonWidth * direction;
+  return buttonOffset.value + offsetDelta;
+}
+
+
+function handleTouchEnd() {
+  touchStartX.value = 0;
+}
+
+function changeReasonTab(direction) {
+  // 根据滑动方向改变 reasonTab 的值
+  // 可以根据需要进行边界检查，避免越界
+  // 例如，如果当前是最后一个 tab，则不再向右滑动
+  // 如果当前是第一个 tab，则不再向左滑动
+  // ...
+
+  // 示例：向右滑动
+  if (reasonTab.value === t('messages.home.fifth_regulation')) {
+    // 当前是第一个 tab，根据方向切换到相应的 tab
+    if (direction === 1) {
+      reasonTab.value = t('messages.home.fifth_fiat');
+    }
+  } else if (reasonTab.value === t('messages.home.fifth_fiat')) {
+    // 当前是第二个 tab，根据方向切换到相应的 tab
+    if (direction === 1) {
+      reasonTab.value = t('messages.home.fifth_Totally');
+    } else if (direction === -1) {
+      reasonTab.value = t('messages.home.fifth_regulation');
+    }
+  } else if (reasonTab.value === t('messages.home.fifth_Totally')) {
+    // 当前是第三个 tab，根据方向切换到相应的 tab
+    if (direction === 1) {
+      reasonTab.value = t('messages.home.fifth_easy');
+    } else if (direction === -1) {
+      reasonTab.value = t('messages.home.fifth_fiat');
+    }
+  } else if (reasonTab.value === t('messages.home.fifth_easy')) {
+    // 当前是第四个 tab，根据方向切换到相应的 tab
+    if (direction === 1) {
+      reasonTab.value = t('messages.home.fifth_live');
+    } else if (direction === -1) {
+      reasonTab.value = t('messages.home.fifth_Totally');
+    }
+  } else if (reasonTab.value === t('messages.home.fifth_live')) {
+    // 当前是最后一个 tab，根据方向切换到相应的 tab
+    if (direction === -1) {
+      reasonTab.value = t('messages.home.fifth_easy');
+    }
+  }
+  touchStartX.value = 0;
+}
 
 const scrollContainer = ref<HTMLElement | null>(null);
 const reasonContainer = ref<HTMLElement | null>(null);
@@ -1055,37 +1138,6 @@ const coinMarketCapData = ref<any>([]);
 const activeName = ref("1");
 const tradeTab = ref<any>("first");
 const reasonTab = ref(t('messages.home.fifth_regulation'));
-
-// vueWatch(activeName, (value) => {
-//   refreshData(Number(value));
-// })
-
-function getChart(chartJson: any) {
-  const jsonData: any = JSON.parse(chartJson);
-
-  const mapData = jsonData["prices"].map((item: any) => {
-    // const localTime = moment();
-    // const offsetInMinutes = localTime.utcOffset();
-    // const offsetInHours = offsetInMinutes / 60;
-    // item[0] = moment(item[0]).add(offsetInHours, 'hours').valueOf()
-
-    // return {
-    //   time: Math.floor(item[0] / 1000),
-    //   value: item[1],
-    // };
-
-    return item[1];
-  });
-
-  // const newArray = mapData.reduce((result:any, value:any, index:any) => {
-  //   if (index % 10 === 0) {
-  //     result.push(value);
-  //   }
-  //   return result;
-  // }, []);
-  // console.log(mapData)
-  return mapData;
-}
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -1496,5 +1548,14 @@ onMounted(() => {
   @media (max-width: 992px) {
     font-size: 32px !important;
   }
+}
+.tab-content-wrapper {
+  overflow-x: hidden;
+  //white-space: nowrap;
+  //display: flex;
+}
+
+.reason-box {
+  transition: transform 0.3s ease; /* 添加过渡效果 */
 }
 </style>

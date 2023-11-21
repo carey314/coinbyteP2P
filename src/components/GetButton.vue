@@ -13,7 +13,7 @@ const addClick = () => {
 };
 
 onMounted(() => {
-  console.log("Button component mounted.");
+  // console.log("Button component mounted.");
 });
 </script>
 
