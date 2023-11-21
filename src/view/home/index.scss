@@ -309,10 +309,10 @@ img {
         .banner-title {
           font-size: 42px !important;
           margin-bottom: 32px !important;
-          line-height: 60px !important;
+          line-height: 45px !important;
           @media (max-width: 992px) {
             & {
-              font-size: $fontPhone !important;
+              font-size: 30px !important;
               padding: 0 15px;
             }
           }
@@ -333,6 +333,7 @@ img {
         margin-bottom: 32px;
         text-align: center;
         line-height: 80px;
+
       }
 
       .banner-content {
