@@ -381,7 +381,7 @@
           <div class="tip">{{ $t("messages.home.fifth_exchange") }}</div>
 
           <el-scrollbar height="100px" :ref="scrollContainer">
-            <div class="choose-reason" :ref="reasonContainer">
+            <div class="choose-reason" ref="reasonContainer">
               <el-radio-group v-model="reasonTab" size="large" class="reason-box" :ref="radioGroup"  :style="{ transform: `translateX(${buttonOffset}px)` }">
                 <el-radio-button :label="t('messages.home.fifth_regulation')" @click="scrollToCenter(0)"></el-radio-button>
                 <el-radio-button :label="t('messages.home.fifth_fiat')" @click="scrollToCenter(1)"></el-radio-button>
@@ -976,11 +976,11 @@ const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
 const touchStartX = ref(0);
 const buttonOffset = ref(0);
-function handleTouchStart(event) {
+function handleTouchStart(event :any) {
   touchStartX.value = event.touches[0].clientX;
 }
 
-function handleTouchMove(event) {
+function handleTouchMove(event:any) {
   const touchEndX = event.touches[0].clientX;
   const deltaX = touchStartX.value - touchEndX;
 
@@ -996,12 +996,12 @@ function handleTouchMove(event) {
   }
 }
 
-function calculateButtonOffset(direction) {
+
+function calculateButtonOffset(direction : any) {
   // 根据方向和需要的偏移量计算新的偏移值
   // 例如，每次滑动移动一个按钮的宽度
   const buttonWidth = radioGroup.value
-      ? radioGroup.value.offsetWidth / radioButtons.length
-      : 0;
+      ? radioGroup.value.offsetWidth: 0;
   const offsetDelta = buttonWidth * direction;
   return buttonOffset.value + offsetDelta;
 }
@@ -1011,7 +1011,7 @@ function handleTouchEnd() {
   touchStartX.value = 0;
 }
 
-function changeReasonTab(direction) {
+function changeReasonTab(direction :any) {
   // 根据滑动方向改变 reasonTab 的值
   // 可以根据需要进行边界检查，避免越界
   // 例如，如果当前是最后一个 tab，则不再向右滑动
