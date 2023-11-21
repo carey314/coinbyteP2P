@@ -1,6 +1,6 @@
 <template>
   <footer>
-  
+
     <div class="footer-bottom">
       <span>©2023 COINBYTEP2P.COM</span>
     </div>
@@ -1344,7 +1344,6 @@ img {
     cursor: pointer;
   }
 }
-
 .part07 {
   text-align: center;
   background-color: #fff;

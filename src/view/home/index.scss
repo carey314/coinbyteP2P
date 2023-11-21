@@ -19,7 +19,6 @@ $fontSizeMin: 12px;
 .gap{
   @media (max-width: 992px) {
     margin-top: 22px;
-
   }
 }
 :deep(.el-overlay-dialog) {
@@ -136,7 +135,6 @@ body {
   line-height: 22px;
   text-align: center;
   margin-top: 20px;
-  cursor: pointer;
 
   span {
     cursor: pointer;
@@ -315,6 +313,7 @@ img {
           @media (max-width: 992px) {
             & {
               font-size: $fontPhone !important;
+              padding: 0 15px;
             }
           }
         }
@@ -343,10 +342,11 @@ img {
         line-height: 30px;
         margin-bottom: 32px;
         text-align: center;
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
           & {
             width: 100%;
             font-size: $fontSizeDef !important;
+            padding: 0 30px;
           }
         }
       }
@@ -361,6 +361,7 @@ img {
           & {
             gap: 25px;
             display: block;
+            padding: 0 10px;
           }
           .gap-bottom{
             margin-top: 10px;
@@ -401,7 +402,7 @@ img {
             font-weight: 500;
             @media (max-width: 992px) {
               & {
-                font-size: $fontSizeMed;
+                font-size: 26px;
               }
             }
           }
@@ -411,7 +412,7 @@ img {
             line-height: 30px;
             @media (max-width: 992px) {
               & {
-                font-size: $fontSizeDefPro;
+                font-size: $fontSizeMinPro;
               }
             }
           }
@@ -527,7 +528,7 @@ img {
     justify-content: center;
 
     .trade-tabs {
-      margin-top: 87px;
+      margin-top: 90px;
       font-size: 24px;
       color: #000000;
       line-height: 29px;
@@ -574,7 +575,7 @@ img {
       margin-top: 100px;
       @media (max-width: 992px) {
         & {
-          font-size: $fontPhone !important;
+          font-size: 22px !important;
         }
       }
       span {
@@ -604,6 +605,9 @@ img {
         text-align: left;
         //line-height: 26px;
         margin-top: 8px;
+        @media (max-width: 992px) {
+          padding: 10px 20px;
+        }
       }
     }
     .tabs-step {
@@ -676,7 +680,7 @@ img {
     .forth-title {
       position: absolute;
       padding: 90px 0;
-      font-size: 36px;
+      font-size: 32px;
       color: #fff;
       font-weight: 700;
       text-align: center;
@@ -713,10 +717,9 @@ img {
           border-radius: 8px;
           height: 54px;
           margin-top: 40px;
-          //@media (max-width: 912px) {
-          //  border: none;
-          //  margin-top: 20px;
-          //}
+          @media (max-width: 768px) {
+            height: 40px;
+          }
         }
 
         :deep() {
@@ -734,6 +737,7 @@ img {
             line-height: 25px;
             @media (max-width: 768px) {
               width: 150px;
+              font-size: 16px;
             }
           }
 
@@ -785,6 +789,7 @@ img {
             line-height: 34px;
             font-weight: 500;
             @media (max-width: 992px) {
+              font-size: 22px;
               margin-top: 20px;
             }
           }
@@ -1527,7 +1532,7 @@ footer {
 
           .el-collapse-item-title {
             font-weight: 400;
-            font-size: 18px;
+            font-size: 16px;
           }
 
           .el-collapse-item__content {
@@ -1589,3 +1594,4 @@ footer {
     }
   }
 }
+

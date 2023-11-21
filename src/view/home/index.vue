@@ -597,12 +597,7 @@
       <div class="footer-box max1290">
         <div class="footer-logo">
           <div
-              style="
-              font-size: 36px;
-              color: #fff;
-              line-height: 44px;
-              font-weight: bold;
-            "
+              class="footer-title"
           >
             {{ $t("messages.footer.start") }}
           </div>
@@ -756,12 +751,7 @@
       <div class="footer-links" style="padding:20px">
         <div class="footer-logo">
           <div
-              style="
-              font-size: 36px;
-              color: #fff;
-              line-height: 44px;
-              font-weight: bold;
-            "
+              class="footer-title"
           >
             {{ $t("messages.footer.start") }}
           </div>
@@ -1496,6 +1486,15 @@ onMounted(() => {
 
   .el-radio-group {
     flex-wrap: initial !important;
+  }
+}
+.footer-title{
+  font-size: 36px;
+  color: #fff;
+  line-height: 44px;
+  font-weight: bold;
+  @media (max-width: 992px) {
+    font-size: 32px !important;
   }
 }
 </style>
