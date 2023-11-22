@@ -120,6 +120,9 @@ function resetWidth() {
         font-size: 55px;
         color: #01c19a;
         font-weight: 600;
+        @media (max-width: 768px) {
+          font-size: 42px;
+        }
       }
       .top-part-content {
         font-size: 16px;
@@ -153,6 +156,9 @@ function resetWidth() {
   }
   .top-center{
     padding-top: 46px;
+    @media (max-width: 768px) {
+      padding-top: 10px;
+    }
 
   }
   .part-box {
@@ -167,12 +173,16 @@ function resetWidth() {
       font-size: 40px;
       color: #01c19a;
       font-weight: 600;
+
     }
     .part-content {
       font-size: 16px;
       color: #ffffff;
       margin-top: 30px;
       line-height: 19px;
+      @media (max-width: 768px) {
+        font-size: 14px !important;
+      }
     }
   }
   .left-box {
@@ -255,14 +265,15 @@ function resetWidth() {
     padding: 0px;
   }
   .contact-page .top-part .hand_left {
-    top: 80%;
+    top: 68%;
   }
   .contact-page .part-box {
     height: 300px;
   }
   .part-box {
     .part-title {
-      font-size: 28px !important;
+      font-size: 20px !important;
+      line-height: 28px;
     }
   }
   .bottom-part-title {

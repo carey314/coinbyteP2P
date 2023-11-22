@@ -380,16 +380,15 @@ const resendSMSVerification = () => {
         } else {
           startSMSCountdown(); // 启动手机验证码的倒计时
           ElMessage({ message: "SMS verification code has been sent.", type: "success" });
-
         }
       } else {
         ElMessage({ message: "Please try again later.", type: "error" });
       }
     })
-        .catch((err) => {
-          phoneNumberInputDisabled.value = false;
-          ElMessage({ message: "Please try again later.", type: "error" });
-        });
+    .catch((err) => {
+      phoneNumberInputDisabled.value = false;
+      ElMessage({ message: "Please try again later.", type: "error" });
+    });
   }
 };
 const {t} = useI18n();
@@ -560,13 +559,7 @@ const resetPhoneRegistration = () => {
 const phoneNumberInputDisabled = ref(false);
 const phoneNumberInput = () => {
   if (isValidPhone.value) {
-    const phoneNumber = phoneInput.value;
-
-    // if (isPhoneVerified.value) {
-    //   console.log('phone number');
-    //   percentage.value = 60;
-    //   registeredPhoneNumbers.value.push(phoneNumber);
-    // } else {
+    const phoneNumber = phoneInput.value.replace(/\s/g, ''); // 去除空格
     phoneNumberEntered.value = true; // 标记手机号已输入但未验证
     phoneNumberInputDisabled.value = true;
     phoneSignup({

@@ -231,13 +231,12 @@
                 style="
                   text-align: right;
                   font-size: 14px;
-                  color: #7b8293;
+
                   margin-top: 10px;
-                  cursor: pointer;
                   margin-right: 20px;
                 "
               >
-                {{ $t('messages.user_verify.more') }} &gt;
+                <span style="  cursor: pointer;color: #7b8293;">{{ $t('messages.user_verify.more') }} &gt;</span>
               </div>
             </div>
           </div>
@@ -457,7 +456,7 @@ $fontSizeMin: 12px;
     .header-title {
       line-height: 32px;
       //font-weight: bold;
-      font-size: 26px;
+      font-size: 22px;
       color: #060606;
     }
     .header-toFiat {
@@ -483,7 +482,7 @@ $fontSizeMin: 12px;
     margin-top: 16px;
     padding: 18px 22px 33px 24px;
     .sell-title {
-      font-size: 20px;
+      font-size: 18px;
       line-height: 25px;
     }
     .sell-verified {
@@ -506,7 +505,7 @@ $fontSizeMin: 12px;
       }
     }
     .sell-requirement {
-      font-size: 20px;
+      font-size: 18px;
       margin-top: 28px;
     }
     .require-box {
@@ -724,12 +723,24 @@ $fontSizeMin: 12px;
           width: 100%;
           height: 60px;
           font-size: 20px;
+          @media (max-width: 992px) {
+            & {
+              height: 40px;
+              margin-top: 10px;
+            }
+          }
         }
       }
       .verify-btn {
         width: 100%;
         height: 60px;
         font-size: 20px;
+        @media (max-width: 992px) {
+          & {
+            height: 40px;
+            margin-top: 10px;
+          }
+        }
       }
       .continue-dialog-box {
         .dialog-header {
@@ -889,7 +900,7 @@ $fontSizeMin: 12px;
     }
   }
   :deep(.el-collapse-item__header){
-    font-size: 20px;
+    font-size: 18px;
     color: #000;
     line-height: 25px;
     margin-top: 12px;

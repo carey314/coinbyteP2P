@@ -600,6 +600,13 @@ $fontSizeMin: 12px;
         .info-count{
           display: flex;
           align-items: center;
+          @media (max-width: 768px) {
+            & {
+              span{
+                display: none;
+              }
+            }
+          }
         }
         :deep() {
           .button {

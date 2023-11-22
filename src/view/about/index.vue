@@ -288,7 +288,7 @@ const yc3 = () => {
 
     .back-center {
       position: absolute;
-      bottom: 0;
+      bottom: -6px;
       img {
         width: 100%;
         height: 100%;
@@ -341,7 +341,7 @@ const yc3 = () => {
     height: 100%;
     .part-box {
       height: 440px;
-      padding: 4% 2% 10% 8%;
+      padding: 4% 5% 10% 5%;
       border-top: 1px solid #2f3f4e;
       border-left: 0px;
       border-right: 0px;
@@ -353,6 +353,10 @@ const yc3 = () => {
           line-height: 19px;
           font-weight: 600;
           width: 90%;
+          @media (max-width: 992px) {
+            width: 100%;
+            text-align: center;
+          }
         }
         .part-content-forth {
           color: #1d2622;
@@ -469,8 +473,9 @@ const yc3 = () => {
     top: 80%;
   }
   .about-page .part-box {
-    height: 310px !important;
+    height: 300px !important;
     text-align: center;
+    padding: 4% 5% 10% 5%;
   }
   .part-title {
     //padding-top: 5px !important;

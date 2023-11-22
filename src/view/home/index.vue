@@ -1012,13 +1012,6 @@ function handleTouchEnd() {
 }
 
 function changeReasonTab(direction :any) {
-  // 根据滑动方向改变 reasonTab 的值
-  // 可以根据需要进行边界检查，避免越界
-  // 例如，如果当前是最后一个 tab，则不再向右滑动
-  // 如果当前是第一个 tab，则不再向左滑动
-  // ...
-
-  // 示例：向右滑动
   if (reasonTab.value === t('messages.home.fifth_regulation')) {
     // 当前是第一个 tab，根据方向切换到相应的 tab
     if (direction === 1) {
@@ -1051,7 +1044,6 @@ function changeReasonTab(direction :any) {
       reasonTab.value = t('messages.home.fifth_easy');
     }
   }
-  touchStartX.value = 0;
 }
 
 const scrollContainer = ref<HTMLElement | null>(null);
