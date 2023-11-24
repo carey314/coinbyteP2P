@@ -87,7 +87,7 @@ export default {
         },
         home: {
             first_chart: 'Chart',
-            banner_title: "Where Crypto meets CoinbyteP2P in",
+            banner_title: "Where Crypto meets CoinbyteP2P ",
             banner_content:
                 "Buy and sell Cryptocurrencies with a non-custodial exchange safely and securely without hidden fees ",
             banner_content2: "You choose where you keep your Crypto safe.",
