@@ -765,6 +765,7 @@ $fontSizeMin: 12px;
   :deep() {
     .el-divider--horizontal {
       margin: 5px 0;
+      border-top: none !important;
     }
   }
 }

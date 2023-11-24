@@ -405,7 +405,10 @@
               <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_regulation") }}</div>
-                  <div class="tab-content-tip">
+                  <div class="tab-content-tip" v-if="$route.path.startsWith('/au')">
+                    {{ $t("messages.home.fifth_regulationA") }}
+                  </div>
+                  <div class="tab-content-tip" v-if="$route.path.startsWith('/nz')">
                     {{ $t("messages.home.fifth_regulationC") }}
                   </div>
                   <div class="tab-content-btn">
@@ -429,7 +432,10 @@
               <el-col :span="10" :xs="24">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_fiat") }}</div>
-                  <div class="tab-content-tip">
+                  <div class="tab-content-tip"  v-if="$route.path.startsWith('/au')">
+                    {{ $t("messages.home.fifth_fiatA") }}
+                  </div>
+                  <div class="tab-content-tip"  v-if="$route.path.startsWith('/nz')">
                     {{ $t("messages.home.fifth_fiatC") }}
                   </div>
                   <div class="tab-content-btn">
@@ -1542,7 +1548,7 @@ onMounted(() => {
   }
 }
 .tab-content-wrapper {
-  overflow-x: hidden;
+  overflow-y: hidden;
   //white-space: nowrap;
   //display: flex;
 }

@@ -27,7 +27,7 @@
           </div>
           <div class="divide-line"></div>
         </div>
-        <div v-html="blogInfo.blogTxt || '----'" class="content-box blog"></div>
+        <div v-html="formatBlogText(blogInfo.blogTxt) || '----'" class="content-box blog"></div>
         <!-- <div class="content-box" v-for="(item, index) in contentCard" :key="index">
           <div class="second-title">
             {{ item.title }}
@@ -154,6 +154,7 @@ const blogInfo = ref<any>({
   sub_desc: '',
   banner_url: '',
 });
+
 onMounted(async () => {
   try {
     if (route.params.id) {
@@ -190,7 +191,20 @@ onMounted(async () => {
     ElMessage.error('Please try again later.');
   }
 })
+const formatBlogText = (blogTxt: string) => {
+  // 使用 DOMParser 解析 HTML 字符串
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(blogTxt, 'text/html');
 
+  // 获取所有的图片元素并设置宽和高为100%
+  const images = doc.querySelectorAll('img');
+  images.forEach((img) => {
+    img.setAttribute('style', 'width: 100%; height: 100%;');
+  });
+
+  // 返回处理后的 HTML 字符串
+  return doc.body.innerHTML;
+};
 </script>
 
 <style scoped lang="scss">
@@ -278,9 +292,11 @@ $fontSizeMin: 12px;
 
         .icon {
           float: right;
+          margin-top: -7px;
 
-          @media(max-width:769px) {
-            margin-top: -7px;
+          @media(max-width:470px) {
+            float: left;
+            margin-top: 3px;
           }
 
           img {
@@ -318,5 +334,10 @@ $fontSizeMin: 12px;
   @media (max-width: 1440px) {
     padding: 45px 30px 134px 30px;
   }
+}
+.content-box img{
+
+        width: 100% !important;
+        height: 100% !important;
 }
 </style>
