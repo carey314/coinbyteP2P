@@ -5,7 +5,8 @@
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
           <el-col :md="24" :sm="24" :xs="24" class="banner-left">
-            <div class="banner-title">{{ $t('messages.home.banner_title') }}
+            <div class="banner-title">
+              {{ $t('messages.home.banner_title') }}
 <!--              <span v-if="$route.path.startsWith('/nz')">NZ</span>-->
 <!--              <span v-if="$route.path.startsWith('/au')">AU</span>-->
             </div>
@@ -17,7 +18,7 @@
               {{ $t('messages.home.banner_content2') }}
             </div>
             <div class="for-what">
-              <div style="position: relative">
+              <div style="position: relative" class="for-buying">
                 <img class="frame" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">{{ $t('messages.home.for_buy') }}</div>
@@ -26,7 +27,7 @@
                              @click="goToKyc('buy')"/>
                 </div>
               </div>
-              <div style="position: relative">
+              <div style="position: relative" class="for-selling">
                 <img class="frame gap-bottom" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">{{ $t('messages.home.for_sell') }}</div>
@@ -225,8 +226,8 @@
     <div class="homeContainer">
       <div class="trade-way">
         <el-tabs v-model="tradeTab" class="trade-tabs">
-          <el-tab-pane :label="t('messages.home.buy')" name="first"></el-tab-pane>
-          <el-tab-pane :label="t('messages.home.sell')" name="second"></el-tab-pane>
+          <el-tab-pane class="trade-way-buy" :label="t('messages.home.buy')" name="first"></el-tab-pane>
+          <el-tab-pane class="trade-way-sell" :label="t('messages.home.sell')" name="second"></el-tab-pane>
         </el-tabs>
       </div>
       <div v-if="tradeTab === 'first'">
@@ -236,7 +237,7 @@
           </div>
           <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
-              <el-step :title="t('messages.home.step1_title')">
+              <el-step :title="t('messages.home.step1_title')" class="buy-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_01"/>
                 </template>
@@ -244,7 +245,7 @@
                   {{ $t("messages.home.step1_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step2_title')">
+              <el-step :title="t('messages.home.step2_title')" class="buy-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_02"/>
                 </template>
@@ -252,7 +253,7 @@
                   {{ $t("messages.home.step2_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step3_title')">
+              <el-step :title="t('messages.home.step3_title')" class="buy-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_03"/>
                 </template>
@@ -260,7 +261,7 @@
                   {{ $t("messages.home.step3_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step4_title')">
+              <el-step :title="t('messages.home.step4_title')" class="buy-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_04"/>
                 </template>
@@ -273,22 +274,22 @@
           <div v-else>
             <div class="tabs-step">
               <div class="custom-step">
-                <div class="step">
+                <div class="step buy-section-min">
                   <img class="step-icon" :src="icon_01"/>
                   <div class="step-title">{{ $t("messages.home.step1_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step1_cont") }}</div>
                 </div>
-                <div class="step">
+                <div class="step buy-section-min">
                   <img class="step-icon" :src="icon_02"/>
                   <div class="step-title">{{ $t("messages.home.step2_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step2_cont") }}</div>
                 </div>
-                <div class="step">
+                <div class="step buy-section-min">
                   <img class="step-icon" :src="icon_03"/>
                   <div class="step-title">{{ $t("messages.home.step3_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step3_cont") }}</div>
                 </div>
-                <div class="step">
+                <div class="step buy-section-min">
                   <img class="step-icon" :src="icon_04"/>
                   <div class="step-title">{{ $t("messages.home.step4_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step4_cont") }}</div>
@@ -305,17 +306,15 @@
           </div>
           <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
-
-              <el-step :title="t('messages.home.step1_title')">
+              <el-step :title="t('messages.home.step1_title')" class="sell-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_01"/>
                 </template>
-
                 <template #description>
                   {{ $t("messages.home.sell1_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.step2_title')">
+              <el-step :title="t('messages.home.step2_title')" class="sell-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_02"/>
                 </template>
@@ -323,7 +322,7 @@
                   {{ $t("messages.home.sell2_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.sell3_title')">
+              <el-step :title="t('messages.home.sell3_title')" class="sell-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_03"/>
                 </template>
@@ -331,7 +330,7 @@
                   {{ $t("messages.home.sell3_cont") }}
                 </template>
               </el-step>
-              <el-step :title="t('messages.home.sell4_title')">
+              <el-step :title="t('messages.home.sell4_title')" class="sell-section">
                 <template #icon>
                   <img class="step-icon" :src="icon_04"/>
                 </template>
@@ -398,12 +397,12 @@
               @touchend="handleTouchEnd">
           <div v-if="reasonTab === t('messages.home.fifth_regulation')" >
             <el-row class="tab-content-box">
-              <el-col :span="11" :xs="24">
+              <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img">
                   <img :src="image01"/></div
                 >
               </el-col>
-              <el-col :span="10" :xs="24">
+              <el-col :span="10" :xs="24" class="tab-content-box-content">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_regulation") }}</div>
                   <div class="tab-content-tip" v-if="$route.path.startsWith('/au')">
@@ -598,7 +597,7 @@
             </div>
           </el-col>
         </el-row>
-        <div class="view-more" style="margin-top: 0px">
+        <div class="view-more">
           <span>{{ $t("messages.home.seventh_more") }} </span>
         </div>
       </div>
@@ -978,6 +977,10 @@ import {useUserInfoStore} from "../../store/user";
 import {useI18n} from "vue-i18n";
 import {useRouter} from "vue-router";
 
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
 const userInfoStore = useUserInfoStore();
 const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
@@ -1071,7 +1074,6 @@ const scrollToCenter = (index: number) => {
 
   // 计算滚动距离，使按钮滚动到居中位置
   const scrollDistance = buttonLeft + buttonWidth / 2 - containerWidth / 2;
-
   scrollContainer.value?.scrollTo({ left: scrollDistance, behavior: 'smooth' });
 };
 
@@ -1083,58 +1085,6 @@ const handleFootChange = (val: string[]) => {
   console.log(val);
 };
 
-const useTradeStore = tradeStore();
-const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore);
-
-// 货币类型\
-interface Coin {
-  id: number;
-  name: string;
-  symbol: string;
-  slug: string;
-  image: string;
-  num_market_pairs: number;
-  date_added: string;
-  tags: string[];
-  max_supply: number | null;
-  circulating_supply: number;
-  total_supply: number;
-  infinite_supply: boolean;
-  platform: {
-    id: number;
-    name: string;
-    symbol: string;
-    slug: string;
-    token_address: string;
-  } | null;
-  cmc_rank: number;
-  self_reported_circulating_supply: number | null;
-  self_reported_market_cap: number | null;
-  tvl_ratio: number | null;
-  last_updated: string;
-  quote: {
-    AUD: {
-      price: number;
-      volume_24h: number;
-      volume_change_24h: number;
-      percent_change_1h: number;
-      percent_change_24h: number;
-      percent_change_7d: number;
-      percent_change_30d: number;
-      percent_change_60d: number;
-      percent_change_90d: number;
-      market_cap: number;
-      market_cap_dominance: number;
-      fully_diluted_market_cap: number;
-      tvl: number | null;
-      last_updated: string;
-    };
-  };
-}
-
-const coinMarketCapData = ref<any>([]);
-
-const activeName = ref("1");
 const tradeTab = ref<any>("first");
 const reasonTab = ref(t('messages.home.fifth_regulation'));
 
@@ -1187,93 +1137,6 @@ const nzData1 = [
     address: "FSP Website",
   },
 ];
-const tableChart = <any>ref(null);
-const handleSelect = (key: string, keyPath: string[]) => {
-  // console.log(key, keyPath);
-};
-// tabs
-
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  // console.log(tab, event);
-};
-
-const createChart = (dom: HTMLDivElement, data: Array<any>, color: string) => {
-  let myChart = echarts.init(dom);
-
-  function colorRgba(sHex: any, p: any) {
-    // 十六进制颜色值的正则表达式
-    var reg =
-        /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{4}|[0-9a-fA-f]{6}|[0-9a-fA-f]{8})$/;
-    /* 16进制颜色转为RGB格式 */
-    var sColor = sHex.toLowerCase();
-    if (sColor && reg.test(sColor)) {
-      if (sColor.length === 4 || sColor.length === 5) {
-        var sColorNew = "#";
-        for (var i = 1; i < sColor.length; i += 1) {
-          sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-        }
-        sColor = sColorNew;
-      }
-      //  处理六位的颜色值
-      var sColorChange = [];
-      for (var i = 1; i < 7; i += 2) {
-        sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
-      }
-      return "rgba(" + sColorChange.join(",") + "," + p + ")";
-    } else {
-      return sColor;
-    }
-  }
-
-  const options: echarts.EChartsOption = {
-    grid: {
-      left: "0",
-      top: "0",
-      right: "0",
-      bottom: "0",
-      containLabel: true,
-    },
-    xAxis: {
-      type: "category",
-      //不显示x轴线
-      show: false,
-    },
-    yAxis: {
-      type: "value",
-      show: false,
-      // min:function(value){
-      //   return Math.floor(value.min / 10) * 10;
-      // }
-    },
-    series: [
-      {
-        data: data,
-        //单独修改当前线条的颜色
-        lineStyle: {
-          color: color,
-          width: 1.5,
-        },
-        areaStyle: {
-          color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            {
-              offset: 0,
-              color: colorRgba(color, 0.2),
-            },
-            {
-              offset: 1,
-              color: colorRgba(color, 0.1),
-            },
-          ]),
-        },
-        type: "line",
-        // smooth: true,
-        symbol: "none",
-      },
-    ],
-  };
-  myChart.setOption(options);
-};
-const echartDomRef = [];
 
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
@@ -1341,150 +1204,6 @@ const goKyc = (type: string) => {
     router.push('/signup?type=' + type);
   }
 };
-
-const setEchartRef: any = (el: HTMLDivElement, typeId: number = 1) => {
-  if (el) {
-    echartDomRef.push(el);
-    const foundData = coinMarketCapData.value[`tab-${typeId}`].find(
-        (e: any) => {
-          return e.id === el.getAttribute("rowId");
-        }
-    );
-    const data = foundData.data;
-    const type = foundData.isUp ? "up" : "down";
-
-    let color = type == "up" ? "#01C19A" : "#F15958";
-    createChart(el, data as Array<any>, color);
-  }
-};
-
-const handleBuy = (index: number, row: Coin) => {
-  console.log(index, row);
-  currencySlug.value = row.symbol?.toUpperCase();
-  currencyName.value = row.name;
-  currencyIcon.value = row.image;
-  router.push("/trade/" + row.symbol);
-};
-const forthList = [
-  {
-    number: 1,
-    message: "View real-time cryptocurrency prices",
-  },
-  {
-    number: 2,
-    message:
-        "Buy and sell BTC, ETH, XRP, OKB and other digital assets with ease",
-  },
-  {
-    number: 3,
-    message: "Get live price-change alerts for cryptocurrencies you follow",
-  },
-  {
-    number: 4,
-    message: "Check BTC spot, futures and options prices",
-  },
-  {
-    number: 5,
-    message: "Compare cryptocurrency prices across exchanges",
-  },
-];
-const cardList = [
-  {
-    src: part05_icon01,
-    title: t("messages.home.fifth_regulation"),
-    desc: t("messages.home.fifth_regulationMsg"),
-  },
-  {
-    src: part05_icon02,
-    title: t("messages.home.fifth_fiat"),
-    desc: t("messages.home.fifth_fiatMsg"),
-  },
-  {
-    src: part05_icon03,
-    title: t("messages.home.fifth_Totally"),
-    desc: t("messages.home.fifth_TotallyMsg"),
-  },
-  {
-    src: part05_icon04,
-    title: t("messages.home.fifth_Institutional"),
-    desc: t("messages.home.fifth_InstitutionalMsg"),
-    btn: t("messages.home.fifth_btncheck"),
-  },
-  {
-    src: part05_icon05,
-    title: t("messages.home.fifth_API"),
-    desc: t("messages.home.fifth_APIMsg"),
-    btn: t("messages.home.fifth_btnAPI"),
-  },
-  {
-    src: part05_icon06,
-    title: t("messages.home.fifth_2FA"),
-    desc: t("messages.home.fifth_2FAMsg"),
-  },
-  {
-    src: part05_icon07,
-    title: t("messages.home.fifth_Fast"),
-    desc: t("messages.home.fifth_FastMsg"),
-  },
-];
-
-const cardSupport = [
-  {
-    src: part06_icon02,
-    title: t("messages.home.sixth_chat"),
-    desc: t("messages.home.sixth_rated"),
-  },
-  {
-    src: part06_icon03,
-    title: t("messages.home.sixth_Educational"),
-    desc: t("messages.home.sixth_Arrange"),
-  },
-  {
-    src: part06_icon04,
-    title: t("messages.home.sixth_Client"),
-    desc: t("messages.home.sixth_Invaluable"),
-  },
-  {
-    src: part06_icon05,
-    title: t("messages.home.sixth_Knowledge"),
-    desc: t("messages.home.sixth_resources"),
-  },
-  {
-    src: part06_icon06,
-    title: t("messages.home.sixth_Apply"),
-    desc: t("messages.home.sixth_Verify"),
-  },
-];
-const minCardList2 = [
-  {
-    src: part06_icon02,
-    title: t("messages.home.sixth_chat"),
-    desc: t("messages.home.sixth_rated"),
-  },
-  {
-    src: part06_icon03,
-    title: t("messages.home.sixth_Educational"),
-    desc: t("messages.home.sixth_Arrange"),
-  },
-  {
-    src: part06_icon04,
-    title: t("messages.home.sixth_Client"),
-    desc: t("messages.home.sixth_Invaluable"),
-  },
-  {
-    src: part06_icon05,
-    title: t("messages.home.sixth_Knowledge"),
-    desc: t("messages.home.sixth_minResources"),
-  },
-  {
-    src: part06_icon06,
-    title: t("messages.home.sixth_Apply"),
-    desc: t("messages.home.sixth_minVerify"),
-  },
-];
-
-//Get client profile data
-
 onMounted(() => {
   if (userInfoStore.isLogin) {
     getProfile().then((res) => {
@@ -1492,6 +1211,145 @@ onMounted(() => {
       userInfoStore.updateUserInfo(res.data.data);
     });
   }
+  gsap.from('.banner-title, .banner-content', {
+    y: -50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2, // slight delay between each element
+    ease: 'power3.out'
+  });
+
+  // Animate for-buying from the left
+  gsap.from('.for-buying', {
+    x: -200,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  });
+
+  // Animate for-selling from the right
+  gsap.from('.for-selling', {
+    x: 200,
+    opacity: 0,
+    duration: 1,
+    ease: 'power3.out'
+  });
+
+  // Animate banner-more with a subtle scale and fade-in effect
+  gsap.from('.banner-more', {
+    scale: 0.9,
+    opacity: 0,
+    duration: 2,
+    ease: 'power3.out'
+  });
+ 
+  gsap.from(".buy-section", {
+    scrollTrigger: {
+      trigger: ".buy-section",
+      start: "top 90%",
+      end: "bottom bottom",
+      toggleActions: "play none none reset",
+    },
+    yPercent: -100, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+  
+  gsap.from(".buy-section-min", {
+    scrollTrigger: {
+      trigger: ".buy-section-min",
+      start: "top 90%",
+      end: "bottom bottom",
+      toggleActions: "play none none reverse",
+    },
+    yPercent: -100, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+  gsap.from(".sell-section", {
+    scrollTrigger: {
+      trigger: ".sell-section",
+      start: "top center",
+      end: "bottom bottom",
+      toggleActions: "play none reverse none",
+    },
+    yPercent: -100, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+  gsap.from(".listItem", {
+    scrollTrigger: {
+      trigger: ".listItem",
+      start: "top 90%", // 当元素顶部到达视口底部时开始动画
+      end: "bottom bottom", // 当元素底部离开视口顶部时结束动画
+      toggleActions: "play none reverse none", // 在滚动离开和滚动回来时反向播放动画
+      markers: false, // 设置为true可以在页面上看到触发点
+    },
+    opacity: 0.9, // 开始时的不透明度
+    y: 50, 
+    scale: 0.95, // 开始时的缩放比例
+    duration: 1.5, // 动画持续时间
+    ease: "back.out(2)", // 使用back缓动效果，括号内的数字越大，回弹越大
+    stagger: {
+      amount: 1, // 整体动画的持续时间，用于计算每个元素的延迟
+      from: "start", // 从第一个元素开始逐个播放动画
+    }
+  });
+  
+  gsap.from('.trade-btn', { 
+    scale: 0.8, 
+    opacity: 0, 
+    duration: 0.5, 
+    delay: 1, 
+    ease: "elastic.out(1, 0.3)" 
+  });
+  
+  gsap.from('.tab-content-box-img', {
+    scrollTrigger: {
+      trigger: '.tab-content-box-img',
+      start: 'top bottom', // 当元素顶部进入视口底部时
+      end: 'bottom bottom', // 当元素底部离开视口顶部时
+      toggleActions: 'play none none reset', // 只播放一次
+    },
+    opacity: 0,
+    scale: 0.8,
+    rotation: 10,
+    duration: 2,
+    ease: 'power3.out'
+  });
+
+  // 动画：内容从右侧滑入
+  gsap.from('.tab-content-box-content', {
+    scrollTrigger: {
+      trigger: '.tab-content-box-content',
+      start: 'top bottom', // 当元素顶部进入视口底部时
+      end: 'bottom bottom', // 当元素底部离开视口顶部时
+      toggleActions: 'play none none reset', // 只播放一次
+    },
+    opacity: 0,
+    x: 100,
+    duration: 2,
+    ease: 'power3.out'
+  });
+  
+  gsap.from('.footer-box', {
+    scrollTrigger: {
+      trigger: '.footer-box',
+      start: 'top bottom', // 当元素顶部进入视口底部时
+      end: 'bottom bottom', // 当元素底部离开视口顶部时
+      toggleActions: 'play none none reset', // 只播放一次
+    },
+    opacity: 0,
+    x: 50,
+    duration: 1.5,
+    ease: 'power3.out'
+  });
 });
 </script>
 
@@ -1553,7 +1411,6 @@ onMounted(() => {
   //white-space: nowrap;
   //display: flex;
 }
-
 .reason-box {
   transition: transform 0.3s ease; /* 添加过渡效果 */
 }

@@ -2,7 +2,9 @@
   <footer>
     <div class="footer-bottom-box">
       <div class="footer-bottom max1290" style="height: 104px;display: flex;justify-content: space-between;">
-        <div style="display: flex;align-items: center;"><img :src="logo" /></div>
+        <div class="footer-logo" style="display: flex;align-items: center;">
+          <img class="logo" :src="logo" />
+        </div>
         <div>
           <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
@@ -202,11 +204,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, getCurrentInstance, ref, watch } from "vue";
+import { defineComponent, getCurrentInstance, ref, watch,onMounted } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
 import logo from "../../assets/image/logo.svg";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 import { useI18n } from "vue-i18n";
+
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
 const { t } = useI18n();
 
 const showWin = ref(false);
@@ -245,6 +252,22 @@ const changeLanguage = (selectedLanguage: string) => {
 watch(currentLanguage, (newLanguage) => {
   changeLanguage(newLanguage);
 });
+
+onMounted(() => {
+  gsap.from(".footer-logo", {
+    scrollTrigger: {
+      trigger: ".footer-logo",
+      start: "top 100%",
+      end: "bottom bottom",
+      toggleActions: "play none none reset",
+    },
+    yPercent: -20, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 0.8,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+})
 </script>
 
 <style scoped lang="scss">

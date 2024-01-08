@@ -1,5 +1,6 @@
 <template>
   <el-dialog v-model="dialogTableVisible" :destroy-on-close="true" class="sign-choose" :class="{fromSign: fromSign}">
+    <div class="divider"></div>
     <el-row :gutter="20">
       <el-col
           :md="12"
@@ -56,16 +57,16 @@ const toSign = (type: string) => {
 
 <style scoped lang="scss">
 
-.login-divider {
-  width: 1px;
-  height: 100%;
-  background: #eee;
-  position: absolute;
-  left: 50%;
-  @media (max-width: 991px) {
-    display: none;
-  }
-}
+// .login-divider {
+//   width: 1px;
+//   height: 100%;
+//   background: #eee;
+//   position: absolute;
+//   left: 50%;
+//   @media (max-width: 991px) {
+//     display: none;
+//   }
+// }
 
 .sell-part {
   @media (max-width: 991px) {
@@ -75,7 +76,18 @@ const toSign = (type: string) => {
 
 .sign-choose {
   position: relative;
-
+  .divider{ 
+    content: ''; /* 伪元素需要内容属性来显示 */
+    position: absolute; /* 绝对定位以便可以自由放置 */
+    top: 0; /* 从顶部开始 */
+    bottom: 0; /* 一直到底部 */
+    left: 50%; /* 水平居中 */
+    border-left: 1px solid #eee; /* 创建分割线 */
+    transform: translateX(-50%); /* 确保分割线精确居中 */
+    @media (max-width: 991px) {
+      display: none;
+    }
+  }
   .choose-part {
     .part-for {
       color: #000;

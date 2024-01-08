@@ -164,7 +164,7 @@
               </template>
             </el-dropdown>
           </li> -->
-          <li @mouseover="userShow" @mouseleave="userHide" class="right-dropdown-box">
+          <li @mouseover="userShow" @mouseleave="userHide" class="right-dropdown-box menu-item">
             <el-dropdown class="user-dropdown align-icon" ref="navUser">
               <router-link to="/user">
                 <img :src="top_bar_usercenter" alt=""/>
@@ -290,7 +290,7 @@
               </template>
             </el-dropdown>
           </li>
-          <li @mouseover="noticeShow" @mouseleave="noticeHide" class="right-dropdown-box">
+          <li @mouseover="noticeShow" @mouseleave="noticeHide" class="right-dropdown-box menu-item">
             <el-dropdown class="notice-dropdown align-icon" ref="navNotice">
               <img :src="top_notice" alt=""/>
               <template #dropdown>
@@ -325,7 +325,7 @@
             </el-dropdown>
           </li>
 
-          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
+          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box menu-item">
             <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
               <img :src="top_en" alt=""/>
 
@@ -352,13 +352,13 @@
           </li>
         </template>
         <template v-else>
-          <li>
+          <li class="menu-item">
             <router-link to="/login" style="text-decoration: none"><span class="login-span">{{
                 $t("messages.header.login")
               }}</span></router-link>
           </li>
 
-          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box">
+          <li @mouseover="languageShow" @mouseleave="languageHide" class="right-dropdown-box menu-item">
             <el-dropdown class="language-dropdown align-icon" ref="navLanguage">
               <img :src="top_en" alt=""/>
 
@@ -481,6 +481,9 @@ import {useI18n} from "vue-i18n";
 import {saveStoredLanguage} from "../../languageStorage";
 import {NoticeObject} from "../../models/notice";
 import {getNotices} from "../../api/notices";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
 // t
 const i18n = useI18n();
 const {t} = useI18n({});
@@ -533,6 +536,29 @@ onMounted(async () => {
     noticesList.value = notices.value
 
   }
+  gsap.from('.header-logo', {
+    duration: 1,
+    x: -100,
+    opacity: 0,
+    ease: 'power3.out'
+  });
+
+  // Animate menu items with ScrollTrigger
+  gsap.from('.header-menu', {
+    duration: 1,
+    x: -90,
+    opacity: 0,
+    ease: 'power3.out'
+  });
+
+  // Animate right section
+  // gsap.from('.header-right', {
+  //   duration: 1,
+  //   x: 100,
+  //   opacity: 0,
+  //   ease: 'power3.out'
+  // });
+
 })
 
 const noticeDetail = (notice: NoticeObject) => {
@@ -727,7 +753,6 @@ $regular-font: HarmonyOS_Sans_Regular;
   height: 100%;
   display: flex;
   align-items: center;
-  padding-top: 10px;
 }
 
 .logo {
@@ -931,7 +956,7 @@ $regular-font: HarmonyOS_Sans_Regular;
     width: 28px;
     height: 28px;
     display: none;
-    margin-top: 20px;
+    margin-top: 17px;
 
     @media (max-width: 910px) {
       & {
@@ -1298,6 +1323,10 @@ $regular-font: HarmonyOS_Sans_Regular;
 :deep( .el-dialog__headerbtn) {
   z-index: 999;
 }
+:deep(.el-dialog__header){
+  padding: 0 !important;
+}
+
 :deep(.header-right .right-menu[data-v-f634b21b] .el-icon){
   width: 16px;
   height: 16px;
@@ -1308,6 +1337,51 @@ $regular-font: HarmonyOS_Sans_Regular;
       display: none;
     }
   }
+}
+.header-logo a {
+  display: inline-block; /* 使链接可应用转换 */
+  transition: transform 0.3s ease; /* 平滑的放大效果 */
+}
 
+.header-logo a:hover {
+  transform: scale(1.1); /* 鼠标悬停时放大10% */
+}
+
+.logo {
+  display: block; /* 防止图片下方有空间 */
+  max-width: 100%; /* 确保图片不会超出其容器 */
+  height: auto; /* 保持图片的原始宽高比 */
+}
+.menu li {
+  display: inline-block; /* 允许应用转换效果 */
+  transition: transform 0.3s ease; /* 平滑的放大效果 */
+  padding: 10px 15px; /* 可点击区域的内边距 */
+  border-radius: 5px; /* 轻微的圆角 */
+  color: #fff; /* 白色文本 */
+  text-decoration: none; /* 去除下划线 */
+}
+
+.menu li:hover {
+  transform: scale(1.1); /* 鼠标悬停时放大10% */
+}
+
+.menu a {
+  color: inherit; /* 链接继承li的文本颜色 */
+  display: block; /* 使整个区域可点击 */
+  text-decoration: none; /* 去除链接的下划线 */
+}
+.right-menu .menu-item {
+  display: inline-block; /* 允许应用转换效果 */
+  transition: transform 0.3s ease; /* 平滑的放大效果 */
+}
+
+.right-menu .menu-item:hover {
+  transform: scale(1.1); /* 鼠标悬停时放大10% */
+}
+
+.right-menu a {
+  color: inherit; /* 继承文字颜色 */
+  text-decoration: none; /* 去除下划线 */
+  display: block; /* 使整个区域可点击 */
 }
 </style>
