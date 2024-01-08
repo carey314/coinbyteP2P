@@ -403,7 +403,7 @@
                 >
               </el-col>
               <el-col :span="10" :xs="24" class="tab-content-box-content">
-                <div class="tab-content">
+                <div class="tab-content" style="overflow-x: hidden !important;">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_regulation") }}</div>
                   <div class="tab-content-tip" v-if="$route.path.startsWith('/au')">
                     {{ $t("messages.home.fifth_regulationA") }}
@@ -1333,7 +1333,7 @@ onMounted(() => {
       toggleActions: 'play none none reset', // 只播放一次
     },
     opacity: 0,
-    x: 100,
+    y: -100,
     duration: 2,
     ease: 'power3.out'
   });
@@ -1413,5 +1413,8 @@ onMounted(() => {
 }
 .reason-box {
   transition: transform 0.3s ease; /* 添加过渡效果 */
+}
+.tab-content-box-content{
+  overflow-x: hidden;
 }
 </style>

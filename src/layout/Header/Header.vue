@@ -622,6 +622,7 @@ const navUser = ref();
 const verify = ref(false);
 const dropdownShow = ref<boolean>(false);
 const router = useRouter();
+
 const showClickMenu = (): void => {
   dropdownShow.value = true;
 };
@@ -857,7 +858,7 @@ $regular-font: HarmonyOS_Sans_Regular;
       width: 20px;
       height: 20px;
       right: 20px;
-      top: 14px;
+      top: 22px;
       display: block !important;
     }
 
@@ -967,9 +968,9 @@ $regular-font: HarmonyOS_Sans_Regular;
 
     @media (max-width: 768px) {
       & {
-        width: 20px;
-        height: 20px;
-        margin-top: 15px;
+        width: 26px;
+        height: 26px;
+        margin-top: 22px;
         margin-right: 8px;
       }
     }
