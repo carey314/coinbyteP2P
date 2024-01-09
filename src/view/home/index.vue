@@ -1304,7 +1304,7 @@ onMounted(() => {
     },
     yPercent: -100, // 从上方100%的位置开始
     autoAlpha: 0,
-    duration: 1.8,
+    duration: 1.5,
     stagger: 0.2,
     ease: "back.out(1.7)",
   });
@@ -1312,11 +1312,11 @@ onMounted(() => {
   gsap.from(".buy-section-phone", {
     scrollTrigger: {
       trigger: ".buy-section-phone",
-      start: "top 70%",
+      start: "top 90%",
       end: "bottom bottom",
       toggleActions: "play none none reset",
     },
-    yPercent: -100, // 从上方100%的位置开始
+    yPercent: -50, // 从上方100%的位置开始
     autoAlpha: 0,
     duration: 3,
     stagger: 0.2,
@@ -1338,11 +1338,11 @@ onMounted(() => {
   gsap.from("sell-section-phone", {
     scrollTrigger: {
       trigger: ".sell-section-phone",
-      start: "top 70%",
+      start: "top 90%",
       end: "bottom bottom",
       toggleActions: "play none none reset",
     },
-    yPercent: -100, // 从上方100%的位置开始
+    yPercent: -50, // 从上方100%的位置开始
     autoAlpha: 0,
     duration: 3,
     stagger: 0.2,
@@ -1357,7 +1357,7 @@ onMounted(() => {
     },
     yPercent: -100, // 从上方100%的位置开始
     autoAlpha: 0,
-    duration: 1,
+    duration: 1.5,
     stagger: 0.2,
     ease: "back.out(1.7)",
   });
@@ -1370,7 +1370,7 @@ onMounted(() => {
       markers: false, // 设置为true可以在页面上看到触发点
     },
     opacity: 0.9, // 开始时的不透明度
-    y: 90, 
+    y: 50, 
     scale: 0.95, // 开始时的缩放比例
     duration: 1.5, // 动画持续时间
     ease: "back.out(2)", // 使用back缓动效果，括号内的数字越大，回弹越大
