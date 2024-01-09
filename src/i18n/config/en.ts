@@ -218,8 +218,8 @@ export default {
             eighth_based: "Where is CoinbyteP2P based?",
             base_content: "Founded in 2019, CoinbyteP2P is a Australia-registered cryptocurrency exchange, and has expanded to operate in New Zealand. We provide the latest trading services for hundreds of diverse crypto assets in P2P markets.",
             eighth_buy: " How to buy Bitcoin on CoinbyteP2P?",
-            buy_content1: "1. Find CoinbyteP2P's advertisement and place your order, the crypto asset will be escrowed by the Exchange",
-            buy_content2: "2. Complete our verification through our website",
+            buy_content1: "1. Find CoinbyteP2P's advertisement and place your order, the crypto asset will be escrowed by the Exchange.",
+            buy_content2: "2. Complete our verification through our website.",
             buy_content3: "3. Make the payment to CoinbyteP2P via your preferred payment methods and click 'transferred, notify seller' on the Exchange.",
             buy_content4: "4. Once we confirms receipt of the payment, the escrowed crypto will be released to you.",
             eighth_account:

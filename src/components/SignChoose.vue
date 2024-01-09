@@ -57,17 +57,6 @@ const toSign = (type: string) => {
 
 <style scoped lang="scss">
 
-// .login-divider {
-//   width: 1px;
-//   height: 100%;
-//   background: #eee;
-//   position: absolute;
-//   left: 50%;
-//   @media (max-width: 991px) {
-//     display: none;
-//   }
-// }
-
 .sell-part {
   @media (max-width: 991px) {
     margin-top: 20px;
@@ -106,6 +95,7 @@ const toSign = (type: string) => {
       margin-top: 30px;
     }
   }
+ 
 }
 
 .to-sign {

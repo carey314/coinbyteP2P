@@ -537,7 +537,7 @@ onMounted(async () => {
 
   }
   gsap.from('.header-logo', {
-    duration: 1,
+    duration: 1.8,
     x: -100,
     opacity: 0,
     ease: 'power3.out'
@@ -545,7 +545,7 @@ onMounted(async () => {
 
   // Animate menu items with ScrollTrigger
   gsap.from('.header-menu', {
-    duration: 1,
+    duration: 1.8,
     x: -90,
     opacity: 0,
     ease: 'power3.out'
@@ -1385,4 +1385,7 @@ $regular-font: HarmonyOS_Sans_Regular;
   text-decoration: none; /* 去除下划线 */
   display: block; /* 使整个区域可点击 */
 }
+:deep(.el-dialog__headerbtn .el-dialog__close){
+    margin-top: -20px !important;
+  }
 </style>

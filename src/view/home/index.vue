@@ -17,7 +17,7 @@
               {{ $t('messages.home.banner_content') }} <br/>
               {{ $t('messages.home.banner_content2') }}
             </div>
-            <div class="for-what">
+            <div class="for-what" v-if="windowWidth > 769">
               <div style="position: relative" class="for-buying">
                 <img class="frame" :src="banner_frame"/>
                 <div class="content">
@@ -28,6 +28,26 @@
                 </div>
               </div>
               <div style="position: relative" class="for-selling">
+                <img class="frame gap-bottom" :src="banner_frame"/>
+                <div class="content">
+                  <div class="content-title">{{ $t('messages.home.for_sell') }}</div>
+                  <div class="content-way">{{ $t('messages.home.when_sell') }}</div>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')"
+                             @click="goToKyc('sell')"/>
+                </div>
+              </div>
+            </div>
+            <div class="for-what" v-else>
+              <div style="position: relative" class="for-buying-phone">
+                <img class="frame" :src="banner_frame"/>
+                <div class="content">
+                  <div class="content-title">{{ $t('messages.home.for_buy') }}</div>
+                  <div class="content-way">{{ $t('messages.home.when_buy') }}</div>
+                  <GetButton class="start-btn" type="success" :text="$t('messages.home.start_btn')"
+                             @click="goToKyc('buy')"/>
+                </div>
+              </div>
+              <div style="position: relative" class="for-selling-phone">
                 <img class="frame gap-bottom" :src="banner_frame"/>
                 <div class="content">
                   <div class="content-title">{{ $t('messages.home.for_sell') }}</div>
@@ -274,22 +294,22 @@
           <div v-else>
             <div class="tabs-step">
               <div class="custom-step">
-                <div class="step buy-section-min">
+                <div class="step buy-section-phone">
                   <img class="step-icon" :src="icon_01"/>
                   <div class="step-title">{{ $t("messages.home.step1_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step1_cont") }}</div>
                 </div>
-                <div class="step buy-section-min">
+                <div class="step buy-section-phone">
                   <img class="step-icon" :src="icon_02"/>
                   <div class="step-title">{{ $t("messages.home.step2_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step2_cont") }}</div>
                 </div>
-                <div class="step buy-section-min">
+                <div class="step buy-section-phone">
                   <img class="step-icon" :src="icon_03"/>
                   <div class="step-title">{{ $t("messages.home.step3_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step3_cont") }}</div>
                 </div>
-                <div class="step buy-section-min">
+                <div class="step buy-section-phone">
                   <img class="step-icon" :src="icon_04"/>
                   <div class="step-title">{{ $t("messages.home.step4_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.step4_cont") }}</div>
@@ -343,28 +363,28 @@
           <div v-else>
             <div class="tabs-step">
               <div class="custom-step">
-                <div class="step">
+                <div class="step sell-section-phone">
                   <img class="step-icon" :src="icon_01" />
                   <div class="step-title">{{ $t("messages.home.step1_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.sell1_cont") }}</div>
                 </div>
               </div>
               <div class="custom-step">
-                <div class="step">
+                <div class="step sell-section-phone">
                   <img class="step-icon" :src="icon_02" />
                   <div class="step-title">{{ $t("messages.home.step2_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.sell2_cont") }}</div>
                 </div>
               </div>
               <div class="custom-step">
-                <div class="step">
+                <div class="step sell-section-phone">
                   <img class="step-icon" :src="icon_03" />
                   <div class="step-title">{{ $t("messages.home.sell3_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.sell3_cont") }}</div>
                 </div>
               </div>
               <div class="custom-step">
-                <div class="step">
+                <div class="step sell-section-phone">
                   <img class="step-icon" :src="icon_04" />
                   <div class="step-title">{{ $t("messages.home.sell4_title") }}</div>
                   <div class="step-description">{{ $t("messages.home.sell4_cont") }}</div>
@@ -382,7 +402,7 @@
 
           <el-scrollbar height="100px" :ref="scrollContainer">
             <div class="choose-reason" ref="reasonContainer">
-              <el-radio-group v-model="reasonTab" size="large" class="reason-box" :ref="radioGroup"  :style="{ transform: `translateX(${buttonOffset}px)` }">
+              <el-radio-group v-model="reasonTab" size="large" class="reason-box" :ref="radioGroup"  :style="{ transform: `translateX(${buttonOffset}px)` }" @change="triggerAnimations">
                 <el-radio-button :label="t('messages.home.fifth_regulation')" @click="scrollToCenter(0)"></el-radio-button>
                 <el-radio-button :label="t('messages.home.fifth_fiat')" @click="scrollToCenter(1)"></el-radio-button>
                 <el-radio-button :label="t('messages.home.fifth_Totally')" @click="scrollToCenter(2)"></el-radio-button>
@@ -391,11 +411,11 @@
               </el-radio-group>
             </div>
           </el-scrollbar>
-        <div  class="tab-content-wrapper"
+        <transition-group name="tab-fade" tag="div" class="tab-content-wrapper"
               @touchstart="handleTouchStart"
               @touchmove="handleTouchMove"
               @touchend="handleTouchEnd">
-          <div v-if="reasonTab === t('messages.home.fifth_regulation')" >
+          <div v-if="reasonTab === t('messages.home.fifth_regulation')" key="regulation">
             <el-row class="tab-content-box">
               <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img">
@@ -419,9 +439,9 @@
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === t('messages.home.fifth_fiat')">
+          <div v-if="reasonTab === t('messages.home.fifth_fiat')" key="fiat">
             <el-row class="tab-content-box">
-              <el-col :span="11" :xs="24">
+              <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img" v-if="$route.path.startsWith('/au')">
                   <img :src="image02_au"/>
                 </div>
@@ -429,7 +449,7 @@
                   <img :src="image02"/>
                 </div>
               </el-col>
-              <el-col :span="10" :xs="24">
+              <el-col :span="10" :xs="24" class="tab-content-box-content">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_fiat") }}</div>
                   <div class="tab-content-tip"  v-if="$route.path.startsWith('/au')">
@@ -446,9 +466,9 @@
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === t('messages.home.fifth_Totally')">
+          <div v-if="reasonTab === t('messages.home.fifth_Totally')" key="reliable">
             <el-row class="tab-content-box">
-              <el-col :span="11" :xs="24">
+              <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img" v-if="$route.path.startsWith('/au')">
                   <img :src="image03_au"/>
                 </div>
@@ -456,7 +476,7 @@
                   <img :src="image03"/>
                 </div>
               </el-col>
-              <el-col :span="10" :xs="24">
+              <el-col :span="10" :xs="24" class="tab-content-box-content">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_Totally") }}</div>
                   <div class="tab-content-tip">
@@ -470,9 +490,9 @@
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === t('messages.home.fifth_easy')">
+          <div v-if="reasonTab === t('messages.home.fifth_easy')" key="fast">
             <el-row class="tab-content-box">
-              <el-col :span="11" :xs="24">
+              <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img" v-if="$route.path.startsWith('/au')">
                   <img :src="image04"/>
                 </div>
@@ -482,7 +502,7 @@
 
 
               </el-col>
-              <el-col :span="10" :xs="24">
+              <el-col :span="10" :xs="24" class="tab-content-box-content">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_easy") }}</div>
                   <div class="tab-content-tip">
@@ -496,14 +516,14 @@
               </el-col>
             </el-row>
           </div>
-          <div v-if="reasonTab === t('messages.home.fifth_live')">
+          <div v-if="reasonTab === t('messages.home.fifth_live')" key="live">
             <el-row class="tab-content-box">
-              <el-col :span="11" :xs="24">
+              <el-col :span="11" :xs="24" class="tab-content-box-img">
                 <div class="tab-img">
                   <img :src="image05"/></div
                 >
               </el-col>
-              <el-col :span="10" :xs="24">
+              <el-col :span="10" :xs="24" class="tab-content-box-content">
                 <div class="tab-content">
                   <div class="tab-content-title">{{ $t("messages.home.fifth_live") }}</div>
                   <div class="tab-content-tip">
@@ -517,7 +537,7 @@
               </el-col>
             </el-row>
           </div>
-        </div>
+        </transition-group>
 
         </div>
       </div>
@@ -922,7 +942,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onUnmounted, onMounted} from "vue";
+import {ref, onUnmounted, onMounted,watch} from "vue";
 import Header from "../../layout/Header/Header.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
@@ -1000,7 +1020,6 @@ function handleTouchMove(event:any) {
   if (Math.abs(deltaX) > threshold) {
     const direction = deltaX > 0 ? 1 : -1;
     changeReasonTab(direction);
-
     // 根据滑动方向调整按钮位置的偏移值
     buttonOffset.value = calculateButtonOffset(direction);
   }
@@ -1008,8 +1027,6 @@ function handleTouchMove(event:any) {
 
 
 function calculateButtonOffset(direction : any) {
-  // 根据方向和需要的偏移量计算新的偏移值
-  // 例如，每次滑动移动一个按钮的宽度
   const buttonWidth = radioGroup.value
       ? radioGroup.value.offsetWidth: 0;
   const offsetDelta = buttonWidth * direction;
@@ -1087,6 +1104,27 @@ const handleFootChange = (val: string[]) => {
 
 const tradeTab = ref<any>("first");
 const reasonTab = ref(t('messages.home.fifth_regulation'));
+function triggerAnimations() {
+  // 停止所有现有的动画和滚动触发器
+  ScrollTrigger.getAll().forEach(st => st.kill());
+  gsap.killTweensOf('.tab-content-box-img');
+  gsap.killTweensOf('.tab-content-box-content');
+
+  // 重新触发动画
+  gsap.fromTo('.tab-content-box-img', 
+    { x: -30, opacity: 0 }, // 开始状态
+    { x: 0, opacity: 1, duration: 2, ease: 'power3.out' } // 结束状态
+  );
+
+  // 从 x: 10 开始到 x: 0 结束的动画
+  gsap.fromTo('.tab-content-box-content', 
+    { x: 30, opacity: 0 }, // 开始状态
+    { x: 0, opacity: 1, duration: 2, ease: 'power3.out' } // 结束状态
+  );
+}
+watch(reasonTab, () => {
+  triggerAnimations();
+});
 
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
@@ -1214,33 +1252,47 @@ onMounted(() => {
   gsap.from('.banner-title, .banner-content', {
     y: -50,
     opacity: 0,
-    duration: 1,
+    duration: 1.8,
     stagger: 0.2, // slight delay between each element
     ease: 'power3.out'
   });
 
-  // Animate for-buying from the left
   gsap.from('.for-buying', {
     x: -200,
     opacity: 0,
-    duration: 1,
+    duration: 1.8,
     ease: 'power3.out'
   });
 
-  // Animate for-selling from the right
   gsap.from('.for-selling', {
     x: 200,
     opacity: 0,
-    duration: 1,
+    duration: 1.8,
     ease: 'power3.out'
   });
-
-  // Animate banner-more with a subtle scale and fade-in effect
-  gsap.from('.banner-more', {
-    scale: 0.9,
+  gsap.from('.for-buying-phone', {
+    y: 80,
     opacity: 0,
-    duration: 2,
+    duration: 1.5,
+    stagger: 0.2,
     ease: 'power3.out'
+  })
+  gsap.from('.for-selling-phone', {
+    y: 80,
+    opacity: 0,
+    duration: 1.5,
+    stagger: 0.2,
+    ease: 'power3.out'
+  })
+
+  gsap.from('.banner-more', {
+    y: 50, // start the animation 50 pixels down from its starting position
+    scale: 0.7,
+    opacity: 0,
+    duration: 1, // slightly faster to keep the user's attention
+    delay: 0.2, // add a small delay before the animation starts
+    ease: 'SlowMo',
+    stagger: 0.1 // if there are multiple elements, they will animate one after the other with a 0.2 second delay between each
   });
  
   gsap.from(".buy-section", {
@@ -1252,21 +1304,47 @@ onMounted(() => {
     },
     yPercent: -100, // 从上方100%的位置开始
     autoAlpha: 0,
-    duration: 0.8,
+    duration: 1.8,
     stagger: 0.2,
     ease: "back.out(1.7)",
   });
   
-  gsap.from(".buy-section-min", {
+  gsap.from(".buy-section-phone", {
     scrollTrigger: {
-      trigger: ".buy-section-min",
-      start: "top 90%",
+      trigger: ".buy-section-phone",
+      start: "top 70%",
       end: "bottom bottom",
-      toggleActions: "play none none reverse",
+      toggleActions: "play none none reset",
     },
     yPercent: -100, // 从上方100%的位置开始
     autoAlpha: 0,
-    duration: 1,
+    duration: 3,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+  gsap.from(".sell-section", {
+    scrollTrigger: {
+      trigger: ".sell-section",
+      start: "top 90%",
+      end: "bottom bottom",
+      toggleActions: "play none none reset",
+    },
+    yPercent: -100, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 1.8,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+  });
+  gsap.from("sell-section-phone", {
+    scrollTrigger: {
+      trigger: ".sell-section-phone",
+      start: "top 70%",
+      end: "bottom bottom",
+      toggleActions: "play none none reset",
+    },
+    yPercent: -100, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 3,
     stagger: 0.2,
     ease: "back.out(1.7)",
   });
@@ -1286,13 +1364,13 @@ onMounted(() => {
   gsap.from(".listItem", {
     scrollTrigger: {
       trigger: ".listItem",
-      start: "top 90%", // 当元素顶部到达视口底部时开始动画
+      start: "top 100%", // 当元素顶部到达视口底部时开始动画
       end: "bottom bottom", // 当元素底部离开视口顶部时结束动画
       toggleActions: "play none reverse none", // 在滚动离开和滚动回来时反向播放动画
       markers: false, // 设置为true可以在页面上看到触发点
     },
     opacity: 0.9, // 开始时的不透明度
-    y: 50, 
+    y: 90, 
     scale: 0.95, // 开始时的缩放比例
     duration: 1.5, // 动画持续时间
     ease: "back.out(2)", // 使用back缓动效果，括号内的数字越大，回弹越大
@@ -1313,13 +1391,12 @@ onMounted(() => {
   gsap.from('.tab-content-box-img', {
     scrollTrigger: {
       trigger: '.tab-content-box-img',
-      start: 'top bottom', // 当元素顶部进入视口底部时
-      end: 'bottom bottom', // 当元素底部离开视口顶部时
-      toggleActions: 'play none none reset', // 只播放一次
+      start: 'top bottom', // When the top of the element enters the bottom of the viewport
+      end: 'bottom bottom', // When the bottom of the element leaves the top of the viewport
+      toggleActions: 'play none none reset', // Play once
     },
+    x: -100, // Start from 100 pixels to the left
     opacity: 0,
-    scale: 0.8,
-    rotation: 10,
     duration: 2,
     ease: 'power3.out'
   });
@@ -1328,29 +1405,57 @@ onMounted(() => {
   gsap.from('.tab-content-box-content', {
     scrollTrigger: {
       trigger: '.tab-content-box-content',
-      start: 'top bottom', // 当元素顶部进入视口底部时
-      end: 'bottom bottom', // 当元素底部离开视口顶部时
-      toggleActions: 'play none none reset', // 只播放一次
+      start: 'top bottom', // When the top of the element enters the bottom of the viewport
+      end: 'bottom bottom', // When the bottom of the element leaves the top of the viewport
+      toggleActions: 'play none none reset', // Play once
     },
+    x: 100, // Start from 50 pixels below
     opacity: 0,
-    y: -100,
     duration: 2,
-    ease: 'power3.out'
+    ease: 'power3.out',
+    delay: 0.3
   });
   
   gsap.from('.footer-box', {
     scrollTrigger: {
-      trigger: '.footer-box',
-      start: 'top bottom', // 当元素顶部进入视口底部时
-      end: 'bottom bottom', // 当元素底部离开视口顶部时
-      toggleActions: 'play none none reset', // 只播放一次
+      trigger: ".footer-logo",
+      start: "top 100%",
+      end: "bottom bottom",
+      toggleActions: "play none none reset",
     },
-    opacity: 0,
-    x: 50,
-    duration: 1.5,
-    ease: 'power3.out'
+    xPercent: 20, // 从上方100%的位置开始
+    autoAlpha: 0,
+    duration: 2,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
   });
+  resetWidth();
 });
+function beforeEnter(el:any) {
+  gsap.from(el, {
+    opacity: 0,
+    x: 30,
+    duration: 0.5
+  });
+}
+
+function enter(el:any, done:any) {
+  gsap.to(el, {
+    opacity: 1,
+    x: 0,
+    duration: 0.5,
+    onComplete: done
+  });
+}
+
+function leave(el:any, done:any) {
+  gsap.to(el, {
+    opacity: 0,
+    x: -30,
+    duration: 0.5,
+    onComplete: done
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -1408,13 +1513,35 @@ onMounted(() => {
 }
 .tab-content-wrapper {
   overflow-y: hidden;
-  //white-space: nowrap;
-  //display: flex;
+  overflow-x: hidden;
+  overflow: hidden;
+  position: relative;
 }
 .reason-box {
   transition: transform 0.3s ease; /* 添加过渡效果 */
 }
-.tab-content-box-content{
-  overflow-x: hidden;
+
+
+.tab-slide-enter-from-left, .tab-slide-leave-to-right {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.tab-slide-enter-to, .tab-slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 从右侧进入 */
+.tab-slide-enter-from-right, .tab-slide-leave-to-left {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.tab-slide-enter-to, .tab-slide-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.tab-slide-enter-active, .tab-slide-leave-active {
+  transition: opacity 0.5s, transform 0.5s;
 }
 </style>

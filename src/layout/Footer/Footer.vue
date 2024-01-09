@@ -261,9 +261,9 @@ onMounted(() => {
       end: "bottom bottom",
       toggleActions: "play none none reset",
     },
-    yPercent: -20, // 从上方100%的位置开始
+    xPercent: -20, // 从上方100%的位置开始
     autoAlpha: 0,
-    duration: 0.8,
+    duration: 2,
     stagger: 0.2,
     ease: "back.out(1.7)",
   });
