@@ -1253,7 +1253,6 @@ onMounted(() => {
     y: -50,
     opacity: 0,
     duration: 1.8,
-    stagger: 0.2, // slight delay between each element
     ease: 'power3.out'
   });
 
@@ -1274,14 +1273,12 @@ onMounted(() => {
     y: 80,
     opacity: 0,
     duration: 1.5,
-    stagger: 0.2,
     ease: 'power3.out'
   })
   gsap.from('.for-selling-phone', {
     y: 80,
     opacity: 0,
     duration: 1.5,
-    stagger: 0.2,
     ease: 'power3.out'
   })
 
@@ -1338,7 +1335,7 @@ onMounted(() => {
   gsap.from("sell-section-phone", {
     scrollTrigger: {
       trigger: ".sell-section-phone",
-      start: "top 90%",
+      start: "top top",
       end: "bottom bottom",
       toggleActions: "play none none reset",
     },
