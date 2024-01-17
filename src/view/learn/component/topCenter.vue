@@ -264,9 +264,10 @@ import learn_banner04 from "../../../assets/home/learn_banner04.png";
 // gasp动画
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useI18n } from 'vue-i18n'
+
 gsap.registerPlugin(ScrollTrigger)
 
-import { useI18n } from 'vue-i18n'
 const {t} = useI18n();
 
 const activeName = ref("1");
