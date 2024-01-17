@@ -261,6 +261,10 @@ import learn_banner01 from "../../../assets/home/learn_banner01.png";
 import learn_banner02 from "../../../assets/home/learn_banner02.png";
 import learn_banner03 from "../../../assets/home/learn_banner03.png";
 import learn_banner04 from "../../../assets/home/learn_banner04.png";
+// gasp动画
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
 
 import { useI18n } from 'vue-i18n'
 const {t} = useI18n();
@@ -272,6 +276,34 @@ const trade = ref("Trade now");
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+
+  gsap.to('.right-img img', {
+    duration: 2.5, // 动画持续时间
+    y: 30, // 向上移动20px
+    repeat: -1, // 无限重复
+    yoyo: true, // 在向上移动和原位置之间交替
+    ease: 'power1.inOut' // 平滑的缓动效果
+  });
+  gsap.from('.title', {
+      duration: 1,
+      autoAlpha: 0,
+      y: -20,
+      ease: 'power1.out',
+    });
+    gsap.from('.card', {
+      duration: 1,
+      autoAlpha: 0,
+      y: 20,
+      stagger: 0.2,
+      ease: 'power1.out',
+    });
+    gsap.from('.trade-btn', {
+      duration: 1,
+      autoAlpha: 0,
+      y: 20,
+      ease: 'power1.out',
+      delay: 0.5, // Delay to ensure it animates after the cards
+    });
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);

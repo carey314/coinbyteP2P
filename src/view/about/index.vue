@@ -117,7 +117,7 @@
                 {{ $t("messages.about.about_forthTitle") }}
               </div>
             </div>
-            <div class="part-content" style="margin-top: 50px;" >
+            <div class="part-content" style="margin-top: 50px;">
               {{ $t("messages.about.about_forthCentre") }}<br />
               <span>100662269</span>
             </div>
@@ -139,7 +139,7 @@
                 {{ $t("messages.about.about_forthTitle") }}
               </div>
             </div>
-            <div class="part-content" style="margin-top: 50px;" >
+            <div class="part-content" style="margin-top: 50px;">
               <span>{{ $t("messages.about.about_nz_title") }}</span>
             </div>
             <div class="part-content-forth">
@@ -220,9 +220,60 @@ import aboutus_icon02 from "../../assets/home/aboutus_icon02.png";
 import aboutus_icon03 from "../../assets/home/aboutus_icon03.png";
 import aboutus_icon04 from "../../assets/home/aboutus_icon04.png";
 
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+
+  gsap.from('.top-part-box', {
+    opacity: 0,
+    scale: 1.5, // Begin slightly larger to create a zoom effect
+    duration: 2,
+    ease: 'power4.out',
+    stagger: 0.05,
+    delay: 0.2
+  });
+  // 左边背景图的动画
+  gsap.from('.back-left img', {
+    duration: 2.5, // 动画持续时间
+    x: -100, // 从左侧开始移动
+    opacity: 0, // 从完全透明开始
+    ease: 'power2.out', // 平滑的缓动效果
+    delay: 0.2 // 动画开始前的延迟
+  });
+
+  // 右边背景图的动画
+  gsap.from('.back-right img', {
+    duration: 2.5, // 动画持续时间
+    x: 100, // 从右侧开始移动
+    opacity: 0, // 从完全透明开始
+    ease: 'power2.out', // 平滑的缓动效果
+    delay: 0.2 // 动画开始前的延迟
+  });
+  gsap.to('.back-center img', {
+    scale: 1.5, // 略微放大到原始大小的105%
+    duration: 2.5, // 动画持续时间
+    ease: 'power1.inOut', // 平滑的进出缓动效果
+    yoyo: true, // 动画在放大和缩小之间循环
+    repeat: -1, // 无限重复动画
+    transformOrigin: 'bottom center' 
+  });
+  gsap.from('.part-box', {
+    opacity: 0,
+    y: 80,
+    stagger: 0.2, // 依次动画
+    duration: 1.6,
+    scrollTrigger: {
+      trigger: '.center-part',
+      start: 'top bottom', // 当部分进入视图中央时开始动画
+      toggleActions: 'play none reverse none'
+    }
+  });
+
+
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -280,21 +331,18 @@ const yc3 = () => {
     display: flex;
     max-width: 1440px;
     margin: auto;
-    // background: #1c242c;
-    // background-image: url("../../assets/home/banner_bgk_lightgreen.png");
-    // background-repeat: no-repeat;
-    // background-position: 100% bottom;
-    // background-size: 100%;
 
     .back-center {
       position: absolute;
-      bottom: -6px;
+      bottom: -4px;
+
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
+
     .back-left {
       position: absolute;
       bottom: 0;
@@ -306,10 +354,12 @@ const yc3 = () => {
         object-fit: contain;
       }
     }
+
     .back-right {
       position: absolute;
       width: 420px;
       right: 0;
+
       img {
         width: 100%;
         height: 100%;
@@ -321,12 +371,15 @@ const yc3 = () => {
       margin: auto;
       text-align: center;
       margin-top: 193px;
+
       @media (max-width: 985px) {
         margin: auto !important;
       }
+
       .top-part-img {
         width: 378px;
       }
+
       .top-part-content {
         width: 50%;
         margin: auto;
@@ -337,8 +390,10 @@ const yc3 = () => {
       }
     }
   }
+
   .center-part {
     height: 100%;
+
     .part-box {
       height: 440px;
       padding: 4% 5% 10% 5%;
@@ -353,19 +408,23 @@ const yc3 = () => {
           line-height: 19px;
           font-weight: 600;
           width: 90%;
+
           @media (max-width: 992px) {
             width: 100%;
             text-align: center;
           }
         }
+
         .part-content-forth {
           color: #1d2622;
           line-height: 19px;
           font-weight: 600;
         }
       }
+
       .part-img {
         width: 53px;
+
         //display: flex;
         //float: left;
         img {
@@ -374,6 +433,7 @@ const yc3 = () => {
           object-fit: contain;
         }
       }
+
       .part-title {
         //float: left;
         //margin-top: 18px;
@@ -383,18 +443,21 @@ const yc3 = () => {
         color: #01c19a;
         font-weight: 600;
       }
+
       .part-content {
         font-size: 16px;
         color: #ffffff;
         line-height: 19px;
         margin-top: 70px;
       }
+
       .part-content-forth {
         font-size: 16px;
         color: #ffffff;
         line-height: 19px;
         margin-top: 15px;
       }
+
       .part-msg {
         //margin-top: 60px;
         display: flex;
@@ -402,19 +465,23 @@ const yc3 = () => {
         align-items: center;
         gap: 4px;
         margin-top: 30px;
+
         @media (max-width: 985px) {
           justify-content: center;
         }
       }
     }
+
     .left-box {
       border-left: 1px solid #2f3f4e;
-      @media (max-width: 985px) {
+
+      @media (max-width: 785px) {
         border-left: none;
       }
     }
   }
 }
+
 .part {
   // padding-bottom: 46px ;
   max-width: 1290px;
@@ -437,55 +504,68 @@ const yc3 = () => {
   .top-part-content {
     width: 60% !important;
   }
+
   .back-left {
     bottom: 48px !important;
     width: 400px !important;
     left: -70px !important;
   }
+
   .back-right {
     bottom: 48px !important;
     right: -32px !important;
     width: 400px !important;
   }
 }
+
 @media (min-width: 1400px) {
   .part-box {
     height: 580px !important;
   }
+
   .part-msg {
     margin-top: 130px !important;
   }
+
   .part-content {
     margin-top: 70px !important;
   }
+
   .top-part-content {
     width: 60% !important;
   }
+
   .back-right {
     top: 80px !important;
   }
 }
+
 @media (max-width: 985px) {
   .about-page .top-part {
     padding: 0px;
   }
+
   .about-page .top-part .hand_left {
     top: 80%;
   }
+
   .about-page .part-box {
     height: 300px !important;
     text-align: center;
     padding: 4% 5% 10% 5%;
   }
+
   .part-title {
     //padding-top: 5px !important;
     font-size: 20px !important;
     float: none !important;
     margin: 0 !important;
   }
+
   .top-part {
     height: 450px !important;
   }
+
   .top-part-box {
     padding: 0 2%;
     position: absolute !important;
@@ -496,6 +576,7 @@ const yc3 = () => {
     width: 88% !important;
     font-size: 14px !important;
   }
+
   .top-part-img {
     & {
       width: 260px !important;
@@ -508,12 +589,14 @@ const yc3 = () => {
     //left: 45%;
     //top: 12%;
   }
+
   .part-content {
     // float: left;
     padding-top: 33px;
     font-size: 14px !important;
     margin: 0 !important;
   }
+
   .part-content-forth {
     font-size: 14px !important;
   }
@@ -521,16 +604,18 @@ const yc3 = () => {
   .part {
     max-width: none;
   }
+
   .center-part {
     height: 350px;
   }
+
   .back-left {
     width: 120px !important;
     bottom: 20px !important;
   }
+
   .back-right {
     width: 120px !important;
     //top: 140px !important;
   }
-}
-</style>
+}</style>

@@ -6,7 +6,20 @@
         <el-tab-pane v-for="item in tabs" :label="t(item.label)" :name="item.name">
         </el-tab-pane>
         <div class="min-height">
-          <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
+          <!-- <div v-if="loading" style="display: flex;justify-content: space-between;gap: 20px;">
+            <div v-for="n in 4" :key="n" >
+            <el-skeleton style="width: 100%;margin-top: 20px;" animated :loading="loading">
+                <template #template>
+                  <el-skeleton-item variant="image" style="width: 100%; height: 100%;min-height: 140px;" />
+                  <div style="padding: 14px 0">
+                    <el-skeleton-item variant="h3" style="width: 50%" />
+                    <el-skeleton-item variant="text" />
+                  </div>
+                </template>
+              </el-skeleton>
+            </div>
+          </div> -->
+            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
         </div>
       </el-tabs>
     </div>
@@ -93,10 +106,13 @@ onMounted(async () => {
   //   console.log(e)
   // }
 })
+const loading = ref(true); 
 
 const filterBlogs = (index: number) => {
   return blogs.value.filter((v: any) => v.type-1 === index);
 }
+
+const blogsData = ref<any>([]);
 
 const toGetBlogs = async (
   getConfig: GetBlogs
@@ -105,14 +121,19 @@ const toGetBlogs = async (
     const res: any = await getBlogs(getConfig);
     const content: any[] = res.data;
     const totalElements: number = res.data.totalElements || 100;
+    blogsData.value = content;
+    loading.value = false; 
     return {
       content,
       totalElements
     }
   } catch(e) {
     console.log(e)
+    loading.value = false; 
   }
 }
+console.log(blogsData.value.length)
+
 
 
 </script>
@@ -120,15 +141,18 @@ const toGetBlogs = async (
 <style scoped lang="scss">
 .scrollbar-flex-content {
   display: flex;
+  :deep(.el-tabs) {
+    width: 100% !important;
+  }
 }
 
 .center-part {
   max-width: 1290px;
-  min-height: 985px;
+  // min-height: 985px;
   margin: auto;
   padding: 45px 0 135px 0;
   position: relative;
-  min-height: calc(100vh - 165px);
+  min-height: calc(100vh - 40px);
 
   @media (max-width: 1440px) {
     & {
@@ -141,7 +165,6 @@ const toGetBlogs = async (
   @media (max-width: 769px) {
     & {
       margin-top: -20px;
-
     }
   }
 }

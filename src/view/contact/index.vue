@@ -7,10 +7,10 @@
         <div class="top-part-title">{{ $t('messages.contact.contact_contact') }}</div>
         <div class="top-part-content">{{ $t('messages.contact.contact_enjoy') }}</div>
       </div>
-      <div class="hand_left">
+      <div class="hand-left">
         <img src="../../assets/home/contactus_handleft.png" />
       </div>
-      <div class="hand_right">
+      <div class="hand-right">
         <img src="../../assets/home/contactus_handright.png" />
       </div>
     </div>
@@ -55,7 +55,6 @@
               <img src="../../assets/icons/icon_telegram.svg" alt="" />
               <img src="../../assets/icons/icon_whatsapp.svg" alt="" />
               <img src="../../assets/home/downbar_icon10.png" alt="" />
-
             </div>
           </div>
         </el-col>
@@ -77,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
@@ -86,9 +85,70 @@ import contactus_icon01 from "../../assets/home/contactus_icon01.png";
 import contactus_icon02 from "../../assets/home/contactus_icon02.png";
 import contactus_icon03 from "../../assets/home/contactus_icon03.png";
 
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
+
 const windowWidth = ref(window.document.body.offsetWidth);
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
+
+  gsap.from('.top-part-box', {
+    opacity: 0,
+    scale: 1.5, // Begin slightly larger to create a zoom effect
+    duration: 2,
+    ease: 'power4.out',
+    stagger: 0.05,
+    delay: 0.2
+  });
+  // 左边背景图的动画
+  gsap.from('.hand-left img', {
+    duration: 2.5, // 动画持续时间
+    x: -100, // 从左侧开始移动
+    opacity: 0, // 从完全透明开始
+    ease: 'power2.out', // 平滑的缓动效果
+    delay: 0.2 // 动画开始前的延迟
+  });
+
+  // 右边背景图的动画
+  gsap.from('.hand-right img', {
+    duration: 2.5, // 动画持续时间
+    x: 100, // 从右侧开始移动
+    opacity: 0, // 从完全透明开始
+    ease: 'power2.out', // 平滑的缓动效果
+    delay: 0.2 // 动画开始前的延迟
+  });
+  gsap.to('.back-center img', {
+    scale: 1.5, // 略微放大到原始大小的105%
+    duration: 2.5, // 动画持续时间
+    ease: 'power1.inOut', // 平滑的进出缓动效果
+    yoyo: true, // 动画在放大和缩小之间循环
+    repeat: -1, // 无限重复动画
+    transformOrigin: 'bottom center' 
+  });
+  gsap.from('.part-box', {
+    opacity: 0,
+    y: 80,
+    duration: 1.6,
+    scrollTrigger: {
+      trigger: '.center-part',
+      start: 'top bottom', // 当部分进入视图中央时开始动画
+      toggleActions: 'play none reverse none'
+    }
+  });
+  gsap.from('.bottom-part-icon img', {
+    opacity: 0,
+    y: 20, // 轻微向上移动
+    stagger: 0.1, // 每个图标之间的时间间隔
+    duration: 1.8, // 每个图标动画的持续时间
+    scrollTrigger: {
+      trigger: '.bottom-part-icon',
+      start: 'top bottom', // 当图标进入视图中央时开始动画
+      toggleActions: 'play none none none'
+    }
+  });
+
 });
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
@@ -130,7 +190,7 @@ function resetWidth() {
         margin-top: 30px;
       }
     }
-    .hand_left {
+    .hand-left {
       width: 36%;
       //height: 18%;
       position: absolute;
@@ -141,7 +201,7 @@ function resetWidth() {
         object-fit: contain;
       }
     }
-    .hand_right {
+    .hand-right {
       width: 36%;
       //height: 18%;
       position: absolute;
@@ -228,7 +288,7 @@ function resetWidth() {
     position: absolute;
     //right: 2%;
     right: 20px;
-    bottom: 4%;
+    bottom: 18%;
     width: 120px;
     //height: 35%;
     z-index: 0;
@@ -248,7 +308,7 @@ function resetWidth() {
   .part {
     max-width: 940px;
   }
-  .hand_left {
+  .hand-left {
     width: 36%;
     //height: 18%;
     position: absolute;
@@ -264,7 +324,7 @@ function resetWidth() {
   .contact-page .top-part {
     padding: 0px;
   }
-  .contact-page .top-part .hand_left {
+  .contact-page .top-part .hand-left {
     top: 68%;
   }
   .contact-page .part-box {

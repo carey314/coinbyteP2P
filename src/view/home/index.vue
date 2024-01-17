@@ -1366,13 +1366,13 @@ onMounted(() => {
       toggleActions: "play none reverse none", // 在滚动离开和滚动回来时反向播放动画
       markers: false, // 设置为true可以在页面上看到触发点
     },
-    opacity: 0.9, // 开始时的不透明度
-    y: 50, 
-    scale: 0.95, // 开始时的缩放比例
-    duration: 1.5, // 动画持续时间
+    opacity: 0.5, // 开始时的不透明度
+    x: 60, 
+    scale: 0.8, // 开始时的缩放比例
+    duration: 1, // 动画持续时间
     ease: "back.out(2)", // 使用back缓动效果，括号内的数字越大，回弹越大
     stagger: {
-      amount: 1, // 整体动画的持续时间，用于计算每个元素的延迟
+      amount: 0.6, // 整体动画的持续时间，用于计算s每个元素的延迟
       from: "start", // 从第一个元素开始逐个播放动画
     }
   });
