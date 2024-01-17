@@ -1402,13 +1402,13 @@ onMounted(() => {
   gsap.from('.tab-content-box-content', {
     scrollTrigger: {
       trigger: '.tab-content-box-content',
-      start: 'top bottom', // When the top of the element enters the bottom of the viewport
+      start: 'top 100%', // When the top of the element enters the bottom of the viewport
       end: 'bottom bottom', // When the bottom of the element leaves the top of the viewport
       toggleActions: 'play none none reset', // Play once
     },
     x: 100, // Start from 50 pixels below
     opacity: 0,
-    duration: 2,
+    duration: 1.2,
     ease: 'power3.out',
     delay: 0.3
   });
