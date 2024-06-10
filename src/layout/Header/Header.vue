@@ -179,7 +179,7 @@
                       <div class="head-text">
                         <div class="user-name">
 <!--                          {{ (userInfo && userInfo.data) ? userInfo.data?.email : userInfo?.email }}-->
-                          {{ userInfo && userInfo.phone?.slice(0, 3) + "*".repeat(userInfo.phone?.length - 6) + userInfo.phone?.slice(-3) }}
+                          <!-- {{ userInfo && userInfo.phone?.slice(0, 3) + "*".repeat(userInfo.phone?.length - 6) + userInfo.phone?.slice(-3) }} -->
 
                         </div>
                         <div class="user-id">

@@ -101,7 +101,7 @@
                         <div v-if="form.selectedOption1 === 'AUD'" class="payment-box">
                           <div class="payment-way">
                             <img class="payment-pay no-select" :src="payment_payid"
-                                 :class="{ 'selected': form.selectedPayment === 'PayID' }"
+                                 :class="{ 'selected': form.selectedPayment === '' }"
                                  @click="selectPayment('PayID')"/>
                           </div>
                           <div class="payment-way">
@@ -316,7 +316,10 @@
                       <div class="divider"></div>
                       <div class="info-title">Account Name:</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.name || '----' }}</div>
+                        <div class="email-number">
+                          {{ userInfo?.zepto_account?.name || '----' }}
+                          <!-- Coinbyte -->
+                        </div>
                         <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.name || '----')">
                           <img :src="copy"/>
                           Copy
@@ -345,7 +348,10 @@
 
                       <div class="info-title">Reference (Optional):</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.ref || '----' }}</div>
+                        <div class="email-number">
+                          {{ userInfo?.zepto_account?.ref || '----' }}
+                          <!-- Buy -->
+                        </div>
                         <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.ref || '----')">
                           <img :src="copy"/>
                           Copy
@@ -676,6 +682,26 @@ const form = ref<Form>({
   coinAmount: null
 })
 
+
+onMounted(() => {
+  const storedData = JSON.parse(localStorage.getItem('useInfo') || '{}');
+  console.log(storedData, '666');
+
+  const kycStatus = storedData.userInfo && storedData.userInfo.kyc && storedData.userInfo.kyc[0].status;
+  console.log(kycStatus, '999'); // 这应该打印出 'GREEN'
+
+  if (kycStatus === 'GREEN') {
+    // 如果 KYC 状态为 'GREEN'，则重新加载页面
+  setTimeout(() => {
+    router.push('/user/depositFiat');
+    console.log('触发跳转');
+  }, 500);
+  } else {
+    console.log('失败');
+  }
+});
+
+
 const rules = reactive<FormRules>({
   selectedOption1: [{
     required: true, message: "Please select currency.", trigger: "blur"
@@ -699,7 +725,6 @@ function validateCoinAmount(rule: any, value: any, callback: any) {
     callback()
   }
 }
-
 // 验证表单
 async function validForm(formEl: FormInstance | undefined) {
   if (!formEl) return false;

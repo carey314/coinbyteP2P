@@ -27,9 +27,12 @@
               . I can confirm it and I'm allowed to use it.
             </div>
             <div class="create-rule">
-              By clicking Continue, I accept the <a>Terms of Use</a> and
-              <a>Privacy Policy</a>
+              By clicking Continue, I accept the <a @click="termsVisible = true">Terms of Use</a> and
+              <a @click="privacyVisible = true">Privacy Policy</a>
             </div>
+            <TermsDialog v-model="termsVisible"></TermsDialog>
+            <privacyDialog v-model="privacyVisible"></privacyDialog>
+
             <div class="remind-box" v-if="!isValidEmail">
               <div class="remind-title">
                 <img :src="icon_info"/> <span>Reminder</span>
@@ -243,7 +246,8 @@ import Header from "../../layout/Header/Header.vue";
 import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
-
+import TermsDialog from "../../components/terms/index.vue";
+import privacyDialog from "../../components/privacy/index.vue";
 import icon_info from "../../assets/image/icon_info.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_email from "../../assets/home/login_email.svg";
@@ -266,6 +270,8 @@ import {storeToRefs} from "pinia";
 const userInfoStore = useUserInfoStore();
 
 const router = useRouter();
+const termsVisible = ref(false);
+const privacyVisible = ref(false);
 
 const route = useRoute();
 const count = ref(0);

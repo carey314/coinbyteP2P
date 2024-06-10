@@ -344,6 +344,8 @@ export default {
             ver_code: "Verification Code",
             send: "Send",
             resend: "Resend",
+            terms: "Terms and Conditions",
+            privacy: "Privacy Policy"
         },
         sign: {
             create: "Create account",

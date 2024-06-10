@@ -329,6 +329,8 @@ export default {
       ver_code: "验证码",
       send: "发送",
       resend: "重新发送",
+      terms: "条款和条件",
+      privacy: "隐私政策"
     },
     sign: {
       create: "创建账户",

@@ -113,11 +113,22 @@
           <div class="login-signup">
             <div>
               {{ $t("messages.login.no_have") }} &nbsp;&nbsp;
-
               <span style="color: #01c19a;cursor: pointer" @click="dialogTableVisible = true">
                 {{ $t("messages.login.sign") }}
               </span>
+          
               <SignChoose v-model="dialogTableVisible"></SignChoose>
+            </div>
+            <div style="margin-top: 4px;">
+              <span style="color: #01c19a;cursor: pointer" @click="termsVisible = true">
+                {{ $t("messages.login.terms") }}
+              </span>
+               and 
+              <span style="color: #01c19a;cursor: pointer" @click="privacyVisible = true">
+                {{ $t("messages.login.privacy") }}
+              </span>
+              <TermsDialog v-model="termsVisible"></TermsDialog>
+              <privacyDialog v-model="privacyVisible"></privacyDialog>
             </div>
           </div>
         </el-form>
@@ -248,6 +259,17 @@
               <SignChoose v-model="dialogTableVisible"></SignChoose>
 
             </div>
+            <div style="margin-top: 4px;">
+              <span style="color: #01c19a;cursor: pointer" @click="termsVisible = true">
+                {{ $t("messages.login.terms") }}
+              </span>
+               and 
+              <span style="color: #01c19a;cursor: pointer" @click="privacyVisible = true">
+                {{ $t("messages.login.privacy") }}
+              </span>
+              <TermsDialog v-model="termsVisible"></TermsDialog>
+              <privacyDialog v-model="privacyVisible"></privacyDialog>
+            </div>
           </div>
         </el-form>
       </div>
@@ -264,6 +286,8 @@ import FooterMobile from "../../layout/Footer/FooterMobile.vue";
 import Footer from "../../layout/Footer/Footer.vue";
 import GetButton from "../../components/GetButton.vue";
 import SignChoose from "../../components/SignChoose.vue";
+import TermsDialog from "../../components/terms/index.vue";
+import privacyDialog from "../../components/privacy/index.vue";
 import login_password from "../../assets/home/login_password.svg";
 import login_eye_off from "../../assets/home/login_eye_off.svg";
 import login_eye_view from "../../assets/wallet/overview_eye.png";
@@ -283,7 +307,8 @@ import {Right} from "@element-plus/icons";
 const {t} = useI18n();
 const ruleFormRef = ref<FormInstance>();
 const dialogTableVisible = ref(false);
-
+const termsVisible = ref(false);
+const privacyVisible = ref(false);
 // const rules = reactive<FormRules>({
 //   username: [
 //     {required: true, message: "Please input your username!", trigger: "blur"},
