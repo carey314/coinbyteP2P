@@ -46,6 +46,7 @@
 .sign-choose {
     .custom-title {
         text-align: left !important;
+        font-size: 16px !important;
     }
     .modal-body {
         margin-top: -20px;

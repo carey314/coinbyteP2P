@@ -67,6 +67,7 @@
 <style lang="scss" scoped>
 .sign-choose {
     .custom-title {
+        font-size: 16px !important;
         text-align: left !important;
     }
     .modal-body {
