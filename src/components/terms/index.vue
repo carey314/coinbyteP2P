@@ -1,5 +1,10 @@
 <template>
-    <el-dialog v-model="termsVisible" title="Coinbyte Terms and Conditions" class="sign-choose">
+    <el-dialog v-model="termsVisible" class="sign-choose" :before-close="handleClose">
+        <template #title>
+            <div class="custom-title">
+                Coinbyte Terms and Conditions
+            </div>
+        </template>
         <div className="modal-body">
             <div><p><b>1. Introduction</b><b /></p><p>These Terms and Conditions (“Terms”) govern the use of the platform provided at Coinbyte.co (the “Platform”) and form a binding legal agreement between
             the customer (“you”, “your”) and Ausun Overseas Pty Ltd (ABN 54 637 345 290), operating under the business name “Coinbyte”&nbsp;(“we”, “us”, “our”).
@@ -54,9 +59,16 @@
         termsVisible.value = false;
         emits('update:modelValue', false); // 发出事件，通知父组件更新
     }
+    function handleClose(done:any) {
+        closeDialog();
+        done(); // 调用 done 以关闭弹框
+    }
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .sign-choose {
+    .custom-title {
+        text-align: left !important;
+    }
     .modal-body {
         margin-top: -20px;
         text-align: left;
