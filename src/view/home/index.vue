@@ -638,7 +638,7 @@
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/" style="color: #01c19a; font-size: 14px;">{{
+            <a href="/centerContent/11" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
             <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{
@@ -698,7 +698,8 @@
                    style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.EOFY") }}</a></li>
             <li><a href="/au/learnList?type=4"
                    style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.FAQs") }}</a></li>
-
+                   <li><a href="/au/learnList?type=5"
+                   style="color: rgb(144, 144, 144); text-decoration: none">{{ $t("messages.footer.fifth_label") }}</a></li>
             <!-- <li @click="dialogTableVisible = true">
             {{ $t("messages.footer.kyc_aml") }}
           </li> -->
@@ -792,7 +793,7 @@
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/" style="color: #01c19a; font-size: 14px;">{{
+            <a href="/centerContent/11" style="color: #01c19a; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
             <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{

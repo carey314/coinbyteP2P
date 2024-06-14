@@ -306,6 +306,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/transaction',
         name: 'transaction',
+        meta: { requiresAuth: true }, 
         component: () => import('../view/transaction/index.vue'),
         children: [
 
@@ -337,6 +338,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/user",
         name: "user",
+        meta: { requiresAuth: true },
         component: () => import("../view/user/index.vue"),
         children: [
             {
@@ -434,7 +436,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     const isAuthenticated = localStorage.getItem('isAuthenticated'); // 从本地存储获取登录状态
     if (to.matched.some(record => record.meta.requiresAuth) && isAuthenticated !== 'true') {
-        next('/'); // 重定向到应用程序的其他页面，而不是登录页
+        next('/login'); // 重定向到应用程序的其他页面，而不是登录页
     } else {
         next();
     }

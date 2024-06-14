@@ -2,7 +2,7 @@
   <footer>
 
     <div class="footer-bottom">
-      <span>©2023 COINBYTEP2P.COM</span>
+      <span>©2024 COINBYTEP2P.COM</span>
     </div>
     <!-- <div
       v-show="showWin"

@@ -90,7 +90,7 @@ const tabs = [
   {label: 'messages.learnList.second_label', name:2},
   {label: 'messages.learnList.third_label', name: 3},
   {label: 'messages.learnList.forth_label', name: 4},
-  // {label: 'messages.learnList.fifth_label', name: 5},
+  {label: 'messages.learnList.fifth_label', name: 5},
 ]
 
 

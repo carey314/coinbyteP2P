@@ -6,12 +6,12 @@
           <img class="logo" :src="logo" />
         </div>
         <div>
-          <div style="text-align: right;margin-top: 20px;"><span>©2023 COINBYTEP2P</span></div>
+          <div style="text-align: right;margin-top: 20px;"><span>©2024 COINBYTEP2P</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
             <span class="final-span">{{ $t('messages.footer.terms_conditions') }}</span>
-            <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span>
+            <!-- <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span> -->
             <span class="final-span">{{ $t('messages.footer.policy') }}</span>
-            <span class="final-span">{{ $t('messages.footer.anti_aml') }}</span>
+           <a href="/centerContent/16" style="color: #909090; font-size: 14px;text-decoration: none"> <span class="final-span">{{ $t('messages.footer.anti_aml') }}</span></a>
           </div>
         </div>
       </div>
