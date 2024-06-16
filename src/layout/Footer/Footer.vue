@@ -8,9 +8,13 @@
         <div>
           <div style="text-align: right;margin-top: 20px;"><span>©2024 COINBYTEP2P</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
-           <span class="final-span" @click="termsVisible = true">{{ $t('messages.footer.terms_conditions') }}</span>
+           <!-- <span class="final-span" @click="termsVisible = true">{{ $t('messages.footer.terms_conditions') }}</span> -->
             <!-- <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span> -->
-            <span class="final-span" @click="privacyVisible = true">{{ $t('messages.footer.policy') }}</span>
+            <!-- <span class="final-span" @click="privacyVisible = true">{{ $t('messages.footer.policy') }}</span> -->
+            <a href="/centerContent/25" style="color: #909090; font-size: 14px;text-decoration: none"> <span class="final-span">{{ $t('messages.footer.terms_conditions') }}</span></a>
+          
+           <a href="/centerContent/26" style="color: #909090; font-size: 14px;text-decoration: none"> <span class="final-span">{{ $t('messages.footer.policy') }}</span></a>
+
            <a href="/centerContent/16" style="color: #909090; font-size: 14px;text-decoration: none"> <span class="final-span">{{ $t('messages.footer.anti_aml') }}</span></a>
           </div>
         </div>
@@ -258,19 +262,19 @@ watch(currentLanguage, (newLanguage) => {
 });
 
 onMounted(() => {
-  gsap.from(".footer-logo", {
-    scrollTrigger: {
-      trigger: ".footer-logo",
-      start: "top 100%",
-      end: "bottom bottom",
-      toggleActions: "play none none reset",
-    },
-    xPercent: -20, // 从上方100%的位置开始
-    autoAlpha: 0,
-    duration: 2,
-    stagger: 0.2,
-    ease: "back.out(1.7)",
-  });
+  // gsap.from(".footer-logo", {
+  //   scrollTrigger: {
+  //     trigger: ".footer-logo",
+  //     start: "top 100%",
+  //     end: "bottom bottom",
+  //     toggleActions: "play none none reset",
+  //   },
+  //   xPercent: -20, // 从上方100%的位置开始
+  //   autoAlpha: 0,
+  //   duration: 2,
+  //   stagger: 0.2,
+  //   ease: "back.out(1.7)",
+  // });
 })
 </script>
 

@@ -1,8 +1,8 @@
 <template>
   <div class="homeBox">
     <Header/>
-    <TermsDialog v-model="termsVisible"></TermsDialog>
-    <privacyDialog v-model="privacyVisible"></privacyDialog>
+    <!-- <TermsDialog v-model="termsVisible"></TermsDialog>
+    <privacyDialog v-model="privacyVisible"></privacyDialog> -->
     <div class="bannerContainer">
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
@@ -626,8 +626,6 @@
       </div>
       <!-- //eighth-part -->
       <faq></faq>
-      
-
     </div>
     <footer v-if="windowWidth > 769">
       <div class="footer-box max1290">
@@ -721,9 +719,9 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.LEGAL") }}</li>
-            <li><span @click="termsVisible = true">{{ $t("messages.footer.terms_conditions") }}</span></li>
-            <li><span @click="privacyVisible = true">{{ $t("messages.footer.policy") }}</span></li>
-            <li><a href="/centerContent/16" style="color: #909090;text-decoration: none">{{ $t("messages.footer.aml") }}</a></li>
+            <li><a href="/centerContent/25" style="color: #909090;text-decoration: none">{{ $t("messages.footer.terms_conditions") }}</a></li>
+            <li><a href="/centerContent/26" style="color: #909090;text-decoration: none">{{ $t("messages.footer.policy") }}</a></li>
+            <li><a href="/centerContent/27" style="color: #909090;text-decoration: none">{{ $t("messages.footer.aml") }}</a></li>
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
@@ -911,14 +909,20 @@
                     {{ $t("messages.footer.LEGAL") }}
                   </div>
                 </template>
-                <div class="list-item" @click="termsVisible = true">
-                  {{ $t("messages.footer.terms_conditions") }}
-                </div>
-                <div class="list-item" @click="privacyVisible = true">
-                  {{ $t("messages.footer.policy") }}
+                <div class="list-item">
+                  <a href="/centerContent/25" style="color: #909090; text-decoration: none; display: block;">
+                    {{ $t("messages.footer.terms_conditions") }}
+                  </a>
                 </div>
                 <div class="list-item">
-                  {{ $t("messages.footer.aml") }}
+                  <a href="/centerContent/26" style="color: #909090; text-decoration: none; display: block;">
+                    {{ $t("messages.footer.policy") }}
+                  </a>
+                </div>
+                <div class="list-item">
+                  <a href="/centerContent/27" style="color: #909090; text-decoration: none; display: block;">
+                    {{ $t("messages.footer.aml") }}
+                  </a>
                 </div>
               </el-collapse-item>
               <el-collapse-item name="5">
@@ -1398,44 +1402,43 @@ onMounted(() => {
   gsap.from('.tab-content-box-img', {
     scrollTrigger: {
       trigger: '.tab-content-box-img',
-      start: 'top bottom', // When the top of the element enters the bottom of the viewport
-      end: 'bottom bottom', // When the bottom of the element leaves the top of the viewport
-      toggleActions: 'play none none reset', // Play once
+      start: 'top bottom',
+      end: 'bottom bottom', 
+      toggleActions: 'play none none reset', 
     },
-    x: -100, // Start from 100 pixels to the left
+    x: -100, 
     opacity: 0,
     duration: 2,
     ease: 'power3.out'
   });
 
-  // 动画：内容从右侧滑入
   gsap.from('.tab-content-box-content', {
     scrollTrigger: {
       trigger: '.tab-content-box-content',
-      start: 'top 100%', // When the top of the element enters the bottom of the viewport
-      end: 'bottom bottom', // When the bottom of the element leaves the top of the viewport
-      toggleActions: 'play none none reset', // Play once
+      start: 'top 100%', 
+      end: 'bottom bottom', 
+      toggleActions: 'play none none reset', 
     },
-    x: 100, // Start from 50 pixels below
+    x: 100,
     opacity: 0,
     duration: 1.2,
     ease: 'power3.out',
     delay: 0.3
   });
   
-  gsap.from('.footer-box', {
-    scrollTrigger: {
-      trigger: ".footer-logo",
-      start: "top 100%",
-      end: "bottom bottom",
-      toggleActions: "play none none reset",
-    },
-    xPercent: 20, // 从上方100%的位置开始
-    autoAlpha: 0,
-    duration: 2,
-    stagger: 0.2,
-    ease: "back.out(1.7)",
-  });
+  // gsap.from('.footer-box', {
+  //   scrollTrigger: {
+  //     trigger: ".footer-logo",
+  //     start: "top 100%",
+  //     end: "bottom bottom",
+  //     toggleActions: "play none none reset",
+  //   },
+  //   xPercent: 20, 
+  //   autoAlpha: 0,
+  //   duration: 2,
+  //   stagger: 0.2,
+  //   ease: "back.out(1.7)",
+  // });
   resetWidth();
 });
 function beforeEnter(el:any) {
@@ -1552,8 +1555,8 @@ function leave(el:any, done:any) {
   transition: opacity 0.5s, transform 0.5s;
 }
 :deep(.el-dialog__body) {
-    max-height: 70vh;
-    overflow-y: scroll;
+    // max-height: 70vh;
+    // overflow-y: scroll;
 }
 :deep(.sign-choose .custom-title){
   padding: 20px 0 0 20px;
@@ -1561,6 +1564,16 @@ function leave(el:any, done:any) {
 @media (max-width: 768px) {
   :deep(.el-dialog) {
     --el-dialog-width: 90% !important;
+  }
+}
+.bg-img{
+  :deep(.el-overlay){
+    top: -20vh !important;
+    overflow: visible !important;
+    background-color: transparent !important;
+    @media (max-width: 768px) {
+      // top: 0 !important;
+    }
   }
 }
 </style>

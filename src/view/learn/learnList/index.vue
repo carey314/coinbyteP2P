@@ -19,7 +19,21 @@
               </el-skeleton>
             </div>
           </div> -->
-            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
+          <div v-if="activeName === 5" class="center-box-min">
+            <el-row :gutter="20">
+              <el-col :span="6" v-for="content in specialContent" :key="content.img">
+                <a :href="content.url" style="text-decoration: none">
+                  <div class="content clearfloat">
+                    <div class="image">
+                    <img :src="content.img" alt="Special Content Image" />
+                  </div>
+                  <div class="message">{{ content.title }}</div>
+                  </div>
+                </a>
+              </el-col>
+            </el-row>
+          </div>
+            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs" v-else />
         </div>
       </el-tabs>
     </div>
@@ -36,7 +50,21 @@
             </el-tab-pane> -->
             <el-tab-pane v-for="item in tabs" :label="t(item.label)" :name="item.name">
             </el-tab-pane>
-            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs"/>
+            <div v-if="activeName === 5" class="center-box-min">
+              <el-row>
+                <el-col :span="24" v-for="content in specialContent" :key="content.img">
+                  <a :href="content.url" style="text-decoration: none">
+                    <div class="content clearfloat">
+                      <div class="image">
+                        <img :src="content.img" alt="Special Content Image" />
+                      </div>
+                      <div class="message">{{ content.title }}</div>
+                    </div>
+                  </a>
+                </el-col>
+              </el-row>
+            </div>
+            <ListCenter :index="activeName" :toGetBlogs="toGetBlogs" v-else />
           </el-tabs>
         </div>
       </el-scrollbar>
@@ -49,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onUnmounted, onMounted, nextTick } from "vue";
+import { ref, reactive, onUnmounted, onMounted, nextTick,watch } from "vue";
 import type { TabsPaneContext } from "element-plus";
 import Header from "../../../layout/Header/Header.vue";
 import Footer from "../../../layout/Footer/Footer.vue";
@@ -64,9 +92,7 @@ const router = useRouter();
 const { t } = useI18n();
 
 const windowWidth = ref(window.document.body.offsetWidth);
-onMounted(() => {
-  window.addEventListener("resize", resetWidth);
-});
+
 onUnmounted(() => {
   window.removeEventListener("resize", resetWidth);
 });
@@ -74,15 +100,69 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 const activeName = ref(0);
-onMounted(() => {
-  if(route.query && !isNaN(route.query.type)) {
-    activeName.value = Number(route.query.type);
+onMounted(async () => {
+  window.addEventListener("resize", resetWidth);
+  const routeType = route.query.type;
+  if (routeType && !isNaN(routeType)) {
+    activeName.value = Number(routeType);
+  } else {
+    activeName.value = 1; // 默认值，如果 URL 中没有 type 参数
   }
-})
+
+  if (activeName.value === 5) {
+    fetchSpecialContent();
+  } else {
+    toGetBlogs({ type: activeName.value, limit: 12 });
+  }
+});
+interface SpecialContent {
+  img: string;
+  title: string;
+  url: string;
+}
+
+const specialContent = ref<SpecialContent[]>([]);
+
+function fetchSpecialContent() {
+  if (activeName.value === 5) {
+    specialContent.value = [
+      { 
+        img: 'https://coinbytep2p-admin-static.s3.amazonaws.com/upload_file/learn_image01.png', 
+        title: 'Terms and Conditions',
+        url: 'https://www.coinbyte.exchange/centerContent/25'
+      },
+      { 
+        img: 'https://coinbytep2p-admin-static.s3.amazonaws.com/upload_file/learn_image01.png', 
+        title: 'Privacy Policy',
+        url: 'https://www.coinbyte.exchange/centerContent/26'
+      },
+      { 
+        img: 'https://coinbytep2p-admin-static.s3.amazonaws.com/upload_file/learn_image03.png', 
+        title: 'AML Policy',
+        url: 'https://www.coinbyte.exchange/centerContent/27'
+      },
+    ];
+  } else {
+    specialContent.value = [];
+  }
+}
+
 const handleClick = (tab: TabsPaneContext, event: Event) => {
-  nextTick(() => {
-    router.push('/au/learnList?type=' + activeName.value);
-  })
+  const newActiveName = Number(tab.props.name);
+  if (activeName.value !== newActiveName) {
+    activeName.value = newActiveName;
+    router.push({ path: '/au/learnList', query: { type: activeName.value.toString() } }).then(() => {
+      specialContent.value = [];
+      if (activeName.value === 5) {
+        fetchSpecialContent();
+      } else {
+        toGetBlogs({ type: activeName.value, limit: 12 });
+      }
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    });
+  }
 };
 
 const tabs = [
@@ -96,16 +176,6 @@ const tabs = [
 
 const blogs = ref<Blog[]>([]);
 
-onMounted(async () => {
-  // try {
-  //   const res: any = await getBlogs();
-  //   const data: Blog[] = res.data;
-  //   blogs.value = data;
-  //   console.log(blogs.value)
-  // } catch(e) {
-  //   console.log(e)
-  // }
-})
 const loading = ref(true); 
 
 const filterBlogs = (index: number) => {
@@ -113,7 +183,7 @@ const filterBlogs = (index: number) => {
 }
 
 const blogsData = ref<any>([]);
-
+  
 const toGetBlogs = async (
   getConfig: GetBlogs
 ) => {
@@ -132,10 +202,6 @@ const toGetBlogs = async (
     loading.value = false; 
   }
 }
-console.log(blogsData.value.length)
-
-
-
 </script>
 
 <style scoped lang="scss">
@@ -205,8 +271,8 @@ console.log(blogsData.value.length)
 }
 
 .content {
-    margin-top: 23px;
     .image {
+      width: 100%; // 图片容器宽度为100%
       img {
         width: 100%;
         height: 100%;
@@ -230,5 +296,76 @@ console.log(blogsData.value.length)
   color: inherit;
   font-size: inherit;
   font-family: inherit;
+}
+.center-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start; // 从左侧开始排列
+
+  .content {
+    width: 25%;
+
+    .image {
+      width: 307px; // 图片容器宽度为100%
+      height: 169px; // 高度自适应
+
+      img {
+        width: 100%; // 图片宽度100%
+        height: auto; // 图片高度自适应
+        object-fit: cover; // 覆盖整个内容区域，可以改为 contain 保持图片比例
+      }
+    }
+
+    .message {
+      padding: 10px 0; // 添加一些内边距
+      text-align: left;
+    }
+  }
+
+  // 使用伪元素来确保四等分布局
+  &::after {
+    content: '';
+    width: 25%;
+  }
+
+  @media (max-width: 769px) {
+    .content {
+      width: 50%; // 在较小屏幕上每行显示两个内容块
+    }
+
+    &::after {
+      width: 50%; // 在较小屏幕上调整伪元素宽度
+    }
+  }
+}
+.center-box-min {
+  display: flex;
+  flex-direction: column; // 竖排显示
+  align-items: center; // 居中对齐
+
+  .content {
+    width: 100%; // 每个内容块占据全部宽度
+    margin-bottom: 20px; // 为内容块添加底部间隙
+
+    .image {
+      width: 100%; // 图片容器宽度为100%
+      height: auto; // 图片高度自适应
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // 图片内容将被裁剪以适应容器大小
+      }
+    }
+
+    .message {
+      text-align: left; // 文本居中显示
+      padding: 10px 0; // 添加一些内边距
+      color: #000000;
+      line-height: 20px;
+      font-weight: 500;
+    }
+  }
 }
 </style>
