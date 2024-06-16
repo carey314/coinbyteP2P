@@ -338,7 +338,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/user",
         name: "user",
-        meta: { requiresAuth: true },
+        
         component: () => import("../view/user/index.vue"),
         children: [
             {
@@ -434,11 +434,11 @@ const router = createRouter({
     routes
 });
 router.beforeEach((to, from, next) => {
-    const isAuthenticated = localStorage.getItem('isAuthenticated'); // 从本地存储获取登录状态
-    if (to.matched.some(record => record.meta.requiresAuth) && isAuthenticated !== 'true') {
-        next('/login'); // 重定向到应用程序的其他页面，而不是登录页
+    const token = localStorage.getItem('token'); // 获取token
+    if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+        next('/login'); // 如果需要认证但没有token，则重定向到登录页面
     } else {
-        next();
+        next(); // 如果不需要认证或者已经有token，则正常导航
     }
 });
 export default router;
