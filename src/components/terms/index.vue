@@ -65,8 +65,11 @@
     }
 </script>
 <style lang="scss" scoped>
+
 .sign-choose {
+
     .custom-title {
+        color: #000;
         font-size: 16px !important;
         text-align: left !important;
     }
@@ -96,5 +99,6 @@
         cursor: pointer; // 设置鼠标指针样式
     }
 }
+
 </style>
   

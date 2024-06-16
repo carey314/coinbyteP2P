@@ -8,14 +8,16 @@
         <div>
           <div style="text-align: right;margin-top: 20px;"><span>©2024 COINBYTEP2P</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
-            <span class="final-span">{{ $t('messages.footer.terms_conditions') }}</span>
+           <span class="final-span" @click="termsVisible = true">{{ $t('messages.footer.terms_conditions') }}</span>
             <!-- <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span> -->
-            <span class="final-span">{{ $t('messages.footer.policy') }}</span>
+            <span class="final-span" @click="privacyVisible = true">{{ $t('messages.footer.policy') }}</span>
            <a href="/centerContent/16" style="color: #909090; font-size: 14px;text-decoration: none"> <span class="final-span">{{ $t('messages.footer.anti_aml') }}</span></a>
           </div>
         </div>
       </div>
     </div>
+    <TermsDialog v-model="termsVisible"></TermsDialog>
+    <privacyDialog v-model="privacyVisible"></privacyDialog>
     <!-- <div
 
       class="message-win-box"
@@ -209,7 +211,8 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import logo from "../../assets/image/logo.svg";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 import { useI18n } from "vue-i18n";
-
+import TermsDialog from '../../components/terms/index.vue';
+import privacyDialog from '../../components/privacy/index.vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger)
@@ -248,7 +251,8 @@ const changeLanguage = (selectedLanguage: string) => {
   saveStoredLanguage(selectedLanguage);
   location.reload();
 };
-
+const termsVisible = ref(false);
+const privacyVisible = ref(false);
 watch(currentLanguage, (newLanguage) => {
   changeLanguage(newLanguage);
 });

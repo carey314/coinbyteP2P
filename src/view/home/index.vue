@@ -1,6 +1,8 @@
 <template>
   <div class="homeBox">
     <Header/>
+    <TermsDialog v-model="termsVisible"></TermsDialog>
+    <privacyDialog v-model="privacyVisible"></privacyDialog>
     <div class="bannerContainer">
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
@@ -244,6 +246,7 @@
     </div>
 
     <div class="homeContainer">
+    
       <div class="trade-way">
         <el-tabs v-model="tradeTab" class="trade-tabs">
           <el-tab-pane class="trade-way-buy" :label="t('messages.home.buy')" name="first"></el-tab-pane>
@@ -623,6 +626,8 @@
       </div>
       <!-- //eighth-part -->
       <faq></faq>
+      
+
     </div>
     <footer v-if="windowWidth > 769">
       <div class="footer-box max1290">
@@ -716,9 +721,9 @@
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.LEGAL") }}</li>
-            <li>{{ $t("messages.footer.terms_conditions") }}</li>
-            <li>{{ $t("messages.footer.policy") }}</li>
-            <li>{{ $t("messages.footer.aml") }}</li>
+            <li><span @click="termsVisible = true">{{ $t("messages.footer.terms_conditions") }}</span></li>
+            <li><span @click="privacyVisible = true">{{ $t("messages.footer.policy") }}</span></li>
+            <li><a href="/centerContent/16" style="color: #909090;text-decoration: none">{{ $t("messages.footer.aml") }}</a></li>
           </ul>
           <ul class="link-list">
             <li>{{ $t("messages.footer.support") }}</li>
@@ -906,10 +911,10 @@
                     {{ $t("messages.footer.LEGAL") }}
                   </div>
                 </template>
-                <div class="list-item">
+                <div class="list-item" @click="termsVisible = true">
                   {{ $t("messages.footer.terms_conditions") }}
                 </div>
-                <div class="list-item">
+                <div class="list-item" @click="privacyVisible = true">
                   {{ $t("messages.footer.policy") }}
                 </div>
                 <div class="list-item">
@@ -982,6 +987,8 @@ import part06_icon03 from "../../assets/home/part06_icon03.png";
 import part06_icon04 from "../../assets/home/part06_icon04.png";
 import part06_icon05 from "../../assets/home/part06_icon05.png";
 import part06_icon06 from "../../assets/home/part06_icon06.png";
+import TermsDialog from '../../components/terms/index.vue';
+import privacyDialog from '../../components/privacy/index.vue';
 
 import * as echarts from "echarts";
 import asic from "../../assets/icons/asic.png";
@@ -1004,6 +1011,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 const userInfoStore = useUserInfoStore();
 const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
+const termsVisible = ref(false);
+const privacyVisible = ref(false);
 
 const touchStartX = ref(0);
 const buttonOffset = ref(0);
@@ -1541,5 +1550,17 @@ function leave(el:any, done:any) {
 
 .tab-slide-enter-active, .tab-slide-leave-active {
   transition: opacity 0.5s, transform 0.5s;
+}
+:deep(.el-dialog__body) {
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+:deep(.sign-choose .custom-title){
+  padding: 20px 0 0 20px;
+}
+@media (max-width: 768px) {
+  :deep(.el-dialog) {
+    --el-dialog-width: 90% !important;
+  }
 }
 </style>

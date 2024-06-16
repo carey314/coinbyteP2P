@@ -45,6 +45,7 @@
 <style scoped lang="scss">
 .sign-choose {
     .custom-title {
+        color: #000;
         text-align: left !important;
         font-size: 16px !important;
     }

@@ -179,6 +179,9 @@ onMounted(async () => {
       if (blogInfo.value.type == 4) {
         typeName.value = 'Blockchain Glossary'
       }
+      if (blogInfo.value.type == 5) {
+        typeName.value = 'Legal and Terms'
+      }
       getBlogs({
         page:1,
         limit:6,
