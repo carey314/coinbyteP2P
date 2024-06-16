@@ -1566,14 +1566,25 @@ function leave(el:any, done:any) {
     --el-dialog-width: 90% !important;
   }
 }
-.bg-img{
-  :deep(.el-overlay){
-    top: -20vh !important;
+.bg-img {
+  :deep(.el-overlay) {
+    position: fixed; // 确保位置相对父容器
+    top: -19vh !important; // 移除 top 属性的影响
+    z-index: 1000 !important;
     overflow: visible !important;
     background-color: transparent !important;
+    // min-height: 500px; // 设置最小高度为 500px
     @media (max-width: 768px) {
-      // top: 0 !important;
+      // 其他样式
     }
+  }
+  :deep([data-v-cfeca4c3] .el-overlay-dialog){
+    height: auto;
+  }
+}
+.banner-learn-more{
+  :deep(.el-dialog){
+
   }
 }
 </style>
