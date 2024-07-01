@@ -338,7 +338,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: "/user",
         name: "user",
-        
+        meta: { requiresAuth: true }, 
         component: () => import("../view/user/index.vue"),
         children: [
             {
@@ -434,11 +434,22 @@ const router = createRouter({
     routes
 });
 router.beforeEach((to, from, next) => {
-    const token = localStorage.getItem('token'); // 获取token
+    const useInfo = localStorage.getItem('useInfo');
+    let token = null;
+    if (useInfo) {
+        try {
+            const parsedInfo = JSON.parse(useInfo);
+            token = parsedInfo.token;
+        } catch (e) {
+            console.error('Error parsing useInfo from localStorage:', e);
+        }
+    }
+    console.log('Token from localStorage:', token);
     if (to.matched.some(record => record.meta.requiresAuth) && !token) {
-        next('/login'); // 如果需要认证但没有token，则重定向到登录页面
+        console.log('No token found, redirecting to login.');  // 调试输出，无token时的情况
+        next('/login');
     } else {
-        next(); // 如果不需要认证或者已经有token，则正常导航
+        next();
     }
 });
 export default router;
