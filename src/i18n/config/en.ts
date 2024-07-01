@@ -207,7 +207,7 @@ export default {
             seventh_explore: "Explore endless possibilities with ",
             seventh_coin: " Coinbyte",
             seventh_how: "How to buy and sell crypto currency on CoinbyteP2P",
-            seventh_start: "Start trading cryptocurrency on CoinbyteP2P",
+            seventh_start: "How to Avoid Social Media Scams in 4 Steps",
             seventh_earn:
                 "Protecting Yourself from Scams: A Guide to Safe Crypto Trading",
                 // "CoinbyteP2P Earn: Use your crypto assets to earn passive income on CoinbyteP2P",

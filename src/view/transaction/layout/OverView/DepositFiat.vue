@@ -99,11 +99,12 @@
                     <template #description>
                       <el-form-item v-if="activeStep >= 2" prop="selectedPayment">
                         <div v-if="form.selectedOption1 === 'AUD'" class="payment-box">
-                          <div class="payment-way">
+                          <!-- PayID -->
+                          <!-- <div class="payment-way">
                             <img class="payment-pay no-select" :src="payment_payid"
                                  :class="{ 'selected': form.selectedPayment === '' }"
                                  @click="selectPayment('PayID')"/>
-                          </div>
+                          </div> -->
                           <div class="payment-way">
                             <img class="payment-bank no-select" :src="payment_bank"
                                  :class="{ 'selected': form.selectedPayment === 'Bank Transfer' }"
@@ -317,8 +318,8 @@
                       <div class="info-title">Account Name:</div>
                       <div class="info-email">
                         <div class="email-number">
-                          {{ userInfo?.zepto_account?.name || '----' }}
-                          <!-- Coinbyte -->
+                          <!-- {{ userInfo?.zepto_account?.name || '----' }} -->
+                         Ausun
                         </div>
                         <div class="email-copy" @click="textToCopy(userInfo?.zepto_account?.name || '----')">
                           <img :src="copy"/>
@@ -328,7 +329,10 @@
 
                       <div class="info-title">BSB Number:</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.bank_branch_code || '----' }}</div>
+                        <div class="email-number">
+                          <!-- {{ userInfo?.zepto_account?.bank_branch_code || '----' }} -->
+                          633123
+                        </div>
                         <div class="email-copy"
                              @click="textToCopy(userInfo?.zepto_account?.bank_branch_code || '----')">
                           <img :src="copy"/>
@@ -338,7 +342,10 @@
 
                       <div class="info-title">Account Number:</div>
                       <div class="info-email">
-                        <div class="email-number">{{ userInfo?.zepto_account?.bank_account_number || '----' }}</div>
+                        <div class="email-number">
+                          <!-- {{ userInfo?.zepto_account?.bank_account_number || '----' }} -->
+                          218208429
+                        </div>
                         <div class="email-copy"
                              @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
                           <img :src="copy"/>
@@ -386,25 +393,24 @@
             <div class="faq-content content">
               <div>
                 {{ $t('messages.pay_order.first_note') }}
-
               </div>
               <br/>
               <div>
                 {{ $t('messages.pay_order.second_note') }}
-
               </div>
               <br/>
               <div>
                 {{ $t('messages.pay_order.third_note') }}
-
-                <span style="cursor: pointer; color: #01c19a !important"
+                <span style="cursor: pointer; color: #01c19a !important" @click="termsVisible = true"
                 >  {{ $t('messages.pay_order.term') }}</span
                 >
                 {{ $t('messages.pay_order.and') }}
-                <span style="cursor: pointer; color: #01c19a !important"
+                <span style="cursor: pointer; color: #01c19a !important" @click="privacyVisible = true"
                 > {{ $t('messages.pay_order.privacy') }}</span
                 >
               </div>
+               <TermsDialog v-model="termsVisible"></TermsDialog>
+               <privacyDialog v-model="privacyVisible"></privacyDialog>
             </div>
           </div>
         </div>
@@ -472,12 +478,12 @@
               <div class="work-content">
                 {{ $t('messages.deposit_Fiat.order_time') }}
               </div>
-              <div class="view"> {{ $t('messages.deposit_Fiat.view_history') }} &gt;</div>
+              <!-- <div class="view"> {{ $t('messages.deposit_Fiat.view_history') }} &gt;</div> -->
               <br/>
               <div class="work-title">{{ $t('messages.deposit_Fiat.fund_arrived') }}</div>
 
               <div class="work-content">{{ $t('messages.deposit_Fiat.fund_release') }}</div>
-              <div class="view">{{ $t('messages.deposit_Fiat.view_wallet') }} &gt;</div>
+              <!-- <div class="view">{{ $t('messages.deposit_Fiat.view_wallet') }} &gt;</div> -->
             </div>
           </div>
         </div>
@@ -605,6 +611,8 @@ import {
   CaretBottom,
 } from "@element-plus/icons-vue";
 import GetButton from "../../../../components/GetButton.vue";
+import TermsDialog from "../../../../components/terms/index.vue";
+import privacyDialog from "../../../../components/privacy/index.vue";
 import {useWindowSize} from "../../../../hooks/useWindowSize";
 import login_qrcode from "../../../../assets/home/download_qrcode.png";
 import crypto_icon_usdt from "../../../../assets/home/crypto_icon_usdt.png";
@@ -638,6 +646,7 @@ import {useRoute, useRouter} from "vue-router";
 
 
 const router = useRouter();
+const route = useRoute();
 const userInfoStore = useUserInfoStore();
 const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 
@@ -648,7 +657,8 @@ const dialogNoteContinue = ref(false);
 
 const depositStatus = ref(false);
 const faqActiveName = ref("1");
-
+const termsVisible = ref(false);
+const privacyVisible = ref(false);
 const previousStatus = ref(false);
 
 function clickPrevious() {
@@ -684,23 +694,23 @@ const form = ref<Form>({
 
 
 onMounted(() => {
+  checkKYCStatus();
+});
+
+function checkKYCStatus() {
   const storedData = JSON.parse(localStorage.getItem('useInfo') || '{}');
-  console.log(storedData, '666');
-
   const kycStatus = storedData.userInfo && storedData.userInfo.kyc && storedData.userInfo.kyc[0].status;
-  console.log(kycStatus, '999'); // 这应该打印出 'GREEN'
-
+  console.log(kycStatus); // 这应该打印出 'GREEN'
   if (kycStatus === 'GREEN') {
     // 如果 KYC 状态为 'GREEN'，则重新加载页面
   setTimeout(() => {
     router.push('/user/depositFiat');
     console.log('触发跳转');
-  }, 500);
+  }, 1000);
   } else {
     console.log('失败');
   }
-});
-
+}
 
 const rules = reactive<FormRules>({
   selectedOption1: [{
@@ -1286,9 +1296,12 @@ $fontSizeMin: 12px;
           cursor: pointer;
           float: right;;
           margin-top: -45px;
-          // margin-right: 10%;
           font-size: 14px;
           color: #878787;
+          display: flex;
+          align-items: center;
+          gap:3px;
+
           @media(max-width: 992px) {
             float: right;
             margin-right: 0%;
@@ -1808,5 +1821,8 @@ $fontSizeMin: 12px;
   font-size: 16px;
   padding-right: 60px;
   margin-top: 10px;
+}
+:deep(.sign-choose .modal-body){
+  padding: 20px;
 }
 </style>

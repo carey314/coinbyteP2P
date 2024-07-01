@@ -13,7 +13,7 @@ export const useUserInfoStore = defineStore(
         //   const upperMsg = computed(() => msg.value.toUpperCase())
         // 方法(同步调用或异步调用)
         const changeToken = (newToken: any) => {
-            console.log("change token", newToken);
+            // console.log("change token", newToken);
             token.value = newToken;
         };
         const refreshToken = ref(null);

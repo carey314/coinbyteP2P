@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted, onUnmounted} from "vue";
+import {ref, onMounted, onUnmounted, watch} from "vue";
 import snsWebSdk from '@sumsub/websdk';
 
 import Header from "../../layout/Header/Header.vue";
@@ -29,6 +29,7 @@ const router = useRouter();
 const windowWidth = ref(window.document.body.offsetWidth);
 
 const reviewAnswer = ref()
+
 onMounted(() => {
   window.addEventListener("resize", resetWidth);
   // 买 buy 卖 sell
@@ -106,7 +107,27 @@ function resetBtn() {
 function getNewAccessToken() {
   return Promise.resolve("xxxx")// get a new token from your backend
 }
+watch(() => route.path, () => {
+  if (route.path === '/user/depositFiat') {
+    checkKYCStatus();
+    console.log('watch触发更新 deposit')
+  }
+});
 
+function checkKYCStatus() {
+  const storedData = JSON.parse(localStorage.getItem('useInfo') || '{}');
+  const kycStatus = storedData.userInfo && storedData.userInfo.kyc && storedData.userInfo.kyc[0].status;
+  console.log(kycStatus); // 这应该打印出 'GREEN'
+  if (kycStatus === 'GREEN') {
+    // 如果 KYC 状态为 'GREEN'，则重新加载页面
+  setTimeout(() => {
+    router.push('/user/depositFiat');
+    console.log('触发跳转');
+  }, 500);
+  } else {
+    console.log('失败');
+  }
+}
 </script>
 
 <style scoped lang="scss">

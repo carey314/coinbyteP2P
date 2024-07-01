@@ -555,7 +555,7 @@
             justify="space-between"
             :gutter="40"
         >
-          <el-col :span="7" class="listItem">
+          <el-col :span="7" class="listItem" @click="toCen1">
             <div class="seventh-part-img">
               <img :src="part07_pic01" alt=""/>
             </div>
@@ -563,7 +563,7 @@
               {{ $t("messages.home.seventh_how") }}
             </div>
           </el-col>
-          <el-col :span="7" class="listItem">
+          <el-col :span="7" class="listItem" @click="toCen2">
             <div class="seventh-part-img">
               <img :src="part07_pic02" alt=""/>
             </div>
@@ -580,7 +580,7 @@
             </div>
           </el-col>
         </el-row>
-        <div class="view-more">
+        <div class="view-more" @click="seventhMore">
           <span>{{ $t("messages.home.seventh_more") }}</span>
         </div>
       </div>
@@ -595,7 +595,7 @@
             justify="space-between"
             :gutter="40"
         >
-          <el-col :span="24" class="listItem">
+          <el-col :span="24" class="listItem" @click="toCen1">
             <div class="seventh-part-img">
               <img :src="part07_pic01" alt=""/>
             </div>
@@ -603,7 +603,7 @@
               {{ $t("messages.home.seventh_how") }}
             </div>
           </el-col>
-          <el-col :span="24" class="listItem">
+          <el-col :span="24" class="listItem" @click="toCen2">
             <div class="seventh-part-img">
               <img :src="part07_pic02" alt=""/>
             </div>
@@ -620,7 +620,7 @@
             </div>
           </el-col>
         </el-row>
-        <div class="view-more">
+        <div class="view-more" @click="seventhMore">
           <span>{{ $t("messages.home.seventh_more") }} </span>
         </div>
       </div>
@@ -1189,7 +1189,15 @@ const nzData1 = [
     address: "FSP Website",
   },
 ];
-
+function toCen1() {
+    window.location.href = 'https://www.coinbyte.exchange/centerContent/29';
+}
+function toCen2() {
+    window.location.href = 'https://www.coinbyte.exchange/centerContent/12';
+}
+function seventhMore() {
+  router.push('/learnCenter')
+}
 const goToKyc = (type: string) => {
   if (userInfoStore.isLogin) {
     // if (userInfo.value.kyc.status === 'GREEN') {

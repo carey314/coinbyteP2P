@@ -199,7 +199,7 @@ export default {
       seventh_explore: "一同探索无限可能性与",
       seventh_coin: "与Coinbyte",
       seventh_how: "在CoinbyteP2P上如何购买和出售加密货币",
-      seventh_start: "在CoinbyteP2P上开始交易加密货币",
+      seventh_start: "如何通过4个步骤避免社交媒体诈骗",
       seventh_earn:
         "CoinByteP2P Earn:利用您的加密货币资产在CoinbyteP2P上获得被动收入",
       seventh_more: "了解更多",

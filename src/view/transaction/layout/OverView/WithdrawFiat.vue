@@ -231,12 +231,11 @@
                 style="
                   text-align: right;
                   font-size: 14px;
-
                   margin-top: 10px;
                   margin-right: 20px;
                 "
               >
-                <span style="  cursor: pointer;color: #7b8293;">{{ $t('messages.user_verify.more') }} &gt;</span>
+                <span style="cursor: pointer;color: #7b8293;" @click="toLearn">{{ $t('messages.user_verify.more') }} &gt;</span>
               </div>
             </div>
           </div>
@@ -319,6 +318,9 @@ const faqActiveName = ref("1");
 const showStepThree = ref(false);
 const showContinueBtn = ref(true);
 const withdrawStatus = ref(false);
+function toLearn() {
+  router.push('/learnCenter')
+}
 function handleSubmit() {
   withdrawStatus.value = true;
   innerVisible.value = false;
