@@ -295,7 +295,7 @@ onMounted(() => {
 // 启动邮箱验证码的倒计时
 const startEmailCountdown = () => {
   if (countdown.value <= 0) {
-    countdown.value = 60; // 设置倒计时初始值为 60 秒
+    countdown.value = 300; // 设置倒计时初始值为 300 秒
     const countdownInterval = setInterval(() => {
       console.log(123123);
       countdown.value--;
@@ -507,6 +507,7 @@ const increase = () => {
             } else {
               percentage.value = 20;
               registeredEmails.value.push(email); // 如果成功注册，将邮箱添加到已注册邮箱数组中
+              startEmailCountdown();
             }
           } else {
             ElMessage({message: "Please try again later.", type: "error"});
