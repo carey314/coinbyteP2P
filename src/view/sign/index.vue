@@ -11,10 +11,12 @@
         <el-col :span="24" :xs="24">
           <div class="sign-title">
             <!-- <div class="create-title">Account Creation</div> -->
-            <div class="previous-btn" @click="decreasePercentage" v-if="percentage !== 0">
-              <el-icon>
-                <Back/>
-              </el-icon>
+            <div class="previous-btn">
+              <div @click="decreasePercentage" v-if="percentage > 20">
+                <el-icon>
+                  <Back/>
+                </el-icon>
+              </div>
             </div>
           </div>
           <div v-if="percentage === 0">
