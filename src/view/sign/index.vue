@@ -1035,6 +1035,8 @@ $fontSizeMin: 12px;
     box-shadow: none;
   }
   .el-dialog{
+    height: 80%;
+    overflow-y: auto; 
     @media (max-width: 769px) {
       width: 95% !important;
     }
