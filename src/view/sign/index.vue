@@ -12,14 +12,14 @@
           <div class="sign-title">
             <!-- <div class="create-title">Account Creation</div> -->
             <div class="previous-btn">
-              <div @click="decreasePercentage" v-if="percentage > 20">
+              <div @click="decreasePercentage" v-if="percentage > 0">
                 <el-icon>
                   <Back/>
                 </el-icon>
               </div>
             </div>
           </div>
-          <div v-if="percentage === 0">
+          <!-- <div v-if="percentage === 0">
             <div class="create-number">
               My email address is
               <span style="position: relative">
@@ -49,7 +49,7 @@
             >
               Continue
             </el-button>
-          </div>
+          </div> -->
           <!-- <div v-if="percentage === 15">
             <div class="create-number" style="line-height: 48px;">
               We're sent an activation link to your email
@@ -70,7 +70,7 @@
             </el-button>
           </div> -->
 
-          <div v-if="percentage === 20">
+          <!-- <div v-if="percentage === 20">
             <div class="create-number" style="line-height: 48px;">
               I received a single-use code on my email.
               <br>
@@ -84,7 +84,6 @@
               <div class="remind-title">
                 <img :src="icon_info"/> <span>Reminder</span>
               </div>
-<!--              <div class="remind-tip">* Fill out the empty field.</div>-->
               <div class="remind-tip">
                 * Please enter the correct email code
               </div>
@@ -105,9 +104,9 @@
             >
               {{ countdown > 0 ? `Resend in ${countdown}s` : 'Resend Email Verification' }}
             </el-button>
-          </div>
+          </div> -->
 
-          <div v-if="percentage === 40">
+          <div v-if="percentage === 0">
             <div class="create-number">
               My mobile number is
               <span style="position: relative">
@@ -124,6 +123,12 @@
               <div class="remind-tip">
                 * Please enter the correct phone number
               </div>
+               <div class="create-rule remind-tip" style="font-size: 18px;">
+                  * By clicking Continue, I accept the <a @click="termsVisible = true">Terms of Use</a> and
+                  <a @click="privacyVisible = true">Privacy Policy</a>
+                </div>
+                <TermsDialog v-model="termsVisible"></TermsDialog>
+                <privacyDialog v-model="privacyVisible"></privacyDialog>
             </div>
             <el-button
                 class="verify-btn"
@@ -154,7 +159,7 @@
             </el-button>
           </div> -->
 
-          <div v-if="percentage === 60">
+          <div v-if="percentage === 50">
             <div class="create-number" style="line-height: 48px;">
               I received a single-use code on my phone number ending with *{{ phoneInput.slice(-2) }}.<br />
               Here it is:
@@ -191,7 +196,7 @@
             </el-button>
           </div>
 
-          <div v-if="percentage === 80">
+          <div v-if="percentage === 100">
             <div class="create-number">
               Here is my personal passcode
               <span style="position: relative">
@@ -288,7 +293,7 @@ onMounted(() => {
   if (percentage.value === 20) {
     // 如果在第一个步骤，则初始化邮箱验证码的倒计时
     startEmailCountdown(); // 启动邮箱验证码的倒计时
-  } else if (percentage.value === 60) {
+  } else if (percentage.value === 0) {
     // 如果在第二个步骤，则初始化手机验证码的倒计时
     startSMSCountdown(); // 启动手机验证码的倒计时
   }
@@ -580,7 +585,7 @@ const phoneNumberInput = () => {
             if (res.data.code === 9002) {
               ElMessage({ message: "Phone number has been registered", type: "error" });
             } else {
-              percentage.value = 60;
+              percentage.value = 50;
               registeredPhoneNumbers.value.push(phoneNumber);
             }
           } else {
@@ -602,7 +607,7 @@ const toConfirmPhone = () => {
     if (!isPhoneVerified.value && registeredPhoneNumbers.value.includes(phoneNumber)) {
       ElMessage({ message: "Phone number has already been registered", type: "error" });
     } else {
-      percentage.value = 60;
+      percentage.value = 50;
     }
   }
 };
@@ -618,8 +623,8 @@ const phoneConfirmed = () => {
     type: type.value,
     code: smsCode.value,
     phone: phoneInput.value,
-    email: emailInput.value,
-    token: token1.token
+    // email: emailInput.value,
+    // token: token1.token
   }).then((res: any) => {
     phoneConfirmedDisabled.value = false;
     if (res.data && (res.status === 200 || res.status === 202)) {
@@ -643,7 +648,7 @@ const phoneConfirmed = () => {
 const phoneContinue = () => {
   if (isValidPhone.value) {
     canContinue.value = true;
-    percentage.value += 15;
+    percentage.value += 50;
     if (percentage.value > 100) {
       percentage.value = 0;
     }
@@ -763,7 +768,7 @@ const customColor = ref("#01c19a");
 
 function decreasePercentage() {
   if (percentage.value >= 15) {
-    percentage.value -= 20;
+    percentage.value -= 50;
     countdown.value = 0;
   }
 }
@@ -1029,5 +1034,11 @@ $fontSizeMin: 12px;
   .el-form-item.is-error .el-input__wrapper {
     box-shadow: none;
   }
+  .el-dialog{
+    @media (max-width: 769px) {
+      width: 95% !important;
+    }
+  }
+  
 }
 </style>

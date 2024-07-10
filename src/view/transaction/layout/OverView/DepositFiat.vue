@@ -344,7 +344,7 @@
                       <div class="info-email">
                         <div class="email-number">
                           <!-- {{ userInfo?.zepto_account?.bank_account_number || '----' }} -->
-                          218208429
+                          187104641
                         </div>
                         <div class="email-copy"
                              @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
