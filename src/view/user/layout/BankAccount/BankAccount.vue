@@ -363,7 +363,7 @@ const handleClose = () => {
 const submitLoading = ref(false);
 // form rule
 const accountNumberFormat: {[key: string]: any} = {
-  'Australia': /^\d{9}$/,
+  'Australia': /^\d{6,9}$/,
   'New Zealand': /^\d{15}$/
 }
 const rules = reactive<FormRules>({
