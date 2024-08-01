@@ -334,7 +334,7 @@
                           633123
                         </div>
                         <div class="email-copy"
-                             @click="textToCopy(userInfo?.zepto_account?.bank_branch_code || '----')">
+                             @click="textToCopy('633123')">
                           <img :src="copy"/>
                           Copy
                         </div>
@@ -344,10 +344,10 @@
                       <div class="info-email">
                         <div class="email-number">
                           <!-- {{ userInfo?.zepto_account?.bank_account_number || '----' }} -->
-                          187104641
+                          218208429
                         </div>
                         <div class="email-copy"
-                             @click="textToCopy(userInfo?.zepto_account?.bank_account_number || '----')">
+                             @click="textToCopy('218208429')">
                           <img :src="copy"/>
                           Copy
                         </div>
