@@ -470,7 +470,8 @@ const token1 = reactive({
 const EMAIL_REGEX = /\S+@\S+\.\S+/;
 const CHINESE_REGEX = /[\u4E00-\u9FFF\u3400-\u4DFF\uF900-\uFAFF]/;
 // const PHONE_REGEX = /^\+\d{2} \d{3} \d{3} \d{3}$/;
-const PHONE_REGEX = /^\+(?:[0-9] ?){6,11}[0-9]$/;
+// const PHONE_REGEX = /^\+(?:[0-9] ?){6,11}[0-9]$/;
+const PHONE_REGEX = /^\+.+$/;
 const isValidEmail = computed(() => {
   const email = emailInput.value;
   return !CHINESE_REGEX.test(email) && EMAIL_REGEX.test(email);
