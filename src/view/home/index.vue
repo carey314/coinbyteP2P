@@ -1167,7 +1167,7 @@ const gridData1 = [
   {
     title: "AUSTRAC registered",
     content1: "Australian Transaction Reports & Analysis Centre",
-    content2: "100576214",
+    // content2: "100576214",
     content3: "Digital Currency Exchange DCE100662269-001",
     content4: "Remittance Service Provider IND100662269-001",
     address: "AUSTRAC website",

@@ -54,7 +54,8 @@
             <router-link :to="'/centerContent/' + item.id" style="text-decoration: none">
               <div class="content clearfloat">
                 <div class="image">
-                  <img :src="item.icon" />
+                  <!-- <img :src="item.icon" /> -->
+                  <img :src="item.banner_url" />
                 </div>
                 <div class="message">{{ item.title }}</div>
               </div>

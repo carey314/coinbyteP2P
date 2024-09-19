@@ -310,7 +310,7 @@ export default {
     },
     learnList: {
       first_label: "初学者教程",
-      second_label: "交易思路",
+      second_label: "诈骗提醒",
       third_label: "安全提示",
       forth_label: "区块链词汇表",
       fifth_label: "法律和条款",
