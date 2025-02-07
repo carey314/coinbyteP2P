@@ -317,7 +317,6 @@ const startSMSCountdown = () => {
   if (countdown.value <= 0) {
     countdown.value = 60; // 设置倒计时初始值为 60 秒
     const countdownInterval = setInterval(() => {
-      console.log(456456);
       countdown.value--;
       if (countdown.value <= 0) {
         clearInterval(countdownInterval);

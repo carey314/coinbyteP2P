@@ -3,6 +3,33 @@
     <Header/>
     <!-- <TermsDialog v-model="termsVisible"></TermsDialog>
     <privacyDialog v-model="privacyVisible"></privacyDialog> -->
+    <el-dialog
+      title="BEWARE OF SCAMS"
+      v-model="scamDialogVisible"
+      width="40%"
+      :modal="true"
+      :show-close="true"
+      :close-on-click-modal="true"
+      class="scam-dialog"
+    > 
+        <div style="width: 100%;height:1px;background:#eee;"></div>
+      <div class="scam-content">
+        <ul class="scam-list">
+          <li><span class="scam-warning">SCAM</span> Never trust anyone online, especially ROMANCE LOVER</li>
+          <li><span class="scam-warning">SCAM</span> Never trust unrealistic high ROI investments</li>
+          <li><span class="scam-warning">SCAM</span> Never share your screen to others</li>
+          <li><span class="scam-warning">SCAM</span> Do not withdraw to unofficial addresses or platforms</li>
+          <li><span class="scam-warning">SCAM</span> Do not disclose your verification code or account information to anyone</li>
+        </ul>
+        <div class="scam-tip">CANCEL THE ORDER IF SOMEONE TEACHING YOU HOW TO BUY!!!</div>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="danger" @click="confirmScam" >I UNDERSTAND</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
     <div class="bannerContainer">
       <div class="bg-img">
         <el-row style="height: 100%" class="max1290">
@@ -1018,6 +1045,9 @@ const {userInfo, validKycBuy, validKycSell} = storeToRefs(userInfoStore);
 const termsVisible = ref(false);
 const privacyVisible = ref(false);
 
+const scamDialogVisible = ref(false);
+const currentType = ref('');
+
 const touchStartX = ref(0);
 const buttonOffset = ref(0);
 function handleTouchStart(event :any) {
@@ -1199,51 +1229,35 @@ function seventhMore() {
   router.push('/learnCenter')
 }
 const goToKyc = (type: string) => {
-  if (userInfoStore.isLogin) {
-    // if (userInfo.value.kyc.status === 'GREEN') {
-    //   if (type === 'buy') {
-    //     router.push('/user/depositFiat');
-    //   } else if (type === 'sell') {
-    //     router.push('/user/bankaccount');
-    //   } else {
-    //     router.push('/user');
-    //   }
-    // } else {
-    //   router.push({name: 'kyc', query: {type}});
-    // }
-    if (type === 'buy') {
-      if (validKycBuy.value) {
-        router.push('/user/depositFiat');
-      } else {
-        router.push({name: 'kyc', query: {type}});
-      }
-    } else if (type === 'sell') {
-      if (validKycBuy.value || validKycSell.value) {
-        router.push('/user/bankaccount');
-      } else {
-        router.push({name: 'kyc', query: {type}});
-      }
-    } else {
-      router.push('/signup?type=buy');
-    }
-  } else {
-    router.push('/signup?type=' + type);
-  }
+  currentType.value = type; // 保存当前的类型，以便在确认后使用
+  scamDialogVisible.value = true; // 显示对话框
 };
 const goKyc = (type: string) => {
-  // if (userInfoStore.isLogin) {
-  //   if (userInfo.value.kyc.status === 'GREEN') {
-  //     if (type === 'buy') {
-  //       router.push('/user/depositFiat');
-  //     } else {
-  //       router.push('/home');
-  //     }
-  //   } else {
-  //     router.push({ name: 'kyc', query: { type, return: '/home' } });
-  //   }
-  // } else {
-  //   router.push('/signup?type=' + type);
-  // }
+  currentType.value = type; // 保存当前的类型，以便在确认后使用
+  scamDialogVisible.value = true; // 显示对话框
+};
+// const confirmScam = (type: string) => {
+//   if (userInfoStore.isLogin) {
+//     if (type === 'buy') {
+//       if (validKycBuy.value) {
+//         router.push('/user/depositFiat');
+//       } else {
+//         router.push({name: 'kyc', query: {type}});
+//       }
+//     } else if (type === 'sell') {
+//       if (validKycBuy.value || validKycSell.value) {
+//         router.push('/user/bankaccount');
+//       } else {
+//         router.push({name: 'kyc', query: {type}});
+//       }
+//     } else {
+//       router.push('/signup?type=buy');
+//     }
+//   } else {
+//     router.push('/signup?type=' + type);
+//   }
+// };
+const confirmScam = (type: string) => {
   if (userInfoStore.isLogin) {
     if (type === 'buy') {
       if (validKycBuy.value) {
@@ -1562,9 +1576,10 @@ function leave(el:any, done:any) {
 .tab-slide-enter-active, .tab-slide-leave-active {
   transition: opacity 0.5s, transform 0.5s;
 }
-:deep(.el-dialog__body) {
+:deep(.el-dialog) {
     // max-height: 70vh;
     // overflow-y: scroll;
+    border-radius: 5px !important;
 }
 :deep(.sign-choose .custom-title){
   padding: 20px 0 0 20px;
@@ -1590,9 +1605,54 @@ function leave(el:any, done:any) {
     height: auto;
   }
 }
-.banner-learn-more{
-  :deep(.el-dialog){
-
-  }
+.scam-dialog {
+  background-color: #f5f5f5;
+  color: #333;
+  font-weight: bold;
 }
+:deep(.el-dialog__header) {
+  padding: 20px 20px 0 20px !important; 
+}
+.scam-dialog .scam-content {
+  margin-top: 20px;
+}
+
+.scam-dialog .scam-list {
+  list-style: none;
+  padding: 0;
+}
+
+.scam-dialog .scam-list li {
+  margin-bottom: 10px;
+  color: #333; 
+}
+.scam-tip{
+  background-color: yellow;
+  text-align: center;
+  color: #505050;
+  line-height: 32px;
+  font-weight: 500;
+}
+.scam-dialog .scam-warning {
+  background-color: #ffcccb; /* Light red background */
+  padding: 2px 5px;
+  margin-right: 5px;
+  color: red; 
+  font-weight: 500;
+}
+:deep(.el-dialog__title){
+  font-weight: 500;
+  color: #505050;
+}
+:deep(.el-dialog__body){
+  padding-top: 15px !important;
+}
+.dialog-footer .el-button {
+  margin-top: -15px;
+  padding: 15px 30px;
+}
+:deep(.el-dialog__footer){
+  text-align: center;
+}
+
 </style>
