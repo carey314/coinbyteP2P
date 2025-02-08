@@ -1277,6 +1277,7 @@ const confirmScam = (type: string) => {
   } else {
     router.push('/signup?type=' + type);
   }
+  scamDialogVisible.value = false; 
 };
 onMounted(() => {
   if (userInfoStore.isLogin) {
