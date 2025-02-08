@@ -1229,11 +1229,11 @@ function seventhMore() {
   router.push('/learnCenter')
 }
 const goToKyc = (type: string) => {
-  currentType.value = type; // 保存当前的类型，以便在确认后使用
-  scamDialogVisible.value = true; // 显示对话框
+  currentType.value = type;
+  scamDialogVisible.value = true; 
 };
-const goKyc = () => {
-  // currentType.value = type;
+const goKyc = (type: string) => {
+  currentType.value = type;
   scamDialogVisible.value = true; 
 };
 // const confirmScam = (type: string) => {
