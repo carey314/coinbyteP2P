@@ -1232,9 +1232,9 @@ const goToKyc = (type: string) => {
   currentType.value = type; // 保存当前的类型，以便在确认后使用
   scamDialogVisible.value = true; // 显示对话框
 };
-const goKyc = (type: string) => {
-  currentType.value = type; // 保存当前的类型，以便在确认后使用
-  scamDialogVisible.value = true; // 显示对话框
+const goKyc = () => {
+  // currentType.value = type;
+  scamDialogVisible.value = true; 
 };
 // const confirmScam = (type: string) => {
 //   if (userInfoStore.isLogin) {
