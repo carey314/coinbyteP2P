@@ -25,7 +25,7 @@
       </div>
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="danger" @click="confirmScam" >I UNDERSTAND</el-button>
+          <el-button type="danger" @click="confirmScam()" >I UNDERSTAND</el-button>
         </div>
       </template>
     </el-dialog>
@@ -1229,14 +1229,14 @@ function seventhMore() {
   router.push('/learnCenter')
 }
 const goToKyc = (type: string) => {
-  currentType.value = type;
   scamDialogVisible.value = true; 
+  currentType.value = type;
 };
 const goKyc = (type: string) => {
-  currentType.value = type;
   scamDialogVisible.value = true; 
+  currentType.value = type;
 };
-// const confirmScam = (type: string) => {
+// const goToKyc = (type: string) => {
 //   if (userInfoStore.isLogin) {
 //     if (type === 'buy') {
 //       if (validKycBuy.value) {
@@ -1257,7 +1257,11 @@ const goKyc = (type: string) => {
 //     router.push('/signup?type=' + type);
 //   }
 // };
-const confirmScam = (type: string) => {
+
+//goKyc
+const confirmScam = () => {
+  const type = currentType.value;
+  console.log('Confirmed type:', type);
   if (userInfoStore.isLogin) {
     if (type === 'buy') {
       if (validKycBuy.value) {
