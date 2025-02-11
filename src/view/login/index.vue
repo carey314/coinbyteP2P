@@ -71,44 +71,62 @@
           </el-tabs>
 
 
-          <el-form-item>
-            <div class="password-verify">
-              <div class="verify-input">
-                <el-input
-                  v-model="form.code"
-                  :placeholder="t('messages.login.ver_code')"
-                ></el-input>
+          <el-tooltip placement="top-end" :disabled="recaptchaStatus">
+            <template #content>Please perform human-machine verification</template>
+            <el-form-item>
+              <div class="password-verify">
+                <div class="verify-input">
+                  <el-input
+                    v-model="form.code"
+                    :placeholder="t('messages.login.ver_code')"
+                  ></el-input>
+                </div>
+                <div class="verify-btn">
+                  <el-button
+                      style="height: 48px;width: 100%;"
+                      v-loading="getCodeLoading"
+                      :disabled="(getCodeDisabled || !recaptchaStatus)"
+                      @click="getVerificationCode"
+                      type="info"
+                  >
+                    {{ getCodeText }}
+                  </el-button>
+                </div>
               </div>
-              <div class="verify-btn">
-                <el-button
-                    style="height: 48px;width: 100%;"
-                    v-loading="getCodeLoading"
-                    :disabled="getCodeDisabled"
-                    @click="getVerificationCode"
-                    type="info"
-                >
-                  {{ getCodeText }}
+            </el-form-item>
+
+          </el-tooltip>
+          <vue-recaptcha
+          style="margin-top: 20px;"
+              :sitekey="siteKey"
+              size="normal"
+              theme="light"
+              @verify="recaptchaVerified"
+              @expire="recaptchaExpired"
+              @fail="recaptchaFailed"
+              hl="en"
+              :loading-timeout="loadingTimeout"
+              ref="vueRecaptchaRef"
+            >
+            </vue-recaptcha>
+            <el-tooltip placement="top" :disabled="recaptchaStatus">
+              <template #content>Please perform human-machine verification</template>
+              <el-form-item class="login-button clearfloat">
+                        <!--            <div class="login-agree clearfloat">-->
+                        <!--              <div class="agreement">-->
+                        <!--                <a-->
+                        <!--                    href="/password"-->
+                        <!--                    style="color: #01c19a; text-decoration: none"-->
+                        <!--                >{{ $t("messages.login.forgot_password") }}</a-->
+                        <!--                >-->
+                        <!--              </div>-->
+                        <!--            </div>-->
+    
+                <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled || !recaptchaStatus" class="login-btn" type="info">
+                  {{ $t("messages.login.login") }}
                 </el-button>
-              </div>
-            </div>
-          </el-form-item>
-
-
-          <el-form-item class="login-button clearfloat">
-<!--            <div class="login-agree clearfloat">-->
-<!--              <div class="agreement">-->
-<!--                <a-->
-<!--                    href="/password"-->
-<!--                    style="color: #01c19a; text-decoration: none"-->
-<!--                >{{ $t("messages.login.forgot_password") }}</a-->
-<!--                >-->
-<!--              </div>-->
-<!--            </div>-->
-
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">
-              {{ $t("messages.login.login") }}
-            </el-button>
-          </el-form-item>
+              </el-form-item>
+            </el-tooltip>
 
           <div class="login-signup">
             <div>
@@ -134,6 +152,7 @@
         </el-form>
       </div>
     </div>
+    <!-- ----------------------------------------------- -->
     <div class="center-box-mobile" v-if="windowWidth <= 769">
       <div class="login-box">
         <el-form
@@ -221,33 +240,52 @@
           <!--              </template>-->
           <!--            </el-input>-->
           <!--          </el-form-item>-->
-          <el-form-item>
-            <div class="password-verify">
-              <div class="verify-input">
-                <el-input
-                    v-model="form.code"
-                    placeholder="Verification Code"
-                ></el-input>
+          <el-tooltip placement="top-end" :disabled="recaptchaStatus">
+            <template #content>Please perform  <br> human-machine verification</template>
+            <el-form-item>
+              <div class="password-verify">
+                <div class="verify-input">
+                  <el-input
+                      v-model="form.code"
+                      placeholder="Verification Code"
+                  ></el-input>
+                </div>
+                <div class="verify-btn">
+                  <el-button
+                      style="height: 48px;width: 100%;background: #01c19a;color: #fff;"
+                      v-loading="getCodeLoading"
+                      :disabled="getCodeDisabled || !recaptchaStatus"
+                      @click="getVerificationCode"
+                  >
+                    {{ getCodeText }}
+                  </el-button>
+                </div>
               </div>
-              <div class="verify-btn">
-                <el-button
-                    style="height: 48px;width: 100%;background: #01c19a;color: #fff;"
-                    v-loading="getCodeLoading"
-                    :disabled="getCodeDisabled"
-                    @click="getVerificationCode"
-                >
-                  {{ getCodeText }}
+            </el-form-item>
+          </el-tooltip>
+          <vue-recaptcha
+          style="margin-top: 20px;"
+              :sitekey="siteKey"
+              size="normal"
+              theme="light"
+              @verify="recaptchaVerified"
+              @expire="recaptchaExpired"
+              @fail="recaptchaFailed"
+              hl="en"
+              :loading-timeout="loadingTimeout"
+              ref="vueRecaptchaRef"
+            >
+            </vue-recaptcha>
+            <el-tooltip placement="top" :disabled="recaptchaStatus">
+              <template #content>Please perform human-machine verification</template>
+
+              <el-form-item class="login-button clearfloat">
+                <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled || !recaptchaStatus" class="login-btn" type="info">
+                  {{ $t("messages.login.login") }}
                 </el-button>
-              </div>
-            </div>
-          </el-form-item>
-
-          <el-form-item class="login-button clearfloat">
-            <el-button @click="toLogin(ruleFormRef)" :disabled="isButtonDisabled" class="login-btn" type="info">
-              {{ $t("messages.login.login") }}
-            </el-button>
-
-          </el-form-item>
+    
+              </el-form-item>
+            </el-tooltip>
 
 
           <div class="login-signup">
@@ -302,7 +340,9 @@ import {countryList} from "./countries";
 
 import {useI18n} from "vue-i18n";
 import {Right} from "@element-plus/icons";
-
+import {siteKey} from '../../utils/const_recaptcha'
+import {verifyRecaptcha} from '../../api/user';
+import vueRecaptcha from "vue3-recaptcha2";
 
 const {t} = useI18n();
 const ruleFormRef = ref<FormInstance>();
@@ -479,8 +519,37 @@ function resetWidth() {
   windowWidth.value = window.document.body.offsetWidth;
 }
 
+// recaptcha
+const vueRecaptchaRef = ref();
+
+const recaptchaStatus = ref(false);
+const recaptchaVerified = async (token: string) => {
+  try {
+    const res = await verifyRecaptcha(token);
+    if(res) {
+      recaptchaStatus.value = true;
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+const recaptchaExpired = () => {
+  // 過期後執行動作
+  console.log("expire");
+  recaptchaStatus.value = false;
+};
+
+const recaptchaFailed = () => {
+  // 失敗執行動作
+  console.log("failed");
+  recaptchaStatus.value = false;
+};
+
+
 //async (formEl: FormInstance | undefined)
 const toLogin = async (formEl: FormInstance | undefined) => {
+  if(!recaptchaStatus.value) return;
   console.log('----------');
   if (!formEl || isButtonDisabled.value) return;
   const res = await formEl.validate(valid => valid);

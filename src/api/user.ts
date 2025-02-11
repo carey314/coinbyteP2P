@@ -144,6 +144,13 @@ function verifyForgetPassword(token: string, newPassword: string, code: string) 
 
     return http.post('forget_pass_verify', data);
 }
+function verifyRecaptcha(token: string,) {
+    const data = {
+        token: token,
+    };
+
+    return http.post('/recaptchaverify', data);
+}
 
 export {
     getProfile,
@@ -164,5 +171,6 @@ export {
     updateEmail,
     forgetPassword,
     verifyForgetPassword,
-    getUserInfo
+    getUserInfo,
+    verifyRecaptcha
 }
