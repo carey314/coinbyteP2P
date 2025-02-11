@@ -897,6 +897,7 @@ function decreasePercentage() {
     percentage.value -= 50;
     countdown.value = 0;
   }
+  recaptchaStatus.value = false;
 }
 
 onMounted(() => {
