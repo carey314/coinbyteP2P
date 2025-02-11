@@ -143,7 +143,6 @@
               @expire="recaptchaExpired"
               @fail="recaptchaFailed"
               hl="en"
-              :loading-timeout="loadingTimeout"
               ref="vueRecaptchaRef"
             >
             </vue-recaptcha>
