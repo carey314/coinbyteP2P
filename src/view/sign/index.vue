@@ -136,6 +136,7 @@
               <privacyDialog v-model="privacyVisible"></privacyDialog>
             </div>
             <vue-recaptcha
+              style="margin-top: 20px;"
               :sitekey="siteKey"
               size="normal"
               theme="light"
@@ -708,7 +709,11 @@ const phoneNumberInput = async () => {
       })
       .catch((err) => {
         phoneNumberInputDisabled.value = false;
-        ElMessage({ message: "Please try again later.", type: "error" });
+        if(err.response?.status === 429){
+          ElMessage({ message: "You have sent it multiple times, please try again later.", type: "error" });
+        } else {
+          ElMessage({ message: "Please try again later.", type: "error" });
+        }
       });
   }
 };
