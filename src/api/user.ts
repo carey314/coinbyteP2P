@@ -85,7 +85,7 @@ interface phoneVerify {
     // "email": string
     // "token": string
 }
-function phoneSignup (data : Number) {
+function phoneSignup (data: { phone: any, token: string }) {
     return http.post(`/reg/phone`,data);
 }
 interface Number {

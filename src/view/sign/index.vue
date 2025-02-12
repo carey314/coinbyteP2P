@@ -655,27 +655,32 @@ const resetPhoneRegistration = () => {
 const vueRecaptchaRef = ref();
 
 const recaptchaStatus = ref(false);
+const recaptchaToken = ref("");
 const recaptchaVerified = async (token: string) => {
-  try {
-    const res = await verifyRecaptcha(token);
-    if(res) {
-      recaptchaStatus.value = true;
-    }
-  } catch (e) {
-    console.log(e);
-  }
+  recaptchaToken.value = token;
+  recaptchaStatus.value = true;
+  // try {
+  //   const res = await verifyRecaptcha(token);
+  //   if(res) {
+  //     recaptchaStatus.value = true;
+  //   }
+  // } catch (e) {
+  //   console.log(e);
+  // }
 };
 
 const recaptchaExpired = () => {
   // 過期後執行動作
   console.log("expire");
   recaptchaStatus.value = false;
+  recaptchaToken.value = "";
 };
 
 const recaptchaFailed = () => {
   // 失敗執行動作
   console.log("failed");
   recaptchaStatus.value = false;
+  recaptchaToken.value = "";
 };
 
 const phoneNumberInputDisabled = ref(false);
@@ -690,6 +695,7 @@ const phoneNumberInput = async () => {
 
     phoneSignup({
       phone: phoneNumber,
+      token: recaptchaToken.value
     })
       .then((res: any) => {
         phoneNumberInputDisabled.value = false;

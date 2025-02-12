@@ -414,6 +414,9 @@ watch(getCodeText, (newText) => {
   }
 });
 const getVerificationCode = async () => {
+  if(!recaptchaStatus.value) {
+    return;
+  }
   // 发送获取验证码的请求
   if (form.number !== '') {
     getCodeLoading.value = true;
@@ -421,7 +424,7 @@ const getVerificationCode = async () => {
     isButtonDisabled.value = true; // 禁用登录按钮
   }
   try {
-    const response = await getVerificationCodeApi("+" + numberSelect.value + form.number);
+    const response = await getVerificationCodeApi("+" + numberSelect.value + form.number, recaptchaToken.value);
     getCodeLoading.value = false;
     if (response.data.code === 1) {
       getCodeText.value = t('messages.login.resend') + (60);
@@ -521,27 +524,32 @@ function resetWidth() {
 const vueRecaptchaRef = ref();
 
 const recaptchaStatus = ref(false);
+const recaptchaToken = ref("");
 const recaptchaVerified = async (token: string) => {
-  try {
-    const res = await verifyRecaptcha(token);
-    if(res) {
-      recaptchaStatus.value = true;
-    }
-  } catch (e) {
-    console.log(e);
-  }
+  recaptchaToken.value = token;
+  recaptchaStatus.value = true;
+  // try {
+  //   const res = await verifyRecaptcha(token);
+  //   if(res) {
+  //     recaptchaStatus.value = true;
+  //   }
+  // } catch (e) {
+  //   console.log(e);
+  // }
 };
 
 const recaptchaExpired = () => {
   // 過期後執行動作
   console.log("expire");
   recaptchaStatus.value = false;
+  recaptchaToken.value = "";
 };
 
 const recaptchaFailed = () => {
   // 失敗執行動作
-  console.log("failed");
+  console.log("expire");
   recaptchaStatus.value = false;
+  recaptchaToken.value = "";
 };
 
 
