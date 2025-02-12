@@ -699,7 +699,6 @@ const recaptchaFailed = () => {
 
 const phoneNumberInputDisabled = ref(false);
 const phoneNumberInput = async () => {
-  percentage.value = 50;
   if(!recaptchaStatus.value) {
     return;
   }
