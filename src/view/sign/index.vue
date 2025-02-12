@@ -152,12 +152,12 @@
               <el-button
                 class="verify-btn"
                 type="primary"
-                :disabled="
-                  (!isValidPhone ||
-                    phoneInput === '' ||
-                    phoneNumberInputDisabled ||
-                  !recaptchaStatus)
-                "
+              :disabled="
+                (!isValidPhone ||
+                  phoneInput === '' ||
+                  phoneNumberInputDisabled ||
+                !recaptchaStatus)
+              "
                 @click="phoneNumberInput()"
               >
                 Continue
@@ -210,11 +210,23 @@
                 * Please enter + Country Code and mobile Number
               </div>
             </div>
+            <vue-recaptcha
+              style="margin-top: 20px;"
+              :sitekey="siteKey"
+              size="normal"
+              theme="light"
+              @verify="recaptchaVerified"
+              @expire="recaptchaExpired"
+              @fail="recaptchaFailed"
+              hl="en"
+              ref="vueRecaptchaRef"
+            >
+            </vue-recaptcha>
             <el-button
               class="verify-btn"
               style="margin-top: 60px !important"
               type="primary"
-              :disabled="smsCode.length < 6 || phoneConfirmedDisabled"
+              :disabled="smsCode.length < 6 || phoneConfirmedDisabled || !recaptchaStatus"
               @click="phoneConfirmed()"
             >
               Continue
@@ -222,7 +234,7 @@
             <el-button
               class="resend-btn"
               type="text"
-              :disabled="countdown > 0"
+              :disabled="countdown > 0 || !recaptchaStatus"
               @click="resendSMSVerification()"
             >
               {{
@@ -266,9 +278,10 @@
                 uppercase character, 1 number)
               </div>
             </div>
+            
             <el-button
               class="verify-btn"
-              style="margin-top: 52px !important"
+              style="margin-top: 20px !important"
               type="primary"
               :disabled="passwordForm.password.length < 8 || !isPasswordValid"
               @click="successContinue(passwordFormRef)"
@@ -422,6 +435,7 @@ const resendSMSVerification = () => {
     // 以下是示例代码，请根据你的实际情况进行修改
     phoneSignup({
       phone: phoneNumber,
+      token: recaptchaToken.value
     })
       // .then((res) => {
       //   if (res.data && (res.status === 200 || res.status === 202)) {
@@ -685,6 +699,7 @@ const recaptchaFailed = () => {
 
 const phoneNumberInputDisabled = ref(false);
 const phoneNumberInput = async () => {
+  percentage.value = 50;
   if(!recaptchaStatus.value) {
     return;
   }
