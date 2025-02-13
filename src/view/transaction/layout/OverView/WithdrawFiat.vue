@@ -39,7 +39,7 @@
                           </el-icon>
                           <div class="whether">{{ $t('messages.user_verify.sell_sell') }}</div>
                         </div>
-                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.sell_100k_u_per_24h') }}</div>
                       </div>
 <!--                      <div class="sell-verified">-->
 <!--                        <div class="verified-name">-->
@@ -71,7 +71,7 @@
                         </div>
                         <div class="require-item">
                           <div class="pointer"></div>
-                          <span>{{ $t('messages.user_verify.sell_video') }}</span>
+                          <span>{{ $t('messages.user_verify.sell_liveness_check') }}</span>
                         </div>
                       </div>
 <!--                      <el-button class="continue-btn" type="primary" @click="goToKyc('buy')">-->
@@ -109,7 +109,7 @@
                           </el-icon>
                           <div class="whether">{{ $t('messages.user_verify.sell_sell') }}</div>
                         </div>
-                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.buy_100k_u_per_24h') }}</div>
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
@@ -119,7 +119,7 @@
                           </el-icon>
                           <div class="whether">{{ $t('messages.user_verify.buy_buy') }}</div>
                         </div>
-                        <div class="verified-info">{{ $t('messages.user_verify.sell_un') }}</div>
+                        <div class="verified-info">{{ $t('messages.user_verify.buy_50k_u_per_24h') }}</div>
                       </div>
                       <div
                         style="
@@ -142,6 +142,10 @@
                         <div class="require-item">
                           <div class="pointer"></div>
                           <span>{{ $t('messages.user_verify.sell_video') }}</span>
+                        </div>
+                        <div class="require-item">
+                          <div class="pointer"></div>
+                          <span>{{ $t('messages.user_verify.buy_source_of_fund_needed') }}</span>
                         </div>
 <!--                        <div class="require-item">-->
 <!--                          <div class="pointer"></div>-->
