@@ -271,7 +271,7 @@ const firstCard = [
     number: 1,
     msg: "Place order",
     content:
-      "Find CoinbyteP2P’s advertisement and place your order",
+      "Find Coinflake’s advertisement and place your order",
   },
   {
     number: 2,
@@ -282,7 +282,7 @@ const firstCard = [
     number: 3,
     msg: "Make Payment",
     content:
-      'Make the payment to CoinbyteP2P via your preferred payment methods',
+      'Make the payment to Coinflake via your preferred payment methods',
   },
 ];
 const secondCard = [
@@ -348,7 +348,7 @@ const fourthCard = [
 <style scoped lang='scss'>
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
@@ -370,7 +370,7 @@ $fontSizeMin: 12px;
 }
 :deep() {
   .el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
-    border-bottom: 3px solid #01C19A;
+    border-bottom: 3px solid #3e4191;
     height: 77px;
   }
   .el-tabs--card>.el-tabs__header .el-tabs__item{
@@ -382,7 +382,7 @@ $fontSizeMin: 12px;
   }
   
   .el-tabs__item.is-active{
-    color: #01C19A;
+    color: #3e4191;
   }
 }
 .top-box {

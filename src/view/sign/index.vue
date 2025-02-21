@@ -117,7 +117,7 @@
                 />
                 <span class="tip">*</span>
               </span>
-              . I'll use it whenever I log in to COINBYTEP2P.
+              . I'll use it whenever I log in to COINFLAKE.
             </div>
             <div class="remind-box" v-if="!isValidPhone">
               <div class="remind-title">
@@ -171,7 +171,7 @@
               <span style="text-decoration: underline"
               >&nbsp;&nbsp;{{ phoneInput }}&nbsp;&nbsp;</span
               >.
-              I'll use it whenever I log in to COINBYTEP2P.
+              I'll use it whenever I log in to COINFLAKE.
             </div>
 
             <el-button
@@ -915,7 +915,7 @@ onUnmounted(() => {
 const regUUID = ref("");
 // 进度条
 const percentage = ref(0);
-const customColor = ref("#01c19a");
+const customColor = ref("#3e4191");
 
 function decreasePercentage() {
   if (percentage.value >= 15) {
@@ -1024,7 +1024,7 @@ const phoneBlur = () => {
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMedPro: 28px;
 $fontSizeMed: 24px;
@@ -1091,7 +1091,7 @@ $fontSizeMin: 12px;
     line-height: 29px;
 
     a {
-      color: #01c19a;
+      color: #3e4191;
       text-decoration: underline;
       cursor: pointer;
     }

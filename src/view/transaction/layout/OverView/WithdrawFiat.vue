@@ -33,7 +33,7 @@
                       <div class="sell-title">{{ $t('messages.user_verify.sell_title') }}</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">
+                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#3e4191' : '#f35854' }">
                             <Select  v-if="(validKycSell || validKycBuy)"/>
                             <CloseBold  v-else/>
                           </el-icon>
@@ -43,7 +43,7 @@
                       </div>
 <!--                      <div class="sell-verified">-->
 <!--                        <div class="verified-name">-->
-<!--                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#01c19a' : '#f35854' }">-->
+<!--                          <el-icon class="icon" :style="{ color: (validKycSell || validKycBuy) ? '#3e4191' : '#f35854' }">-->
 <!--                            <Select  v-if="(validKycSell || validKycBuy)"/>-->
 <!--                            <CloseBold  v-else/>-->
 <!--                          </el-icon>-->
@@ -103,7 +103,7 @@
                       <div class="sell-title">{{ $t('messages.user_verify.sell_title') }}</div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: validKycBuy ? '#01c19a' : '#f35854' }">
+                          <el-icon class="icon" :style="{ color: validKycBuy ? '#3e4191' : '#f35854' }">
                             <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
@@ -113,7 +113,7 @@
                       </div>
                       <div class="sell-verified">
                         <div class="verified-name">
-                          <el-icon class="icon" :style="{ color: validKycBuy ? '#01c19a' : '#f35854' }">
+                          <el-icon class="icon" :style="{ color: validKycBuy ? '#3e4191' : '#f35854' }">
                             <Select  v-if="validKycBuy"/>
                             <CloseBold  v-else/>
                           </el-icon>
@@ -432,7 +432,7 @@ $fontSizeMin: 12px;
       font-size: 20px;
     }
     .el-button--primary {
-      --el-button-hover-bg-color: #01c19a;
+      --el-button-hover-bg-color: #3e4191;
     }
     .el-step.is-vertical .el-step__title {
       font-size: 20px;
@@ -470,7 +470,7 @@ $fontSizeMin: 12px;
       padding: 0px 13px 11px 10px;
       height: 36px;
       background-color: #f7f7f7;
-      color: #01c19a;
+      color: #3e4191;
       border-radius: 8px;
       .toFiat {
         cursor: pointer;
@@ -595,7 +595,7 @@ $fontSizeMin: 12px;
           .count-range {
             font-size: 20px;
             text-align: center;
-            color: #01c19a;
+            color: #3e4191;
             margin-top: 12px;
             line-height: 25px;
           }
@@ -641,7 +641,7 @@ $fontSizeMin: 12px;
               color: #878787;
 
               span {
-                color: #01c19a;
+                color: #3e4191;
               }
             }
           }
@@ -662,7 +662,7 @@ $fontSizeMin: 12px;
                 padding-left: 5px;
                 text-decoration: underline;
                 cursor: pointer;
-                color: #01c19a;
+                color: #3e4191;
               }
               .edit-dialog {
                 .iamge {
@@ -759,7 +759,7 @@ $fontSizeMin: 12px;
           margin-top: 24px;
         }
         .confirm-count {
-          color: #01c19a;
+          color: #3e4191;
           font-size: 32px;
           font-weight: 600;
           text-align: center;
@@ -805,7 +805,7 @@ $fontSizeMin: 12px;
             color: #878787;
             line-height: 16px;
             span {
-              color: #01c19a;
+              color: #3e4191;
               text-decoration-line: underline;
               cursor: pointer;
             }
@@ -931,7 +931,7 @@ $fontSizeMin: 12px;
         line-height: 18px;
         margin-top: 17px;
         span {
-          color: #01c19a;
+          color: #3e4191;
           font-size: 16px;
 
         }
@@ -978,14 +978,14 @@ $fontSizeMin: 12px;
         position: absolute;
         right: 15px;
         top: 20px;
-        color: #01c19a;
+        color: #3e4191;
       }
     }
   }
 }
 .security {
   font-size: 14px;
-  color: #01c19a;
+  color: #3e4191;
   text-align: center;
   margin-top: 18px;
 }
@@ -993,7 +993,7 @@ $fontSizeMin: 12px;
   height: 48px;
   margin-top: 8px;
   width: 100%;
-  background-color: #01c19a;
+  background-color: #3e4191;
   font-size: 18px;
   color: #fff;
   line-height: 23px;

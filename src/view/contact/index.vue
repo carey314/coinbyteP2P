@@ -178,7 +178,7 @@ function resetWidth() {
       text-align: center;
       .top-part-title {
         font-size: 55px;
-        color: #01c19a;
+        color: #3e4191;
         font-weight: 600;
         @media (max-width: 768px) {
           font-size: 42px;
@@ -231,7 +231,7 @@ function resetWidth() {
     position: relative;
     .part-title {
       font-size: 40px;
-      color: #01c19a;
+      color: #3e4191;
       font-weight: 600;
 
     }
@@ -265,7 +265,7 @@ function resetWidth() {
     position: relative;
     .bottom-part-title {
       font-size: 40px;
-      color: #01c19a;
+      color: #3e4191;
       font-weight: 600;
     }
     .bottom-part-icon {

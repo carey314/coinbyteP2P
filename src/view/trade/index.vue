@@ -155,7 +155,7 @@ $fontMain: 14px;
     max-width: 1290px;
     margin: auto;
     span {
-      color: #01c19a;
+      color: #3e4191;
     }
   }
 }
@@ -207,7 +207,7 @@ $fontMain: 14px;
         line-height: 39px;
         font-weight: 600;
         span {
-          color: #01c19a;
+          color: #3e4191;
         }
       }
       .fees-text {
@@ -223,7 +223,7 @@ $fontMain: 14px;
       .fees-read-more {
         margin-top: 45px;
         font-size: 22px;
-        color: #01c19a;
+        color: #3e4191;
         line-height: 27px;
         cursor: pointer;
       }

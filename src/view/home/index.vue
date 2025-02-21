@@ -227,7 +227,7 @@
                           <div class="alert-cont" style="color: #0a0a0a">NZBN 9429049898163</div>
 
                           <div class="alert-address">
-                            <a href="https://www.nzbn.govt.nz/" style="color: #01c19a;text-decoration: underline;"
+                            <a href="https://www.nzbn.govt.nz/" style="color: #3e4191;text-decoration: underline;"
                                target="_blank">
                               {{ item.address }}
                               <el-icon class="more-arrow">
@@ -252,7 +252,7 @@
                           <div class="alert-cont" style="color: #0a0a0a">FSP 1004001</div>
                           <div class="alert-address">
                             <a href="https://fsp-register.companiesoffice.govt.nz/"
-                               style="color: #01c19a;text-decoration: underline;" target="_blank">
+                               style="color: #3e4191;text-decoration: underline;" target="_blank">
                               {{ item.address }}
                               <el-icon class="more-arrow">
                                 <Right/>
@@ -283,7 +283,7 @@
       <div v-if="tradeTab === 'first'">
         <div class="tabs-content">
           <div class="tabs-content-title">
-            {{ $t("messages.home.buy_through") }} <span>CoinbyteP2P</span>
+            {{ $t("messages.home.buy_through") }} <span>Coinflake</span>
           </div>
           <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
@@ -352,7 +352,7 @@
       <div v-if="tradeTab === 'second'">
         <div class="tabs-content">
           <div class="tabs-content-title">
-            {{ $t("messages.home.sell_through") }} <span>CoinbyteP2P</span>
+            {{ $t("messages.home.sell_through") }} <span>Coinflake</span>
           </div>
           <div class="tabs-step" v-if="windowWidth > 769">
             <el-steps align-center>
@@ -427,7 +427,7 @@
 
       <div class="forth-part">
         <div class="forth-title max1290">
-          <div> {{ $t("messages.home.fifth_why") }} <span>CoinbyteP2P</span> ?</div>
+          <div> {{ $t("messages.home.fifth_why") }} <span>Coinflake</span> ?</div>
           <div class="tip">{{ $t("messages.home.fifth_exchange") }}</div>
 
           <el-scrollbar height="100px" :ref="scrollContainer">
@@ -574,7 +574,7 @@
 
       <div class="seventh-part max1290" v-if="windowWidth > 768">
         <div class="first-level-title">
-          {{ $t("messages.home.seventh_explore") }}<span style="color: #01c19a">CoinByteP2P</span>
+          {{ $t("messages.home.seventh_explore") }}<span style="color: #3e4191">CoinByteP2P</span>
         </div>
         <el-row
             class="seventh-part-list"
@@ -668,7 +668,7 @@
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/centerContent/11" style="color: #01c19a; font-size: 14px;">{{
+            <a href="/centerContent/11" style="color: #3e4191; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
             <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{
@@ -823,7 +823,7 @@
           </div>
           <div class="footer-info">
             <div class="info">{{ $t("messages.footer.smsf") }}</div>
-            <a href="/centerContent/11" style="color: #01c19a; font-size: 14px;">{{
+            <a href="/centerContent/11" style="color: #3e4191; font-size: 14px;">{{
                 $t("messages.footer.more")
               }}</a>
             <div style="margin-top: 32px;margin-bottom: 20px; font-size: 14px;">{{

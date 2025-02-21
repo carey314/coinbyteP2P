@@ -415,7 +415,7 @@ const fourthCard = [
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
@@ -472,8 +472,8 @@ $fontSizeMin: 12px;
 
   .el-radio-button__original-radio:checked + .el-radio-button__inner {
     background-color: #313e4a !important;
-    color: #01c19a;
-    border-bottom: 3px solid #01c19a !important;
+    color: #3e4191;
+    border-bottom: 3px solid #3e4191 !important;
     box-shadow: none;
   }
   .el-tabs--card > .el-tabs__header .el-tabs__nav {

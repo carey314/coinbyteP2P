@@ -1,12 +1,12 @@
 <template>
   <footer>
     <div class="footer-bottom-box">
-      <div class="footer-bottom max1290" style="height: 104px;display: flex;justify-content: space-between;">
-        <div class="footer-logo" style="display: flex;align-items: center;">
-          <img class="logo" :src="logo" />
+      <div class="footer-bottom max1290" style="height: 104px;display: flex;justify-content: space-between;align-items: center;">
+        <div class="footer-logo" style="display: flex;align-items: center;align-items: center;height: 40px;">
+          <img class="logo" :src="logo" style="width: 100%;height: 100%;" />
         </div>
         <div>
-          <div style="text-align: right;margin-top: 20px;"><span>©2024 COINBYTEP2P</span></div>
+          <div style="text-align: right;margin-top: 20px;"><span>©2024 COINFLAKE</span></div>
           <div style="margin-top: -30px;display: flex;gap: 20px;">
            <!-- <span class="final-span" @click="termsVisible = true">{{ $t('messages.footer.terms_conditions') }}</span> -->
             <!-- <span class="final-span">{{ $t('messages.footer.privacy_notice') }}</span> -->
@@ -212,7 +212,7 @@
 <script setup lang="ts">
 import { defineComponent, getCurrentInstance, ref, watch,onMounted } from "vue";
 import { ArrowDown } from "@element-plus/icons-vue";
-import logo from "../../assets/image/logo.svg";
+import logo from "../../assets/image/logo.png";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 import { useI18n } from "vue-i18n";
 import TermsDialog from '../../components/terms/index.vue';
@@ -290,7 +290,7 @@ onMounted(() => {
   .buy {
     width: 140px;
     height: 38px;
-    border: 1px solid #01c19a;
+    border: 1px solid #3e4191;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -299,7 +299,7 @@ onMounted(() => {
   .sell {
     width: 140px;
     height: 38px;
-    background: #01c19a;
+    background: #3e4191;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -387,6 +387,7 @@ footer {
         }
       }
     }
+
     .footer-logo-md {
       display: none;
       padding-top: 30px;

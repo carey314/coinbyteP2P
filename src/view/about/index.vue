@@ -11,7 +11,7 @@
       </div>
 
       <div class="top-part-box">
-        <img :src="logo" class="top-part-img" />
+        <!-- <img :src="logo" class="top-part-img" /> -->
         <div class="top-part-content" style="margin-top: 55px">
           {{ $t("messages.about.about_exchange") }}
         </div>
@@ -211,7 +211,7 @@ import Footer from "../../layout/Footer/Footer.vue";
 import joinCrypto from "../../layout/joinStarted/joinCrypto.vue";
 
 //img
-import logo from "../../assets/image/logo.svg";
+import logo from "../../assets/image/logo.png";
 import banner_bgk_lightgreen from "../../assets/home/banner_bgk_lightgreen.png";
 import banner_left_bytecoin from "../../assets/home/banner_left_bytecoin.png";
 import banner_right_bytecoin from "../../assets/home/banner_right_bytecoin.png";
@@ -440,7 +440,7 @@ const yc3 = () => {
         //margin-left: 15px;
 
         font-size: 40px;
-        color: #01c19a;
+        color: #3e4191;
         font-weight: 600;
       }
 

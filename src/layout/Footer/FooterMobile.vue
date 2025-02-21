@@ -2,7 +2,7 @@
   <footer>
 
     <div class="footer-bottom">
-      <span>©2024 COINBYTEP2P.COM</span>
+      <span>©2024 COINFLAKE.COM</span>
     </div>
     <!-- <div
       v-show="showWin"
@@ -201,7 +201,7 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import { getStoredLanguage, saveStoredLanguage } from "../../languageStorage";
 
 // img
-import logo from "../../assets/home/logo.svg";
+import logo from "../../assets/image/logo.png";
 import menu_icon from "../../assets/home/menu_icon.png";
 import top_down from "../../assets/home/top_down.svg";
 import top_notice from "../../assets/home/top_notice.svg";
@@ -265,7 +265,7 @@ export default defineComponent({
       console.log(val);
     };
 
-    const mainColor = "#01C19A";
+    const mainColor = "#3e4191";
 
     const currentLanguage = ref(getStoredLanguage() || "English/USD");
     const $this = getCurrentInstance()?.appContext.config.globalProperties as any;
@@ -398,7 +398,7 @@ export default defineComponent({
 
   .el-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover {
     background-color: #ffffff;
-    color: #01c19a;
+    color: #3e4191;
   }
 
   // &.el-popper.is-light {
@@ -408,7 +408,7 @@ export default defineComponent({
 }
 </style>
 <style scoped lang="scss">
-$main-color: #01c19a;
+$main-color: #3e4191;
 $bg-color: #fff;
 
 .btn {
@@ -426,7 +426,7 @@ $bg-color: #fff;
 .btn2 {
   border: none;
   padding: 8px 16px;
-  background: #01c19a;
+  background: #3e4191;
   box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
   border-radius: 4px;
   font-size: 14px;
@@ -905,7 +905,7 @@ img {
 
       .el-dropdown-menu .el-dropdown-menu__item:not(.is-disabled):hover {
         background-color: #ffffff;
-        color: #01c19a;
+        color: #3e4191;
       }
     }
 
@@ -919,7 +919,7 @@ img {
       color: #fff;
       line-height: 80%;
       padding: 8px 10px;
-      background: #01c19a;
+      background: #3e4191;
       border-radius: 4px;
       border: none;
       font-size: 14px;
@@ -941,7 +941,7 @@ img {
 
   .menu {
     .aud-badge {
-      background: #01c19a;
+      background: #3e4191;
       border-radius: 4px;
       font-size: 0.5rem;
       padding: 2px 3px;
@@ -1335,7 +1335,7 @@ img {
   .part06-button {
     border: none;
     padding: 1rem 1.7rem;
-    background: #01c19a;
+    background: #3e4191;
     box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
     border-radius: 4px;
     font-size: 14px;

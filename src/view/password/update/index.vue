@@ -68,7 +68,7 @@
           </router-link> -->
         </div>
         <div class="return-login">
-          <a href="/login" style="color: #01c19a; text-decoration: none"
+          <a href="/login" style="color: #3e4191; text-decoration: none"
             >{{ $t('messages.forgot_password.return_login') }}</a
           >
         </div>
@@ -215,7 +215,7 @@ const updatePass = async (formEl: FormInstance | undefined) => {
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMedPro: 28px;
 $fontSizeMed: 24px;
@@ -265,7 +265,7 @@ $lineH: 16px;
         .condition {
           margin-top: 9px;
           .dot {
-            background-color: #01c19a;
+            background-color: #3e4191;
           }
           .satisfy-frame {
             float: left;

@@ -6,7 +6,7 @@ export const statusCollects : StatusCollects = {
     },
     done : {
         title : "done",
-        color : "#01C19A"
+        color : "#3e4191"
     },
     failed : {
         title : "failed",

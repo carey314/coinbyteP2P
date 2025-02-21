@@ -1,6 +1,6 @@
 $headerBackGround: #161719;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontPhone: 32px;
 $fontSizeMed: 24px;
@@ -208,7 +208,7 @@ img {
 .start-btn {
   border: none;
   padding: 0px 30px;
-  background: #01c19a;
+  background: #3e4191;
   box-shadow: 4px 4px 10px 0 rgba(146, 146, 146, 0.5);
   border-radius: 4px;
   color: #fff;
@@ -219,7 +219,7 @@ img {
     & {
       border: none;
       padding: 6px 28px;
-      background: #01c19a;
+      background: #3e4191;
       box-shadow: 4px 4px 10px #92929280;
       border-radius: 4px;
       font-size: 14px;
@@ -467,7 +467,7 @@ img {
 
 :deep(.el-button:focus, .el-button:hover) {
   background-color: #56be93;
-  border-color: #01c19a !important;
+  border-color: #3e4191 !important;
   color: #fff !important;
   --el-button-hover-bg-color: #56be93;
 }
@@ -543,7 +543,7 @@ img {
         font-weight: bold;
 
         span {
-          color: #01c19a;
+          color: #3e4191;
         }
       }
     }
@@ -582,7 +582,7 @@ img {
         }
       }
       span {
-        color: #01c19a;
+        color: #3e4191;
       }
 
       @media (max-width: 992px) {
@@ -935,7 +935,7 @@ img {
 
         .card-btn {
           font-size: 14px;
-          color: #01c19a;
+          color: #3e4191;
           padding-top: 6px;
           cursor: pointer;
           font-weight: 500;
@@ -1039,7 +1039,7 @@ img {
         & {
           border: none;
           padding: 1rem 1.7rem;
-          background: #01c19a;
+          background: #3e4191;
           box-shadow: 4px 4px 10px #92929280;
           border-radius: 4px;
           font-size: 14px;
@@ -1149,7 +1149,7 @@ img {
   .buy {
     width: 140px;
     height: 38px;
-    border: 1px solid #01c19a;
+    border: 1px solid #3e4191;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1159,7 +1159,7 @@ img {
   .sell {
     width: 140px;
     height: 38px;
-    background: #01c19a;
+    background: #3e4191;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1259,7 +1259,7 @@ footer {
         }
       }
     }
-
+  
     .footer-logo-md {
       display: none;
       padding-top: 30px;

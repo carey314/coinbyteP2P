@@ -175,7 +175,7 @@ const decodeData = (data: any) => {
 <style scoped lang="scss">
 $headerBackGround: #161719;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
@@ -191,7 +191,7 @@ $fontSizeMin: 12px;
   line-height: 39px;
   font-weight: 600;
   span {
-    color: #01c19a;
+    color: #3e4191;
   }
 
   .question-part-collapse {
@@ -244,7 +244,7 @@ $fontSizeMin: 12px;
     line-height: 39px; 
     font-weight: 600;
     span {
-      color: #01c19a;
+      color: #3e4191;
     }
   }
   .about-introduce {
@@ -313,7 +313,7 @@ $fontSizeMin: 12px;
     line-height: 39px;
     font-weight: 600;
     span {
-      color: #01c19a;
+      color: #3e4191;
     }
   }
   .resource-way {

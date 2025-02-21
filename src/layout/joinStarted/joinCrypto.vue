@@ -47,7 +47,7 @@ function resetWidth() {
 </script>
 
 <style scoped lang="scss">
-$main-color: #01c19a;
+$main-color: #3e4191;
 $bold-font: HarmonyOS_Sans_Bold;
 $medium-font: HarmonyOS_Sans_Medium;
 $regular-font: HarmonyOS_Sans_Regular;

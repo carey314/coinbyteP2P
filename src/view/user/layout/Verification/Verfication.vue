@@ -23,7 +23,7 @@
             <el-divider style="margin-left: -30px; width: 1000px" />
 
             <div class="card-link">
-              <router-link to="/" style="color: #01c19a; text-decoration: none">
+              <router-link to="/" style="color: #3e4191; text-decoration: none">
                 <div class="link-text">{{ $t("messages.user.continue") }}</div>
                 <el-icon><Right /></el-icon>
               </router-link>
@@ -46,7 +46,7 @@
             <el-divider style="margin-left: -30px; width: 1000px" />
 
             <div class="card-link">
-              <router-link to="/" style="color: #01c19a; text-decoration: none">
+              <router-link to="/" style="color: #3e4191; text-decoration: none">
                 <div class="link-text">{{ $t("messages.user.continue") }}</div>
                 <el-icon><Right /></el-icon>
               </router-link>
@@ -83,7 +83,7 @@ import usercenter_verification_cor from "../../../../assets/home/usercenter_veri
   height: 32px;
   background-color: #effffc;
   font-size: 14px;
-  color: #01c19a;
+  color: #3e4191;
   line-height: 16px;
   display: flex;
   align-items: center;

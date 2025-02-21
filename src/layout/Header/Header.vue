@@ -713,7 +713,7 @@ const handleToLogOut = async () => {
 <style scoped lang="scss">
 $headerBackGround: #161719;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;
@@ -721,7 +721,7 @@ $fontSizeDef: 16px;
 $fontSizeMinPro: 14px;
 $fontSizeMin: 12px;
 $headerBackGround: #161719;
-$system-color: #01c19a;
+$system-color: #3e4191;
 $bg-color: #fff;
 $bold-font: HarmonyOS_Sans_Bold;
 $medium-font: HarmonyOS_Sans_Medium;
@@ -751,7 +751,8 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 
 .header-logo {
-  height: 100%;
+  width: 64px;
+  height: 64px;
   display: flex;
   align-items: center;
 }
@@ -761,6 +762,9 @@ $regular-font: HarmonyOS_Sans_Regular;
   width: auto;
   padding-left: 30px;
   will-change: filter;
+  @media (max-width: 768px) {
+    margin-top: -12px;
+  }
 }
 
 .logo:hover {
@@ -817,6 +821,10 @@ $regular-font: HarmonyOS_Sans_Regular;
   display: flex;
   margin-left: auto;
   padding-right: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: -14px;
+  }
 
   @media (max-width: 930px) and (min-width: 910px) {
     // padding-right: 20px;
@@ -933,7 +941,7 @@ $regular-font: HarmonyOS_Sans_Regular;
     color: #fff;
     line-height: 80%;
     padding: 8px 10px;
-    background: #01c19a;
+    background: #3e4191;
     border-radius: 4px;
     border: none;
     margin: 0 8px;
@@ -1021,7 +1029,7 @@ $regular-font: HarmonyOS_Sans_Regular;
       cursor: pointer;
 
       .aud-badge {
-        background: #01c19a;
+        background: #3e4191;
         border-radius: 4px;
         font-size: 12px;
         padding: 2px 6px;
@@ -1042,7 +1050,7 @@ $regular-font: HarmonyOS_Sans_Regular;
           border-top: 6px solid transparent;
           border-bottom: 6px solid transparent;
           border-right: 6px solid;
-          border-right-color: #01c19a;
+          border-right-color: #3e4191;
         }
       }
     }
@@ -1083,8 +1091,8 @@ $regular-font: HarmonyOS_Sans_Regular;
   }
 
   :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
-    background-color: #01c19a;
-    border-color: #01c19a;
+    background-color: #3e4191;
+    border-color: #3e4191;
     color: #fff;
   }
 
@@ -1135,7 +1143,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 .notice-view-more {
   cursor: pointer;
   font-size: 12px;
-  color: #01c19a;
+  color: #3e4191;
   float: right;
   margin-top: -15px;
   margin-right: 15px;
@@ -1145,7 +1153,7 @@ $regular-font: HarmonyOS_Sans_Regular;
 .notice-tip {
   width: 8px;
   height: 8px;
-  background: #01c19a;
+  background: #3e4191;
   border-radius: 50%;
   position: absolute;
   top: 12px;
@@ -1216,8 +1224,8 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 
 :deep(.el-dropdown-menu__item) {
-  --el-dropdown-menuItem-hover-color: #01c19a;
-  --el-dropdown-menuItem-color: #01c19a;
+  --el-dropdown-menuItem-hover-color: #3e4191;
+  --el-dropdown-menuItem-color: #3e4191;
   --el-dropdown-menuItem-hover-fill: #ffffff;
 }
 
@@ -1310,11 +1318,11 @@ $regular-font: HarmonyOS_Sans_Regular;
 }
 
 .selected {
-  color: #01c19a !important;
+  color: #3e4191 !important;
 }
 
 .highlight .alert-cont {
-  color: #01c19a;
+  color: #3e4191;
 }
 
 :deep(.el-dialog__body) {

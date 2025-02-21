@@ -96,7 +96,7 @@ const handleChange = (val: string[]) => {
 <style scoped lang="scss">
 $headerBackGround: #161719;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMed: 24px;
 $fontSizeDefPro: 18px;

@@ -67,7 +67,7 @@
                       <span>{{ errorTxtCrypto }}</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/wallet/depositCrypto" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
+                      <a href="/wallet/depositCrypto" style="color: #3e4191">{{ $t("messages.convert.deposit") }}</a>
                     </div>
                   </div>
                 </div>
@@ -164,7 +164,7 @@
                       <span>{{ errorTxtStable }}</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/" style="color: #01c19a">{{ $t("messages.convert.deposit") }}</a>
+                      <a href="/" style="color: #3e4191">{{ $t("messages.convert.deposit") }}</a>
                     </div>
                   </div>
                 </div>
@@ -596,7 +596,7 @@ const handleToConvert = () => {
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMedPro: 28px;
 $fontSizeMed: 24px;
@@ -637,7 +637,7 @@ $fontSizeMin: 12px;
 
         .top-part-title {
           font-size: $fontSizeMax;
-          color: #01c19a;
+          color: #3e4191;
           font-weight: 600;
           line-height: 51px;
         }

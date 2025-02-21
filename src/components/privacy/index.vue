@@ -71,7 +71,7 @@
     }
 
     .text-primary {
-        color: #01c19a; // 设置链接颜色
+        color: #3e4191; // 设置链接颜色
         cursor: pointer; // 设置鼠标指针样式
     }
 }

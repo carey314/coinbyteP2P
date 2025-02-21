@@ -66,7 +66,7 @@
                       <span>{{ errorTxtBuy }}</span>
                     </div>
                     <div class="tip-right">
-                      <a href="/wallet/DepositCrypto" style="color: #01c19a">Deposit</a>
+                      <a href="/wallet/DepositCrypto" style="color: #3e4191">Deposit</a>
                     </div>
                   </div>
                 </div>
@@ -387,7 +387,7 @@ const handleToConvert = () => {
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMedPro: 28px;
 $fontSizeMed: 24px;
@@ -427,7 +427,7 @@ $fontSizeMin: 12px;
 
         .top-part-title {
           font-size: $fontSizeMax;
-          color: #01c19a;
+          color: #3e4191;
           font-weight: 600;
           line-height: 51px;
         }

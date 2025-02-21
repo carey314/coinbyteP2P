@@ -8,7 +8,7 @@
 import { onMounted } from 'vue'
 
  onMounted(() => {
-   document.body.style.setProperty('--el-color-primary', '#01c19a');
+   document.body.style.setProperty('--el-color-primary', '#3e4191');
  })
 
 </script>

@@ -261,12 +261,12 @@ onMounted(() => {
         gap: 8px;
         a {
           font-size: 14px;
-          color: #01c19a;
+          color: #3e4191;
         }
         img {
           width: 19px;
           height: 19px;
-          // background: #01C19A;
+          // background: #3e4191;
           filter: invert(100%);
         }
       }

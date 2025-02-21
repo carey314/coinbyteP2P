@@ -119,7 +119,7 @@ const { info } = toRefs(props);
 
     .market-progress {
       :deep(.el-progress-bar__inner) {
-        background-color: #01c19a;
+        background-color: #3e4191;
       }
 
       .el-progress--line {

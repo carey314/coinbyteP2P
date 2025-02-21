@@ -1246,13 +1246,13 @@ $fontSizeMin: 12px;
         }
 
         .el-button--success {
-          --el-button-bg-color: #01c19a;
-          --el-button-border-color: #01c19a;
-          --el-button-active-color: #01c19a;
-          --el-button-hover-bg-color: #01c19a;
-          --el-button-outline-color: #01c19a;
-          --el-button-hover-border-color: #01c19a;
-          --el-button-active-bg-color: #01c19a;
+          --el-button-bg-color: #3e4191;
+          --el-button-border-color: #3e4191;
+          --el-button-active-color: #3e4191;
+          --el-button-hover-bg-color: #3e4191;
+          --el-button-outline-color: #3e4191;
+          --el-button-hover-border-color: #3e4191;
+          --el-button-active-bg-color: #3e4191;
         }
       }
 
@@ -1603,13 +1603,13 @@ $fontSizeMin: 12px;
         }
 
         .el-button--success {
-          --el-button-bg-color: #01c19a;
-          --el-button-border-color: #01c19a;
-          --el-button-active-color: #01c19a;
-          --el-button-hover-bg-color: #01c19a;
-          --el-button-outline-color: #01c19a;
-          --el-button-hover-border-color: #01c19a;
-          --el-button-active-bg-color: #01c19a;
+          --el-button-bg-color: #3e4191;
+          --el-button-border-color: #3e4191;
+          --el-button-active-color: #3e4191;
+          --el-button-hover-bg-color: #3e4191;
+          --el-button-outline-color: #3e4191;
+          --el-button-hover-border-color: #3e4191;
+          --el-button-active-bg-color: #3e4191;
         }
       }
 
@@ -1672,7 +1672,7 @@ $fontSizeMin: 12px;
             }
 
             :deep(.el-progress-bar__inner) {
-              background-color: #01c19a;
+              background-color: #3e4191;
             }
 
             .progress-count {
@@ -1727,7 +1727,7 @@ $fontSizeMin: 12px;
 
       .up {
         font-size: 16px;
-        color: #01c19a;
+        color: #3e4191;
         line-height: 18px;
         text-align: right;
       }

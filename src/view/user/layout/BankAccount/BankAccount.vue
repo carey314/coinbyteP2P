@@ -591,7 +591,7 @@ $fontSizeMin: 12px;
 
     .el-button > span {
       height: 34px;
-      color: #01c19a;
+      color: #3e4191;
     }
   }
 }
@@ -611,7 +611,7 @@ $fontSizeMin: 12px;
   }
 
   .status {
-    color: #01c19a;
+    color: #3e4191;
     cursor: pointer;
   }
 
@@ -720,7 +720,7 @@ $fontSizeMin: 12px;
       }
 
       .resend-btn {
-        color: #01c19a;
+        color: #3e4191;
         position: absolute;
         right: 10px;
         top: 14px;
@@ -736,7 +736,7 @@ $fontSizeMin: 12px;
 
   .security {
     font-size: 14px;
-    color: #01c19a;
+    color: #3e4191;
     line-height: 32px;
     margin-top: 12px;
 
@@ -780,7 +780,7 @@ $fontSizeMin: 12px;
   width: 100%;
   font-size: 20px;
   height: 60px;
-  background-color: #01c19a;
+  background-color: #3e4191;
   border-radius: 8px;
   color: #fff;
   margin-top: 17px;

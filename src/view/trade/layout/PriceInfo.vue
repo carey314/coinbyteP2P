@@ -146,7 +146,7 @@ const {currencySlug, currencyName, currencyIcon} = storeToRefs(useTradeStore)
     .rate {
       font-size: 14px;
       margin-top: 12px;
-      color: #01c19a;
+      color: #3e4191;
     }
   }
 }

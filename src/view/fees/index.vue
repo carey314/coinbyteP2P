@@ -155,7 +155,7 @@ $fontSizeMin: 12px;
       }
       .top-part-title {
         font-size: $fontSizeMax;
-        color: #01c19a;
+        color: #3e4191;
         font-weight: 600;
         line-height: 51px;
         // @media (max-width: 769px) {
@@ -244,7 +244,7 @@ $fontSizeMin: 12px;
       }
       .center-title {
         font-size: $fontSizeMed;
-        color: #01c19a;
+        color: #3e4191;
         font-weight: bold;
         padding-top: 30px;
         @media (max-width: 985px) {
@@ -270,7 +270,7 @@ $fontSizeMin: 12px;
         padding: 20px 0;
         .center-currency {
           font-size: 26px;
-          color: #01c19a;
+          color: #3e4191;
           font-weight: bold;
           padding-top: 40px;
           display: flex;
@@ -295,7 +295,7 @@ $fontSizeMin: 12px;
           margin-top: -60px;
           font-weight: bold;
           font-size: 100px;
-          color: #01c19a;
+          color: #3e4191;
           @media (max-width: 985px) {
             & {
               margin-top: -46px !important;

@@ -253,16 +253,16 @@ const toGetBlogs = async (
     line-height: 19px;
   }
   .el-tabs__item is-top {
-    --el-menu-active-color: #01c19a;
+    --el-menu-active-color: #3e4191;
     font-size: 16px;
     line-height: 19px;
   }
   .el-tabs__item.is-active {
-    color: #01c19a !important;
+    color: #3e4191 !important;
     font-weight: 500;
   }
   .el-tabs__active-bar {
-    background-color: #01c19a;
+    background-color: #3e4191;
     height: 4px;
   }
   .el-scrollbar__bar.is-horizontal>div{

@@ -745,7 +745,7 @@
               <template #default="scope">
                 <div
                   v-if="scope.row.status === 'Successful'"
-                  style="color: #01c19a"
+                  style="color: #3e4191"
                 >
                   Successful
                 </div>
@@ -970,7 +970,7 @@ $fontSizeMin: 12px;
       font-size: 20px;
     }
     .el-button--primary {
-      --el-button-hover-bg-color: #01c19a;
+      --el-button-hover-bg-color: #3e4191;
     }
     .el-step.is-vertical .el-step__title {
       font-size: 20px;
@@ -1004,7 +1004,7 @@ $fontSizeMin: 12px;
       padding: 0px 13px 11px 10px;
       height: 36px;
       background-color: #f7f7f7;
-      color: #01c19a;
+      color: #3e4191;
       border-radius: 8px;
       .toFiat {
         cursor: pointer;
@@ -1080,7 +1080,7 @@ $fontSizeMin: 12px;
           .count-range {
             font-size: 20px;
             text-align: center;
-            color: #01c19a;
+            color: #3e4191;
             margin-top: 12px;
             line-height: 25px;
           }
@@ -1130,7 +1130,7 @@ $fontSizeMin: 12px;
         .confirm-count {
           margin-top: 7px;
           font-size: 32px;
-          color: #01c19a;
+          color: #3e4191;
           text-align: center;
           span {
             font-size: 14px;
@@ -1222,7 +1222,7 @@ $fontSizeMin: 12px;
             color: #878787;
             line-height: 16px;
             span {
-              color: #01c19a;
+              color: #3e4191;
               text-decoration-line: underline;
               cursor: pointer;
             }
@@ -1335,7 +1335,7 @@ $fontSizeMin: 12px;
         line-height: 18px;
         text-decoration: underline;
         span {
-          color: #01c19a;
+          color: #3e4191;
         }
       }
       .more {
@@ -1389,7 +1389,7 @@ $fontSizeMin: 12px;
         font-size: 14px;
       }
       .resend-btn {
-        color: #01c19a;
+        color: #3e4191;
         position: absolute;
         right: 10px;
         top: 14px;
@@ -1404,7 +1404,7 @@ $fontSizeMin: 12px;
 
   .security {
     font-size: 14px;
-    color: #01c19a;
+    color: #3e4191;
     line-height: 32px;
     margin-top: 12px;
 
@@ -1424,7 +1424,7 @@ $fontSizeMin: 12px;
   height: 48px;
   margin-top: 8px;
   width: 100%;
-  background-color: #01c19a;
+  background-color: #3e4191;
   font-size: 18px;
   color: #fff;
   line-height: 23px;
@@ -1434,7 +1434,7 @@ $fontSizeMin: 12px;
   height: 48px;
   margin-top: 8px;
   width: 100%;
-  background-color: #01c19a;
+  background-color: #3e4191;
   font-size: 18px;
   color: #fff;
   line-height: 23px;
@@ -1465,7 +1465,7 @@ $fontSizeMin: 12px;
   .count-range {
     font-size: 20px;
     text-align: center;
-    color: #01c19a;
+    color: #3e4191;
     margin-top: 12px;
     line-height: 25px;
   }
@@ -1510,7 +1510,7 @@ $fontSizeMin: 12px;
       color: #878787;
 
       span {
-        color: #01c19a;
+        color: #3e4191;
       }
     }
   }
@@ -1531,7 +1531,7 @@ $fontSizeMin: 12px;
         padding-left: 5px;
         text-decoration: underline;
         cursor: pointer;
-        color: #01c19a;
+        color: #3e4191;
       }
       .edit-dialog {
         .iamge {
@@ -1580,7 +1580,7 @@ $fontSizeMin: 12px;
   margin-top: 15px;
   color: #878787;
   span {
-    color: #01c19a;
+    color: #3e4191;
   }
 }
 .pirce-fee {
@@ -1648,7 +1648,7 @@ $fontSizeMin: 12px;
     margin-top: 24px;
   }
   .confirm-count {
-    color: #01c19a;
+    color: #3e4191;
     font-size: 32px;
     margin-top: 7px;
     span {

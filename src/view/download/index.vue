@@ -88,7 +88,7 @@ const options = ref([
 <style scoped lang="scss">
 $headerBackGround: #1d262f;
 $bg-color: #fff;
-$main-color: #01c19a;
+$main-color: #3e4191;
 $fontSizeMax: 42px;
 $fontSizeMedPro: 28px;
 $fontSizeMed: 24px;
@@ -117,7 +117,7 @@ $fontSizeMin: 12px;
     }
     .download-first-title {
       font-size: 32px;
-      color: #01c19a;
+      color: #3e4191;
       font-weight: 600;
       line-height: 39px;
     }
